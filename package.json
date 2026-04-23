@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
+    "@ducanh2912/next-pwa": "^10.2.9",
+    "@emotion/is-prop-valid": "^1.4.0",
     "@google/genai": "^1.48.0",
     "@hookform/resolvers": "^3.10.0",
     "@microsoft/microsoft-graph-client": "^3.0.7",

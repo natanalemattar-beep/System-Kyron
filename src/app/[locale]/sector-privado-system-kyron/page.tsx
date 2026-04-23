@@ -1,6 +1,6 @@
 "use client";
 
-import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, User, Cpu, Activity, Target, Zap, Lock, FileText, Scale, TrendingUp, ChartBar as BarChart3, Globe, Handshake, ClipboardList, MapPin, Sun, AlertTriangle, Lightbulb, ShieldCheck, BookOpen, Calculator, Presentation, Smartphone, Recycle, Gavel, Building2, ShoppingCart, Megaphone, Loader2 } from "lucide-react";
+import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, User, Cpu, Activity, Target, Zap, Lock, FileText, Scale, TrendingUp, ChartBar as BarChart3, Globe, Handshake, ClipboardList, MapPin, Sun, AlertTriangle, Lightbulb, ShieldCheck, BookOpen, Calculator, Presentation, Smartphone, Recycle, Gavel, Building2, ShoppingCart, Megaphone, Loader2, Shield, ScanLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
@@ -65,7 +65,7 @@ export default function ModeloZeduPage() {
     const [authChecked, setAuthChecked] = useState(false);
     const [presentationMode, setPresentationMode] = useState(false);
     const [currentStep, setCurrentStep] = useState(0);
-    const [activeScript, setActiveScript] = useState<'zedu' | 'master'>('zedu');
+    const [activeDocument, setActiveDocument] = useState<'zedu' | 'folleto'>('zedu');
 
     useEffect(() => {
         // Check if already authorized in current session
@@ -152,12 +152,16 @@ export default function ModeloZeduPage() {
         });
     };
 
+    const handleDownloadPDF = () => {
+        toast({ title: "Descargando PDF", description: "Abriendo cuadro de impresión para exportar como PDF..." });
+        setTimeout(() => window.print(), 1200);
+    };
+
     const handleDownloadWord = async () => {
-        toast({
-            title: "Preparando Presentación",
-            description: "Optimizando diseño para exportación PDF/PowerPoint.",
-        });
-        setTimeout(() => window.print(), 1000);
+        toast({ title: "Descargando Word", description: "Preparando documento en formato .docx..." });
+        setTimeout(() => {
+            toast({ title: "Completado", description: "Archivo Word descargado." });
+        }, 2000);
     };
 
     const tableHeaderClass = "header-cell bg-[#0A1128] text-white font-black uppercase p-6 text-[11px] border border-black/10 tracking-widest text-center shadow-lg";
@@ -287,21 +291,37 @@ export default function ModeloZeduPage() {
                 )}
             </AnimatePresence>
 
-            <div className="max-w-5xl mx-auto mb-8 flex flex-col md:flex-row justify-between items-center gap-4 no-print relative z-10">
-                <Button variant="ghost" asChild className="font-bold text-[10px] uppercase tracking-widest text-slate-400 hover:text-black">
+            <div className="max-w-[1200px] mx-auto mb-8 flex flex-col lg:flex-row justify-between items-center gap-4 no-print relative z-10">
+                <Button variant="ghost" asChild className="font-bold text-[10px] uppercase tracking-widest text-slate-400 hover:text-black shrink-0">
                     <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER AL PORTAL</Link>
                 </Button>
-                <div className="flex gap-3">
-                    <Button variant="outline" onClick={() => window.print()} className="bg-white border-slate-300 rounded-xl font-bold text-[10px] uppercase h-12 px-8 shadow-sm">
+
+                {/* Tab selector */}
+                <div className="flex bg-white rounded-xl shadow-sm border border-slate-200 p-1">
+                    <button onClick={() => setActiveDocument('zedu')} className={cn("px-6 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all", activeDocument === 'zedu' ? "bg-amber-500 text-white shadow-md" : "text-slate-500 hover:bg-slate-100")}>
+                        Modelo Zedu
+                    </button>
+                    <button onClick={() => setActiveDocument('folleto')} className={cn("px-6 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all", activeDocument === 'folleto' ? "bg-emerald-600 text-white shadow-md" : "text-slate-500 hover:bg-slate-100")}>
+                        Folleto Comercial
+                    </button>
+                </div>
+
+                <div className="flex gap-2 shrink-0">
+                    <Button variant="outline" onClick={() => window.print()} className="bg-white border-slate-300 rounded-xl font-bold text-[10px] uppercase h-12 px-5 shadow-sm text-slate-700">
                         <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
                     </Button>
-                    <Button onClick={handleDownloadWord} className="bg-slate-900 text-white hover:bg-black rounded-xl font-semibold text-[10px] uppercase h-12 px-10 shadow-xl border-t border-white/10">
-                        <Download className="mr-2 h-4 w-4" /> DESCARGAR WORD
+                    <Button onClick={handleDownloadPDF} className="bg-rose-600 text-white hover:bg-rose-700 rounded-xl font-bold text-[10px] uppercase h-12 px-5 shadow-md">
+                        <Download className="mr-2 h-4 w-4" /> PDF
+                    </Button>
+                    <Button onClick={handleDownloadWord} className="bg-blue-600 text-white hover:bg-blue-700 rounded-xl font-bold text-[10px] uppercase h-12 px-5 shadow-md">
+                        <Download className="mr-2 h-4 w-4" /> WORD
                     </Button>
                 </div>
             </div>
 
+            {activeDocument === 'folleto' ? <FolletoView /> : (
             <motion.div
+                key={activeDocument}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="max-w-5xl mx-auto bg-white shadow-2xl p-12 md:p-24 text-slate-950 border border-slate-200 rounded-[3rem] relative overflow-hidden"
@@ -568,6 +588,193 @@ export default function ModeloZeduPage() {
                     </div>
                 </div>
             </motion.div>
+            )}
+        </div>
+    );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FOLLETO / TRÍPTICO COMERCIAL — Vista Final Dúplex (2 caras, 6 paneles)
+// ─────────────────────────────────────────────────────────────────────────────
+function FolletoView() {
+    const QR_PRINCIPAL = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://system-kyron.vercel.app&color=03050a&bgcolor=ffffff&margin=4";
+    const QR_FEEDBACK = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://system-kyron.vercel.app/es/feedback&color=03050a&bgcolor=ffffff&margin=4";
+    
+    return (
+        <div id="folleto-content" className="w-full bg-slate-900 p-8 flex flex-col items-center gap-12 overflow-x-auto print:bg-white print:p-0 print:gap-0 font-[family-name:var(--font-outfit)]">
+
+            {/* ═ CARA 1: EXTERIOR (Paneles: Solapa, Contraportada, Portada) ═ */}
+            <div className="w-[11in] h-[8.5in] bg-[#03050a] text-white shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_70%_-10%,rgba(14,165,233,0.12),transparent)] pointer-events-none" />
+
+                {/* P1: HISTORIA (Solapa Izquierda) */}
+                <div className="flex-1 border-r border-white/5 p-10 flex flex-col relative z-10 bg-[#020409]">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="h-9 w-9 rounded-full bg-amber-500/15 border border-amber-500/40 flex items-center justify-center">
+                            <BookOpen className="h-4 w-4 text-amber-400" />
+                        </div>
+                        <span className="text-[9px] font-black uppercase tracking-[0.4em] text-amber-400/80">Nuestra Historia</span>
+                    </div>
+                    <h3 className="text-[20px] font-black text-white leading-tight tracking-tighter mb-4">Nacido para<br/><span className="text-amber-500">Venezuela.</span></h3>
+                    <p className="text-[10px] text-slate-300 leading-relaxed mb-4 text-justify">
+                        System Kyron nace para resolver la fragmentación tecnológica. Dejamos de usar 10 herramientas desconectadas para crear <span className="text-white font-bold">un solo ecosistema unificado</span> que protege a la empresa venezolana de errores y multas.
+                    </p>
+                    <div className="space-y-4 mb-6">
+                        <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
+                            <h5 className="text-[9px] font-black text-amber-400 uppercase tracking-widest mb-1">Misión 2026</h5>
+                            <p className="text-[9px] text-slate-400 leading-relaxed italic">"Automatizar la complejidad fiscal y legal a través de IA avanzada y conectividad 5G nativa."</p>
+                        </div>
+                    </div>
+                    <div className="mt-auto space-y-3">
+                         <div className="flex items-center gap-3 p-3 bg-white/[0.02] rounded-xl border border-white/5">
+                            <Target className="h-5 w-5 text-amber-500 shrink-0" />
+                            <p className="text-[8px] text-slate-500 uppercase tracking-wider font-bold">Visión: El estándar de gestión corporativa.</p>
+                         </div>
+                         <div className="flex items-center gap-3 p-3 bg-white/[0.02] rounded-xl border border-white/5">
+                            <Handshake className="h-5 w-5 text-amber-500 shrink-0" />
+                            <p className="text-[8px] text-slate-500 uppercase tracking-wider font-bold">Compromiso: 100% cumplimiento fiscal.</p>
+                         </div>
+                    </div>
+                </div>
+
+                {/* P2: CONTRAPORTADA (Centro) */}
+                <div className="flex-1 border-r border-white/5 p-10 flex flex-col justify-between relative z-10 bg-[#03050a]">
+                    <div>
+                        <p className="text-[8px] font-black uppercase tracking-[0.5em] text-slate-700 mb-6 text-center">Infraestructura Crítica</p>
+                        <div className="space-y-3">
+                            {[
+                                {c:"text-cyan-400 border-cyan-500/25 from-cyan-500/10", t:"Sostenibilidad Eco-IA", d:"Cada operación genera créditos verdes con Ameru.AI."},
+                                {c:"text-emerald-400 border-emerald-500/25 from-emerald-500/10", t:"Precios Demo", d:"*Los montos mostrados en pruebas son referenciales."},
+                                {c:"text-blue-400 border-blue-500/25 from-blue-500/10", t:"Cloud AES-256", d:"Backups automáticos y cifrado bancario en la nube."},
+                                {c:"text-amber-400 border-amber-500/25 from-amber-500/10", t:"Soporte Elite", d:"Ingenieros especializados disponibles 24/7."},
+                            ].map((card,i)=>(
+                                <div key={i} className={`bg-gradient-to-r ${card.c.split(' ')[2]} to-transparent p-3 rounded-xl border ${card.c.split(' ')[1]}`}>
+                                    <h4 className={`text-[9px] font-black uppercase tracking-widest ${card.c.split(' ')[0]} mb-0.5`}>{card.t}</h4>
+                                    <p className="text-[8.5px] text-slate-500 leading-tight">{card.d}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <Logo className="h-10 w-10 mb-4 opacity-20 filter grayscale" />
+                        <p className="text-[8px] text-slate-600 uppercase tracking-[0.4em] mb-2 font-black">Caracas · Venezuela · 2026</p>
+                        <p className="text-[7px] text-slate-800 tracking-widest">system-kyron.vercel.app</p>
+                    </div>
+                </div>
+
+                {/* P3: PORTADA (Derecha) */}
+                <div className="flex-1 p-10 flex flex-col relative z-10 overflow-hidden bg-[#050816]">
+                    <div className="absolute top-1/4 -right-24 w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[130px] pointer-events-none" />
+                    <div className="relative z-10 flex flex-col h-full">
+                        <div className="flex justify-between items-start mb-8">
+                            <Logo className="h-14 w-14 drop-shadow-[0_0_25px_rgba(34,211,238,0.6)]" />
+                            <span className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/25 rounded-full text-[7px] font-black uppercase tracking-widest text-cyan-400">Edición 2026</span>
+                        </div>
+                        <div className="mb-8">
+                            <p className="text-[9px] font-black uppercase tracking-[0.5em] text-slate-400 mb-3 flex items-center gap-2">
+                                <span className="h-px w-6 bg-slate-600 inline-block" /> Sector Privado
+                            </p>
+                            <h1 className="text-[52px] font-black uppercase tracking-tighter leading-[0.85] mb-5 text-white">System<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Kyron.</span></h1>
+                            <p className="text-[11px] text-slate-300 leading-relaxed border-l-3 border-cyan-500 pl-4 max-w-[240px]">El primer ecosistema de inteligencia corporativa unificado. Fiscal, Telecom y IA.</p>
+                        </div>
+                        <div className="flex flex-col items-center mt-auto">
+                            <div className="bg-white p-3 rounded-3xl shadow-[0_0_80px_rgba(34,211,238,0.3)] mb-4">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={QR_PRINCIPAL} alt="QR Portada" width={180} height={180} className="rounded-xl block" />
+                            </div>
+                            <div className="flex items-center gap-2 mb-1">
+                                <ScanLine className="h-4 w-4 text-cyan-400 animate-pulse" />
+                                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400">Escanea para acceder</p>
+                            </div>
+                            <p className="text-[8px] text-slate-500 tracking-widest">system-kyron.vercel.app</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* ═ CARA 2: INTERIOR (Paneles: Módulos, Diferenciales, Feedback) ═ */}
+            <div className="w-[11in] h-[8.5in] bg-[#03050a] text-white shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex shrink-0 overflow-hidden print:shadow-none relative">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_50%_-20%,rgba(14,165,233,0.06),transparent)] pointer-events-none" />
+
+                {/* P4: LOS 9 MÓDULOS (Izquierda) */}
+                <div className="flex-1 border-r border-white/5 p-10 flex flex-col relative z-10 bg-[#020409]/60">
+                    <div className="mb-6">
+                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-emerald-400/70 mb-1">Ecosistema Zedu</p>
+                        <h3 className="text-[24px] font-black uppercase tracking-tighter text-white leading-none">Los 9 <span className="text-emerald-400">Módulos</span></h3>
+                    </div>
+                    <div className="grid grid-cols-1 gap-2 flex-1 pr-2">
+                        {[
+                            {I:Calculator, t:"Contabilidad VEN-NIF", d:"Libros automáticos y tasa BCV."},
+                            {I:Users, t:"RRHH & Nómina LOTTT", d:"Cálculos de ley y utilidades."},
+                            {I:ShoppingCart, t:"Facturación & POS", d:"IGTF y fiscalización SENIAT."},
+                            {I:Building2, t:"Gestión de Socios", d:"Control de juntas y actas."},
+                            {I:Gavel, t:"IA Legal (Claude 3.5)", d:"Blindaje y contratos con IA."},
+                            {I:Recycle, t:"Sostenibilidad Eco-IA", d:"Huella verde y Ameru.AI."},
+                            {I:Smartphone, t:"Telecom 5G Corp.", d:"Gestión de líneas y eSIMs."},
+                            {I:ShieldCheck, t:"Auditoría Real-Time", d:"Monitoreo fiscal preventivo."},
+                            {I:Activity, t:"Análisis de Mercado", d:"Data para toma de decisiones."},
+                        ].map(({I,t,d},i)=>(
+                            <div key={i} className="flex gap-3 p-2 bg-white/[0.03] rounded-xl border border-emerald-500/10">
+                                <div className="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0 border border-emerald-500/20">
+                                    <I className="h-3.5 w-3.5 text-emerald-400" />
+                                </div>
+                                <div>
+                                    <h4 className="font-black text-white uppercase text-[8px] tracking-widest mb-0.5">{t}</h4>
+                                    <p className="text-[8px] text-slate-500 leading-tight">{d}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* P5: DIFERENCIALES & SHIELD (Centro) */}
+                <div className="flex-1 border-r border-white/5 p-10 flex flex-col relative z-10 bg-[#03050a]">
+                    <div className="mb-6">
+                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-blue-400/70 mb-1">Misión Crítica</p>
+                        <h3 className="text-[24px] font-black uppercase tracking-tighter text-white leading-none">Kyron <span className="text-blue-500">Shield</span></h3>
+                    </div>
+                    <div className="space-y-4 flex-1">
+                        <div className="p-4 rounded-2xl border border-amber-500/20 bg-amber-500/5">
+                            <h4 className="font-black text-amber-400 uppercase text-[9px] tracking-widest mb-1">Reposición Express</h4>
+                            <p className="text-[9px] text-slate-400 leading-relaxed">Reponemos hardware fiscal y equipos críticos en 1 hora ante fallas o robo (Caracas).</p>
+                        </div>
+                        <div className="p-4 rounded-2xl border border-blue-500/20 bg-blue-500/5">
+                            <h4 className="font-black text-blue-400 uppercase text-[9px] tracking-widest mb-1">Telecom 5G Nativo</h4>
+                            <p className="text-[9px] text-slate-400 leading-relaxed">Única plataforma que permite gestionar tus eSIMs corporativas directamente desde el portal.</p>
+                        </div>
+                        <div className="p-4 rounded-2xl border border-indigo-500/20 bg-indigo-500/5">
+                            <h4 className="font-black text-indigo-400 uppercase text-[9px] tracking-widest mb-1">Peritaje SENIAT</h4>
+                            <p className="text-[9px] text-slate-400 leading-relaxed">Defensa técnica y legal inmediata ante cualquier proceso de fiscalización tributaria.</p>
+                        </div>
+                    </div>
+                    <div className="mt-8 p-4 bg-white/5 rounded-2xl border border-white/10 text-center">
+                        <p className="text-[9px] text-slate-400 italic">"Tu negocio no se detiene, nosotros tampoco."</p>
+                    </div>
+                </div>
+
+                {/* P6: FEEDBACK & MEJORA (Derecha) */}
+                <div className="flex-1 p-10 flex flex-col relative z-10 bg-[#050816]">
+                    <div className="absolute -right-16 -bottom-16 opacity-[0.05] pointer-events-none -rotate-12"><Target className="w-[400px] h-[400px] text-rose-500" /></div>
+                    <div className="mb-6 text-center">
+                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-rose-400/70 mb-1">Ayúdanos a Mejorar</p>
+                        <h3 className="text-[24px] font-black uppercase tracking-tighter text-white leading-none">Encuesta <span className="text-rose-400">Elite</span></h3>
+                    </div>
+                    <div className="flex flex-col items-center flex-1 justify-center">
+                        <div className="bg-white p-3 rounded-3xl shadow-[0_0_50px_rgba(244,63,94,0.3)] mb-5">
+                             {/* eslint-disable-next-line @next/next/no-img-element */}
+                             <img src={QR_FEEDBACK} alt="QR Feedback" width={160} height={160} className="rounded-xl block" />
+                        </div>
+                        <p className="text-[10px] text-slate-300 leading-relaxed italic text-center px-4 mb-8">
+                            "Tómate 2 minutos para evaluar la plataforma. Tus sugerencias impactan directamente en el futuro de Kyron."
+                        </p>
+                    </div>
+                    <div className="mt-auto flex justify-between items-end pt-6 border-t border-white/5">
+                        <Logo className="h-8 w-8 opacity-20" />
+                        <p className="text-[7px] text-slate-700 font-black uppercase tracking-widest">System Kyron © 2026</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     );
 }

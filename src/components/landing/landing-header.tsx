@@ -11,7 +11,11 @@ import {
     ArrowRight,
     ChevronRight,
     KeyRound,
-    UserPlus
+    UserPlus,
+    User,
+    Building2,
+    Printer,
+    Receipt
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { 
@@ -154,6 +158,65 @@ export function LandingHeader() {
                                 <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full" />
                             </a>
                         ))}
+
+                        {/* Dropdown de Planes y Precios */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger className={cn(
+                                "flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer outline-none",
+                                isScrolled
+                                    ? "text-foreground/70 hover:text-cyan-400"
+                                    : "text-foreground/65 hover:text-cyan-500"
+                            )}>
+                                Planes y Precios
+                                <ChevronDown className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-transform group-data-[state=open]:rotate-180" />
+                                <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full group-data-[state=open]:w-full" />
+                            </DropdownMenuTrigger>
+                            
+                            <DropdownMenuContent align="center" className="w-72 p-2 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl shadow-black/40 mt-2">
+                                <div className="p-3 pb-2 border-b border-white/[0.06] mb-1">
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-cyan-400/80 flex items-center gap-2">
+                                        <Sparkles className="h-3 w-3" />
+                                        Acceso Directo
+                                    </span>
+                                </div>
+                                
+                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer p-0 mb-1 focus:bg-transparent">
+                                    <Link href="/precios/software" className="flex items-center gap-4 p-3 hover:bg-white/[0.04] hover:border-white/[0.06] border border-transparent transition-all duration-300 group">
+                                        <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
+                                            <User className="h-5 w-5" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-bold text-foreground group-hover:text-emerald-400 transition-colors">Personal / Profesional</span>
+                                            <span className="text-[11px] text-muted-foreground mt-0.5">Módulos SaaS y gratuitos</span>
+                                        </div>
+                                    </Link>
+                                </DropdownMenuItem>
+                                
+                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer p-0 mb-1 focus:bg-transparent">
+                                    <Link href="/precios/telecom" className="flex items-center gap-4 p-3 hover:bg-white/[0.04] hover:border-white/[0.06] border border-transparent transition-all duration-300 group">
+                                        <div className="h-10 w-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform">
+                                            <Building2 className="h-5 w-5" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-bold text-foreground group-hover:text-blue-400 transition-colors">Corporativo y 5G</span>
+                                            <span className="text-[11px] text-muted-foreground mt-0.5">Líneas telefónicas y empresas</span>
+                                        </div>
+                                    </Link>
+                                </DropdownMenuItem>
+                                
+                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer p-0 focus:bg-transparent">
+                                    <Link href="/precios/hardware" className="flex items-center gap-4 p-3 hover:bg-white/[0.04] hover:border-white/[0.06] border border-transparent transition-all duration-300 group">
+                                        <div className="h-10 w-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
+                                            <Printer className="h-5 w-5" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-bold text-foreground group-hover:text-cyan-400 transition-colors">Hardware Fiscal</span>
+                                            <span className="text-[11px] text-muted-foreground mt-0.5">Equipos homologados SENIAT</span>
+                                        </div>
+                                    </Link>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </nav>
 
                     <div className="flex items-center justify-end gap-2.5 sm:gap-3 shrink-0">
@@ -244,32 +307,69 @@ export function LandingHeader() {
                                     <Menu className="h-4 w-4" />
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="left" className="w-[85vw] max-w-[340px] p-0 bg-background border-r border-white/[0.06] flex flex-col">
-                                <SheetHeader className="p-5 border-b border-white/[0.06] bg-white/[0.01] flex flex-row items-center gap-3.5 shrink-0 space-y-0">
-                                    <Logo className="h-8 w-8 shrink-0" />
+                            <SheetContent side="left" className="w-[88vw] max-w-[360px] p-0 bg-[#060a14] border-r border-white/[0.06] flex flex-col overflow-hidden">
+                                {/* Header */}
+                                <SheetHeader className="p-5 pb-4 border-b border-white/[0.06] flex flex-row items-center gap-3.5 shrink-0 space-y-0 bg-gradient-to-br from-cyan-500/5 to-transparent">
+                                    <Logo className="h-9 w-9 shrink-0 drop-shadow-[0_0_12px_rgba(34,211,238,0.4)]" />
                                     <div className="flex flex-col">
-                                        <SheetTitle className="text-[13px] font-black tracking-tight text-foreground leading-none">{t('mobile_portal')}</SheetTitle>
-                                        <span className="text-[7px] font-bold uppercase tracking-[0.25em] mt-1 text-muted-foreground/40">
-                                            {tHero('slogan')}
+                                        <SheetTitle className="text-[14px] font-black tracking-tight text-white leading-none">System Kyron</SheetTitle>
+                                        <span className="text-[8px] font-bold uppercase tracking-[0.3em] mt-1 bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+                                            Inteligencia Corporativa
                                         </span>
                                     </div>
                                 </SheetHeader>
-                                <nav className="flex-1 overflow-y-auto p-4 flex flex-col gap-0.5">
-                                    {navItems.map((item) => (
-                                        <SheetClose key={item.labelKey} asChild>
-                                            <a 
-                                                href={item.href} 
-                                                onClick={(e) => handleAnchorClick(e, item.href)}
-                                                className="text-sm font-semibold py-3 px-4 rounded-xl text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.03] transition-all flex items-center justify-between cursor-pointer"
-                                            >
-                                                {t(item.labelKey)}
-                                                <ChevronRight className="h-3.5 w-3.5 opacity-15" />
+
+                                {/* Scrollable body */}
+                                <div className="flex-1 overflow-y-auto">
+                                    {/* Nav links */}
+                                    <nav className="p-4 pb-2 border-b border-white/[0.04]">
+                                        <p className="text-[9px] font-black uppercase tracking-[0.35em] text-white/20 mb-2 px-2">Navegación</p>
+                                        {navItems.map((item) => (
+                                            <SheetClose key={item.labelKey} asChild>
+                                                <a 
+                                                    href={item.href} 
+                                                    onClick={(e) => handleAnchorClick(e, item.href)}
+                                                    className="text-sm font-semibold py-2.5 px-3 rounded-xl text-white/50 hover:text-white hover:bg-white/[0.04] transition-all flex items-center justify-between cursor-pointer"
+                                                >
+                                                    {t(item.labelKey)}
+                                                    <ChevronRight className="h-3.5 w-3.5 opacity-20" />
+                                                </a>
+                                            </SheetClose>
+                                        ))}
+                                        <SheetClose asChild>
+                                            <a href="#pricing" onClick={(e) => handleAnchorClick(e, '#pricing')}
+                                                className="text-sm font-semibold py-2.5 px-3 rounded-xl text-amber-400/60 hover:text-amber-300 hover:bg-amber-500/[0.05] transition-all flex items-center justify-between cursor-pointer">
+                                                Planes y Precios
+                                                <ChevronRight className="h-3.5 w-3.5 opacity-20" />
                                             </a>
                                         </SheetClose>
-                                    ))}
-                                </nav>
-                                <div className="p-4 border-t border-white/[0.06] space-y-3 bg-white/[0.01] shrink-0">
-                                    <div className="flex items-center gap-2 pb-2.5 border-b border-white/[0.06]">
+                                    </nav>
+
+                                    {/* Portals */}
+                                    <div className="p-4 border-b border-white/[0.04]">
+                                        <p className="text-[9px] font-black uppercase tracking-[0.35em] text-white/20 mb-3 px-1">Acceder a un Portal</p>
+                                        <div className="grid grid-cols-1 gap-1.5">
+                                            {loginOptions.map((option) => (
+                                                <SheetClose key={option.href} asChild>
+                                                    <a href={option.href} className="flex items-center gap-3 p-3 rounded-xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.05] hover:border-white/[0.08] transition-all group">
+                                                        <div className={cn("h-8 w-8 rounded-lg bg-gradient-to-br flex items-center justify-center text-white shrink-0 shadow-sm group-hover:scale-105 transition-transform", option.gradient)}>
+                                                            <option.icon className="h-3.5 w-3.5" />
+                                                        </div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <span className="text-[12px] font-bold text-white/70 group-hover:text-white transition-colors block leading-tight">{option.label}</span>
+                                                            <p className="text-[10px] text-white/25 line-clamp-1 mt-0.5 leading-snug">{option.description}</p>
+                                                        </div>
+                                                        <ChevronRight className="h-3.5 w-3.5 text-white/10 group-hover:text-white/30 transition-colors shrink-0" />
+                                                    </a>
+                                                </SheetClose>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Footer CTAs */}
+                                <div className="p-4 border-t border-white/[0.06] space-y-2.5 bg-white/[0.01] shrink-0">
+                                    <div className="flex items-center gap-2 pb-3 border-b border-white/[0.05]">
                                         <LanguageSwitcher variant="default" align="start" />
                                         <ThemeToggle />
                                     </div>
@@ -292,6 +392,7 @@ export function LandingHeader() {
                                 </div>
                             </SheetContent>
                         </Sheet>
+
                     </div>
                 </div>
             </div>

@@ -165,14 +165,16 @@ export async function POST(req: NextRequest) {
         }
 
         const code = generateCode();
-        await storeCode(normalizedEmail, code, user.id);
+        await storeCode(normalizedEmail, code, 'verification', 'email');
 
         const magicToken = generateMagicToken();
         await storeMagicToken(normalizedEmail, magicToken, user.id);
 
-        const baseUrl = process.env.REPLIT_DEV_DOMAIN
-          ? `https://${process.env.REPLIT_DEV_DOMAIN}`
-          : (process.env.REPLIT_DEPLOYMENT_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.replit.app');
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 
+                        (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
+                        (process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : '') ||
+                        'https://system-kyron.vercel.app';
+        
         const magicLinkUrl = `${baseUrl}/es/verify-link/${magicToken}`;
 
         const maskedEmail = normalizedEmail.replace(

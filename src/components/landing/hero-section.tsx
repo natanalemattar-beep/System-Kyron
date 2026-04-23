@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { VideoHeroBg } from "./video-hero-bg";
 import Image from 'next/image';
+import { VideoModal } from "./video-modal";
 
 // ─── HELPER COMPONENTS ────────────────────────────────
 
@@ -136,6 +137,7 @@ export function HeroSection() {
     const opacityParallax = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
     const [liveStats, setLiveStats] = useState({ totalUsuarios: 0 });
+    const [videoOpen, setVideoOpen] = useState(false);
     const rotatingTexts = t.raw('rotating_words') as string[] || ["Corporativo", "Empresarial", "Soberano", "Elite"];
 
     useEffect(() => {
@@ -154,7 +156,7 @@ export function HeroSection() {
         <section 
             id="inicio" 
             ref={containerRef}
-            className="relative min-h-screen flex flex-col items-center lg:justify-center overflow-x-clip pt-20"
+            className="relative min-h-screen flex flex-col items-center lg:justify-center overflow-hidden pt-28 pb-0"
         >
             <VideoHeroBg />
             
@@ -163,7 +165,8 @@ export function HeroSection() {
                 <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-cyan-500/20 blur-[120px] animate-pulse" />
                 <div className="absolute bottom-[20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-500/20 blur-[120px] animate-pulse-slow" />
             </div>
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center w-full">
+                <div className="w-full container mx-auto px-6 sm:px-10 lg:px-16 max-w-7xl">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center w-full py-8 lg:py-16">
 
                     <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
                         <ScrollReveal delay={0.1}>
@@ -204,13 +207,19 @@ export function HeroSection() {
                                 </motion.div>
                                 
                                 <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400, damping: 17 }}>
-                                    <Button variant="outline" asChild size="lg" className="h-16 px-10 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 transition-all duration-500 backdrop-blur-xl group" aria-label="Ver planes y precios">
-                                        <Link href="#pricing" className="flex items-center gap-2">
+                                    <Button
+                                        variant="outline"
+                                        size="lg"
+                                        onClick={() => setVideoOpen(true)}
+                                        className="h-16 px-10 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 transition-all duration-500 backdrop-blur-xl group"
+                                        aria-label="Ver tutorial de registro en video"
+                                    >
+                                        <span className="flex items-center gap-2">
                                             <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                                                <Play className="h-3 w-3 fill-current ml-1" />
+                                                <Play className="h-3 w-3 fill-current ml-0.5" />
                                             </div>
                                             {t('cta_secondary')}
-                                        </Link>
+                                        </span>
                                     </Button>
                                 </motion.div>
                             </div>
@@ -240,65 +249,75 @@ export function HeroSection() {
                                 scale: scaleParallax, 
                                 opacity: opacityParallax 
                             }}
-                            initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
-                            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                            className="perspective-2000"
+                            initial={{ opacity: 0, x: 40, filter: 'blur(20px)' }}
+                            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                            className="relative z-10"
                         >
-                            <div className="relative glass-elite p-2 rounded-[2.5rem] shadow-2xl border-white/10 hover:border-white/20 transition-all group overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 via-transparent to-violet-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                                
-                                <div className="relative rounded-[2rem] overflow-hidden border border-white/5">
+                            {/* Main Dashboard Preview Container */}
+                            <div className="relative glass-elite p-3 rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] border-white/10 hover:border-white/20 transition-all duration-700 group perspective-2000">
+                                <motion.div 
+                                    whileHover={{ rotateY: -8, rotateX: 5, scale: 1.02 }}
+                                    transition={{ type: "spring", stiffness: 150, damping: 20 }}
+                                    className="relative rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 via-transparent to-violet-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-10 pointer-events-none" />
+                                    
                                     <ThemeImage
                                         darkSrc="/images/landing/hero-dashboard-dark.jpg"
                                         lightSrc="/images/landing/hero-dashboard-light.jpg"
                                         alt="Kyron Elite Dashboard"
                                         width={1000}
                                         height={600}
-                                        className="w-full h-auto transition-transform duration-700 group-hover:scale-[1.02]"
+                                        className="w-full h-auto transition-transform duration-1000 group-hover:scale-105"
                                         priority
                                     />
                                     
-                                    <div className="absolute bottom-6 right-6 flex items-center gap-3">
-                                        <div className="glass-elite p-3 rounded-2xl border-white/20 backdrop-blur-3xl animate-float-slow">
+                                    <div className="absolute bottom-8 right-8 flex items-center gap-3 z-20">
+                                        <div className="glass-elite px-4 py-2 rounded-2xl border-white/20 backdrop-blur-3xl shadow-glow-sm">
                                             <div className="flex items-center gap-2">
                                                 <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                                                <span className="text-[10px] font-black text-white/80 tabular-nums">99.9% UPTIME</span>
+                                                <span className="text-[10px] font-black text-white tracking-widest tabular-nums">SISTEMA ACTIVO</span>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
+
+                                {/* Decorative HUD Glow */}
+                                <div className="absolute -inset-4 bg-cyan-500/5 blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
                             </div>
 
-                            <FloatingCard className="top-10 -left-12 p-5 glass-elite animate-float-slow" delay={1.2}>
+                            {/* Floating Context Cards - Re-positioned for safety */}
+                            <FloatingCard className="-top-6 -left-12 p-5 glass-elite shadow-glow-sm border-cyan-500/20 animate-float-slow" delay={1.2}>
                                 <div className="flex items-center gap-4">
                                     <div className="h-12 w-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 border border-cyan-500/30">
                                         <TrendingUp className="h-6 w-6" />
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">{t('live_users_label') || "USUARIOS ACTIVOS"}</p>
-                                        <p className="text-xl font-black text-white">{liveStats ? liveStats.totalUsuarios.toLocaleString() : "2,840"}</p>
+                                        <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">{t('live_users_label') || "USUARIOS ELITE"}</p>
+                                        <p className="text-xl font-black text-white tabular-nums">{liveStats ? liveStats.totalUsuarios.toLocaleString() : "2,840"}</p>
                                     </div>
                                 </div>
                             </FloatingCard>
 
-                            <FloatingCard className="-bottom-10 -right-8 p-5 glass-elite animate-float-slow-reverse" delay={1.5}>
+                            <FloatingCard className="-bottom-8 -right-6 p-5 glass-elite shadow-glow-sm border-emerald-500/20 animate-float-slow-reverse" delay={1.5}>
                                 <div className="flex items-center gap-4">
                                     <div className="h-12 w-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 border border-emerald-500/30">
                                         <Shield className="h-6 w-6" />
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">SEGURIDAD</p>
-                                        <p className="text-xl font-black text-white">MIL-GRADE</p>
+                                        <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">ENCRIPTACIÓN</p>
+                                        <p className="text-xl font-black text-white uppercase tracking-tighter">AES-256</p>
                                     </div>
                                 </div>
                             </FloatingCard>
                         </motion.div>
                     </div>
                 </div>
+                </div>
 
-            <div className="w-full bg-gradient-to-b from-transparent via-[#050816]/50 to-[#050816] relative z-20 pb-20">
-                <div className="container mx-auto px-4 max-w-7xl">
+            <div className="w-full bg-gradient-to-b from-transparent via-[#050816]/50 to-[#050816] relative z-20 pb-20 mt-16">
+                <div className="container mx-auto px-6 sm:px-10 lg:px-16 max-w-7xl">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
                         {heroStats.map((stat, i) => (
                             <ScrollReveal key={stat.label} delay={0.1 * i}>
@@ -334,5 +353,6 @@ export function HeroSection() {
                 </div>
             </div>
         </section>
+        <VideoModal isOpen={videoOpen} onClose={() => setVideoOpen(false)} videoId="dQw4w9WgXcQ" />
     );
 }

@@ -15,9 +15,10 @@
         "mobile_portal": "Portal Kyron"
     },
     "DemoBanner": {
-        "message": "Plataforma en construcción — Pueden ocurrir cambios y caídas temporales del servicio.",
+        "message": "⚠️ Plataforma en desarrollo · Precios mostrados son de prueba y NO son los precios finales · Pueden ocurrir cambios sin previo aviso.",
         "dismiss": "Cerrar banner"
     },
+
     "HeroSection": {
         "title_line1": "Domina tu",
         "title_line2": "empresa con",

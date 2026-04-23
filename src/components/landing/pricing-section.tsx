@@ -134,11 +134,11 @@ interface Plan5G {
 }
 
 const PLANES_5G: Plan5G[] = [
-  { nombre: 'Básico',      datos: '4 GB',       minutos: '200',        sms: '400',        precio: 11.25, color: 'text-slate-300' },
-  { nombre: 'Plus',        datos: '10 GB',      minutos: '400',        sms: '800',        precio: 17.99, color: 'text-cyan-300' },
-  { nombre: 'Pro',         datos: '25 GB',      minutos: '600',        sms: '1200',       precio: 24.49, popular: true, color: 'text-blue-300' },
-  { nombre: 'Empresarial', datos: '30 GB',      minutos: '500',        sms: '500',        precio: 25.00, color: 'text-violet-300' },
-  { nombre: 'Ilimitado',   datos: 'Ilimitado',  minutos: 'Ilimitado',  sms: 'Ilimitado',  precio: 30.00, color: 'text-amber-300' },
+  { nombre: 'Básico',      datos: '4 GB',       minutos: '200',        sms: '400',        precio: 11.25, color: 'text-white' },
+  { nombre: 'Plus',        datos: '10 GB',      minutos: '400',        sms: '800',        precio: 17.99, color: 'text-white' },
+  { nombre: 'Pro',         datos: '25 GB',      minutos: '600',        sms: '1200',       precio: 24.49, popular: true, color: 'text-white' },
+  { nombre: 'Empresarial', datos: '30 GB',      minutos: '500',        sms: '500',        precio: 25.00, color: 'text-white' },
+  { nombre: 'Ilimitado',   datos: 'Ilimitado',  minutos: 'Ilimitado',  sms: 'Ilimitado',  precio: 30.00, color: 'text-white' },
 ];
 
 // ─── 3. HARDWARE FISCAL ───────────────────────────
@@ -327,7 +327,22 @@ function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
 // ═══════════════════════════════════════════════════
 // MAIN COMPONENT
 // ═══════════════════════════════════════════════════
-export function PricingSection() {
+export function PricingSection({ category = 'all' }: { category?: 'software' | 'telecom' | 'hardware' | 'all' }) {
+  const showSoftware = category === 'software' || category === 'all';
+  const showTelecom = category === 'telecom' || category === 'all';
+  const showHardware = category === 'hardware' || category === 'all';
+  
+  // Custom titles based on category
+  const headerTitle = category === 'software' ? 'Módulos SaaS' : 
+                      category === 'telecom' ? 'Líneas y 5G' : 
+                      category === 'hardware' ? 'Hardware Fiscal' : 
+                      'Elige solo lo que';
+  
+  const headerHighlight = category === 'all' ? 'realmente necesitas' : '';
+  const headerSubtitle = category === 'software' ? 'Activa los módulos que tu negocio necesita. Precio fijo mensual.' :
+                         category === 'telecom' ? 'Planes de líneas 5G con Kyron Shield incluido.' :
+                         category === 'hardware' ? 'Equipo certificado por el SENIAT. Pago único.' :
+                         'Módulos independientes + planes de líneas 5G + hardware fiscal certificado. Sin contratos anuales obligatorios.';
   return (
     <section
       id="pricing"
@@ -356,11 +371,13 @@ export function PricingSection() {
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-200/80">Planes y Precios</span>
           </div>
           <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-black tracking-[-0.04em] text-white leading-[0.95] mb-8">
-            Elige solo lo que<br />
-            <span className="block text-glow-cyan mt-2">realmente necesitas</span>
+            {headerTitle}<br />
+            {headerHighlight && (
+              <span className="block text-glow-cyan mt-2">{headerHighlight}</span>
+            )}
           </h2>
           <p className="text-lg text-white/40 max-w-2xl mx-auto font-medium leading-relaxed mb-10">
-            Módulos independientes + planes de líneas 5G + hardware fiscal certificado. Sin contratos anuales obligatorios.
+            {headerSubtitle}
           </p>
 
           {/* Free note */}
@@ -375,6 +392,7 @@ export function PricingSection() {
         {/* ══════════════════════════════════════════
             BLOQUE 1 — MÓDULOS SAAS
         ══════════════════════════════════════════ */}
+        {showSoftware && (
         <div className="mb-32 md:mb-48">
           <SectionTitle
             badge="Módulos SaaS"
@@ -389,10 +407,12 @@ export function PricingSection() {
             ))}
           </div>
         </div>
+        )}
 
         {/* ══════════════════════════════════════════
             BLOQUE 2 — PLANES 5G
         ══════════════════════════════════════════ */}
+        {showTelecom && (
         <div className="mb-32 md:mb-48">
           <SectionTitle
             badge="Conectividad 5G"
@@ -495,10 +515,12 @@ export function PricingSection() {
             </p>
           </motion.div>
         </div>
+        )}
 
         {/* ══════════════════════════════════════════
             BLOQUE 3 — HARDWARE FISCAL
         ══════════════════════════════════════════ */}
+        {showHardware && (
         <div className="mb-32 md:mb-48">
           <SectionTitle
             badge="Hardware Fiscal"
@@ -551,10 +573,12 @@ export function PricingSection() {
             })}
           </div>
         </div>
+        )}
 
         {/* ══════════════════════════════════════════
             BLOQUE 4 — COMBINACIONES
         ══════════════════════════════════════════ */}
+        {category === 'all' && (
         <div>
           <SectionTitle
             badge="Personalización"
@@ -649,6 +673,7 @@ export function PricingSection() {
             </div>
           </motion.div>
         </div>
+        )}
       </div>
     </section>
   );

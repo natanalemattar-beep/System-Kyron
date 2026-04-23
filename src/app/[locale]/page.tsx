@@ -5,10 +5,10 @@ import { LazySection } from '@/components/landing/lazy-section';
 
 // Dynamic imports with prefetch and proper loading states
 const PartnersSection = dynamic(() => import('@/components/landing/partners-section').then(m => ({ default: m.PartnersSection })), { ssr: true });
-const PricingSection = dynamic(() => import('@/components/landing/pricing-section').then(m => ({ default: m.PricingSection })), { ssr: true });
 const CtaSection = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })), { ssr: true });
 const FaqSection = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: true });
 const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: true });
+const FeaturesGrid = dynamic(() => import('@/components/landing/features-grid').then(m => ({ default: m.FeaturesGrid })), { ssr: true });
 import { JsonLd } from '@/components/seo/json-ld';
 
 export default function LandingPage() {
@@ -53,7 +53,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="relative min-h-screen selection:bg-primary/20 w-full bg-transparent">
+    <div className="relative min-h-screen selection:bg-primary/20 w-full bg-transparent overflow-x-hidden">
       <JsonLd data={structuredData} />
       <LandingClientWrapper>
         <main className="w-full">
@@ -61,8 +61,8 @@ export default function LandingPage() {
             <LazySection fallbackHeight="200px">
                 <PartnersSection />
             </LazySection>
-            <LazySection fallbackHeight="600px">
-                <PricingSection />
+            <LazySection fallbackHeight="800px">
+                <FeaturesGrid />
             </LazySection>
             <LazySection fallbackHeight="600px">
                 <CtaSection />

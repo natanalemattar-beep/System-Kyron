@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
       : user.nombre;
 
     const code = generateCode();
-    await storeCode(user.email, code, user.id);
+    await storeCode(user.email, code, 'verification', method === 'whatsapp' ? 'whatsapp' : 'sms');
 
     const maskedPhoneStr = maskPhone(normalized);
 

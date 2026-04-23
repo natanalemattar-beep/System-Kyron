@@ -12,3 +12,4 @@ export * from './comments-section';
 export * from './faq-section';
 export * from './cta-section';
 export * from './footer';
+export * from './features-grid';

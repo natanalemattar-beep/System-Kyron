@@ -7,6 +7,7 @@ import { DemoBannerSpacer } from "@/components/demo-banner-spacer";
 import { PerformanceProvider } from "@/components/performance-provider";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
+import { OfflineIndicator } from "@/components/landing/offline-indicator";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -34,6 +35,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
           <DemoBannerSpacer />
           <div className="relative flex min-h-screen flex-col">
             {children}
+            <OfflineIndicator />
           </div>
         </DemoBannerProvider>
       </PerformanceProvider>
