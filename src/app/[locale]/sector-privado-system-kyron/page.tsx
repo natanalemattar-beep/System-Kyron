@@ -35,7 +35,6 @@ import {
     Image as ImageIcon
 } from 'lucide-react';
 import { Logo } from '@/components/logo';
-import { toPng, toJpeg } from 'html-to-image';
 
 export function FolletoView() {
     const [baseUrl, setBaseUrl] = React.useState('https://system-kyron.vercel.app');
@@ -100,11 +99,16 @@ export function FolletoView() {
 
         try {
             await document.fonts.ready;
-            const dataUrl = await toPng(node, {
-                pixelRatio: 2,
+            const h2c = (await import('html2canvas')).default;
+            const canvas = await h2c(node, {
+                scale: 2,
+                useCORS: true,
                 backgroundColor: '#03050a',
-                style: { transform: 'scale(1)', transformOrigin: 'top left' }
+                logging: false,
+                allowTaint: false
             });
+            
+            const dataUrl = canvas.toDataURL('image/png', 1.0);
             
             const link = document.createElement('a');
             link.download = `System-Kyron-Folleto-${name}.png`;
@@ -127,10 +131,13 @@ export function FolletoView() {
 
         try {
             await document.fonts.ready;
+            const h2c = (await import('html2canvas')).default;
             
-            // Generar imágenes en JPEG de altísima fidelidad
-            const imgFrontal = await toJpeg(frontal, { quality: 0.85, pixelRatio: 1.5, backgroundColor: '#03050a' });
-            const imgInterior = await toJpeg(interior, { quality: 0.85, pixelRatio: 1.5, backgroundColor: '#03050a' });
+            const canvasFrontal = await h2c(frontal, { scale: 1.5, useCORS: true, backgroundColor: '#03050a', allowTaint: false });
+            const canvasInterior = await h2c(interior, { scale: 1.5, useCORS: true, backgroundColor: '#03050a', allowTaint: false });
+            
+            const imgFrontal = canvasFrontal.toDataURL('image/jpeg', 0.85);
+            const imgInterior = canvasInterior.toDataURL('image/jpeg', 0.85);
 
             const panels = document.querySelectorAll('.print\\:break-after-page, .print\\:shadow-none');
             let textContent = "";
@@ -369,7 +376,7 @@ export function FolletoView() {
                             <p className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-400 mb-4 flex items-center gap-3">
                                 <span className="h-px w-10 bg-slate-600 inline-block" /> Sector Privado
                             </p>
-                            <h1 className="text-[58px] font-black uppercase tracking-tighter leading-[0.8] mb-6 text-white">System<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-500">Kyron.</span></h1>
+                            <h1 className="text-[58px] font-black uppercase tracking-tighter leading-[0.8] mb-6 text-white">System<br/><span className="text-emerald-400">Kyron.</span></h1>
                             <p className="text-[12px] text-slate-200 leading-relaxed border-l-4 border-cyan-500 pl-5 font-medium">
                                 Protegiendo y potenciando el capital de las empresas líderes en Venezuela.
                             </p>
