@@ -361,7 +361,7 @@ export function FolletoView() {
                     
                     <div className="relative z-10 flex flex-col h-full">
                         <div className="flex justify-between items-start mb-8">
-                            <Logo className="h-16 w-16 drop-shadow-[0_0_30px_rgba(34,211,238,0.7)]" />
+                            <img src="/images/logo-black.png" alt="Kyron" className="h-16 w-16 drop-shadow-[0_0_30px_rgba(34,211,238,0.7)] object-contain" crossOrigin="anonymous" />
                             <div className="flex flex-col items-end">
                                 <span className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/25 rounded-full text-[7px] font-black uppercase tracking-widest text-cyan-400 mb-1">Inversión Segura</span>
                                 <span className="text-[8px] font-black text-slate-500 tracking-widest uppercase">Ecosistema 2.0</span>
@@ -372,7 +372,7 @@ export function FolletoView() {
                             <p className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-400 mb-4 flex items-center gap-3">
                                 <span className="h-px w-10 bg-slate-600 inline-block" /> Sector Privado
                             </p>
-                            <h1 className="text-[58px] font-black uppercase tracking-tighter leading-[0.8] mb-6 text-white">Kyron<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-500">Shield.</span></h1>
+                            <h1 className="text-[58px] font-black uppercase tracking-tighter leading-[0.8] mb-6 text-white">Kyron<br/><span className="text-cyan-400">Shield.</span></h1>
                             <p className="text-[12px] text-slate-200 leading-relaxed border-l-4 border-cyan-500 pl-5 font-medium">
                                 Protegiendo y potenciando el capital de las empresas líderes en Venezuela.
                             </p>
@@ -495,7 +495,7 @@ export function FolletoView() {
                 {/* P6: VISIÓN & ESCALABILIDAD 2026 (Derecha) */}
                 <div className="w-[3.62in] p-8 flex flex-col relative z-10 bg-[#050816]">
                     <div className="absolute -right-20 -bottom-20 opacity-[0.03] pointer-events-none">
-                        <Logo className="w-[450px] h-[450px] text-white" />
+                        <img src="/images/logo-black.png" alt="Logo Fondo" className="w-[450px] h-[450px] object-contain opacity-20" crossOrigin="anonymous" />
                     </div>
                     
                     <div className="mb-10">
@@ -542,7 +542,7 @@ export function FolletoView() {
                     </div>
 
                     <div className="mt-8 flex justify-between items-end pt-8 border-t border-white/5">
-                        <Logo className="h-12 w-12 opacity-30" />
+                        <img src="/images/logo-black.png" alt="Kyron Mini" className="h-12 w-12 opacity-30 object-contain" crossOrigin="anonymous" />
                         <div className="text-right">
                             <p className="text-[8px] text-slate-700 font-black uppercase tracking-[0.3em] mb-1">System Kyron Elite</p>
                             <p className="text-[7px] text-slate-800 font-bold">Secure Infrastructure System</p>
