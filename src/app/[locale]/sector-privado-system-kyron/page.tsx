@@ -45,26 +45,20 @@ export function FolletoView() {
         window.print();
     };
 
-    const handleDownloadPNG = async () => {
-        const node = document.getElementById('folleto-content');
+    const handleDownloadPNG = async (id: string, name: string) => {
+        const node = document.getElementById(id);
         if (!node) return;
 
         try {
-            // Ocultar toolbar para la foto
-            const toolbar = document.getElementById('folleto-toolbar');
-            if (toolbar) toolbar.style.opacity = '0';
-            
             // Captura de alta fidelidad (2x pixel ratio)
             const dataUrl = await toPng(node, { 
                 quality: 1,
                 pixelRatio: 2,
-                backgroundColor: '#0f172a' // Slate-900 background
+                backgroundColor: '#03050a'
             });
             
-            if (toolbar) toolbar.style.opacity = '1';
-
             const link = document.createElement('a');
-            link.download = 'System-Kyron-Folleto-Elite-HD.png';
+            link.download = `System-Kyron-Folleto-${name}.png`;
             link.href = dataUrl;
             link.click();
         } catch (error) {
@@ -100,29 +94,32 @@ export function FolletoView() {
                     onClick={handleDownloadPDF}
                     className="flex items-center gap-2 px-5 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 group shadow-lg shadow-cyan-500/20"
                 >
-                    <PrinterIcon className="h-4 w-4" /> PDF
+                    <PrinterIcon className="h-4 w-4" /> PDF Full
                 </button>
-                <button 
-                    onClick={handleDownloadPNG}
-                    className="flex items-center gap-2 px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 group shadow-lg shadow-emerald-500/20"
-                >
-                    <ImageIcon className="h-4 w-4" /> Imagen HD
-                </button>
+                <div className="flex gap-1 bg-white/5 p-1 rounded-2xl border border-white/5">
+                    <button 
+                        onClick={() => handleDownloadPNG('cara-frontal', 'Frontal')}
+                        className="flex items-center gap-2 px-4 py-2 hover:bg-emerald-600/20 text-emerald-400 rounded-xl text-[8px] font-black uppercase tracking-widest transition-all"
+                    >
+                        <ImageIcon className="h-3.5 w-3.5" /> Cara 1
+                    </button>
+                    <button 
+                        onClick={() => handleDownloadPNG('cara-interior', 'Interior')}
+                        className="flex items-center gap-2 px-4 py-2 hover:bg-emerald-600/20 text-emerald-400 rounded-xl text-[8px] font-black uppercase tracking-widest transition-all"
+                    >
+                        <ImageIcon className="h-3.5 w-3.5" /> Cara 2
+                    </button>
+                </div>
                 <button 
                     onClick={handleDownloadWord}
-                    className="flex items-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 text-white/70 hover:text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all border border-white/5 hover:border-white/20"
+                    className="flex items-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 text-white/70 hover:text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all border border-white/5"
                 >
-                    <FileText className="h-4 w-4" /> Texto (Word)
+                    <FileText className="h-4 w-4" /> Texto
                 </button>
-                <div className="w-px h-8 bg-white/10 mx-1" />
-                <div className="flex flex-col justify-center pr-2">
-                    <p className="text-[7px] font-black text-white/30 uppercase tracking-[0.2em]">Exportación</p>
-                    <p className="text-[9px] font-black text-cyan-400 uppercase tracking-tighter italic">Kyron Elite</p>
-                </div>
             </div>
 
             {/* ═ CARA 1: EXTERIOR (Paneles: Rentabilidad, Blindaje, Portada Dual) ═ */}
-            <div className="w-[11in] h-[8.5in] bg-[#03050a] text-white shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative">
+            <div id="cara-frontal" className="w-[11in] h-[8.5in] bg-[#03050a] text-white shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_70%_-10%,rgba(14,165,233,0.12),transparent)] pointer-events-none" />
 
                 {/* P1: PROPÓSITO & RENTABILIDAD (Solapa Izquierda) */}
@@ -317,7 +314,7 @@ export function FolletoView() {
             </div>
 
             {/* ═ CARA 2: INTERIOR (Paneles: Unidades de Negocio, Garantía, Escalabilidad) ═ */}
-            <div className="w-[11in] h-[8.5in] bg-[#03050a] text-white shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex shrink-0 overflow-hidden print:shadow-none relative">
+            <div id="cara-interior" className="w-[11in] h-[8.5in] bg-[#03050a] text-white shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex shrink-0 overflow-hidden print:shadow-none relative">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_50%_-20%,rgba(16,185,129,0.06),transparent)] pointer-events-none" />
 
                 {/* P4: UNIDADES DE VALOR (Izquierda) */}
