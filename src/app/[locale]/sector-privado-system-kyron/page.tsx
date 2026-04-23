@@ -369,7 +369,7 @@ export function FolletoView() {
                             <p className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-400 mb-4 flex items-center gap-3">
                                 <span className="h-px w-10 bg-slate-600 inline-block" /> Sector Privado
                             </p>
-                            <h1 className="text-[58px] font-black uppercase tracking-tighter leading-[0.8] mb-6 text-white">Kyron<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-500">Shield.</span></h1>
+                            <h1 className="text-[58px] font-black uppercase tracking-tighter leading-[0.8] mb-6 text-white">System<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-500">Kyron.</span></h1>
                             <p className="text-[12px] text-slate-200 leading-relaxed border-l-4 border-cyan-500 pl-5 font-medium">
                                 Protegiendo y potenciando el capital de las empresas líderes en Venezuela.
                             </p>
