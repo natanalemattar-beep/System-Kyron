@@ -224,7 +224,7 @@ export function FolletoView() {
                     <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
                     
                     <div className="mb-6 relative z-10">
-                        <span className="inline-block px-2.5 py-1 bg-cyan-950 rounded-md text-[9px] font-bold uppercase tracking-widest text-cyan-400 mb-3 border border-cyan-900">La Solución Integral</span>
+                        <span className="inline-block px-3 py-1.5 bg-cyan-950 rounded-md text-[12px] font-black uppercase tracking-widest text-cyan-400 mb-3 border border-cyan-900 shadow-lg">La Solución Integral</span>
                         <h3 className="text-[24px] font-black text-white uppercase tracking-tighter leading-tight">¿Qué es <br/><span className="text-cyan-400">System Kyron?</span></h3>
                     </div>
 
@@ -285,7 +285,7 @@ export function FolletoView() {
                     </div>
                     
                     <div className="mb-10">
-                        <span className="inline-block px-2.5 py-1 bg-zinc-800 rounded-md text-[9px] font-bold uppercase tracking-widest text-zinc-400 mb-3 border border-zinc-700">El Siguiente Paso</span>
+                        <span className="inline-block px-3 py-1.5 bg-zinc-800 rounded-md text-[12px] font-black uppercase tracking-widest text-zinc-300 mb-3 border border-zinc-700 shadow-lg">El Siguiente Paso</span>
                         <h3 className="text-[24px] font-black uppercase tracking-tighter text-white leading-tight">Únete a la<br/><span className="text-zinc-500 font-medium">Evolución.</span></h3>
                     </div>
 
@@ -317,8 +317,8 @@ export function FolletoView() {
                         <img src="/images/logo-black.png" alt="Kyron Mini" className="h-16 w-16 opacity-30 object-contain" crossOrigin="anonymous" />
                         <div className="text-right">
                             <p className="text-[14px] text-zinc-400 font-black uppercase tracking-[0.2em] mb-1">Contacto Directo</p>
-                            <p className="text-[16px] text-white font-black uppercase tracking-widest">0424-1846016</p>
-                            <p className="text-[13px] text-zinc-300 font-bold tracking-wide">systemkyronofficial@gmail.com</p>
+                            <p className="text-[20px] text-white font-black uppercase tracking-widest">0424-1846016</p>
+                            <p className="text-[15px] text-zinc-300 font-black tracking-wide">systemkyronofficial@gmail.com</p>
                         </div>
                     </div>
                 </div>
@@ -331,14 +331,14 @@ export function FolletoView() {
                         <div className="flex justify-between items-start mb-10">
                             <img src="/images/logo-black.png" alt="Kyron" className="h-16 w-16 object-contain opacity-90" crossOrigin="anonymous" />
                             <div className="flex flex-col items-end">
-                                <span className="px-2.5 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-[9px] font-black uppercase tracking-widest text-zinc-300 mb-1">Presentación Oficial</span>
-                                <span className="text-[9px] font-bold text-zinc-600 tracking-widest uppercase">Versión 2.0</span>
+                                <span className="px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-md text-[12px] font-black uppercase tracking-widest text-white mb-1 shadow-lg">Presentación Oficial</span>
+                                <span className="text-[11px] font-black text-zinc-500 tracking-widest uppercase">Versión 2.0</span>
                             </div>
                         </div>
 
                         <div className="mb-8">
-                            <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-cyan-400 mb-3 flex items-center gap-2">
-                                <span className="h-[2px] w-10 bg-cyan-500 inline-block" /> Plataforma Empresarial
+                            <p className="text-[13px] font-black uppercase tracking-[0.4em] text-cyan-400 mb-3 flex items-center gap-2">
+                                <span className="h-[2px] w-12 bg-cyan-500 inline-block" /> Plataforma Empresarial
                             </p>
                             <h1 className="text-[58px] font-black uppercase tracking-tighter leading-[0.9] mb-4 text-white">System<br/><span className="text-zinc-500">Kyron.</span></h1>
                             <p className="text-[13px] text-zinc-400 leading-relaxed font-medium border-l-2 border-cyan-500 pl-4">
@@ -369,7 +369,7 @@ export function FolletoView() {
                         </div>
 
                         <div className="mt-6 flex justify-between items-center px-2">
-                            <p className="text-[10px] text-zinc-600 tracking-widest font-black uppercase">system-kyron.vercel.app</p>
+                            <p className="text-[12px] text-zinc-500 tracking-widest font-black uppercase">system-kyron.vercel.app</p>
                             <div className="flex gap-1.5">
                                 <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
                                 <div className="h-1.5 w-1.5 rounded-full bg-zinc-700" />
@@ -386,7 +386,7 @@ export function FolletoView() {
                 {/* P4 (C2-Left, Inside Left): PROBLEMAS CRÍTICOS (Ancho: 3.69in) */}
                 <div className="w-[3.69in] border-r border-zinc-800 p-9 flex flex-col relative z-10 bg-black/40">
                     <div className="mb-6">
-                        <span className="inline-block px-2.5 py-1 bg-zinc-800 rounded-md text-[9px] font-bold uppercase tracking-widest text-zinc-400 mb-3 border border-zinc-700">El Reto Operativo</span>
+                        <span className="inline-block px-3 py-1.5 bg-zinc-800 rounded-md text-[12px] font-black uppercase tracking-widest text-zinc-300 mb-3 border border-zinc-700 shadow-lg">El Reto Operativo</span>
                         <h3 className="text-[24px] font-black text-white leading-tight tracking-tighter">Problemas Críticos <br/><span className="text-zinc-500 font-medium">que tu negocio enfrenta.</span></h3>
                     </div>
                     
@@ -433,7 +433,7 @@ export function FolletoView() {
                 {/* P5 (C2-Center, Inside Center): EL ECOSISTEMA (Ancho: 3.69in) */}
                 <div className="w-[3.69in] border-r border-zinc-800 p-9 flex flex-col relative z-10 bg-[#09090b]">
                     <div className="mb-8">
-                        <span className="inline-block px-2.5 py-1 bg-cyan-950 rounded-md text-[9px] font-bold uppercase tracking-widest text-cyan-400 mb-3 border border-cyan-900">Herramientas Base</span>
+                        <span className="inline-block px-3 py-1.5 bg-cyan-950 rounded-md text-[12px] font-black uppercase tracking-widest text-cyan-400 mb-3 border border-cyan-900 shadow-lg">Herramientas Base</span>
                         <h3 className="text-[24px] font-black uppercase tracking-tighter text-white leading-tight">El Ecosistema<br/><span className="text-cyan-400 font-medium">Funcional.</span></h3>
                     </div>
 
@@ -466,7 +466,7 @@ export function FolletoView() {
                 {/* P6 (C2-Right, Inside Right): LA INNOVACIÓN (Ancho: 3.62in) */}
                 <div className="w-[3.62in] p-9 flex flex-col relative z-10 bg-[#09090b]">
                     <div className="mb-8">
-                        <span className="inline-block px-2.5 py-1 bg-zinc-800 rounded-md text-[9px] font-bold uppercase tracking-widest text-zinc-400 mb-3 border border-zinc-700">Ventaja Competitiva</span>
+                        <span className="inline-block px-3 py-1.5 bg-zinc-800 rounded-md text-[12px] font-black uppercase tracking-widest text-zinc-300 mb-3 border border-zinc-700 shadow-lg">Ventaja Competitiva</span>
                         <h3 className="text-[24px] font-black uppercase tracking-tighter text-white leading-tight">La Innovación<br/><span className="text-zinc-500 font-medium">detrás del sistema.</span></h3>
                     </div>
 
