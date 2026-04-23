@@ -372,9 +372,9 @@ export function FolletoView() {
                                 </div>
                                 <div className="flex flex-col items-center gap-3 group">
                                     <div className="p-2 bg-white rounded-2xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.05)] border border-zinc-200">
-                                        <img src={QR_FEEDBACK} alt="Contacto" width={100} height={100} className="rounded-xl" crossOrigin="anonymous" />
+                                        <img src={QR_FEEDBACK} alt="Encuesta" width={100} height={100} className="rounded-xl" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[12px] font-black uppercase tracking-widest text-white">Contáctanos</p>
+                                    <p className="text-[12px] font-black uppercase tracking-widest text-white">Encuesta</p>
                                 </div>
                             </div>
                             <p className="text-[12px] text-zinc-300 font-bold flex items-center gap-2">
