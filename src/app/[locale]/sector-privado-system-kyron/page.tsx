@@ -28,16 +28,58 @@ import {
     Coins,
     BarChart4,
     Scale,
-    Rocket
+    Rocket,
+    Download,
+    FileText,
+    Printer as PrinterIcon
 } from 'lucide-react';
-import { Logo } from '@/components/ui/logo';
+import { Logo } from '@/components/logo';
 
 export function FolletoView() {
     const QR_PRINCIPAL = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://system-kyron.vercel.app&color=03050a&bgcolor=ffffff&margin=4";
     const QR_FEEDBACK = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://system-kyron.vercel.app/es/feedback&color=03050a&bgcolor=ffffff&margin=4";
     
+    const handleDownloadPDF = () => {
+        window.print();
+    };
+
+    const handleDownloadWord = () => {
+        // Generar un archivo .doc básico con el contenido estructurado
+        const content = document.getElementById('folleto-content')?.innerText || "";
+        const blob = new Blob(['\ufeff', content], {
+            type: 'application/msword'
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'System-Kyron-Folleto-Elite.doc';
+        link.click();
+        URL.revokeObjectURL(url);
+    };
+
     return (
-        <div id="folleto-content" className="w-full bg-slate-900 p-8 flex flex-col items-center gap-12 overflow-x-auto print:bg-white print:p-0 print:gap-0 font-[family-name:var(--font-outfit)]">
+        <div id="folleto-content" className="w-full bg-slate-900 p-8 flex flex-col items-center gap-12 overflow-x-auto print:bg-white print:p-0 print:gap-0 font-[family-name:var(--font-outfit)] relative">
+            
+            {/* Toolbar Flotante (Oculta en impresión) */}
+            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex gap-4 bg-black/80 backdrop-blur-2xl px-6 py-4 rounded-[2rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] print:hidden">
+                <button 
+                    onClick={handleDownloadPDF}
+                    className="flex items-center gap-3 px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 group shadow-lg shadow-cyan-500/20"
+                >
+                    <PrinterIcon className="h-4 w-4 group-hover:rotate-12 transition-transform" /> Exportar PDF
+                </button>
+                <button 
+                    onClick={handleDownloadWord}
+                    className="flex items-center gap-3 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 group shadow-lg shadow-blue-500/20"
+                >
+                    <FileText className="h-4 w-4 group-hover:scale-110 transition-transform" /> Bajar Word
+                </button>
+                <div className="w-px h-8 bg-white/10 mx-2" />
+                <div className="flex flex-col justify-center">
+                    <p className="text-[8px] font-black text-white/40 uppercase tracking-widest">Optimización</p>
+                    <p className="text-[10px] font-black text-emerald-400 uppercase tracking-tighter italic">Alta Fidelidad</p>
+                </div>
+            </div>
 
             {/* ═ CARA 1: EXTERIOR (Paneles: Rentabilidad, Blindaje, Portada Dual) ═ */}
             <div className="w-[11in] h-[8.5in] bg-[#03050a] text-white shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative">
