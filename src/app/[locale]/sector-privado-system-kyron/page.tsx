@@ -49,27 +49,41 @@ export function FolletoView() {
             const h2c = (await import('html2canvas')).default;
             const { jsPDF } = await import('jspdf');
 
-            // Capturar cada cara individualmente (sin padding/gap extra)
-            const canvasOpts = { scale: 2, useCORS: true, backgroundColor: '#09090b', logging: false, allowTaint: false };
+            // ESCALA 4 = ULTRA NITIDEZ (4K+). Genera imágenes masivas para impresión profesional.
+            const canvasOpts = { 
+                scale: 4, 
+                useCORS: true, 
+                backgroundColor: '#09090b', 
+                logging: false, 
+                allowTaint: false,
+                imageTimeout: 0,
+                removeContainer: true
+            };
+            
             const canvas1 = await h2c(frontal, canvasOpts);
             const canvas2 = await h2c(interior, canvasOpts);
 
-            // Crear PDF landscape letter (11 x 8.5 in)
-            const pdf = new jsPDF({ orientation: 'landscape', unit: 'in', format: 'letter' });
+            // Crear PDF landscape letter EXACTO (11 x 8.5 in)
+            const pdf = new jsPDF({ 
+                orientation: 'landscape', 
+                unit: 'in', 
+                format: 'letter',
+                compress: false // Desactivamos compresión para mantener nitidez 4K
+            });
 
-            // Página 1: Cara Exterior
-            const img1 = canvas1.toDataURL('image/jpeg', 0.95);
-            pdf.addImage(img1, 'JPEG', 0, 0, 11, 8.5);
+            // Página 1: Cara Exterior (Calidad 1.0 = Sin pérdida)
+            const img1 = canvas1.toDataURL('image/png');
+            pdf.addImage(img1, 'PNG', 0, 0, 11, 8.5, undefined, 'FAST');
 
             // Página 2: Cara Interior
             pdf.addPage();
-            const img2 = canvas2.toDataURL('image/jpeg', 0.95);
-            pdf.addImage(img2, 'JPEG', 0, 0, 11, 8.5);
+            const img2 = canvas2.toDataURL('image/png');
+            pdf.addImage(img2, 'PNG', 0, 0, 11, 8.5, undefined, 'FAST');
 
-            pdf.save('System-Kyron-Folleto-General.pdf');
+            pdf.save('System-Kyron-Folleto-4K-Carta.pdf');
         } catch (error) {
-            console.error('Error descargando PDF:', error);
-            alert('Hubo un problema al generar el PDF. Intenta de nuevo.');
+            console.error('Error generando PDF 4K:', error);
+            alert('Error de memoria (4K requiere muchos recursos). Si falla, cierra otras pestañas.');
         } finally {
             setIsExporting(false);
         }
