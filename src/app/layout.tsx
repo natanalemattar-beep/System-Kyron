@@ -23,7 +23,8 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://systemkyron.replit.app';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 
+                (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://system-kyron.vercel.app');
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),

@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://systemkyron.replit.app'
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 
+                (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://system-kyron.vercel.app');
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
