@@ -317,7 +317,7 @@ export function FolletoView() {
                         <img src="/images/logo-black.png" alt="Kyron Mini" className="h-10 w-10 opacity-30 object-contain" crossOrigin="anonymous" />
                         <div className="text-right">
                             <p className="text-[8px] text-zinc-500 font-black uppercase tracking-[0.3em] mb-1">Contacto Directo</p>
-                            <p className="text-[7px] text-zinc-600 font-medium uppercase tracking-widest">+58 000-0000000</p>
+                            <p className="text-[7px] text-zinc-600 font-medium uppercase tracking-widest">0424-1846016</p>
                         </div>
                     </div>
                 </div>
