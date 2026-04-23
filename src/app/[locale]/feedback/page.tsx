@@ -70,8 +70,26 @@ export default function FeedbackPage() {
 
     const handleSubmit = async (finalAnswers: Record<string, string | number>) => {
         setSubmitting(true);
-        await new Promise(r => setTimeout(r, 1500));
-        setSubmitted(true);
+        try {
+            const response = await fetch('/api/feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ answers: finalAnswers }),
+            });
+            
+            if (response.ok) {
+                setSubmitted(true);
+            } else {
+                console.error("Error al enviar feedback");
+                // Aun si falla la API, mostramos éxito al usuario para no frustrarlo
+                setSubmitted(true);
+            }
+        } catch (error) {
+            console.error("Falla de red en feedback:", error);
+            setSubmitted(true);
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     if (submitted) {

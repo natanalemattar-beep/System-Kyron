@@ -76,6 +76,7 @@ const PUBLIC_SEGMENTS = new Set([
   'k7r0n-mail',
   'prueba-gratuita',
   'prueba-velocidad',
+  'feedback',
 ]);
 
 // Public API routes — explicit whitelist (fail-closed)
@@ -104,6 +105,7 @@ const PUBLIC_API_SET = new Set([
   '/api/cedula/consulta',
   '/api/rif/consulta',
   '/api/budget',
+  '/api/feedback',
 ]);
 
 // Routes that handle their own header-based auth (e.g. x-admin-key)
