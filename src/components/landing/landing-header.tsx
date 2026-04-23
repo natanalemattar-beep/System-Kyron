@@ -122,7 +122,7 @@ export function LandingHeader() {
                 <div className="flex items-center justify-between h-11 w-full">
                     
                     <div className="flex items-center justify-start shrink-0">
-                        <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 group shrink-0">
+                        <Link href="/" prefetch={false} className="flex items-center gap-2.5 sm:gap-3.5 group shrink-0">
                             <Logo className="h-8 w-8 sm:h-9 sm:w-9 transition-all duration-300 group-hover:scale-105 drop-shadow-glow shrink-0" /> 
                             <div className="flex flex-col">
                                 <span className={cn(
@@ -181,7 +181,7 @@ export function LandingHeader() {
                                 </div>
                                 
                                 <DropdownMenuItem asChild className="rounded-xl cursor-pointer p-0 mb-1 focus:bg-transparent">
-                                    <Link href="/precios/software" className="flex items-center gap-4 p-3 hover:bg-white/[0.04] hover:border-white/[0.06] border border-transparent transition-all duration-300 group">
+                                    <Link href="/precios/software" prefetch={false} className="flex items-center gap-4 p-3 hover:bg-white/[0.04] hover:border-white/[0.06] border border-transparent transition-all duration-300 group">
                                         <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
                                             <User className="h-5 w-5" />
                                         </div>
@@ -193,7 +193,7 @@ export function LandingHeader() {
                                 </DropdownMenuItem>
                                 
                                 <DropdownMenuItem asChild className="rounded-xl cursor-pointer p-0 mb-1 focus:bg-transparent">
-                                    <Link href="/precios/telecom" className="flex items-center gap-4 p-3 hover:bg-white/[0.04] hover:border-white/[0.06] border border-transparent transition-all duration-300 group">
+                                    <Link href="/precios/telecom" prefetch={false} className="flex items-center gap-4 p-3 hover:bg-white/[0.04] hover:border-white/[0.06] border border-transparent transition-all duration-300 group">
                                         <div className="h-10 w-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform">
                                             <Building2 className="h-5 w-5" />
                                         </div>
@@ -205,7 +205,7 @@ export function LandingHeader() {
                                 </DropdownMenuItem>
                                 
                                 <DropdownMenuItem asChild className="rounded-xl cursor-pointer p-0 focus:bg-transparent">
-                                    <Link href="/precios/hardware" className="flex items-center gap-4 p-3 hover:bg-white/[0.04] hover:border-white/[0.06] border border-transparent transition-all duration-300 group">
+                                    <Link href="/precios/hardware" prefetch={false} className="flex items-center gap-4 p-3 hover:bg-white/[0.04] hover:border-white/[0.06] border border-transparent transition-all duration-300 group">
                                         <div className="h-10 w-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
                                             <Printer className="h-5 w-5" />
                                         </div>
@@ -231,7 +231,7 @@ export function LandingHeader() {
                                     ? "border-emerald-500/25 text-emerald-400 hover:border-emerald-500/40 hover:text-emerald-300 hover:bg-emerald-500/5"
                                     : "border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/40"
                             )}>
-                                <Link href="/register" className="flex items-center gap-2">
+                                <Link href="/register" prefetch={false} className="flex items-center gap-2">
                                     <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                                     <UserPlus className="h-3 w-3 group-hover:scale-110 transition-transform" />
                                     {t('register')}
@@ -265,7 +265,7 @@ export function LandingHeader() {
                                         <div className="grid grid-cols-2 gap-1.5">
                                             {loginOptions.map((option) => (
                                                 <DropdownMenuItem key={option.href} asChild className="rounded-xl p-0 cursor-pointer focus:bg-transparent data-[highlighted]:bg-transparent">
-                                                    <Link href={option.href as any} className="flex items-center gap-3 p-3 rounded-xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.04] hover:border-white/[0.08] hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200 group">
+                                                    <Link href={option.href as any} prefetch={false} className="flex items-center gap-3 p-3 rounded-xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.04] hover:border-white/[0.08] hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200 group">
                                                         <div className={cn("h-8 w-8 rounded-lg bg-gradient-to-br flex items-center justify-center text-white shrink-0 shadow-sm group-hover:scale-105 transition-transform duration-200", option.gradient)}>
                                                             <option.icon className="h-3.5 w-3.5" />
                                                         </div>
@@ -281,7 +281,7 @@ export function LandingHeader() {
                                     </div>
 
                                     <div className="p-3 pt-2 border-t border-white/[0.04]">
-                                        <Link href="/login" className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-cyan-500/[0.04] hover:bg-cyan-500/[0.08] border border-cyan-500/10 hover:border-cyan-500/20 transition-all group">
+                                        <Link href="/login" prefetch={false} className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-cyan-500/[0.04] hover:bg-cyan-500/[0.08] border border-cyan-500/10 hover:border-cyan-500/20 transition-all group">
                                             <KeyRound className="h-3 w-3 text-cyan-400/50 group-hover:text-cyan-400 transition-colors" />
                                             <span className="text-[10px] font-semibold text-cyan-400/50 group-hover:text-cyan-400 transition-colors">{t('see_all_services')}</span>
                                             <ArrowRight className="h-2.5 w-2.5 text-cyan-400/30 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all" />
@@ -351,7 +351,7 @@ export function LandingHeader() {
                                         <div className="grid grid-cols-1 gap-1.5">
                                             {loginOptions.map((option) => (
                                                 <SheetClose key={option.href} asChild>
-                                                    <a href={option.href} className="flex items-center gap-3 p-3 rounded-xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.05] hover:border-white/[0.08] transition-all group">
+                                                    <Link href={option.href as any} prefetch={false} className="flex items-center gap-3 p-3 rounded-xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.05] hover:border-white/[0.08] transition-all group">
                                                         <div className={cn("h-8 w-8 rounded-lg bg-gradient-to-br flex items-center justify-center text-white shrink-0 shadow-sm group-hover:scale-105 transition-transform", option.gradient)}>
                                                             <option.icon className="h-3.5 w-3.5" />
                                                         </div>
@@ -360,7 +360,7 @@ export function LandingHeader() {
                                                             <p className="text-[10px] text-white/25 line-clamp-1 mt-0.5 leading-snug">{option.description}</p>
                                                         </div>
                                                         <ChevronRight className="h-3.5 w-3.5 text-white/10 group-hover:text-white/30 transition-colors shrink-0" />
-                                                    </a>
+                                                    </Link>
                                                 </SheetClose>
                                             ))}
                                         </div>
@@ -374,14 +374,14 @@ export function LandingHeader() {
                                         <ThemeToggle />
                                     </div>
                                     <Button asChild variant="outline" className="w-full h-12 rounded-2xl font-bold text-xs uppercase tracking-[0.15em] border-2 border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/[0.06] hover:border-emerald-500/40 transition-all duration-300 relative overflow-hidden group">
-                                        <Link href="/register" className="flex items-center justify-center gap-2.5">
+                                        <Link href="/register" prefetch={false} className="flex items-center justify-center gap-2.5">
                                             <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                                             <UserPlus className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
                                             {t('register')}
                                         </Link>
                                     </Button>
                                     <Button asChild className="w-full h-12 rounded-2xl font-bold text-xs uppercase tracking-[0.15em] border-0 text-white shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600">
-                                        <Link href="/login" className="flex items-center justify-center gap-2.5">
+                                        <Link href="/login" prefetch={false} className="flex items-center justify-center gap-2.5">
                                             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                                             <span className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/15" />
                                             <ShieldCheck className="h-4 w-4 group-hover:scale-110 transition-transform duration-300 drop-shadow-sm" />

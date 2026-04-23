@@ -90,7 +90,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16.png" />
         <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://wa.me" />
+        <link rel="dns-prefetch" href="https://api.qrserver.com" />
       </head>
       <body className="min-h-screen font-sans antialiased selection:bg-primary/10 bg-background text-foreground" suppressHydrationWarning>
         <Providers>
