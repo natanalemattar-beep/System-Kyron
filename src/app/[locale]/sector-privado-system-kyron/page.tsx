@@ -373,3 +373,5 @@ export function FolletoView() {
         </div>
     );
 }
+
+export default FolletoView;
