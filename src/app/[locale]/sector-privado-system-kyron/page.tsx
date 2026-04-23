@@ -58,13 +58,17 @@ export function FolletoView() {
         const toolbar = document.getElementById('folleto-toolbar');
         if (toolbar) toolbar.style.display = 'none';
 
+        // Remover el gap para evitar que el PDF se salga de la hoja por el espacio de diseño web
+        const originalGap = node.style.gap;
+        node.style.gap = '0px';
+
         try {
             // @ts-ignore
             const html2pdf = (await import('html2pdf.js')).default;
             
             const opt = {
                 margin: 0,
-                filename: 'System-Kyron-Elite-Brochure.pdf',
+                filename: 'System-Kyron-Folleto-General.pdf',
                 image: { type: 'jpeg', quality: 1.0 },
                 html2canvas: { 
                     scale: 2, 
@@ -86,6 +90,7 @@ export function FolletoView() {
             console.error('Error descargando PDF:', error);
         } finally {
             if (toolbar) toolbar.style.display = 'flex';
+            node.style.gap = originalGap; // Restaurar el espacio web
             setIsExporting(false);
         }
     };
@@ -145,7 +150,7 @@ export function FolletoView() {
 
             const html = `
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-                <head><meta charset='utf-8'><title>System Kyron Elite Brochure</title>
+                <head><meta charset='utf-8'><title>System Kyron Brochure</title>
                 <style>
                     @page {
                         size: 11in 8.5in;
@@ -169,7 +174,7 @@ export function FolletoView() {
                     <br clear=all style='mso-special-character:line-break;page-break-before:always'>
                     <div class='text-content'>
                         <hr>
-                        <h2>CONTENIDO EDITABLE</h2>
+                        <h2>CONTENIDO DEL FOLLETO</h2>
                         ${textContent.replace(/\n/g, '<br>')}
                     </div>
                 </body>
@@ -180,7 +185,7 @@ export function FolletoView() {
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = 'System-Kyron-Elite-Corporate.doc';
+            link.download = 'System-Kyron-General.doc';
             link.click();
             URL.revokeObjectURL(url);
         } catch (error) {
@@ -225,8 +230,8 @@ export function FolletoView() {
                 </button>
             </div>
 
-            {/* ═ CARA 1: EXTERIOR (Paneles: Rentabilidad, Blindaje, Portada Dual) ═ */}
-            <div id="cara-frontal" className="w-[11in] h-[8.5in] bg-[#03050a] text-white shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative">
+            {/* ═ CARA 1: EXTERIOR (Paneles: Propósito, Beneficios, Portada) ═ */}
+            <div id="cara-frontal" style={{ pageBreakAfter: 'always' }} className="w-[11in] h-[8.5in] bg-[#03050a] text-white shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_70%_-10%,rgba(14,165,233,0.12),transparent)] pointer-events-none" />
 
                 {/* P1: PROPÓSITO & RENTABILIDAD (Solapa Izquierda) */}
@@ -235,33 +240,33 @@ export function FolletoView() {
                         <div className="h-9 w-9 rounded-full bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center">
                             <Coins className="h-4 w-4 text-emerald-400" />
                         </div>
-                        <span className="text-[9px] font-black uppercase tracking-[0.4em] text-emerald-400/80">Value Proposition</span>
+                        <span className="text-[9px] font-black uppercase tracking-[0.4em] text-emerald-400/80">Todo en Uno</span>
                     </div>
-                    <h3 className="text-[22px] font-black text-white leading-tight tracking-tighter mb-5">Eficiencia que se<br/><span className="text-emerald-500">traduce en Capital.</span></h3>
+                    <h3 className="text-[22px] font-black text-white leading-tight tracking-tighter mb-5">Crecer nunca fue tan<br/><span className="text-emerald-500">fácil y accesible.</span></h3>
                     
                     <div className="space-y-4">
                         <p className="text-[10px] text-slate-300 leading-relaxed text-justify">
-                            En un entorno de alta volatilidad, la **consolidación de costos** es la única ventaja real. System Kyron reemplaza hasta 10 proveedores de software desconectados por un único ecosistema, reduciendo sus costos operativos fijos en hasta un <span className="text-white font-bold">65% desde el primer mes.</span>
+                            Olvídate de pagar por múltiples programas o pelear con herramientas complicadas. System Kyron agrupa tus ventas, inventario y cuentas en una sola plataforma muy fácil de usar, ahorrándote tiempo y dinero desde el primer día.
                         </p>
                         <p className="text-[10px] text-slate-400 leading-relaxed text-justify">
-                            No vendemos software; vendemos **Tiempo de Dirección**. Nuestra IA automatiza la carga administrativa para que sus líderes se enfoquen en la expansión, no en el papeleo.
+                            Nuestra misión es que la tecnología trabaje para ti. Automatiza el trabajo aburrido para que puedas dedicarte a atender a tus clientes y hacer crecer tu negocio.
                         </p>
                     </div>
 
                     <div className="mt-8 space-y-3">
                         <div className="p-4 bg-emerald-500/5 rounded-2xl border border-emerald-500/20">
                             <h5 className="text-[9px] font-black text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-2">
-                                <BarChart4 className="h-3 w-3" /> Impacto Económico
+                                <BarChart4 className="h-3 w-3" /> Beneficios Inmediatos
                             </h5>
                             <ul className="space-y-2">
                                 <li className="flex items-center gap-2 text-[9px] text-slate-300">
-                                    <CheckCircle2 className="h-3 w-3 text-emerald-500" /> Reducción drástica de multas fiscales.
+                                    <CheckCircle2 className="h-3 w-3 text-emerald-500" /> Vende más rápido y controla tu caja.
                                 </li>
                                 <li className="flex items-center gap-2 text-[9px] text-slate-300">
-                                    <CheckCircle2 className="h-3 w-3 text-emerald-500" /> Optimización de nómina y parafiscales.
+                                    <CheckCircle2 className="h-3 w-3 text-emerald-500" /> Inventario siempre actualizado.
                                 </li>
                                 <li className="flex items-center gap-2 text-[9px] text-slate-300">
-                                    <CheckCircle2 className="h-3 w-3 text-emerald-500" /> Control total de activos y flotas.
+                                    <CheckCircle2 className="h-3 w-3 text-emerald-500" /> Facturación sin estrés ni multas.
                                 </li>
                             </ul>
                         </div>
@@ -272,72 +277,72 @@ export function FolletoView() {
                             <div className="h-8 w-8 rounded-lg bg-white/5 flex items-center justify-center">
                                 <TrendingUp className="h-4 w-4 text-emerald-400" />
                             </div>
-                            <p className="text-[7px] text-slate-500 uppercase font-black tracking-widest leading-tight">Escalabilidad Horizontal:<br/>Diseñado para Holdings y Grupos.</p>
+                            <p className="text-[7px] text-slate-500 uppercase font-black tracking-widest leading-tight">Adaptable a tu tamaño:<br/>Perfecto para tu negocio de hoy y mañana.</p>
                          </div>
                     </div>
                 </div>
 
-                {/* P2: BLINDAJE & RIESGO CERO (Contraportada) */}
+                {/* P2: BLINDAJE & RIESGO CERO -> TRANQUILIDAD (Contraportada) */}
                 <div className="w-[3.69in] border-r border-white/5 p-8 flex flex-col relative z-10 bg-[#03050a] overflow-hidden">
                     {/* Grid Background Effect */}
                     <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
                          style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
                     
                     <div className="mb-6 relative z-10">
-                        <p className="text-[8px] font-black uppercase tracking-[0.5em] text-rose-500/60 mb-2">Risk Mitigation</p>
-                        <h3 className="text-[18px] font-black text-white uppercase tracking-tighter">Blindaje <span className="text-rose-500">Operativo</span></h3>
+                        <p className="text-[8px] font-black uppercase tracking-[0.5em] text-cyan-400/80 mb-2">Tranquilidad Total</p>
+                        <h3 className="text-[18px] font-black text-white uppercase tracking-tighter">Soporte y <span className="text-cyan-400">Seguridad</span></h3>
                     </div>
 
                     <div className="space-y-4 mb-6 relative z-10">
                         <div className="p-4 bg-white/[0.03] rounded-2xl border border-white/10 backdrop-blur-sm">
                             <div className="flex items-center gap-3 mb-2">
-                                <Scale className="h-4 w-4 text-rose-400" />
-                                <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Cumplimiento SENIAT 24/7</h4>
+                                <Scale className="h-4 w-4 text-cyan-400" />
+                                <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Cumplimiento Legal Sencillo</h4>
                             </div>
-                            <p className="text-[8.5px] text-slate-500 leading-relaxed">
-                                Algoritmos entrenados con la Gaceta Oficial vigente aseguran que cada declaración sea perfecta. **Eliminamos el error humano**.
+                            <p className="text-[8.5px] text-slate-400 leading-relaxed">
+                                El sistema te guía para cumplir con todas las normativas sin necesidad de ser un experto en leyes. Haz tus cuentas con paz mental.
                             </p>
                         </div>
 
                         <div className="p-4 bg-white/[0.03] rounded-2xl border border-white/10 backdrop-blur-sm">
                             <div className="flex items-center gap-3 mb-2">
-                                <ShieldCheck className="h-4 w-4 text-rose-400" />
-                                <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Seguridad de Grado Bancario</h4>
+                                <ShieldCheck className="h-4 w-4 text-cyan-400" />
+                                <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Tus Datos Protegidos</h4>
                             </div>
-                            <p className="text-[8.5px] text-slate-500 leading-relaxed">
-                                Cifrado AES-256 y protocolos de misión crítica. Sus secretos financieros están protegidos bajo estándares globales.
+                            <p className="text-[8.5px] text-slate-400 leading-relaxed">
+                                Respaldamos tu información automáticamente. Así se vaya el internet o se dañe una PC, nunca perderás tus datos de ventas.
                             </p>
                         </div>
                     </div>
 
-                    {/* NUEVA SECCIÓN PARA RELLENAR ESPACIO (Infraestructura de Misión Crítica) */}
+                    {/* NUEVA SECCIÓN PARA RELLENAR ESPACIO (Infraestructura de Misión Crítica -> Soporte Amigable) */}
                     <div className="flex-1 flex flex-col justify-center relative z-10 py-4">
                         <div className="space-y-6">
                             <div className="flex items-start gap-4">
-                                <div className="h-8 w-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0">
-                                    <Cpu className="h-4 w-4 text-rose-400/80" />
+                                <div className="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                                    <Zap className="h-4 w-4 text-cyan-400/80" />
                                 </div>
                                 <div>
-                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-1">Núcleo de Procesamiento Híbrido</h5>
-                                    <p className="text-[7.5px] text-slate-600 leading-tight">Cómputo distribuido que garantiza 99.99% de uptime incluso sin internet.</p>
+                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-1">Rápido y Efectivo</h5>
+                                    <p className="text-[7.5px] text-slate-500 leading-tight">Un sistema ligero que no necesita computadoras súper potentes para funcionar.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">
-                                <div className="h-8 w-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0">
-                                    <Wifi className="h-4 w-4 text-rose-400/80" />
+                                <div className="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                                    <Users className="h-4 w-4 text-cyan-400/80" />
                                 </div>
                                 <div>
-                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-1">Conectividad Encriptada</h5>
-                                    <p className="text-[7.5px] text-slate-600 leading-tight">Canales dedicados punto a punto con rotación de llaves cada 60 segundos.</p>
+                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-1">Acompañamiento Real</h5>
+                                    <p className="text-[7.5px] text-slate-500 leading-tight">No estás solo. Nuestro equipo te enseña a usarlo paso a paso hasta que domines todo.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">
-                                <div className="h-8 w-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0">
-                                    <Activity className="h-4 w-4 text-rose-400/80" />
+                                <div className="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                                    <Activity className="h-4 w-4 text-cyan-400/80" />
                                 </div>
                                 <div>
-                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-1">Monitoreo Proactivo</h5>
-                                    <p className="text-[7.5px] text-slate-600 leading-tight">Detección de anomalías en tiempo real antes de que afecten su operación.</p>
+                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-1">Actualizaciones Gratis</h5>
+                                    <p className="text-[7.5px] text-slate-500 leading-tight">Siempre tendrás la mejor versión de la plataforma sin tener que pagar reinstalaciones.</p>
                                 </div>
                             </div>
                         </div>
@@ -346,13 +351,13 @@ export function FolletoView() {
                     <div className="mt-auto relative z-10">
                         <div className="flex items-center gap-4 mb-6">
                             <div className="flex-1 h-px bg-white/10" />
-                            <p className="text-[7px] text-slate-600 uppercase font-black tracking-widest">Confianza Corporativa</p>
+                            <p className="text-[7px] text-slate-500 uppercase font-black tracking-widest">Confianza Total</p>
                             <div className="flex-1 h-px bg-white/10" />
                         </div>
-                        <div className="grid grid-cols-3 gap-4 opacity-40 grayscale group-hover:grayscale-0 transition-all duration-700">
-                             <div className="text-center"><Shield className="h-6 w-6 mx-auto mb-1 text-white" /><p className="text-[6px] font-bold tracking-tighter">PROTECTED</p></div>
-                             <div className="text-center"><Lock className="h-6 w-6 mx-auto mb-1 text-white" /><p className="text-[6px] font-bold tracking-tighter">ENCRYPTED</p></div>
-                             <div className="text-center"><CheckCircle2 className="h-6 w-6 mx-auto mb-1 text-white" /><p className="text-[6px] font-bold tracking-tighter">VERIFIED</p></div>
+                        <div className="grid grid-cols-3 gap-4 opacity-60">
+                             <div className="text-center"><Shield className="h-6 w-6 mx-auto mb-1 text-cyan-400" /><p className="text-[6px] font-bold tracking-tighter">PROTEGIDO</p></div>
+                             <div className="text-center"><CheckCircle2 className="h-6 w-6 mx-auto mb-1 text-cyan-400" /><p className="text-[6px] font-bold tracking-tighter">FÁCIL DE USAR</p></div>
+                             <div className="text-center"><Zap className="h-6 w-6 mx-auto mb-1 text-cyan-400" /><p className="text-[6px] font-bold tracking-tighter">SÚPER RÁPIDO</p></div>
                         </div>
                     </div>
                 </div>
@@ -365,24 +370,24 @@ export function FolletoView() {
                         <div className="flex justify-between items-start mb-8">
                             <img src="/images/logo-black.png" alt="Kyron" className="h-16 w-16 drop-shadow-[0_0_30px_rgba(34,211,238,0.7)] object-contain" crossOrigin="anonymous" />
                             <div className="flex flex-col items-end">
-                                <span className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/25 rounded-full text-[7px] font-black uppercase tracking-widest text-cyan-400 mb-1">Inversión Segura</span>
-                                <span className="text-[8px] font-black text-slate-500 tracking-widest uppercase">Ecosistema 2.0</span>
+                                <span className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/25 rounded-full text-[7px] font-black uppercase tracking-widest text-cyan-400 mb-1">Para Todo Negocio</span>
+                                <span className="text-[8px] font-black text-slate-400 tracking-widest uppercase">Ecosistema Simple</span>
                             </div>
                         </div>
 
                         <div className="mb-10">
                             <p className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-400 mb-4 flex items-center gap-3">
-                                <span className="h-px w-10 bg-slate-600 inline-block" /> Sector Privado
+                                <span className="h-px w-10 bg-slate-600 inline-block" /> Tecnología Accesible
                             </p>
-                            <h1 className="text-[58px] font-black uppercase tracking-tighter leading-[0.8] mb-6 text-white">System<br/><span className="text-emerald-400">Kyron.</span></h1>
-                            <p className="text-[12px] text-slate-200 leading-relaxed border-l-4 border-cyan-500 pl-5 font-medium">
-                                Protegiendo y potenciando el capital de las empresas líderes en Venezuela.
+                            <h1 className="text-[54px] font-black uppercase tracking-tighter leading-[0.9] mb-6 text-white">System<br/><span className="text-emerald-400">Kyron.</span></h1>
+                            <p className="text-[12px] text-slate-300 leading-relaxed border-l-4 border-cyan-500 pl-5 font-medium">
+                                El aliado digital que simplifica el trabajo de los emprendedores y comerciantes en Venezuela.
                             </p>
                         </div>
 
                         {/* CALL TO ACTION DUAL QR REDISEÑADO */}
                         <div className="mt-auto bg-white/5 backdrop-blur-2xl rounded-[3.5rem] border border-white/10 p-8 flex flex-col items-center shadow-[0_30px_60px_rgba(0,0,0,0.4)]">
-                            <p className="text-[8px] font-black uppercase tracking-[0.5em] text-white/30 mb-7">CENTRO DE GESTIÓN DIGITAL</p>
+                            <p className="text-[8px] font-black uppercase tracking-[0.5em] text-white/40 mb-7">DESCUBRE MÁS AQUÍ</p>
                             
                             <div className="flex gap-10 w-full justify-center mb-7">
                                 <div className="flex flex-col items-center gap-3 group">
@@ -390,7 +395,7 @@ export function FolletoView() {
                                         <div className="absolute inset-0 border-[3px] border-cyan-500/20 rounded-[2rem] animate-pulse" />
                                         <img src={QR_PRINCIPAL} alt="Portal" width={95} height={95} className="rounded-[1.8rem] relative z-10" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[7px] font-black uppercase tracking-widest text-cyan-400 group-hover:text-cyan-300 transition-colors">Portal Web</p>
+                                    <p className="text-[7px] font-black uppercase tracking-widest text-cyan-400 group-hover:text-cyan-300 transition-colors">Ver Plataforma</p>
                                 </div>
                                 
                                 <div className="flex flex-col items-center gap-3 group">
@@ -398,22 +403,22 @@ export function FolletoView() {
                                         <div className="absolute inset-0 border-[3px] border-emerald-500/20 rounded-[2rem] animate-pulse" />
                                         <img src={QR_FEEDBACK} alt="Encuesta" width={95} height={95} className="rounded-[1.8rem] relative z-10" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[7px] font-black uppercase tracking-widest text-emerald-400 group-hover:text-emerald-300 transition-colors">Encuesta Elite</p>
+                                    <p className="text-[7px] font-black uppercase tracking-widest text-emerald-400 group-hover:text-emerald-300 transition-colors">Danos tu opinión</p>
                                 </div>
                             </div>
 
                             <div className="flex items-center gap-3 bg-white/5 px-6 py-2.5 rounded-full border border-white/10 group hover:border-cyan-500/30 transition-colors">
                                 <ScanLine className="h-4 w-4 text-cyan-400/50 group-hover:text-cyan-400 transition-colors animate-pulse" />
-                                <p className="text-[8px] font-black uppercase tracking-[0.3em] text-white/80 group-hover:text-white">Escanea para auditar</p>
+                                <p className="text-[8px] font-black uppercase tracking-[0.3em] text-white/80 group-hover:text-white">Escanea con la cámara</p>
                             </div>
                         </div>
 
                         <div className="mt-6 flex justify-between items-center px-4">
-                            <p className="text-[8px] text-slate-600 tracking-widest font-black uppercase">system-kyron.vercel.app</p>
+                            <p className="text-[8px] text-slate-500 tracking-widest font-black uppercase">system-kyron.vercel.app</p>
                             <div className="flex gap-2">
                                 <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500/40" />
-                                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500/20" />
+                                <div className="h-1.5 w-1.5 rounded-full bg-cyan-500" />
+                                <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
                             </div>
                         </div>
                     </div>
@@ -427,21 +432,17 @@ export function FolletoView() {
                 {/* P4: UNIDADES DE VALOR (Izquierda) */}
                 <div className="w-[3.69in] border-r border-white/5 p-8 flex flex-col relative z-10 bg-[#020409]/60">
                     <div className="mb-8">
-                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-emerald-400/70 mb-2">Operational Assets</p>
-                        <h3 className="text-[26px] font-black uppercase tracking-tighter text-white leading-none">Unidades de <span className="text-emerald-400">Control</span></h3>
+                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-emerald-400/70 mb-2">Herramientas Incluidas</p>
+                        <h3 className="text-[26px] font-black uppercase tracking-tighter text-white leading-none">Módulos de <span className="text-emerald-400">Trabajo</span></h3>
                     </div>
 
                     <div className="space-y-3 flex-1">
                         {[
-                            {I:Calculator, t:"Finanzas VEN-NIF", d:"Control de libros y declaraciones tributarias sin intervención humana."},
-                            {I:Users, t:"Capital Humano", d:"Gestión integral de nómina LOTTT y bienestar organizacional."},
-                            {I:ShoppingCart, t:"Facturación SENIAT", d:"Emisión masiva con validación fiscal IGTF y tasa BCV dinámica."},
-                            {I:Gavel, t:"Unidad Legal IA", d:"Blindaje contractual y monitoreo regulatorio automatizado."},
-                            {I:Smartphone, t:"Telecom 5G Corp.", d:"Gestión de infraestructura móvil y eSIMs como activo empresarial."},
-                            {I:Building2, t:"Gobierno Corporativo", d:"Gestión de accionistas, actas y repartición de dividendos."},
-                            {I:Recycle, t:"Responsabilidad Social", d:"Generación de valor ambiental certificado (Eco-Créditos)."},
-                            {I:ShieldCheck, t:"Compliance Preventivo", d:"Auditoría interna constante para asegurar el riesgo cero."},
-                            {I:BarChart3, t:"Inteligencia de Datos", d:"KPIs en tiempo real para decisiones de alta gerencia."},
+                            {I:Calculator, t:"Finanzas y Contabilidad", d:"Lleva el control de tus ingresos y gastos de forma organizada y fácil."},
+                            {I:Users, t:"Gestión de Equipo", d:"Administra a tus empleados, sus pagos y turnos sin papeleo."},
+                            {I:ShoppingCart, t:"Facturación y Punto de Venta", d:"Emite facturas al instante y controla tu inventario al vender."},
+                            {I:Smartphone, t:"Acceso Móvil", d:"Supervisa tu negocio desde tu celular en cualquier lugar."},
+                            {I:BarChart3, t:"Reportes Claros", d:"Gráficos simples para entender cuánto estás ganando realmente."}
                         ].map(({I,t,d},i)=>(
                             <div key={i} className="flex gap-4 p-3 bg-white/[0.02] rounded-2xl border border-white/5 hover:border-emerald-500/20 transition-all group">
                                 <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center shrink-0 border border-emerald-500/20 group-hover:bg-emerald-500/30 transition-colors">
@@ -449,7 +450,7 @@ export function FolletoView() {
                                 </div>
                                 <div>
                                     <h4 className="font-black text-white uppercase text-[9px] tracking-widest mb-1">{t}</h4>
-                                    <p className="text-[8.5px] text-slate-500 leading-snug">{d}</p>
+                                    <p className="text-[9px] text-slate-400 leading-snug">{d}</p>
                                 </div>
                             </div>
                         ))}
@@ -459,7 +460,7 @@ export function FolletoView() {
                 {/* P5: GARANTÍA DE CONTINUIDAD (Centro) */}
                 <div className="w-[3.69in] border-r border-white/5 p-8 flex flex-col relative z-10 bg-[#03050a]">
                     <div className="mb-8">
-                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-blue-400/70 mb-2">Business Continuity</p>
+                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-blue-400/70 mb-2">Nuestro Compromiso</p>
                         <h3 className="text-[26px] font-black uppercase tracking-tighter text-white leading-none">Garantía <span className="text-blue-500">Kyron</span></h3>
                     </div>
 
@@ -468,29 +469,29 @@ export function FolletoView() {
                             <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:rotate-12 transition-transform">
                                 <Zap className="h-16 w-16 text-blue-400" />
                             </div>
-                            <h4 className="font-black text-blue-400 uppercase text-[11px] tracking-widest mb-3">Infraestructura 24/7</h4>
-                            <p className="text-[10px] text-slate-400 leading-relaxed">
-                                Garantizamos la continuidad operativa de su empresa. Si su hardware fiscal o telecom falla, lo reponemos en **tiempo récord** para evitar pérdidas de facturación.
+                            <h4 className="font-black text-blue-400 uppercase text-[11px] tracking-widest mb-3">Siempre Funcionando</h4>
+                            <p className="text-[10px] text-slate-300 leading-relaxed">
+                                Si necesitas ayuda o algo falla, nuestro equipo te asiste rápidamente para que las ventas de tu negocio no se detengan ni un solo minuto.
                             </p>
                         </div>
 
                         <div className="p-7 rounded-[2rem] border border-emerald-500/20 bg-emerald-500/5">
-                            <h4 className="font-black text-emerald-400 uppercase text-[11px] tracking-widest mb-3">Soporte Estratégico</h4>
-                            <p className="text-[10px] text-slate-400 leading-relaxed">
-                                Acceso directo a ingenieros y consultores legales. No somos un Call Center; somos su **departamento técnico externo**.
+                            <h4 className="font-black text-emerald-400 uppercase text-[11px] tracking-widest mb-3">Soporte Humano</h4>
+                            <p className="text-[10px] text-slate-300 leading-relaxed">
+                                No te atiende un robot. Hablas directamente con nuestros asesores locales que entienden cómo funciona tu comercio.
                             </p>
                         </div>
 
                         <div className="p-7 rounded-[2rem] border border-white/10 bg-white/5">
-                            <h4 className="font-black text-white uppercase text-[11px] tracking-widest mb-3">Redundancia de Datos</h4>
-                            <p className="text-[10px] text-slate-400 leading-relaxed">
-                                Sincronización híbrida (Local/Nube). Su empresa opera con o sin conexión, con respaldo total ininterrumpido.
+                            <h4 className="font-black text-white uppercase text-[11px] tracking-widest mb-3">Sin Enredos</h4>
+                            <p className="text-[10px] text-slate-300 leading-relaxed">
+                                Hacemos que la tecnología sea invisible. Tú solo ocúpate de atender a tus clientes, la plataforma hace los cálculos por ti.
                             </p>
                         </div>
                     </div>
 
                     <div className="mt-8 p-6 bg-gradient-to-r from-blue-600/20 to-transparent rounded-[2rem] border border-blue-500/30">
-                        <p className="text-[11px] text-white font-black uppercase tracking-[0.2em] text-center italic">"Seguridad que se siente en el balance general."</p>
+                        <p className="text-[11px] text-white font-black uppercase tracking-[0.2em] text-center italic">"Un aliado confiable para el día a día."</p>
                     </div>
                 </div>
 
@@ -501,17 +502,17 @@ export function FolletoView() {
                     </div>
                     
                     <div className="mb-10">
-                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-cyan-400/70 mb-2">Strategic Roadmap</p>
-                        <h3 className="text-[26px] font-black uppercase tracking-tighter text-white leading-none">Expansión <span className="text-cyan-400">2026</span></h3>
+                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-cyan-400/70 mb-2">Visión a Futuro</p>
+                        <h3 className="text-[26px] font-black uppercase tracking-tighter text-white leading-none">Crecemos <span className="text-cyan-400">Contigo</span></h3>
                     </div>
 
                     <div className="space-y-6 flex-1">
                         <div className="space-y-4">
                             <p className="text-[11px] text-slate-300 leading-relaxed text-justify font-medium">
-                                System Kyron está diseñado para escalar. Desde una Pyme hasta un Holding multinacional, nuestro ecosistema se adapta sin necesidad de reinvertir en infraestructura básica.
+                                Ya sea que tengas un emprendimiento desde casa o varias sucursales, System Kyron se ajusta a tu ritmo. Pagas solo por lo que necesitas y agregas funciones a medida que creces.
                             </p>
                             <p className="text-[11px] text-slate-400 leading-relaxed text-justify">
-                                Para 2026, seremos la red de gestión más grande de la región, conectando empresas, talento y entes gubernamentales en un solo flujo digital eficiente.
+                                Queremos ser el motor digital que impulse a los negocios locales hacia el éxito, brindándote herramientas que antes solo las grandes empresas podían tener.
                             </p>
                         </div>
 
@@ -521,24 +522,24 @@ export function FolletoView() {
                                     <Rocket className="h-6 w-6 text-cyan-400" />
                                 </div>
                                 <div>
-                                    <h5 className="text-[10px] font-black text-white uppercase tracking-widest">Inversión Tecnológica</h5>
-                                    <p className="text-[8px] text-slate-500 uppercase font-bold tracking-tighter">I+D Constante en IA Soberana</p>
+                                    <h5 className="text-[10px] font-black text-white uppercase tracking-widest">Innovación Constante</h5>
+                                    <p className="text-[8px] text-slate-400 uppercase font-bold tracking-tighter">Nuevas funciones cada mes</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-5">
                                 <div className="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
-                                    <Shield className="h-6 w-6 text-cyan-400" />
+                                    <Users className="h-6 w-6 text-cyan-400" />
                                 </div>
                                 <div>
-                                    <h5 className="text-[10px] font-black text-white uppercase tracking-widest">Protección de Activos</h5>
-                                    <p className="text-[8px] text-slate-500 uppercase font-bold tracking-tighter">Vigilancia Regulatoria 24/7</p>
+                                    <h5 className="text-[10px] font-black text-white uppercase tracking-widest">Comunidad</h5>
+                                    <p className="text-[8px] text-slate-400 uppercase font-bold tracking-tighter">Eventos y capacitación gratis</p>
                                 </div>
                             </div>
                         </div>
 
                         <div className="mt-auto p-6 bg-cyan-500/10 rounded-[2rem] border border-cyan-500/30 text-center">
                             <p className="text-[10px] text-white font-black uppercase tracking-widest leading-relaxed">
-                                Forme parte de la élite corporativa de Venezuela.
+                                Súmate a la revolución comercial de Venezuela.
                             </p>
                         </div>
                     </div>
@@ -546,8 +547,8 @@ export function FolletoView() {
                     <div className="mt-8 flex justify-between items-end pt-8 border-t border-white/5">
                         <img src="/images/logo-black.png" alt="Kyron Mini" className="h-12 w-12 opacity-30 object-contain" crossOrigin="anonymous" />
                         <div className="text-right">
-                            <p className="text-[8px] text-slate-700 font-black uppercase tracking-[0.3em] mb-1">System Kyron Elite</p>
-                            <p className="text-[7px] text-slate-800 font-bold">Secure Infrastructure System</p>
+                            <p className="text-[8px] text-slate-500 font-black uppercase tracking-[0.3em] mb-1">System Kyron</p>
+                            <p className="text-[7px] text-slate-600 font-bold">La solución para tu negocio</p>
                         </div>
                     </div>
                 </div>
