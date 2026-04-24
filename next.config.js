@@ -49,7 +49,7 @@ const nextConfig = {
       'react-intersection-observer', 'input-otp',
     ],
     serverActions: {
-      bodySizeLimit: '4mb',
+      bodySizeLimit: '10mb', // Aumentado para manejar PDFs 4K
     },
   },
   allowedDevOrigins: ['*.replit.dev', '*.picard.replit.dev', '*.kirk.replit.dev', '*.spock.replit.dev', '*.riker.replit.dev', '*.janeway.replit.dev'],
@@ -61,8 +61,9 @@ const nextConfig = {
       { protocol: 'https', hostname: 'api.qrserver.com' },
       { protocol: 'https', hostname: 'i.pravatar.cc' },
     ],
-    formats: ['image/avif', 'image/webp'],
-    minimumCacheTTL: 86400,
+    formats: ['image/webp'], // AVIF es lento de procesar en servidor, mejor solo WebP
+    minimumCacheTTL: 31536000, // Un año para evitar re-procesamiento
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
   },
   async headers() {
     return [

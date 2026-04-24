@@ -24,7 +24,8 @@ import {
     Phone
 } from 'lucide-react';
 
-export function FolletoView() {
+export function FolletoView({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = React.use(params);
     const [baseUrl, setBaseUrl] = React.useState('https://system-kyron.vercel.app');
     const [isExporting, setIsExporting] = React.useState(false);
     const [mounted, setMounted] = React.useState(false);
