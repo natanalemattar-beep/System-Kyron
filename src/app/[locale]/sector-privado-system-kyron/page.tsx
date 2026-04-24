@@ -27,12 +27,17 @@ import {
 export function FolletoView() {
     const [baseUrl, setBaseUrl] = React.useState('https://system-kyron.vercel.app');
     const [isExporting, setIsExporting] = React.useState(false);
+    const [mounted, setMounted] = React.useState(false);
 
     React.useEffect(() => {
+        setMounted(true);
         if (typeof window !== 'undefined') {
             setBaseUrl(window.location.origin);
         }
     }, []);
+
+    // Si no está montado en el cliente, retornamos un placeholder o nada para evitar errores de servidor
+    if (!mounted) return <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-white font-bold animate-pulse">Cargando Ecosistema...</div>;
 
     const QR_PRINCIPAL = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl)}&color=000000&bgcolor=ffffff&margin=2`;
     const QR_FEEDBACK = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl + '/feedback')}&color=000000&bgcolor=ffffff&margin=2`;
