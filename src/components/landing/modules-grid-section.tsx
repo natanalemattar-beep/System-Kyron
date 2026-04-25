@@ -163,6 +163,7 @@ export function ModulesGridSection() {
                     layout
                 >
                     <AnimatePresence mode="popLayout">
+                        {filteredModules.map((mod, i) => (
                             <motion.div
                                 key={mod.name}
                                 className={cn(
@@ -203,14 +204,14 @@ export function ModulesGridSection() {
                                                 {mod.desc}
                                             </p>
                                         </div>
-                                        {mod.featured && ! (isOffline && mod.requiresOnline) && (
+                                        {mod.featured && !(isOffline && mod.requiresOnline) && (
                                             <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-[7px] font-bold uppercase tracking-[0.15em] text-cyan-400 shrink-0">
                                                 <Sparkles className="h-1.5 w-1.5" /> Pro
                                             </span>
                                         )}
                                     </div>
 
-                                    {expandedModule === mod.name && ! (isOffline && mod.requiresOnline) && (
+                                    {expandedModule === mod.name && !(isOffline && mod.requiresOnline) && (
                                         <motion.div
                                             initial={{ opacity: 0, height: 0 }}
                                             animate={{ opacity: 1, height: 'auto' }}
