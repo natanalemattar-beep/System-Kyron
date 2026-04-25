@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
-import { Space_Grotesk, Outfit } from 'next/font/google';
+import { Plus_Jakarta_Sans, Outfit } from 'next/font/google';
 import { JetBrains_Mono } from 'next/font/google';
 import { Providers } from "@/components/providers";
 
-const spaceGrotesk = Space_Grotesk({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  variable: '--font-space-grotesk',
+  variable: '--font-plus-jakarta',
   display: 'swap',
 });
 
@@ -29,7 +29,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ||
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "System Kyron | Ecosistema Corporativo de Misión Crítica",
+    default: "System Kyron",
     template: "%s — System Kyron",
   },
   description:
@@ -83,7 +83,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es" className={`${spaceGrotesk.variable} ${outfit.variable} ${jetbrainsMono.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="es" className={`${plusJakartaSans.variable} ${outfit.variable} ${jetbrainsMono.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png" />

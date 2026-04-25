@@ -133,9 +133,9 @@ export function LandingHeader() {
                                 </span>
                                 <span className={cn(
                                     "hidden md:inline-block text-[7px] font-bold uppercase tracking-[0.3em] mt-1 transition-opacity duration-500",
-                                    "bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent opacity-70"
+                                    "bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent opacity-0"
                                 )}>
-                                    {tHero('slogan')}
+                                    System Kyron
                                 </span>
                             </div>
                         </Link>
