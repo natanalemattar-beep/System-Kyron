@@ -10,6 +10,7 @@ const FaqSection = dynamic(() => import('@/components/landing/faq-section').then
 const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: true });
 const FeaturesGrid = dynamic(() => import('@/components/landing/features-grid').then(m => ({ default: m.FeaturesGrid })), { ssr: true });
 const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: true });
+const PublicAssistant = dynamic(() => import('@/components/ai/public-assistant').then(m => ({ default: m.PublicAssistant })), { ssr: true });
 import { JsonLd } from '@/components/seo/json-ld';
 
 export default function LandingPage() {
@@ -73,6 +74,9 @@ export default function LandingPage() {
             </LazySection>
             <LazySection fallbackHeight="600px">
                 <CtaSection />
+            </LazySection>
+            <LazySection fallbackHeight="600px">
+                <PublicAssistant />
             </LazySection>
             <LazySection fallbackHeight="400px">
                 <FaqSection />

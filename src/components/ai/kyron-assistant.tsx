@@ -13,6 +13,7 @@ export function KyronAssistant() {
     const [isOpen, setIsOpen] = useState(false);
     const [isMinimized, setIsMinimized] = useState(false);
     const [selectedAgent, setSelectedAgent] = useState<'general' | 'finance' | 'tech' | 'growth'>('general');
+    const [thinkingMode, setThinkingMode] = useState<'fast' | 'deep'>('fast');
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState([
         { role: 'assistant', content: '¡Hola! Soy **Kyron AI**, la inteligencia central de tu ecosistema. Estoy lista para ayudarte a gestionar tu negocio con máxima precisión. ¿En qué puedo asistirte hoy?' }
@@ -57,7 +58,8 @@ export function KyronAssistant() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     messages: [...messages, userMessage],
-                    agent: selectedAgent 
+                    agent: selectedAgent,
+                    mode: thinkingMode
                 }),
             });
 
@@ -159,32 +161,49 @@ export function KyronAssistant() {
 
                             {/* Agent Selector Bar */}
                             {!isMinimized && (
-                                <div className="flex justify-around p-1 bg-black/20 rounded-xl border border-white/5">
-                                    {(Object.keys(agentConfigs) as Array<keyof typeof agentConfigs>).map((key) => {
-                                        const config = agentConfigs[key];
-                                        const Icon = config.icon;
-                                        return (
-                                            <button
-                                                key={key}
-                                                onClick={() => {
-                                                    setSelectedAgent(key);
-                                                    setMessages([
-                                                        { role: 'assistant', content: `Has cambiado al especialista **${config.name}**. ¿En qué puedo ayudarte en esta área?` }
-                                                    ]);
-                                                }}
-                                                className={cn(
-                                                    "p-2 rounded-lg transition-all flex flex-col items-center gap-1 group",
-                                                    selectedAgent === key ? "bg-white/10" : "hover:bg-white/5"
-                                                )}
-                                                title={config.name}
-                                            >
-                                                <Icon className={cn("h-4 w-4 transition-colors", selectedAgent === key ? config.color : "text-zinc-600 group-hover:text-zinc-400")} />
-                                                <span className={cn("text-[7px] font-black uppercase tracking-tighter", selectedAgent === key ? "text-white" : "text-zinc-600")}>
-                                                    {key}
-                                                </span>
-                                            </button>
-                                        );
-                                    })}
+                                <div className="flex items-center gap-2 p-1 bg-black/20 rounded-xl border border-white/5">
+                                    <div className="flex flex-1 justify-around">
+                                        {(Object.keys(agentConfigs) as Array<keyof typeof agentConfigs>).map((key) => {
+                                            const config = agentConfigs[key];
+                                            const Icon = config.icon;
+                                            return (
+                                                <button
+                                                    key={key}
+                                                    onClick={() => {
+                                                        setSelectedAgent(key);
+                                                        setMessages([
+                                                            { role: 'assistant', content: `Has cambiado al especialista **${config.name}**. ¿En qué puedo ayudarte en esta área?` }
+                                                        ]);
+                                                    }}
+                                                    className={cn(
+                                                        "p-2 rounded-lg transition-all flex flex-col items-center gap-1 group",
+                                                        selectedAgent === key ? "bg-white/10" : "hover:bg-white/5"
+                                                    )}
+                                                    title={config.name}
+                                                >
+                                                    <Icon className={cn("h-4 w-4 transition-colors", selectedAgent === key ? config.color : "text-zinc-600 group-hover:text-zinc-400")} />
+                                                    <span className={cn("text-[7px] font-black uppercase tracking-tighter", selectedAgent === key ? "text-white" : "text-zinc-600")}>
+                                                        {key}
+                                                    </span>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                    
+                                    {/* Mode Toggle */}
+                                    <div className="h-8 w-px bg-white/10 mx-1" />
+                                    <button 
+                                        onClick={() => setThinkingMode(thinkingMode === 'fast' ? 'deep' : 'fast')}
+                                        className={cn(
+                                            "flex items-center gap-2 px-3 py-2 rounded-lg transition-all border",
+                                            thinkingMode === 'deep' 
+                                                ? "bg-violet-600/20 border-violet-500/40 text-violet-400 shadow-[0_0_10px_rgba(139,92,246,0.3)]" 
+                                                : "bg-zinc-800 border-zinc-700 text-zinc-500"
+                                        )}
+                                    >
+                                        {thinkingMode === 'fast' ? <Zap className="h-3 w-3" /> : <BrainCircuit className="h-3 w-3 animate-pulse" />}
+                                        <span className="text-[8px] font-black uppercase tracking-widest">{thinkingMode === 'fast' ? 'Turbo' : 'Deep'}</span>
+                                    </button>
                                 </div>
                             )}
                         </div>
