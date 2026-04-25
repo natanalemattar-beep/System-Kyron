@@ -8,9 +8,16 @@ import {
     Zap, Terminal, Cpu, Calculator, Wrench
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
 export function KyronAssistant() {
+    const pathname = usePathname();
+    const isHomePage = pathname === '/' || pathname === '/es' || pathname === '/en';
+    
     const [isOpen, setIsOpen] = useState(false);
+    
+    // Don't show the pro assistant on the landing page
+    if (isHomePage) return null;
     const [isMinimized, setIsMinimized] = useState(false);
     const [selectedAgent, setSelectedAgent] = useState<'general' | 'finance' | 'tech' | 'growth'>('general');
     const [thinkingMode, setThinkingMode] = useState<'fast' | 'deep'>('fast');
@@ -97,7 +104,7 @@ export function KyronAssistant() {
     };
 
     return (
-        <div className="fixed bottom-6 right-6 z-[1000] font-[family-name:var(--font-outfit)]">
+        <div className="fixed bottom-6 left-6 z-[1000] font-[family-name:var(--font-outfit)]">
             <AnimatePresence>
                 {!isOpen && (
                     <motion.button
