@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
+import { useIsOffline } from '@/hooks/use-is-offline';
 import {
     Calculator, Users, Gavel, Receipt, Smartphone,
     BrainCircuit, BarChart3, Landmark, Lock, ArrowRight,
@@ -29,8 +30,8 @@ const moduleConfigs = [
     { icon: Calculator, category: 'finance', color: 'text-blue-400', gradient: 'from-blue-500 to-blue-700', accent: 'from-blue-500/15', border: 'border-blue-500/15', featured: true },
     { icon: Receipt, category: 'finance', color: 'text-cyan-400', gradient: 'from-cyan-500 to-cyan-700', accent: 'from-cyan-500/15', border: 'border-cyan-500/15' },
     { icon: Wallet, category: 'finance', color: 'text-emerald-400', gradient: 'from-emerald-500 to-emerald-700', accent: 'from-emerald-500/15', border: 'border-emerald-500/15' },
-    { icon: Landmark, category: 'finance', color: 'text-indigo-400', gradient: 'from-indigo-500 to-indigo-700', accent: 'from-indigo-500/15', border: 'border-indigo-500/15' },
-    { icon: BarChart3, category: 'finance', color: 'text-violet-400', gradient: 'from-violet-500 to-violet-700', accent: 'from-violet-500/15', border: 'border-violet-500/15' },
+    { icon: Landmark, category: 'finance', color: 'text-indigo-400', gradient: 'from-indigo-500 to-indigo-700', accent: 'from-indigo-500/15', border: 'border-indigo-500/15', requiresOnline: true },
+    { icon: BarChart3, category: 'finance', color: 'text-violet-400', gradient: 'from-violet-500 to-violet-700', accent: 'from-violet-500/15', border: 'border-violet-500/15', requiresOnline: true },
     { icon: CreditCard, category: 'hr', color: 'text-green-400', gradient: 'from-green-500 to-green-700', accent: 'from-green-500/15', border: 'border-green-500/15' },
     { icon: Users, category: 'hr', color: 'text-teal-400', gradient: 'from-teal-500 to-teal-700', accent: 'from-teal-500/15', border: 'border-teal-500/15' },
     { icon: GraduationCap, category: 'hr', color: 'text-sky-400', gradient: 'from-sky-500 to-sky-700', accent: 'from-sky-500/15', border: 'border-sky-500/15' },
@@ -42,18 +43,19 @@ const moduleConfigs = [
     { icon: BadgeCheck, category: 'legal', color: 'text-rose-400', gradient: 'from-rose-500 to-rose-700', accent: 'from-rose-500/15', border: 'border-rose-500/15' },
     { icon: Briefcase, category: 'ops', color: 'text-lime-400', gradient: 'from-lime-500 to-lime-700', accent: 'from-lime-500/15', border: 'border-lime-500/15' },
     { icon: Building2, category: 'ops', color: 'text-slate-400', gradient: 'from-slate-500 to-slate-700', accent: 'from-slate-500/15', border: 'border-slate-500/15' },
-    { icon: Globe, category: 'ops', color: 'text-fuchsia-400', gradient: 'from-fuchsia-500 to-fuchsia-700', accent: 'from-fuchsia-500/15', border: 'border-fuchsia-500/15' },
+    { icon: Globe, category: 'ops', color: 'text-fuchsia-400', gradient: 'from-fuchsia-500 to-fuchsia-700', accent: 'from-fuchsia-500/15', border: 'border-fuchsia-500/15', requiresOnline: true },
     { icon: Car, category: 'ops', color: 'text-yellow-400', gradient: 'from-yellow-500 to-yellow-700', accent: 'from-yellow-500/15', border: 'border-yellow-500/15' },
     { icon: Smartphone, category: 'tech', color: 'text-cyan-400', gradient: 'from-cyan-500 to-cyan-700', accent: 'from-cyan-500/15', border: 'border-cyan-500/15' },
     { icon: Wrench, category: 'tech', color: 'text-gray-400', gradient: 'from-gray-500 to-gray-700', accent: 'from-gray-500/15', border: 'border-gray-500/15' },
     { icon: BrainCircuit, category: 'tech', color: 'text-violet-400', gradient: 'from-violet-500 to-violet-700', accent: 'from-violet-500/15', border: 'border-violet-500/15', featured: true },
-    { icon: Lock, category: 'tech', color: 'text-emerald-400', gradient: 'from-emerald-500 to-emerald-700', accent: 'from-emerald-500/15', border: 'border-emerald-500/15' },
-    { icon: Zap, category: 'tech', color: 'text-amber-400', gradient: 'from-amber-500 to-amber-700', accent: 'from-amber-500/15', border: 'border-amber-500/15' },
-    { icon: Shield, category: 'tech', color: 'text-blue-400', gradient: 'from-blue-500 to-blue-700', accent: 'from-blue-500/15', border: 'border-blue-500/15' },
+    { icon: Lock, category: 'tech', color: 'text-emerald-400', gradient: 'from-emerald-500 to-emerald-700', accent: 'from-emerald-500/15', border: 'border-emerald-500/15', requiresOnline: true },
+    { icon: Zap, category: 'tech', color: 'text-amber-400', gradient: 'from-amber-500 to-amber-700', accent: 'from-amber-500/15', border: 'border-amber-500/15', requiresOnline: true },
+    { icon: Shield, category: 'tech', color: 'text-blue-400', gradient: 'from-blue-500 to-blue-700', accent: 'from-blue-500/15', border: 'border-blue-500/15', requiresOnline: true },
 ];
 
 export function ModulesGridSection() {
     const { tier } = useDevicePerformance();
+    const isOffline = useIsOffline();
     const animate = tier !== 'low';
     const [activeCategory, setActiveCategory] = useState('all');
     const [expandedModule, setExpandedModule] = useState<string | null>(null);
@@ -161,22 +163,33 @@ export function ModulesGridSection() {
                     layout
                 >
                     <AnimatePresence mode="popLayout">
-                        {filteredModules.map((mod, i) => (
                             <motion.div
                                 key={mod.name}
                                 className={cn(
-                                    "group relative rounded-2xl border backdrop-blur-sm transition-all duration-500 cursor-pointer overflow-hidden",
+                                    "group relative rounded-2xl border backdrop-blur-sm transition-all duration-500 overflow-hidden",
                                     mod.border,
-                                    expandedModule === mod.name ? 'bg-white/[0.05] shadow-xl' : 'bg-white/[0.02] hover:-translate-y-2 hover:shadow-lg'
+                                    expandedModule === mod.name ? 'bg-white/[0.05] shadow-xl' : 'bg-white/[0.02] hover:-translate-y-2 hover:shadow-lg',
+                                    isOffline && mod.requiresOnline ? 'cursor-not-allowed grayscale-[0.8] opacity-60' : 'cursor-pointer'
                                 )}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ delay: i * 0.03, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                                 layout
-                                onClick={() => setExpandedModule(expandedModule === mod.name ? null : mod.name)}
+                                onClick={() => {
+                                    if (isOffline && mod.requiresOnline) return;
+                                    setExpandedModule(expandedModule === mod.name ? null : mod.name);
+                                }}
                             >
                                 <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-[1]", mod.accent)} />
+                                
+                                {isOffline && mod.requiresOnline && (
+                                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                                        <Lock className="h-6 w-6 text-white/50 mb-2" />
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-white/70">Requiere Internet</span>
+                                    </div>
+                                )}
+
                                 <div className="p-5">
                                     <div className="flex items-start gap-3">
                                         <div className={cn("p-2.5 rounded-xl bg-gradient-to-br shadow-lg shrink-0 group-hover:scale-110 transition-transform duration-300", mod.gradient)}>
@@ -190,14 +203,14 @@ export function ModulesGridSection() {
                                                 {mod.desc}
                                             </p>
                                         </div>
-                                        {mod.featured && (
+                                        {mod.featured && ! (isOffline && mod.requiresOnline) && (
                                             <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-[7px] font-bold uppercase tracking-[0.15em] text-cyan-400 shrink-0">
                                                 <Sparkles className="h-1.5 w-1.5" /> Pro
                                             </span>
                                         )}
                                     </div>
 
-                                    {expandedModule === mod.name && (
+                                    {expandedModule === mod.name && ! (isOffline && mod.requiresOnline) && (
                                         <motion.div
                                             initial={{ opacity: 0, height: 0 }}
                                             animate={{ opacity: 1, height: 'auto' }}

@@ -8,6 +8,7 @@ import { PerformanceProvider } from "@/components/performance-provider";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
 import { OfflineIndicator } from "@/components/landing/offline-indicator";
+import { KyronAssistant } from "@/components/ai/kyron-assistant";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -36,6 +37,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
           <div className="relative flex min-h-screen flex-col">
             {children}
             <OfflineIndicator />
+            <KyronAssistant />
           </div>
         </DemoBannerProvider>
       </PerformanceProvider>
