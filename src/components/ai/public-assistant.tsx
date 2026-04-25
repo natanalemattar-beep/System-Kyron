@@ -12,7 +12,7 @@ export function PublicAssistant() {
     const [isOpen, setIsOpen] = useState(false);
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState([
-        { role: 'assistant', content: '¡Hola! Bienvenido a **System Kyron**. Soy tu guía experto. ¿Quieres saber cómo podemos transformar tu negocio o tienes alguna duda técnica sobre nuestro ecosistema?' }
+        { role: 'assistant', content: '¡Hola! Bienvenido a **System Kyron**. Soy tu guía experto. ¿Te interesa conocer nuestra nueva **Conectividad 5G**, cómo impulsamos la **Sostenibilidad** con Ameru, o tienes dudas sobre nuestros módulos fiscales y legales?' }
     ]);
     const [isLoading, setIsLoading] = useState(false);
     const [isStreaming, setIsStreaming] = useState(false);
