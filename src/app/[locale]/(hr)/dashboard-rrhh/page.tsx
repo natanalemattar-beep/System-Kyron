@@ -146,24 +146,24 @@ export default function RecursosHumanosPage() {
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-3">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                <Heart className="h-4 w-4 text-white" />
+              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                <Heart className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg md:text-xl font-bold tracking-tight">Capital Humano</h1>
-                <p className="text-[10px] text-white/40 font-medium">Gestión de Personal · LOTTT 2026</p>
+                <h1 className="text-2xl md:text-4xl font-black tracking-tighter font-impact uppercase leading-none">Capital <span className="text-emerald-400">Humano</span></h1>
+                <p className="text-[10px] text-white/40 font-black uppercase tracking-[0.3em] font-tech">Gestión de Personal • LOTTT 2026</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="inline-flex items-center gap-1 text-[11px] text-emerald-400 font-semibold"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Activo</span>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-400 font-black uppercase tracking-widest font-tech"><span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" /> SK-Core Sostenible Activo</span>
             </div>
           </div>
           <div className="flex gap-2">
-            <Button variant="ghost" size="sm" className="h-8 px-3 rounded-lg text-[10px] font-semibold text-white/50 hover:text-white hover:bg-white/[0.06]" onClick={fetchEmpleados} disabled={loading}>
-              <Activity className={cn("h-3.5 w-3.5 mr-1.5", loading && "animate-spin")} /> Actualizar
+            <Button variant="ghost" size="sm" className="h-10 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/[0.06] font-tech" onClick={fetchEmpleados} disabled={loading}>
+              <Activity className={cn("h-4 w-4 mr-2", loading && "animate-spin")} /> Actualizar
             </Button>
-            <Button size="sm" className="h-8 px-4 rounded-lg text-[10px] font-semibold bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-400 hover:to-teal-400 shadow-lg shadow-emerald-500/20" onClick={() => setShowDialog(true)}>
-              <UserPlus className="h-3.5 w-3.5 mr-1.5" /> Nuevo Empleado
+            <Button size="sm" className="h-10 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-400 hover:to-teal-400 shadow-xl shadow-emerald-500/20 font-tech" onClick={() => setShowDialog(true)}>
+              <UserPlus className="h-4 w-4 mr-2" /> Nuevo Empleado
             </Button>
           </div>
         </div>

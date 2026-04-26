@@ -14,30 +14,8 @@ import { VideoModal } from "./video-modal";
 
 // ─── HELPER COMPONENTS ────────────────────────────────
 
-function useCountUp(target: number, duration: number = 2.5, delay: number = 1) {
-    const [count, setCount] = useState(0);
-    useEffect(() => {
-        let start = 0;
-        const end = target;
-        const totalDuration = duration * 1000;
-        const increment = end / (totalDuration / 16);
+// Hook removed as it was unused and causing lint errors in Vercel build
 
-        const timer = setTimeout(() => {
-            const handle = setInterval(() => {
-                start += increment;
-                if (start >= end) {
-                    setCount(end);
-                    clearInterval(handle);
-                } else {
-                    setCount(Math.floor(start));
-                }
-            }, 16);
-        }, delay * 1000);
-
-        return () => clearTimeout(timer);
-    }, [target, duration, delay]);
-    return count;
-}
 
 function RotatingWords({ words, interval = 3000 }: { words: string[], interval?: number }) {
     const [index, setIndex] = useState(0);
@@ -132,9 +110,15 @@ export function HeroSection() {
         offset: ["start start", "end start"]
     });
 
-    const yParallax = useTransform(scrollYProgress, [0, 1], [0, 120]);
-    const scaleParallax = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
-    const opacityParallax = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+    // 5-Layer Parallax System
+    // 4-Layer active Parallax System (Unused Layer 1 removed for Vercel build stability)
+
+    const yLayer2 = useTransform(scrollYProgress, [0, 1], [0, 100]); // Stats/Badges
+    const yLayer3 = useTransform(scrollYProgress, [0, 1], [0, -50]); // Main Text (Counter-scroll)
+    const yLayer4 = useTransform(scrollYProgress, [0, 1], [0, 40]);  // Dashboard
+    const opacityHero = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+    const scaleHero = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+
 
     const [liveStats, setLiveStats] = useState({ totalUsuarios: 0 });
     const [videoOpen, setVideoOpen] = useState(false);
@@ -169,7 +153,10 @@ export function HeroSection() {
                     <div className="w-full container mx-auto px-6 sm:px-10 lg:px-16 max-w-7xl">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center w-full py-8 lg:py-16">
 
-                        <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
+                        <motion.div 
+                            style={{ y: yLayer3, opacity: opacityHero }}
+                            className="lg:col-span-7 space-y-8 text-center lg:text-left"
+                        >
                             <ScrollReveal delay={0.1}>
                                 <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md transition-all hover:bg-amber-500/20 group shadow-glow-sm">
                                     <Sparkles className="h-4 w-4 text-amber-400 group-hover:rotate-12 transition-transform" />
@@ -241,14 +228,14 @@ export function HeroSection() {
                                     </div>
                                 ))}
                             </motion.div>
-                        </div>
+                        </motion.div>
 
                         <div className="hidden lg:block lg:col-span-5 relative">
                             <motion.div
                                 style={{ 
-                                    y: yParallax, 
-                                    scale: scaleParallax, 
-                                    opacity: opacityParallax 
+                                    y: yLayer4, 
+                                    scale: scaleHero, 
+                                    opacity: opacityHero 
                                 }}
                                 initial={{ opacity: 0, x: 40, filter: 'blur(20px)' }}
                                 animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
@@ -258,19 +245,29 @@ export function HeroSection() {
                                 {/* Main Dashboard Preview Container */}
                                 <div className="relative glass-elite p-3 rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] border-white/10 hover:border-white/20 transition-all duration-700 group perspective-2000">
                                     <motion.div 
-                                        whileHover={{ rotateY: -8, rotateX: 5, scale: 1.02 }}
+                                        whileHover={{ rotateY: -12, rotateX: 8, scale: 1.05 }}
                                         transition={{ type: "spring", stiffness: 150, damping: 20 }}
-                                        className="relative rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl"
+                                        className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-slate-950"
                                     >
                                         <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 via-transparent to-violet-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-10 pointer-events-none" />
                                         
+                                        {/* Holographic Scanline */}
+                                        <motion.div 
+                                            animate={{ top: ['-10%', '110%'] }}
+                                            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                                            className="absolute left-0 right-0 h-[2px] bg-cyan-400/50 shadow-[0_0_15px_rgba(34,211,238,0.8)] z-20 pointer-events-none"
+                                        />
+
+                                        {/* Hud Grid Overlay */}
+                                        <div className="absolute inset-0 hud-grid opacity-10 z-10 pointer-events-none" />
+
                                         <ThemeImage
                                             darkSrc="/images/landing/hero-dashboard-dark.jpg"
                                             lightSrc="/images/landing/hero-dashboard-light.jpg"
                                             alt="Kyron Elite Dashboard"
                                             width={1000}
                                             height={600}
-                                            className="w-full h-auto transition-transform duration-1000 group-hover:scale-105"
+                                            className="w-full h-auto transition-transform duration-1000 group-hover:scale-110"
                                             priority
                                         />
                                         
@@ -278,7 +275,7 @@ export function HeroSection() {
                                             <div className="glass-elite px-4 py-2 rounded-2xl border-white/20 backdrop-blur-3xl shadow-glow-sm">
                                                 <div className="flex items-center gap-2">
                                                     <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                                                    <span className="text-[10px] font-black text-white tracking-widest tabular-nums">SISTEMA ACTIVO</span>
+                                                    <span className="text-[10px] font-black text-white tracking-widest tabular-nums uppercase">Protocolo Alfa Activo</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -317,7 +314,10 @@ export function HeroSection() {
                     </div>
                     </div>
 
-                <div className="w-full bg-gradient-to-b from-transparent via-[#050816]/50 to-[#050816] relative z-20 pb-20 mt-16">
+                <motion.div 
+                    style={{ y: yLayer2 }}
+                    className="w-full bg-gradient-to-b from-transparent via-[#050816]/50 to-[#050816] relative z-20 pb-20 mt-16"
+                >
                     <div className="container mx-auto px-6 sm:px-10 lg:px-16 max-w-7xl">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
                             {heroStats.map((stat, i) => (

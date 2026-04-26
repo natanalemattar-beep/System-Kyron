@@ -10,7 +10,7 @@ const FaqSection = dynamic(() => import('@/components/landing/faq-section').then
 const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: true });
 const FeaturesGrid = dynamic(() => import('@/components/landing/features-grid').then(m => ({ default: m.FeaturesGrid })), { ssr: true });
 const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: true });
-const PublicAssistant = dynamic(() => import('@/components/ai/public-assistant').then(m => ({ default: m.PublicAssistant })), { ssr: true });
+const PublicAssistant = dynamic(() => import('@/components/ai/public-assistant').then(m => ({ default: m.PublicAssistant })), { ssr: false });
 import { JsonLd } from '@/components/seo/json-ld';
 
 export default function LandingPage() {

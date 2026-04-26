@@ -27,90 +27,89 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    if (body.email && body.code) {
-      const normalizedEmail = sanitizeEmail(body.email);
-      const proposito = body.proposito || 'verification';
-      const result = await verifyCode(normalizedEmail, body.code.trim(), proposito);
+    const body = await req.json();
+    
+    // Unificar entrada de datos
+    const destino = (body.email || body.destino || '').trim().toLowerCase();
+    const codigo = (body.code || body.codigo || '').trim();
+    const proposito = body.proposito || 'verification';
 
-      if (!result.valid) {
-        return NextResponse.json({ error: result.error }, { status: 401 });
-      }
+    if (!destino || !codigo) {
+      return NextResponse.json({ error: 'Destino y código son requeridos para la verificación' }, { status: 400 });
+    }
 
-      const user = await queryOne<DbUser>(
-        `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif
-         FROM users WHERE email = $1`,
-        [normalizedEmail]
-      );
+    const normalizedDestino = destino.includes('@') ? sanitizeEmail(destino) : destino;
+    
+    console.log(`[verify-code] Iniciando validación para: ${normalizedDestino}`);
 
-      // Si el código es válido pero el usuario no existe, es un flujo de registro exitoso o un limbo
-      if (!user) {
-        return NextResponse.json({ 
-          success: true, 
-          verified: true, 
-          requiresRegistration: true,
-          message: 'Código verificado correctamente. Procede con el registro.'
-        });
-      }
+    // Validar el código contra la base de datos
+    const verification = await verifyCode(normalizedDestino, codigo, proposito);
 
-      const displayName = user.tipo === 'juridico'
-        ? (user.razon_social ?? user.nombre)
-        : user.nombre;
+    if (!verification.valid) {
+      const isRateLimited = verification.error?.includes('Demasiados');
+      return NextResponse.json({ error: verification.error }, { status: isRateLimited ? 429 : 401 });
+    }
 
-      const token = await createToken({
-        userId: user.id,
+    // Código válido -> Buscar usuario
+    const user = await queryOne<DbUser>(
+      `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif
+       FROM users WHERE email = $1 OR telefono = $1`,
+      [normalizedDestino]
+    );
+
+    // Caso A: Usuario no existe (Flujo de Registro)
+    if (!user) {
+      return NextResponse.json({ 
+        success: true, 
+        verified: true, 
+        requiresRegistration: true,
+        message: 'Identidad confirmada. Proceda con la creación de su cuenta.'
+      });
+    }
+
+    // Caso B: Usuario existe (Flujo de Login)
+    const displayName = user.tipo === 'juridico'
+      ? (user.razon_social ?? user.nombre)
+      : `${user.nombre} ${user.apellido || ''}`.trim();
+
+    const token = await createToken({
+      userId: user.id,
+      email: user.email,
+      tipo: user.tipo,
+      nombre: displayName,
+    });
+
+    const cookie = setSessionCookie(token);
+    const response = NextResponse.json({
+      success: true,
+      verified: true,
+      user: {
+        id: user.id,
         email: user.email,
         tipo: user.tipo,
         nombre: displayName,
-      });
+        apellido: user.apellido,
+        cedula: user.cedula,
+        razon_social: user.razon_social,
+        rif: user.rif,
+      },
+    });
 
-      const cookie = setSessionCookie(token);
-      const res = NextResponse.json({
-        success: true,
-        user: {
-          id: user.id,
-          email: user.email,
-          tipo: user.tipo,
-          nombre: displayName,
-          apellido: user.apellido,
-          cedula: user.cedula,
-          razon_social: user.razon_social,
-          rif: user.rif,
-        },
-      });
-      res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
+    response.cookies.set(cookie.name, cookie.value, cookie.options as any);
 
-      await logActivity({
-        userId: user.id,
-        evento: 'LOGIN',
-        categoria: 'auth',
-        descripcion: `Inicio de sesión verificado: ${displayName} (${user.email})`,
-        entidadTipo: 'usuario',
-        entidadId: user.id,
-        metadata: { email: user.email, tipo: user.tipo, verificado: true, proposito },
-      });
+    // Registrar actividad de éxito
+    await logActivity({
+      userId: user.id,
+      evento: 'LOGIN_VERIFIED',
+      categoria: 'auth',
+      descripcion: `Acceso verificado exitosamente para ${displayName}`,
+      entidadTipo: 'usuario',
+      entidadId: user.id,
+      metadata: { method: destino.includes('@') ? 'email' : 'phone', proposito },
+    });
 
-      return res;
-    }
+    return response;
 
-    if (body.destino && body.codigo) {
-      const destino = String(body.destino).trim().toLowerCase();
-      const codigo = String(body.codigo).trim();
-      const proposito = body.proposito || 'verification';
-
-      if (!destino || !codigo) {
-        return NextResponse.json({ error: 'Destino y código son requeridos' }, { status: 400 });
-      }
-
-      console.log(`[verify-code] Verificando destino: ${destino} para propósito: ${proposito}`);
-      const result = await verifyCode(destino, codigo, proposito);
-
-      if (!result.valid) {
-        const status = result.error?.includes('Demasiados') ? 429 : 400;
-        return NextResponse.json({ error: result.error }, { status });
-      }
-
-      return NextResponse.json({ success: true, verified: true, message: 'Identidad confirmada.' });
-    }
 
 
     return NextResponse.json({ error: 'Datos de verificación incompletos' }, { status: 400 });

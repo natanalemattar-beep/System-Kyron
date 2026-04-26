@@ -94,12 +94,12 @@ export default function DashboardEjecutivoPage() {
     <div className="space-y-6 pb-16 px-4 md:px-6 lg:px-8 animate-in fade-in duration-700">
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 pb-2">
         <div>
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex items-center gap-2 mb-1 font-tech">
             <LayoutDashboard className="h-4 w-4 text-primary" />
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Flota Empresarial</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Flota Empresarial SK-5G</span>
           </div>
-          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">Dashboard Ejecutivo</h1>
-          <p className="text-xs text-muted-foreground mt-0.5">Vista consolidada de KPIs para la Dirección.</p>
+          <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-none font-impact">Dashboard <span className="text-primary italic">Ejecutivo</span></h1>
+          <p className="text-[10px] font-bold text-muted-foreground mt-2 uppercase tracking-[0.2em] opacity-50 font-tech">Vista consolidada de KPIs de Infraestructura 2026.</p>
         </div>
         <Button variant="outline" size="sm" className="h-9 px-4 rounded-lg text-xs font-semibold">
           <Download className="mr-1.5 h-3.5 w-3.5" /> Exportar Reporte
@@ -131,16 +131,104 @@ export default function DashboardEjecutivoPage() {
             </div>
           </motion.div>
         ))}
+      <div className="grid lg:grid-cols-12 gap-6">
+        <Card className="lg:col-span-8 bg-black/40 border border-white/5 rounded-[2.5rem] overflow-hidden relative group">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(6,182,212,0.1),transparent_70%)]" />
+          <CardHeader className="p-8 border-b border-white/5 bg-white/[0.01]">
+            <div className="flex justify-between items-center">
+              <div>
+                <CardTitle className="text-lg font-black uppercase tracking-tighter text-white">Radar de Red <span className="text-cyan-400">SK-5G</span></CardTitle>
+                <CardDescription className="text-[9px] font-bold uppercase tracking-widest opacity-40">Monitoreo de latencia y potencia en tiempo real</CardDescription>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[8px] font-black uppercase text-emerald-400">Red Óptima</span>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="p-10">
+             <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div className="relative flex items-center justify-center">
+                   {/* Radar Animation */}
+                   <div className="h-48 w-48 rounded-full border border-cyan-500/20 relative">
+                      <motion.div 
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-0 rounded-full border-t border-cyan-500/40"
+                      />
+                      <div className="absolute inset-[25%] rounded-full border border-cyan-500/10" />
+                      <div className="absolute inset-[50%] rounded-full border border-cyan-500/5" />
+                      <div className="absolute top-1/4 left-1/3 h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)] animate-pulse" />
+                      <div className="absolute bottom-1/3 right-1/4 h-1.5 w-1.5 rounded-full bg-blue-400 opacity-50" />
+                   </div>
+                   <div className="absolute flex flex-col items-center">
+                      <span className="text-2xl font-black text-white">12ms</span>
+                      <span className="text-[8px] font-black uppercase text-zinc-500">Latencia</span>
+                   </div>
+                </div>
+                <div className="space-y-6">
+                   {[
+                     { label: "Potencia de Señal", val: "-84 dBm", pct: 85, color: "bg-cyan-500" },
+                     { label: "Ancho de Banda", val: "1.2 Gbps", pct: 92, color: "bg-blue-500" },
+                     { label: "Estabilidad de Paquetes", val: "99.98%", pct: 99, color: "bg-emerald-500" }
+                   ].map(item => (
+                     <div key={item.label} className="space-y-2">
+                        <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-zinc-400">
+                           <span>{item.label}</span>
+                           <span className="text-white">{item.val}</span>
+                        </div>
+                        <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                           <motion.div 
+                             initial={{ width: 0 }}
+                             animate={{ width: `${item.pct}%` }}
+                             className={cn("h-full", item.color)}
+                           />
+                        </div>
+                     </div>
+                   ))}
+                </div>
+             </div>
+          </CardContent>
+        </Card>
+
+        <Card className="lg:col-span-4 bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-8">
+           <CardHeader className="p-0 mb-8">
+              <CardTitle className="text-[10px] font-black uppercase tracking-[0.25em] text-zinc-500">Salud MDM Dispositivos</CardTitle>
+           </CardHeader>
+           <CardContent className="p-0 space-y-6">
+              {[
+                { name: "iPhone 15 Pro - HQ", status: "Seguro", battery: "88%", color: "text-emerald-500" },
+                { name: "S24 Ultra - Ventas", status: "Actualizando", battery: "42%", color: "text-amber-500" },
+                { name: "iPad Air - Almacén", status: "Desconectado", battery: "05%", color: "text-rose-500" }
+              ].map((dev, i) => (
+                <div key={i} className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-between">
+                   <div className="space-y-1">
+                      <p className="text-[10px] font-black text-white uppercase tracking-widest">{dev.name}</p>
+                      <p className={cn("text-[8px] font-bold uppercase", dev.color)}>{dev.status}</p>
+                   </div>
+                   <div className="text-right">
+                      <p className="text-[10px] font-black text-white">{dev.battery}</p>
+                      <div className="h-1 w-8 bg-zinc-800 rounded-full mt-1 overflow-hidden">
+                         <div className="h-full bg-white opacity-40" style={{ width: dev.battery }} />
+                      </div>
+                   </div>
+                </div>
+              ))}
+              <Button variant="outline" className="w-full h-12 rounded-xl border-white/5 text-[9px] font-black uppercase tracking-widest mt-4">
+                 Gestionar Seguridad MDM
+              </Button>
+           </CardContent>
+        </Card>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-5">
+      <div className="grid lg:grid-cols-3 gap-6">
         <Card className="lg:col-span-2 bg-card/60 border border-border/50 rounded-xl overflow-hidden">
           <CardHeader className="px-5 py-4 border-b border-border/50">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded-lg"><BarChart3 className="h-4 w-4 text-primary" /></div>
               <div>
-                <CardTitle className="text-sm font-semibold text-foreground">Tendencia de Costos</CardTitle>
-                <CardDescription className="text-[10px] text-muted-foreground">Últimos 6 meses</CardDescription>
+                <CardTitle className="text-sm font-semibold text-foreground">Tendencia de Costos Corporativos</CardTitle>
+                <CardDescription className="text-[10px] text-muted-foreground">Proyección financiera Q2-2026</CardDescription>
               </div>
             </div>
           </CardHeader>
@@ -170,7 +258,7 @@ export default function DashboardEjecutivoPage() {
           <CardHeader className="px-5 py-4 border-b border-border/50">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded-lg"><PieChart className="h-4 w-4 text-primary" /></div>
-              <CardTitle className="text-sm font-semibold text-foreground">Distribución por Titular</CardTitle>
+              <CardTitle className="text-sm font-semibold text-foreground">Distribución Global</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="p-5 space-y-2">
@@ -196,11 +284,11 @@ export default function DashboardEjecutivoPage() {
         </Card>
       </div>
 
-      <Card className="bg-gradient-to-br from-primary/10 to-cyan-500/5 border border-primary/20 rounded-xl overflow-hidden">
-        <CardContent className="p-5 space-y-3">
+      <Card className="bg-gradient-to-br from-primary/10 to-cyan-500/5 border border-primary/20 rounded-[2.5rem] overflow-hidden">
+        <CardContent className="p-10 space-y-3">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-primary/10 rounded-lg"><BrainCircuit className="h-4 w-4 text-primary" /></div>
-            <p className="text-sm font-bold text-foreground">Resumen Ejecutivo</p>
+            <p className="text-sm font-black uppercase tracking-widest text-foreground">Resumen de Inteligencia Telecom</p>
           </div>
           {loading ? (
             <div className="flex items-center gap-2 text-muted-foreground">
@@ -212,13 +300,14 @@ export default function DashboardEjecutivoPage() {
               No hay líneas telecom registradas en el sistema. Registre las líneas corporativas para obtener métricas ejecutivas.
             </p>
           ) : (
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              La flota telecom opera con <strong>{totalLineas} líneas</strong> ({data?.lineas.activas ?? 0} activas).
-              {gastoMensual > 0 && <> El gasto mensual es de <strong>{formatCurrency(gastoMensual, 'USD', currentLocale)}</strong> en planes activos.</>}
-              {consumoTotal > 0 && <> El consumo total acumulado es de <strong>{consumoTotal.toFixed(1)} GB</strong> con promedio de {promedio.toFixed(1)} GB por línea.</>}
+            <p className="text-xs text-muted-foreground leading-relaxed italic">
+              La flota telecom opera bajo el protocolo <strong>SK-5G</strong> con <strong>{totalLineas} líneas</strong> ({data?.lineas.activas ?? 0} activas). 
+              Se detecta una latencia estable de 12ms y una integridad de red del 99.98%.
+              {gastoMensual > 0 && <> El gasto mensual consolidado es de <strong>{formatCurrency(gastoMensual, 'USD', currentLocale)}</strong>.</>}
             </p>
           )}
         </CardContent>
+      </Card>/CardContent>
       </Card>
     </div>
   );

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Users, DollarSign, Briefcase, ArrowRight, ShieldCheck, Handshake, Scale, FileText, Activity, CirclePercent, Clock, Landmark, Plus, Loader2, Pencil, Trash2 } from "lucide-react";
+import { Users, DollarSign, Briefcase, ArrowRight, ShieldCheck, Handshake, Scale, FileText, Activity, CirclePercent, Clock, Landmark, Plus, Loader2, Pencil, Trash2, Leaf } from "lucide-react";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -155,16 +155,16 @@ export default function DashboardSociosPage() {
 
   return (
     <div className="space-y-10 pb-20">
-      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-10">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-[11px] font-semibold uppercase tracking-wide text-indigo-500 mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-[11px] font-black uppercase tracking-[0.2em] text-indigo-500 mb-4 font-tech">
             <Briefcase className="h-3 w-3" /> CENTRO SOCIETARIO
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase">Gestión de <span className="text-indigo-500 italic">Socios</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">Estructura Accionaria • Gobernanza Corporativa 2026</p>
+          <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-none font-impact">Gestión de <span className="text-indigo-500 italic font-tech">Socios</span></h1>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.3em] opacity-40 mt-3 font-tech">Estructura Accionaria • Gobernanza Corporativa 2026</p>
         </div>
-        <Button onClick={() => { setEditId(null); setForm(emptySocio); setShowForm(true); }} size="sm" className="h-9 px-4 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white">
-          <Plus className="mr-1.5 h-3.5 w-3.5" /> Registrar Socio
+        <Button onClick={() => { setEditId(null); setForm(emptySocio); setShowForm(true); }} size="sm" className="h-11 px-6 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg font-tech">
+          <Plus className="mr-2 h-4 w-4" /> Registrar Socio
         </Button>
       </header>
 
@@ -302,11 +302,37 @@ export default function DashboardSociosPage() {
           <Card className="bg-gradient-to-br from-indigo-600 to-violet-700 text-white rounded-2xl p-6 border-none relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-10"><Handshake className="h-24 w-24" /></div>
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-            <h3 className="text-sm font-semibold uppercase tracking-tight mb-2">Pacto Parasocial</h3>
-            <p className="text-[11px] opacity-80 leading-relaxed mb-5">Gestione cláusulas de prelación, derecho de tag-along, drag-along y resolución de conflictos.</p>
-            <Button variant="secondary" size="sm" className="bg-white text-indigo-700 font-bold text-[10px] uppercase tracking-wider rounded-xl h-9 px-5 hover:bg-white/90">
+            <h3 className="text-sm font-black uppercase tracking-widest mb-2 font-tech">Pacto Parasocial</h3>
+            <p className="text-[11px] font-bold opacity-80 leading-relaxed mb-5 font-inter">Gestione cláusulas de prelación, derecho de tag-along, drag-along y resolución de conflictos.</p>
+            <Button variant="secondary" size="sm" className="bg-white text-indigo-700 font-black text-[9px] uppercase tracking-widest rounded-xl h-9 px-5 hover:bg-white/90 font-tech">
               Ver Documento
             </Button>
+          </Card>
+
+          {/* Radar Ameru.AI - Sostenibilidad para Socios */}
+          <Card className="bg-black/40 border border-emerald-500/20 rounded-2xl p-6 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.1),transparent_70%)]" />
+            <div className="relative z-10">
+              <div className="flex justify-between items-start mb-6">
+                <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                  <Leaf className="h-4 w-4 text-emerald-500" />
+                </div>
+                <Badge className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 text-[8px] font-black tracking-widest uppercase font-tech">Impacto ESG</Badge>
+              </div>
+              <h3 className="text-sm font-black uppercase tracking-widest text-white mb-2 font-tech">Radar <span className="text-emerald-500">Ameru.AI</span></h3>
+              <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-6 font-tech">Generación de Eco-créditos por Infraestructura 5G.</p>
+              
+              <div className="space-y-3">
+                <div className="flex justify-between items-center p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                  <span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest font-tech">Carbono Evitado</span>
+                  <span className="text-[10px] font-black text-emerald-400 font-impact tracking-widest">1.4 Tn / Mes</span>
+                </div>
+                <div className="flex justify-between items-center p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                  <span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest font-tech">Eficiencia SK-360</span>
+                  <span className="text-[10px] font-black text-white font-impact tracking-widest">94.2%</span>
+                </div>
+              </div>
+            </div>
           </Card>
         </div>
       </div>

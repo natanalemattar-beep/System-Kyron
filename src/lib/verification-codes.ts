@@ -110,8 +110,11 @@ export async function verifyCode(
   // Marcar como usado
   await query(`UPDATE verification_codes SET usado = true WHERE id = $1`, [record.id]);
 
-  // Intentar obtener el usuario si existe (opcional según el flujo)
-  const user = await queryOne<{ id: number }>(`SELECT id FROM users WHERE email = $1`, [key]);
+  // Intentar obtener el usuario si existe (búsqueda dual email/teléfono)
+  const user = await queryOne<{ id: number }>(
+    `SELECT id FROM users WHERE email = $1 OR telefono = $1`, 
+    [key]
+  );
   return { valid: true, userId: user?.id };
 }
 

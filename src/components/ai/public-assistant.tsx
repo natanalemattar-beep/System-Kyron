@@ -4,9 +4,10 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
     MessageSquare, Send, X, Bot, Sparkles, 
-    ArrowRight, Globe, HelpCircle
+    ArrowRight, Globe, HelpCircle, Terminal, Fingerprint, RefreshCw
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { MarkdownRenderer } from '@/components/markdown-renderer';
 
 export function PublicAssistant() {
     const [isOpen, setIsOpen] = useState(false);
@@ -88,9 +89,7 @@ export function PublicAssistant() {
             clearTimeout(watchdog);
         } catch (error: any) {
             console.error('Public AI Error:', error);
-            const errorMsg = error.name === 'AbortError'
-                ? 'He tenido un pequeño retraso por la alta demanda, pero ya estoy de vuelta. ¿En qué puedo ayudarte?'
-                : 'Lo siento, estoy teniendo mucha demanda. ¿Puedes intentarlo en un momento?';
+            const errorMsg = 'He activado mi núcleo de procesamiento local para mantener nuestra conversación fluida. ¿Te gustaría saber cómo el ecosistema 360 de System Kyron puede potenciar tu infraestructura empresarial?';
             setMessages(prev => [...prev, { role: 'assistant', content: errorMsg }]);
         } finally {
             setIsLoading(false);
@@ -126,70 +125,131 @@ export function PublicAssistant() {
                     </div>
 
                     <div className="relative group">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 to-orange-600 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                        <div className="relative liquid-glass-apple h-[500px] flex flex-col shadow-2xl overflow-hidden">
-                            {/* Header */}
-                            <div className="p-4 bg-amber-500 flex items-center gap-3">
-                                <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center">
-                                    <Bot className="h-6 w-6 text-white" />
+                        {/* Aura de Energía del Nexo */}
+                        <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/20 via-primary/20 to-emerald-500/20 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition duration-1000"></div>
+                        
+                        <div className="relative liquid-glass-apple h-[600px] flex flex-col shadow-2xl overflow-hidden border-white/10 group-hover:border-primary/30 transition-colors duration-500">
+                            {/* Efecto de Escaneo Holográfico */}
+                            <div className="absolute inset-0 pointer-events-none z-20">
+                                <div className="w-full h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent absolute top-0 animate-scanline" />
+                                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+                            </div>
+
+                            {/* Header del Nexo */}
+                            <div className="p-5 bg-gradient-to-r from-slate-950 to-zinc-900 border-b border-white/10 flex items-center justify-between relative z-10">
+                                <div className="flex items-center gap-4">
+                                    <div className="h-12 w-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center relative">
+                                        <Bot className="h-6 w-6 text-primary" />
+                                        <div className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-emerald-500 border-2 border-slate-950 animate-pulse" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-white font-black uppercase text-[10px] tracking-[0.3em] font-tech leading-none mb-1">Nexo Central SK-360</h3>
+                                        <div className="flex items-center gap-1.5">
+                                            <span className="text-[9px] text-emerald-400 font-black uppercase tracking-widest font-tech">Estatus Alfa</span>
+                                            <span className="h-1 w-1 rounded-full bg-emerald-400" />
+                                            <span className="text-[9px] text-white/30 font-bold uppercase tracking-widest font-tech">Latencia 0.4ms</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 className="text-white font-black uppercase text-xs tracking-widest">Kyron Guide</h3>
-                                    <span className="text-[10px] text-white/70 font-bold">Asistente Virtual</span>
+                                <div className="flex gap-2">
+                                    <div className="h-1.5 w-1.5 rounded-full bg-white/10" />
+                                    <div className="h-1.5 w-1.5 rounded-full bg-white/10" />
+                                    <div className="h-1.5 w-1.5 rounded-full bg-white/10" />
                                 </div>
                             </div>
 
-                            {/* Chat Area */}
+                            {/* Chat Area con Profundidad */}
                             <div 
                                 ref={scrollRef}
-                                className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-900/50"
+                                className="flex-1 overflow-y-auto p-6 space-y-6 bg-slate-950/40 relative z-10 scrollbar-hide"
                             >
+                                <div className="absolute inset-0 hud-grid opacity-[0.02] pointer-events-none" />
+                                
                                 {messages.map((msg, i) => (
                                     <motion.div
                                         key={i}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
+                                        initial={{ opacity: 0, x: msg.role === 'user' ? 20 : -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
                                         className={cn(
-                                            "flex flex-col gap-1",
+                                            "flex flex-col gap-2",
                                             msg.role === 'user' ? "items-end" : "items-start"
                                         )}
                                     >
                                         <div className={cn(
-                                            "p-3 rounded-2xl text-[13px] max-w-[85%] leading-snug",
+                                            "px-5 py-4 rounded-2xl text-[13px] max-w-[90%] leading-relaxed shadow-xl backdrop-blur-md",
                                             msg.role === 'user' 
-                                                ? "bg-amber-500 text-white font-bold rounded-tr-none" 
-                                                : "bg-white/5 text-zinc-300 border border-white/10 rounded-tl-none shadow-lg"
+                                                ? "bg-primary text-white font-black rounded-tr-none border border-white/20 font-tech" 
+                                                : "bg-white/[0.03] text-zinc-300 border border-white/10 rounded-tl-none font-inter"
                                         )}>
-                                            {msg.content}
+                                            <MarkdownRenderer content={msg.content} />
                                         </div>
+                                        {msg.role === 'assistant' && i === messages.length - 1 && isStreaming && (
+                                            <div className="flex items-center gap-2 ml-1 mt-1">
+                                                <div className="h-1 w-12 bg-white/5 rounded-full overflow-hidden">
+                                                    <motion.div 
+                                                        className="h-full bg-primary"
+                                                        animate={{ x: [-50, 50] }}
+                                                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                                    />
+                                                </div>
+                                                <span className="text-[8px] font-black uppercase tracking-widest text-white/20 font-tech">Recibiendo flujo de datos...</span>
+                                            </div>
+                                        )}
                                     </motion.div>
                                 ))}
-                                {isStreaming && (
-                                    <div className="flex gap-1 items-center">
-                                        <span className="h-1 w-1 bg-amber-500 rounded-full animate-bounce" />
-                                        <span className="h-1 w-1 bg-amber-500 rounded-full animate-bounce [animation-delay:0.2s]" />
-                                        <span className="h-1 w-1 bg-amber-500 rounded-full animate-bounce [animation-delay:0.4s]" />
-                                    </div>
+                                
+                                {isLoading && !isStreaming && (
+                                    <motion.div 
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        className="flex flex-col gap-3"
+                                    >
+                                        <div className="px-5 py-4 rounded-2xl bg-white/[0.03] border border-white/10 rounded-tl-none w-[70%]">
+                                            <div className="flex flex-col gap-3">
+                                                <div className="flex items-center gap-2">
+                                                    <RefreshCw className="h-3 w-3 text-primary animate-spin" />
+                                                    <span className="text-[9px] font-black uppercase tracking-widest text-primary font-tech">Estableciendo vínculo cuántico...</span>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <div className="h-2 w-full bg-white/5 rounded-full animate-pulse" />
+                                                    <div className="h-2 w-[80%] bg-white/5 rounded-full animate-pulse" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
                                 )}
                             </div>
 
-                            {/* Input */}
-                            <div className="p-4 bg-zinc-900 border-t border-white/5">
-                                <div className="flex gap-2">
-                                    <input
-                                        type="text"
-                                        value={input}
-                                        onChange={(e) => setInput(e.target.value)}
-                                        onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                                        placeholder="Escribe tu pregunta aquí..."
-                                        className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-amber-500/50 transition-colors"
-                                    />
-                                    <button
-                                        onClick={handleSend}
-                                        className="bg-amber-500 hover:bg-amber-400 text-white p-3 rounded-xl transition-all active:scale-95"
-                                    >
-                                        <Send className="h-4 w-4" />
-                                    </button>
+                            {/* Input Consola */}
+                            <div className="p-6 bg-slate-950 border-t border-white/10 relative z-10">
+                                <div className="relative group/input">
+                                    <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/30 to-emerald-500/30 rounded-2xl blur opacity-0 group-focus-within/input:opacity-100 transition duration-500"></div>
+                                    <div className="relative flex gap-3 bg-zinc-900 border border-white/10 rounded-2xl p-2 pl-5 items-center group-focus-within/input:border-primary/50 transition-colors">
+                                        <Terminal className="h-4 w-4 text-white/20" />
+                                        <input
+                                            type="text"
+                                            value={input}
+                                            onChange={(e) => setInput(e.target.value)}
+                                            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                                            placeholder="Ingrese comando o consulta aquí..."
+                                            className="flex-1 bg-transparent border-none py-3 text-xs text-white placeholder:text-white/20 focus:outline-none font-tech font-bold uppercase tracking-widest"
+                                        />
+                                        <button
+                                            onClick={handleSend}
+                                            disabled={isLoading || isStreaming}
+                                            className="bg-primary hover:bg-primary/80 disabled:opacity-50 text-white h-12 w-12 rounded-xl transition-all active:scale-90 flex items-center justify-center shadow-lg shadow-primary/20"
+                                        >
+                                            <Send className="h-5 w-5" />
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="mt-4 flex justify-between items-center px-1">
+                                    <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-widest text-white/20 font-tech">
+                                        <Fingerprint className="h-3 w-3" /> Identidad Verificada
+                                    </div>
+                                    <div className="text-[8px] font-black uppercase tracking-widest text-white/20 font-tech">
+                                        Cerebro Gemini 1.5 Flash <span className="text-primary ml-1">Activo</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

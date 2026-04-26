@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { ActivityTimeline } from "@/components/activity-timeline";
 import { ProfileCompletionNotice } from "@/components/dashboard/profile-completion-notice";
+import { AgentChatModal } from "@/components/chat/agent-chat-modal";
 
 interface AgentConfig {
   id: string;
@@ -156,30 +157,27 @@ export default function DashboardPersonalPage() {
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 flex items-center justify-center shadow-[0_0_40px_rgba(59,130,246,0.3)] border border-white/20">
-                <Shield className="h-8 w-8 text-white animate-pulse" />
+              <div className="h-20 w-20 rounded-[2rem] bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 flex items-center justify-center shadow-[0_0_50px_rgba(59,130,246,0.4)] border border-white/20">
+                <Shield className="h-10 w-10 text-white animate-pulse" />
               </div>
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Sparkles className="h-4 w-4 text-blue-400" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400/80">Inteligencia Corporativa</span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400/80 font-tech">Soberanía Digital SK-Core</span>
                 </div>
-                <h1 className="text-3xl md:text-5xl font-black tracking-tighter leading-none">
+                <h1 className="text-4xl md:text-7xl font-black tracking-tighter leading-none font-impact uppercase">
                   {greeting?.text ?? "Hola"}{firstName ? `, ${firstName}` : ""}
                 </h1>
               </div>
             </div>
             
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
-                <span className="text-[11px] font-bold text-emerald-400">SISTEMA EN VIVO</span>
+            <div className="flex flex-wrap items-center gap-4 pt-4">
+              <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl font-tech">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.6)] animate-pulse" />
+                <span className="text-[11px] font-black uppercase tracking-widest text-emerald-400">Sistema en Vivo</span>
               </div>
-              <div className={cn("text-[11px] px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md font-bold flex items-center gap-2", verif.color)}>
-                <Trophy className="h-3.5 w-3.5" /> {verif.label.toUpperCase()}
-              </div>
-              <div className="text-[11px] text-white/40 font-medium tracking-tight">
-                {clientDateStr ?? ""}
+              <div className={cn("text-[11px] px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl font-black uppercase tracking-widest flex items-center gap-2 font-tech", verif.color)}>
+                <Trophy className="h-4 w-4" /> {verif.label}
               </div>
             </div>
           </div>
@@ -315,12 +313,14 @@ export default function DashboardPersonalPage() {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={3} className="py-12 text-center">
-                        <div className="flex flex-col items-center gap-2.5">
-                          <div className="h-12 w-12 rounded-xl bg-muted/10 flex items-center justify-center">
-                            <Folder className="h-6 w-6 text-muted-foreground/15" />
+                        <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 flex items-center gap-4">
+                          <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                            <CheckCircle className="h-5 w-5 text-emerald-500" />
                           </div>
-                          <p className="text-[11px] font-medium text-muted-foreground/35">Sin solicitudes registradas</p>
-                          <p className="text-[10px] text-muted-foreground/20">Inicia un trámite para verlo aquí</p>
+                          <div>
+                            <p className="text-[11px] font-medium text-muted-foreground/35">Sin solicitudes registradas</p>
+                            <p className="text-[10px] text-muted-foreground/20">Inicia un trámite para verlo aquí</p>
+                          </div>
                         </div>
                       </TableCell>
                     </TableRow>

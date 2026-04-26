@@ -371,73 +371,72 @@ export default function DashboardEmpresaPage() {
         <ModuleTutorial config={moduleTutorials["dashboard-empresa"]} />
         <SeasonalBanner />
 
-        {/* Header Ultra-Premium */}
-        <motion.header
+        {/* Header        <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative mt-6 group"
+          className="relative mt-10 group"
         >
           <div className="absolute -inset-1 bg-gradient-to-r from-kyron-cyan/20 via-primary/20 to-kyron-emerald/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-1000"></div>
-          <div className="relative liquid-glass-apple p-6 md:p-8 rounded-3xl overflow-hidden border-white/[0.05] shadow-2xl">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[80px] -mr-32 -mt-32" />
+          <div className="relative liquid-glass-apple p-6 md:p-10 rounded-3xl overflow-hidden border-white/[0.05] shadow-2xl">
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] -mr-64 -mt-64" />
             
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-              <div className="space-y-3">
-                <div className="flex items-center gap-4">
-                  <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-kyron-cyan flex items-center justify-center shadow-lg shadow-primary/20 relative">
-                    <Building2 className="h-7 w-7 text-white" />
-                    <div className="absolute -bottom-1 -right-1 h-5 w-5 rounded-full bg-emerald-500 border-2 border-background flex items-center justify-center">
-                      <div className="h-2 w-2 rounded-full bg-white animate-pulse" />
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+              <div className="space-y-4">
+                <div className="flex items-center gap-5">
+                  <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-kyron-cyan flex items-center justify-center shadow-[0_0_40px_rgba(59,130,246,0.3)] border border-white/20 relative">
+                    <Building2 className="h-8 w-8 text-white" />
+                    <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-emerald-500 border-2 border-background flex items-center justify-center">
+                      <div className="h-2.5 w-2.5 rounded-full bg-white animate-pulse" />
                     </div>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2">
-                       <h1 className="text-2xl md:text-3xl font-black tracking-tighter kyron-gradient-text uppercase italic">
+                    <div className="flex items-center gap-3">
+                       <h1 className="text-3xl md:text-5xl font-black tracking-tighter kyron-gradient-text uppercase italic leading-none font-impact">
                         {activeEvent ? activeEvent.saludo : (greeting?.text ?? "Hola")}{user?.nombre ? `, ${user.nombre.split(" ")[0]}` : ""}
                       </h1>
-                      {activeEvent && <span className="text-2xl animate-bounce-subtle">{activeEvent.emoji}</span>}
+                      {activeEvent && <span className="text-3xl animate-bounce-subtle">{activeEvent.emoji}</span>}
                     </div>
-                    <p className="text-xs font-bold text-muted-foreground/60 tracking-widest uppercase flex items-center gap-2">
+                    <p className="text-[10px] font-black text-muted-foreground/60 tracking-[0.3em] uppercase flex items-center gap-2 mt-2 font-tech">
                       <Calendar className="h-3 w-3" /> {clientDateStr ?? ""} <span className="opacity-30">•</span> <Clock className="h-3 w-3" /> {clientTimeStr ?? ""}
                     </p>
                   </div>
                 </div>
                 
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3 pt-2">
                   {data?.tasaBCV && (
-                    <div className="px-3 py-1 rounded-full bg-primary/5 border border-primary/10 text-[10px] font-black tracking-widest text-primary">
+                    <div className="px-4 py-1.5 rounded-xl bg-primary/5 border border-primary/10 text-[10px] font-black tracking-widest text-primary font-tech">
                       USD/VES {data.tasaBCV.usd_ves.toFixed(2)}
                     </div>
                   )}
                   {healthScore && !loading && (
-                    <div className={cn("px-3 py-1 rounded-full border text-[10px] font-black tracking-widest flex items-center gap-2", 
+                    <div className={cn("px-4 py-1.5 rounded-xl border text-[10px] font-black tracking-widest flex items-center gap-2 font-tech", 
                       healthScore.score >= 80 ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-500" : "bg-primary/10 border-primary/20 text-primary"
                     )}>
-                      <Activity className="h-3 w-3" /> {healthScore.score}% SALUD FISCAL
+                      <Activity className="h-3.5 w-3.5" /> {healthScore.score}% SALUD FISCAL
                     </div>
                   )}
                 </div>
               </div>
 
-              <div className="flex gap-4 flex-wrap items-center">
-                <CurrencySelector className="border-border/40 bg-background/40 backdrop-blur-md h-12 rounded-xl" />
-                <div className="h-8 w-[1px] bg-border/40 hidden md:block mx-1" />
-                <Button variant="ghost" size="icon" className="rounded-xl hover:bg-primary/5 text-muted-foreground transition-colors" onClick={() => fetchDashboard(true)} disabled={refreshing}>
-                  <RefreshCw className={cn("h-4 w-4", refreshing && "animate-spin")} />
+              <div className="flex gap-3 flex-wrap items-center">
+                <CurrencySelector className="border-border/40 bg-background/40 backdrop-blur-md h-12 rounded-xl font-tech text-[10px] font-black" />
+                <div className="h-10 w-[1px] bg-border/40 hidden md:block mx-2" />
+                <Button variant="ghost" size="icon" className="h-12 w-12 rounded-xl hover:bg-primary/5 text-muted-foreground transition-colors" onClick={() => fetchDashboard(true)} disabled={refreshing}>
+                  <RefreshCw className={cn("h-5 w-5", refreshing && "animate-spin")} />
                 </Button>
-                <Button variant="ghost" size="icon" className="rounded-xl hover:bg-primary/5 text-muted-foreground transition-colors" onClick={handleAuditoria}>
-                  <History className="h-4 w-4" />
+                <Button variant="ghost" size="icon" className="h-12 w-12 rounded-xl hover:bg-primary/5 text-muted-foreground transition-colors" onClick={handleAuditoria}>
+                  <History className="h-5 w-5" />
                 </Button>
-                <Button onClick={handleAIAnalysis} disabled={aiLoading || aiStreaming || loading} className="px-8 rounded-xl bg-primary text-primary-foreground font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                <Button onClick={handleAIAnalysis} disabled={aiLoading || aiStreaming || loading} className="h-12 px-8 rounded-xl bg-primary text-primary-foreground font-black text-[10px] uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all hover:scale-[1.02] active:scale-[0.98] font-tech">
                   <BrainCircuit className="h-4 w-4 mr-2" /> Kyron AI
                 </Button>
-                <Button onClick={() => { setClosingData(null); setShowCierre(true); }} className="px-8 rounded-xl bg-background/50 border border-border/40 hover:bg-background/80 font-bold text-xs uppercase tracking-widest transition-all">
+                <Button onClick={() => { setClosingData(null); setShowCierre(true); }} className="h-12 px-8 rounded-xl bg-background/50 border border-border/40 hover:bg-background/80 font-black text-[10px] uppercase tracking-widest transition-all font-tech">
                   <Lock className="h-4 w-4 mr-2" /> Cierre Fiscal
                 </Button>
               </div>
             </div>
           </div>
-        </motion.header>
+        </motion.header>      </motion.header>
 
         {/* KPIs Grid - Glass Style */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -471,7 +470,7 @@ export default function DashboardEmpresaPage() {
                 </div>
                 
                 <div className="space-y-1">
-                  <h3 className="text-2xl font-black tracking-tighter text-foreground tabular-nums">
+                  <h3 className="text-2xl md:text-3xl font-black tracking-tighter text-foreground tabular-nums font-impact">
                     {loading ? <div className="h-8 w-32 bg-muted/20 rounded-lg animate-pulse" /> : kpi.value}
                   </h3>
                   <div className="flex items-center justify-between">

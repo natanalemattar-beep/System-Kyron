@@ -96,13 +96,21 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
   );
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[150] bg-background/85 backdrop-blur-3xl h-14 flex items-center w-full shadow-[0_1px_20px_-4px_rgba(0,0,0,0.06)]">
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+    <header className="fixed top-0 left-0 right-0 z-[150] liquid-glass-apple h-16 flex items-center w-full shadow-[0_8px_32px_-4px_rgba(0,0,0,0.2)]">
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-50" />
       
-      <div className="w-full px-4 md:px-8">
-        <div className="flex items-center justify-between w-full gap-4">
+      <div className="w-full px-4 md:px-10">
+        <div className="flex items-center justify-between w-full gap-6">
           
-          <div className="flex items-center gap-3.5">
+          <div className="flex items-center gap-5">
+            {/* Indicador de Estado del Sistema SK-Core */}
+            <div className="hidden xl:flex items-center gap-3 px-3 py-1.5 rounded-full bg-black/20 border border-white/5 backdrop-blur-md">
+                <div className="relative">
+                    <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <div className="absolute inset-0 h-2 w-2 rounded-full bg-emerald-500 animate-ping opacity-75" />
+                </div>
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-emerald-400/80">SK-Core Active</span>
+            </div>
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger asChild>
                     <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9 rounded-xl bg-muted/40 border border-border/50">

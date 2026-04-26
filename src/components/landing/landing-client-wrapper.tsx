@@ -12,18 +12,12 @@ export function LandingClientWrapper({ children }: { children: React.ReactNode }
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return (
-        <div className="min-h-screen bg-transparent" />
-    );
-  }
-
   return (
     <>
-      <PageTracker />
+      {mounted && <PageTracker />}
       <LandingHeader />
       {children}
-      <WhatsAppButton />
+      {mounted && <WhatsAppButton />}
     </>
   );
 }

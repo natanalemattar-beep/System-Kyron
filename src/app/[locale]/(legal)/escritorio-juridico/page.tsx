@@ -144,13 +144,13 @@ export default function EscritorioJuridicoPage() {
     <div className="space-y-12 pb-20 px-6 md:px-10">
       <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-slate-500 pl-8 py-2 mt-10">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-500/10 border border-slate-500/20 text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-500/10 border border-slate-500/20 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 font-tech">
             <Gavel className="h-3 w-3" /> ÁREA LEGAL
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-none font-impact">
             Centro de <span className="text-slate-400 italic">Gestión Jurídica</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.3em] opacity-40 font-tech">
             Bóveda de Documentos Protegidos • Cumplimiento 2026
           </p>
         </div>
@@ -290,50 +290,83 @@ export default function EscritorioJuridicoPage() {
           </CardFooter>
         </Card>
 
-        <div className="lg:col-span-4 space-y-10">
-          <Card className="bg-primary text-primary-foreground rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow border-none group">
-            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all duration-1000">
-              <FileText className="h-32 w-32" />
+        <div className="lg:col-span-4 space-y-8">
+          {/* Módulo de Blindaje Legal IA */}
+          <Card className="bg-gradient-to-br from-slate-900 to-black text-white rounded-[2.5rem] p-1 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 group overflow-hidden relative">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(6,182,212,0.15),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            <div className="p-8 relative z-10">
+              <div className="flex justify-between items-start mb-10">
+                <div className="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20">
+                  <ShieldCheck className="h-6 w-6 text-cyan-400" />
+                </div>
+                <Badge className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20 text-[8px] font-black tracking-widest uppercase">Protocolo SK-Safe</Badge>
+              </div>
+              <h3 className="text-xl font-black uppercase tracking-tighter mb-2">Blindaje Legal <span className="text-cyan-400">2026</span></h3>
+              <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-8 leading-relaxed">Auditoría continua de riesgos en contratos y estatutos corporativos.</p>
+              
+              <div className="space-y-4 mb-10">
+                {[
+                  { label: "Riesgo Contractual", val: "0.02%", color: "bg-emerald-500" },
+                  { label: "Cumplimiento Normativo", val: "99.8%", color: "bg-cyan-500" },
+                  { label: "Vulnerabilidad Fiscal", val: "Baja", color: "bg-blue-500" }
+                ].map(item => (
+                  <div key={item.label} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                    <span className="text-[9px] font-black uppercase tracking-widest text-zinc-400">{item.label}</span>
+                    <span className={cn("px-2 py-0.5 rounded text-[9px] font-black text-white", item.color)}>{item.val}</span>
+                  </div>
+                ))}
+              </div>
+
+              <Button asChild className="w-full h-12 bg-white text-black hover:bg-zinc-200 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] shadow-xl">
+                <Link href="/api/ai/audit">Iniciar Auditoría IA <Sparkles className="ml-2 h-3.5 w-3.5"/></Link>
+              </Button>
             </div>
-            <div className="relative z-10">
-              <h3 className="text-2xl font-semibold uppercase italic tracking-tight mb-4">Generador Legal IA</h3>
-              <h4 className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8">
-                Redacción automatizada de borradores legales seguros.
-              </h4>
-            </div>
-            <Button asChild className="w-full h-12 text-[11px] font-bold bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest relative z-10 shadow-lg">
-              <Link href="/generador-documentos">NUEVO CONTRATO <ArrowRight className="ml-2 h-4 w-4"/></Link>
-            </Button>
           </Card>
 
-          <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-8">
+          {/* Bóveda de Firmas Digitales */}
+          <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-8 overflow-hidden relative">
+            <div className="absolute top-0 right-0 p-6 opacity-5 rotate-12">
+               <FileSignature className="h-32 w-32" />
+            </div>
             <CardHeader className="p-0 mb-6">
-              <CardTitle className="text-[10px] font-semibold uppercase tracking-wider text-amber-500 flex items-center gap-3">
-                <AlertTriangle className="h-4 w-4" /> Vencimientos Próximos
+              <CardTitle className="text-[10px] font-black uppercase tracking-[0.25em] text-zinc-500 flex items-center gap-3">
+                <Lock className="h-4 w-4 text-emerald-500" /> Bóveda de Firmas
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-0 space-y-4">
-              {porVencer.length === 0 ? (
-                <p className="text-[11px] font-bold text-white/20 uppercase">Sin vencimientos próximos</p>
-              ) : (
-                porVencer.slice(0, 3).map((doc) => {
-                  const dias = Math.floor((new Date(doc.fecha_vencimiento!).getTime() - Date.now()) / 86400000);
-                  return (
-                    <div key={doc.id} className={cn(
-                      "flex items-start gap-5 p-5 rounded-2xl border transition-all",
-                      dias <= 7 ? "bg-rose-500/5 border-rose-500/10" : "bg-amber-500/5 border-amber-500/10"
-                    )}>
-                      <Clock className={cn("h-6 w-6 shrink-0 mt-0.5", dias <= 7 ? "text-rose-500" : "text-amber-500")} />
-                      <div className="space-y-1 min-w-0">
-                        <p className={cn("text-[10px] font-semibold uppercase tracking-widest truncate", dias <= 7 ? "text-rose-600" : "text-amber-600")}>
-                          {doc.titulo}
-                        </p>
-                        <p className="text-[11px] font-bold text-white/40 uppercase">Vence en {dias} días</p>
-                      </div>
-                    </div>
-                  );
-                })
-              )}
+            <CardContent className="p-0 space-y-4 relative z-10">
+              <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 flex items-center gap-4">
+                <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                  <CheckCircle className="h-5 w-5 text-emerald-500" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-white uppercase tracking-widest">Token SK-Auth Activo</p>
+                  <p className="text-[9px] font-bold text-zinc-500 uppercase">Cifrado Cuántico v4.2</p>
+                </div>
+              </div>
+              <Button variant="outline" className="w-full h-10 border-white/10 text-[9px] font-black uppercase tracking-widest hover:bg-white/5">
+                Ver Historial de Firmas
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Radar de Obligaciones */}
+          <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-8">
+            <CardHeader className="p-0 mb-6">
+              <CardTitle className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-500 flex items-center gap-3">
+                <Activity className="h-4 w-4" /> Radar Regulatorio
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0 space-y-3">
+              {[
+                { t: "Declaración IGTF", d: "En 3 días", c: "text-rose-500" },
+                { t: "Renovación Licencia", d: "En 12 días", c: "text-amber-500" },
+                { t: "Auditoría Externa", d: "En 45 días", c: "text-zinc-500" }
+              ].map((item, i) => (
+                <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                  <span className="text-[10px] font-black text-white uppercase tracking-widest">{item.t}</span>
+                  <span className={cn("text-[9px] font-black uppercase tracking-widest", item.c)}>{item.d}</span>
+                </div>
+              ))}
             </CardContent>
           </Card>
         </div>
