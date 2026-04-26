@@ -11,7 +11,9 @@ const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ 
 const FeaturesGrid = dynamic(() => import('@/components/landing/features-grid').then(m => ({ default: m.FeaturesGrid })), { ssr: true });
 const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: true });
 const AccountingSpecialSection = dynamic(() => import('@/components/landing/accounting-special-section').then(m => ({ default: m.AccountingSpecialSection })), { ssr: true });
+const PillarShowcaseSection = dynamic(() => import('@/components/landing/pillar-showcase-section').then(m => ({ default: m.PillarShowcaseSection })), { ssr: true });
 const PublicAssistant = dynamic(() => import('@/components/ai/public-assistant').then(m => ({ default: m.PublicAssistant })), { ssr: false });
+
 
 import { JsonLd } from '@/components/seo/json-ld';
 
@@ -74,6 +76,10 @@ export default function LandingPage() {
             <LazySection fallbackHeight="600px">
                 <AccountingSpecialSection />
             </LazySection>
+            <LazySection fallbackHeight="600px">
+                <PillarShowcaseSection />
+            </LazySection>
+
             <LazySection fallbackHeight="600px">
                 <AboutUsSection />
             </LazySection>
