@@ -146,7 +146,7 @@ export function KyronAssistant() {
                     <motion.div
                         layoutId="kyron-ai-vessel"
                         className={cn(
-                            "bg-[#060a14]/90 backdrop-blur-2xl border border-white/10 shadow-[0_20px_80px_rgba(0,0,0,0.8)] rounded-3xl overflow-hidden flex flex-col",
+                            "liquid-glass-apple flex flex-col",
                             isMinimized ? "w-80 h-16" : "w-[420px] h-[600px] max-w-[90vw] max-h-[80vh]"
                         )}
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}

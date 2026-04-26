@@ -81,7 +81,7 @@ export function KyronDocumentAi() {
     };
 
     return (
-        <div className="w-[11in] min-h-[8.5in] bg-[#fdfdfd] dark:bg-[#0a0a0c] border-[12px] border-zinc-200 dark:border-zinc-900 shadow-2xl rounded-sm p-12 font-serif relative overflow-hidden print:border-0 print:shadow-none">
+        <div className="w-[11in] min-h-[8.5in] liquid-glass-apple p-12 font-serif relative overflow-hidden print:border-0 print:shadow-none">
             {/* Watermark */}
             <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
                 <FileText className="w-[500px] h-[500px] -rotate-12" />

@@ -127,7 +127,7 @@ export function PublicAssistant() {
 
                     <div className="relative group">
                         <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 to-orange-600 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                        <div className="relative bg-zinc-900 border border-white/10 rounded-3xl h-[500px] flex flex-col shadow-2xl overflow-hidden">
+                        <div className="relative liquid-glass-apple h-[500px] flex flex-col shadow-2xl overflow-hidden">
                             {/* Header */}
                             <div className="p-4 bg-amber-500 flex items-center gap-3">
                                 <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center">
