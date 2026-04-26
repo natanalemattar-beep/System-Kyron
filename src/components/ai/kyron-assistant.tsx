@@ -13,11 +13,12 @@ import { usePathname } from 'next/navigation';
 export function KyronAssistant() {
     const pathname = usePathname();
     const isHomePage = pathname === '/' || pathname === '/es' || pathname === '/en';
+    const isPrivateSector = pathname?.includes('sector-privado');
     
     const [isOpen, setIsOpen] = useState(false);
     
-    // Don't show the pro assistant on the landing page
-    if (isHomePage) return null;
+    // Don't show the pro assistant bubble on landing or private sector document page
+    if (isHomePage || isPrivateSector) return null;
     const [isMinimized, setIsMinimized] = useState(false);
     const [selectedAgent, setSelectedAgent] = useState<'general' | 'finance' | 'tech' | 'growth'>('general');
     const [thinkingMode, setThinkingMode] = useState<'fast' | 'deep'>('fast');
