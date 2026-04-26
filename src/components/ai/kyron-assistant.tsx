@@ -61,6 +61,10 @@ export function KyronAssistant() {
         setIsLoading(true);
 
         try {
+            // Controlador de aborto para evitar que la interfaz se quede esperando infinitamente
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 20000); // 20 segundos de gracia
+
             const response = await fetch('/api/ai/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -69,7 +73,10 @@ export function KyronAssistant() {
                     agent: selectedAgent,
                     mode: thinkingMode
                 }),
+                signal: controller.signal
             });
+
+            clearTimeout(timeoutId);
 
             if (!response.ok) throw new Error('Fallo en la conexión neural');
 
@@ -77,16 +84,24 @@ export function KyronAssistant() {
             setIsStreaming(true);
             
             const reader = response.body?.getReader();
-            const decoder = new TextEncoder();
+            const decoder = new TextDecoder();
             let assistantText = '';
             
             setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
+
+            // Watchdog para el flujo: si no recibimos datos en 8 segundos, cerramos el grifo
+            let watchdog = setTimeout(() => {
+                reader?.cancel();
+            }, 8000);
 
             while (reader) {
                 const { done, value } = await reader.read();
                 if (done) break;
                 
-                const chunk = new TextDecoder().decode(value);
+                clearTimeout(watchdog);
+                watchdog = setTimeout(() => reader?.cancel(), 8000);
+
+                const chunk = decoder.decode(value);
                 assistantText += chunk;
                 
                 setMessages(prev => {
@@ -95,9 +110,13 @@ export function KyronAssistant() {
                     return newMessages;
                 });
             }
-        } catch (error) {
+            clearTimeout(watchdog);
+        } catch (error: any) {
             console.error('AI Error:', error);
-            setMessages(prev => [...prev, { role: 'assistant', content: 'Lo siento, he tenido una interferencia en mi núcleo de procesamiento. ¿Podrías repetir eso?' }]);
+            const errorMsg = error.name === 'AbortError' 
+                ? 'La conexión está tardando demasiado. Mi núcleo se ha reiniciado para mantener la fluidez.' 
+                : 'Lo siento, he tenido una interferencia en mi núcleo. ¿Podrías repetir eso?';
+            setMessages(prev => [...prev, { role: 'assistant', content: errorMsg }]);
         } finally {
             setIsLoading(false);
             setIsStreaming(false);

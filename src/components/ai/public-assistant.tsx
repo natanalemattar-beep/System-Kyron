@@ -40,6 +40,9 @@ export function PublicAssistant() {
         setIsLoading(true);
 
         try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 20000);
+
             const response = await fetch('/api/ai/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -47,7 +50,10 @@ export function PublicAssistant() {
                     messages: [...messages, userMessage],
                     agent: 'public'
                 }),
+                signal: controller.signal
             });
+
+            clearTimeout(timeoutId);
 
             if (!response.ok) throw new Error('Error de conexión');
 
@@ -60,10 +66,16 @@ export function PublicAssistant() {
             
             setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
+            // Vigilante de flujo: 8 segundos sin datos = cerrar
+            let watchdog = setTimeout(() => reader?.cancel(), 8000);
+
             while (reader) {
                 const { done, value } = await reader.read();
                 if (done) break;
                 
+                clearTimeout(watchdog);
+                watchdog = setTimeout(() => reader?.cancel(), 8000);
+
                 const chunk = decoder.decode(value);
                 assistantText += chunk;
                 
@@ -73,8 +85,13 @@ export function PublicAssistant() {
                     return newMessages;
                 });
             }
-        } catch (error) {
-            setMessages(prev => [...prev, { role: 'assistant', content: 'Lo siento, estoy teniendo mucha demanda. ¿Puedes intentarlo en un momento?' }]);
+            clearTimeout(watchdog);
+        } catch (error: any) {
+            console.error('Public AI Error:', error);
+            const errorMsg = error.name === 'AbortError'
+                ? 'He tenido un pequeño retraso por la alta demanda, pero ya estoy de vuelta. ¿En qué puedo ayudarte?'
+                : 'Lo siento, estoy teniendo mucha demanda. ¿Puedes intentarlo en un momento?';
+            setMessages(prev => [...prev, { role: 'assistant', content: errorMsg }]);
         } finally {
             setIsLoading(false);
             setIsStreaming(false);
