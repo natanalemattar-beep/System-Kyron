@@ -2,8 +2,11 @@ import { OpenAI } from 'openai';
 
 // Configuración de Kyron AI - Aquí puedes poner tu API Key de OpenAI, DeepSeek o Groq
 // Por ahora usamos una configuración flexible que puedes activar con una variable de entorno
+const apiKey = process.env.KYRON_AI_KEY;
+const hasValidKey = apiKey && apiKey !== 'dummy_key' && apiKey.length > 20;
+
 const openai = new OpenAI({
-  apiKey: process.env.KYRON_AI_KEY || 'dummy_key',
+  apiKey: hasValidKey ? apiKey : 'dummy_key',
   baseURL: process.env.KYRON_AI_BASE_URL || 'https://api.openai.com/v1', 
 });
 
@@ -46,8 +49,8 @@ export async function POST(req: Request) {
     const deepThinkingPrefix = mode === 'deep' ? 
       "Antes de responder, realiza una investigación profunda interna. Analiza múltiples variables y escenarios. No te limites a lo obvio. Piensa en voz alta sobre tus razonamientos." : "";
 
-    // Si no hay API KEY configurada o hay mucha demanda, usamos el Núcleo de Procesamiento de Respaldo (Ultra Rápido)
-    if (!process.env.KYRON_AI_KEY) {
+    // Si no hay API KEY válida o configurada, usamos el Núcleo de Procesamiento de Respaldo (Ultra Rápido)
+    if (!hasValidKey) {
       return new Response(
         new ReadableStream({
           async start(controller) {
