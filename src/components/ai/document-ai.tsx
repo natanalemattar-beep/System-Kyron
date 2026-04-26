@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
     FileText, Shield, Zap, Cpu, Calculator, 
     Wrench, Sparkles, Send, Download, Printer, 
-    Clock, BadgeCheck, Scale, Smartphone
+    Clock, BadgeCheck, Scale, Smartphone, TrendingUp
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
