@@ -31,15 +31,17 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <PerformanceProvider>
-        <DynamicBackground />
-        <DemoBannerProvider>
-          <DemoBannerSpacer />
-          <div className="relative flex min-h-screen flex-col">
-            {children}
-            <OfflineIndicator />
-            <KyronAssistant />
-          </div>
-        </DemoBannerProvider>
+        <div style={{ fontFamily: 'Arial, Helvetica, sans-serif' }} className="antialiased">
+          <DynamicBackground />
+          <DemoBannerProvider>
+            <DemoBannerSpacer />
+            <div className="relative flex min-h-screen flex-col">
+              {children}
+              <OfflineIndicator />
+              <KyronAssistant />
+            </div>
+          </DemoBannerProvider>
+        </div>
       </PerformanceProvider>
     </NextIntlClientProvider>
   );

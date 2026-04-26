@@ -112,8 +112,7 @@ body::after {
   * { @apply border-border; }
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/20;
-    font-family: var(--font-plus-jakarta), var(--font-inter), system-ui, sans-serif;
-    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+    font-family: Arial, Helvetica, sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -129,7 +128,7 @@ body::after {
 
   h1, h2, h3, h4, h5, h6 {
     @apply tracking-tight font-black;
-    font-family: var(--font-plus-jakarta), var(--font-inter), system-ui, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     overflow-wrap: anywhere;
     word-break: normal;
     hyphens: none;
