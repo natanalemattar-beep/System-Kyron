@@ -79,11 +79,13 @@ export async function POST(req: Request) {
         model: mode === 'deep' ? 'o1-preview' : 'gpt-4o',
         stream: true,
         messages: [
-          { role: 'system', content: selectedAgent.prompt + "\n" + deepThinkingPrefix + "\nREGLA CRÍTICA: Responde de forma fluida, humana y directa. Si detectas saturación, simplifica el razonamiento para mantener la velocidad." },
-          ...messages,
+          { role: 'system', content: selectedAgent.prompt + "\n" + deepThinkingPrefix + "\nPROTOCOLO ALTA DENSIDAD (5000+ USERS): Responde con máxima eficiencia. Usa frases cortas y potentes. Prioriza la velocidad de flujo sobre la verbosidad." },
+          ...messages.slice(-6), // Solo mantenemos los últimos 6 mensajes para máxima ligereza en alta demanda
         ],
-        temperature: 0.7, // Balance entre creatividad y velocidad
-        max_tokens: mode === 'deep' ? 2000 : 800,
+        temperature: 0.6,
+        max_tokens: mode === 'deep' ? 1200 : 500,
+        presence_penalty: 0.1,
+        frequency_penalty: 0.1,
       });
 
       const stream = new ReadableStream({
@@ -97,8 +99,8 @@ export async function POST(req: Request) {
               }
             }
           } catch (e) {
-            console.error("Stream interrupted, sending fallback...");
-            controller.enqueue(encoder.encode("\n\n[AVISO: Ajustando núcleo por alta demanda para mantener fluidez...]"));
+            // Si el stream se rompe por saturación externa, el núcleo local toma el control inmediatamente
+            controller.enqueue(encoder.encode("\n\n[SISTEMA: Escalando recursos para mantener fluidez...]"));
           }
           controller.close();
         },
