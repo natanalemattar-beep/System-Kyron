@@ -45,3 +45,10 @@ firebase-debug.log
 firestore-debug.log
 .env
 .env*.local
+
+# pwa
+public/sw.js
+public/workbox-*.js
+public/swe-worker-*.js
+public/tsbuildinfo
+

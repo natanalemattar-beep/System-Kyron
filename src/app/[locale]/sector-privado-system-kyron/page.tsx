@@ -21,8 +21,7 @@ import {
     Image as ImageIcon,
     Cloud,
     Package,
-    Phone,
-    TrendingUp
+    Phone
 } from 'lucide-react';
 import { KyronDocumentAi } from '@/components/ai/document-ai';
 
