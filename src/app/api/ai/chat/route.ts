@@ -115,4 +115,8 @@ export async function POST(req: Request) {
       // Fallback inmediato si falla la conexión inicial
       return new Response("Lo siento, mis servidores principales están bajo una carga extrema. He activado mi núcleo de reserva para seguir atendiéndole sin esperas. ¿Cómo puedo ayudarle?");
     }
+  } catch (error: any) {
+    console.error('Kyron AI Critical Error:', error);
+    return new Response("Error crítico en el núcleo cerebral.", { status: 500 });
+  }
 }
