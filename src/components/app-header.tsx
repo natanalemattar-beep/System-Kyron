@@ -183,7 +183,8 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                               <button
                                                 type="button"
                                                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleSection(mSecKey); }}
-                                                className="w-full px-3 pt-2 pb-1 text-[7px] font-semibold uppercase tracking-wide text-muted-foreground/40 flex items-center gap-2 hover:text-muted-foreground/70 transition-colors"
+                                                className="w-full px-3 pt-2.5 pb-1.5 text-[9px] font-black uppercase tracking-wider text-muted-foreground/50 flex items-center gap-2 hover:text-muted-foreground/80 transition-colors"
+
                                               >
                                                 <ChevronRight className={cn("h-2.5 w-2.5 transition-transform duration-200", !mIsCollapsed && "rotate-90")} />
                                                 <span>{secTitle}</span>
@@ -193,7 +194,8 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                               </button>
                                             )}
                                             {mobileHasSections && secTitle && !mobileIsLarge && (
-                                              <div className="px-3 pt-2 pb-1 text-[7px] font-semibold uppercase tracking-wide text-muted-foreground/30 flex items-center gap-2">
+                                              <div className="px-3 pt-2.5 pb-1.5 text-[9px] font-black uppercase tracking-wider text-muted-foreground/40 flex items-center gap-2">
+
                                                 <span>{secTitle}</span>
                                                 <div className="h-[1px] flex-1 bg-border/20" />
                                               </div>
@@ -352,7 +354,8 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                           type="button"
                                           onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleSection(sectionKey); }}
                                           onPointerDown={(e) => { e.stopPropagation(); }}
-                                          className="w-full px-2.5 pt-2 pb-1 text-[7px] font-semibold uppercase tracking-[0.25em] text-muted-foreground/50 flex items-center gap-2 hover:text-muted-foreground/80 transition-colors cursor-pointer select-none group/sec"
+                                          className="w-full px-2.5 pt-3 pb-1.5 text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 flex items-center gap-2 hover:text-primary transition-colors cursor-pointer select-none group/sec"
+
                                         >
                                           <div className="h-[1px] flex-1 bg-border/30" />
                                           <span className="flex items-center gap-1.5 shrink-0">
@@ -364,7 +367,8 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                           <div className="h-[1px] flex-1 bg-border/30" />
                                         </button>
                                       ) : (
-                                        <div className="px-2.5 pt-1.5 pb-1 text-[7px] font-semibold uppercase tracking-[0.25em] text-muted-foreground/40 flex items-center gap-2">
+                                        <div className="px-2.5 pt-2.5 pb-1.5 text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/50 flex items-center gap-2">
+
                                           <div className="h-[1px] flex-1 bg-border/30" />
                                           {sectionTitle}
                                           <div className="h-[1px] flex-1 bg-border/30" />
@@ -380,7 +384,8 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                             "rounded-xl h-9 cursor-pointer transition-all",
                                             isActive ? "bg-primary/8 text-primary" : "hover:bg-muted/40"
                                           )}>
-                                            <Link href={item.href as any} className="flex items-center px-2.5 text-[10px] font-bold uppercase tracking-[0.1em] gap-2.5">
+                                            <Link href={item.href as any} className="flex items-center px-2.5 text-xs font-bold uppercase tracking-[0.05em] gap-2.5">
+
                                               <div className={cn(
                                                 "p-1 rounded-md border shrink-0 transition-colors",
                                                 isActive ? "bg-primary/10 border-primary/20" : "bg-muted/50 border-border/30 group-hover:bg-primary/5"
