@@ -4,28 +4,7 @@ import { createToken, setSessionCookie } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail } from '@/lib/input-sanitizer';
-import { verifyCode } from '@/lib/verification-codes';
-
-export const dynamic = 'force-dynamic';
-
-interface DbUser {
-    id: number;
-    email: string;
-    tipo: 'natural' | 'juridico';
-    nombre: string;
-    apellido: string | null;
-    cedula: string | null;
-    razon_social: string | null;
-    rif: string | null;
-}
-
-import { NextRequest, NextResponse } from 'next/server';
-import { queryOne } from '@/lib/db';
-import { createToken, setSessionCookie } from '@/lib/auth';
-import { logActivity } from '@/lib/activity-logger';
-import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
-import { sanitizeEmail } from '@/lib/input-sanitizer';
-import { verifyCode } from '@/lib/verification-codes';
+import { verifyCode, normalizePhone } from '@/lib/verification-codes';
 
 export const dynamic = 'force-dynamic';
 
@@ -58,7 +37,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Destino y código son requeridos para la verificación' }, { status: 400 });
     }
 
-    const normalizedDestino = destino.includes('@') ? sanitizeEmail(destino) : destino.replace(/^0/, '+58');
+    const normalizedDestino = destino.includes('@') ? sanitizeEmail(destino) : normalizePhone(destino);
+
     
     console.log(`[verify-code] Iniciando validación para: ${normalizedDestino}`);
 

@@ -207,7 +207,12 @@ export function SpecializedLoginCard({
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/auth/verify-code', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: verificationEmail, code }) });
+      const res = await fetch('/api/auth/verify-code', { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify({ destino: verificationEmail, codigo: code, proposito: 'verification' }) 
+      });
+
       const json = await res.json();
       if (!res.ok) { setError(json.error || 'Código incorrecto.'); setSingleCode(''); setIsLoading(false); setTimeout(() => singleInputRef.current?.focus(), 100); return; }
       setVerifVerified(true);
@@ -232,7 +237,12 @@ export function SpecializedLoginCard({
       if ((verificationMethod === 'sms' || verificationMethod === 'whatsapp') && challengeToken) {
         body.challengeToken = challengeToken;
       }
-      const res = await fetch('/api/auth/send-code', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const res = await fetch('/api/auth/send-code', { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify({ ...body, proposito: 'verification' }) 
+      });
+
       const json = await res.json();
       if (!res.ok) { setError(json.error || 'No se pudo reenviar el código.'); setIsLoading(false); return; }
       setCountdown(600);
@@ -271,8 +281,9 @@ export function SpecializedLoginCard({
       const res = await fetch('/api/auth/send-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ ...body, proposito: 'verification' }),
       });
+
       const json = await res.json();
       if (!res.ok) {
         setError(json.error || 'No se pudo enviar el código.');

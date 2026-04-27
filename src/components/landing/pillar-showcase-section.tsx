@@ -12,25 +12,25 @@ const PILLARS = [
     {
         id: 'eco',
         title: 'Sostenibilidad',
-        highlight: 'Sostenibilidad Real',
+        highlight: 'Impacto Ameru',
         icon: Leaf,
         color: 'text-emerald-400',
         bg: 'from-emerald-500/10 to-transparent',
-        border: 'border-emerald-500/20',
-        desc: 'Compensa tu huella de carbono con eco-créditos certificados. Tecnología que ayuda al planeta y a la imagen de tu empresa.',
-        visual: 'Monitor Verde'
+        border: 'border-emerald-500/0', // Borderless for sharpness
+        desc: 'Tecnología Ameru.ai para compensar tu huella de carbono con eco-créditos certificados. Sostenibilidad real para tu empresa.',
+        visual: 'Ameru Ecosystem'
     },
+    {
         id: 'telecom',
         title: 'Mi Línea',
         highlight: 'Conectividad Sin Complicaciones',
         icon: Smartphone,
         color: 'text-cyan-400',
         bg: 'from-cyan-500/10 to-transparent',
-        border: 'border-cyan-500/20',
+        border: 'border-cyan-500/0',
         desc: 'Líneas móviles que sí funcionan. eSIM instantánea y gestión de datos 5G para que tu equipo siempre esté conectado.',
         visual: 'Señal 5G'
     },
-
     {
         id: 'billing',
         title: 'Facturación',
@@ -38,10 +38,11 @@ const PILLARS = [
         icon: Receipt,
         color: 'text-blue-400',
         bg: 'from-blue-500/10 to-transparent',
-        border: 'border-blue-500/20',
+        border: 'border-blue-500/0',
         desc: 'Factura legalmente sin complicaciones. El sistema calcula el IGTF solo y te genera el QR al instante.',
         visual: 'Factura Digital'
     }
+
 
 ];
 
@@ -87,9 +88,10 @@ export function PillarShowcaseSection() {
                             
                             <div className="relative z-10">
                                 <div className="flex items-center justify-between mb-10">
-                                    <div className={cn("p-4 rounded-2xl bg-white/[0.03] border border-white/5", pillar.color)}>
+                                    <div className={cn("p-4 rounded-2xl bg-white/[0.03]", pillar.color)}>
                                         <pillar.icon className="h-6 w-6" />
                                     </div>
+
                                     <span className="text-[9px] font-black uppercase tracking-widest text-white/20 group-hover:text-white/40 transition-colors">
                                         {pillar.visual}
                                     </span>

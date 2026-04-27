@@ -25,6 +25,28 @@ function hashToken(token: string): string {
   return crypto.createHash('sha256').update(token).digest('hex');
 }
 
+/**
+ * Normaliza un número de teléfono al formato internacional (+58...)
+ */
+export function normalizePhone(phone: string): string {
+  let normalized = phone.replace(/[\s\-\(\)]/g, '');
+  if (normalized.startsWith('0')) normalized = `+58${normalized.slice(1)}`;
+  else if (normalized.startsWith('58')) normalized = `+${normalized}`;
+  else if (!normalized.startsWith('+')) normalized = `+${normalized}`;
+  return normalized;
+}
+
+/**
+ * Enmascara un número de teléfono para privacidad
+ */
+export function maskPhone(phone: string): string {
+  const clean = phone.replace(/[^\d]/g, '');
+  if (clean.length >= 10) {
+    return `****${clean.slice(-4)}`;
+  }
+  return `****${clean.slice(-3)}`;
+}
+
 export async function storeMagicToken(email: string, token: string, _userId?: number): Promise<void> {
   const expiresAt = new Date(Date.now() + CODE_EXPIRY_MS);
   const hashed = hashToken(token);

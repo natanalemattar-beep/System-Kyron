@@ -4,27 +4,14 @@ import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { verifyLoginChallenge } from '@/lib/login-challenge';
-import { generateCode, generateMagicToken, storeMagicToken, storeCode } from '@/lib/verification-codes';
+import { generateCode, generateMagicToken, storeMagicToken, storeCode, normalizePhone, maskPhone } from '@/lib/verification-codes';
+
 
 export const dynamic = 'force-dynamic';
 
 
 
-function normalizePhone(phone: string): string {
-  let normalized = phone.replace(/[\s\-\(\)]/g, '');
-  if (normalized.startsWith('0')) normalized = `+58${normalized.slice(1)}`;
-  else if (normalized.startsWith('58')) normalized = `+${normalized}`;
-  else if (!normalized.startsWith('+')) normalized = `+${normalized}`;
-  return normalized;
-}
 
-function maskPhone(phone: string): string {
-  const clean = phone.replace(/[^\d]/g, '');
-  if (clean.length >= 10) {
-    return `****${clean.slice(-4)}`;
-  }
-  return `****${clean.slice(-3)}`;
-}
 
 async function trySendViaTwilio(tipo: 'sms' | 'whatsapp', phone: string, codigo: string): Promise<{ sent: boolean; error?: string }> {
   try {
@@ -206,8 +193,9 @@ export async function POST(req: NextRequest) {
         phoneNumber = normalizePhone(userPhone.telefono);
       }
 
-      await storeCode(destino, codigo, proposito, tipo);
+      await storeCode(phoneNumber, codigo, proposito, tipo);
       const twilioResult = await trySendViaTwilio(tipo, phoneNumber, codigo);
+
 
       if (!twilioResult.sent) {
         throw new Error(twilioResult.error);
