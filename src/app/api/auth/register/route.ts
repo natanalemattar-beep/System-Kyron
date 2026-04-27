@@ -8,15 +8,19 @@ import { sanitizeEmail, isValidEmail, isStrongPassword, sanitizeString } from '@
 import { validarRIF, validarFormatoCedula } from '@/lib/validacion-venezuela';
 import { encryptIfNotEmpty } from '@/lib/encryption';
 
-async function verificarCodigoUsado(destino: string): Promise<boolean> {
+async function verificarCodigoUsado(destino: string, proposito: string = 'registration'): Promise<boolean> {
     const record = await queryOne<{ id: number }>(
         `SELECT id FROM verification_codes
-         WHERE destino = $1 AND usado = true AND created_at > NOW() - INTERVAL '60 minutes'
+         WHERE destino = $1 
+           AND usado = true 
+           AND proposito = $2
+           AND created_at > NOW() - INTERVAL '60 minutes'
          ORDER BY created_at DESC LIMIT 1`,
-        [destino]
+        [destino, proposito]
     );
     return !!record;
 }
+
 
 export async function POST(req: NextRequest) {
     try {
@@ -75,8 +79,9 @@ async function registerNatural(body: Record<string, unknown>) {
 
     const normalizedEmail = sanitizeEmail(email);
 
-    const emailVerified = await verificarCodigoUsado(normalizedEmail);
-    const phoneVerified = telefono ? await verificarCodigoUsado(telefono) : false;
+    const emailVerified = await verificarCodigoUsado(normalizedEmail, 'registration');
+    const phoneVerified = telefono ? await verificarCodigoUsado(telefono, 'registration') : false;
+
 
     if (!emailVerified && !phoneVerified) {
         return NextResponse.json({
@@ -169,8 +174,9 @@ async function registerJuridico(body: Record<string, unknown>) {
 
     const normalizedEmail = sanitizeEmail(email);
 
-    const emailVerified = await verificarCodigoUsado(normalizedEmail);
-    const phoneVerified = telefono ? await verificarCodigoUsado(String(telefono)) : false;
+    const emailVerified = await verificarCodigoUsado(normalizedEmail, 'registration');
+    const phoneVerified = telefono ? await verificarCodigoUsado(String(telefono), 'registration') : false;
+
 
     if (!emailVerified && !phoneVerified) {
         return NextResponse.json({

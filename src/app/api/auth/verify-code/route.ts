@@ -62,7 +62,6 @@ export async function POST(req: NextRequest) {
     
     console.log(`[verify-code] Iniciando validación para: ${normalizedDestino}`);
 
-    // Validar el código contra la base de datos
     const verification = await verifyCode(normalizedDestino, codigo, proposito);
 
     if (!verification.valid) {
@@ -70,8 +69,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: verification.error }, { status: isRateLimited ? 429 : 401 });
     }
 
-    // Código válido -> Buscar usuario
-    // Búsqueda inteligente: Soporta formatos de teléfono locales e internacionales
     const user = await queryOne<DbUser>(
       `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif
        FROM users 
@@ -82,16 +79,22 @@ export async function POST(req: NextRequest) {
       [normalizedDestino]
     );
 
+    if (!user || proposito === 'registration') {
+      // Si el propósito era login (verification) pero el usuario no existe, es un error de login
+      if (proposito === 'verification' && !user) {
+        return NextResponse.json({ 
+          error: 'No existe una cuenta vinculada a este destino. Por favor, regístrese primero.' 
+        }, { status: 404 });
+      }
 
-    // Caso A: Usuario no existe (Flujo de Registro)
-    if (!user) {
       return NextResponse.json({ 
         success: true, 
         verified: true, 
-        requiresRegistration: true,
-        message: 'Identidad confirmada. Proceda con la creación de su cuenta.'
+        requiresRegistration: !user,
+        message: user ? 'Identidad confirmada.' : 'Identidad confirmada. Proceda con la creación de su cuenta.'
       });
     }
+
 
     // Caso B: Usuario existe (Flujo de Login)
     const displayName = user.tipo === 'juridico'

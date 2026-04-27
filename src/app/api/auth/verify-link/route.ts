@@ -55,9 +55,10 @@ export async function POST(req: NextRequest) {
     if (!user) {
       await query(
         `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito, usado)
-         VALUES ($1, 'email', 'MAGIC_VERIFIED', NOW() + INTERVAL '30 minutes', 'verification', true)`,
+         VALUES ($1, 'email', 'MAGIC_VERIFIED', NOW() + INTERVAL '30 minutes', 'registration', true)`,
         [result.email.toLowerCase()]
       );
+
 
       return NextResponse.json({
         success: true,
