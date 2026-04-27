@@ -12,36 +12,37 @@ const PILLARS = [
     {
         id: 'eco',
         title: 'Sostenibilidad',
-        highlight: 'Impacto Ameru',
+        highlight: 'Sostenibilidad Real',
         icon: Leaf,
         color: 'text-emerald-400',
         bg: 'from-emerald-500/10 to-transparent',
         border: 'border-emerald-500/20',
-        desc: 'Compensación de huella de carbono mediante eco-créditos integrados. Tecnología verde para un futuro corporativo responsable.',
-        visual: 'Eco-Monitor v2.0'
+        desc: 'Compensa tu huella de carbono con eco-créditos certificados. Tecnología que ayuda al planeta y a la imagen de tu empresa.',
+        visual: 'Monitor Verde'
     },
-    {
         id: 'telecom',
         title: 'Mi Línea',
-        highlight: '5G & eSIM Elite',
+        highlight: 'Conectividad Sin Complicaciones',
         icon: Smartphone,
         color: 'text-cyan-400',
         bg: 'from-cyan-500/10 to-transparent',
         border: 'border-cyan-500/20',
-        desc: 'Infraestructura móvil de última generación. Activación instantánea de eSIM y gestión de datos 5G sin fronteras.',
-        visual: 'Frecuencia Alpha'
+        desc: 'Líneas móviles que sí funcionan. eSIM instantánea y gestión de datos 5G para que tu equipo siempre esté conectado.',
+        visual: 'Señal 5G'
     },
+
     {
         id: 'billing',
         title: 'Facturación',
-        highlight: 'IGTF Smart-Sync',
+        highlight: 'Cobros Rápidos',
         icon: Receipt,
         color: 'text-blue-400',
         bg: 'from-blue-500/10 to-transparent',
         border: 'border-blue-500/20',
-        desc: 'Automatización total de facturación legal. Cálculo de IGTF en tiempo real y firma digital encriptada bajo estándares internacionales.',
-        visual: 'Cripto-Factura'
+        desc: 'Factura legalmente sin complicaciones. El sistema calcula el IGTF solo y te genera el QR al instante.',
+        visual: 'Factura Digital'
     }
+
 ];
 
 export function PillarShowcaseSection() {
@@ -61,12 +62,13 @@ export function PillarShowcaseSection() {
                     className="text-center mb-20"
                 >
                     <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter italic leading-none mb-6">
-                        Triada de <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500">Innovación</span>
+                        Soluciones para <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500">Dormir Tranquilo</span>
                     </h2>
                     <p className="text-white/40 text-sm font-black uppercase tracking-[0.4em] max-w-2xl mx-auto">
-                        Sostenibilidad · Conectividad · Legalidad
+                        Sostenibilidad · Conexión · Facturación
                     </p>
                 </motion.div>
+
 
                 <div className="grid md:grid-cols-3 gap-8">
                     {PILLARS.map((pillar, i) => (

@@ -44,9 +44,10 @@ export function AccountingSpecialSection() {
                                         <Landmark className="h-5 w-5 text-blue-400" />
                                     </div>
                                     <div>
-                                        <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">Terminal de Asesoría</h4>
-                                        <p className="text-sm font-bold text-white uppercase tracking-wider">Nexo Contable Alpha-1</p>
+                                        <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">Control de Finanzas</h4>
+                                        <p className="text-sm font-bold text-white uppercase tracking-wider">Contabilidad Sin Vueltas</p>
                                     </div>
+
                                 </div>
                                 <div className="flex gap-1.5">
                                     <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -114,15 +115,16 @@ export function AccountingSpecialSection() {
                             className="space-y-6"
                         >
                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.2em] font-tech">
-                                <Calculator className="h-3.5 w-3.5" /> Ecosistema Contable 360
+                                <Calculator className="h-3.5 w-3.5" /> Todo lo contable en un solo sitio
                             </div>
                             <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter leading-[0.9] italic">
-                                Blindaje Fiscal <br />
-                                <span className="text-blue-500 not-italic">de Misión Crítica</span>
+                                Protege tu plata <br />
+                                <span className="text-blue-500 not-italic">de multas y errores</span>
                             </h2>
                             <p className="text-zinc-400 text-lg leading-relaxed font-medium">
-                                No es solo contabilidad; es la fusión de inteligencia fiscal y tecnología de vanguardia. Nuestra asesoría transforma el cumplimiento tributario en una ventaja estratégica para tu empresa.
+                                Ya deja de sufrir con la contabilidad. Unimos inteligencia fiscal y tecnología para que el SENIAT no sea un dolor de cabeza. Todo automatizado y bajo la ley.
                             </p>
+
                         </motion.div>
 
                         <div className="grid sm:grid-cols-2 gap-4">
