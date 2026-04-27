@@ -144,15 +144,14 @@ export async function POST(req: NextRequest) {
 
         // 3. Generar Magic Link
         const token = generateMagicToken();
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 
-                        (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://system-kyron.vercel.app');
+        // Forzar dominio de producción si no hay variable de entorno establecida
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.vercel.app';
         
         const magicLink = `${baseUrl}/es/verify-link/${token}`;
         
-        // Guardar magic token (esperamos a que termine para seguridad)
-        await storeMagicToken(destino, token, user?.id).catch(err => {
-          console.error('[send-code] Error guardando MagicToken:', err);
-        });
+        // Guardar magic token
+        await storeMagicToken(destino, token, user?.id);
+
 
         // 4. Construir y Enviar Email
         const html = buildKyronEmailTemplate({
@@ -232,77 +231,12 @@ export async function POST(req: NextRequest) {
     }
 
 
-    const recentCheck = await query<{ count: string }>(
-      `SELECT COUNT(*) as count FROM verification_codes
-       WHERE destino = $1 AND created_at > NOW() - INTERVAL '1 minute'`,
-      [destino]
-    );
-    if (parseInt(recentCheck[0]?.count ?? '0') >= 3) {
-      return NextResponse.json(
-        { error: 'Demasiados intentos. Espera 1 minuto antes de solicitar otro codigo.' },
-        { status: 429 }
-      );
-    }
-
-    let phoneNumber = destino;
-    if (destino.includes('@')) {
-      const userPhone = await query<{ telefono: string | null }>(
-        `SELECT telefono FROM users WHERE email = $1`,
-        [destino]
-      );
-      if (!userPhone || userPhone.length === 0 || !userPhone[0]?.telefono) {
-        console.warn(`[send-code] Intento de verificación por teléfono para usuario sin número o inexistente: ${destino}`);
-        return NextResponse.json(
-          { error: 'No tienes un numero de telefono registrado o la cuenta no existe. Usa verificacion por correo.' },
-          { status: 400 }
-        );
-      }
-      phoneNumber = userPhone[0].telefono;
-    }
-
-    const normalized = normalizePhone(phoneNumber);
-    if (!/^\+\d{10,15}$/.test(normalized)) {
-      return NextResponse.json(
-        { error: 'Formato de numero de telefono invalido.' },
-        { status: 400 }
-      );
-    }
-
-    const codigo = generateCode();
-
-    await storeCode(destino.toLowerCase(), codigo, proposito, tipo);
-
-    const channelLabel = tipo === 'sms' ? 'SMS' : 'WhatsApp';
-    const masked = maskPhone(normalized);
-
-    const twilioResult = await trySendViaTwilio(tipo, normalized, codigo);
-
-    if (twilioResult.sent) {
-      console.log(`[send-code] ${channelLabel} enviado exitosamente a ${masked}`);
-      return NextResponse.json({
-        success: true,
-        message: `Codigo de verificacion enviado a tu ${channelLabel}`,
-        channel: tipo,
-        destination: masked,
-        expiresIn: 600,
-      });
-    }
-
-    console.log(`[send-code] ${channelLabel} no disponible: ${twilioResult.error}`);
-    return NextResponse.json(
-      { error: `No se pudo enviar el codigo por ${channelLabel}. Intenta con otro metodo de verificacion.` },
-      { status: 502 }
-    );
-
   } catch (err: any) {
     console.error('[send-code] CRITICAL ERROR:', err);
-    // Si el error es que la tabla no existe, dar un mensaje más útil en logs
-    if (err.message && err.message.includes('relation "verification_codes" does not exist')) {
-      console.error('[send-code] Error: La tabla verification_codes no existe. Ejecuta la inicialización de DB.');
-    }
     return NextResponse.json(
-      { error: 'Error interno al procesar la solicitud de verificacion. Intenta de nuevo.' },
+      { error: 'Error interno al procesar la solicitud de verificación. Intenta de nuevo.' },
       { status: 500 }
     );
   }
 }
+

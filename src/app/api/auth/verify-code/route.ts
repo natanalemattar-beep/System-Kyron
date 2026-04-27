@@ -19,6 +19,27 @@ interface DbUser {
     rif: string | null;
 }
 
+import { NextRequest, NextResponse } from 'next/server';
+import { queryOne } from '@/lib/db';
+import { createToken, setSessionCookie } from '@/lib/auth';
+import { logActivity } from '@/lib/activity-logger';
+import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
+import { sanitizeEmail } from '@/lib/input-sanitizer';
+import { verifyCode } from '@/lib/verification-codes';
+
+export const dynamic = 'force-dynamic';
+
+interface DbUser {
+    id: number;
+    email: string;
+    tipo: 'natural' | 'juridico';
+    nombre: string;
+    apellido: string | null;
+    cedula: string | null;
+    razon_social: string | null;
+    rif: string | null;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const ip = getClientIP(req);
@@ -27,7 +48,6 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    const body = await req.json();
     
     // Unificar entrada de datos
     const destino = (body.email || body.destino || '').trim().toLowerCase();
@@ -38,7 +58,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Destino y código son requeridos para la verificación' }, { status: 400 });
     }
 
-    const normalizedDestino = destino.includes('@') ? sanitizeEmail(destino) : destino;
+    const normalizedDestino = destino.includes('@') ? sanitizeEmail(destino) : destino.replace(/^0/, '+58');
     
     console.log(`[verify-code] Iniciando validación para: ${normalizedDestino}`);
 
@@ -51,11 +71,17 @@ export async function POST(req: NextRequest) {
     }
 
     // Código válido -> Buscar usuario
+    // Búsqueda inteligente: Soporta formatos de teléfono locales e internacionales
     const user = await queryOne<DbUser>(
       `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif
-       FROM users WHERE email = $1 OR telefono = $1`,
+       FROM users 
+       WHERE email = $1 
+          OR telefono = $1 
+          OR telefono = CONCAT('0', SUBSTRING($1 FROM 4)) 
+          OR telefono = CONCAT('+58', SUBSTRING($1 FROM 2))`,
       [normalizedDestino]
     );
+
 
     // Caso A: Usuario no existe (Flujo de Registro)
     if (!user) {
@@ -109,10 +135,6 @@ export async function POST(req: NextRequest) {
     });
 
     return response;
-
-
-
-    return NextResponse.json({ error: 'Datos de verificación incompletos' }, { status: 400 });
   } catch (err) {
     console.error('[verify-code] error:', err);
     return NextResponse.json({ error: 'Error al verificar el código.' }, { status: 500 });

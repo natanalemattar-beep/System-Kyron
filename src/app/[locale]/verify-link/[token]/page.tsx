@@ -1,171 +1,142 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { useParams } from 'next/navigation';
-import { Loader2, CircleCheck, CircleX, ShieldCheck, ArrowLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { isNetworkError } from '@/lib/utils';
+import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { ShieldCheck, Loader2, AlertCircle, ArrowRight, Home } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function VerifyLinkPage() {
+  const router = useRouter();
   const params = useParams();
-  const token = params?.token as string;
-  const locale = (params?.locale as string) || 'es';
-  const [status, setStatus] = useState<'verifying' | 'success' | 'registration' | 'error'>('verifying');
-  const [errorMsg, setErrorMsg] = useState('');
-  const [userName, setUserName] = useState('');
-  const attempted = useRef(false);
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
+  const [message, setMessage] = useState('Sincronizando con el Nexo de seguridad...');
+  const [errorDetails, setErrorDetails] = useState<string | null>(null);
+  const verifiedRef = useRef(false);
 
   useEffect(() => {
-    if (!token || attempted.current) return;
-    attempted.current = true;
+    // Evitar doble ejecución en StrictMode
+    if (verifiedRef.current) return;
+    
+    const verifyToken = async () => {
+      const token = params.token;
+      if (!token) {
+        setStatus('error');
+        setMessage('Token de acceso no encontrado.');
+        return;
+      }
 
-    (async () => {
       try {
-        const res = await fetch('/api/auth/verify-link', {
+        const response = await fetch('/api/auth/verify-link', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token }),
         });
-        const json = await res.json();
 
-        if (!res.ok) {
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          setStatus('success');
+          setMessage(data.message || 'Identidad verificada exitosamente.');
+          verifiedRef.current = true;
+          
+          // Redirigir según el modo (Registro vs Login)
+          setTimeout(() => {
+            if (data.registrationMode) {
+              router.push(`/es/register?email=${encodeURIComponent(data.email)}&verified=true`);
+            } else {
+              router.push('/es/dashboard');
+            }
+          }, 2000);
+        } else {
           setStatus('error');
-          setErrorMsg(json.error || 'Enlace inválido o expirado.');
-          return;
+          setMessage('No se pudo validar el enlace.');
+          setErrorDetails(data.error || 'El enlace puede haber expirado o ya fue utilizado.');
         }
-
-        if (json.registrationMode) {
-          setStatus('registration');
-          return;
-        }
-
-        setStatus('success');
-        setUserName(json.user?.nombre || '');
       } catch (err) {
         setStatus('error');
-        setErrorMsg(isNetworkError(err) ? 'Error de conexión. Verifica tu internet e intenta de nuevo.' : 'Error inesperado al verificar el enlace. Intenta de nuevo.');
+        setMessage('Error de conexión con el servidor.');
+        setErrorDetails('Verifica tu conexión a internet e intenta de nuevo.');
       }
-    })();
-  }, [token]);
+    };
+
+    verifyToken();
+  }, [params.token, router]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="w-full max-w-md text-center space-y-6"
+    <div className="min-h-screen bg-[#030711] flex flex-col items-center justify-center p-6 relative overflow-hidden">
+      {/* Background HUD Grid */}
+      <div className="absolute inset-0 hud-grid opacity-5 pointer-events-none" />
+      
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-md w-full glass-elite p-10 rounded-[2.5rem] border-white/10 shadow-2xl text-center relative z-10"
       >
-        <div className="mx-auto w-20 h-20 rounded-2xl bg-primary/5 border border-primary/10 flex items-center justify-center">
-          {status === 'verifying' && (
-            <Loader2 className="h-8 w-8 text-primary animate-spin" />
+        <div className="mb-8 relative mx-auto w-20 h-20 flex items-center justify-center">
+          {status === 'loading' && (
+            <>
+              <div className="absolute inset-0 border-2 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin" />
+              <Loader2 className="h-8 w-8 text-cyan-500 animate-pulse" />
+            </>
           )}
-          {(status === 'success' || status === 'registration') && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: 'spring', duration: 0.5 }}
-            >
-              <CircleCheck className="h-8 w-8 text-emerald-500" />
-            </motion.div>
+          {status === 'success' && (
+            <>
+              <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-xl animate-pulse" />
+              <div className="relative h-16 w-16 rounded-2xl bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
+                <ShieldCheck className="h-8 w-8 text-emerald-500" />
+              </div>
+            </>
           )}
           {status === 'error' && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: 'spring', duration: 0.5 }}
-            >
-              <CircleX className="h-8 w-8 text-destructive" />
-            </motion.div>
+            <>
+              <div className="absolute inset-0 bg-rose-500/20 rounded-full blur-xl animate-pulse" />
+              <div className="relative h-16 w-16 rounded-2xl bg-rose-500/20 flex items-center justify-center border border-rose-500/30">
+                <AlertCircle className="h-8 w-8 text-rose-500" />
+              </div>
+            </>
           )}
         </div>
 
-        {status === 'verifying' && (
-          <div className="space-y-2">
-            <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
-              Verificando...
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Confirmando tu identidad de forma segura.
-            </p>
+        <h1 className="text-2xl font-black text-white uppercase tracking-tighter italic mb-4">
+          {status === 'loading' && 'Verificando Acceso'}
+          {status === 'success' && 'Identidad Confirmada'}
+          {status === 'error' && 'Acceso Denegado'}
+        </h1>
+        
+        <p className="text-zinc-400 text-sm font-medium leading-relaxed mb-8">
+          {message}
+          {errorDetails && (
+            <span className="block mt-2 text-rose-500/60 text-xs italic">{errorDetails}</span>
+          )}
+        </p>
+
+        {status === 'error' && (
+          <div className="flex flex-col gap-3">
+            <Button asChild className="h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold uppercase text-[10px] tracking-widest transition-all">
+              <Link href="/es/login">Reintentar Acceso <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
+            <Button asChild variant="ghost" className="h-10 text-white/40 hover:text-white transition-colors">
+              <Link href="/es"><Home className="mr-2 h-4 w-4" /> Volver al Inicio</Link>
+            </Button>
           </div>
         )}
 
         {status === 'success' && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-4"
-          >
-            <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
-              Identidad verificada
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              {userName ? (
-                <>Bienvenido, <strong className="text-foreground">{userName}</strong>.</>
-              ) : (
-                'Tu identidad ha sido confirmada.'
-              )}
-            </p>
-            <div className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-500/[0.06] border border-emerald-500/20 mx-auto max-w-xs">
-              <ArrowLeft className="h-4 w-4 text-emerald-500 shrink-0" />
-              <p className="text-[12px] font-medium text-emerald-600 dark:text-emerald-400">
-                Vuelve a la pestaña donde iniciaste sesión. Se actualizará automáticamente.
-              </p>
-            </div>
-            <p className="text-[11px] text-muted-foreground/50">
-              Puedes cerrar esta pestaña.
-            </p>
-          </motion.div>
+          <div className="flex items-center justify-center gap-2 text-[10px] font-black text-emerald-500 uppercase tracking-[0.2em] animate-pulse">
+            <div className="h-1 w-1 rounded-full bg-emerald-500" />
+            Redirigiendo al Dashboard...
+          </div>
         )}
-
-        {status === 'registration' && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-4"
-          >
-            <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
-              Correo verificado
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Tu correo ha sido verificado exitosamente. Puedes cerrar esta pestaña y continuar con tu registro.
-            </p>
-            <Button
-              onClick={() => { window.close(); }}
-              className="rounded-xl font-bold text-xs uppercase tracking-widest"
-            >
-              Cerrar pestaña
-            </Button>
-          </motion.div>
-        )}
-
-        {status === 'error' && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-4"
-          >
-            <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
-              Enlace no válido
-            </h1>
-            <p className="text-sm text-muted-foreground">{errorMsg}</p>
-            <Button
-              onClick={() => { window.location.href = `/${locale}`; }}
-              className="rounded-xl font-bold text-xs uppercase tracking-widest"
-            >
-              Volver al inicio
-            </Button>
-          </motion.div>
-        )}
-
-        <div className="flex items-center justify-center gap-2 pt-4">
-          <ShieldCheck className="h-3.5 w-3.5 text-muted-foreground/30" />
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/30 italic">
-            System Kyron · Enlace Seguro
-          </span>
-        </div>
       </motion.div>
+
+      {/* Decorative footer */}
+      <div className="mt-8 flex items-center gap-3 opacity-20 pointer-events-none">
+        <div className="h-px w-8 bg-white" />
+        <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Protocolo Kyron Alpha</span>
+        <div className="h-px w-8 bg-white" />
+      </div>
     </div>
   );
 }

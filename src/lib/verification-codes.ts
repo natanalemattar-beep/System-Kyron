@@ -89,7 +89,7 @@ export async function verifyCode(
      WHERE destino = $1 AND usado = false AND expires_at > NOW()
      AND proposito = $2
      ORDER BY created_at DESC LIMIT 1
-     FOR UPDATE SKIP LOCKED`,
+     FOR UPDATE`,
     [key, proposito]
   );
 
