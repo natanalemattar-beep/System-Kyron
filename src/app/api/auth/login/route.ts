@@ -31,10 +31,11 @@ export async function POST(req: NextRequest) {
         const rl = rateLimit(`login:${ip}`, 10, 15 * 60 * 1000);
         if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs);
 
-        const { email, password, accessKey, portal } = await req.json();
+        const { identifier, email, password, accessKey, portal } = await req.json();
+        const loginId = (identifier || email || '').trim();
 
-        if (!email || !password) {
-            return NextResponse.json({ error: 'Correo y contraseña son requeridos' }, { status: 400 });
+        if (!loginId || !password) {
+            return NextResponse.json({ error: 'Identificador y contraseña son requeridos' }, { status: 400 });
         }
 
         const validPortals = ['personal', 'business'] as const;
@@ -43,16 +44,15 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Portal de acceso no válido' }, { status: 400 });
         }
 
-        if (!isValidEmail(email)) {
-            return NextResponse.json({ error: 'Formato de correo inválido' }, { status: 400 });
-        }
+        // Si parece un correo, sanitizar. Si no, dejarlo para búsqueda por Cédula o Teléfono.
+        const looksLikeEmail = isValidEmail(loginId);
+        const normalizedId = looksLikeEmail ? sanitizeEmail(loginId) : loginId;
 
-        const normalizedEmail = sanitizeEmail(email);
+        const rateLimitKey = `login:id:${normalizedId}`;
+        const idRl = rateLimit(rateLimitKey, 10, 15 * 60 * 1000);
+        if (!idRl.allowed) return rateLimitResponse(idRl.retryAfterMs);
 
-        const emailRl = rateLimit(`login:email:${normalizedEmail}`, 5, 15 * 60 * 1000);
-        if (!emailRl.allowed) return rateLimitResponse(emailRl.retryAfterMs);
-
-        const bruteCheck = checkBruteForce(`bf:${normalizedEmail}`);
+        const bruteCheck = checkBruteForce(`bf:${normalizedId}`);
         if (bruteCheck.locked) {
             const mins = Math.ceil(bruteCheck.retryAfterMs / 60000);
             return NextResponse.json(
@@ -61,10 +61,22 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        // Búsqueda flexible: Email, Cédula o Teléfono
+        // Intentamos normalizar el ID como teléfono por si acaso
+        let searchPhone = normalizedId;
+        if (!looksLikeEmail && /^\d+$/.test(normalizedId.replace(/\D/g, ''))) {
+            const { normalizePhone } = await import('@/lib/verification-codes');
+            searchPhone = normalizePhone(normalizedId);
+        }
+
         const user = await queryOne<DbUser>(
             `SELECT id, email, password_hash, tipo, nombre, apellido, cedula, razon_social, rif, access_key_hash, telefono, COALESCE(telefono_verificado, false) as telefono_verificado
-             FROM users WHERE email = $1`,
-            [normalizedEmail]
+             FROM users 
+             WHERE email = $1 
+                OR cedula = $1 
+                OR telefono = $1 
+                OR (telefono IS NOT NULL AND telefono = $2)`,
+            [normalizedId, searchPhone]
         );
 
         if (!user) {
@@ -74,7 +86,8 @@ export async function POST(req: NextRequest) {
 
         const valid = await bcrypt.compare(password, user.password_hash);
         if (!valid) {
-            const bruteResult = recordLoginFailure(`bf:${normalizedEmail}`);
+            const bruteResult = recordLoginFailure(`bf:${user.email}`);
+
             await logActivity({
                 userId: user.id,
                 evento: 'LOGIN_FALLIDO',
@@ -94,7 +107,8 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Credenciales inválidas' }, { status: 401 });
         }
 
-        clearLoginFailures(`bf:${normalizedEmail}`);
+        clearLoginFailures(`bf:${user.email}`);
+
 
         const portalMismatch =
             (normalizedPortal === 'personal' && user.tipo === 'juridico') ||
@@ -165,10 +179,11 @@ export async function POST(req: NextRequest) {
         }
 
         const code = generateCode();
-        await storeCode(normalizedEmail, code, 'verification', 'email');
+        await storeCode(user.email, code, 'verification', 'email');
 
         const magicToken = generateMagicToken();
-        await storeMagicToken(normalizedEmail, magicToken, user.id);
+        await storeMagicToken(user.email, magicToken, user.id);
+
 
         const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 
                         (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
@@ -177,10 +192,11 @@ export async function POST(req: NextRequest) {
         
         const magicLinkUrl = `${baseUrl}/es/verify-link/${magicToken}`;
 
-        const maskedEmail = normalizedEmail.replace(
+        const maskedEmail = user.email.replace(
             /^(.{2})(.*)(@.*)$/,
             (_, a, b, c) => a + '*'.repeat(Math.min(b.length, 6)) + c
         );
+
 
         const decryptedPhone = decryptIfEncrypted(user.telefono);
         const hasPhone = !!(decryptedPhone && decryptedPhone.length >= 7 && user.telefono_verificado);
@@ -193,7 +209,8 @@ export async function POST(req: NextRequest) {
         }
 
         const emailResult = await sendEmail({
-            to: normalizedEmail,
+            to: user.email,
+
             subject: `${code} — Código de verificación · System Kyron`,
             html: buildKyronEmailTemplate({
                 title: 'Verificación de identidad',
@@ -209,15 +226,16 @@ export async function POST(req: NextRequest) {
             return { success: false, error: String(err) };
         });
 
-        const challengeToken = createLoginChallenge(normalizedEmail, user.id);
+        const challengeToken = createLoginChallenge(user.email, user.id);
 
         const isDev = !process.env.REPLIT_DEPLOYMENT_URL;
 
         if (emailResult && !emailResult.success) {
             console.error('[login] Verification email failed:', emailResult.error);
             if (isDev) {
-                console.log(`[login][DEV] Código de verificación para ${normalizedEmail}: ${code}`);
+                console.log(`[login][DEV] Código de verificación para ${user.email}: ${code}`);
             }
+
             if (hasPhone) {
                 return NextResponse.json({
                     requiresVerification: true,

@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import { HeroSection } from '@/components/landing';
 import { LandingClientWrapper } from '@/components/landing/landing-client-wrapper';
 import { LazySection } from '@/components/landing/lazy-section';
+import { JsonLd } from '@/components/seo/json-ld';
 
 // Dynamic imports with prefetch and proper loading states
 const PartnersSection = dynamic(() => import('@/components/landing/partners-section').then(m => ({ default: m.PartnersSection })), { ssr: true });
@@ -12,12 +13,10 @@ const FeaturesGrid = dynamic(() => import('@/components/landing/features-grid').
 const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: true });
 const AccountingSpecialSection = dynamic(() => import('@/components/landing/accounting-special-section').then(m => ({ default: m.AccountingSpecialSection })), { ssr: true });
 const PillarShowcaseSection = dynamic(() => import('@/components/landing/pillar-showcase-section').then(m => ({ default: m.PillarShowcaseSection })), { ssr: true });
-const PublicAssistant = dynamic(() => import('@/components/ai/public-assistant').then(m => ({ default: m.PublicAssistant })), { ssr: false });
-
-
-import { JsonLd } from '@/components/seo/json-ld';
+const PublicAssistant = dynamic(() => import('@/components/ai/public-assistant').then(m => m.PublicAssistant), { ssr: false });
 
 export default function LandingPage() {
+
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
                 (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://system-kyron.vercel.app');
 

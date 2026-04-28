@@ -63,11 +63,13 @@ export default function LoginPersonalPage() {
     setIsLoading(true);
     setError(null);
     const formData = new FormData(event.currentTarget);
-    const email = (formData.get('email') as string || '').trim().toLowerCase();
+    const identifier = (formData.get('identifier') as string || '').trim().toLowerCase();
+
     const password = formData.get('password') as string;
     const accessKey = (formData.get('accessKey') as string || '').trim();
     try {
-      const body: Record<string, string> = { email, password, portal: 'personal' };
+      const body: Record<string, string> = { identifier, password, portal: 'personal' };
+
       if (accessKey) body.accessKey = accessKey;
       const res = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       const json = await res.json();
@@ -86,8 +88,9 @@ export default function LoginPersonalPage() {
         return;
       }
       if (json.requiresVerification) {
-        setVerificationEmail(email);
-        setMaskedEmail(json.maskedEmail || email);
+        setVerificationEmail(json.email || identifier);
+        setMaskedEmail(json.maskedEmail || json.email || identifier);
+
         setDevCode(json.devCode || null);
         setStep('verification');
         setCountdown(600);
@@ -96,7 +99,8 @@ export default function LoginPersonalPage() {
         if (json.devCode) {
           toast({ title: 'Modo desarrollo', description: 'Código mostrado en pantalla', action: <Sparkles className="text-amber-500 h-4 w-4" /> });
         } else {
-          toast({ title: 'Código enviado', description: `Revisa tu correo ${json.maskedEmail || email}`, action: <Mail className="text-cyan-500 h-4 w-4" /> });
+          toast({ title: 'Código enviado', description: `Revisa tu correo ${json.maskedEmail || json.email || identifier}`, action: <Mail className="text-cyan-500 h-4 w-4" /> });
+
         }
         return;
       }
@@ -289,12 +293,13 @@ export default function LoginPersonalPage() {
               {loginMode === 'email' ? (
                 <form onSubmit={handleLogin} className="space-y-5">
                   <div className="space-y-2">
-                    <Label className="text-sm font-semibold text-foreground/80">Correo Electrónico</Label>
+                    <Label className="text-sm font-semibold text-foreground/80">Número de Cédula / Correo</Label>
                     <div className="relative group">
-                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-blue-500 transition-colors" />
-                      <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className="h-12 pl-10 rounded-xl border-border/50 bg-muted/20 focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50 transition-all" />
+                      <Fingerprint className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-blue-500 transition-colors" />
+                      <Input name="identifier" type="text" placeholder="V-12345678 o tu@correo.com" required className="h-12 pl-10 rounded-xl border-border/50 bg-muted/20 focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50 transition-all" />
                     </div>
                   </div>
+
 
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">

@@ -84,12 +84,14 @@ export default function LoginLineaUnifiedPage() {
     setError(null);
 
     const formData = new FormData(event.currentTarget);
-    const email = (formData.get('email') as string || '').trim().toLowerCase();
+    const identifier = (formData.get('identifier') as string || '').trim().toLowerCase();
+
     const password = formData.get('password') as string;
     const accessKey = (formData.get('accessKey') as string || '').trim();
 
     try {
-      const body: Record<string, string> = { email, password, portal: selected === 'empresa' ? 'business' : 'personal' };
+      const body: Record<string, string> = { identifier, password, portal: selected === 'empresa' ? 'business' : 'personal' };
+
       if (accessKey) body.accessKey = accessKey;
       const res = await fetch('/api/auth/login', {
         method: 'POST',
@@ -116,13 +118,15 @@ export default function LoginLineaUnifiedPage() {
         return;
       }
       if (json.requiresVerification) {
-        setVerificationEmail(email);
-        setMaskedEmail(json.maskedEmail || email);
+        setVerificationEmail(json.email || identifier);
+        setMaskedEmail(json.maskedEmail || json.email || identifier);
+
         setStep('verification');
         setCountdown(600);
         setCodeDigits(['', '', '', '', '', '']);
         setIsLoading(false);
-        toast({ title: 'Código enviado', description: `Revisa tu correo ${json.maskedEmail || email}`, action: <Mail className="text-cyan-500 h-4 w-4" /> });
+        toast({ title: 'Código enviado', description: `Revisa tu correo ${json.maskedEmail || json.email || identifier}`, action: <Mail className="text-cyan-500 h-4 w-4" /> });
+
         return;
       }
       toast({
@@ -266,12 +270,13 @@ export default function LoginLineaUnifiedPage() {
                   )}
 
                   <div className="space-y-2">
-                    <Label className="text-sm font-semibold">Correo Electrónico</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
-                      <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className="h-12 pl-10 rounded-xl border-border/60" />
+                    <Label className="text-sm font-semibold">Número de Teléfono</Label>
+                    <div className="relative group">
+                      <Smartphone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
+                      <Input name="identifier" type="tel" placeholder="04XX-XXXXXXX" required autoComplete="tel" className="h-12 pl-10 rounded-xl border-border/60" />
                     </div>
                   </div>
+
 
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">

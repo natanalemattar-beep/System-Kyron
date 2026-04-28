@@ -86,6 +86,14 @@ export function SpecializedLoginCard({
   const { toast } = useToast();
   const theme = ACCENT_THEMES[accentColor] || ACCENT_THEMES['primary'];
 
+  const isPersonalPortal = portalName.toLowerCase().includes('personal') || portalName.toLowerCase().includes('ciudadano');
+  const isTelecomPortal = portalName.toLowerCase().includes('línea') || portalName.toLowerCase().includes('teléfono') || portalName.toLowerCase().includes('móvil');
+  
+  const identifierLabel = isTelecomPortal ? 'Número de Teléfono' : (isPersonalPortal ? 'Número de Cédula / Correo' : 'Correo Electrónico');
+  const identifierPlaceholder = isTelecomPortal ? '04XX-XXXXXXX' : (isPersonalPortal ? 'V-12345678 o tu@correo.com' : 'tu@correo.com');
+  const IdentifierIcon = isTelecomPortal ? Smartphone : (isPersonalPortal ? Fingerprint : Mail);
+
+
   const handleMagicLinkVerified = useCallback(() => {
     setVerifVerified(true);
     toast({ title: 'Identidad verificada', description: 'Acceso verificado automáticamente.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
@@ -108,13 +116,14 @@ export function SpecializedLoginCard({
     if (step === 'verification') setTimeout(() => singleInputRef.current?.focus(), 200);
   }, [step]);
 
-  const attemptLogin = async (email: string, password: string, accessKey?: string) => {
+  const attemptLogin = async (identifier: string, password: string, accessKey?: string) => {
     setIsLoading(true);
     setError(null);
     setEmailDeliveryFailed(false);
     try {
-      const body: Record<string, string> = { email, password, portal: 'business' };
+      const body: Record<string, string> = { identifier, password, portal: 'business' };
       if (accessKey && accessKey.trim()) body.accessKey = accessKey.trim();
+
 
       const res = await fetch('/api/auth/login', {
         method: 'POST',
@@ -146,8 +155,9 @@ export function SpecializedLoginCard({
         return;
       }
       if (json.requiresVerification) {
-        setVerificationEmail(email);
-        setMaskedEmail(json.maskedEmail || email);
+        setVerificationEmail(json.email || identifier);
+        setMaskedEmail(json.maskedEmail || json.email || identifier);
+
         setUserName(json.nombre || '');
         setHasPhone(!!json.hasPhone);
         setMaskedPhone(json.maskedPhone || '');
@@ -185,15 +195,18 @@ export function SpecializedLoginCard({
   const handleAuth = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const email = (formData.get('email') as string || '').trim().toLowerCase();
+    const identifier = (formData.get('identifier') as string || '').trim().toLowerCase();
+
     const password = formData.get('password') as string;
     const accessKey = formData.get('accessKey') as string || '';
-    await attemptLogin(email, password, accessKey);
+    await attemptLogin(identifier, password, accessKey);
+
   };
 
   const handleResendEmail = async () => {
     if (!savedCredentials) return;
     await attemptLogin(savedCredentials.email, savedCredentials.password);
+
   };
 
   const handlePhoneLogin = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -423,12 +436,13 @@ export function SpecializedLoginCard({
                   transition={{ duration: 0.2 }}
                 >
                   <div className="space-y-2">
-                    <Label className="text-[13px] font-semibold text-foreground/80">Correo Electrónico</Label>
+                    <Label className="text-[13px] font-semibold text-foreground/80">{identifierLabel}</Label>
                     <div className="relative group">
-                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
-                      <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className={cn("h-12 pl-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)} />
+                      <IdentifierIcon className={cn("absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors")} />
+                      <Input name="identifier" type="text" placeholder={identifierPlaceholder} required className={cn("h-12 pl-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)} />
                     </div>
                   </div>
+
 
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
