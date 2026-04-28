@@ -9,7 +9,7 @@ import {
 import { cn } from '@/lib/utils';
 import { MarkdownRenderer } from '@/components/markdown-renderer';
 
-export function PublicAssistant() {
+function PublicAssistant() {
     const [isOpen, setIsOpen] = useState(false);
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState([
@@ -259,3 +259,5 @@ export function PublicAssistant() {
         </section>
     );
 }
+
+export default PublicAssistant;

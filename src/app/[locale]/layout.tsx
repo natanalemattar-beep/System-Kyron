@@ -8,8 +8,8 @@ import { PerformanceProvider } from "@/components/performance-provider";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
 import { OfflineIndicator } from "@/components/landing/offline-indicator";
-import dynamic from 'next/dynamic';
 import { Inter, Outfit } from 'next/font/google';
+
 import { Metadata } from 'next';
 import { Providers } from "@/components/providers";
 
@@ -17,11 +17,8 @@ import { Providers } from "@/components/providers";
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
 
-// Dynamic import of KyronAssistant with no SSR to prevent server errors
-const KyronAssistant = dynamic(() => import("@/components/ai/kyron-assistant").then(mod => mod.KyronAssistant), { 
-  ssr: false,
-  loading: () => null
-});
+import { KyronAssistantWrapper } from "@/components/ai/kyron-assistant-wrapper";
+
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -81,7 +78,8 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
                 <div className="relative flex min-h-screen flex-col">
                   <main className="flex-1">{children}</main>
                   <OfflineIndicator />
-                  <KyronAssistant />
+                  <KyronAssistantWrapper />
+
                 </div>
               </DemoBannerProvider>
             </PerformanceProvider>

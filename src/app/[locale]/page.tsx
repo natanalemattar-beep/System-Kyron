@@ -13,7 +13,8 @@ const FeaturesGrid = dynamic(() => import('@/components/landing/features-grid').
 const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: true });
 const AccountingSpecialSection = dynamic(() => import('@/components/landing/accounting-special-section').then(m => ({ default: m.AccountingSpecialSection })), { ssr: true });
 const PillarShowcaseSection = dynamic(() => import('@/components/landing/pillar-showcase-section').then(m => ({ default: m.PillarShowcaseSection })), { ssr: true });
-const PublicAssistant = dynamic(() => import('@/components/ai/public-assistant').then(m => m.PublicAssistant), { ssr: false });
+import { PublicAssistantWrapper } from "@/components/ai/public-assistant-wrapper";
+
 
 export default function LandingPage() {
 
@@ -86,7 +87,8 @@ export default function LandingPage() {
                 <CtaSection />
             </LazySection>
             <LazySection fallbackHeight="600px">
-                <PublicAssistant />
+                <PublicAssistantWrapper />
+
             </LazySection>
             <LazySection fallbackHeight="400px">
                 <FaqSection />

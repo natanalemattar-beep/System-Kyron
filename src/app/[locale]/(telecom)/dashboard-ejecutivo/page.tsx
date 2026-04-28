@@ -131,6 +131,8 @@ export default function DashboardEjecutivoPage() {
             </div>
           </motion.div>
         ))}
+      </div>
+
       <div className="grid lg:grid-cols-12 gap-6">
         <Card className="lg:col-span-8 bg-black/40 border border-white/5 rounded-[2.5rem] overflow-hidden relative group">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(6,182,212,0.1),transparent_70%)]" />
@@ -307,7 +309,6 @@ export default function DashboardEjecutivoPage() {
             </p>
           )}
         </CardContent>
-      </Card>/CardContent>
       </Card>
     </div>
   );
