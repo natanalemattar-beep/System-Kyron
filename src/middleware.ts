@@ -77,6 +77,7 @@ const PUBLIC_SEGMENTS = new Set([
   'prueba-gratuita',
   'prueba-velocidad',
   'feedback',
+  'pitch',
 ]);
 
 // Public API routes — explicit whitelist (fail-closed)

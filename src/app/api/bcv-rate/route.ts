@@ -72,6 +72,44 @@ async function fetchFromDb(): Promise<{ rate: number; date: string } | null> {
   return null;
 }
 
+async function fetchBCVHtml(): Promise<string | null> {
+  try {
+    const https = await import('https');
+    return new Promise((resolve) => {
+      const req = https.request('https://www.bcv.org.ve/', {
+        method: 'GET',
+        rejectUnauthorized: false,
+        timeout: 8000,
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        },
+      }, (res) => {
+        let data = '';
+        res.on('data', (chunk) => { data += chunk; });
+        res.on('end', () => resolve(data));
+      });
+      req.on('error', () => resolve(null));
+      req.on('timeout', () => { req.destroy(); resolve(null); });
+      req.end();
+    });
+  } catch { return null; }
+}
+
+async function fetchFromBCVDirect(): Promise<{ rate: number; date: string } | null> {
+  try {
+    const html = await fetchBCVHtml();
+    if (!html) return null;
+    const match = html.match(/id="dolar"[\s\S]*?<strong>\s*([\d.,]+)\s*<\/strong>/i);
+    if (match) {
+      const rate = parseFloat(match[1].replace(/\./g, '').replace(',', '.'));
+      if (!isNaN(rate) && rate > 0) {
+        return { rate, date: new Date().toLocaleDateString('es-VE', { day: '2-digit', month: '2-digit', year: 'numeric' }) };
+      }
+    }
+  } catch {}
+  return null;
+}
+
 async function saveToDB(rate: number, fuente: string): Promise<void> {
   try {
     const today = new Date().toISOString().split('T')[0];
@@ -108,6 +146,7 @@ async function fetchBcvRate(): Promise<{ rate: number; date: string; fuente: str
   }
 
   const sources: Array<{ fn: () => Promise<{ rate: number; date: string } | null>; name: string }> = [
+    { fn: fetchFromBCVDirect, name: 'bcv-oficial' },
     { fn: fetchFromPyDolar, name: 'pydolar-bcv' },
     { fn: fetchFromExchangeRateApi, name: 'exchangerate-api' },
     { fn: fetchFromDolarApi, name: 'dolarapi' },

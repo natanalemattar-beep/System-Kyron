@@ -7,7 +7,7 @@ export const naturalNavGroups = [
         icon: User,
         items: [
             { href: "/tarjeta-digital", label: "ID Digital 3D", icon: User },
-            { href: "/perfil", label: "Datos Maestros", icon: UserCog },
+            { href: "/perfil", label: "Información de Perfil", icon: UserCog },
             { href: "/seguridad-cuenta", label: "Seguridad de Cuenta", icon: ShieldCheck, badge: "NUEVO" },
         ],
     },
@@ -141,7 +141,7 @@ export const asesoriaContableNavGroups = [
         { href: "/estudio-factibilidad-economica", label: "Factibilidad Econ.", icon: Target, section: "Planificación" },
         { href: "/contabilidad/calidad/iso-9001", label: "Manuales ISO 9001", icon: FileText, section: "Planificación" },
         { href: "/contabilidad/proyectos/anteproyecto", label: "Anteproyecto", icon: FileText, section: "Planificación" },
-        { href: "/contabilidad/proyectos/proyecto-maestro", label: "Proyecto Maestro", icon: ClipboardList, section: "Planificación" },
+        { href: "/contabilidad/proyectos/proyecto-maestro", label: "Gestión de Proyectos", icon: ClipboardList, section: "Planificación" },
         { href: "/ingenieria-ia", label: "Ingeniería e IA", icon: Cpu, section: "Planificación" },
     ],
   },

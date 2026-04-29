@@ -182,13 +182,12 @@ export default function LoginPersonalPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
-      <div className="absolute inset-0 -z-10 overflow-hidden bg-gradient-to-br from-background via-background to-muted/30">
-        <div className="absolute top-0 left-0 right-0 h-[600px] bg-gradient-to-b from-blue-500/[0.03] to-transparent" />
-        <svg className="absolute inset-0 w-full h-full opacity-[0.012]" xmlns="http://www.w3.org/2000/svg">
-          <defs><pattern id="pGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5"/></pattern></defs>
-          <rect width="100%" height="100%" fill="url(#pGrid)"/>
-        </svg>
+    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden bg-[#050816]">
+      {/* Background HUD / Deep Space */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-blue-600/5 blur-[150px] rounded-full animate-pulse-slow" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-emerald-600/5 blur-[150px] rounded-full animate-pulse" />
+        <div className="absolute inset-0 hud-grid opacity-10" />
       </div>
 
       <Button variant="ghost" asChild className="absolute top-6 left-6 md:top-8 md:left-8 h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground z-20">
@@ -199,7 +198,7 @@ export default function LoginPersonalPage() {
         initial={{ opacity: 0, y: 20, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-[1000px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-lg shadow-black/[0.08] overflow-hidden border border-border/40"
+        className="w-full max-w-[1000px] grid md:grid-cols-2 gap-0 rounded-[2.5rem] shadow-2xl overflow-hidden border border-white/5 bg-white/[0.01] backdrop-blur-3xl relative z-10"
       >
         <div className="relative overflow-hidden flex flex-col justify-between text-white bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-700 p-8 md:p-10">
           <div className="absolute inset-0 overflow-hidden">
@@ -251,16 +250,16 @@ export default function LoginPersonalPage() {
                 <p className="text-sm text-muted-foreground mt-1.5">Elige cómo quieres acceder</p>
               </div>
 
-              <div className="flex rounded-xl bg-muted/30 border border-border/30 p-1 mb-6">
+              <div className="flex rounded-xl bg-white/5 border border-white/5 p-1 mb-6">
                 <button type="button" onClick={() => { setLoginMode('email'); setError(null); }}
-                  className={cn("flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
-                    loginMode === 'email' ? "bg-card shadow-sm border border-border/30 text-blue-500" : "text-muted-foreground hover:text-foreground"
+                  className={cn("flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-[11px] font-black uppercase tracking-widest transition-all",
+                    loginMode === 'email' ? "bg-blue-600 text-white shadow-lg" : "text-slate-400 hover:text-white"
                   )}>
                   <Mail className="h-3.5 w-3.5" /> Correo
                 </button>
                 <button type="button" onClick={() => { setLoginMode('phone'); setError(null); }}
-                  className={cn("flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
-                    loginMode === 'phone' ? "bg-card shadow-sm border border-border/30 text-emerald-500" : "text-muted-foreground hover:text-foreground"
+                  className={cn("flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-[11px] font-black uppercase tracking-widest transition-all",
+                    loginMode === 'phone' ? "bg-emerald-600 text-white shadow-lg" : "text-slate-400 hover:text-white"
                   )}>
                   <Smartphone className="h-3.5 w-3.5" /> Teléfono
                 </button>
@@ -293,23 +292,22 @@ export default function LoginPersonalPage() {
               {loginMode === 'email' ? (
                 <form onSubmit={handleLogin} className="space-y-5">
                   <div className="space-y-2">
-                    <Label className="text-sm font-semibold text-foreground/80">Número de Cédula / Correo</Label>
+                    <Label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Número de Cédula / Correo</Label>
                     <div className="relative group">
-                      <Fingerprint className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-blue-500 transition-colors" />
-                      <Input name="identifier" type="text" placeholder="V-12345678 o tu@correo.com" required className="h-12 pl-10 rounded-xl border-border/50 bg-muted/20 focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50 transition-all" />
+                      <Fingerprint className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 transition-colors group-focus-within:text-blue-500" />
+                      <Input name="identifier" type="text" placeholder="V-12345678" required className="h-14 pl-12 rounded-xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-blue-500/20 focus-visible:border-blue-500/40 transition-all placeholder:text-slate-600" />
                     </div>
                   </div>
 
-
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <Label className="text-sm font-semibold text-foreground/80">Contraseña</Label>
-                      <Link href="/recuperar-cuenta" className="text-xs font-medium text-blue-500 hover:underline">¿Olvidaste?</Link>
+                      <Label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Contraseña</Label>
+                      <Link href="/recuperar-cuenta" className="text-[10px] font-bold text-blue-400 hover:text-blue-300 uppercase tracking-wider">¿Olvidaste?</Link>
                     </div>
                     <div className="relative group">
-                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-blue-500 transition-colors" />
-                      <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className="h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50 transition-all" />
-                      <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
+                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 transition-colors group-focus-within:text-blue-500" />
+                      <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className="h-14 pl-12 pr-12 rounded-xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-blue-500/20 focus-visible:border-blue-500/40 transition-all placeholder:text-slate-600" />
+                      <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white transition-colors" tabIndex={-1}>
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
                     </div>

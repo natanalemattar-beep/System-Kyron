@@ -65,7 +65,7 @@ export default function IngenieriaIAPage() {
                         </div>
 
                         <Button className="w-full h-16 rounded-2xl font-semibold uppercase text-xs tracking-widest shadow-lg" onClick={handleGenerate} disabled={isLoading}>
-                            {isLoading ? <Loader2 className="animate-spin h-5 w-5" /> : "GENERAR PLANO MAESTRO"}
+                            {isLoading ? <Loader2 className="animate-spin h-5 w-5" /> : "GENERAR PLANO TÉCNICO"}
                         </Button>
                     </div>
                 </Card>

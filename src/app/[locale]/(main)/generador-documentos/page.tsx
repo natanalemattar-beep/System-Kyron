@@ -98,7 +98,7 @@ export default function GeneradorDocumentosPage() {
                                 disabled={isLoading}
                             >
                                 {isLoading ? <Loader2 className="animate-spin mr-2"/> : <Wand2 className="mr-2 h-5 w-5"/>}
-                                GENERAR BORRADOR MAESTRO
+                                GENERAR BORRADOR FINAL
                             </Button>
                         </CardFooter>
                     </Card>

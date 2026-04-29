@@ -13,13 +13,14 @@ const FeaturesGrid = dynamic(() => import('@/components/landing/features-grid').
 const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: true });
 const AccountingSpecialSection = dynamic(() => import('@/components/landing/accounting-special-section').then(m => ({ default: m.AccountingSpecialSection })), { ssr: true });
 const PillarShowcaseSection = dynamic(() => import('@/components/landing/pillar-showcase-section').then(m => ({ default: m.PillarShowcaseSection })), { ssr: true });
+const ServicesSection = dynamic(() => import('@/components/landing/services-section').then(m => ({ default: m.ServicesSection })), { ssr: true });
 import { PublicAssistantWrapper } from "@/components/ai/public-assistant-wrapper";
 
 
 export default function LandingPage() {
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
-                (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://system-kyron.vercel.app');
+                (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://system-kyron.com');
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -67,31 +68,25 @@ export default function LandingPage() {
       <LandingClientWrapper>
         <main className="w-full">
             <HeroSection />
-            <LazySection fallbackHeight="200px">
-                <PartnersSection />
-            </LazySection>
+            
             <LazySection fallbackHeight="800px">
                 <FeaturesGrid />
             </LazySection>
-            <LazySection fallbackHeight="600px">
-                <AccountingSpecialSection />
-            </LazySection>
+
             <LazySection fallbackHeight="600px">
                 <PillarShowcaseSection />
             </LazySection>
 
             <LazySection fallbackHeight="600px">
-                <AboutUsSection />
+                <ServicesSection />
             </LazySection>
+
             <LazySection fallbackHeight="600px">
                 <CtaSection />
             </LazySection>
+            
             <LazySection fallbackHeight="600px">
                 <PublicAssistantWrapper />
-
-            </LazySection>
-            <LazySection fallbackHeight="400px">
-                <FaqSection />
             </LazySection>
         </main>
         <LazySection fallbackHeight="200px">

@@ -4,6 +4,7 @@ import { query, queryOne } from '@/lib/db';
 import { sendNotificationEmail } from '@/lib/alert-email-service';
 import { sendWhatsAppNotification } from '@/lib/whatsapp-service';
 import { sendSmsNotification } from '@/lib/sms-service';
+import { verificarAlertasRegulatorias } from '@/lib/alertas-regulatorias';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,7 +14,12 @@ export async function GET(req: NextRequest) {
 
   const { searchParams } = new URL(req.url);
   const soloNoLeidas = searchParams.get('no_leidas') === 'true';
+  const checkRegulatorio = searchParams.get('check_regulatorio') === 'true';
   const limit = parseInt(searchParams.get('limit') ?? '20', 10);
+
+  if (checkRegulatorio && session.tipo === 'juridico') {
+    await verificarAlertasRegulatorias();
+  }
 
   const conditions: string[] = ['user_id = $1'];
   const params: unknown[] = [session.userId];

@@ -124,7 +124,7 @@ export default function EstudioFactibilidadPage() {
                         </div>
                         <div>
                             <h3 className="text-2xl font-semibold uppercase italic tracking-tight mb-6 flex items-center gap-3">
-                                <CheckCircle className="h-6 w-6" /> Dictamen Maestro
+                                <CheckCircle className="h-6 w-6" /> Dictamen Principal
                             </h3>
                             <p className="text-lg font-medium italic leading-relaxed opacity-90 text-justify">
                                 "El ecosistema Kyron demuestra una viabilidad estructural basada en la inmutabilidad de datos y la escalabilidad del modelo SaaS. El análisis de flujo de caja descontado confirma que el punto de equilibrio se alcanza en el mes 28 de operación continua."

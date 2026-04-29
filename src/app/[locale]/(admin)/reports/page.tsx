@@ -14,7 +14,7 @@ export default function ReportsPage() {
                 <BarChart3 className="h-3 w-3" /> CENTRO ANALÍTICO
             </div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Centro de <span className="text-primary italic">Inteligencia</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Reportes Maestros • Auditoría Consolidada 2026</p>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Reportes Principales • Auditoría Consolidada 2026</p>
         </div>
         <div className="flex gap-2">
             <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-semibold uppercase tracking-widest border-border bg-card/50 text-foreground">

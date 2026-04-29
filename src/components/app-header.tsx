@@ -83,7 +83,21 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
     };
     fetchCount();
     const interval = setInterval(fetchCount, 60000);
-    return () => { active = false; clearInterval(interval); };
+    
+    // Mantenimiento en segundo plano (optimizado)
+    const runMaintenance = async () => {
+      try {
+        await fetch('/api/system/maintenance');
+      } catch {}
+    };
+    runMaintenance();
+    const maintInterval = setInterval(runMaintenance, 15 * 60 * 1000); // Cada 15 mins intenta mantenimiento
+
+    return () => { 
+      active = false; 
+      clearInterval(interval); 
+      clearInterval(maintInterval);
+    };
   }, [pathname]);
 
   useEffect(() => {

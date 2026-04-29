@@ -2,10 +2,14 @@
     "LandingHeader": {
         "home": "Inicio",
         "platform": "Plataforma",
-        "services": "Servicios",
-        "about": "Nosotros",
-        "contact": "Contacto",
-        "faq": "FAQ",
+        "solutions": "Soluciones",
+        "plans": "Planes",
+        "company": "Empresa",
+        "pitch": "Pitch",
+        "support": "Soporte",
+        "features": "Características",
+        "how_it_works": "Cómo Funciona",
+        "benefits": "Beneficios",
         "login": "Acceder",
         "register": "Registrarse",
         "access": "Acceso",
@@ -73,49 +77,35 @@
         ]
     },
     "FeaturesSection": {
-        "badge": "Soluciones al grano",
-        "title_highlight": "Deja de tener",
-        "title_rest": "todo separado",
-        "subtitle": "Un solo ecosistema para que dejes de saltar de programa en programa. Automatización real que te ahorra problemas en Venezuela.",
-
-
+        "badge": "Infraestructura de Élite",
+        "title_highlight": "Ecosistema de",
+        "title_rest": "Misión Crítica",
+        "subtitle": "Unificamos contabilidad, telecomunicaciones e inteligencia artificial en una sola plataforma blindada para el sector privado venezolano.",
         "ai_native_badge": "IA Nativa",
         "features": [
             {
-                "title": "Contabilidad VEN-NIF",
-                "description": "Libros fiscales digitales, declaraciones de IVA, ISLR e IGTF calculadas al instante con sellado SENIAT automático."
+                "title": "Fiscalidad VEN-NIF",
+                "description": "Automatización total de libros fiscales, IGTF y declaraciones SENIAT con sincronización de tasa BCV en tiempo real."
+            },
+            {
+                "title": "Telecom 5G Nativo",
+                "description": "Gestión directa de flotas móviles, eSIMs y conectividad empresarial de alta disponibilidad integrada al panel."
+            },
+            {
+                "title": "IA Legal & Ejecutiva",
+                "description": "Asistentes especializados en normativa LOTTT y VEN-NIF para redacción de contratos y blindaje operativo."
             },
             {
                 "title": "RRHH & Nómina",
-                "description": "Nóminas con SSO, FAOV, LPH, utilidades y prestaciones LOPCYMAT. Un clic y tu equipo está pagado."
+                "description": "Cálculos precisos de prestaciones, utilidades y seguridad social bajo el marco legal venezolano vigente."
             },
             {
-                "title": "Mi Línea 5G / eSIM",
-                "description": "Conectividad de nueva generación: provisión de eSIM 5G, control de flota y telemetría empresarial en tiempo real."
+                "title": "Seguridad Shield",
+                "description": "Protocolos de cifrado AES-256 y redundancia de datos para garantizar la continuidad de su negocio 24/7."
             },
             {
-                "title": "Inteligencia Artificial",
-                "description": "3 motores de IA especializados: Claude para chat, Gemini para documentos legales, OpenAI para análisis de negocio."
-            },
-            {
-                "title": "IA Legal & Permisos",
-                "description": "Genera contratos y poderes notariales con IA. Permisos CONATEL, SENIAT y Gaceta Oficial actualizados al segundo."
-            },
-            {
-                "title": "Ameru — Eco-Créditos",
-                "description": "Clasifica residuos con visión artificial, acumula eco-créditos certificados y accede al mercado verde."
-            },
-            {
-                "title": "Dashboard & Analítica",
-                "description": "KPIs en vivo, flujo de caja proyectado, insights generados por IA y reportes ejecutivos en PDF y PowerPoint."
-            },
-            {
-                "title": "Gestión de Tributos",
-                "description": "IVA, ISLR, IGTF, parafiscales, municipales y retenciones con calendario fiscal automatizado. Nunca más una multa."
-            },
-            {
-                "title": "Seguridad Blindada",
-                "description": "Cifrado AES-256, auditoría inmutable con blockchain y sellado criptográfico en cada operación fiscal."
+                "title": "Sostenibilidad",
+                "description": "Certificación de huella verde y gestión de eco-créditos corporativos integrados con tecnología Ameru.ai."
             }
         ],
         "stats": [
@@ -1187,5 +1177,27 @@
         "module_asesoria_legal": "Asesoría Legal",
         "module_facturacion": "Facturación",
         "module_socios_directivos": "Socios"
+    },
+    "PillarShowcaseSection": {
+        "title": "Soluciones para su",
+        "highlight": "Tranquilidad",
+        "subtitle": "Sostenibilidad · Conexión · Eficiencia",
+        "pillars": {
+            "eco": {
+                "title": "Sostenibilidad",
+                "highlight": "Impacto Certificado",
+                "desc": "Compense su huella de carbono con tecnología Ameru.ai y acceda al mercado global de eco-créditos."
+            },
+            "telecom": {
+                "title": "Conectividad",
+                "highlight": "Misión Crítica",
+                "desc": "Líneas móviles corporativas con 5G dedicado para que su equipo nunca pierda una oportunidad de negocio."
+            },
+            "billing": {
+                "title": "Gestión Fiscal",
+                "highlight": "Automatización Total",
+                "desc": "Facturación legal VEN-NIF con cálculo automático de IGTF y generación instantánea de reportes ejecutivos."
+            }
+        }
     }
 }

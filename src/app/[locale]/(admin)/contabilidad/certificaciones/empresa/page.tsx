@@ -57,7 +57,7 @@ export default function CertificacionesEmpresaPage() {
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Certificaciones <span className="text-primary">de Empresa</span>
             </h1>
-            <p className="text-sm text-muted-foreground mt-1">Expediente maestro · Validación de entidad · Solvencias corporativas</p>
+            <p className="text-sm text-muted-foreground mt-1">Dossier Integral · Validación de entidad · Solvencias corporativas</p>
           </div>
           <Button onClick={handleSolicitar} className="rounded-xl">Solicitar Nueva</Button>
         </div>

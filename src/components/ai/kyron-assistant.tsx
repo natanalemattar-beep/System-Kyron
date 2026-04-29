@@ -25,17 +25,17 @@ export function KyronAssistant() {
     const [thinkingMode, setThinkingMode] = useState<'fast' | 'deep'>('fast');
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState([
-        { role: 'assistant', content: 'Bienvenido al **Nexo de Inteligencia Central**. Estoy sincronizado con tu infraestructura. ¿Qué área del ecosistema Kyron deseas optimizar hoy?' }
+        { role: 'assistant', content: 'Bienvenido al **Centro de Inteligencia Kyron**. Estoy sincronizado con tu infraestructura. ¿Qué área del ecosistema deseas optimizar hoy?' }
     ]);
     const [isLoading, setIsLoading] = useState(false);
     const [isStreaming, setIsStreaming] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const agentConfigs = {
-        general: { name: 'Nexo Central', color: 'text-cyan-400', icon: Cpu, bg: 'bg-cyan-500/10 border-cyan-500/20' },
-        finance: { name: 'Nexo Financiero', color: 'text-blue-400', icon: Calculator, bg: 'bg-blue-500/10 border-blue-500/20' },
-        tech: { name: 'Nexo Tecnológico', color: 'text-emerald-400', icon: Wrench, bg: 'bg-emerald-500/10 border-emerald-500/20' },
-        growth: { name: 'Nexo de Crecimiento', color: 'text-violet-400', icon: Sparkles, bg: 'bg-violet-500/10 border-violet-500/20' }
+        general: { name: 'Asistente Central', color: 'text-cyan-400', icon: Cpu, bg: 'bg-cyan-500/10 border-cyan-500/20' },
+        finance: { name: 'Estratega Financiero', color: 'text-blue-400', icon: Calculator, bg: 'bg-blue-500/10 border-blue-500/20' },
+        tech: { name: 'Estratega Tecnológico', color: 'text-emerald-400', icon: Wrench, bg: 'bg-emerald-500/10 border-emerald-500/20' },
+        growth: { name: 'Estratega de Crecimiento', color: 'text-violet-400', icon: Sparkles, bg: 'bg-violet-500/10 border-violet-500/20' }
     };
 
     const ActiveIcon = agentConfigs[selectedAgent].icon;
@@ -275,7 +275,7 @@ export function KyronAssistant() {
                                         <div className="flex flex-col gap-2 ml-14">
                                             <div className="flex items-center gap-3">
                                                 <RefreshCw className="h-3 w-3 text-primary animate-spin" />
-                                                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60">Procesando Flujo del Nexo...</span>
+                                                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60">Procesando Flujo de Datos...</span>
                                             </div>
                                             <div className="h-1 w-32 bg-white/5 rounded-full overflow-hidden">
                                                 <motion.div 
@@ -331,7 +331,7 @@ export function KyronAssistant() {
                                             <Fingerprint className="h-3.5 w-3.5" /> Sesión Cifrada SK-AES256
                                         </div>
                                         <div className="text-[9px] font-black uppercase tracking-widest text-white/10">
-                                            Protocolo Nexo <span className="text-emerald-500 ml-1">v4.0.2</span>
+                                            Protocolo Kyron <span className="text-emerald-500 ml-1">v4.0.2</span>
                                         </div>
                                     </div>
                                 </div>

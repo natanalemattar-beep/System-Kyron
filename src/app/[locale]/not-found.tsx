@@ -46,18 +46,18 @@ export default function NotFound() {
             Coordenadas <span className="text-primary italic">No Encontradas</span>
           </h1>
           <p className="text-sm text-zinc-400 font-medium leading-relaxed px-4">
-            Has navegado hasta un sector no mapeado del ecosistema Kyron. Es posible que el recurso haya sido reubicado o que tu firma digital no tenga acceso a este nodo.
+            Has navegado hasta un sector no mapeado del ecosistema Kyron. Es posible que el recurso haya sido reubicado o que tu firma digital no tenga acceso a esta sección.
           </p>
         </div>
 
         <div className="flex flex-col gap-4 max-w-xs mx-auto">
           <Button asChild className="h-12 rounded-2xl font-black text-[11px] uppercase tracking-widest bg-white text-slate-950 hover:bg-zinc-200 shadow-xl shadow-white/5 group">
             <Link href="/">
-              <Home className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" /> Regresar al Centro de Mando
+              <Home className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" /> Regresar al Panel Principal
             </Link>
           </Button>
           <Button variant="ghost" className="h-12 rounded-2xl font-bold text-[11px] uppercase tracking-widest text-zinc-500 hover:text-white hover:bg-white/5">
-            <Search className="mr-2 h-4 w-4" /> Consultar al Nexo de IA
+            <Search className="mr-2 h-4 w-4" /> Consultar al Centro de IA
           </Button>
         </div>
 

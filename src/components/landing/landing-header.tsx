@@ -29,6 +29,7 @@ import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { loginOptions } from "@/lib/login-options";
+import { BcvRateBadge } from '../bcv-rate-badge';
 import { useTranslations } from 'next-intl';
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useTheme } from "next-themes";
@@ -61,10 +62,10 @@ export function LandingHeader() {
     });
 
     const navItems = [
-        { labelKey: 'home' as const, href: '#inicio' },
+        { labelKey: 'home' as const, href: '/' },
         { labelKey: 'platform' as const, href: '#caracteristicas' },
-        { labelKey: 'contact' as const, href: '#contacto' },
-        { labelKey: 'faq' as const, href: '#faq' }
+        { label: 'Soluciones', href: '#caracteristicas' },
+        { label: 'Soporte', href: '/soporte' }
     ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -142,78 +143,130 @@ export function LandingHeader() {
                     </div>
 
                     <nav className="hidden lg:flex items-center justify-center gap-7 xl:gap-10 flex-1">
-                        {navItems.map((item) => (
-                            <a 
-                                key={item.labelKey}
-                                href={item.href} 
-                                onClick={(e) => handleAnchorClick(e, item.href)}
-                                className={cn(
-                                    "text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer",
-                                    isScrolled
-                                        ? "text-foreground/70 hover:text-cyan-400"
-                                        : "text-foreground/65 hover:text-cyan-500"
-                                )}
-                            >
-                                {t(item.labelKey)}
-                                <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full" />
-                            </a>
-                        ))}
+                        <Link 
+                            href="/" 
+                            className={cn(
+                                "text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer",
+                                isScrolled ? "text-foreground/70 hover:text-cyan-400" : "text-foreground/65 hover:text-cyan-500"
+                            )}
+                        >
+                            {t('home')}
+                            <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full" />
+                        </Link>
 
-                        {/* Dropdown de Planes y Precios */}
+                        {/* Dropdown de Plataforma */}
                         <DropdownMenu>
                             <DropdownMenuTrigger className={cn(
                                 "flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer outline-none",
-                                isScrolled
-                                    ? "text-foreground/70 hover:text-cyan-400"
-                                    : "text-foreground/65 hover:text-cyan-500"
+                                isScrolled ? "text-foreground/70 hover:text-cyan-400" : "text-foreground/65 hover:text-cyan-500"
                             )}>
-                                Planes y Precios
+                                {t('platform')}
                                 <ChevronDown className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-transform group-data-[state=open]:rotate-180" />
                                 <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full group-data-[state=open]:w-full" />
                             </DropdownMenuTrigger>
-                            
-                            <DropdownMenuContent align="center" className="w-72 p-2 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl shadow-black/40 mt-2">
-                                <div className="p-3 pb-2 border-b border-white/[0.06] mb-1">
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-cyan-400/80 flex items-center gap-2">
-                                        <Sparkles className="h-3 w-3" />
-                                        Acceso Directo
-                                    </span>
-                                </div>
-                                
+                            <DropdownMenuContent align="center" className="w-64 p-2 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl mt-2">
+                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
+                                    <a href="#caracteristicas" onClick={(e) => handleAnchorClick(e, '#caracteristicas')} className="flex items-center gap-3 p-3 hover:bg-white/[0.04]">
+                                        <Sparkles className="h-4 w-4 text-cyan-400" />
+                                        <span className="text-xs font-bold uppercase tracking-wider">{t('features')}</span>
+                                    </a>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
+                                    <a href="#beneficios" onClick={(e) => handleAnchorClick(e, '#beneficios')} className="flex items-center gap-3 p-3 hover:bg-white/[0.04]">
+                                        <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                                        <span className="text-xs font-bold uppercase tracking-wider">{t('benefits')}</span>
+                                    </a>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+
+                        {/* Dropdown de Soluciones */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger className={cn(
+                                "flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer outline-none",
+                                isScrolled ? "text-foreground/70 hover:text-cyan-400" : "text-foreground/65 hover:text-cyan-500"
+                            )}>
+                                {t('solutions')}
+                                <ChevronDown className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-transform group-data-[state=open]:rotate-180" />
+                                <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full group-data-[state=open]:w-full" />
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="center" className="w-80 p-2 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl mt-2">
                                 <DropdownMenuItem asChild className="rounded-xl cursor-pointer p-0 mb-1 focus:bg-transparent">
-                                    <Link href="/precios/software" prefetch={false} className="flex items-center gap-4 p-3 hover:bg-white/[0.04] hover:border-white/[0.06] border border-transparent transition-all duration-300 group">
-                                        <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
-                                            <User className="h-5 w-5" />
+                                    <Link href="/dashboard-rrhh" prefetch={false} className="flex items-center gap-4 p-3 hover:bg-white/[0.04] transition-all group">
+                                        <div className="h-10 w-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400">
+                                            <UserPlus className="h-5 w-5" />
                                         </div>
                                         <div className="flex flex-col">
-                                            <span className="text-sm font-bold text-foreground group-hover:text-emerald-400 transition-colors">Personal / Profesional</span>
-                                            <span className="text-[11px] text-muted-foreground mt-0.5">Módulos SaaS y gratuitos</span>
+                                            <span className="text-sm font-bold">Nexo RRHH & Nómina</span>
+                                            <span className="text-[11px] text-muted-foreground">Gestión LOTTT Integral</span>
                                         </div>
                                     </Link>
                                 </DropdownMenuItem>
-                                
                                 <DropdownMenuItem asChild className="rounded-xl cursor-pointer p-0 mb-1 focus:bg-transparent">
-                                    <Link href="/precios/telecom" prefetch={false} className="flex items-center gap-4 p-3 hover:bg-white/[0.04] hover:border-white/[0.06] border border-transparent transition-all duration-300 group">
-                                        <div className="h-10 w-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform">
+                                    <Link href="/dashboard-empresa" prefetch={false} className="flex items-center gap-4 p-3 hover:bg-white/[0.04] transition-all group">
+                                        <div className="h-10 w-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400">
                                             <Building2 className="h-5 w-5" />
                                         </div>
                                         <div className="flex flex-col">
-                                            <span className="text-sm font-bold text-foreground group-hover:text-blue-400 transition-colors">Corporativo y 5G</span>
-                                            <span className="text-[11px] text-muted-foreground mt-0.5">Líneas telefónicas y empresas</span>
+                                            <span className="text-sm font-bold">Nexo Contable</span>
+                                            <span className="text-[11px] text-muted-foreground">VEN-NIF & SENIAT 360</span>
                                         </div>
                                     </Link>
                                 </DropdownMenuItem>
-                                
                                 <DropdownMenuItem asChild className="rounded-xl cursor-pointer p-0 focus:bg-transparent">
-                                    <Link href="/precios/hardware" prefetch={false} className="flex items-center gap-4 p-3 hover:bg-white/[0.04] hover:border-white/[0.06] border border-transparent transition-all duration-300 group">
-                                        <div className="h-10 w-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
-                                            <Printer className="h-5 w-5" />
+                                    <Link href="/mi-linea" prefetch={false} className="flex items-center gap-4 p-3 hover:bg-white/[0.04] transition-all group">
+                                        <div className="h-10 w-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+                                            <Smartphone className="h-5 w-5" />
                                         </div>
                                         <div className="flex flex-col">
-                                            <span className="text-sm font-bold text-foreground group-hover:text-cyan-400 transition-colors">Hardware Fiscal</span>
-                                            <span className="text-[11px] text-muted-foreground mt-0.5">Equipos homologados SENIAT</span>
+                                            <span className="text-sm font-bold">Nexo Telecom</span>
+                                            <span className="text-[11px] text-muted-foreground">Gestión de Flota & 5G</span>
                                         </div>
                                     </Link>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+
+                        {/* Planes */}
+                        <a 
+                            href="#servicios" 
+                            onClick={(e) => handleAnchorClick(e, '#servicios')}
+                            className={cn(
+                                "text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer",
+                                isScrolled ? "text-foreground/70 hover:text-cyan-400" : "text-foreground/65 hover:text-cyan-500"
+                            )}
+                        >
+                            {t('plans')}
+                            <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full" />
+                        </a>
+
+                        {/* Dropdown de Empresa */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger className={cn(
+                                "flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer outline-none",
+                                isScrolled ? "text-foreground/70 hover:text-cyan-400" : "text-foreground/65 hover:text-cyan-500"
+                            )}>
+                                {t('company')}
+                                <ChevronDown className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-transform group-data-[state=open]:rotate-180" />
+                                <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full group-data-[state=open]:w-full" />
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="center" className="w-64 p-2 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl mt-2">
+                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
+                                    <Link href="/pitch" className="flex items-center gap-3 p-3 hover:bg-white/[0.04]">
+                                        <Sparkles className="h-4 w-4 text-amber-400" />
+                                        <span className="text-xs font-bold uppercase tracking-wider">{t('pitch')}</span>
+                                    </Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
+                                    <Link href="/soporte" className="flex items-center gap-3 p-3 hover:bg-white/[0.04]">
+                                        <ShieldCheck className="h-4 w-4 text-blue-400" />
+                                        <span className="text-xs font-bold uppercase tracking-wider">{t('support')}</span>
+                                    </Link>
+                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
+                                    <a href="#contacto" onClick={(e) => handleAnchorClick(e, '#contacto')} className="flex items-center gap-3 p-3 hover:bg-white/[0.04]">
+                                        <User className="h-4 w-4 text-emerald-400" />
+                                        <span className="text-xs font-bold uppercase tracking-wider">{t('contact')}</span>
+                                    </a>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -225,6 +278,9 @@ export function LandingHeader() {
                             <ThemeToggle />
                         </div>
                         <div className="hidden sm:flex items-center gap-2">
+                            <div className="hidden lg:block mr-1">
+                                <BcvRateBadge />
+                            </div>
                             <Button variant="ghost" asChild data-guide="register" className={cn(
                                 "rounded-xl h-9 px-5 text-[10px] font-bold uppercase tracking-[0.15em] border-2 transition-all duration-300 relative overflow-hidden group",
                                 isScrolled
@@ -324,24 +380,29 @@ export function LandingHeader() {
                                     {/* Nav links */}
                                     <nav className="p-4 pb-2 border-b border-white/[0.04]">
                                         <p className="text-[9px] font-black uppercase tracking-[0.35em] text-white/20 mb-2 px-2">Navegación</p>
-                                        {navItems.map((item) => (
-                                            <SheetClose key={item.labelKey} asChild>
-                                                <a 
-                                                    href={item.href} 
-                                                    onClick={(e) => handleAnchorClick(e, item.href)}
-                                                    className="text-sm font-semibold py-2.5 px-3 rounded-xl text-white/50 hover:text-white hover:bg-white/[0.04] transition-all flex items-center justify-between cursor-pointer"
-                                                >
-                                                    {t(item.labelKey)}
-                                                    <ChevronRight className="h-3.5 w-3.5 opacity-20" />
-                                                </a>
-                                            </SheetClose>
-                                        ))}
                                         <SheetClose asChild>
-                                            <a href="#pricing" onClick={(e) => handleAnchorClick(e, '#pricing')}
-                                                className="text-sm font-semibold py-2.5 px-3 rounded-xl text-amber-400/60 hover:text-amber-300 hover:bg-amber-500/[0.05] transition-all flex items-center justify-between cursor-pointer">
-                                                Planes y Precios
+                                            <Link href="/" className="text-sm font-semibold py-2.5 px-3 rounded-xl text-white/50 hover:text-white hover:bg-white/[0.04] transition-all flex items-center justify-between cursor-pointer">
+                                                {t('home')}
+                                                <ChevronRight className="h-3.5 w-3.5 opacity-20" />
+                                            </Link>
+                                        </SheetClose>
+                                        <SheetClose asChild>
+                                            <a href="#caracteristicas" onClick={(e) => handleAnchorClick(e, '#caracteristicas')} className="text-sm font-semibold py-2.5 px-3 rounded-xl text-white/50 hover:text-white hover:bg-white/[0.04] transition-all flex items-center justify-between cursor-pointer">
+                                                {t('platform')}
                                                 <ChevronRight className="h-3.5 w-3.5 opacity-20" />
                                             </a>
+                                        </SheetClose>
+                                        <SheetClose asChild>
+                                            <a href="#servicios" onClick={(e) => handleAnchorClick(e, '#servicios')} className="text-sm font-semibold py-2.5 px-3 rounded-xl text-white/50 hover:text-white hover:bg-white/[0.04] transition-all flex items-center justify-between cursor-pointer">
+                                                {t('plans')}
+                                                <ChevronRight className="h-3.5 w-3.5 opacity-20" />
+                                            </a>
+                                        </SheetClose>
+                                        <SheetClose asChild>
+                                            <Link href="/pitch" className="text-sm font-semibold py-2.5 px-3 rounded-xl text-amber-400/60 hover:text-amber-300 hover:bg-amber-500/[0.05] transition-all flex items-center justify-between cursor-pointer">
+                                                {t('pitch')}
+                                                <ChevronRight className="h-3.5 w-3.5 opacity-20" />
+                                            </Link>
                                         </SheetClose>
                                     </nav>
 

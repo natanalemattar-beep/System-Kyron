@@ -7,6 +7,7 @@ import {
     Cpu, RefreshCw, ArrowUpRight
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 const PILLARS = [
     {
@@ -47,8 +48,39 @@ const PILLARS = [
 ];
 
 export function PillarShowcaseSection() {
+    const t = useTranslations('PillarShowcaseSection');
+    
+    const pillars = [
+        {
+            id: 'eco',
+            icon: Leaf,
+            color: 'text-emerald-400',
+            bg: 'from-emerald-500/10 to-transparent',
+            visual: 'Ameru Ecosystem'
+        },
+        {
+            id: 'telecom',
+            icon: Smartphone,
+            color: 'text-cyan-400',
+            bg: 'from-cyan-500/10 to-transparent',
+            visual: 'Señal 5G'
+        },
+        {
+            id: 'billing',
+            icon: Receipt,
+            color: 'text-blue-400',
+            bg: 'from-blue-500/10 to-transparent',
+            visual: 'Factura Digital'
+        }
+    ].map(p => ({
+        ...p,
+        title: t(`pillars.${p.id}.title`),
+        highlight: t(`pillars.${p.id}.highlight`),
+        desc: t(`pillars.${p.id}.desc`)
+    }));
+
     return (
-        <section className="py-24 relative overflow-hidden bg-[#02040a]">
+        <section id="beneficios" className="py-24 relative overflow-hidden bg-[#02040a]">
             {/* Ambient Background */}
             <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
                 <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[120px]" />
@@ -63,16 +95,15 @@ export function PillarShowcaseSection() {
                     className="text-center mb-20"
                 >
                     <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter italic leading-none mb-6">
-                        Soluciones para <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500">Dormir Tranquilo</span>
+                        {t('title')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500">{t('highlight')}</span>
                     </h2>
                     <p className="text-white/40 text-sm font-black uppercase tracking-[0.4em] max-w-2xl mx-auto">
-                        Sostenibilidad · Conexión · Facturación
+                        {t('subtitle')}
                     </p>
                 </motion.div>
 
-
                 <div className="grid md:grid-cols-3 gap-8">
-                    {PILLARS.map((pillar, i) => (
+                    {pillars.map((pillar, i) => (
                         <motion.div 
                             key={pillar.id}
                             initial={{ opacity: 0, y: 30 }}
@@ -80,8 +111,7 @@ export function PillarShowcaseSection() {
                             transition={{ delay: i * 0.15 }}
                             viewport={{ once: true }}
                             className={cn(
-                                "group relative p-8 rounded-[2.5rem] glass-elite border transition-all duration-700 hover:-translate-y-2",
-                                pillar.border
+                                "group relative p-8 rounded-[2.5rem] glass-elite border border-white/5 transition-all duration-700 hover:-translate-y-2"
                             )}
                         >
                             <div className={cn("absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rounded-[2.5rem]", pillar.bg)} />

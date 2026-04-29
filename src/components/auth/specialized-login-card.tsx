@@ -19,16 +19,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 type LayoutVariant = 'split-left' | 'split-right' | 'centered' | 'stacked' | 'minimal' | 'dark-immersive';
 
 const ACCENT_THEMES: Record<string, { gradient: string; accent: string; ring: string; inputRing: string; codeBorder: string; btnBg: string; glowFrom: string }> = {
-  'primary':     { gradient: 'from-blue-600 via-primary to-indigo-700',     accent: 'text-blue-500',    ring: 'ring-blue-500/20',    inputRing: 'focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50', codeBorder: 'border-blue-500', btnBg: 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500', glowFrom: 'rgba(59,130,246,0.15)' },
-  'secondary':   { gradient: 'from-emerald-600 via-secondary to-teal-700',  accent: 'text-emerald-500', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/30 focus-visible:border-emerald-500/50', codeBorder: 'border-emerald-500', btnBg: 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500', glowFrom: 'rgba(16,185,129,0.15)' },
-  'emerald-600': { gradient: 'from-emerald-600 via-emerald-500 to-green-600', accent: 'text-emerald-500', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/30 focus-visible:border-emerald-500/50', codeBorder: 'border-emerald-500', btnBg: 'bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500', glowFrom: 'rgba(16,185,129,0.15)' },
-  'emerald-800': { gradient: 'from-emerald-800 via-emerald-700 to-teal-800', accent: 'text-emerald-500', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/30 focus-visible:border-emerald-500/50', codeBorder: 'border-emerald-500', btnBg: 'bg-gradient-to-r from-emerald-700 to-teal-700 hover:from-emerald-600 hover:to-teal-600', glowFrom: 'rgba(16,185,129,0.12)' },
-  'indigo-950':  { gradient: 'from-indigo-900 via-purple-800 to-violet-900', accent: 'text-purple-500',  ring: 'ring-purple-500/20',  inputRing: 'focus-visible:ring-purple-500/30 focus-visible:border-purple-500/50', codeBorder: 'border-purple-500', btnBg: 'bg-gradient-to-r from-purple-700 to-violet-700 hover:from-purple-600 hover:to-violet-600', glowFrom: 'rgba(139,92,246,0.15)' },
-  'slate-800':   { gradient: 'from-slate-700 via-slate-600 to-zinc-700',     accent: 'text-slate-400',   ring: 'ring-slate-400/20',   inputRing: 'focus-visible:ring-slate-400/30 focus-visible:border-slate-400/50', codeBorder: 'border-slate-400', btnBg: 'bg-gradient-to-r from-slate-700 to-zinc-700 hover:from-slate-600 hover:to-zinc-600', glowFrom: 'rgba(100,116,139,0.12)' },
-  'blue-900':    { gradient: 'from-blue-900 via-blue-800 to-cyan-800',       accent: 'text-cyan-500',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/30 focus-visible:border-cyan-500/50', codeBorder: 'border-cyan-500', btnBg: 'bg-gradient-to-r from-blue-800 to-cyan-800 hover:from-blue-700 hover:to-cyan-700', glowFrom: 'rgba(6,182,212,0.15)' },
-  'amber-700':   { gradient: 'from-amber-700 via-amber-600 to-orange-700',   accent: 'text-amber-500',   ring: 'ring-amber-500/20',   inputRing: 'focus-visible:ring-amber-500/30 focus-visible:border-amber-500/50', codeBorder: 'border-amber-500', btnBg: 'bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500', glowFrom: 'rgba(245,158,11,0.15)' },
-  'rose-800':    { gradient: 'from-rose-800 via-rose-700 to-pink-800',       accent: 'text-rose-500',    ring: 'ring-rose-500/20',    inputRing: 'focus-visible:ring-rose-500/30 focus-visible:border-rose-500/50', codeBorder: 'border-rose-500', btnBg: 'bg-gradient-to-r from-rose-700 to-pink-700 hover:from-rose-600 hover:to-pink-600', glowFrom: 'rgba(244,63,94,0.15)' },
-  'cyan-700':    { gradient: 'from-cyan-700 via-cyan-600 to-sky-700',        accent: 'text-cyan-500',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/30 focus-visible:border-cyan-500/50', codeBorder: 'border-cyan-500', btnBg: 'bg-gradient-to-r from-cyan-600 to-sky-600 hover:from-cyan-500 hover:to-sky-500', glowFrom: 'rgba(6,182,212,0.15)' },
+  'primary':     { gradient: 'from-blue-600 via-blue-500 to-indigo-700',     accent: 'text-cyan-400',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40', codeBorder: 'border-cyan-500', btnBg: 'bg-blue-600 hover:bg-blue-500', glowFrom: 'rgba(6,182,212,0.15)' },
+  'secondary':   { gradient: 'from-emerald-600 via-emerald-500 to-teal-700',  accent: 'text-emerald-400', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/20 focus-visible:border-emerald-500/40', codeBorder: 'border-emerald-500', btnBg: 'bg-emerald-600 hover:bg-emerald-500', glowFrom: 'rgba(16,185,129,0.15)' },
+  'emerald-600': { gradient: 'from-emerald-600 via-emerald-500 to-green-600', accent: 'text-emerald-400', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/20 focus-visible:border-emerald-500/40', codeBorder: 'border-emerald-500', btnBg: 'bg-emerald-600 hover:bg-emerald-500', glowFrom: 'rgba(16,185,129,0.15)' },
+  'indigo-950':  { gradient: 'from-indigo-900 via-purple-800 to-violet-900', accent: 'text-purple-400',  ring: 'ring-purple-500/20',  inputRing: 'focus-visible:ring-purple-500/20 focus-visible:border-purple-500/40', codeBorder: 'border-purple-500', btnBg: 'bg-purple-600 hover:bg-purple-500', glowFrom: 'rgba(139,92,246,0.15)' },
+  'blue-900':    { gradient: 'from-blue-900 via-blue-800 to-cyan-800',       accent: 'text-cyan-400',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40', codeBorder: 'border-cyan-500', btnBg: 'bg-blue-800 hover:bg-blue-700', glowFrom: 'rgba(6,182,212,0.15)' },
+  'amber-700':   { gradient: 'from-amber-700 via-amber-600 to-orange-700',   accent: 'text-amber-400',   ring: 'ring-amber-500/20',   inputRing: 'focus-visible:ring-amber-500/20 focus-visible:border-amber-500/40', codeBorder: 'border-amber-500', btnBg: 'bg-amber-600 hover:bg-amber-500', glowFrom: 'rgba(245,158,11,0.15)' },
 };
 
 interface SpecializedLoginCardProps {
@@ -166,7 +162,7 @@ export function SpecializedLoginCard({
         setVerificationMethod('email');
         setStep('verification');
         setCountdown(600);
-        setCodeDigits(['', '', '', '', '', '']);
+        setSingleCode('');
         setEmailDeliveryFailed(false);
         setSavedCredentials(null);
         setIsLoading(false);
@@ -911,29 +907,20 @@ export function SpecializedLoginCard({
   );
 
   const pageBackground = (
-    <div className="absolute inset-0 -z-10 overflow-hidden bg-gradient-to-br from-background via-background to-muted/30">
-      <div className="absolute top-0 left-0 right-0 h-[600px] bg-gradient-to-b from-primary/[0.03] to-transparent" />
-      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full blur-[150px] opacity-60" style={{ background: theme.glowFrom }} />
-      <div className="absolute bottom-[20%] right-[10%] w-[300px] h-[300px] rounded-full bg-primary/[0.02] blur-[100px]" />
-      <svg className="absolute inset-0 w-full h-full opacity-[0.015]" xmlns="http://www.w3.org/2000/svg">
-        <defs><pattern id="lgGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5"/></pattern></defs>
-        <rect width="100%" height="100%" fill="url(#lgGrid)"/>
-      </svg>
-      {[...Array(5)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full"
-          animate={{ opacity: [0.15, 0.4, 0.15], y: [0, -15, 0] }}
-          transition={{ duration: 6 + i, repeat: Infinity, delay: i * 1.2, ease: "easeInOut" }}
-          style={{
-            width: 3 + (i % 3) * 2,
-            height: 3 + (i % 3) * 2,
-            left: `${15 + i * 18}%`,
-            top: `${20 + (i % 4) * 20}%`,
-            background: `linear-gradient(135deg, ${theme.glowFrom}, transparent)`,
-          }}
-        />
-      ))}
+    <div className="absolute inset-0 -z-10 overflow-hidden bg-[#050816]">
+      {/* HUD Grid Overlay */}
+      <div className="absolute inset-0 hud-grid opacity-20" />
+      
+      {/* Dynamic Glows */}
+      <div className="absolute top-0 left-1/4 w-[800px] h-[800px] blur-[150px] opacity-20 rounded-full animate-pulse-slow" style={{ background: theme.glowFrom }} />
+      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] blur-[150px] opacity-10 rounded-full animate-pulse" style={{ background: theme.glowFrom }} />
+      
+      {/* Animated Scanline */}
+      <motion.div 
+        animate={{ top: ['-10%', '110%'] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+        className="absolute left-0 right-0 h-[1px] bg-cyan-500/10 z-10 pointer-events-none"
+      />
     </div>
   );
 
@@ -1271,22 +1258,22 @@ export function SpecializedLoginCard({
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
+    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden bg-[#050816]">
       {pageBackground}
       {backButton}
       <motion.div
-        initial={{ opacity: 0, y: 24, scale: 0.97 }}
+        initial={{ opacity: 0, y: 24, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full max-w-[1040px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-lg shadow-black/[0.12] overflow-hidden border border-border/40"
+        className="w-full max-w-[1040px] grid md:grid-cols-2 gap-0 rounded-[2.5rem] shadow-2xl overflow-hidden border border-white/5 bg-white/[0.01] backdrop-blur-3xl relative z-10"
       >
         {brandPanel}
-        <div className="p-6 md:p-10 flex flex-col justify-center bg-card">
+        <div className="p-8 md:p-12 flex flex-col justify-center bg-white/[0.02]">
           {mobileHeader}
           {formContent}
         </div>
       </motion.div>
-      <p className="absolute bottom-6 text-[11px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+      <p className="absolute bottom-6 text-[11px] text-white/20 uppercase tracking-[0.3em] font-black">System Kyron · Misión Crítica</p>
     </div>
   );
 }

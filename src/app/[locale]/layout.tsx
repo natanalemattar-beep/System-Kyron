@@ -7,7 +7,6 @@ import { DemoBannerSpacer } from "@/components/demo-banner-spacer";
 import { PerformanceProvider } from "@/components/performance-provider";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
-import { OfflineIndicator } from "@/components/landing/offline-indicator";
 import { Inter, Outfit } from 'next/font/google';
 
 import { Metadata } from 'next';
@@ -23,7 +22,7 @@ import { KyronAssistantWrapper } from "@/components/ai/kyron-assistant-wrapper";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://system-kyron.vercel.app'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://system-kyron.com'),
     title: {
       template: '%s | System Kyron',
       default: 'System Kyron - Ecosistema de Inteligencia Corporativa 2026',
@@ -77,7 +76,6 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
                 <DemoBannerSpacer />
                 <div className="relative flex min-h-screen flex-col">
                   <main className="flex-1">{children}</main>
-                  <OfflineIndicator />
                   <KyronAssistantWrapper />
 
                 </div>

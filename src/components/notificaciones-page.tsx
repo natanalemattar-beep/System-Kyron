@@ -111,9 +111,11 @@ export function NotificacionesPageContent() {
     setBackHref(DASHBOARD_MAP[ctx] || "/dashboard");
   }, []);
 
-  const fetchNotificaciones = useCallback(async () => {
+  const fetchNotificaciones = useCallback(async (checkRegulatorio = false) => {
     try {
-      const params = tab === 'no_leidas' ? '?no_leidas=true&limit=50' : '?limit=50';
+      let params = tab === 'no_leidas' ? '?no_leidas=true&limit=50' : '?limit=50';
+      if (checkRegulatorio) params += '&check_regulatorio=true';
+      
       const res = await fetch(`/api/notificaciones${params}`);
       if (!res.ok) return;
       const data = await res.json();
@@ -243,7 +245,7 @@ export function NotificacionesPageContent() {
         <div className="flex gap-2">
           <Button
             variant="outline" size="sm"
-            onClick={() => { setLoading(true); fetchNotificaciones(); }}
+            onClick={() => { setLoading(true); fetchNotificaciones(true); }}
             className="rounded-xl text-xs font-bold"
           >
             <RefreshCw className="h-3.5 w-3.5 mr-1.5" /> Actualizar

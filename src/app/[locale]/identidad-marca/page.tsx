@@ -93,7 +93,7 @@ export default function IdentidadMarcaPage() {
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(var(--primary),0.08)_0,transparent_70%)]" />
         <div className="absolute top-12 left-12 border-l border-primary/20 pl-4">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-foreground/20 italic">Centro de Activos Maestro</p>
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-foreground/20 italic">Centro de Activos Principal</p>
           <p className="text-[10px] font-bold text-primary uppercase tracking-wide mt-1">Version 2.6.5 [Final]</p>
         </div>
       </div>

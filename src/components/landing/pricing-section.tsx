@@ -490,7 +490,7 @@ export function PricingSection({ category = 'all' }: { category?: 'software' | '
                     ? 'bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20'
                     : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'
                 )}>
-                  <Link href="/registro">
+                  <Link href="/guia-registro">
                     Contratar <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
@@ -635,7 +635,7 @@ export function PricingSection({ category = 'all' }: { category?: 'software' | '
                       </p>
                     </div>
                     <Button asChild className="h-11 px-6 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-all hover:scale-[1.03]">
-                      <Link href="/registro">
+                      <Link href="/guia-registro">
                         Iniciar <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                     </Button>

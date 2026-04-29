@@ -105,7 +105,7 @@ export default function AnalisisMercadoPage() {
         <Card className="lg:col-span-4 bg-primary text-primary-foreground rounded-2xl p-10 flex flex-col justify-between relative overflow-hidden border-none group">
           <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Lightbulb className="h-32 w-32" /></div>
           <div>
-            <h3 className="text-2xl font-semibold uppercase italic tracking-tight mb-6">Insight Maestro</h3>
+            <h3 className="text-2xl font-semibold uppercase italic tracking-tight mb-6">Análisis Estratégico</h3>
             <p className="text-sm font-bold opacity-80 leading-relaxed uppercase mb-8">
               Los datos de mercado reflejan el comportamiento real de tus clientes y facturas. 
               Registra más transacciones para obtener tendencias precisas y recomendaciones IA.

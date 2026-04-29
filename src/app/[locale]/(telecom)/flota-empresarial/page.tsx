@@ -79,7 +79,7 @@ export default function FlotaEmpresarialPage() {
                         <Signal className="h-3 w-3" /> ÁREA CORPORATIVA
                     </div>
                     <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-primary uppercase leading-none">Gestión <span className="text-secondary italic">de Flota</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-60 mt-2 italic">MI LÍNEA 5G • Control Maestro Empresarial</p>
+                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-60 mt-2 italic">MI LÍNEA 5G • Control Central de Flota</p>
                 </div>
                 <div className="flex gap-3 no-print">
                     <Button variant="outline" asChild className="h-12 px-6 rounded-xl border-border bg-card text-primary text-[10px] font-semibold uppercase tracking-widest hover:bg-muted/50 transition-all">

@@ -348,7 +348,7 @@
         "check_3": "Soporte 24/7",
         "form_title": "Solicitar Acceso",
         "form_subtitle": "Registro de interés · System Kyron v2.8.5",
-        "field_name": "Nombre Maestro",
+        "field_name": "Nombre Completo",
         "field_name_placeholder": "Tu nombre",
         "field_role": "Cargo",
         "field_role_placeholder": "Rol...",

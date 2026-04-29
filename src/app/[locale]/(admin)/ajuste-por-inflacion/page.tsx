@@ -79,7 +79,7 @@ export default function AjustePorInflacionPage() {
        <Card className="glass-card border-none rounded-[3.5rem] bg-card/40 shadow-lg overflow-hidden mt-10">
         <CardHeader className="p-12 border-b border-border bg-muted/10">
             <CardTitle className="text-2xl font-semibold uppercase italic tracking-tight text-foreground flex items-center gap-4">
-                <Calculator className="h-8 w-8 text-primary"/> Algoritmo de Cálculo Maestro
+                <Calculator className="h-8 w-8 text-primary"/> Algoritmo de Cálculo Central
             </CardTitle>
         </CardHeader>
         <CardContent className="p-12 grid md:grid-cols-3 gap-10">

@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
-import { useIsOffline } from '@/hooks/use-is-offline';
 import {
     Calculator, Users, Gavel, Receipt, Smartphone,
     BrainCircuit, BarChart3, Landmark, Lock, ArrowRight,
@@ -55,7 +54,6 @@ const moduleConfigs = [
 
 export function ModulesGridSection() {
     const { tier } = useDevicePerformance();
-    const isOffline = useIsOffline();
     const animate = tier !== 'low';
     const [activeCategory, setActiveCategory] = useState('all');
     const [expandedModule, setExpandedModule] = useState<string | null>(null);
@@ -170,7 +168,7 @@ export function ModulesGridSection() {
                                     "group relative rounded-2xl border backdrop-blur-sm transition-all duration-500 overflow-hidden",
                                     mod.border,
                                     expandedModule === mod.name ? 'bg-white/[0.05] shadow-xl' : 'bg-white/[0.02] hover:-translate-y-2 hover:shadow-lg',
-                                    isOffline && mod.requiresOnline ? 'cursor-not-allowed grayscale-[0.8] opacity-60' : 'cursor-pointer'
+                                    'cursor-pointer'
                                 )}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -184,12 +182,7 @@ export function ModulesGridSection() {
                             >
                                 <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-[1]", mod.accent)} />
                                 
-                                {isOffline && mod.requiresOnline && (
-                                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
-                                        <Lock className="h-6 w-6 text-white/50 mb-2" />
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-white/70">Requiere Internet</span>
-                                    </div>
-                                )}
+
 
                                 <div className="p-5">
                                     <div className="flex items-start gap-3">
@@ -211,7 +204,7 @@ export function ModulesGridSection() {
                                         )}
                                     </div>
 
-                                    {expandedModule === mod.name && !(isOffline && mod.requiresOnline) && (
+                                    {expandedModule === mod.name && (
                                         <motion.div
                                             initial={{ opacity: 0, height: 0 }}
                                             animate={{ opacity: 1, height: 'auto' }}
@@ -219,7 +212,7 @@ export function ModulesGridSection() {
                                             className="mt-4 pt-4 border-t border-white/[0.06]"
                                         >
                                             <Link
-                                                href="/register"
+                                                href="/guia-registro"
                                                 className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.15em] text-cyan-400 hover:text-cyan-300 transition-colors"
                                             >
                                                 {t('explore_module')} <ChevronRight className="h-3 w-3" />
@@ -262,7 +255,7 @@ export function ModulesGridSection() {
                             {t('no_extra_costs')}
                         </span>
                     </div>
-                    <Link href="/register" className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 rounded-2xl kyron-gradient-bg text-white text-xs font-bold uppercase tracking-widest shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)] hover:scale-[1.02] transition-all duration-500">
+                    <Link href="/guia-registro" className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 rounded-2xl kyron-gradient-bg text-white text-xs font-bold uppercase tracking-widest shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)] hover:scale-[1.02] transition-all duration-500">
                         {t('cta')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </motion.div>

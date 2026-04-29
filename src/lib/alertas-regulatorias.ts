@@ -57,6 +57,31 @@ export interface AlertaRegulatoria {
 
 const GACETAS_RECIENTES: GacetaOficial[] = [
   {
+    id: 'GO-6960',
+    numero: '6.960 Extraordinario',
+    tipo: 'extraordinaria',
+    fecha: '2026-04-28',
+    titulo: 'Ley de Activos Digitales y Criptofiscalidad',
+    resumen: 'Regulación definitiva sobre el uso de activos digitales para el pago de tributos nacionales y régimen de retención para exchanges locales.',
+    enteEmisor: 'Asamblea Nacional / SUNACRIP',
+    impactoFiscal: true,
+    impactoLaboral: false,
+    impactoComercial: true,
+    impactoAmbiental: false,
+    urgencia: 'critica',
+    decretos: [
+      {
+        numero: '6.200',
+        titulo: 'Reglamento de Pagos en Criptoactivos para Contribuyentes Especiales',
+        resumen: 'Establece los mecanismos para que los grandes contribuyentes liquiden sus obligaciones en activos digitales autorizados.',
+        articulosClaves: ['Art. 5 — Activos permitidos', 'Art. 12 — Método de valoración'],
+        impacto: 'Obligación de reporte y valoración diaria de carteras digitales para efectos de ISLR.',
+      }
+    ],
+    vigenciaDesde: '2026-05-01',
+    tags: ['cripto', 'fiscal', 'SUNACRIP', 'IA'],
+  },
+  {
     id: 'GO-6952',
     numero: '6.952 Extraordinario',
     tipo: 'extraordinaria',
@@ -217,6 +242,18 @@ const GACETAS_RECIENTES: GacetaOficial[] = [
 ];
 
 const CAMBIOS_ASAMBLEA: CambioAsamblea[] = [
+  {
+    id: 'AN-2026-003',
+    tipo: 'ley_aprobada',
+    titulo: 'Ley de Fomento a la Exportación de Servicios Tecnológicos',
+    fecha: '2026-04-15',
+    resumen: 'Incentivos fiscales para empresas que exporten software y servicios de IA desde Venezuela. Exoneración del 100% de IGTF para cobros internacionales.',
+    impactoEmpresarial: 'Las empresas registradas en el nuevo Registro de Exportadores de Tecnología (RET) podrán facturar sin IGTF a clientes extranjeros.',
+    sectoresAfectados: ['tecnología', 'software', 'IA'],
+    urgencia: 'alta',
+    accionRequerida: 'Inscribirse en el portal del RET ante el Ministerio de Ciencia y Tecnología para optar por los beneficios.',
+    plazoAdaptacion: '60 días para inscripción inicial',
+  },
   {
     id: 'AN-2025-001',
     tipo: 'ley_aprobada',

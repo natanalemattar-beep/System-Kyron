@@ -37,7 +37,7 @@ const zeduModules = [
     { id: "M2", title: "TELEFONÍA PERSONAL", desc: "Línea personal y línea infantil CONATEL certificada.", icon: Smartphone, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Activo" },
     { id: "M3", title: "CONECTIVIDAD 5G", desc: "Centro redundante de baja latencia.", icon: Network, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Activo" },
     { id: "M4", title: "MAG-SENSOR", desc: "Papeleras inteligentes con inducción magnética.", icon: Zap, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Operacional" },
-    { id: "M5", title: "CONTROL ZEDU", desc: "Matriz Maestra de desarrollo económico.", icon: Cpu, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Maestro" },
+    { id: "M5", title: "CONTROL ZEDU", desc: "Matriz Central de desarrollo económico.", icon: Cpu, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Principal" },
     { id: "M6", title: "EXPEDIENTE ID", desc: "Identidad digital biométrica 3D unificada.", icon: Database, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Verificado" },
     { id: "M7", title: "LÍNEA INFANTIL", desc: "Control parental CONATEL — menores 0 a 17 años.", icon: Activity, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "CONATEL" },
 ];
@@ -55,7 +55,7 @@ export default function TerminalVaultPage() {
 ==================================================
       SYSTEM KYRON • CORPORATE INTELLIGENCE
 ==================================================
-EXPEDIENTE TÉCNICO MAESTRO: MODELO ZEDU
+EXPEDIENTE TÉCNICO INTEGRAL: MODELO ZEDU
 ID ÁREA: MASTER-VAULT-PRO-001
 FECHA: ${new Date().toLocaleDateString()}
 ESTADO: VERIFICADO POR EL ÁREA MAESTRA
@@ -89,7 +89,7 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
         document.body.removeChild(a);
         toast({ 
             title: "PROTOCOLO FINALIZADO", 
-            description: "Expediente Maestro exportado con éxito.",
+            description: "Expediente Integral exportado con éxito.",
             action: <ShieldCheck className="text-primary h-4 w-4" />
         });
     };
@@ -106,7 +106,7 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
                         <Lock className="h-3 w-3" /> ÁREA ESTRATÉGICA
                     </div>
                     <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase leading-none">Bóveda <span className="text-primary italic">Kyron</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40">EXPEDIENTE MAESTRO • TERMINAL ZEDU 2.6.5</p>
+                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40">EXPEDIENTE INTEGRAL • TERMINAL ZEDU 2.6.5</p>
                 </div>
                 <div className="flex gap-3">
                     <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-semibold uppercase tracking-widest border-border bg-card/50 hover:bg-card text-foreground transition-all" onClick={() => window.print()}>

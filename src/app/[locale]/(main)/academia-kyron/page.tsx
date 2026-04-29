@@ -74,7 +74,7 @@ export default function AcademiaKyronPage() {
                 <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
                     <div className="space-y-6">
                         <Badge className="bg-white/20 text-white border-white/30 text-[10px] font-semibold uppercase tracking-wider">Certificación Master</Badge>
-                        <h2 className="text-2xl md:text-3xl font-semibold uppercase italic tracking-tight text-foreground">Conviértete en un Operador Maestro</h2>
+                        <h2 className="text-2xl md:text-3xl font-semibold uppercase italic tracking-tight text-foreground">Conviértete en un Especialista Certificado</h2>
                         <p className="text-lg font-medium italic text-white/80 leading-relaxed">Domina el ecosistema completo y obtén una credencial verificable en Blockchain que valida tus competencias en la nueva economía digital.</p>
                         <Button className="h-16 px-12 rounded-2xl bg-white text-black font-semibold uppercase text-xs tracking-widest shadow-lg hover:bg-white/90">INSCRIBIRSE AL PROGRAMA</Button>
                     </div>

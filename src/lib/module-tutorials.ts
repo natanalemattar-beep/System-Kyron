@@ -356,7 +356,7 @@ export const moduleTutorials: Record<string, ModuleTutorialConfig> = {
     steps: [
       {
         title: "Tu Identidad Digital",
-        description: "Accede a tu identificación digital 3D, datos maestros personales y configuración de privacidad y seguridad de tu cuenta.",
+        description: "Accede a tu identificación digital 3D, información principal de perfil y configuración de privacidad y seguridad de tu cuenta.",
         icon: UserCheck,
         color: "text-indigo-400",
         bg: "bg-indigo-400/15",

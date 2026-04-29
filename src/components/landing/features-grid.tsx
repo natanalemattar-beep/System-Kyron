@@ -7,6 +7,8 @@ import {
     ShieldCheck, Zap, Globe, Cpu, CheckCircle, TrendingUp
 } from 'lucide-react';
 import { ScrollReveal } from './scroll-reveal';
+import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 const features = [
     {
@@ -48,6 +50,33 @@ const features = [
 ];
 
 export function FeaturesGrid() {
+    const t = useTranslations('FeaturesSection');
+    const featuresData = t.raw('features') as { title: string; description: string }[];
+    
+    const iconMap = [
+        Calculator, 
+        Smartphone, 
+        Gavel, 
+        Users, 
+        ShieldCheck, 
+        Recycle
+    ];
+
+    const colorMap = [
+        "amber",
+        "blue",
+        "indigo",
+        "cyan",
+        "emerald",
+        "green"
+    ];
+
+    const features = featuresData.slice(0, 6).map((f, i) => ({
+        ...f,
+        icon: iconMap[i],
+        color: colorMap[i]
+    }));
+
     return (
         <section id="caracteristicas" className="relative py-24 lg:py-32 overflow-hidden">
             {/* Background Decorations */}
@@ -60,15 +89,16 @@ export function FeaturesGrid() {
                 <div className="max-w-4xl mx-auto text-center mb-20">
                     <ScrollReveal>
                         <span className="inline-block px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400 mb-6">
-                            Infraestructura de Clase Mundial
+                            {t('badge')}
                         </span>
-                        <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6 leading-tight">
-                            ¿Qué es <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">System Kyron?</span>
+                        <h2 className="text-4xl md:text-7xl font-extrabold text-white tracking-tighter mb-8 leading-[0.95] text-balance">
+                            {t('title_highlight')}{' '}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 animate-gradient-flow bg-[length:200%_auto]">
+                                {t('title_rest')}
+                            </span>
                         </h2>
                         <p className="text-lg md:text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto">
-                            Es el primer ecosistema de inteligencia corporativa unificado para Venezuela. 
-                            Fusionamos contabilidad de élite, telecomunicaciones 5G e inteligencia artificial 
-                            en una sola plataforma de misión crítica.
+                            {t('subtitle')}
                         </p>
                     </ScrollReveal>
                 </div>
@@ -85,118 +115,30 @@ export function FeaturesGrid() {
                                     <Cpu className="h-4 w-4 text-white/40" />
                                 </div>
 
-                                <div className={`h-14 w-14 rounded-2xl bg-${feature.color}-500/10 border border-${feature.color}-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
-                                    <feature.icon className={`h-7 w-7 text-${feature.color}-400`} />
+                                <div className={cn(
+                                    "h-16 w-16 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg",
+                                    feature.color === "amber" && "bg-amber-500/10 border-amber-500/20 text-amber-400 shadow-amber-500/5",
+                                    feature.color === "blue" && "bg-blue-500/10 border-blue-500/20 text-blue-400 shadow-blue-500/5",
+                                    feature.color === "indigo" && "bg-indigo-500/10 border-indigo-500/20 text-indigo-400 shadow-indigo-500/5",
+                                    feature.color === "cyan" && "bg-cyan-500/10 border-cyan-500/20 text-cyan-400 shadow-cyan-500/5",
+                                    feature.color === "emerald" && "bg-emerald-500/10 border-emerald-500/20 text-emerald-400 shadow-emerald-500/5",
+                                    feature.color === "green" && "bg-green-500/10 border-green-500/20 text-green-400 shadow-green-500/5"
+                                )}>
+                                    <feature.icon className="h-8 w-8" />
                                 </div>
 
-                                <h3 className="text-xl font-black text-white mb-3 uppercase tracking-tighter">
+                                <h3 className="text-2xl font-bold text-white mb-4 tracking-tight">
                                     {feature.title}
                                 </h3>
-                                <p className="text-slate-400 text-sm leading-relaxed font-medium">
-                                    {feature.desc}
+                                <p className="text-slate-100/60 text-sm leading-relaxed font-medium text-pretty">
+                                    {feature.description}
                                 </p>
 
-                                {/* Hover Glow */}
-                                <div className={`absolute -bottom-10 -right-10 w-32 h-32 bg-${feature.color}-500/10 blur-[50px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000`} />
+                                {/* Hud Grid Overlay inside card */}
+                                <div className="absolute inset-0 hud-grid opacity-[0.03] rounded-[2.5rem] pointer-events-none" />
                             </motion.div>
                         </ScrollReveal>
                     ))}
-                </div>
-
-                {/* 3 Major Pillars of Innovation */}
-                <div className="mt-20 lg:mt-32 space-y-12">
-                    {/* Pillar 1: Fiscal */}
-                    <div className="p-1 bg-gradient-to-r from-rose-500/20 via-orange-500/20 to-amber-500/20 rounded-[3rem]">
-                        <div className="bg-[#050816]/90 backdrop-blur-3xl rounded-[2.9rem] p-8 md:p-16 flex flex-col lg:flex-row items-center gap-12 border border-white/5">
-                            <div className="flex-1 space-y-6 text-center lg:text-left">
-                                <h3 className="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight">
-                                    Blindaje Total contra la <br/>
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-orange-400 font-black">Incertidumbre Fiscal.</span>
-                                </h3>
-                                <p className="text-lg text-slate-400 max-w-xl mx-auto lg:mx-0">
-                                    Nuestra IA detecta inconsistencias en tu contabilidad VEN-NIF antes de que el SENIAT lo haga, garantizando tranquilidad operativa 24/7.
-                                </p>
-                                <div className="flex flex-wrap justify-center lg:justify-start gap-6 pt-4">
-                                    <div className="flex items-center gap-3">
-                                        <ShieldCheck className="h-6 w-6 text-emerald-400" />
-                                        <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">100% Legalidad</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <Zap className="h-6 w-6 text-amber-400" />
-                                        <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Tasa BCV Automática</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex-shrink-0 w-full lg:w-1/3 aspect-square relative flex items-center justify-center order-first lg:order-last">
-                                <div className="absolute inset-0 bg-orange-500/20 blur-[100px] rounded-full animate-pulse" />
-                                <div className="relative z-10 p-12 bg-white/5 rounded-full border border-white/10 backdrop-blur-3xl animate-float-slow shadow-2xl">
-                                    <Calculator className="h-32 w-32 text-orange-400 drop-shadow-[0_0_30px_rgba(251,146,60,0.5)]" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Pillar 2: Telecom 5G */}
-                    <div className="p-1 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-indigo-500/20 rounded-[3rem]">
-                        <div className="bg-[#050816]/90 backdrop-blur-3xl rounded-[2.9rem] p-8 md:p-16 flex flex-col lg:flex-row items-center gap-12 border border-white/5">
-                            <div className="flex-shrink-0 w-full lg:w-1/3 aspect-square relative flex items-center justify-center">
-                                <div className="absolute inset-0 bg-cyan-500/20 blur-[100px] rounded-full animate-pulse" />
-                                <div className="relative z-10 p-12 bg-white/5 rounded-full border border-white/10 backdrop-blur-3xl animate-float-slow shadow-2xl">
-                                    <Smartphone className="h-32 w-32 text-cyan-400 drop-shadow-[0_0_30px_rgba(34,211,238,0.5)]" />
-                                </div>
-                            </div>
-                            <div className="flex-1 space-y-6 text-center lg:text-left">
-                                <h3 className="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight">
-                                    Revolución en Conectividad: <br/>
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 font-black">Mi Línea 5G & eSIM.</span>
-                                </h3>
-                                <p className="text-lg text-slate-400 max-w-xl mx-auto lg:mx-0">
-                                    Somos el único ecosistema en Venezuela que integra telefonía móvil 5G. Gestiona tus líneas corporativas, datos y eSIMs directamente desde tu ERP.
-                                </p>
-                                <div className="flex flex-wrap justify-center lg:justify-start gap-6 pt-4">
-                                    <div className="flex items-center gap-3">
-                                        <Globe className="h-6 w-6 text-cyan-400" />
-                                        <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Cobertura Nacional</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <Zap className="h-6 w-6 text-blue-400" />
-                                        <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Activación eSIM 1min</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Pillar 3: Sustainability */}
-                    <div className="p-1 bg-gradient-to-r from-emerald-500/20 via-green-500/20 to-lime-500/20 rounded-[3rem]">
-                        <div className="bg-[#050816]/90 backdrop-blur-3xl rounded-[2.9rem] p-8 md:p-16 flex flex-col lg:flex-row items-center gap-12 border border-white/5">
-                            <div className="flex-1 space-y-6 text-center lg:text-left">
-                                <h3 className="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight">
-                                    Impacto Verde con <br/>
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-400 font-black">Ameru: Sostenibilidad AI.</span>
-                                </h3>
-                                <p className="text-lg text-slate-400 max-w-xl mx-auto lg:mx-0">
-                                    Convierte la huella verde de tu empresa en una ventaja competitiva. Gestión automatizada de Eco-créditos y reportes de sostenibilidad integrados.
-                                </p>
-                                <div className="flex flex-wrap justify-center lg:justify-start gap-6 pt-4">
-                                    <div className="flex items-center gap-3">
-                                        <Recycle className="h-6 w-6 text-emerald-400" />
-                                        <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Eco-Créditos Ameru</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <TrendingUp className="h-6 w-6 text-green-400" />
-                                        <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Huella Cero</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex-shrink-0 w-full lg:w-1/3 aspect-square relative flex items-center justify-center order-first lg:order-last">
-                                <div className="absolute inset-0 bg-emerald-500/20 blur-[100px] rounded-full animate-pulse" />
-                                <div className="relative z-10 p-12 bg-white/5 rounded-full border border-white/10 backdrop-blur-3xl animate-float-slow shadow-2xl">
-                                    <Recycle className="h-32 w-32 text-emerald-400 drop-shadow-[0_0_30px_rgba(52,211,153,0.5)]" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>

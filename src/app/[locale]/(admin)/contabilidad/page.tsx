@@ -265,13 +265,12 @@ export default function ContabilidadPage() {
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="space-y-1">
           <div className="flex items-center gap-2 mb-1">
-            <Calculator className="h-5 w-5 text-primary" />
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+            <h1 className="text-3xl font-extrabold tracking-normal text-foreground">
               Contabilidad
             </h1>
           </div>
-          <p className="text-sm text-muted-foreground">
-            VEN-NIF · IVA 16% · IGTF 3% · ISLR 34%
+          <p className="text-xs font-medium text-muted-foreground tracking-wide">
+            ESTÁNDAR VEN-NIF · IVA 16% · IGTF 3% · ISLR 34%
           </p>
         </div>
         <div className="flex gap-3">
@@ -296,12 +295,12 @@ export default function ContabilidadPage() {
         {kpiCards.map((k, i) => (
           <Card key={i} className="border rounded-2xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{k.label}</p>
-              <k.icon className={cn("h-4 w-4", k.color)} />
-            </div>
-            <p className={cn("text-2xl font-bold tracking-tight", k.color)}>
-              {kpiLoading ? "..." : k.val}
-            </p>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">{k.label}</p>
+            <k.icon className={cn("h-4 w-4", k.color)} />
+          </div>
+          <p className={cn("text-2xl font-bold tracking-normal", k.color)}>
+            {kpiLoading ? "..." : k.val}
+          </p>
           </Card>
         ))}
       </div>
@@ -338,10 +337,7 @@ export default function ContabilidadPage() {
                 <Link key={i} href={item.href as any}>
                   <Card className="border rounded-2xl shadow-sm p-6 hover:shadow-md transition-all group min-h-[120px] flex flex-col justify-between">
                     <div className="flex items-center gap-4">
-                      <div className="p-3 bg-muted rounded-xl group-hover:bg-primary/10 transition-colors">
-                        <item.icon className={cn("h-5 w-5", item.color)} />
-                      </div>
-                      <p className="text-sm font-bold uppercase tracking-tight group-hover:text-primary transition-colors">{item.label}</p>
+                      <p className="text-xs font-bold uppercase tracking-normal group-hover:text-primary transition-colors">{item.label}</p>
                     </div>
                     <div className="flex justify-end mt-3">
                       <ArrowRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />

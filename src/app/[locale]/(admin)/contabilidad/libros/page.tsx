@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 const libraryCategories = [
   {
-    title: "Contables Maestros",
+    title: "Libros Principales",
     icon: Book,
     items: [
       { label: "Libro Diario", href: "/contabilidad/libros/diario", desc: "Art. 32 Código de Comercio", icon: FileText, color: "text-primary" },

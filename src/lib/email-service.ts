@@ -97,9 +97,7 @@ export function buildKyronEmailTemplate(content: {
 
   // Logo IMG: Usamos una imagen real con URL absoluta en vez de SVG para que
   // funcione garantizado en Gmail Móvil, iPhone, Outlook, etc. (que bloquean los SVG)
-  const appUrl = typeof process !== 'undefined' && process.env.NEXT_PUBLIC_APP_URL && !process.env.NEXT_PUBLIC_APP_URL.includes('localhost')
-    ? process.env.NEXT_PUBLIC_APP_URL
-    : 'https://system-kyron.vercel.app';
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://system-kyron.com';
     
   const logoIMG = `<img src="${appUrl}/images/logo-kyron-hq.png" width="80" height="80" alt="System Kyron" style="display:block; margin: 0 auto; outline:none; border:none; max-width:80px; max-height:80px;" />`;
 

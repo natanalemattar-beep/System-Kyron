@@ -95,7 +95,7 @@ export default function PropuestaProyectoPage() {
                         <div className="absolute top-10 left-10 opacity-20"><Logo className="h-12 w-12" /></div>
                         <div className="mx-auto w-fit mb-10 bg-black p-6 rounded-[2.5rem] border border-primary/20"><Logo className="h-20 w-20" /></div>
                         <CardTitle className="text-2xl md:text-3xl font-semibold uppercase tracking-tight italic text-white mb-4 leading-tight">EFICIENCIA Y FINANZAS <br/> DEL FUTURO</CardTitle>
-                        <CardDescription className="text-primary font-semibold uppercase tracking-wider text-xs md:text-sm">Proyecto Maestro de Gestión Integral 2025</CardDescription>
+                        <CardDescription className="text-primary font-semibold uppercase tracking-wider text-xs md:text-sm">Proyecto Principal de Gestión Integral 2025</CardDescription>
                     </CardHeader>
                     
                     <CardContent className="p-12 md:p-20 space-y-20">

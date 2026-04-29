@@ -38,45 +38,21 @@ export default function LoginSelectionPage() {
   const enterpriseOptions = optionKeys.filter(o => o.category === 'corporate');
 
   return (
-    <div className="min-h-screen flex flex-col items-center w-full relative bg-gradient-to-b from-[#e4edf8] via-[#dce7f5] to-[#d2dff0] dark:from-[#0a0f1a] dark:via-[#111827] dark:to-[#0f172a]">
+    <div className="min-h-screen flex flex-col items-center w-full relative bg-[#050816] overflow-hidden">
+      {/* Deep Space / HUD Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-[200px] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full bg-blue-400/[0.14] blur-[180px] animate-[pulse_8s_ease-in-out_infinite]" />
-        <div className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] rounded-full bg-emerald-400/[0.12] blur-[160px] animate-[pulse_10s_ease-in-out_infinite]" />
-        <div className="absolute top-[50%] left-[0%] w-[400px] h-[400px] rounded-full bg-cyan-400/[0.10] blur-[140px] animate-[pulse_12s_ease-in-out_infinite]" />
-        <div className="absolute top-[20%] right-[15%] w-[350px] h-[350px] rounded-full bg-violet-400/[0.08] blur-[130px]" />
-        <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
-          <defs><pattern id="selGrid" width="56" height="100" patternUnits="userSpaceOnUse"><path d="M28 66L0 50L0 16L28 0L56 16L56 50L28 66Z" fill="none" stroke="#64748b" strokeWidth="0.5" /></pattern></defs>
-          <rect width="100%" height="100%" fill="url(#selGrid)"/>
-        </svg>
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full"
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0.15, 0.35, 0.15],
-              y: [0, -20, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 5 + i * 0.5,
-              repeat: Infinity,
-              delay: i * 0.8,
-              ease: "easeInOut",
-            }}
-            style={{
-              width: 3 + (i % 4) * 2,
-              height: 3 + (i % 4) * 2,
-              left: `${8 + i * 12}%`,
-              top: `${15 + (i % 5) * 18}%`,
-              background: i % 3 === 0
-                ? 'linear-gradient(135deg, rgba(14,165,233,0.3), rgba(34,197,94,0.15))'
-                : i % 3 === 1
-                ? 'linear-gradient(135deg, rgba(59,130,246,0.25), rgba(139,92,246,0.15))'
-                : 'linear-gradient(135deg, rgba(16,185,129,0.25), rgba(6,182,212,0.15))',
-            }}
-          />
-        ))}
+        <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-blue-600/10 blur-[150px] rounded-full animate-pulse-slow" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-600/10 blur-[150px] rounded-full animate-pulse" />
+        
+        {/* Animated Scanline */}
+        <motion.div 
+          animate={{ top: ['-10%', '110%'] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          className="absolute left-0 right-0 h-[1px] bg-cyan-500/10 z-10 pointer-events-none"
+        />
+
+        <div className="absolute inset-0 hud-grid opacity-20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050816]/50 to-[#050816]" />
       </div>
 
       <div className="w-full max-w-5xl px-4 md:px-8 py-6">
@@ -153,30 +129,33 @@ export default function LoginSelectionPage() {
             {personalOptions.map((option) => (
               <motion.div key={option.href} variants={itemVariants}>
                 <Link href={option.href as any} className="group block">
-                  <div
+                  <motion.div
+                    whileHover={{ scale: 1.02, y: -5 }}
+                    whileTap={{ scale: 0.98 }}
                     className={cn(
-                      "relative flex items-center gap-4 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-700/60 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-sm",
-                      "transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 hover:bg-white/90 dark:hover:bg-slate-800/90",
-                      option.borderHover, option.shadow
+                      "relative flex items-center gap-5 p-6 rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-3xl transition-all duration-500 overflow-hidden shadow-2xl",
+                      "hover:bg-white/[0.05] hover:border-white/10 group-hover:shadow-glow-sm",
+                      option.borderHover
                     )}
-                    style={{ '--card-glow': option.glow } as React.CSSProperties}
-                    onMouseEnter={() => setHoveredKey(option.key)}
-                    onMouseLeave={() => setHoveredKey(null)}
                   >
-                    <div className={cn(
-                      "absolute inset-0 rounded-2xl transition-all duration-500 opacity-0 group-hover:opacity-100",
-                    )} style={{ boxShadow: `inset 0 1px 0 0 rgba(255,255,255,0.8), 0 8px 40px -12px ${option.glow}` }} />
-                    <div className={cn("h-12 w-12 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-lg text-white shrink-0 transition-all group-hover:scale-110 group-hover:shadow-xl duration-300", option.color)}>
-                      <option.icon className="h-5 w-5" />
+                    {/* HUD corner accent */}
+                    <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none opacity-20 group-hover:opacity-100">
+                      <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-cyan-500/40 rounded-full animate-pulse" />
+                      <div className="absolute top-3 right-3 w-[1px] h-3 bg-cyan-500/20" />
+                      <div className="absolute top-3 right-3 w-3 h-[1px] bg-cyan-500/20" />
+                    </div>
+
+                    <div className={cn("h-14 w-14 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-lg text-white shrink-0 transition-transform group-hover:rotate-6 duration-500", option.color)}>
+                      <option.icon className="h-6 w-6" />
                     </div>
                     <div className="flex-1 min-w-0 relative z-10">
-                      <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors">{t(`options.${option.key}.label`)}</p>
-                      <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed line-clamp-2">{t(`options.${option.key}.description`)}</p>
+                      <p className="text-base font-bold text-white tracking-tight group-hover:text-cyan-400 transition-colors uppercase">{t(`options.${option.key}.label`)}</p>
+                      <p className="text-[11px] text-slate-400 mt-1 leading-relaxed line-clamp-2 uppercase tracking-wider font-medium">{t(`options.${option.key}.description`)}</p>
                     </div>
-                    <div className="h-8 w-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center group-hover:bg-blue-50 dark:group-hover:bg-blue-950 transition-all shrink-0 relative z-10">
-                      <ArrowRight className="h-3.5 w-3.5 text-slate-300 dark:text-slate-500 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all" />
+                    <div className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-all shrink-0 relative z-10">
+                      <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all" />
                     </div>
-                  </div>
+                  </motion.div>
                 </Link>
               </motion.div>
             ))}
@@ -203,27 +182,31 @@ export default function LoginSelectionPage() {
             {enterpriseOptions.map((option) => (
               <motion.div key={option.href} variants={itemVariants}>
                 <Link href={option.href as any} className="group block">
-                  <div
+                  <motion.div
+                    whileHover={{ scale: 1.02, y: -4 }}
+                    whileTap={{ scale: 0.98 }}
                     className={cn(
-                      "relative flex items-center gap-3.5 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white/70 dark:bg-slate-800/70 backdrop-blur-md",
-                      "transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
-                      option.borderHover, option.shadow
+                      "relative flex items-center gap-4 p-5 rounded-[1.5rem] border border-white/5 bg-white/[0.02] backdrop-blur-3xl transition-all duration-500 overflow-hidden",
+                      "hover:bg-white/[0.05] hover:border-white/10",
+                      option.borderHover
                     )}
-                    onMouseEnter={() => setHoveredKey(option.key)}
-                    onMouseLeave={() => setHoveredKey(null)}
                   >
-                    <div className={cn(
-                      "absolute inset-0 rounded-2xl transition-all duration-500 opacity-0 group-hover:opacity-100",
-                    )} style={{ boxShadow: `inset 0 1px 0 0 rgba(255,255,255,0.8), 0 8px 40px -12px ${option.glow}` }} />
-                    <div className={cn("h-11 w-11 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-md text-white shrink-0 transition-all group-hover:scale-110 group-hover:shadow-lg duration-300", option.color)}>
+                    {/* HUD corner accent */}
+                    <div className="absolute top-0 right-0 w-6 h-6 pointer-events-none opacity-10 group-hover:opacity-60">
+                      <div className="absolute top-2 right-2 w-1 h-1 bg-cyan-500/40 rounded-full" />
+                      <div className="absolute top-2 right-2 w-[1px] h-2 bg-cyan-500/20" />
+                      <div className="absolute top-2 right-2 w-2 h-[1px] bg-cyan-500/20" />
+                    </div>
+
+                    <div className={cn("h-11 w-11 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-md text-white shrink-0 transition-transform group-hover:scale-110 duration-500", option.color)}>
                       <option.icon className="h-4 w-4" />
                     </div>
                     <div className="flex-1 min-w-0 relative z-10">
-                      <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors">{t(`options.${option.key}.label`)}</p>
-                      <p className="text-[11px] text-slate-400 mt-0.5 leading-snug line-clamp-1">{t(`options.${option.key}.description`)}</p>
+                      <p className="text-sm font-bold text-white tracking-tight group-hover:text-cyan-400 transition-colors uppercase">{t(`options.${option.key}.label`)}</p>
+                      <p className="text-[10px] text-slate-500 mt-0.5 leading-snug line-clamp-1 uppercase tracking-widest font-bold">{t(`options.${option.key}.description`)}</p>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-slate-300 dark:text-slate-500 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all shrink-0 relative z-10" />
-                  </div>
+                    <ArrowRight className="h-4 w-4 text-slate-600 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all shrink-0 relative z-10" />
+                  </motion.div>
                 </Link>
               </motion.div>
             ))}

@@ -185,10 +185,8 @@ export async function POST(req: NextRequest) {
         await storeMagicToken(user.email, magicToken, user.id);
 
 
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 
-                        (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
-                        (process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : '') ||
-                        'https://system-kyron.vercel.app';
+        // Forzar dominio oficial en producción
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.com';
         
         const magicLinkUrl = `${baseUrl}/es/verify-link/${magicToken}`;
 

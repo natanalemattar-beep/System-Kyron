@@ -391,10 +391,9 @@ export default function DashboardEmpresaPage() {
                   </div>
                   <div>
                     <div className="flex items-center gap-3">
-                       <h1 className="text-3xl md:text-5xl font-black tracking-tighter kyron-gradient-text uppercase italic leading-none font-impact">
+                       <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-foreground uppercase">
                         {activeEvent ? activeEvent.saludo : (greeting?.text ?? "Hola")}{user?.nombre ? `, ${user.nombre.split(" ")[0]}` : ""}
                       </h1>
-                      {activeEvent && <span className="text-3xl animate-bounce-subtle">{activeEvent.emoji}</span>}
                     </div>
                     <p className="text-[10px] font-black text-muted-foreground/60 tracking-[0.3em] uppercase flex items-center gap-2 mt-2 font-tech">
                       <Calendar className="h-3 w-3" /> {clientDateStr ?? ""} <span className="opacity-30">•</span> <Clock className="h-3 w-3" /> {clientTimeStr ?? ""}
@@ -470,7 +469,7 @@ export default function DashboardEmpresaPage() {
                 </div>
                 
                 <div className="space-y-1">
-                  <h3 className="text-2xl md:text-3xl font-black tracking-tighter text-foreground tabular-nums font-impact">
+                  <h3 className="text-2xl font-bold tracking-tight text-foreground tabular-nums">
                     {loading ? <div className="h-8 w-32 bg-muted/20 rounded-lg animate-pulse" /> : kpi.value}
                   </h3>
                   <div className="flex items-center justify-between">
@@ -512,8 +511,8 @@ export default function DashboardEmpresaPage() {
                     <stat.icon className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-lg font-black tracking-tighter">{loading ? "—" : stat.value}</p>
-                    <p className="text-[10px] font-black text-muted-foreground/30 uppercase tracking-widest">{stat.label}</p>
+                    <p className="text-xl font-bold tracking-tight">{loading ? "—" : stat.value}</p>
+                    <p className="text-[11px] font-bold text-muted-foreground/40 uppercase tracking-wider">{stat.label}</p>
                   </div>
                   {stat.extra && <div className="ml-auto text-[10px] font-bold text-muted-foreground/20 hidden xl:block">{curConfig.symbol}{stat.extra}</div>}
                   {stat.alert && <span className="absolute top-3 right-3 w-2 h-2 rounded-full bg-rose-500 shadow-lg shadow-rose-500/50 animate-pulse" />}

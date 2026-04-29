@@ -20,6 +20,7 @@ export const pathnames = {
   '/login-sostenibilidad': '/login-sostenibilidad',
   '/login-informatica': '/login-informatica',
   '/contabilidad/conatel': '/contabilidad/conatel',
+  '/pitch': '/pitch',
   
   // ÁREA MAESTRA
   '/dashboard-empresa': '/dashboard-empresa',
