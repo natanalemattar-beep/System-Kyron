@@ -8,7 +8,7 @@ import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { generateCode, storeCode, generateMagicToken, storeMagicToken } from '@/lib/verification-codes';
 import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { createLoginChallenge } from '@/lib/login-challenge';
-import { decryptIfEncrypted } from '@/lib/encryption';
+import { decryptIfEncrypted, encryptIfNotEmpty } from '@/lib/encryption';
 
 interface DbUser {
     id: number;
@@ -69,14 +69,17 @@ export async function POST(req: NextRequest) {
             searchPhone = normalizePhone(normalizedId);
         }
 
+        // Prepare possible encrypted phone for lookup when identifier is a phone number
+        const encryptedPhone = (!looksLikeEmail && /^[\d]+$/.test(normalizedId.replace(/\D/g, ''))) ? encryptIfNotEmpty(normalizedId) : null;
         const user = await queryOne<DbUser>(
             `SELECT id, email, password_hash, tipo, nombre, apellido, cedula, razon_social, rif, access_key_hash, telefono, COALESCE(telefono_verificado, false) as telefono_verificado
              FROM users 
              WHERE email = $1 
                 OR cedula = $1 
                 OR telefono = $1 
-                OR (telefono IS NOT NULL AND telefono = $2)`,
-            [normalizedId, searchPhone]
+                OR (telefono IS NOT NULL AND telefono = $2)
+                OR ($3 IS NOT NULL AND telefono = $3)`,
+            [normalizedId, searchPhone, encryptedPhone]
         );
 
         if (!user) {

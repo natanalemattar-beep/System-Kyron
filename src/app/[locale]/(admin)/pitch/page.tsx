@@ -310,6 +310,5 @@ export default function PitchPage() {
                 </div>
             </footer>
         </div>
-        </div>
     );
 }

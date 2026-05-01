@@ -576,15 +576,46 @@ export default function DashboardEmpresaPage() {
                       <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={data!.chartMensual} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
                           <defs>
-                            <linearGradient id="gIng" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="var(--color-ingresos)" stopOpacity={0.2}/><stop offset="95%" stopColor="var(--color-ingresos)" stopOpacity={0}/></linearGradient>
-                            <linearGradient id="gGas" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="var(--color-gastos)" stopOpacity={0.15}/><stop offset="95%" stopColor="var(--color-gastos)" stopOpacity={0}/></linearGradient>
+                            <linearGradient id="gIng" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="var(--color-ingresos)" stopOpacity={0.4}/>
+                              <stop offset="95%" stopColor="var(--color-ingresos)" stopOpacity={0}/>
+                            </linearGradient>
+                            <linearGradient id="gGas" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="var(--color-gastos)" stopOpacity={0.3}/>
+                              <stop offset="95%" stopColor="var(--color-gastos)" stopOpacity={0}/>
+                            </linearGradient>
+                            <filter id="glow">
+                              <feGaussianBlur stdDeviation="2" result="blur" />
+                              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
                           </defs>
                           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
                           <XAxis dataKey="mes" stroke="#475569" fontSize={9} fontWeight="600" axisLine={false} tickLine={false} tickMargin={10} />
                           <YAxis stroke="#475569" fontSize={9} fontWeight="600" axisLine={false} tickLine={false} tickFormatter={(v) => `${curConfig.symbol} ${formatRaw(convert(v as number))}`} width={55} />
-                          <ChartTooltip cursor={{ stroke: "rgba(255,255,255,0.06)" }} content={<ChartTooltipContent indicator="dot" formatter={(v) => fmtCur(v as number)} />} />
-                          <Area type="monotone" dataKey="ingresos" stroke="var(--color-ingresos)" strokeWidth={2} fillOpacity={1} fill="url(#gIng)" />
-                          <Area type="monotone" dataKey="gastos" stroke="var(--color-gastos)" strokeWidth={2} fillOpacity={1} fill="url(#gGas)" />
+                          <ChartTooltip 
+                            cursor={{ stroke: "rgba(255,255,255,0.06)", strokeWidth: 1 }} 
+                            content={<ChartTooltipContent indicator="line" formatter={(v) => fmtCur(v as number)} />} 
+                          />
+                          <Area 
+                            type="monotone" 
+                            dataKey="ingresos" 
+                            stroke="var(--color-ingresos)" 
+                            strokeWidth={3} 
+                            fillOpacity={1} 
+                            fill="url(#gIng)" 
+                            filter="url(#glow)"
+                            activeDot={{ r: 6, fill: "var(--color-ingresos)", stroke: "#fff", strokeWidth: 2, className: "shadow-lg shadow-emerald-500/50" }}
+                          />
+                          <Area 
+                            type="monotone" 
+                            dataKey="gastos" 
+                            stroke="var(--color-gastos)" 
+                            strokeWidth={3} 
+                            fillOpacity={1} 
+                            fill="url(#gGas)" 
+                            filter="url(#glow)"
+                            activeDot={{ r: 6, fill: "var(--color-gastos)", stroke: "#fff", strokeWidth: 2, className: "shadow-lg shadow-rose-500/50" }}
+                          />
                         </AreaChart>
                       </ResponsiveContainer>
                     </ChartContainer>
@@ -758,68 +789,87 @@ export default function DashboardEmpresaPage() {
         </motion.div>
 
         <motion.div className="lg:col-span-3 space-y-4" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}>
-          <Card className="border border-border/30 rounded-xl bg-gradient-to-b from-[#0a1225] to-card/90 p-4 text-white overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-cyan-500/[0.06] blur-[40px]" />
-            <div className="relative z-10">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-bold text-white/90">Escenarios IA</h3>
-                <Badge className="bg-primary/20 text-primary border-primary/30 text-[9px] font-black italic">PRO</Badge>
+          <Card className="border border-border/30 rounded-xl bg-gradient-to-br from-[#0a1225] via-card/90 to-card/95 p-5 text-white overflow-hidden relative group">
+            <div className="absolute inset-0 bg-scanline opacity-[0.05] group-hover:opacity-[0.1] transition-opacity pointer-events-none" />
+            <div className="absolute top-0 left-0 w-full h-[1px] bg-cyan-500/30 animate-scanner-y pointer-events-none" />
+            <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-primary/10 blur-[60px] group-hover:bg-primary/20 transition-all duration-1000" />
+            
+            <div className="relative z-10 space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <h3 className="text-sm font-black tracking-tight text-white/90 uppercase font-tech">Escenarios IA</h3>
+                  <div className="flex items-center gap-1.5">
+                    <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_8px_rgba(6,182,212,1)]" />
+                    <span className="text-[9px] font-black tracking-[0.2em] text-cyan-400/60 font-tech">NEXUS CORE ACTIVE</span>
+                  </div>
+                </div>
+                <Badge className="bg-primary/20 text-primary border-primary/30 text-[9px] font-black italic px-2 py-0.5 rounded-md">NEURAL PRO</Badge>
               </div>
-              <p className="text-[11px] text-white/30 mb-3">Modelado predictivo avanzado</p>
-              <div className="space-y-1.5">
-                <Button size="sm" variant="outline" className="w-full h-8 text-[10px] font-medium rounded-lg border-white/8 bg-white/[0.02] text-white/60 hover:bg-emerald-500/15 hover:border-emerald-500/15 hover:text-emerald-300 justify-start"
-                  onClick={() => { const a = data ? data.ingresos * 1.2 : 0; toast({ title: "Ventas +20%", description: `Ingresos: ${fmtCur(a)} · Utilidad: ${fmtCur(a - (data?.gastos ?? 0))}` }); }}>
-                  <TrendingUp className="h-3 w-3 mr-2 text-emerald-400" /> Ventas +20%
+              
+              <div className="space-y-2">
+                <Button size="sm" variant="outline" className="w-full h-10 text-[10px] font-black tracking-widest uppercase rounded-xl border-white/5 bg-white/[0.03] text-white/60 hover:bg-emerald-500/15 hover:border-emerald-500/20 hover:text-emerald-300 justify-start px-4 transition-all hover:translate-x-1"
+                  onClick={() => { const a = data ? data.ingresos * 1.2 : 0; toast({ title: "PROYECCIÓN: VENTAS +20%", description: `Ingresos: ${fmtCur(a)} · Utilidad Estimada: ${fmtCur(a - (data?.gastos ?? 0))}` }); }}>
+                  <TrendingUp className="h-3.5 w-3.5 mr-3 text-emerald-400" /> Proyectar Ventas +20%
                 </Button>
-                <Button size="sm" variant="outline" className="w-full h-8 text-[10px] font-medium rounded-lg border-white/8 bg-white/[0.02] text-white/60 hover:bg-rose-500/15 hover:border-rose-500/15 hover:text-rose-300 justify-start"
-                  onClick={() => { const inf = data ? data.gastos * 1.35 : 0; toast({ title: "Inflación 35%", description: `Gastos: ${fmtCur(inf)} · Utilidad: ${fmtCur((data?.ingresos ?? 0) - inf)}` }); }}>
-                  <AlertTriangle className="h-3 w-3 mr-2 text-rose-400" /> Inflación 35%
+                <Button size="sm" variant="outline" className="w-full h-10 text-[10px] font-black tracking-widest uppercase rounded-xl border-white/5 bg-white/[0.03] text-white/60 hover:bg-rose-500/15 hover:border-rose-500/20 hover:text-rose-300 justify-start px-4 transition-all hover:translate-x-1"
+                  onClick={() => { const inf = data ? data.gastos * 1.35 : 0; toast({ title: "SIMULACIÓN: INFLACIÓN 35%", description: `Gastos: ${fmtCur(inf)} · Utilidad Estimada: ${fmtCur((data?.ingresos ?? 0) - inf)}` }); }}>
+                  <AlertTriangle className="h-3.5 w-3.5 mr-3 text-rose-400" /> Simular Inflación 35%
                 </Button>
+              </div>
+
+              <div className="pt-2">
+                <div className="flex items-center justify-between text-[8px] font-black tracking-[0.3em] text-white/20 uppercase mb-2">
+                  <span>Procesamiento Neural</span>
+                  <span>98.2% Accuracy</span>
+                </div>
+                <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: "98.2%" }}
+                    transition={{ duration: 2, ease: "easeOut" }}
+                    className="h-full bg-gradient-to-r from-primary to-cyan-400 shadow-[0_0_10px_rgba(59,130,246,0.5)]" 
+                  />
+                </div>
               </div>
             </div>
           </Card>
 
-          <Card className="border border-primary/20 rounded-xl bg-card/80 p-4 relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-2 opacity-5">
-              <Zap className="h-12 w-12 text-primary" />
+          <Card className="border border-primary/20 rounded-xl bg-card/80 p-5 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+              <Zap className="h-16 w-16 text-primary" />
             </div>
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-[11px] font-black text-foreground/60 uppercase tracking-widest">Plan Professional</span>
-              <Sparkles className="h-3.5 w-3.5 text-primary animate-pulse" />
+            <div className="flex items-center justify-between mb-5">
+              <div className="space-y-1">
+                <span className="text-[10px] font-black text-foreground/40 uppercase tracking-[0.2em] font-tech">Suscripción Activa</span>
+                <h3 className="text-xs font-black text-primary uppercase tracking-widest">Plan Professional</h3>
+              </div>
+              <Sparkles className="h-4 w-4 text-primary animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
             </div>
-            <div className="space-y-4">
-              <div className="space-y-1.5">
-                <div className="flex justify-between text-[10px] font-bold uppercase tracking-tight">
-                  <span className="text-muted-foreground">Empleados</span>
-                  <span className="text-foreground">{data?.empleados ?? 0} / 15</span>
+            
+            <div className="space-y-5">
+              {[
+                { label: "Empleados", current: data?.empleados ?? 0, total: 15, color: "bg-primary" },
+                { label: "Consultas IA", current: 124, total: 250, color: "bg-kyron-cyan" },
+                { label: "Almacenamiento", current: 4.2, total: 25, color: "bg-emerald-500", suffix: " GB" }
+              ].map((stat, idx) => (
+                <div key={idx} className="space-y-2">
+                  <div className="flex justify-between text-[9px] font-black uppercase tracking-widest">
+                    <span className="text-muted-foreground/60">{stat.label}</span>
+                    <span className="text-foreground">{stat.current} / {stat.total}{stat.suffix}</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-white/[0.03] rounded-full overflow-hidden border border-white/[0.05]">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${Math.min((stat.current / stat.total) * 100, 100)}%` }}
+                      transition={{ duration: 1.5, delay: 0.5 + idx * 0.1, ease: "easeOut" }}
+                      className={cn("h-full relative", stat.color)}
+                    >
+                      <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                      <div className="absolute top-0 right-0 h-full w-4 bg-white/40 blur-sm" />
+                    </motion.div>
+                  </div>
                 </div>
-                <div className="h-1.5 w-full bg-muted/20 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-primary transition-all duration-1000" 
-                    style={{ width: `${Math.min(((data?.empleados ?? 0) / 15) * 100, 100)}%` }} 
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-1.5">
-                <div className="flex justify-between text-[10px] font-bold uppercase tracking-tight">
-                  <span className="text-muted-foreground">Consultas IA</span>
-                  <span className="text-foreground">124 / 250</span>
-                </div>
-                <div className="h-1.5 w-full bg-muted/20 rounded-full overflow-hidden">
-                  <div className="h-full bg-kyron-cyan w-[49.6%] transition-all duration-1000" />
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <div className="flex justify-between text-[10px] font-bold uppercase tracking-tight">
-                  <span className="text-muted-foreground">Almacenamiento Cloud</span>
-                  <span className="text-foreground">4.2 GB / 25 GB</span>
-                </div>
-                <div className="h-1.5 w-full bg-muted/20 rounded-full overflow-hidden">
-                  <div className="h-full bg-emerald-500 w-[16.8%] transition-all duration-1000" />
-                </div>
-              </div>
+              ))}
             </div>
           </Card>
 

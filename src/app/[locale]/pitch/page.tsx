@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValueEvent } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { 
     Sparkles, 
@@ -23,6 +23,7 @@ import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
+import { Wallet, Gavel, Landmark } from "lucide-react";
 
 const slides = [
     {
@@ -60,6 +61,20 @@ const slides = [
             "Cumplimiento VEN-NIF Nativo",
             "Triple Motor de IA (Claude, Gemini, GPT)",
             "Conectividad 5G Integrada"
+        ]
+    },
+    {
+        id: "sector",
+        title: "Sector Privado",
+        subtitle: "Módulo de Élite Empresarial",
+        description: "Una suite de herramientas diseñadas específicamente para el sector privado venezolano, integrando tesorería, nómina masiva y cumplimiento legal.",
+        icon: Building2,
+        color: "from-amber-500 to-orange-600",
+        points: [
+            "Gestión de Tesorería Multidivisa",
+            "Nómina con recargos de ley automáticos",
+            "Módulo Legal: Actas y Contratos",
+            "Auditoría de Activos Fijos"
         ]
     },
     {
@@ -316,6 +331,28 @@ export default function PitchPage() {
                                             </div>
                                         )}
 
+                                        {slide.id === "sector" && (
+                                            <div className="grid grid-cols-2 gap-6 p-12 w-full h-full">
+                                                {[
+                                                    { icon: Wallet, label: "Tesorería", color: "text-amber-500" },
+                                                    { icon: Users, label: "Nómina", color: "text-orange-500" },
+                                                    { icon: Gavel, label: "Legal", color: "text-amber-600" },
+                                                    { icon: Landmark, label: "Activos", color: "text-orange-400" }
+                                                ].map((m, i) => (
+                                                    <motion.div 
+                                                        key={i}
+                                                        initial={{ opacity: 0, scale: 0.8 }}
+                                                        animate={{ opacity: 1, scale: 1 }}
+                                                        transition={{ delay: 0.6 + i * 0.1 }}
+                                                        className="flex flex-col items-center justify-center gap-4 rounded-3xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] transition-colors"
+                                                    >
+                                                        <m.icon className={cn("h-12 w-12", m.color)} />
+                                                        <span className="text-[10px] font-black uppercase tracking-widest text-white/40">{m.label}</span>
+                                                    </motion.div>
+                                                ))}
+                                            </div>
+                                        )}
+
                                         {index === 3 && (
                                             <div className="relative w-full h-full flex items-center justify-center">
                                                 <div className="absolute inset-0 flex items-center justify-center">
@@ -369,8 +406,3 @@ export default function PitchPage() {
     );
 }
 
-function useMotionValueEvent(value: any, event: string, callback: (v: any) => void) {
-    useEffect(() => {
-        return value.on(event, callback);
-    }, [value, event, callback]);
-}

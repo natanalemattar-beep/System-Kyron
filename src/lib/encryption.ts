@@ -72,7 +72,7 @@ export function decrypt(ciphertext: string): string {
             stack: err.stack,
             cause: err.cause
         });
-        return '[ERROR_DECRYPT]';
+        return '';
     }
 }
 
