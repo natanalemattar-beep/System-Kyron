@@ -16,23 +16,10 @@ export default function Error({
   const [retryCount, setRetryCount] = useState(0);
   const [showFullError, setShowFullError] = useState(false);
 
-  // Auto-recovery logic
   useEffect(() => {
     console.error('Kyron System Interference Detected:', error.message);
-    
-    // If it's a common minor rendering error, try to silent-reset
-    if (retryCount < 2) {
-      const timer = setTimeout(() => {
-        setRetryCount(prev => prev + 1);
-        reset();
-      }, 500);
-      return () => clearTimeout(timer);
-    } else {
-      // If auto-recovery fails, wait a bit before showing the full UI
-      const timer = setTimeout(() => setShowFullError(true), 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [error, reset, retryCount]);
+    setShowFullError(true);
+  }, [error]);
 
   const handleReset = useCallback(() => {
     setIsRetrying(true);
@@ -40,25 +27,10 @@ export default function Error({
     setTimeout(() => setIsRetrying(false), 1000);
   }, [reset]);
 
-  // If we haven't reached the full error threshold, show a "healing" state or nothing
+  // Optionally show a quick toast before full error, but here we just go straight to full error
+  // so the user isn't stuck on a black screen.
   if (!showFullError) {
-    return (
-      <div className="fixed bottom-6 right-6 z-[9999]">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-slate-900/90 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl flex items-center gap-4"
-        >
-          <div className="h-8 w-8 rounded-full bg-rose-500/20 flex items-center justify-center">
-            <RefreshCcw className="h-4 w-4 text-rose-500 animate-spin" />
-          </div>
-          <div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-white/40">System Auto-Healing</p>
-            <p className="text-xs font-bold text-white">Sincronizando flujos...</p>
-          </div>
-        </motion.div>
-      </div>
-    );
+     return null;
   }
 
   return (
