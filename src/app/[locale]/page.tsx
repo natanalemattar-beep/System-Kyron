@@ -1,97 +1,89 @@
 import dynamic from 'next/dynamic';
-import { HeroSection } from '@/components/landing';
 import { LandingClientWrapper } from '@/components/landing/landing-client-wrapper';
 import { LazySection } from '@/components/landing/lazy-section';
-import { JsonLd } from '@/components/seo/json-ld';
 
 // Dynamic imports with prefetch and proper loading states
+const HeroSection = dynamic(() => import('@/components/landing/hero-section').then(m => ({ default: m.HeroSection })), { ssr: true });
+const TrustNumbersBanner = dynamic(() => import('@/components/landing/trust-numbers-banner').then(m => ({ default: m.TrustNumbersBanner })), { ssr: true });
+const WhyKyronSection = dynamic(() => import('@/components/landing/why-kyron-section').then(m => ({ default: m.WhyKyronSection })), { ssr: true });
+const ModulesGridSection = dynamic(() => import('@/components/landing/modules-grid-section').then(m => ({ default: m.ModulesGridSection })), { ssr: true });
+const HowItWorksSection = dynamic(() => import('@/components/landing/how-it-works-section').then(m => ({ default: m.HowItWorksSection })), { ssr: true });
 const PartnersSection = dynamic(() => import('@/components/landing/partners-section').then(m => ({ default: m.PartnersSection })), { ssr: true });
+const FeaturesSection = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: true });
+const PricingSection = dynamic(() => import('@/components/landing/pricing-section').then(m => ({ default: m.PricingSection })), { ssr: true });
+const ComplianceSection = dynamic(() => import('@/components/landing/compliance-section').then(m => ({ default: m.ComplianceSection })), { ssr: true });
+const IntegrationsStrip = dynamic(() => import('@/components/landing/integrations-strip').then(m => ({ default: m.IntegrationsStrip })), { ssr: true });
+const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: true });
+const CommentsSection = dynamic(() => import('@/components/landing/comments-section').then(m => ({ default: m.CommentsSection })), { ssr: true });
+const ShowcaseSection = dynamic(() => import('@/components/landing/showcase-section').then(m => ({ default: m.ShowcaseSection })), { ssr: true });
 const CtaSection = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })), { ssr: true });
 const FaqSection = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: true });
 const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: true });
-const FeaturesGrid = dynamic(() => import('@/components/landing/features-grid').then(m => ({ default: m.FeaturesGrid })), { ssr: true });
-const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: true });
-const AccountingSpecialSection = dynamic(() => import('@/components/landing/accounting-special-section').then(m => ({ default: m.AccountingSpecialSection })), { ssr: true });
-const PillarShowcaseSection = dynamic(() => import('@/components/landing/pillar-showcase-section').then(m => ({ default: m.PillarShowcaseSection })), { ssr: true });
-const ServicesSection = dynamic(() => import('@/components/landing/services-section').then(m => ({ default: m.ServicesSection })), { ssr: true });
-import { PublicAssistantWrapper } from "@/components/ai/public-assistant-wrapper";
-
 
 export default function LandingPage() {
-
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
-                (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://system-kyron.com');
-
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": `${baseUrl}/#organization`,
-        "name": "System Kyron",
-        "url": baseUrl,
-        "logo": {
-          "@type": "ImageObject",
-          "url": `${baseUrl}/og-image.png`
-        },
-        "description": "Ecosistema corporativo de misión crítica para Venezuela. Especialistas en Contabilidad VEN-NIF, Telecomunicaciones 5G e IA Legal.",
-        "sameAs": [
-          "https://twitter.com/systemkyron",
-          "https://linkedin.com/company/systemkyron"
-        ]
-      },
-      {
-        "@type": "WebSite",
-        "@id": `${baseUrl}/#website`,
-        "url": baseUrl,
-        "name": "System Kyron",
-        "publisher": { "@id": `${baseUrl}/#organization` }
-      },
-      {
-        "@type": "SoftwareApplication",
-        "name": "System Kyron Platform",
-        "operatingSystem": "All",
-        "applicationCategory": "BusinessApplication",
-        "description": "Plataforma integral de gestión empresarial, contabilidad y telecomunicaciones 5G para el mercado venezolano.",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        }
-      }
-    ]
-  };
-
   return (
-    <div className="relative min-h-screen selection:bg-primary/20 w-full bg-transparent overflow-x-hidden">
-      <JsonLd data={structuredData} />
+    <div className="relative min-h-screen selection:bg-primary/20 w-full bg-transparent">
       <LandingClientWrapper>
         <main className="w-full">
             <HeroSection />
             
-            <LazySection fallbackHeight="800px">
-                <FeaturesGrid />
+            <LazySection fallbackHeight="100px">
+                <TrustNumbersBanner />
+            </LazySection>
+
+            <LazySection fallbackHeight="400px">
+                <WhyKyronSection />
             </LazySection>
 
             <LazySection fallbackHeight="600px">
-                <PillarShowcaseSection />
+                <ModulesGridSection />
+            </LazySection>
+
+            <LazySection fallbackHeight="500px">
+                <HowItWorksSection />
+            </LazySection>
+
+            <LazySection fallbackHeight="200px">
+                <PartnersSection />
+            </LazySection>
+
+            <LazySection fallbackHeight="400px">
+                <FeaturesSection />
             </LazySection>
 
             <LazySection fallbackHeight="600px">
-                <ServicesSection />
+                <PricingSection />
+            </LazySection>
+
+            <LazySection fallbackHeight="400px">
+                <ShowcaseSection />
+            </LazySection>
+
+            <LazySection fallbackHeight="400px">
+                <ComplianceSection />
+            </LazySection>
+
+            <LazySection fallbackHeight="100px">
+                <IntegrationsStrip />
+            </LazySection>
+
+            <LazySection fallbackHeight="400px">
+                <AboutUsSection />
+            </LazySection>
+
+            <LazySection fallbackHeight="400px">
+                <CommentsSection />
             </LazySection>
 
             <LazySection fallbackHeight="600px">
                 <CtaSection />
             </LazySection>
-            
-            <LazySection fallbackHeight="600px">
-                <PublicAssistantWrapper />
+
+            <LazySection fallbackHeight="400px">
+                <FaqSection />
             </LazySection>
         </main>
-        <LazySection fallbackHeight="200px">
-            <Footer />
-        </LazySection>
+        <Footer />
       </LandingClientWrapper>
     </div>
   );

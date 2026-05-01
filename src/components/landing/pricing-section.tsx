@@ -43,82 +43,74 @@ interface SaasModule {
   color: string;
   acento: string;
   popular?: boolean;
-  size?: 'small' | 'medium' | 'large';
 }
 
 const SAAS_MODULES: SaasModule[] = [
   {
-    id: 'contable',
-    icon: Calculator,
-    nombre: 'Asesoría Contable',
-    descripcion: 'La solución definitiva VEN-NIF. Contabilidad en tiempo real (IVA 16%, ISLR, IGTF 3%, libros SENIAT), gestión de nómina LOTTT masiva con liquidaciones automáticas y marketing predictivo impulsado por IA para detectar nichos de mercado.',
-    precio: 60,
-    color: 'from-blue-500 via-cyan-500 to-emerald-400',
-    acento: 'text-blue-400',
-    popular: true,
-    size: 'large',
-  },
-  {
     id: 'personal',
     icon: User,
     nombre: 'Cuenta Personal',
-    descripcion: 'Bóveda biométrica 3D ultra-segura para resguardo de identidad con validez legal.',
+    descripcion: 'Bóveda biométrica 3D, firma digital, certificados de ingreso y protección familiar LOPNNA.',
     precio: null,
     etiqueta: '100% Gratis · Para siempre',
-    color: 'from-emerald-500 to-teal-500',
+    color: 'from-emerald-500/15 to-teal-500/10',
     acento: 'text-emerald-400',
-    size: 'small',
   },
   {
     id: 'milinea',
     icon: Phone,
     nombre: 'Mi Línea 5G',
-    descripcion: 'Control absoluto 5G, gestión de eSIM y telemetría de red con Kyron Shield.',
+    descripcion: 'Gestión de tu línea telefónica dentro de la plataforma. No incluye plan de datos — solo la administración inteligente.',
     precio: 3,
-    color: 'from-cyan-500 to-blue-500',
+    color: 'from-cyan-500/15 to-blue-500/10',
     acento: 'text-cyan-400',
-    size: 'small',
+  },
+  {
+    id: 'contable',
+    icon: Calculator,
+    nombre: 'Asesoría Contable',
+    descripcion: 'Contabilidad completa (IVA, ISLR, IGTF, libros SENIAT) + RRHH (nómina, prestaciones) + Marketing con IA predictiva.',
+    precio: 60,
+    color: 'from-blue-500/15 to-indigo-500/10',
+    acento: 'text-blue-400',
+    popular: true,
   },
   {
     id: 'legal',
     icon: Scale,
     nombre: 'Asesoría Legal',
-    descripcion: 'Potenciada por Claude 3.5 Sonnet. Kyron Voice para consultas legales por voz, redacción automática de contratos con validez jurídica y gestión de 483+ trámites administrativos.',
+    descripcion: 'Kyron Voice (IA legal), contratos, permisología integral (483+ trámites) y directorio de 58 organismos venezolanos.',
     precio: 25,
-    color: 'from-amber-500 via-orange-500 to-yellow-500',
+    color: 'from-amber-500/15 to-orange-500/10',
     acento: 'text-amber-400',
-    size: 'medium',
   },
   {
     id: 'tpv',
     icon: Receipt,
     nombre: 'Facturación TPV',
-    descripcion: 'Punto de Venta multimoneda inteligente con integración SENIAT profunda.',
+    descripcion: 'Punto de venta multimoneda (VES/USD/EUR), inventario, notas de crédito/débito e integración con hardware fiscal homologado.',
     precio: 15,
-    color: 'from-violet-500 to-purple-500',
+    color: 'from-violet-500/15 to-purple-500/10',
     acento: 'text-violet-400',
-    size: 'small',
   },
   {
     id: 'socios',
     icon: Users,
     nombre: 'Socios y Directivos',
-    descripcion: 'Centro de mando para Holdings y Juntas Directivas. BI predictivo y consolidación financiera multi-empresa.',
+    descripcion: 'Consolidación financiera, BI predictivo, dashboard para holdings y reparto automatizado de utilidades.',
     precio: 40,
-    color: 'from-rose-500 to-pink-500',
+    color: 'from-rose-500/15 to-pink-500/10',
     acento: 'text-rose-400',
-    size: 'medium',
   },
   {
     id: 'sostenibilidad',
     icon: Leaf,
     nombre: 'Sostenibilidad',
-    descripcion: 'Líder en tecnología ambiental con Smart Bins de inducción magnética y Eco‑Créditos certificados.',
+    descripcion: 'Smart Bins con tecnología de inducción magnética (alianza Ameru.AI) y Eco‑Créditos por reciclaje.',
     precio: null,
     etiqueta: 'Gratis · Con tu cuenta',
-    color: 'from-green-500 to-lime-500',
+    color: 'from-green-500/15 to-lime-500/10',
     acento: 'text-green-400',
-    size: 'small',
   },
 ];
 
@@ -134,11 +126,11 @@ interface Plan5G {
 }
 
 const PLANES_5G: Plan5G[] = [
-  { nombre: 'Básico',      datos: '4 GB',       minutos: '200',        sms: '400',        precio: 11.25, color: 'text-white' },
-  { nombre: 'Plus',        datos: '10 GB',      minutos: '400',        sms: '800',        precio: 17.99, color: 'text-white' },
-  { nombre: 'Pro',         datos: '25 GB',      minutos: '600',        sms: '1200',       precio: 24.49, popular: true, color: 'text-white' },
-  { nombre: 'Empresarial', datos: '30 GB',      minutos: '500',        sms: '500',        precio: 25.00, color: 'text-white' },
-  { nombre: 'Ilimitado',   datos: 'Ilimitado',  minutos: 'Ilimitado',  sms: 'Ilimitado',  precio: 30.00, color: 'text-white' },
+  { nombre: 'Básico',      datos: '4 GB',       minutos: '200',        sms: '400',        precio: 11.25, color: 'text-slate-300' },
+  { nombre: 'Plus',        datos: '10 GB',      minutos: '400',        sms: '800',        precio: 17.99, color: 'text-cyan-300' },
+  { nombre: 'Pro',         datos: '25 GB',      minutos: '600',        sms: '1200',       precio: 24.49, popular: true, color: 'text-blue-300' },
+  { nombre: 'Empresarial', datos: '30 GB',      minutos: '500',        sms: '500',        precio: 25.00, color: 'text-violet-300' },
+  { nombre: 'Ilimitado',   datos: 'Ilimitado',  minutos: 'Ilimitado',  sms: 'Ilimitado',  precio: 30.00, color: 'text-amber-300' },
 ];
 
 // ─── 3. HARDWARE FISCAL ───────────────────────────
@@ -234,115 +226,67 @@ function SectionTitle({ badge, title, highlight, subtitle }: {
 function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
   const Icon = mod.icon;
   const isFree = mod.precio === null;
-  const route = MODULE_ROUTES[mod.id] || '/register';
 
   return (
     <ScrollReveal
       delay={index * 0.08}
       className={cn(
-        'relative group p-8 flex flex-col transition-all duration-700 h-full rounded-[2.5rem] overflow-hidden',
-        mod.size === 'large' ? 'lg:col-span-2 lg:row-span-2 bg-[#0a1025] border-blue-500/30' : 
-        mod.size === 'medium' ? 'lg:col-span-2 bg-white/[0.02] border-white/5 shadow-2xl' : 
-        'bg-white/[0.01] border-white/5 hover:border-white/10 shadow-lg'
+        'relative group p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 h-full rounded-3xl glass-elite-interactive',
+        mod.popular ? 'border-primary/40' : 'border-white/5',
+        `bg-gradient-to-br ${mod.color}`
       )}
     >
-      {/* Decorative Border Beam HUD (Top-right) */}
-      <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-        <div className="absolute top-6 right-6 w-1.5 h-1.5 rounded-full bg-white/40 animate-pulse" />
-        <div className="absolute top-6 right-6 w-8 h-[1px] bg-white/10" />
-        <div className="absolute top-6 right-6 h-8 w-[1px] bg-white/10" />
-      </div>
-
-      <div className="flex items-start justify-between mb-10 relative z-10">
-        <div className={cn(
-          'h-16 w-16 rounded-2xl flex items-center justify-center transition-all duration-700 group-hover:scale-110 group-hover:rotate-3 shadow-2xl', 
-          mod.size === 'large' ? 'bg-blue-500/20 border-blue-500/40' : 'bg-white/5 border border-white/10 group-hover:bg-white/10'
-        )}>
-          <Icon className={cn(mod.size === 'large' ? 'h-8 w-8' : 'h-6 w-6', mod.acento)} />
+      {mod.popular && (
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
+          <span className="px-4 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] border border-white/20">
+            ⭐ MÁS COMPLETO
+          </span>
         </div>
-        
+      )}
+
+      <div className="flex items-start justify-between mb-8">
+        <div className={cn('h-14 w-14 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3', 
+          'bg-white/5 border border-white/10 group-hover:bg-white/10'
+        )}>
+          <Icon className={cn('h-6 w-6', mod.acento)} />
+        </div>
         {isFree ? (
-          <span className="px-4 py-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] font-black uppercase tracking-[0.2em] rounded-full backdrop-blur-md">
-            Soberanía Gratis
+          <span className="px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full">
+            GRATIS
           </span>
         ) : (
           <div className="text-right">
-            <div className="flex items-baseline justify-end gap-1">
-              <span className="text-sm font-black text-white/30 uppercase tracking-widest leading-none">$</span>
-              <span className="text-4xl font-black text-white leading-none tracking-tighter">{mod.precio}</span>
-            </div>
-            <span className="text-[9px] text-white/20 font-black uppercase tracking-[0.2em] block mt-2">Suscripción Mensual</span>
+            <span className="text-3xl font-black text-white leading-none">${mod.precio}</span>
+            <span className="text-[10px] text-white/30 font-black uppercase tracking-widest block mt-1">/mes</span>
           </div>
         )}
       </div>
 
-      <div className="relative z-10 flex-1 flex flex-col">
-        <h4 className={cn(
-          "font-black text-white mb-4 tracking-tight flex items-center gap-3",
-          mod.size === 'large' ? 'text-3xl lg:text-4xl' : 'text-xl'
-        )}>
-          {mod.nombre}
-          {mod.popular && <div className="h-2 w-2 rounded-full bg-blue-500 animate-ping" />}
-        </h4>
-        
-        <p className={cn(
-          "text-white/40 font-medium leading-relaxed mb-10",
-          mod.size === 'large' ? 'text-lg lg:text-xl' : 'text-xs'
-        )}>
-          {mod.descripcion}
-        </p>
+      <h4 className="text-xl font-black text-white mb-3 tracking-tight">{mod.nombre}</h4>
+      <p className="text-sm text-white/40 font-medium leading-relaxed flex-1 mb-8">{mod.descripcion}</p>
 
-        <div className="mt-auto pt-8 border-t border-white/5 flex items-center justify-between">
-          <Button asChild className={cn(
-            'h-12 rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] transition-all duration-500 group-hover:scale-[1.05] shadow-xl',
-            mod.size === 'large' ? 'px-10 bg-blue-600 hover:bg-blue-500 text-white shadow-blue-500/20' : 'px-8 bg-white/5 hover:bg-white/10 text-white border border-white/10'
-          )}>
-            <Link href={route} className="flex items-center gap-3">
-              Activar Módulo <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </Button>
+      {mod.etiqueta && (
+        <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.1em] mb-4">{mod.etiqueta}</p>
+      )}
 
-          {mod.popular && (
-            <div className="hidden sm:flex items-center gap-2">
-              <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-              <span className="text-[8px] font-black text-blue-400 uppercase tracking-widest">Recomendado</span>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Mouse Reactive Gradient Glow */}
-      <div className={cn(
-        "absolute -bottom-24 -right-24 w-80 h-80 blur-[120px] opacity-0 group-hover:opacity-20 transition-opacity duration-1000 bg-gradient-to-br",
-        mod.color
-      )} />
-      
-      {/* Texture Overlay */}
-      <div className="absolute inset-0 bg-noise opacity-[0.02] mix-blend-overlay" />
+      <Button asChild className={cn(
+        'w-full h-12 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] transition-all duration-500 hover:scale-[1.03] active:scale-[0.98]',
+        isFree
+          ? 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30'
+          : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'
+      )}>
+        <Link href={(MODULE_ROUTES[mod.id] ?? '/register') as any}>
+          {isFree ? 'Crear Cuenta Gratis' : mod.id === 'milinea' ? 'Elegir el plan' : 'Activar Módulo'} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
+        </Link>
+      </Button>
     </ScrollReveal>
   );
 }
 
-
 // ═══════════════════════════════════════════════════
 // MAIN COMPONENT
 // ═══════════════════════════════════════════════════
-export function PricingSection({ category = 'all' }: { category?: 'software' | 'telecom' | 'hardware' | 'all' }) {
-  const showSoftware = category === 'software' || category === 'all';
-  const showTelecom = category === 'telecom' || category === 'all';
-  const showHardware = category === 'hardware' || category === 'all';
-  
-  // Custom titles based on category
-  const headerTitle = category === 'software' ? 'Módulos SaaS' : 
-                      category === 'telecom' ? 'Líneas y 5G' : 
-                      category === 'hardware' ? 'Hardware Fiscal' : 
-                      'Elige solo lo que';
-  
-  const headerHighlight = category === 'all' ? 'realmente necesitas' : '';
-  const headerSubtitle = category === 'software' ? 'Activa los módulos que tu negocio necesita. Precio fijo mensual.' :
-                         category === 'telecom' ? 'Planes de líneas 5G con Kyron Shield incluido.' :
-                         category === 'hardware' ? 'Equipo certificado por el SENIAT. Pago único.' :
-                         'Módulos independientes + planes de líneas 5G + hardware fiscal certificado. Sin contratos anuales obligatorios.';
+export function PricingSection() {
   return (
     <section
       id="pricing"
@@ -371,13 +315,11 @@ export function PricingSection({ category = 'all' }: { category?: 'software' | '
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-200/80">Planes y Precios</span>
           </div>
           <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-black tracking-[-0.04em] text-white leading-[0.95] mb-8">
-            {headerTitle}<br />
-            {headerHighlight && (
-              <span className="block text-glow-cyan mt-2">{headerHighlight}</span>
-            )}
+            Elige solo lo que<br />
+            <span className="block text-glow-cyan mt-2">realmente necesitas</span>
           </h2>
           <p className="text-lg text-white/40 max-w-2xl mx-auto font-medium leading-relaxed mb-10">
-            {headerSubtitle}
+            Módulos independientes + planes de líneas 5G + hardware fiscal certificado. Sin contratos anuales obligatorios.
           </p>
 
           {/* Free note */}
@@ -392,7 +334,6 @@ export function PricingSection({ category = 'all' }: { category?: 'software' | '
         {/* ══════════════════════════════════════════
             BLOQUE 1 — MÓDULOS SAAS
         ══════════════════════════════════════════ */}
-        {showSoftware && (
         <div className="mb-32 md:mb-48">
           <SectionTitle
             badge="Módulos SaaS"
@@ -401,18 +342,16 @@ export function PricingSection({ category = 'all' }: { category?: 'software' | '
             subtitle="Precio fijo mensual. Sin sorpresas. Cancela cuando quieras."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 auto-rows-fr">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
             {SAAS_MODULES.map((mod, i) => (
               <ModuleCard key={mod.id} mod={mod} index={i} />
             ))}
           </div>
         </div>
-        )}
 
         {/* ══════════════════════════════════════════
             BLOQUE 2 — PLANES 5G
         ══════════════════════════════════════════ */}
-        {showTelecom && (
         <div className="mb-32 md:mb-48">
           <SectionTitle
             badge="Conectividad 5G"
@@ -490,7 +429,7 @@ export function PricingSection({ category = 'all' }: { category?: 'software' | '
                     ? 'bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20'
                     : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'
                 )}>
-                  <Link href="/guia-registro">
+                  <Link href="/registro">
                     Contratar <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
@@ -515,12 +454,10 @@ export function PricingSection({ category = 'all' }: { category?: 'software' | '
             </p>
           </motion.div>
         </div>
-        )}
 
         {/* ══════════════════════════════════════════
             BLOQUE 3 — HARDWARE FISCAL
         ══════════════════════════════════════════ */}
-        {showHardware && (
         <div className="mb-32 md:mb-48">
           <SectionTitle
             badge="Hardware Fiscal"
@@ -573,12 +510,10 @@ export function PricingSection({ category = 'all' }: { category?: 'software' | '
             })}
           </div>
         </div>
-        )}
 
         {/* ══════════════════════════════════════════
             BLOQUE 4 — COMBINACIONES
         ══════════════════════════════════════════ */}
-        {category === 'all' && (
         <div>
           <SectionTitle
             badge="Personalización"
@@ -635,7 +570,7 @@ export function PricingSection({ category = 'all' }: { category?: 'software' | '
                       </p>
                     </div>
                     <Button asChild className="h-11 px-6 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-all hover:scale-[1.03]">
-                      <Link href="/guia-registro">
+                      <Link href="/registro">
                         Iniciar <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                     </Button>
@@ -673,7 +608,6 @@ export function PricingSection({ category = 'all' }: { category?: 'software' | '
             </div>
           </motion.div>
         </div>
-        )}
       </div>
     </section>
   );

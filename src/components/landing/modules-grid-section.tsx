@@ -60,6 +60,7 @@ export function ModulesGridSection() {
     const [searchQuery, setSearchQuery] = useState('');
     const [showAll, setShowAll] = useState(false);
     const MOBILE_LIMIT = 8;
+    const isOffline = false; // Implementación futura para modo offline
     const t = useTranslations('ModulesGridSection');
 
     const moduleData = t.raw('modules') as { name: string; desc: string }[];

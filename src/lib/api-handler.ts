@@ -49,8 +49,8 @@ export function apiHandler(handler: RouteHandler, options: HandlerOptions = {}):
       if (rateLimitOpts) {
         const key = `${rateLimitOpts.keyPrefix || pathname}:${ip}`;
         const limited = rateLimit(key, rateLimitOpts.max, rateLimitOpts.windowMs);
-        if (limited) {
-          throw new RateLimitError(Math.ceil(rateLimitOpts.windowMs / 1000));
+        if (!limited.allowed) {
+          throw new RateLimitError(Math.ceil(limited.retryAfterMs / 1000));
         }
       }
 

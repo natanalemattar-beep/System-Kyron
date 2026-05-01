@@ -15,7 +15,8 @@ import {
     User,
     Building2,
     Printer,
-    Receipt
+    Receipt,
+    Smartphone
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { 

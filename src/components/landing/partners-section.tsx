@@ -1,7 +1,9 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { Handshake } from 'lucide-react';
 import Image from 'next/image';
-import { ScrollReveal } from "./scroll-reveal";
+import { ScrollReveal, ScrollRevealGroup } from "./scroll-reveal";
 import { cn } from "@/lib/utils";
 
 const PARTNERS = [
@@ -95,63 +97,48 @@ export function PartnersSection() {
           </p>
         </ScrollReveal>
 
-        {/* Partners Infinite Marquee */}
-        <div className="relative mt-8 w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-40 before:bg-gradient-to-r before:from-[#02040a] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-40 after:bg-gradient-to-l after:from-[#02040a] after:to-transparent">
-          <motion.div 
-            className="flex gap-8 py-10"
-            animate={{
-              x: [0, -100 * PARTNERS.length],
-            }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 30,
-                ease: "linear",
-              },
-            }}
-          >
-            {/* Double the array for seamless loop */}
-            {[...PARTNERS, ...PARTNERS].map((partner, i) => (
-              <div
-                key={`${partner.name}-${i}`}
-                className="flex-none group relative flex flex-col items-center text-center p-8 rounded-[2rem] glass-elite border-white/5 transition-all duration-500 w-64"
-              >
-                {/* Elegant Status Badge */}
-                <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[7px] font-black uppercase tracking-[0.15em] text-amber-300 whitespace-nowrap z-20 shadow-glow-sm transition-all duration-500 group-hover:bg-amber-500/20">
-                  {partner.badge}
-                </span>
+        {/* Partners Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
+          {PARTNERS.map((partner, i) => (
+            <ScrollReveal
+              key={partner.name}
+              delay={0.15 + (i * 0.08)}
+              className="group relative flex flex-col items-center text-center p-8 rounded-3xl glass-elite-interactive border-white/5 transition-all duration-500 h-full"
+            >
+              {/* Elegant Status Badge */}
+              <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[7px] font-black uppercase tracking-[0.15em] text-amber-300 whitespace-nowrap z-20 shadow-glow-sm transition-all duration-500 group-hover:bg-amber-500/20">
+                {partner.badge}
+              </span>
 
-                {/* Logo Container */}
-                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${partner.color} flex items-center justify-center mb-6 shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 border border-white/10 relative overflow-hidden`}>
-                  {partner.logo ? (
-                    <div className="relative w-12 h-12 filter grayscale group-hover:grayscale-0 transition-all duration-500">
-                      <Image 
-                        src={partner.logo} 
-                        alt={partner.name}
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                  ) : (
-                    <span className={cn("text-lg font-black", partner.acento)}>
-                      {partner.initials}
-                    </span>
-                  )}
-                  
-                  {/* Visual Depth Overlay */}
-                  <div className="absolute inset-0 bg-slate-950/20 pointer-events-none group-hover:bg-transparent transition-colors duration-500" />
-                </div>
-
-                <p className="text-sm font-black text-white/80 group-hover:text-white transition-all tracking-tight leading-tight mb-2 uppercase">
-                  {partner.name}
-                </p>
-                <p className="text-[10px] text-white/20 font-medium leading-relaxed group-hover:text-white/40 transition-all uppercase tracking-wider">
-                  {partner.description}
-                </p>
+              {/* Logo Container */}
+              <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${partner.color} flex items-center justify-center mb-6 shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 border border-white/10 relative overflow-hidden`}>
+                {partner.logo ? (
+                  <div className="relative w-12 h-12 filter grayscale group-hover:grayscale-0 transition-all duration-500">
+                    <Image 
+                      src={partner.logo} 
+                      alt={partner.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                ) : (
+                  <span className={cn("text-lg font-black", partner.acento)}>
+                    {partner.initials}
+                  </span>
+                )}
+                
+                {/* Visual Depth Overlay */}
+                <div className="absolute inset-0 bg-slate-950/20 pointer-events-none group-hover:bg-transparent transition-colors duration-500" />
               </div>
-            ))}
-          </motion.div>
+
+              <p className="text-sm font-black text-white/80 group-hover:text-white transition-all tracking-tight leading-tight mb-2">
+                {partner.name}
+              </p>
+              <p className="text-[10px] text-white/20 font-medium leading-relaxed group-hover:text-white/40 transition-all">
+                {partner.description}
+              </p>
+            </ScrollReveal>
+          ))}
         </div>
 
         {/* Bottom note */}
