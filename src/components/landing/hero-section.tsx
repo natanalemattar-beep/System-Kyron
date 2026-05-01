@@ -264,11 +264,11 @@ export function HeroSection() {
                                         <ThemeImage
                                             darkSrc="/images/landing/hero-dashboard-dark.jpg"
                                             lightSrc="/images/landing/hero-dashboard-light.jpg"
-                                            alt="Kyron Elite Dashboard"
+                                            alt="Panel de control principal Kyron Elite mostrando estadísticas y gráficas en tiempo real"
                                             width={1000}
                                             height={600}
                                             className="w-full h-auto transition-transform duration-1000 group-hover:scale-110"
-                                            priority
+                                            priority={true}
                                         />
                                         
                                         <div className="absolute bottom-8 right-8 flex items-center gap-3 z-20">
