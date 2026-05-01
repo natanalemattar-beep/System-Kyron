@@ -78,6 +78,15 @@ const PUBLIC_SEGMENTS = new Set([
   'prueba-velocidad',
   'feedback',
   'pitch',
+  'soporte',
+  'precios',
+  'contacto',
+  'mision',
+  'vision',
+  'servicios',
+  'aliados',
+  'blog',
+  'documentacion',
 ]);
 
 // Public API routes — explicit whitelist (fail-closed)

@@ -263,8 +263,16 @@ export async function POST(req: NextRequest) {
             maskedPhone,
             challengeToken,
         });
-    } catch (err) {
-        console.error('Login error:', err);
-        return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
+    } catch (err: any) {
+        console.error('CRITICAL LOGIN ERROR:', {
+            message: err.message,
+            stack: err.stack,
+            cause: err.cause,
+            headers: Object.fromEntries(req.headers.entries())
+        });
+        return NextResponse.json({ 
+            error: 'Error interno del servidor',
+            details: process.env.NODE_ENV === 'development' ? err.message : undefined 
+        }, { status: 500 });
     }
 }

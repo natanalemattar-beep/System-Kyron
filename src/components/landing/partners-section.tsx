@@ -96,7 +96,7 @@ export function PartnersSection() {
         </ScrollReveal>
 
         {/* Partners Infinite Marquee */}
-        <div className="relative mt-8 w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-40 before:bg-gradient-to-r before:from-[#02040a] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-40 after:bg-gradient-to-l after:after:from-[#02040a] after:to-transparent">
+        <div className="relative mt-8 w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-40 before:bg-gradient-to-r before:from-[#02040a] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-40 after:bg-gradient-to-l after:from-[#02040a] after:to-transparent">
           <motion.div 
             className="flex gap-8 py-10"
             animate={{

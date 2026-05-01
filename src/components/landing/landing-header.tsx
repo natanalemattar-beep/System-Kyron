@@ -120,7 +120,7 @@ export function LandingHeader() {
                 className="absolute -bottom-[1px] left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent origin-center rounded-full"
             />
             <div className="container mx-auto px-5 md:px-10">
-                <div className="flex items-center justify-between h-11 w-full">
+                <div className="flex items-center justify-between h-16 sm:h-20 w-full">
                     
                     <div className="flex items-center justify-start shrink-0">
                         <Link href="/" prefetch={false} className="flex items-center gap-2.5 sm:gap-3.5 group shrink-0">
@@ -262,6 +262,7 @@ export function LandingHeader() {
                                         <ShieldCheck className="h-4 w-4 text-blue-400" />
                                         <span className="text-xs font-bold uppercase tracking-wider">{t('support')}</span>
                                     </Link>
+                                </DropdownMenuItem>
                                 <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
                                     <a href="#contacto" onClick={(e) => handleAnchorClick(e, '#contacto')} className="flex items-center gap-3 p-3 hover:bg-white/[0.04]">
                                         <User className="h-4 w-4 text-emerald-400" />

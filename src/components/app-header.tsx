@@ -163,7 +163,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                         </SheetClose>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-5 custom-scrollbar">
+                    <div className="flex-1 overflow-y-auto px-5 pb-6 space-y-7 custom-scrollbar">
                         {navGroups?.map((group) => {
                             const filteredGroupItems = group.items.filter(item => 
                                 item.href !== dashboardHref && 
@@ -180,38 +180,34 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                             const mobileIsLarge = filteredGroupItems.length > 12;
 
                             return (
-                            <section key={group.title} className="space-y-1">
-                                <div className="px-3 pt-2 pb-1.5 text-[10px] font-semibold uppercase text-muted-foreground/35 tracking-wide flex items-center gap-2">
-                                    <group.icon className="h-3 w-3 opacity-30" />
+                            <section key={group.title} className="space-y-3">
+                                <div className="px-1 pt-2 pb-1 text-[9px] font-black uppercase text-muted-foreground/30 tracking-[0.25em] flex items-center gap-2">
+                                    <group.icon className="h-2.5 w-2.5 opacity-40" />
                                     {group.title}
-                                    {mobileIsLarge && <span className="text-[7px] font-medium text-muted-foreground/25 ml-auto">{filteredGroupItems.length}</span>}
+                                    <div className="h-[1px] flex-1 bg-border/10 ml-2" />
                                 </div>
-                                <div className="space-y-0.5">
+                                <div className="grid grid-cols-1 gap-1">
                                     {mobileSectionEntries.map(([secTitle, secItems], si) => {
                                         const mSecKey = `mob-${group.title}-${secTitle || si}`;
                                         const mIsCollapsed = mobileIsLarge && mobileHasSections && secTitle ? (collapsedSections[mSecKey] ?? si > 0) : false;
                                         const mHasActive = secItems.some(item => pathname.includes(item.href) && item.href !== '/');
                                         return (
-                                          <div key={secTitle || si}>
+                                          <div key={secTitle || si} className="space-y-1">
                                             {mobileHasSections && secTitle && mobileIsLarge && (
                                               <button
                                                 type="button"
                                                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleSection(mSecKey); }}
-                                                className="w-full px-3 pt-2.5 pb-1.5 text-[9px] font-black uppercase tracking-wider text-muted-foreground/50 flex items-center gap-2 hover:text-muted-foreground/80 transition-colors"
-
+                                                className="w-full px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 flex items-center gap-2 hover:bg-muted/10 rounded-lg transition-all"
                                               >
-                                                <ChevronRight className={cn("h-2.5 w-2.5 transition-transform duration-200", !mIsCollapsed && "rotate-90")} />
-                                                <span>{secTitle}</span>
-                                                <span className="text-[6px] font-medium text-muted-foreground/25">({secItems.length})</span>
+                                                <ChevronRight className={cn("h-3 w-3 transition-transform duration-200", !mIsCollapsed && "rotate-90")} />
+                                                <span className="flex-1 text-left">{secTitle}</span>
+                                                <span className="text-[8px] font-medium opacity-30">({secItems.length})</span>
                                                 {mHasActive && mIsCollapsed && <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />}
-                                                <div className="h-[1px] flex-1 bg-border/20" />
                                               </button>
                                             )}
                                             {mobileHasSections && secTitle && !mobileIsLarge && (
-                                              <div className="px-3 pt-2.5 pb-1.5 text-[9px] font-black uppercase tracking-wider text-muted-foreground/40 flex items-center gap-2">
-
-                                                <span>{secTitle}</span>
-                                                <div className="h-[1px] flex-1 bg-border/20" />
+                                              <div className="px-3 py-1.5 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">
+                                                {secTitle}
                                               </div>
                                             )}
                                             {!mIsCollapsed && secItems.map((item) => {
@@ -221,20 +217,25 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                                 <Link
                                                     href={item.href as any}
                                                     className={cn(
-                                                        "flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all text-sm",
+                                                        "flex items-center gap-3.5 px-4 py-3 rounded-2xl transition-all group",
                                                         isActive 
-                                                            ? "bg-primary/8 text-primary border border-primary/15" 
-                                                            : "text-muted-foreground/60 hover:bg-muted/20 hover:text-foreground border border-transparent"
+                                                            ? "bg-primary/10 text-primary border border-primary/15 shadow-sm shadow-primary/5" 
+                                                            : "text-muted-foreground/70 hover:bg-muted/30 hover:text-foreground border border-transparent"
                                                     )}
                                                 >
-                                                    <item.icon className={cn("h-3.5 w-3.5 shrink-0", isActive ? "text-primary" : "opacity-40")} />
-                                                    <span className="text-[10px] font-bold uppercase tracking-[0.1em]">{item.label}</span>
+                                                    <div className={cn(
+                                                        "p-1.5 rounded-lg border transition-colors",
+                                                        isActive ? "bg-primary/15 border-primary/20" : "bg-muted/50 border-border/40 group-hover:bg-primary/5"
+                                                    )}>
+                                                        <item.icon className={cn("h-3.5 w-3.5 shrink-0", isActive ? "text-primary" : "opacity-50")} />
+                                                    </div>
+                                                    <span className="text-[11px] font-bold uppercase tracking-wide flex-1">{item.label}</span>
                                                     {item.badge && (
-                                                      <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[7px] font-semibold uppercase tracking-wider leading-none animate-pulse ml-auto shrink-0">
+                                                      <span className="px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[7px] font-black uppercase tracking-wider leading-none animate-pulse shrink-0">
                                                         {item.badge}
                                                       </span>
                                                     )}
-                                                    {isActive && !(item.badge) && <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary shrink-0" />}
+                                                    {isActive && !item.badge && <ChevronRight className="h-3 w-3 opacity-30" />}
                                                 </Link>
                                             </SheetClose>
                                         );

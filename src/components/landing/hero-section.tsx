@@ -141,7 +141,7 @@ export function HeroSection() {
             <section 
                 id="inicio" 
                 ref={containerRef}
-                className="relative min-h-screen flex flex-col items-center lg:justify-center overflow-hidden pt-28 pb-0"
+                className="relative min-h-[100svh] flex flex-col items-center justify-start lg:justify-center overflow-hidden pt-32 pb-10 md:pt-28 md:pb-0"
             >
                 <VideoHeroBg />
                 

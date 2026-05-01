@@ -47,20 +47,33 @@ export function encrypt(plaintext: string): string {
 export function decrypt(ciphertext: string): string {
     if (!ciphertext || !ciphertext.startsWith(PREFIX)) return ciphertext;
 
-    const key = getEncryptionKey();
-    const data = Buffer.from(ciphertext.slice(PREFIX.length), ENCODING);
+    try {
+        const key = getEncryptionKey();
+        const data = Buffer.from(ciphertext.slice(PREFIX.length), ENCODING);
 
-    const iv = data.subarray(0, IV_LENGTH);
-    const tag = data.subarray(IV_LENGTH, IV_LENGTH + TAG_LENGTH);
-    const encrypted = data.subarray(IV_LENGTH + TAG_LENGTH);
+        if (data.length < IV_LENGTH + TAG_LENGTH) {
+            throw new Error('Cifrado incompleto o corrupto');
+        }
 
-    const decipher = createDecipheriv(ALGORITHM, key, iv);
-    decipher.setAuthTag(tag);
+        const iv = data.subarray(0, IV_LENGTH);
+        const tag = data.subarray(IV_LENGTH, IV_LENGTH + TAG_LENGTH);
+        const encrypted = data.subarray(IV_LENGTH + TAG_LENGTH);
 
-    let decrypted = decipher.update(encrypted);
-    decrypted = Buffer.concat([decrypted, decipher.final()]);
+        const decipher = createDecipheriv(ALGORITHM, key, iv);
+        decipher.setAuthTag(tag);
 
-    return decrypted.toString('utf8');
+        let decrypted = decipher.update(encrypted);
+        decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+        return decrypted.toString('utf8');
+    } catch (err: any) {
+        console.error('CRITICAL LOGIN ERROR:', {
+            message: err.message,
+            stack: err.stack,
+            cause: err.cause
+        });
+        return '[ERROR_DECRYPT]';
+    }
 }
 
 export function isEncrypted(value: string): boolean {

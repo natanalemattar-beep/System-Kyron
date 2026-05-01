@@ -371,71 +371,100 @@ export default function DashboardEmpresaPage() {
         <ModuleTutorial config={moduleTutorials["dashboard-empresa"]} />
         <SeasonalBanner />
 
-        {/* Header        <motion.header
+        {/* Header */}
+        <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative mt-10 group"
+          className="relative mt-8 group"
         >
-          <div className="absolute -inset-1 bg-gradient-to-r from-kyron-cyan/20 via-primary/20 to-kyron-emerald/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-1000"></div>
-          <div className="relative liquid-glass-apple p-6 md:p-10 rounded-3xl overflow-hidden border-white/[0.05] shadow-2xl">
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] -mr-64 -mt-64" />
-            
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-              <div className="space-y-4">
-                <div className="flex items-center gap-5">
-                  <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-kyron-cyan flex items-center justify-center shadow-[0_0_40px_rgba(59,130,246,0.3)] border border-white/20 relative">
-                    <Building2 className="h-8 w-8 text-white" />
-                    <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-emerald-500 border-2 border-background flex items-center justify-center">
+          {/* Advanced Glow Layer */}
+          <div className="absolute -inset-2 bg-gradient-to-r from-kyron-cyan/30 via-primary/20 to-kyron-emerald/30 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+          
+          <div className="relative liquid-glass-apple p-8 md:p-12 rounded-[2.5rem] overflow-hidden border-white/[0.08] shadow-[0_32px_64px_-15px_rgba(0,0,0,0.8)]">
+            {/* Animated Scanner Effect */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+              <div className="absolute inset-0 bg-scanline opacity-[0.03] animate-scanline" />
+              <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent animate-scanner-y shadow-[0_0_15px_rgba(6,182,212,0.5)]" />
+            </div>
+
+            {/* Background Holographic Orbs */}
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 blur-[140px] -mr-80 -mt-80 animate-pulse-slow" />
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-500/5 blur-[120px] -ml-60 -mb-60" />
+
+            <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-10">
+              <div className="space-y-6">
+                <div className="flex items-center gap-6">
+                  {/* Avatar/Icon with HUD effects */}
+                  <div className="relative">
+                    <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-primary via-kyron-cyan to-kyron-indigo flex items-center justify-center shadow-[0_0_50px_rgba(59,130,246,0.4)] border border-white/30 relative z-10">
+                      <Building2 className="h-10 w-10 text-white" />
+                      {/* HUD Ring */}
+                      <div className="absolute -inset-3 border border-white/10 rounded-full animate-spin-slow pointer-events-none" />
+                      <div className="absolute -inset-1 border border-white/20 rounded-[2rem] pointer-events-none" />
+                    </div>
+                    {/* Status Indicator */}
+                    <div className="absolute -bottom-1 -right-1 h-7 w-7 rounded-full bg-emerald-500 border-[3px] border-background flex items-center justify-center z-20 shadow-lg shadow-emerald-500/30">
                       <div className="h-2.5 w-2.5 rounded-full bg-white animate-pulse" />
                     </div>
                   </div>
+
                   <div>
-                    <div className="flex items-center gap-3">
-                       <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-foreground uppercase">
+                    <div className="flex flex-col">
+                       <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-white uppercase leading-none mb-2">
                         {activeEvent ? activeEvent.saludo : (greeting?.text ?? "Hola")}{user?.nombre ? `, ${user.nombre.split(" ")[0]}` : ""}
                       </h1>
+                      <div className="flex items-center gap-3">
+                        <span className="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-[9px] font-black tracking-[0.2em] text-white/40 uppercase">STATUS: OPERATIVO</span>
+                        <div className="h-1 w-1 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+                      </div>
                     </div>
-                    <p className="text-[10px] font-black text-muted-foreground/60 tracking-[0.3em] uppercase flex items-center gap-2 mt-2 font-tech">
-                      <Calendar className="h-3 w-3" /> {clientDateStr ?? ""} <span className="opacity-30">•</span> <Clock className="h-3 w-3" /> {clientTimeStr ?? ""}
-                    </p>
                   </div>
                 </div>
                 
-                <div className="flex flex-wrap items-center gap-3 pt-2">
+                {/* Meta Info Bar */}
+                <div className="flex flex-wrap items-center gap-4">
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
+                    <Calendar className="h-3.5 w-3.5 text-kyron-cyan" />
+                    <span className="text-[10px] font-black text-white/60 tracking-widest uppercase font-tech">{clientDateStr ?? ""}</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
+                    <Clock className="h-3.5 w-3.5 text-kyron-cyan" />
+                    <span className="text-[10px] font-black text-white/60 tracking-widest uppercase font-tech">{clientTimeStr ?? ""}</span>
+                  </div>
+                  <div className="h-4 w-[1px] bg-white/10 mx-1 hidden md:block" />
                   {data?.tasaBCV && (
-                    <div className="px-4 py-1.5 rounded-xl bg-primary/5 border border-primary/10 text-[10px] font-black tracking-widest text-primary font-tech">
-                      USD/VES {data.tasaBCV.usd_ves.toFixed(2)}
-                    </div>
-                  )}
-                  {healthScore && !loading && (
-                    <div className={cn("px-4 py-1.5 rounded-xl border text-[10px] font-black tracking-widest flex items-center gap-2 font-tech", 
-                      healthScore.score >= 80 ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-500" : "bg-primary/10 border-primary/20 text-primary"
-                    )}>
-                      <Activity className="h-3.5 w-3.5" /> {healthScore.score}% SALUD FISCAL
+                    <div className="group relative">
+                      <div className="absolute -inset-2 bg-emerald-500/10 blur-md rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="relative flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/5 border border-emerald-500/20 text-[10px] font-black tracking-[0.2em] text-emerald-400 font-tech">
+                        <TrendingUp className="h-3.5 w-3.5" />
+                        BCV: {data.tasaBCV.usd_ves.toFixed(2)} BS/$
+                      </div>
                     </div>
                   )}
                 </div>
               </div>
 
-              <div className="flex gap-3 flex-wrap items-center">
-                <CurrencySelector className="border-border/40 bg-background/40 backdrop-blur-md h-12 rounded-xl font-tech text-[10px] font-black" />
-                <div className="h-10 w-[1px] bg-border/40 hidden md:block mx-2" />
-                <Button variant="ghost" size="icon" className="h-12 w-12 rounded-xl hover:bg-primary/5 text-muted-foreground transition-colors" onClick={() => fetchDashboard(true)} disabled={refreshing}>
-                  <RefreshCw className={cn("h-5 w-5", refreshing && "animate-spin")} />
-                </Button>
-                <Button variant="ghost" size="icon" className="h-12 w-12 rounded-xl hover:bg-primary/5 text-muted-foreground transition-colors" onClick={handleAuditoria}>
-                  <History className="h-5 w-5" />
-                </Button>
-                <Button onClick={handleAIAnalysis} disabled={aiLoading || aiStreaming || loading} className="h-12 px-8 rounded-xl bg-primary text-primary-foreground font-black text-[10px] uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all hover:scale-[1.02] active:scale-[0.98] font-tech">
-                  <BrainCircuit className="h-4 w-4 mr-2" /> Kyron AI
-                </Button>
-                <Button onClick={() => { setClosingData(null); setShowCierre(true); }} className="h-12 px-8 rounded-xl bg-background/50 border border-border/40 hover:bg-background/80 font-black text-[10px] uppercase tracking-widest transition-all font-tech">
-                  <Lock className="h-4 w-4 mr-2" /> Cierre Fiscal
-                </Button>
+              <div className="flex flex-wrap gap-4 items-center w-full xl:w-auto">
+                <div className="flex items-center gap-3 p-1 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-xl">
+                  <CurrencySelector className="border-none bg-transparent hover:bg-white/5 h-12 rounded-xl font-tech text-[10px] font-black px-4" />
+                  <div className="h-6 w-[1px] bg-white/10" />
+                  <Button variant="ghost" size="icon" className="h-12 w-12 rounded-xl hover:bg-white/5 text-white/40 hover:text-white transition-all" onClick={() => fetchDashboard(true)} disabled={refreshing}>
+                    <RefreshCw className={cn("h-5 w-5", refreshing && "animate-spin")} />
+                  </Button>
+                </div>
+
+                <div className="flex gap-3 w-full sm:w-auto">
+                  <Button onClick={handleAIAnalysis} disabled={aiLoading || aiStreaming || loading} className="flex-1 sm:flex-none h-14 px-8 rounded-2xl bg-primary text-primary-foreground font-black text-[11px] uppercase tracking-[0.2em] shadow-[0_20px_40px_-10px_rgba(59,130,246,0.5)] hover:shadow-[0_25px_50px_-10px_rgba(59,130,246,0.6)] transition-all hover:scale-[1.03] active:scale-[0.97] font-tech group">
+                    <BrainCircuit className="h-5 w-5 mr-3 group-hover:rotate-12 transition-transform" /> Kyron Nexus AI
+                  </Button>
+                  <Button onClick={() => { setClosingData(null); setShowCierre(true); }} className="flex-1 sm:flex-none h-14 px-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] text-white font-black text-[11px] uppercase tracking-[0.2em] transition-all font-tech">
+                    <Lock className="h-4 w-4 mr-3 text-white/40" /> Cierre Fiscal
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-        </motion.header>      </motion.header>
+        </motion.header>
 
         {/* KPIs Grid - Glass Style */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

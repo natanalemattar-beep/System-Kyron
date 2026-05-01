@@ -57,6 +57,31 @@ export interface AlertaRegulatoria {
 
 const GACETAS_RECIENTES: GacetaOficial[] = [
   {
+    id: 'GO-6965',
+    numero: '6.965 Extraordinario',
+    tipo: 'extraordinaria',
+    fecha: '2026-04-30',
+    titulo: 'Ley de Protección del Esequibo y Soberanía Territorial',
+    resumen: 'Marco legal integral para la defensa del territorio Esequibo, creación del estado Guayana Esequiba y regulaciones especiales para empresas operando en áreas limítrofes.',
+    enteEmisor: 'Asamblea Nacional',
+    impactoFiscal: true,
+    impactoLaboral: false,
+    impactoComercial: true,
+    impactoAmbiental: true,
+    urgencia: 'critica',
+    decretos: [
+      {
+        numero: '6.500',
+        titulo: 'Régimen Especial Tributario para la Guayana Esequiba',
+        resumen: 'Establece exoneraciones de ISLR e IVA para nuevas inversiones industriales en el territorio recuperado.',
+        articulosClaves: ['Art. 15 — Exoneraciones', 'Art. 22 — Registro de Empresas'],
+        impacto: 'Incentivos fiscales masivos para empresas que expandan operaciones al nuevo estado.',
+      }
+    ],
+    vigenciaDesde: '2026-05-01',
+    tags: ['Esequibo', 'soberanía', 'fiscal', 'IA'],
+  },
+  {
     id: 'GO-6960',
     numero: '6.960 Extraordinario',
     tipo: 'extraordinaria',

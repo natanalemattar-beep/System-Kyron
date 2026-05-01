@@ -119,7 +119,7 @@ export function KyronAssistant() {
     };
 
     return (
-        <div className="fixed bottom-6 left-6 z-[1000] font-tech">
+        <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[1000] font-tech">
             <AnimatePresence>
                 {!isOpen && (
                     <motion.button

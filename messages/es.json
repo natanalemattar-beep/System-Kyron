@@ -39,6 +39,14 @@
         "title_highlight": "Velocidad que",
         "title_rest": "marca la diferencia",
         "subtitle": "Comparamos System Kyron contra las principales plataformas del mercado en tiempo de respuesta.",
+        "features": [
+            { "title": "Fiscalidad VEN-NIF", "description": "Automatización total de libros de compra/venta, IGTF y declaraciones SENIAT con tasa BCV en tiempo real." },
+            { "title": "Telecom 5G Nativo", "description": "Única plataforma que gestiona tu flota de eSIMs y líneas corporativas directamente desde el panel administrativo." },
+            { "title": "IA Legal Elite", "description": "Asistente jurídico basado en Claude 3.5 para redacción de contratos y blindaje ante auditorías laborales LOTTT." },
+            { "title": "RRHH & Nómina", "description": "Cálculos exactos de prestaciones, utilidades y bono de alimentación bajo la normativa venezolana vigente." },
+            { "title": "Kyron Shield", "description": "Protocolo de contingencia extrema: reposición de hardware en 1h y defensa pericial ante fiscalizaciones." },
+            { "title": "Sostenibilidad", "description": "Certificación de huella verde y gestión de eco-créditos corporativos integrados con Ameru.AI." }
+        ],
         "speed_title": "Tiempo de Respuesta",
         "speed_subtitle": "Milisegundos promedio por operación",
         "fastest": "Más Rápido",

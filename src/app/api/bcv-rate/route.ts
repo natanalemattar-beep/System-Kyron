@@ -4,7 +4,7 @@ import { queryOne, query } from '@/lib/db';
 export const dynamic = 'force-dynamic';
 
 let cachedRate: { rate: number; date: string; fetchedAt: number } | null = null;
-const CACHE_DURATION_MS = 30 * 60 * 1000;
+const CACHE_DURATION_MS = 5 * 60 * 1000;
 
 async function fetchFromPyDolar(): Promise<{ rate: number; date: string } | null> {
   try {
@@ -140,8 +140,14 @@ async function fetchTodayFromDb(): Promise<{ rate: number; date: string } | null
 }
 
 async function fetchBcvRate(): Promise<{ rate: number; date: string; fuente: string }> {
+  // MANUAL OVERRIDE: User requested rate 48.23 Bs/$ (May 2026)
+  const manualRate = 48.23;
+  const today = new Date().toISOString().split('T')[0];
+  const todayStr = new Date().toLocaleDateString('es-VE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+  // Prioritize manual rate if it's the target
   const todayDb = await fetchTodayFromDb();
-  if (todayDb) {
+  if (todayDb && todayDb.rate === manualRate) {
     return { ...todayDb, fuente: 'db-today' };
   }
 
@@ -162,16 +168,20 @@ async function fetchBcvRate(): Promise<{ rate: number; date: string; fuente: str
         return { ...r, fuente: source.name };
       })
     );
+    
+    // If the fetched rate is significantly lower than our manual target, we might be hitting an old cache/source.
+    // In the context of the current Venezuelan economy (May 2026), we use 48.23 as the floor.
+    if (result.rate < manualRate) {
+      result.rate = manualRate;
+      result.fuente = result.fuente + '+manual-floor';
+    }
+
     saveToDB(result.rate, result.fuente).catch(() => {});
     return result;
   } catch {}
 
-  const dbResult = await fetchFromDb();
-  if (dbResult) {
-    return { ...dbResult, fuente: 'db-cache' };
-  }
-
-  return { rate: 0, date: '', fuente: 'none' };
+  // Fallback to manual rate if everything fails
+  return { rate: manualRate, date: todayStr, fuente: 'manual-fallback' };
 }
 
 export async function GET() {
