@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import {
   Briefcase, Users, DollarSign, UserPlus, ArrowRight, FileWarning,
   CalendarCheck2, ShieldCheck, Activity, BrainCircuit, School, Terminal,
-  CircleCheck as CheckCircle, Stethoscope, TrendingUp, Scale, Calculator,
+  CircleCheck as CircleCheck, Stethoscope, TrendingUp, Scale, Calculator,
   Loader as Loader2, Heart, ChevronRight, Search, Mail, Phone, Building2,
   ChartColumn, Clock, Award, Target
 } from "lucide-react";
@@ -458,7 +458,7 @@ export default function RecursosHumanosPage() {
           <DialogFooter className="p-5 pt-3 border-t border-border/10">
             <Button variant="outline" onClick={() => setShowDialog(false)} className="rounded-lg text-xs h-8">Cancelar</Button>
             <Button onClick={handleSave} disabled={saving} className="rounded-lg text-xs h-8 bg-emerald-500 text-white hover:bg-emerald-400 font-semibold">
-              {saving ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <CheckCircle className="mr-1.5 h-3.5 w-3.5" />}
+              {saving ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <CircleCheck className="mr-1.5 h-3.5 w-3.5" />}
               {saving ? "Guardando..." : "Registrar"}
             </Button>
           </DialogFooter>

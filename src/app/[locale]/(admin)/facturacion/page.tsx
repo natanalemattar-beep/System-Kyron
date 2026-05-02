@@ -4,7 +4,7 @@ import { ModuleTutorial } from "@/components/module-tutorial";
 import { moduleTutorials } from "@/lib/module-tutorials";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, ArrowRight, TabletSmartphone, CreditCard, Receipt, FilePlus, FileMinus, ShieldAlert, CircleCheck as CheckCircle, Loader as Loader2, Activity, TrendingUp, DollarSign, FileCheck, AlertTriangle, ChartColumn, Users, Wallet, Zap, Shield, Clock, ArrowUpRight, Sparkles, ChevronRight, BadgeCheck, Inbox } from "lucide-react";
+import { FileText, ArrowRight, TabletSmartphone, CreditCard, Receipt, FilePlus, FileMinus, ShieldAlert, CircleCheck as CircleCheck, Loader as Loader2, Activity, TrendingUp, DollarSign, FileCheck, TriangleAlert, ChartColumn, Users, Wallet, Zap, Shield, Clock, ArrowUpRight, Sparkles, ChevronRight, BadgeCheck, Inbox } from "lucide-react";
 import { Link } from "@/navigation";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -127,7 +127,7 @@ export default function FacturacionPage() {
         body: JSON.stringify({ categoria: "facturacion", subcategoria: "auditoria_fiscal", descripcion: "Auditoría automática de documentos de venta" }),
       });
       if (res.ok) {
-        toast({ title: "Revisión Finalizada", description: "Se han auditado los documentos de venta. Resultados registrados.", action: <CheckCircle className="text-emerald-500 h-4 w-4" /> });
+        toast({ title: "Revisión Finalizada", description: "Se han auditado los documentos de venta. Resultados registrados.", action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
       } else {
         toast({ variant: "destructive", title: "Error", description: "No se pudo ejecutar la auditoría." });
       }
@@ -392,7 +392,7 @@ export default function FacturacionPage() {
       >
         <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-amber-500/5 blur-3xl" />
         <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/15 shrink-0">
-          <AlertTriangle className="h-5 w-5 text-amber-500" />
+          <TriangleAlert className="h-5 w-5 text-amber-500" />
         </div>
         <div className="flex-1">
           <p className="text-xs font-bold text-foreground mb-0.5">Control de Deberes Formales SENIAT</p>

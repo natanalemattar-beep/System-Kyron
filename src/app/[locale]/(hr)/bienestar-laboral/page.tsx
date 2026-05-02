@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import {
   Heart, Star, Award, Gift, Users, MapPin, Calendar, Sun, Palmtree,
   Plus, Search, Trophy, Sparkles, Loader2, PartyPopper,
-  Building2, Phone, Mail, Globe, CheckCircle, Clock, Plane,
+  Building2, Phone, Mail, Globe, CircleCheck, Clock, Plane,
   Umbrella, Coffee, Dumbbell, UtensilsCrossed, Waves
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";

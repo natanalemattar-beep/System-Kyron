@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FileCheck, Plus, Download, AlertTriangle, CheckCircle, DollarSign } from "lucide-react";
+import { FileCheck, Plus, Download, TriangleAlert, CircleCheck, DollarSign } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -60,8 +60,8 @@ export default function LicenciasPage() {
         {[
           { label: "Total Licencias", val: licencias.length.toString(), icon: FileCheck, color: "text-primary" },
           { label: "Costo Mensual", val: "USD 2,664", icon: DollarSign, color: "text-amber-500" },
-          { label: "Vigentes", val: licencias.filter(l => l.estado === "vigente").length.toString(), icon: CheckCircle, color: "text-emerald-500" },
-          { label: "Por Vencer", val: licencias.filter(l => l.estado === "por_vencer").length.toString(), icon: AlertTriangle, color: "text-amber-500" },
+          { label: "Vigentes", val: licencias.filter(l => l.estado === "vigente").length.toString(), icon: CircleCheck, color: "text-emerald-500" },
+          { label: "Por Vencer", val: licencias.filter(l => l.estado === "por_vencer").length.toString(), icon: TriangleAlert, color: "text-amber-500" },
         ].map((kpi, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
             <Card className="bg-card/60 border-border/50 p-5 rounded-xl">
@@ -115,7 +115,7 @@ export default function LicenciasPage() {
       {licencias.some(l => l.estado === "por_vencer") && (
         <Card className="border-amber-500/20 bg-amber-500/[0.03] rounded-2xl p-6">
           <div className="flex items-start gap-3">
-            <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+            <TriangleAlert className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
             <div>
               <p className="text-xs font-bold text-amber-600 uppercase tracking-wider">Licencias por Vencer</p>
               <p className="text-[11px] text-muted-foreground mt-1">

@@ -7,7 +7,7 @@ import { Card, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Clock, User, FileText, Stethoscope, Scale, History, ChevronRight,
-  Search, Lock, LifeBuoy, Bell, CircleCheck as CheckCircle, Fingerprint,
+  Search, Lock, LifeBuoy, Bell, CircleCheck as CircleCheck, Fingerprint,
   Shield, Sparkles, Folder, TriangleAlert, ArrowRight, Eye, Leaf,
   Sun, Moon, Sunrise, Heart, BadgeCheck, Trophy
 } from "lucide-react";
@@ -315,7 +315,7 @@ export default function DashboardPersonalPage() {
                       <TableCell colSpan={3} className="py-12 text-center">
                         <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 flex items-center gap-4">
                           <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                            <CheckCircle className="h-5 w-5 text-emerald-500" />
+                            <CircleCheck className="h-5 w-5 text-emerald-500" />
                           </div>
                           <div>
                             <p className="text-[11px] font-medium text-muted-foreground/35">Sin solicitudes registradas</p>
@@ -389,7 +389,7 @@ export default function DashboardPersonalPage() {
               </Link>
             ) : (
               <div className="flex flex-col items-center py-4 gap-1.5">
-                <CheckCircle className="h-6 w-6 text-muted-foreground/10" />
+                <CircleCheck className="h-6 w-6 text-muted-foreground/10" />
                 <p className="text-[10px] text-muted-foreground/25">Sin notificaciones</p>
               </div>
             )}

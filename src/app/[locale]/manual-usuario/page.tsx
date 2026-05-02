@@ -5,7 +5,7 @@ import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import {
   BookOpen, ShieldCheck, Zap, Calculator, Users, School,
-  Download, Printer, Loader as Loader2, CircleCheck as CheckCircle,
+  Download, Printer, Loader as Loader2, CircleCheck as CircleCheck,
   Target, LayoutDashboard, ShoppingCart,
   Landmark, Activity, Cpu, Building2, FileText,
   Gavel, Radio, Recycle, Wallet, ChartBar as ChartColumn, BrainCircuit,
@@ -637,7 +637,7 @@ export default function ManualUsuarioPage() {
     toast({
       title: "Descarga completada",
       description: `La gu\u00EDa de operaciones (${chapters.length} cap\u00EDtulos) ha sido generada con \u00E9xito.`,
-      action: <CheckCircle className="text-primary h-4 w-4" />,
+      action: <CircleCheck className="text-primary h-4 w-4" />,
     });
   };
 
@@ -829,7 +829,7 @@ export default function ManualUsuarioPage() {
                     <div className="lg:col-span-2">
                       <div className="p-6 rounded-xl bg-muted/30 border border-border/50">
                         <h4 className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/60 mb-5 flex items-center gap-2">
-                          <CheckCircle className="h-3 w-3 text-emerald-500" /> Puntos clave
+                          <CircleCheck className="h-3 w-3 text-emerald-500" /> Puntos clave
                         </h4>
                         <ul className="space-y-3.5">
                           {chapter.details.map((detail, dIdx) => (

@@ -12,7 +12,7 @@ import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
-    Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
+    Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
     Building, Check, Gavel, Mail, RefreshCw, Smartphone, Users, Lock, Phone,
     GripVertical, Briefcase, Landmark, Shield,
 } from 'lucide-react';
@@ -55,7 +55,7 @@ const stepConfig = [
     { title: 'Empresa', desc: 'Datos del negocio', icon: Building },
     { title: 'Representante', desc: 'Acceso y contacto', icon: Users },
     { title: 'Verificar', desc: 'Confirma tu identidad', icon: Mail },
-    { title: 'Listo', desc: 'Registro completo', icon: CheckCircle },
+    { title: 'Listo', desc: 'Registro completo', icon: CircleCheck },
 ];
 
 export default function RegisterJuridicoPage() {

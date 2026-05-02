@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FileText, User, UserCheck, Heart, ArrowRight, ArrowLeft, Download, Send, Share2, QrCode, CircleCheck as CheckCircle, ShieldCheck, Printer, Loader as Loader2, Search, Briefcase, Landmark, Eye, Signature as FileSignature } from "lucide-react";
+import { CircleCheck, Loader2, ShieldCheck, Briefcase, UserCheck, Heart, Search, ArrowLeft, Download, Eye, Printer } from "lucide-react";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
@@ -176,7 +176,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
             toast({
                 title: "CERTIFICADO SELLADO",
                 description: "El documento ha sido validado bajo protocolo digital.",
-                action: <CheckCircle className="text-emerald-500 h-4 w-4" />
+                action: <CircleCheck className="text-emerald-500 h-4 w-4" />
             });
             loadHistory();
         }, 1200);

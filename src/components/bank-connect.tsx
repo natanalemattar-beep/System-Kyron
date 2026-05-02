@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Link2, Unlink, Loader2, CircleCheck, AlertTriangle, RefreshCw, Wifi, WifiOff, Building2, ArrowRight, X, Zap } from "lucide-react";
+import { Link2, Unlink, Loader2, CircleCheck, TriangleAlert, RefreshCw, Wifi, WifiOff, Building2, ArrowRight, X, Zap } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -232,7 +232,7 @@ export function BankConnect({ cuentas, onSyncComplete }: { cuentas: CuentaBancar
               </div>
             ) : result.success && result.importados === 0 ? (
               <div className="flex items-center gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                <AlertTriangle className="h-8 w-8 text-amber-500 shrink-0" />
+                <TriangleAlert className="h-8 w-8 text-amber-500 shrink-0" />
                 <div>
                   <p className="text-sm font-bold text-amber-600 dark:text-amber-400">Sin movimientos nuevos</p>
                   <p className="text-xs text-muted-foreground mt-0.5">
@@ -255,7 +255,7 @@ export function BankConnect({ cuentas, onSyncComplete }: { cuentas: CuentaBancar
               </div>
             ) : (
               <div className="flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20">
-                <AlertTriangle className="h-8 w-8 text-red-500 shrink-0" />
+                <TriangleAlert className="h-8 w-8 text-red-500 shrink-0" />
                 <div>
                   <p className="text-sm font-bold text-red-600 dark:text-red-400">Error en sincronización</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{result.mensaje || 'Ocurrió un error inesperado.'}</p>

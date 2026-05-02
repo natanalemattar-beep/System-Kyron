@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { BookOpen, Search, ArrowRightLeft, Loader2, Inbox, Printer, Plus, Trash2, Zap, AlertTriangle, CircleCheck, FileText, Receipt } from "lucide-react";
+import { BookOpen, Search, ArrowRightLeft, Loader2, Inbox, Printer, Plus, Trash2, Zap, TriangleAlert, CircleCheck, FileText, Receipt } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -258,7 +258,7 @@ export default function AsientosContablesPage() {
           <CardContent className="p-5 space-y-4">
             {planCount < 2 ? (
               <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                <AlertTriangle className="h-6 w-6 text-amber-500 shrink-0 mt-0.5" />
+                <TriangleAlert className="h-6 w-6 text-amber-500 shrink-0 mt-0.5" />
                 <div>
                   <p className="text-sm font-bold text-amber-600 dark:text-amber-400">Plan de Cuentas requerido</p>
                   <p className="text-xs text-muted-foreground mt-1">Necesita configurar al menos 2 cuentas en su Plan de Cuentas para que el sistema pueda clasificar los movimientos automáticamente.</p>
@@ -358,7 +358,7 @@ export default function AsientosContablesPage() {
                   </div>
                 ) : (
                   <div className="flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20">
-                    <AlertTriangle className="h-6 w-6 text-red-500 shrink-0 mt-0.5" />
+                    <TriangleAlert className="h-6 w-6 text-red-500 shrink-0 mt-0.5" />
                     <div>
                       <p className="text-sm font-bold text-red-600 dark:text-red-400">{autoResult.error}</p>
                       {autoResult.requiere_plan && (

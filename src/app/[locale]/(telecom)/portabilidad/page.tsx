@@ -11,7 +11,7 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import { Loader2, Plus, Search, Trash2, ArrowLeft, Send, Clock, CheckCircle, Phone, TriangleAlert, XCircle, AlertTriangle, FileText, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Eye, Calendar, Hash, Landmark } from "lucide-react";
+  import { Loader2, Plus, Search, Trash2, ArrowLeft, Send, Clock, CircleCheck, Phone, TriangleAlert, XCircle, TriangleAlert, FileText, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Eye, Calendar, Hash, Landmark } from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";
@@ -97,7 +97,7 @@
       !search || JSON.stringify(r).toLowerCase().includes(search.toLowerCase())
     );
 
-    const StatIcon = { solicitadas: Send, en_proceso: Clock, completadas: CheckCircle, total: Phone };
+    const StatIcon = { solicitadas: Send, en_proceso: Clock, completadas: CircleCheck, total: Phone };
 
     return (
       <div className="space-y-8 pb-20 relative">
@@ -196,7 +196,7 @@
           {[
             { label: "Solicitadas", val: stats.solicitadas ?? 0, icon: Send, color: "text-blue-500", glow: "shadow-blue-500/20" },
             { label: "En Proceso", val: stats.en_proceso ?? 0, icon: Clock, color: "text-amber-500", glow: "shadow-amber-500/20" },
-            { label: "Completadas", val: stats.completadas ?? 0, icon: CheckCircle, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
+            { label: "Completadas", val: stats.completadas ?? 0, icon: CircleCheck, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
             { label: "Total", val: stats.total ?? 0, icon: Phone, color: "text-cyan-500", glow: "shadow-cyan-500/20" }
           ].map((kpi, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 * i }}>

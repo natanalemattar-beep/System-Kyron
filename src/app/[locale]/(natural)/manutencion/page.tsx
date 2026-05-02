@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Gavel, Calculator, History, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Download, ArrowLeft } from "lucide-react";
+import { Gavel, Calculator, History, CircleCheck as CircleCheck, TriangleAlert as TriangleAlert, Download, ArrowLeft } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
@@ -100,7 +100,7 @@ export default function ManutencionPage() {
                         <Card className="rounded-2xl border border-emerald-500/20 bg-emerald-500 text-white overflow-hidden">
                             <CardContent className="p-6 relative">
                                 <div className="absolute top-0 right-0 p-4 opacity-[0.08]">
-                                    <CheckCircle className="h-24 w-24" />
+                                    <CircleCheck className="h-24 w-24" />
                                 </div>
                                 <div className="relative z-10 space-y-3">
                                     <h3 className="text-lg font-bold">Estatus Legal</h3>
@@ -116,7 +116,7 @@ export default function ManutencionPage() {
                             <CardContent className="p-5 space-y-3">
                                 <div className="flex items-center gap-2.5">
                                     <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/15 flex items-center justify-center">
-                                        <AlertTriangle className="h-4 w-4 text-amber-500" />
+                                        <TriangleAlert className="h-4 w-4 text-amber-500" />
                                     </div>
                                     <span className="text-[11px] font-semibold text-amber-500">Protocolo LOPNNA</span>
                                 </div>

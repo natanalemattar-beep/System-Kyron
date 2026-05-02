@@ -12,7 +12,7 @@ import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
-    Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
+    Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
     Calculator, Check, Star, Crown, Zap, Mail, RefreshCw, Smartphone, Building, User, Lock, Phone,
     ChartColumn, TrendingUp, ShieldCheck, FileText,
 } from 'lucide-react';
@@ -81,7 +81,7 @@ const stepConfig = [
     { title: 'Plan', desc: 'Elige tu potencia', icon: Star },
     { title: 'Empresa', desc: 'Identidad fiscal', icon: Building },
     { title: 'Verificar', desc: 'Confirma email', icon: Mail },
-    { title: 'Listo', desc: 'Portal activado', icon: CheckCircle },
+    { title: 'Listo', desc: 'Portal activado', icon: CircleCheck },
 ];
 
 export default function RegisterContabilidadPage() {
@@ -301,7 +301,7 @@ export default function RegisterContabilidadPage() {
                                                         <div className={cn("p-2 rounded-xl", isSelected ? "bg-indigo-500 text-white" : "bg-indigo-50 dark:bg-indigo-900/20 text-indigo-500")}>
                                                             <ChartColumn className="h-5 w-5" />
                                                         </div>
-                                                        {isSelected && <CheckCircle className="h-5 w-5 text-indigo-500" />}
+                                                        {isSelected && <CircleCheck className="h-5 w-5 text-indigo-500" />}
                                                     </div>
                                                     <p className="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">{p.nombre}</p>
                                                     <div className="flex items-baseline gap-1 mb-2">

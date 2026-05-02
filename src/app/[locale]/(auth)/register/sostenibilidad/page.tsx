@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-    Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
+    Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
     Leaf, Check, ShieldCheck, Mail, RefreshCw, Smartphone, Building, User, Lock, Phone,
     Recycle, CloudSun, Globe, TreePine,
 } from 'lucide-react';
@@ -45,7 +45,7 @@ const stepConfig = [
     { title: 'Empresa', desc: 'Identidad Verde', icon: Leaf },
     { title: 'Representante', desc: 'Gestion de Impacto', icon: User },
     { title: 'Verificar', desc: 'Confirmación', icon: Mail },
-    { title: 'Listo', desc: 'Activado', icon: CheckCircle },
+    { title: 'Listo', desc: 'Activado', icon: CircleCheck },
 ];
 
 export default function RegisterSostenibilidadPage() {

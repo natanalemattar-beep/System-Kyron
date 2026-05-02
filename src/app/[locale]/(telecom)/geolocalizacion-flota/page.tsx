@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import {
   MapPin, Navigation, Signal, Search, RefreshCw, Eye,
-  Truck, Users, CircleCheck, AlertTriangle, Clock, Shield
+  Truck, Users, CircleCheck, TriangleAlert, Clock, Shield
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -78,7 +78,7 @@ export default function GeolocalizacionFlotaPage() {
           { label: "Total Dispositivos", val: `${DISPOSITIVOS_FLOTA.length}`, icon: Users, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
           { label: "En Línea", val: `${online}`, icon: CircleCheck, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
           { label: "En Movimiento", val: `${enMovimiento}`, icon: Truck, color: "text-cyan-500", accent: "from-cyan-500/20 to-cyan-500/0", ring: "ring-cyan-500/20", iconBg: "bg-cyan-500/10" },
-          { label: "Sin Conexión", val: `${offline}`, icon: AlertTriangle, color: "text-rose-500", accent: "from-rose-500/20 to-rose-500/0", ring: "ring-rose-500/20", iconBg: "bg-rose-500/10" },
+          { label: "Sin Conexión", val: `${offline}`, icon: TriangleAlert, color: "text-rose-500", accent: "from-rose-500/20 to-rose-500/0", ring: "ring-rose-500/20", iconBg: "bg-rose-500/10" },
         ].map((stat, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
             <div className={cn("kyron-surface p-4 rounded-xl ring-1 hover:-translate-y-0.5 transition-all duration-300 overflow-hidden relative", stat.ring)}>

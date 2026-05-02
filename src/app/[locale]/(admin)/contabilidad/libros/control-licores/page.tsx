@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils";
 import {
   Wine, Search, Loader2, Inbox, Printer,
-  Package, ChartColumn, AlertTriangle
+  Package, ChartColumn, TriangleAlert
 } from "lucide-react";
 
 interface ItemLicor {
@@ -102,7 +102,7 @@ export default function ControlLicoresPage() {
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Stock Bajo</span>
-              <AlertTriangle className="h-4 w-4 text-amber-500" />
+              <TriangleAlert className="h-4 w-4 text-amber-500" />
             </div>
             <p className={cn("text-2xl font-bold", summary.stockBajo > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.stockBajo}</p>
           </Card>
@@ -168,7 +168,7 @@ export default function ControlLicoresPage() {
                         <span className={cn("font-mono text-sm font-semibold", isLow ? "text-amber-500" : "text-foreground")}>
                           {i.cantidad}
                         </span>
-                        {isLow && <AlertTriangle className="inline-block ml-2 h-3 w-3 text-amber-500" />}
+                        {isLow && <TriangleAlert className="inline-block ml-2 h-3 w-3 text-amber-500" />}
                       </TableCell>
                       <TableCell className="text-right pr-6 py-4 font-mono text-sm font-bold text-primary">{formatCurrency(parseFloat(i.precio), 'Bs.')}</TableCell>
                     </TableRow>

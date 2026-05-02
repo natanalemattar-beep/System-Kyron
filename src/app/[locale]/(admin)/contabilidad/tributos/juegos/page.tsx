@@ -2,7 +2,7 @@
 
 import { BackButton } from "@/components/back-button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Zap, Info, ChevronRight, AlertTriangle } from "lucide-react";
+import { Zap, Info, ChevronRight, TriangleAlert } from "lucide-react";
 
 const ALICUOTAS = [
     { actividad: "Mesas de Juego (Casino)", tasa: "36%", base: "Ingresos brutos mensuales" },
@@ -77,7 +77,7 @@ export default function JuegosAzarPage() {
                     </Card>
                     <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20">
                         <div className="flex items-start gap-3">
-                            <AlertTriangle className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
+                            <TriangleAlert className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
                             <p className="text-[11px] text-muted-foreground leading-relaxed">Este módulo aplica exclusivamente a operadores de juegos de azar con licencia vigente. La operación sin licencia es sancionada penalmente.</p>
                         </div>
                     </div>

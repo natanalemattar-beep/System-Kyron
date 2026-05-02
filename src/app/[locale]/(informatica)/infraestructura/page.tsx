@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Server, HardDrive, Wifi, Activity, Cpu, CheckCircle, AlertTriangle } from "lucide-react";
+import { Server, HardDrive, Wifi, Activity, Cpu, CircleCheck, TriangleAlert } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -98,9 +98,9 @@ export default function InfraestructuraPage() {
                 <p className="text-[11px] text-muted-foreground">Uptime: {srv.uptime}</p>
               </div>
               {srv.estado === "activo" ? (
-                <CheckCircle className="h-4 w-4 text-emerald-500 shrink-0" />
+                <CircleCheck className="h-4 w-4 text-emerald-500 shrink-0" />
               ) : (
-                <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0" />
+                <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0" />
               )}
             </div>
           ))}

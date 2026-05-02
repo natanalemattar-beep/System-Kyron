@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Shield, AlertTriangle, CheckCircle, Activity, ShieldCheck, Zap } from "lucide-react";
+import { Shield, TriangleAlert, CircleCheck, Activity, ShieldCheck, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -67,7 +67,7 @@ export default function SeguridadPage() {
         {[
           { label: "Score de Seguridad", val: "94/100", icon: ShieldCheck, color: "text-emerald-500" },
           { label: "Amenazas Bloqueadas", val: "38", icon: Shield, color: "text-rose-500" },
-          { label: "Políticas Cumplidas", val: `${politicas.filter(p => p.cumple).length}/${politicas.length}`, icon: CheckCircle, color: "text-primary" },
+          { label: "Políticas Cumplidas", val: `${politicas.filter(p => p.cumple).length}/${politicas.length}`, icon: CircleCheck, color: "text-primary" },
           { label: "Días sin Incidentes", val: "127", icon: Activity, color: "text-cyan-500" },
         ].map((kpi, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
@@ -89,7 +89,7 @@ export default function SeguridadPage() {
         <CardContent className="p-0">
           {amenazas.map((amenaza, i) => (
             <div key={i} className="flex items-center gap-4 p-4 border-b border-border/30 last:border-none">
-              <AlertTriangle className={cn("h-4 w-4 shrink-0",
+              <TriangleAlert className={cn("h-4 w-4 shrink-0",
                 amenaza.severidad === "alta" ? "text-rose-500" :
                 amenaza.severidad === "media" ? "text-amber-500" : "text-muted-foreground"
               )} />
@@ -123,7 +123,7 @@ export default function SeguridadPage() {
               {politicas.map((pol, i) => (
                 <div key={i} className="flex items-center gap-3 p-2.5 rounded-lg bg-muted/10">
                   {pol.cumple ? (
-                    <CheckCircle className="h-4 w-4 text-emerald-500 shrink-0" />
+                    <CircleCheck className="h-4 w-4 text-emerald-500 shrink-0" />
                   ) : (
                     <div className="h-4 w-4 rounded-full border-2 border-amber-500 shrink-0" />
                   )}

@@ -3,7 +3,7 @@
 import { BackButton } from "@/components/back-button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Landmark, Info, ChevronRight, AlertTriangle } from "lucide-react";
+import { Landmark, Info, ChevronRight, TriangleAlert } from "lucide-react";
 
 const ALICUOTAS = [
     { rubro: "Minería y Canteras", tipo: "Especial", ali: "6.50%" },
@@ -90,7 +90,7 @@ export default function ImpuestosMunicipalesPage() {
                     </Card>
                     <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
                         <div className="flex items-start gap-3">
-                            <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                            <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                             <p className="text-[11px] text-muted-foreground leading-relaxed">Las alícuotas varían según la ordenanza de cada municipio. Consulte la ordenanza vigente de su jurisdicción.</p>
                         </div>
                     </div>

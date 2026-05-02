@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Archive, CirclePlus as PlusCircle, Download, Activity, Zap, Terminal, CalendarClock, ShieldAlert, TrendingDown, Wand as Wand2, CircleCheck as CheckCircle, Loader as Loader2, RefreshCw, Trash2, Pencil } from "lucide-react";
+import { Archive, CirclePlus as PlusCircle, Download, Activity, Zap, Terminal, CalendarClock, ShieldAlert, TrendingDown, Wand as Wand2, CircleCheck as CircleCheck, Loader as Loader2, RefreshCw, Trash2, Pencil } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
@@ -110,7 +110,7 @@ export default function InventarioPage() {
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
-            toast({ title: "PRODUCTO REGISTRADO", description: `${form.nombre} añadido al kardex.`, action: <CheckCircle className="text-primary h-4 w-4" /> });
+            toast({ title: "PRODUCTO REGISTRADO", description: `${form.nombre} añadido al kardex.`, action: <CircleCheck className="text-primary h-4 w-4" /> });
             setShowDialog(false);
             setForm({ sku: "", nombre: "", descripcion: "", categoria: "General", unidad_medida: "unidad", stock_actual: "", stock_minimo: "0", costo_unitario: "", precio_venta: "", fecha_vencimiento: "" });
             fetchInventario();
@@ -386,7 +386,7 @@ export default function InventarioPage() {
                     <DialogFooter className="p-8 border-t border-border bg-muted/10 flex gap-3">
                         <Button variant="outline" className="flex-1 h-12 rounded-xl font-semibold uppercase text-[10px] tracking-widest" onClick={() => setShowDialog(false)}>Cancelar</Button>
                         <Button className="flex-1 h-12 rounded-xl font-semibold uppercase text-[10px] tracking-widest" onClick={handleSave} disabled={saving}>
-                            {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle className="mr-2 h-4 w-4" />}
+                            {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CircleCheck className="mr-2 h-4 w-4" />}
                             {saving ? "GUARDANDO..." : "REGISTRAR PRODUCTO"}
                         </Button>
                     </DialogFooter>

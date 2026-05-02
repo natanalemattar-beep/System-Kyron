@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Cpu, Server, Shield, LifeBuoy, FolderArchive, FileCheck, Activity, AlertTriangle, CheckCircle, ArrowRight, Clock, HardDrive, Wifi, Users, Inbox, Loader2, RefreshCw, Zap } from "lucide-react";
+import { Cpu, Server, Shield, LifeBuoy, FolderArchive, FileCheck, Activity, TriangleAlert, CircleCheck, ArrowRight, Clock, HardDrive, Wifi, Users, Inbox, Loader2, RefreshCw, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -100,7 +100,7 @@ export default function DashboardITPage() {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
         <div className="text-center space-y-3">
-          <AlertTriangle className="h-8 w-8 text-rose-500 mx-auto" />
+          <TriangleAlert className="h-8 w-8 text-rose-500 mx-auto" />
           <p className="text-sm font-semibold text-foreground">No se pudo cargar el dashboard</p>
           <p className="text-xs text-muted-foreground">Error al obtener datos de IT. Intenta de nuevo.</p>
           <Button size="sm" onClick={load} className="rounded-lg text-xs mt-2">Reintentar</Button>

@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { School, CirclePlay as PlayCircle, BookOpen, Award, CircleCheck as CheckCircle, Clock, Star, Zap, BrainCircuit } from "lucide-react";
+import { School, CirclePlay as PlayCircle, BookOpen, Award, CircleCheck as CircleCheck, Clock, Star, Zap, BrainCircuit } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -80,7 +80,7 @@ export default function AcademiaKyronPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-6">
                         {[
-                            { label: "VÁLIDO POR SENIAT", icon: CheckCircle },
+                            { label: "VÁLIDO POR SENIAT", icon: CircleCheck },
                             { label: "SOPORTE 5G", icon: Zap },
                             { label: "LEDGER AUTH", icon: BrainCircuit },
                             { label: "AUDITORÍA IA", icon: Star }

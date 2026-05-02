@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Gavel, Signature as FileSignature, ShieldCheck, Clock, TriangleAlert as AlertTriangle, CirclePlus as PlusCircle, Download, Eye, FileText, Search, Scale, Activity, Lock, Wand as Wand2, ArrowRight, Sparkles, Loader as Loader2, RefreshCw, Trash2 } from "lucide-react";
+import { Gavel, Signature as FileSignature, ShieldCheck, Clock, TriangleAlert as TriangleAlert, CirclePlus as PlusCircle, Download, Eye, FileText, Search, Scale, Activity, Lock, Wand as Wand2, ArrowRight, Sparkles, Loader as Loader2, RefreshCw, Trash2 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -135,7 +135,7 @@ export default function EscritorioJuridicoPage() {
 
   const kpiData = [
     { title: "Contratos Activos", value: stats.contratos_activos, icon: FileSignature, color: "text-blue-400", bg: "bg-blue-400/5" },
-    { title: "Alertas Críticas",  value: stats.vencidos,          icon: AlertTriangle,  color: "text-rose-400",  bg: "bg-rose-400/5"  },
+    { title: "Alertas Críticas",  value: stats.vencidos,          icon: TriangleAlert,  color: "text-rose-400",  bg: "bg-rose-400/5"  },
     { title: "Poderes Vigentes",  value: stats.poderes_vigentes,  icon: ShieldCheck,    color: "text-emerald-400", bg: "bg-emerald-400/5" },
     { title: "Por Vencer (30d)", value: stats.por_vencer,         icon: Clock,          color: "text-purple-400", bg: "bg-purple-400/5" },
   ];
@@ -336,7 +336,7 @@ export default function EscritorioJuridicoPage() {
             <CardContent className="p-0 space-y-4 relative z-10">
               <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 flex items-center gap-4">
                 <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                  <CheckCircle className="h-5 w-5 text-emerald-500" />
+                  <CircleCheck className="h-5 w-5 text-emerald-500" />
                 </div>
                 <div>
                   <p className="text-[10px] font-black text-white uppercase tracking-widest">Token SK-Auth Activo</p>

@@ -11,7 +11,7 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import { Loader2, Plus, Search, Trash2, ArrowLeft, FileText, Clock, CheckCircle, XCircle, UserCheck, TriangleAlert, AlertTriangle, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Phone, Globe, Package, Building, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
+  import { Loader2, Plus, Search, Trash2, ArrowLeft, FileText, Clock, CircleCheck, XCircle, UserCheck, TriangleAlert, TriangleAlert, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Phone, Globe, Package, Building, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";
@@ -99,7 +99,7 @@
       !search || JSON.stringify(r).toLowerCase().includes(search.toLowerCase())
     );
 
-    const StatIcon = { total: FileText, pendientes: Clock, aprobados: CheckCircle, rechazados: XCircle };
+    const StatIcon = { total: FileText, pendientes: Clock, aprobados: CircleCheck, rechazados: XCircle };
 
     return (
       <div className="space-y-8 pb-20 relative">
@@ -217,7 +217,7 @@
           {[
             { label: "Total", val: stats.total ?? 0, icon: FileText, color: "text-blue-500", glow: "shadow-blue-500/20" },
             { label: "Pendientes", val: stats.pendientes ?? 0, icon: Clock, color: "text-amber-500", glow: "shadow-amber-500/20" },
-            { label: "Aprobados", val: stats.aprobados ?? 0, icon: CheckCircle, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
+            { label: "Aprobados", val: stats.aprobados ?? 0, icon: CircleCheck, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
             { label: "Rechazados", val: stats.rechazados ?? 0, icon: XCircle, color: "text-rose-500", glow: "shadow-rose-500/20" }
           ].map((kpi, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 * i }}>

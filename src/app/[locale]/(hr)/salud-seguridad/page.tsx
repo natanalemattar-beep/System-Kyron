@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Stethoscope, ShieldCheck, Activity, FileWarning, Terminal, Heart, Zap, CircleCheck as CheckCircle, CirclePlus as PlusCircle, Download, TriangleAlert as AlertTriangle, Users } from "lucide-react";
+import { Stethoscope, ShieldCheck, Activity, FileWarning, Terminal, Heart, Zap, CircleCheck as CircleCheck, CirclePlus as PlusCircle, Download, TriangleAlert as TriangleAlert, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { motion } from "framer-motion";
@@ -130,7 +130,7 @@ export default function SaludSeguridadPage() {
                     </div>
                     <div className="space-y-4 py-8">
                         <div className="flex items-start gap-4 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20">
-                            <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+                            <TriangleAlert className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
                             <p className="text-[11px] font-bold text-white/60 uppercase leading-snug">Actualización de Examen Médico Trimestral pendiente para 5 colaboradores.</p>
                         </div>
                     </div>

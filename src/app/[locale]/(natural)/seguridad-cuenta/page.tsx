@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Shield, ShieldCheck, ShieldAlert, Lock, KeyRound, Smartphone, Monitor, Fingerprint, Clock, CheckCircle, AlertTriangle, Bell, Globe, LogOut, History, Key, Loader2, RefreshCw, Mail, Phone } from "lucide-react";
+import { Shield, ShieldCheck, ShieldAlert, Lock, KeyRound, Smartphone, Monitor, Fingerprint, Clock, CircleCheck, TriangleAlert, Bell, Globe, LogOut, History, Key, Loader2, RefreshCw, Mail, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -183,13 +183,13 @@ export default function SeguridadCuentaPage() {
                 <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground/70">
                   <Mail className="h-3 w-3" />
                   <span>{datos.usuario.email}</span>
-                  {datos.usuario.emailVerificado && <CheckCircle className="h-3 w-3 text-emerald-500" />}
+                  {datos.usuario.emailVerificado && <CircleCheck className="h-3 w-3 text-emerald-500" />}
                 </div>
                 {datos.usuario.telefono && (
                   <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground/70">
                     <Phone className="h-3 w-3" />
                     <span>{datos.usuario.telefono}</span>
-                    {datos.usuario.telefonoVerificado && <CheckCircle className="h-3 w-3 text-emerald-500" />}
+                    {datos.usuario.telefonoVerificado && <CircleCheck className="h-3 w-3 text-emerald-500" />}
                   </div>
                 )}
               </div>
@@ -324,9 +324,9 @@ export default function SeguridadCuentaPage() {
                   datos.historial.map((h, i) => (
                     <div key={i} className="flex items-center gap-3 p-2.5 rounded-lg bg-muted/10 border border-border/10">
                       {h.estado === "ok" ? (
-                        <CheckCircle className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                        <CircleCheck className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
                       ) : h.estado === "alerta" ? (
-                        <AlertTriangle className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+                        <TriangleAlert className="h-3.5 w-3.5 text-amber-500 shrink-0" />
                       ) : (
                         <ShieldAlert className="h-3.5 w-3.5 text-red-500 shrink-0" />
                       )}

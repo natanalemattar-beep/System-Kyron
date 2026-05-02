@@ -9,7 +9,7 @@ import { BackButton } from "@/components/back-button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils";
-import { Signature as FileSignature, Search, Loader2, Inbox, Printer, AlertTriangle, Users } from "lucide-react";
+import { Signature as FileSignature, Search, Loader2, Inbox, Printer, TriangleAlert, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Empleado {
@@ -131,7 +131,7 @@ export default function ConstanciaTrabajoPage() {
 
       <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
         <div className="flex items-start gap-3">
-          <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+          <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
           <div>
             <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Base Legal</p>
             <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">

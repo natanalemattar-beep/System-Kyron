@@ -2,7 +2,7 @@
 
 import { BackButton } from "@/components/back-button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Leaf, Info, ChevronRight, FileText, AlertTriangle } from "lucide-react";
+import { Leaf, Info, ChevronRight, FileText, TriangleAlert } from "lucide-react";
 
 const REQUISITOS = [
     "Registro de Actividades Capaces de Degradar el Ambiente (RACDA)",
@@ -75,7 +75,7 @@ export default function MinisterioEcosocialismoPage() {
                     </Card>
                     <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
                         <div className="flex items-start gap-3">
-                            <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                            <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                             <p className="text-[11px] text-muted-foreground leading-relaxed">Las comunicaciones al MINEC pueden generarse desde el Centro de Comunicaciones.</p>
                         </div>
                     </div>

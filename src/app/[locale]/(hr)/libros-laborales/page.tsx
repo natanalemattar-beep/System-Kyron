@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import {
   Clock, Palmtree, Receipt, Landmark, ShieldCheck, UserPlus, UserMinus, Scale,
-  Baby, HeartPulse, Stethoscope, FileText, AlertTriangle, Search, Download,
+  Baby, HeartPulse, Stethoscope, FileText, TriangleAlert, Search, Download,
   FileSpreadsheet, Bell, ChevronRight, BookOpen, Users, Loader2, Calendar,
   Building2, Briefcase
 } from 'lucide-react';
@@ -26,7 +26,7 @@ const LIBROS = [
   { id: 'maternidad', label: 'Maternidad', icon: Baby, short: 'Mater.' },
   { id: 'incapacidades', label: 'Incapacidad', icon: HeartPulse, short: 'Incap.' },
   { id: 'reposos', label: 'Reposos', icon: Stethoscope, short: 'Repos.' },
-  { id: 'cancelacion_rif', label: 'Canc. RIF', icon: AlertTriangle, short: 'RIF' },
+  { id: 'cancelacion_rif', label: 'Canc. RIF', icon: TriangleAlert, short: 'RIF' },
 ] as const;
 
 type LibroId = typeof LIBROS[number]['id'];

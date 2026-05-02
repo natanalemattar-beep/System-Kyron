@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Target, Plus, Users, TrendingUp, Eye, ChartColumn, DollarSign, CheckCircle, Clock, Pause, Play, Loader2 } from "lucide-react";
+import { Target, Plus, Users, TrendingUp, Eye, ChartColumn, DollarSign, CircleCheck, Clock, Pause, Play, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -36,7 +36,7 @@ interface Campana {
 
 const estadoConfig: Record<string, { label: string; badge: string; icon: React.ReactNode }> = {
   activa: { label: "Activa", badge: "bg-emerald-500/10 text-emerald-500", icon: <Play className="h-3 w-3" /> },
-  completada: { label: "Completada", badge: "bg-primary/10 text-primary", icon: <CheckCircle className="h-3 w-3" /> },
+  completada: { label: "Completada", badge: "bg-primary/10 text-primary", icon: <CircleCheck className="h-3 w-3" /> },
   programada: { label: "Programada", badge: "bg-amber-500/10 text-amber-500", icon: <Clock className="h-3 w-3" /> },
   pausada: { label: "Pausada", badge: "bg-rose-500/10 text-rose-500", icon: <Pause className="h-3 w-3" /> },
   borrador: { label: "Borrador", badge: "bg-muted/50 text-muted-foreground", icon: <Clock className="h-3 w-3" /> },

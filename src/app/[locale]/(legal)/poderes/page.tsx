@@ -11,7 +11,7 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import { Loader2, Plus, Search, Trash2, ArrowLeft, CheckCircle, TriangleAlert, XCircle, FileText, FileSignature, Clock, AlertTriangle, Shield, Briefcase, Scale, ShieldCheck, Activity, Wallet, Users, DollarSign, Car, Heart, Phone, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
+  import { Loader2, Plus, Search, Trash2, ArrowLeft, CircleCheck, TriangleAlert, XCircle, FileText, FileSignature, Clock, TriangleAlert, Shield, Briefcase, Scale, ShieldCheck, Activity, Wallet, Users, DollarSign, Car, Heart, Phone, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";
@@ -104,7 +104,7 @@
       !search || JSON.stringify(r).toLowerCase().includes(search.toLowerCase())
     );
 
-    const StatIcon = { vigentes: CheckCircle, vencidos: TriangleAlert, revocados: XCircle, total: FileText };
+    const StatIcon = { vigentes: CircleCheck, vencidos: TriangleAlert, revocados: XCircle, total: FileText };
 
     return (
       <div className="space-y-8 pb-20 relative">
@@ -215,7 +215,7 @@
 
         <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
           {[
-            { label: "Vigentes", val: stats.vigentes ?? 0, icon: CheckCircle, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
+            { label: "Vigentes", val: stats.vigentes ?? 0, icon: CircleCheck, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
             { label: "Vencidos", val: stats.vencidos ?? 0, icon: TriangleAlert, color: "text-rose-500", glow: "shadow-rose-500/20" },
             { label: "Revocados", val: stats.revocados ?? 0, icon: XCircle, color: "text-amber-500", glow: "shadow-amber-500/20" },
             { label: "Total", val: stats.total ?? 0, icon: FileText, color: "text-blue-500", glow: "shadow-blue-500/20" }

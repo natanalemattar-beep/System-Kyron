@@ -11,7 +11,7 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import { Loader2, Plus, Search, Trash2, ArrowLeft, FileText, Stethoscope, AlertTriangle, Calendar, Clock, CheckCircle, TriangleAlert, XCircle, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Phone, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Hash, Landmark } from "lucide-react";
+  import { Loader2, Plus, Search, Trash2, ArrowLeft, FileText, Stethoscope, TriangleAlert, Calendar, Clock, CircleCheck, TriangleAlert, XCircle, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Phone, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Hash, Landmark } from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";
@@ -101,7 +101,7 @@
       !search || JSON.stringify(r).toLowerCase().includes(search.toLowerCase())
     );
 
-    const StatIcon = { total: FileText, consultas: Stethoscope, emergencias: AlertTriangle, proximas_citas: Calendar };
+    const StatIcon = { total: FileText, consultas: Stethoscope, emergencias: TriangleAlert, proximas_citas: Calendar };
 
     return (
       <div className="space-y-8 pb-20 relative">
@@ -199,7 +199,7 @@
           {[
             { label: "Total Registros", val: stats.total ?? 0, icon: FileText, color: "text-blue-500", glow: "shadow-blue-500/20" },
             { label: "Consultas", val: stats.consultas ?? 0, icon: Stethoscope, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
-            { label: "Emergencias", val: stats.emergencias ?? 0, icon: AlertTriangle, color: "text-rose-500", glow: "shadow-rose-500/20" },
+            { label: "Emergencias", val: stats.emergencias ?? 0, icon: TriangleAlert, color: "text-rose-500", glow: "shadow-rose-500/20" },
             { label: "Próx. Citas", val: stats.proximas_citas ?? 0, icon: Calendar, color: "text-amber-500", glow: "shadow-amber-500/20" }
           ].map((kpi, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 * i }}>

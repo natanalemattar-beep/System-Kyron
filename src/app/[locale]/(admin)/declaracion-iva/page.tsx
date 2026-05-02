@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, Download, Calculator, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Activity, Loader2, Plus } from "lucide-react";
+import { FileText, Download, Calculator, CircleCheck as CircleCheck, TriangleAlert as TriangleAlert, Activity, Loader2, Plus } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
@@ -85,7 +85,7 @@ export default function DeclaracionIvaPage() {
             toast({
                 title: "DECLARACIÓN PROCESADA",
                 description: "El expediente fiscal ha sido transmitido al portal del SENIAT.",
-                action: <CheckCircle className="text-emerald-500 h-4 w-4" />
+                action: <CircleCheck className="text-emerald-500 h-4 w-4" />
             });
             fetchDeclaraciones();
         } finally {
@@ -110,7 +110,7 @@ export default function DeclaracionIvaPage() {
                 }),
             });
             if (res.ok) {
-                toast({ title: "DECLARACIÓN REGISTRADA", description: `Período ${form.periodo} guardado correctamente.`, action: <CheckCircle className="text-emerald-500 h-4 w-4" /> });
+                toast({ title: "DECLARACIÓN REGISTRADA", description: `Período ${form.periodo} guardado correctamente.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
                 setOpenDialog(false);
                 setForm({ periodo: '', fecha_inicio: '', fecha_fin: '', base_imponible: '', iva_debito: '', iva_credito: '', numero_forma: '' });
                 fetchDeclaraciones();
@@ -235,7 +235,7 @@ export default function DeclaracionIvaPage() {
                     <div className="space-y-8">
                         <Card className="bg-amber-500/10 border-2 border-amber-500/20 rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden group shadow-lg">
                             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000">
-                                <AlertTriangle className="h-32 w-32 text-amber-500" />
+                                <TriangleAlert className="h-32 w-32 text-amber-500" />
                             </div>
                             <div className="relative z-10">
                                 <h3 className="text-2xl font-semibold uppercase italic tracking-tight text-amber-600 mb-4">CRONOGRAMA</h3>

@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import {
   Zap, Play, Pause, ChevronDown, ChevronUp, CircleCheck, XCircle,
-  Clock, Loader2, AlertTriangle, RefreshCw, Bell, Database, Shield,
+  Clock, Loader2, TriangleAlert, RefreshCw, Bell, Database, Shield,
   Trash2, FileText, ChartColumn, Mail
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -227,7 +227,7 @@ export function ModuleAutomation({ module }: ModuleAutomationProps) {
                             </span>
                             {rule.fail_count > 0 && (
                               <span className="text-[10px] font-bold text-red-400/80 uppercase">
-                                <AlertTriangle className="h-2.5 w-2.5 inline mr-0.5" />
+                                <TriangleAlert className="h-2.5 w-2.5 inline mr-0.5" />
                                 {rule.fail_count} fallo(s)
                               </span>
                             )}

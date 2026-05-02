@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/back-button";
-import { Printer, FileText, Download, Eye, Shield, CheckCircle, Info, BadgeCheck, Sparkles, Lock, FileCheck } from "lucide-react";
+import { Printer, FileText, Download, Eye, Shield, CircleCheck, Info, BadgeCheck, Sparkles, Lock, FileCheck } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -273,7 +273,7 @@ export default function ModeloFacturaPage() {
               ].map(r => (
                 <div key={r.num} className="flex items-start gap-3 p-3 rounded-xl border border-emerald-500/10 bg-emerald-500/[0.02] hover:bg-emerald-500/[0.05] transition-all group">
                   <div className="p-1 rounded-full bg-emerald-500/15 shrink-0 mt-0.5 transition-transform group-hover:scale-110">
-                    <CheckCircle className="h-3.5 w-3.5 text-emerald-500" />
+                    <CircleCheck className="h-3.5 w-3.5 text-emerald-500" />
                   </div>
                   <div>
                     <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Numeral {r.num}</p>
@@ -310,7 +310,7 @@ export default function ModeloFacturaPage() {
               "Descripción de la modificación y monto",
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-2">
-                <CheckCircle className="h-3 w-3 text-blue-500 shrink-0 mt-0.5" />
+                <CircleCheck className="h-3 w-3 text-blue-500 shrink-0 mt-0.5" />
                 {item}
               </li>
             ))}
@@ -332,7 +332,7 @@ export default function ModeloFacturaPage() {
               "Numeración consecutiva con serie si aplica (Art. 26)",
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-2">
-                <CheckCircle className="h-3 w-3 text-blue-500 shrink-0 mt-0.5" />
+                <CircleCheck className="h-3 w-3 text-blue-500 shrink-0 mt-0.5" />
                 {item}
               </li>
             ))}

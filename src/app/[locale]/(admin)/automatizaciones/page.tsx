@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   Zap, Activity, Play, Pause, History, RefreshCw,
   CircleCheck, XCircle, Clock, Loader2, ChevronDown, ChevronUp,
-  AlertTriangle, Database, Shield, FileText, Bell, Trash2, ChartColumn,
+  TriangleAlert, Database, Shield, FileText, Bell, Trash2, ChartColumn,
   Mail, Scale
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -283,7 +283,7 @@ export default function AutomatizacionesPage() {
                                 </span>
                                 {rule.fail_count > 0 && (
                                   <span className="text-[11px] text-red-500 flex items-center gap-0.5">
-                                    <AlertTriangle className="h-3 w-3" />
+                                    <TriangleAlert className="h-3 w-3" />
                                     {rule.fail_count} fallo(s)
                                   </span>
                                 )}

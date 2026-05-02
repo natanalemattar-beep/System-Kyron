@@ -1,6 +1,6 @@
 "use client";
 
-import { MonitorSmartphone, Shield, Smartphone, Monitor, Tablet, Laptop, CheckCircle, XCircle, Clock, MapPin, Trash2, ShieldCheck } from "lucide-react";
+import { MonitorSmartphone, Shield, Smartphone, Monitor, Tablet, Laptop, CircleCheck, XCircle, Clock, MapPin, Trash2, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -57,7 +57,7 @@ export default function DispositivosPage() {
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {[
-          { label: "Dispositivos Activos", valor: "4", color: "text-emerald-500", icon: CheckCircle },
+          { label: "Dispositivos Activos", valor: "4", color: "text-emerald-500", icon: CircleCheck },
           { label: "Dispositivos Inactivos", valor: "2", color: "text-muted-foreground/40", icon: Clock },
           { label: "Total Registrados", valor: "6", color: "text-violet-500", icon: MonitorSmartphone },
         ].map((m, i) => (

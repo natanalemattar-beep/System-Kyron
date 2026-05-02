@@ -11,7 +11,7 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import { Loader2, Plus, Search, Trash2, ArrowLeft, Building, CheckCircle, Star, Hash, Clock, TriangleAlert, XCircle, AlertTriangle, FileText, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Phone, Globe, Package, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Send, Eye, Calendar, Landmark } from "lucide-react";
+  import { Loader2, Plus, Search, Trash2, ArrowLeft, Building, CircleCheck, Star, Hash, Clock, TriangleAlert, XCircle, TriangleAlert, FileText, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Phone, Globe, Package, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Send, Eye, Calendar, Landmark } from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";
@@ -103,7 +103,7 @@
       !search || JSON.stringify(r).toLowerCase().includes(search.toLowerCase())
     );
 
-    const StatIcon = { total: Building, activos: CheckCircle, top_proveedores: Star, tipos: Hash };
+    const StatIcon = { total: Building, activos: CircleCheck, top_proveedores: Star, tipos: Hash };
 
     return (
       <div className="space-y-8 pb-20 relative">
@@ -223,7 +223,7 @@
         <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
           {[
             { label: "Total", val: stats.total ?? 0, icon: Building, color: "text-blue-500", glow: "shadow-blue-500/20" },
-            { label: "Activos", val: stats.activos ?? 0, icon: CheckCircle, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
+            { label: "Activos", val: stats.activos ?? 0, icon: CircleCheck, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
             { label: "Top Calif.", val: stats.top_proveedores ?? 0, icon: Star, color: "text-amber-500", glow: "shadow-amber-500/20" },
             { label: "Tipos", val: stats.tipos ?? 0, icon: Hash, color: "text-violet-500", glow: "shadow-violet-500/20" }
           ].map((kpi, i) => (

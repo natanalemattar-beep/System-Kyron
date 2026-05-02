@@ -2,7 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChartBar as ChartColumn, Download, Printer, Activity, ShieldCheck, TrendingUp, Search, CircleCheck as CheckCircle } from "lucide-react";
+import { ChartBar as ChartColumn, Download, Printer, Activity, ShieldCheck, TrendingUp, Search, CircleCheck as CircleCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";

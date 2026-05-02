@@ -2,7 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Gift, Zap, Coffee, Ticket, Recycle, TrendingUp, Handshake, CircleCheck as CheckCircle, Magnet } from "lucide-react";
+import { ArrowRight, Gift, Zap, Coffee, Ticket, Recycle, TrendingUp, Handshake, CircleCheck as CircleCheck, Magnet } from "lucide-react";
 import { motion } from "framer-motion";
 
 const howItWorks = [
@@ -81,11 +81,11 @@ export default function TarjetaReciclajePage() {
                             </CardHeader>
                             <CardContent className="space-y-3 pt-0 text-[12px] text-muted-foreground">
                                 <div className="flex items-start gap-2.5">
-                                    <CheckCircle className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                                    <CircleCheck className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                                     <span><strong className="text-foreground/70">Sujeción de Alta Precisión:</strong> Asegura el procesamiento correcto antes de la compactación.</span>
                                 </div>
                                 <div className="flex items-start gap-2.5">
-                                    <CheckCircle className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                                    <CircleCheck className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                                     <span><strong className="text-foreground/70">Clasificación Automática:</strong> Detecta y separa materiales mediante inducción síncrona.</span>
                                 </div>
                             </CardContent>
@@ -104,7 +104,7 @@ export default function TarjetaReciclajePage() {
                             </CardHeader>
                             <CardContent className="pt-0 text-[12px] text-muted-foreground">
                                 <div className="flex items-start gap-2.5">
-                                    <CheckCircle className="h-4 w-4 text-secondary shrink-0 mt-0.5" />
+                                    <CircleCheck className="h-4 w-4 text-secondary shrink-0 mt-0.5" />
                                     <span><strong className="text-foreground/70">Monetización:</strong> Transforma tus hábitos en activos digitales inmutables en tu billetera.</span>
                                 </div>
                             </CardContent>

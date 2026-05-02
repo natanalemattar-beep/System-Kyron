@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import { FolderArchive, HardDrive, Cloud, CheckCircle, Clock, Database, Server, Zap, Shield, Loader2, Inbox } from "lucide-react";
+import { FolderArchive, HardDrive, Cloud, CircleCheck, Clock, Database, Server, Zap, Shield, Loader2, Inbox } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -106,7 +106,7 @@ export default function RespaldosPage() {
         {[
           { label: "Respaldos Registrados", val: loading ? "—" : String(solicitudes.length), icon: Clock, color: "text-emerald-500" },
           { label: "Retención Máxima", val: "10 años", icon: HardDrive, color: "text-primary" },
-          { label: "Tipo Principal", val: "3-2-1", icon: CheckCircle, color: "text-emerald-500" },
+          { label: "Tipo Principal", val: "3-2-1", icon: CircleCheck, color: "text-emerald-500" },
           { label: "Cifrado", val: "AES-256", icon: Cloud, color: "text-cyan-500" },
         ].map((kpi, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>

@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ClipboardCheck, CircleCheck as CheckCircle, Printer, ShieldCheck, FileWarning, BookOpen, Activity } from "lucide-react";
+import { ClipboardCheck, CircleCheck as CircleCheck, Printer, ShieldCheck, FileWarning, BookOpen, Activity } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
@@ -70,7 +70,7 @@ export default function CierreCajaPage() {
                 toast({
                     title: "Cierre de Caja Guardado",
                     description: `Diferencia de ${formatCurrency(diferenciaBs, 'Bs.')} registrada en el sistema.`,
-                    action: <CheckCircle className="text-primary" />
+                    action: <CircleCheck className="text-primary" />
                 });
             } else {
                 const d = await res.json();

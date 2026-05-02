@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-    Flame, AlertTriangle, Zap, Globe, Handshake, Users, HardHat, Scale, Shield,
+    Flame, TriangleAlert, Zap, Globe, Handshake, Users, HardHat, Scale, Shield,
     Smartphone, Leaf, Mountain, Landmark, Building2, UserPlus, Briefcase,
-    FileText, CheckCircle, ChevronDown, ChevronUp, Send, Loader as Loader2,
+    FileText, CircleCheck, ChevronDown, ChevronUp, Send, Loader as Loader2,
     TrendingUp, Truck, Droplets, Factory, Hotel, TreePine, Package, Phone,
     ShieldCheck, ArrowRight, Star, Radio, Wrench
 } from "lucide-react";
@@ -191,7 +191,7 @@ function ServicioCard({ s }: { s: typeof SERVICIOS_KYRON[0] }) {
                         <ul className="px-5 pb-5 space-y-2">
                             {s.puntos.map((p, i) => (
                                 <li key={i} className="flex items-start gap-2 text-[11px] text-foreground/80">
-                                    <CheckCircle className={cn("h-3.5 w-3.5 shrink-0 mt-0.5", s.color)} />
+                                    <CircleCheck className={cn("h-3.5 w-3.5 shrink-0 mt-0.5", s.color)} />
                                     {p}
                                 </li>
                             ))}
@@ -286,7 +286,7 @@ export default function SectorEnergeticoPage() {
             {/* ─── HEADER ─── */}
             <header className="border-l-4 border-amber-500 pl-6 py-2 mt-6 md:mt-10 space-y-2">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[11px] font-semibold uppercase tracking-wider text-amber-500 mb-2">
-                    <AlertTriangle className="h-3 w-3" /> OPORTUNIDAD ESTRATÉGICA ACTIVA
+                    <TriangleAlert className="h-3 w-3" /> OPORTUNIDAD ESTRATÉGICA ACTIVA
                 </div>
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight uppercase leading-none text-foreground">
                     SECTOR <span className="text-amber-500 italic">ENERGÉTICO</span>
@@ -401,7 +401,7 @@ export default function SectorEnergeticoPage() {
                 <motion.div key="alianza" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
                     {submitted ? (
                         <Card className="glass-card border-none bg-emerald-500/10 border-emerald-500/20 rounded-3xl p-12 text-center space-y-5">
-                            <CheckCircle className="h-16 w-16 text-emerald-500 mx-auto" />
+                            <CircleCheck className="h-16 w-16 text-emerald-500 mx-auto" />
                             <h3 className="text-2xl font-semibold uppercase italic text-foreground">¡Solicitud Registrada!</h3>
                             <p className="text-muted-foreground">Su solicitud de alianza ha sido guardada en el sistema. Un especialista de System Kyron se comunicará en 48 horas hábiles.</p>
                             <Button variant="outline" className="rounded-2xl" onClick={() => { setSubmitted(false); setAlianzaForm({ empresa_solicitante: "", rif_solicitante: "", nombre_contacto: "", cargo_contacto: "", email_contacto: "", telefono: "", tipo_alianza: TIPOS_ALIANZA[0], area_operacion: AREAS_OP[0], descripcion: "" }); }}>

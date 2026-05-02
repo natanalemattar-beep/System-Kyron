@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
-  Download, ShieldCheck, FileText, Printer, Bell, AlertTriangle, CircleCheck,
+  Download, ShieldCheck, FileText, Printer, Bell, TriangleAlert, CircleCheck,
   Clock, Search, Landmark, Filter, Plus, RefreshCw,
   FileSignature, XCircle, Calendar, ChevronRight, Zap, ArrowRight, Copy,
   BellRing, ClipboardList, Phone, Mail, Globe, MapPin, MessageCircle,
@@ -43,7 +43,7 @@ function getOrganismoTipo(org: Organismo): string {
 
 const nivelAlertaConfig = {
   critico: { label: "CRÍTICO", color: "bg-red-500/10 text-red-400 border-red-500/30", icon: XCircle },
-  advertencia: { label: "ADVERTENCIA", color: "bg-amber-500/10 text-amber-400 border-amber-500/30", icon: AlertTriangle },
+  advertencia: { label: "ADVERTENCIA", color: "bg-amber-500/10 text-amber-400 border-amber-500/30", icon: TriangleAlert },
   ok: { label: "AL DÍA", color: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30", icon: CircleCheck },
 };
 
@@ -579,7 +579,7 @@ function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; 
 
   const estadoConfig: Record<string, { label: string; color: string; icon: typeof CircleCheck }> = {
     vigente: { label: "VIGENTE", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20", icon: CircleCheck },
-    por_vencer: { label: "POR VENCER", color: "bg-amber-500/10 text-amber-500 border-amber-500/20", icon: AlertTriangle },
+    por_vencer: { label: "POR VENCER", color: "bg-amber-500/10 text-amber-500 border-amber-500/20", icon: TriangleAlert },
     vencido: { label: "VENCIDO", color: "bg-red-500/10 text-red-500 border-red-500/20", icon: XCircle },
     en_tramite: { label: "EN TRÁMITE", color: "bg-blue-500/10 text-blue-500 border-blue-500/20", icon: Clock },
     en_renovacion: { label: "EN RENOVACIÓN", color: "bg-violet-500/10 text-violet-500 border-violet-500/20", icon: RefreshCw },
@@ -1169,7 +1169,7 @@ function PermisosRequeridosPorSector() {
           </div>
           <div className="p-6 bg-amber-500/5 border-t border-amber-500/10">
             <div className="flex items-start gap-3">
-              <AlertTriangle className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
+              <TriangleAlert className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
               <div>
                 <p className="text-[11px] font-semibold uppercase text-amber-600">Advertencia Legal</p>
                 <p className="text-[11px] font-bold text-muted-foreground/60 mt-1 leading-relaxed">
@@ -1270,7 +1270,7 @@ Fecha: _____ / _____ / _____`;
 
       <Card className="rounded-2xl shadow-lg rounded-2xl bg-amber-500/5 p-5 border border-amber-500/10">
         <div className="flex items-start gap-3">
-          <AlertTriangle className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
+          <TriangleAlert className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
           <div>
             <p className="text-[11px] font-semibold uppercase text-amber-600">Aviso Importante</p>
             <p className="text-[11px] font-bold text-muted-foreground/60 mt-1 leading-relaxed">

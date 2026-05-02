@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye, Shield, Clock, User, MapPin, Monitor, CheckCircle, ShieldAlert, LogIn, LogOut, KeyRound, Settings, FileText } from "lucide-react";
+import { Eye, Shield, Clock, User, MapPin, Monitor, CircleCheck, ShieldAlert, LogIn, LogOut, KeyRound, Settings, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";

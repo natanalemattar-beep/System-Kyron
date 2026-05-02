@@ -7,7 +7,7 @@ import { Link } from "@/navigation";
 import {
   Calculator, Wallet, TrendingUp, Activity, BookOpen, Receipt, Users, HandCoins, Zap,
   ArrowRight, Book, History, Box, Landmark, BrainCircuit, ShieldCheck, Bot, Loader2,
-  ShieldAlert, ChartColumn, CircleCheck as CheckCircle, Handshake,
+  ShieldAlert, ChartColumn, CircleCheck as CircleCheck, Handshake,
   CreditCard, Smartphone, Building2, Phone, MessageSquare, Heart, Shield, Car,
   Banknote, RefreshCw, Store, Wifi, Globe, Sparkles
 } from "lucide-react";

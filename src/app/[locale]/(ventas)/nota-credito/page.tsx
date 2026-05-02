@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/back-button";
-import { FilePlus, Shield, Plus, Trash2, Loader2, ArrowRight, ArrowLeft, Building2, UserCheck, Link2, ListChecks, Calculator, Zap, CheckCircle } from "lucide-react";
+import { FilePlus, Shield, Plus, Trash2, Loader2, ArrowRight, ArrowLeft, Building2, UserCheck, Link2, ListChecks, Calculator, Zap, CircleCheck } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -177,7 +177,7 @@ export default function NotaCreditoPage() {
                 currentStep > step.id ? "bg-emerald-500/10" : "bg-muted/20"
               )}>
                 {currentStep > step.id ? (
-                  <CheckCircle className="h-3.5 w-3.5 text-emerald-500" />
+                  <CircleCheck className="h-3.5 w-3.5 text-emerald-500" />
                 ) : (
                   <step.icon className="h-3.5 w-3.5" />
                 )}
@@ -518,7 +518,7 @@ export default function NotaCreditoPage() {
                     <div className={cn("h-4 w-4 rounded-full flex items-center justify-center transition-all",
                       r.done ? "bg-emerald-500/20" : "bg-muted/30"
                     )}>
-                      {r.done ? <CheckCircle className="h-3 w-3 text-emerald-500" /> : <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/20" />}
+                      {r.done ? <CircleCheck className="h-3 w-3 text-emerald-500" /> : <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/20" />}
                     </div>
                     <span className={cn("text-[10px]", r.done ? "text-foreground font-medium" : "text-muted-foreground/40")}>{r.req}</span>
                   </div>

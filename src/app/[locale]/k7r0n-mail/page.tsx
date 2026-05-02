@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Mail, Send, Shield, CheckCircle, XCircle, Loader2, Lock, Plus, Trash2, Sparkles, Eye, Pencil, ArrowRight, FileEdit } from 'lucide-react';
+import { Mail, Send, Shield, CircleCheck, XCircle, Loader2, Lock, Plus, Trash2, Sparkles, Eye, Pencil, ArrowRight, FileEdit } from 'lucide-react';
 
 const TEMPLATES = [
   { id: 'personalizado', label: 'Personalizado' },
@@ -439,7 +439,7 @@ export default function KyronMailPage() {
                 {history.map((h, i) => (
                   <div key={i} className={`p-2.5 rounded-xl text-[11px] border ${h.success ? 'bg-emerald-500/5 border-emerald-500/10' : 'bg-destructive/5 border-destructive/10'}`}>
                     <div className="flex items-center gap-1.5 mb-0.5">
-                      {h.success ? <CheckCircle className="h-3 w-3 text-emerald-500" /> : <XCircle className="h-3 w-3 text-destructive" />}
+                      {h.success ? <CircleCheck className="h-3 w-3 text-emerald-500" /> : <XCircle className="h-3 w-3 text-destructive" />}
                       <span className="font-bold text-foreground">{h.provider}</span>
                       <span className="text-muted-foreground ml-auto">{h.time}</span>
                     </div>

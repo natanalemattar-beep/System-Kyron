@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import {
   ShieldCheck, ShieldAlert, ShieldX, ShieldQuestion,
-  Loader2, ChevronDown, ChevronUp, AlertTriangle,
+  Loader2, ChevronDown, ChevronUp, TriangleAlert,
   CircleCheck, Info, X, Fingerprint, Eye, EyeOff,
   Brain, Cpu, Zap, Search, FileSearch, Lock,
 } from 'lucide-react';
@@ -148,7 +148,7 @@ function ScoreBar({ label, puntaje, estado }: { label: string; puntaje: number; 
 
 function DetailsList({ section, label }: { section: AnalysisSection; label: string }) {
   const [open, setOpen] = useState(false);
-  const StatusIcon = section.estado === 'ok' ? CircleCheck : section.estado === 'advertencia' ? AlertTriangle : ShieldX;
+  const StatusIcon = section.estado === 'ok' ? CircleCheck : section.estado === 'advertencia' ? TriangleAlert : ShieldX;
   const statusColor = section.estado === 'ok' ? 'text-emerald-400' : section.estado === 'advertencia' ? 'text-amber-400' : 'text-red-400';
   return (
     <div className="border border-border/15 rounded-xl overflow-hidden bg-card/30">
@@ -419,7 +419,7 @@ export function DocumentVerification({
                 <p className="text-[11px] font-semibold uppercase tracking-widest text-amber-400/60">Alertas</p>
                 {result.alertas.map((a, i) => (
                   <div key={i} className="flex items-start gap-2 px-3 py-2 rounded-xl bg-amber-500/5 border border-amber-500/10">
-                    <AlertTriangle className="h-3 w-3 text-amber-400 mt-0.5 shrink-0" />
+                    <TriangleAlert className="h-3 w-3 text-amber-400 mt-0.5 shrink-0" />
                     <p className="text-[10px] text-amber-300/80 leading-relaxed">{a}</p>
                   </div>
                 ))}

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   Smartphone, Shield, Lock, RefreshCw, CircleCheck,
-  AlertTriangle, Settings, Wifi, Download, Monitor,
+  TriangleAlert, Settings, Wifi, Download, Monitor,
   Key, Eye, Fingerprint, Clock
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -86,7 +86,7 @@ export default function MDMCorporativoPage() {
         {[
           { label: "Total Dispositivos", val: `${DISPOSITIVOS_MDM.length}`, icon: Smartphone, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
           { label: "Cumplen Políticas", val: `${compliant}`, icon: CircleCheck, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
-          { label: "Con Alertas", val: `${warnings}`, icon: AlertTriangle, color: "text-amber-500", accent: "from-amber-500/20 to-amber-500/0", ring: "ring-amber-500/20", iconBg: "bg-amber-500/10" },
+          { label: "Con Alertas", val: `${warnings}`, icon: TriangleAlert, color: "text-amber-500", accent: "from-amber-500/20 to-amber-500/0", ring: "ring-amber-500/20", iconBg: "bg-amber-500/10" },
           { label: "No Cumplen", val: `${nonCompliant}`, icon: Shield, color: "text-rose-500", accent: "from-rose-500/20 to-rose-500/0", ring: "ring-rose-500/20", iconBg: "bg-rose-500/10" },
         ].map((stat, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
@@ -146,7 +146,7 @@ export default function MDMCorporativoPage() {
                     <div key={ci} className={cn("flex items-center gap-1.5 p-1.5 rounded-lg text-[11px] font-semibold", check.ok ? "text-emerald-500 bg-emerald-500/5" : "text-rose-500 bg-rose-500/5")}>
                       <check.icon className="h-2.5 w-2.5" />
                       {check.label}
-                      {check.ok ? <CircleCheck className="h-2.5 w-2.5 ml-auto" /> : <AlertTriangle className="h-2.5 w-2.5 ml-auto" />}
+                      {check.ok ? <CircleCheck className="h-2.5 w-2.5 ml-auto" /> : <TriangleAlert className="h-2.5 w-2.5 ml-auto" />}
                     </div>
                   ))}
                 </div>

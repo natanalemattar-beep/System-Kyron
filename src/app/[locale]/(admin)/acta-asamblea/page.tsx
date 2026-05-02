@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Signature as FileSignature, Printer, Download, CircleCheck as CheckCircle, Gavel, Activity, Terminal } from "lucide-react";
+import { Signature as FileSignature, Printer, Download, CircleCheck as CircleCheck, Gavel, Activity, Terminal } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -25,7 +25,7 @@ export default function ActaAsambleaPage() {
         toast({
             title: `PROTOCOLO ${action.toUpperCase()} ACTIVADO`,
             description: "Documento procesado bajo cifrado legal.",
-            action: <CheckCircle className="text-primary h-4 w-4" />
+            action: <CircleCheck className="text-primary h-4 w-4" />
         });
     };
 

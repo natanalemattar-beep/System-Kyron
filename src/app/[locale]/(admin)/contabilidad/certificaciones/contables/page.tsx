@@ -9,7 +9,7 @@ import { BackButton } from "@/components/back-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { Loader2, X, ChevronRight, AlertTriangle } from "lucide-react";
+import { Loader2, X, ChevronRight, TriangleAlert } from "lucide-react";
 
 const certProtocols = [
     {
@@ -197,7 +197,7 @@ export default function CertificacionesContablesPage() {
 
             <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
                 <div className="flex items-start gap-3">
-                    <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                    <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                     <div>
                         <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Aviso Legal</p>
                         <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">

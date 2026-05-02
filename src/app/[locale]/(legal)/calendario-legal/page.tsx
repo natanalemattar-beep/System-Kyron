@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, Clock, AlertTriangle, Bell, ChevronLeft, ChevronRight, ArrowLeft, Activity } from "lucide-react";
+import { Calendar, Clock, TriangleAlert, Bell, ChevronLeft, ChevronRight, ArrowLeft, Activity } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 
@@ -473,7 +473,7 @@ export default function CalendarioLegalPage() {
                             ob.tipo === "regulatorio" && "bg-purple-500/10 border border-purple-500/20",
                           )}>
                             {ob.tipo === "fiscal" ? (
-                              <AlertTriangle className={cn("h-4 w-4", "text-rose-400")} />
+                              <TriangleAlert className={cn("h-4 w-4", "text-rose-400")} />
                             ) : ob.tipo === "laboral" ? (
                               <Activity className={cn("h-4 w-4", "text-blue-400")} />
                             ) : (
@@ -555,7 +555,7 @@ export default function CalendarioLegalPage() {
           <Card className="bg-card/40 border-border/30 rounded-2xl mt-4">
             <CardHeader className="pb-3">
               <CardTitle className="text-xs font-semibold uppercase tracking-widest flex items-center gap-2">
-                <AlertTriangle className="h-3.5 w-3.5 text-amber-400" />
+                <TriangleAlert className="h-3.5 w-3.5 text-amber-400" />
                 Leyenda
               </CardTitle>
             </CardHeader>

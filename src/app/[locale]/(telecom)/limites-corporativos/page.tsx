@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
   SlidersHorizontal, Users, Shield, Save, CircleCheck,
-  AlertTriangle, TrendingUp, Wifi, Bell, Loader2, Inbox
+  TriangleAlert, TrendingUp, Wifi, Bell, Loader2, Inbox
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -118,7 +118,7 @@ export default function LimitesCorporativosPage() {
           { label: "Líneas Activas", val: loading ? "—" : `${lineas.filter(l => l.activa).length}`, icon: Users, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
           { label: "Datos Asignados", val: loading ? "—" : `${totalDatos.toFixed(0)} GB`, icon: Wifi, color: "text-cyan-500", accent: "from-cyan-500/20 to-cyan-500/0", ring: "ring-cyan-500/20", iconBg: "bg-cyan-500/10" },
           { label: "Uso Promedio", val: loading ? "—" : `${usoPromedio.toFixed(0)}%`, icon: TrendingUp, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
-          { label: "Alertas Exceso", val: loading ? "—" : `${alertas}`, icon: AlertTriangle, color: alertas > 0 ? "text-rose-500" : "text-emerald-500", accent: alertas > 0 ? "from-rose-500/20 to-rose-500/0" : "from-emerald-500/20 to-emerald-500/0", ring: alertas > 0 ? "ring-rose-500/20" : "ring-emerald-500/20", iconBg: alertas > 0 ? "bg-rose-500/10" : "bg-emerald-500/10" },
+          { label: "Alertas Exceso", val: loading ? "—" : `${alertas}`, icon: TriangleAlert, color: alertas > 0 ? "text-rose-500" : "text-emerald-500", accent: alertas > 0 ? "from-rose-500/20 to-rose-500/0" : "from-emerald-500/20 to-emerald-500/0", ring: alertas > 0 ? "ring-rose-500/20" : "ring-emerald-500/20", iconBg: alertas > 0 ? "bg-rose-500/10" : "bg-emerald-500/10" },
         ].map((stat, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
             <div className={cn("kyron-surface p-4 rounded-xl ring-1 hover:-translate-y-0.5 transition-all duration-300 overflow-hidden relative", stat.ring)}>
@@ -190,7 +190,7 @@ export default function LimitesCorporativosPage() {
                       <TableCell className="text-center pr-5">
                         {excedido ? (
                           <Badge className="text-[10px] font-bold bg-rose-500/10 text-rose-500 border-rose-500/20">
-                            <AlertTriangle className="h-2.5 w-2.5 mr-1" /> EXCEDIDO
+                            <TriangleAlert className="h-2.5 w-2.5 mr-1" /> EXCEDIDO
                           </Badge>
                         ) : l.activa ? (
                           <Badge className="text-[10px] font-bold bg-emerald-500/10 text-emerald-600 border-emerald-500/20">

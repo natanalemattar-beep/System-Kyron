@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
 import { BackButton } from "@/components/back-button";
-import { Users, TrendingUp, DollarSign, ChartColumn, ArrowLeft, Activity, Star, Target, Clock, AlertTriangle, Plus, Trash2, Crown, Award, PieChart } from "lucide-react";
+import { Users, TrendingUp, DollarSign, ChartColumn, ArrowLeft, Activity, Star, Target, Clock, TriangleAlert, Plus, Trash2, Crown, Award, PieChart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import { useToast } from "@/hooks/use-toast";
@@ -507,7 +507,7 @@ export default function AnalisisClientesPage() {
               <CardHeader className="p-6 border-b border-border/20">
                 <div className="flex items-center gap-3">
                   <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/15">
-                    <AlertTriangle className="h-4 w-4 text-amber-400" />
+                    <TriangleAlert className="h-4 w-4 text-amber-400" />
                   </div>
                   <div>
                     <CardTitle className="text-xs font-semibold uppercase tracking-wide">Recomendaciones</CardTitle>

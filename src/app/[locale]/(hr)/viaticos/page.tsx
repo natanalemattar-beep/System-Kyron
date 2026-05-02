@@ -4,9 +4,9 @@ import { useState, useEffect, useCallback } from "react";
 import {
   Plane, MapPin, Building2, Hotel, UtensilsCrossed, Car, Fuel, Receipt,
   Phone, ShieldCheck, CreditCard, Banknote, Plus, Search, Loader2,
-  Globe, Flag, Users, FileText, CheckCircle, XCircle, Clock, Eye,
+  Globe, Flag, Users, FileText, CircleCheck, XCircle, Clock, Eye,
   Trash2, DollarSign, TrendingUp, Briefcase, Calendar, Filter,
-  Download, ChevronDown, AlertTriangle, Gift, Wallet, ArrowUpDown
+  Download, ChevronDown, TriangleAlert, Gift, Wallet, ArrowUpDown
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -97,7 +97,7 @@ const MONEDAS = [
 
 const ESTADOS = [
   { value: "pendiente", label: "Pendiente", color: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300", icon: Clock },
-  { value: "aprobado", label: "Aprobado", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300", icon: CheckCircle },
+  { value: "aprobado", label: "Aprobado", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300", icon: CircleCheck },
   { value: "rechazado", label: "Rechazado", color: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300", icon: XCircle },
   { value: "pagado", label: "Pagado", color: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300", icon: DollarSign },
   { value: "rendido", label: "Rendido", color: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300", icon: FileText },
@@ -377,7 +377,7 @@ export default function ViaticosPage() {
         <Card className="bg-gradient-to-br from-red-50 to-red-100/50 dark:from-red-950/30 dark:to-red-900/20 border-red-200/50 dark:border-red-800/30">
           <CardContent className="p-3">
             <div className="flex items-center gap-2">
-              <AlertTriangle className="h-4 w-4 text-red-500" />
+              <TriangleAlert className="h-4 w-4 text-red-500" />
               <span className="text-[10px] font-bold uppercase text-muted-foreground">Sin Factura</span>
             </div>
             <p className="text-lg font-bold mt-1">{stats?.sin_factura || 0}</p>
@@ -864,7 +864,7 @@ export default function ViaticosPage() {
                     {v.estado === "pendiente" && (
                       <>
                         <Button size="sm" className="gap-1.5" onClick={() => { handleEstadoChange(v.id, "aprobado"); setShowDetail(null); }}>
-                          <CheckCircle className="h-3.5 w-3.5" /> Aprobar
+                          <CircleCheck className="h-3.5 w-3.5" /> Aprobar
                         </Button>
                         <Button size="sm" variant="destructive" className="gap-1.5" onClick={() => { handleEstadoChange(v.id, "rechazado"); setShowDetail(null); }}>
                           <XCircle className="h-3.5 w-3.5" /> Rechazar

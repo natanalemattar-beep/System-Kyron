@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { Signal, Plus, Clock, CheckCircle, AlertTriangle, RefreshCw, Shield, Wifi, Radio, Loader2, Inbox, BookOpen } from "lucide-react";
+import { Signal, Plus, Clock, CircleCheck, TriangleAlert, RefreshCw, Shield, Wifi, Radio, Loader2, Inbox, BookOpen } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { BackButton } from "@/components/back-button";
 import { cn } from "@/lib/utils";
@@ -199,7 +199,7 @@ export default function ConatelPage() {
                     <div className="space-y-1.5">
                       <div className="flex items-center gap-2 flex-wrap">
                         <Badge className={cn("text-[10px] font-semibold uppercase tracking-widest border h-6", estadoStyle[p.estado] ?? estadoStyle.en_tramite)}>
-                          {p.estado === "vigente" ? <CheckCircle className="mr-1 h-2.5 w-2.5" /> : p.estado === "vencido" ? <AlertTriangle className="mr-1 h-2.5 w-2.5" /> : <Clock className="mr-1 h-2.5 w-2.5" />}
+                          {p.estado === "vigente" ? <CircleCheck className="mr-1 h-2.5 w-2.5" /> : p.estado === "vencido" ? <TriangleAlert className="mr-1 h-2.5 w-2.5" /> : <Clock className="mr-1 h-2.5 w-2.5" />}
                           {estadoLabels[p.estado] || p.estado}
                         </Badge>
                         <Badge variant="outline" className="text-[10px] font-semibold uppercase tracking-widest h-6">CONATEL</Badge>

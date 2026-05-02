@@ -12,7 +12,7 @@ import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
-    Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
+    Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
     Signal, Check, Star, Crown, Zap, Mail, RefreshCw, Smartphone, Building, User, Lock, Phone,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -84,7 +84,7 @@ const stepConfig = [
     { title: 'Plan', desc: 'Elige tu servicio', icon: Smartphone },
     { title: 'Cuenta', desc: 'Tus datos básicos', icon: User },
     { title: 'Verificar', desc: 'Confirma tu email', icon: Mail },
-    { title: 'Listo', desc: 'Línea activada', icon: CheckCircle },
+    { title: 'Listo', desc: 'Línea activada', icon: CircleCheck },
 ];
 
 export default function RegisterTelecomPage() {
@@ -317,7 +317,7 @@ export default function RegisterTelecomPage() {
                                                     <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-slate-800">
                                                         {p.features.map((f, i) => (
                                                             <div key={i} className="flex items-center gap-2">
-                                                                <CheckCircle className={cn("h-3.5 w-3.5", isSelected ? "text-blue-500" : "text-slate-300 dark:text-slate-700")} />
+                                                                <CircleCheck className={cn("h-3.5 w-3.5", isSelected ? "text-blue-500" : "text-slate-300 dark:text-slate-700")} />
                                                                 <span className="text-[11px] font-bold text-slate-600 dark:text-slate-400">{f}</span>
                                                             </div>
                                                         ))}

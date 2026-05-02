@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import {
   BookOpen, FileText, Users, Plus, Search, ChevronRight, ChevronDown,
-  Loader2, Shield, AlertTriangle, CheckCircle, Clock, Eye,
+  Loader2, Shield, TriangleAlert, CircleCheck, Clock, Eye,
   Building2, Briefcase, Crown, UserCog, User,
   FileSignature, Ban, Gift, Scale, Calendar, Pen, Filter,
   Download, Printer, Edit, Trash2, X, ArrowDown, LayoutGrid, List
@@ -72,9 +72,9 @@ const DEPARTAMENTOS = ["Ventas", "Tecnología", "Admin", "Soporte", "Diseño", "
 const ESTADOS_MANUAL: Record<string, { label: string; color: string; icon: typeof Clock }> = {
   borrador: { label: "Borrador", color: "bg-slate-500/20 text-slate-400 border-slate-500/30", icon: Pen },
   revision: { label: "En Revisión", color: "bg-amber-500/20 text-amber-400 border-amber-500/30", icon: Eye },
-  aprobado: { label: "Aprobado", color: "bg-blue-500/20 text-blue-400 border-blue-500/30", icon: CheckCircle },
-  vigente: { label: "Vigente", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30", icon: CheckCircle },
-  obsoleto: { label: "Obsoleto", color: "bg-red-500/20 text-red-400 border-red-500/30", icon: AlertTriangle },
+  aprobado: { label: "Aprobado", color: "bg-blue-500/20 text-blue-400 border-blue-500/30", icon: CircleCheck },
+  vigente: { label: "Vigente", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30", icon: CircleCheck },
+  obsoleto: { label: "Obsoleto", color: "bg-red-500/20 text-red-400 border-red-500/30", icon: TriangleAlert },
 };
 
 const TIPOS_NODO: Record<string, { label: string; color: string; icon: typeof Crown }> = {
@@ -493,7 +493,7 @@ export default function ManualesRRHHPage() {
                               {procs.length > 0 && (
                                 <div className="bg-emerald-500/5 rounded-2xl p-5 border border-emerald-500/10">
                                   <p className="text-[11px] font-semibold uppercase tracking-widest text-emerald-500 mb-3 flex items-center gap-2">
-                                    <CheckCircle className="h-3 w-3" /> Procedimientos y Responsabilidades ({procs.length})
+                                    <CircleCheck className="h-3 w-3" /> Procedimientos y Responsabilidades ({procs.length})
                                   </p>
                                   <ul className="space-y-2">
                                     {procs.map((p: string, j: number) => (
@@ -947,7 +947,7 @@ export default function ManualesRRHHPage() {
                   {procs.length > 0 && (
                     <div className="bg-emerald-500/5 rounded-2xl p-6 border border-emerald-500/10">
                       <p className="text-[10px] font-semibold uppercase tracking-widest text-emerald-500 mb-4 flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4" /> Procedimientos y Responsabilidades del Trabajador
+                        <CircleCheck className="h-4 w-4" /> Procedimientos y Responsabilidades del Trabajador
                       </p>
                       <div className="space-y-3">
                         {procs.map((p: string, j: number) => (
@@ -1063,7 +1063,7 @@ export default function ManualesRRHHPage() {
                         {bens.map((b: string, j: number) => (
                           <div key={j} className="flex items-center gap-3">
                             <div className="h-6 w-6 rounded-lg bg-emerald-500/20 flex items-center justify-center shrink-0">
-                              <CheckCircle className="h-3.5 w-3.5 text-emerald-500" />
+                              <CircleCheck className="h-3.5 w-3.5 text-emerald-500" />
                             </div>
                             <p className="text-sm text-foreground/80">{b}</p>
                           </div>

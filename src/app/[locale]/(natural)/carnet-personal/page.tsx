@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { Heart, Download, QrCode, Activity, Stethoscope, Phone, AlertTriangle, ArrowLeft } from "lucide-react";
+import { Heart, Download, QrCode, Activity, Stethoscope, Phone, TriangleAlert, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/lib/auth/context";
 import { Link } from '@/navigation';
@@ -91,7 +91,7 @@ export default function CarnetPersonalPage() {
                         <CardContent className="p-5 space-y-3">
                             <div className="flex items-center gap-2.5">
                                 <div className="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/15 flex items-center justify-center">
-                                    <AlertTriangle className="h-4 w-4 text-rose-400" />
+                                    <TriangleAlert className="h-4 w-4 text-rose-400" />
                                 </div>
                                 <span className="text-[11px] font-semibold text-rose-400">Alergias</span>
                             </div>

@@ -21,14 +21,14 @@ import {
 import {
   Calendar,
   Clock,
-  AlertTriangle,
+  TriangleAlert,
   Bell,
   Landmark,
   FileText,
   DollarSign,
   ArrowLeft,
   Activity,
-  CheckCircle,
+  CircleCheck,
   ChevronLeft,
   ChevronRight,
   Info,
@@ -262,7 +262,7 @@ function ObligationCard({ ob }: { ob: Obligation }) {
             </div>
           </div>
           <div className="flex items-start gap-2">
-            <AlertTriangle className="h-3.5 w-3.5 text-red-400 mt-0.5 shrink-0" />
+            <TriangleAlert className="h-3.5 w-3.5 text-red-400 mt-0.5 shrink-0" />
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Sanción por Incumplimiento</p>
               <p className="text-xs text-foreground">{ob.penalty}</p>
@@ -546,7 +546,7 @@ export default function CalendarioFiscalPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
               <Card className={cn("border rounded-2xl shadow-sm p-5", "border-red-500/20")}>
                 <div className="flex items-center gap-3 mb-2">
-                  <AlertTriangle className="h-4 w-4 text-red-400" />
+                  <TriangleAlert className="h-4 w-4 text-red-400" />
                   <span className="text-[10px] font-semibold uppercase tracking-widest text-red-400">Vencido</span>
                 </div>
                 <p className="text-xs text-muted-foreground">
@@ -564,7 +564,7 @@ export default function CalendarioFiscalPage() {
               </Card>
               <Card className={cn("border rounded-2xl shadow-sm p-5", "border-emerald-500/20")}>
                 <div className="flex items-center gap-3 mb-2">
-                  <CheckCircle className="h-4 w-4 text-emerald-400" />
+                  <CircleCheck className="h-4 w-4 text-emerald-400" />
                   <span className="text-[10px] font-semibold uppercase tracking-widest text-emerald-400">Próximo</span>
                 </div>
                 <p className="text-xs text-muted-foreground">

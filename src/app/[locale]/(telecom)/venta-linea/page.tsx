@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CircleCheck as CheckCircle, Search, Radio, Zap } from "lucide-react";
+import { CircleCheck as CircleCheck, Search, Radio, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { formatCurrency, cn } from "@/lib/utils";
@@ -41,7 +41,7 @@ export default function VentaLineaPage() {
         toast({
             title: "Activación en Proceso",
             description: `La línea ${selectedSim.id === 'esim' ? 'digital' : 'física'} está siendo configurada.`,
-            action: <CheckCircle className="text-green-500" />
+            action: <CircleCheck className="text-green-500" />
         });
     };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { Upload, FileSpreadsheet, CircleCheck, AlertTriangle, Loader2, X, Download, Info } from "lucide-react";
+import { Upload, FileSpreadsheet, CircleCheck, TriangleAlert, Loader2, X, Download, Info } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -256,7 +256,7 @@ export function ImportMovimientos({ cuentas, onImportComplete }: { cuentas: Cuen
         {error && (
           <div className="space-y-4">
             <div className="flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20">
-              <AlertTriangle className="h-6 w-6 text-red-500 shrink-0 mt-0.5" />
+              <TriangleAlert className="h-6 w-6 text-red-500 shrink-0 mt-0.5" />
               <div>
                 <p className="text-sm font-bold text-red-600 dark:text-red-400">{error.error}</p>
                 {error.sugerencia && <p className="text-xs text-muted-foreground mt-1">{error.sugerencia}</p>}

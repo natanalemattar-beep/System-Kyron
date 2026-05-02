@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  Shield, AlertTriangle, CircleCheck, Clock, RefreshCw,
+  Shield, TriangleAlert, CircleCheck, Clock, RefreshCw,
   FileText, Calendar, Bell, ExternalLink, ChevronDown, ChevronUp
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -37,7 +37,7 @@ interface ConatelCompliancePanelProps {
 const ESTADO_HOMOLOGACION_CONFIG = {
   verificado: { label: "Verificado CONATEL", color: "text-emerald-500", bg: "bg-emerald-500/10", border: "border-emerald-500/20", icon: CircleCheck },
   pendiente: { label: "Pendiente Verificación", color: "text-amber-500", bg: "bg-amber-500/10", border: "border-amber-500/20", icon: Clock },
-  rechazado: { label: "Rechazado", color: "text-rose-500", bg: "bg-rose-500/10", border: "border-rose-500/20", icon: AlertTriangle },
+  rechazado: { label: "Rechazado", color: "text-rose-500", bg: "bg-rose-500/10", border: "border-rose-500/20", icon: TriangleAlert },
 };
 
 const ESTADO_PERMISO_CONFIG = {
@@ -122,7 +122,7 @@ export function ConatelCompliancePanel({
             { label: "Habilitación", val: habilitacion.estado === "activa" ? "Activa" : habilitacion.estado === "suspendida" ? "Suspendida" : "En Proceso", color: habilitacion.estado === "activa" ? "text-emerald-500" : "text-amber-500", icon: Shield },
             { label: "Permisos Vigentes", val: `${permisosVigentes}/${permisosData.length}`, color: "text-primary", icon: CircleCheck },
             { label: "Alertas Renovación", val: `${alertasRenovacion}`, color: alertasRenovacion > 0 ? "text-amber-500" : "text-emerald-500", icon: Bell },
-            { label: "Vencidos", val: `${permisosVencidos}`, color: permisosVencidos > 0 ? "text-rose-500" : "text-emerald-500", icon: AlertTriangle },
+            { label: "Vencidos", val: `${permisosVencidos}`, color: permisosVencidos > 0 ? "text-rose-500" : "text-emerald-500", icon: TriangleAlert },
           ].map((stat, i) => (
             <div key={i} className="p-3 rounded-xl bg-muted/10 border border-border/30 space-y-1">
               <div className="flex items-center gap-1.5">
@@ -190,7 +190,7 @@ export function ConatelCompliancePanel({
 
               {permisosPorVencer > 0 && (
                 <div className="p-3 rounded-xl bg-amber-500/5 border border-amber-500/15 flex items-start gap-3">
-                  <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                  <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                   <div>
                     <p className="text-xs font-semibold text-amber-500">Alerta de Renovación</p>
                     <p className="text-[10px] text-muted-foreground mt-0.5">

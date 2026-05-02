@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { RefreshCw, Building2, Banknote, TrendingUp, Clock, Loader2, Inbox, AlertTriangle, Plus, Trash2, Pencil, Upload } from "lucide-react";
+import { RefreshCw, Building2, Banknote, TrendingUp, Clock, Loader2, Inbox, TriangleAlert, Plus, Trash2, Pencil, Upload } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -353,7 +353,7 @@ export default function ConciliacionBancariaPage() {
 
       <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
         <div className="flex items-start gap-3">
-          <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+          <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
           <div>
             <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Nota</p>
             <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">

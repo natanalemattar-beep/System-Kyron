@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { ShieldQuestion, ShieldCheck, TriangleAlert as AlertTriangle, Activity, Terminal, ShieldAlert, Loader2, Inbox, Plus } from "lucide-react";
+import { ShieldQuestion, ShieldCheck, TriangleAlert as TriangleAlert, Activity, Terminal, ShieldAlert, Loader2, Inbox, Plus } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";

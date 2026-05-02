@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { LifeBuoy, Plus, Search, Clock, CheckCircle, AlertTriangle, User, Calendar, MessageSquare, Zap, Loader2, Inbox } from "lucide-react";
+import { LifeBuoy, Plus, Search, Clock, CircleCheck, TriangleAlert, User, Calendar, MessageSquare, Zap, Loader2, Inbox } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,8 +24,8 @@ interface Ticket {
 const estadoConfig: Record<string, { label: string; badge: string; icon: React.ReactNode }> = {
   abierto: { label: "Abierto", badge: "bg-amber-500/10 text-amber-500", icon: <Clock className="h-3 w-3" /> },
   en_proceso: { label: "En Progreso", badge: "bg-primary/10 text-primary", icon: <Zap className="h-3 w-3" /> },
-  resuelto: { label: "Resuelto", badge: "bg-emerald-500/10 text-emerald-500", icon: <CheckCircle className="h-3 w-3" /> },
-  cerrado: { label: "Cerrado", badge: "bg-slate-500/10 text-slate-400", icon: <CheckCircle className="h-3 w-3" /> },
+  resuelto: { label: "Resuelto", badge: "bg-emerald-500/10 text-emerald-500", icon: <CircleCheck className="h-3 w-3" /> },
+  cerrado: { label: "Cerrado", badge: "bg-slate-500/10 text-slate-400", icon: <CircleCheck className="h-3 w-3" /> },
 };
 
 function formatFecha(iso: string) {
@@ -108,8 +108,8 @@ export default function HelpdeskPage() {
         {[
           { label: "Abiertos", val: loading ? "—" : String(abiertos), icon: Clock, color: "text-amber-500" },
           { label: "En Progreso", val: loading ? "—" : String(enProgreso), icon: Zap, color: "text-primary" },
-          { label: "Resueltos", val: loading ? "—" : String(resueltos), icon: CheckCircle, color: "text-emerald-500" },
-          { label: "Total Tickets", val: loading ? "—" : String(tickets.length), icon: AlertTriangle, color: "text-cyan-500" },
+          { label: "Resueltos", val: loading ? "—" : String(resueltos), icon: CircleCheck, color: "text-emerald-500" },
+          { label: "Total Tickets", val: loading ? "—" : String(tickets.length), icon: TriangleAlert, color: "text-cyan-500" },
         ].map((kpi, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
             <Card className="bg-card/60 border-border/50 p-5 rounded-xl">

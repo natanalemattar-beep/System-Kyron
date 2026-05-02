@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ChartColumn, ShieldCheck, AlertTriangle, ArrowUpRight, ArrowDownRight, Loader2, Inbox } from "lucide-react";
+import { ChartColumn, ShieldCheck, TriangleAlert, ArrowUpRight, ArrowDownRight, Loader2, Inbox } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BackButton } from "@/components/back-button";
 
@@ -27,7 +27,7 @@ interface GrupoIndicador {
 const estadoColors: Record<string, { badge: string; icon: React.ReactNode }> = {
   excelente: { badge: "bg-emerald-500/10 text-emerald-500", icon: <ArrowUpRight className="h-3 w-3 text-emerald-500" /> },
   bueno: { badge: "bg-primary/10 text-primary", icon: <ShieldCheck className="h-3 w-3 text-primary" /> },
-  alerta: { badge: "bg-amber-500/10 text-amber-500", icon: <AlertTriangle className="h-3 w-3 text-amber-500" /> },
+  alerta: { badge: "bg-amber-500/10 text-amber-500", icon: <TriangleAlert className="h-3 w-3 text-amber-500" /> },
   critico: { badge: "bg-rose-500/10 text-rose-500", icon: <ArrowDownRight className="h-3 w-3 text-rose-500" /> },
 };
 

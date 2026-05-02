@@ -4,7 +4,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Signal, Users, Activity, DollarSign, TriangleAlert as AlertTriangle, ArrowLeft, Download, Search, CircleCheck as CheckCircle, CirclePlus as PlusCircle, FileText, Zap, ShieldCheck, ChartBar as ChartColumn, Terminal, Smartphone, Shield, Printer, Recycle, ExternalLink, Loader2, Inbox } from "lucide-react";
+import { Signal, Users, Activity, DollarSign, TriangleAlert as TriangleAlert, ArrowLeft, Download, Search, CircleCheck as CircleCheck, CirclePlus as PlusCircle, FileText, Zap, ShieldCheck, ChartBar as ChartColumn, Terminal, Smartphone, Shield, Printer, Recycle, ExternalLink, Loader2, Inbox } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -96,7 +96,7 @@ export default function FlotaEmpresarialPage() {
                     { label: "Líneas Activas", val: loading ? "—" : String(stats.activas), icon: Users, color: "text-primary", accent: "from-primary/20 to-primary/0", iconBg: "bg-primary/10", ring: "ring-primary/20" },
                     { label: "Total Líneas", val: loading ? "—" : String(stats.total), icon: Activity, color: "text-secondary", accent: "from-secondary/20 to-secondary/0", iconBg: "bg-secondary/10", ring: "ring-secondary/20" },
                     { label: "Gasto Total", val: loading ? "—" : formatCurrency(stats.gastoTotal, 'USD'), icon: DollarSign, color: "text-amber-500", accent: "from-amber-500/20 to-amber-500/0", iconBg: "bg-amber-500/10", ring: "ring-amber-500/20" },
-                    { label: "Alertas Críticas", val: loading ? "—" : String(stats.alertas), icon: AlertTriangle, color: stats.alertas > 0 ? "text-rose-500" : "text-emerald-500", accent: stats.alertas > 0 ? "from-rose-500/20 to-rose-500/0" : "from-emerald-500/20 to-emerald-500/0", iconBg: stats.alertas > 0 ? "bg-rose-500/10" : "bg-emerald-500/10", ring: stats.alertas > 0 ? "ring-rose-500/20" : "ring-emerald-500/20" },
+                    { label: "Alertas Críticas", val: loading ? "—" : String(stats.alertas), icon: TriangleAlert, color: stats.alertas > 0 ? "text-rose-500" : "text-emerald-500", accent: stats.alertas > 0 ? "from-rose-500/20 to-rose-500/0" : "from-emerald-500/20 to-emerald-500/0", iconBg: stats.alertas > 0 ? "bg-rose-500/10" : "bg-emerald-500/10", ring: stats.alertas > 0 ? "ring-rose-500/20" : "ring-emerald-500/20" },
                 ].map((stat, i) => (
                     <div key={i} className={cn("kyron-surface p-6 rounded-2xl ring-1 relative overflow-hidden group hover:-translate-y-0.5 transition-all duration-300", stat.ring)}>
                         <div className={cn("absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r", stat.accent)} />
@@ -212,7 +212,7 @@ export default function FlotaEmpresarialPage() {
                             <div className="relative p-4 rounded-2xl bg-primary">
                                 <Smartphone className="h-8 w-8 text-primary-foreground" />
                                 <div className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-secondary flex items-center justify-center">
-                                    <CheckCircle className="h-3 w-3 text-primary" />
+                                    <CircleCheck className="h-3 w-3 text-primary" />
                                 </div>
                             </div>
                             <div>
@@ -234,7 +234,7 @@ export default function FlotaEmpresarialPage() {
                     </p>
                     <div className="grid md:grid-cols-3 gap-6">
                         {[
-                            { text: "Verificación automática de IMEI", icon: CheckCircle },
+                            { text: "Verificación automática de IMEI", icon: CircleCheck },
                             { text: "Reporte mensual de equipos homologados por empleado", icon: FileText },
                             { text: "Gestión centralizada: altas, bajas y cambios de equipo sin perder la línea", icon: ShieldCheck },
                         ].map((item, i) => (

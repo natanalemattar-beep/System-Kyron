@@ -14,7 +14,7 @@ import {
     ChartColumn,
     Bell,
     RefreshCw,
-    CheckCircle,
+    CircleCheck,
     Target,
     DollarSign,
     Users,
@@ -65,7 +65,7 @@ export default function MarketingDashboardPage() {
         setRefreshing(true);
         await fetchDashboard();
         setRefreshing(false);
-        toast({ title: "DATOS ACTUALIZADOS", description: "Dashboard sincronizado exitosamente.", action: <CheckCircle className="text-emerald-500 h-4 w-4" /> });
+        toast({ title: "DATOS ACTUALIZADOS", description: "Dashboard sincronizado exitosamente.", action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
     };
 
     const fmt = (val: string | undefined, fallback = "0") => {

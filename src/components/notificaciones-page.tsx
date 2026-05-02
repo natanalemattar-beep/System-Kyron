@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  Bell, Info, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle,
+  Bell, Info, TriangleAlert as TriangleAlert, CircleCheck as CircleCheck,
   Activity, ArrowLeft, Mail, MessageSquare, Smartphone, Loader2,
   CheckCheck, RefreshCw, Settings, FileText, CalendarClock,
   ShieldCheck, CreditCard, Construction
@@ -54,9 +54,9 @@ interface NotifConfig {
 }
 
 const iconMap: Record<string, React.ReactNode> = {
-  exito: <CheckCircle className="h-5 w-5 text-emerald-500" />,
-  alerta: <AlertTriangle className="h-5 w-5 text-red-500" />,
-  advertencia: <AlertTriangle className="h-5 w-5 text-amber-500" />,
+  exito: <CircleCheck className="h-5 w-5 text-emerald-500" />,
+  alerta: <TriangleAlert className="h-5 w-5 text-red-500" />,
+  advertencia: <TriangleAlert className="h-5 w-5 text-amber-500" />,
   info: <Info className="h-5 w-5 text-blue-500" />,
   fiscal: <FileText className="h-5 w-5 text-indigo-500" />,
   parafiscal: <ShieldCheck className="h-5 w-5 text-violet-500" />,
@@ -448,7 +448,7 @@ export function NotificacionesPageContent() {
                     <div className="mt-2 p-3 bg-muted/30 rounded-lg border border-border/30 space-y-2">
                       {(noti.metadata.riesgo_multa as { descripcion?: string; monto?: string; base_legal?: string }).descripcion && (
                         <div className="flex items-start gap-2">
-                          <AlertTriangle className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
+                          <TriangleAlert className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
                           <p className="text-[11px] text-amber-400/90 font-semibold leading-snug">
                             {(noti.metadata.riesgo_multa as { descripcion: string }).descripcion}
                           </p>

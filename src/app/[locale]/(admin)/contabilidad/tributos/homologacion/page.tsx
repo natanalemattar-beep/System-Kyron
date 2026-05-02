@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { BackButton } from "@/components/back-button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Printer, Info, ChevronRight, Inbox, Loader2, AlertTriangle } from "lucide-react";
+import { Printer, Info, ChevronRight, Inbox, Loader2, TriangleAlert } from "lucide-react";
 
 const NOTAS = [
     "Toda máquina o equipo fiscal debe estar homologado por el SENIAT antes de su uso (Providencia SNAT/2011/0071).",
@@ -117,7 +117,7 @@ export default function HomologacionPage() {
 
                     <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20">
                         <div className="flex items-start gap-3">
-                            <AlertTriangle className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
+                            <TriangleAlert className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
                             <div>
                                 <p className="text-xs font-bold text-rose-600 dark:text-rose-400">Sanción</p>
                                 <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">

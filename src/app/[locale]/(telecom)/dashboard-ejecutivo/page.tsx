@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import {
   LayoutDashboard, TrendingUp, DollarSign, Users,
-  Signal, Shield, Wifi, AlertTriangle, CircleCheck,
+  Signal, Shield, Wifi, TriangleAlert, CircleCheck,
   ChartColumn, PieChart, Download, BrainCircuit,
   ArrowUp, ArrowDown, Loader2, Inbox
 } from "lucide-react";
@@ -81,7 +81,7 @@ export default function DashboardEjecutivoPage() {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
         <div className="text-center space-y-3">
-          <AlertTriangle className="h-8 w-8 text-rose-500 mx-auto" />
+          <TriangleAlert className="h-8 w-8 text-rose-500 mx-auto" />
           <p className="text-sm font-semibold text-foreground">No se pudo cargar el dashboard</p>
           <p className="text-xs text-muted-foreground">Hubo un error al obtener los datos telecom. Intenta de nuevo.</p>
           <Button size="sm" onClick={load} className="rounded-lg text-xs mt-2">Reintentar</Button>

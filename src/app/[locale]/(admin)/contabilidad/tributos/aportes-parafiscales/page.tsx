@@ -4,7 +4,7 @@ import { useState } from "react";
 import { BackButton } from "@/components/back-button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Building2, ShieldCheck, Info, ChevronRight, Landmark, HeartPulse, UserX, Activity, AlertTriangle } from "lucide-react";
+import { Building2, ShieldCheck, Info, ChevronRight, Landmark, HeartPulse, UserX, Activity, TriangleAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -219,7 +219,7 @@ export default function AportesParafiscalesPage() {
 
             <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
                 <div className="flex items-start gap-3">
-                    <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                    <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                     <div>
                         <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Aviso Legal</p>
                         <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">

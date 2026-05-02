@@ -5,7 +5,7 @@ import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { TabletSmartphone, Plus, Minus, X, CircleCheck as CheckCircle, Smartphone, Phone, Landmark, CreditCard, Banknote, Loader as Loader2, Search, Radio, Wallet, Lock, Clock, Calendar, ShieldAlert, History, SquareCheck as CheckSquare, Settings2, ChevronRight, ArrowRight } from "lucide-react";
+import { TabletSmartphone, Plus, Minus, X, CircleCheck as CircleCheck, Smartphone, Phone, Landmark, CreditCard, Banknote, Loader as Loader2, Search, Radio, Wallet, Lock, Clock, Calendar, ShieldAlert, History, SquareCheck as CheckSquare, Settings2, ChevronRight, ArrowRight } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { 
     Dialog, 
@@ -137,7 +137,7 @@ export default function PuntoDeVentaPage() {
                 toast({
                     title: "Venta Registrada",
                     description: `Factura ${numeroVenta} generada y sellada fiscalmente.`,
-                    action: <CheckCircle className="text-green-500" />
+                    action: <CircleCheck className="text-green-500" />
                 });
             } else {
                 const err = await res.json().catch(() => ({ error: "Error del servidor" }));
@@ -297,7 +297,7 @@ export default function PuntoDeVentaPage() {
                     </div>
                     <DialogFooter className="mt-8 flex flex-col gap-4">
                         <Button onClick={handleFinalizeTransaction} disabled={isProcessing || !paymentMethod} className="w-full h-16 rounded-2xl font-semibold uppercase text-xs tracking-widest shadow-lg btn-3d-primary italic">
-                            {isProcessing ? <Loader2 className="animate-spin mr-3 h-5 w-5"/> : <CheckCircle className="mr-3 h-5 w-5"/>}
+                            {isProcessing ? <Loader2 className="animate-spin mr-3 h-5 w-5"/> : <CircleCheck className="mr-3 h-5 w-5"/>}
                             {isProcessing ? "SELLANDO LEDGER..." : "PROCESAR FACTURA"}
                         </Button>
                         <Button variant="ghost" className="w-full h-12 text-[10px] font-semibold uppercase text-white/20 hover:text-white" onClick={() => setIsCheckoutOpen(false)}>Cancelar Operación</Button>

@@ -5,9 +5,9 @@ import {
   TrendingUp, TrendingDown, Activity, Zap, ArrowRight, ArrowUpRight, ArrowDownRight,
   BookOpen, Landmark, Users, History, Box, Receipt, Loader as Loader2,
   RefreshCw, Calendar, Lock, Search, FileText, BrainCircuit, Sparkles,
-  Shield, Scale, Briefcase, Leaf, Globe, AlertTriangle, Wifi,
+  Shield, Scale, Briefcase, Leaf, Globe, TriangleAlert, Wifi,
   PercentCircle, Building2, Gavel, Wallet, CreditCard, Banknote,
-  CircleCheck as CheckCircle, Calculator, Bell, Package, DollarSign,
+  CircleCheck as CircleCheck, Calculator, Bell, Package, DollarSign,
   ChartColumn, PieChart, Eye, ChevronRight, Sun, Moon, Sunrise, Clock
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -763,7 +763,7 @@ export default function DashboardEmpresaPage() {
                 { label: "SENIAT", status: "Sincronizado" },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-2 p-2 rounded-lg bg-emerald-500/[0.03] border border-emerald-500/[0.06]">
-                  <CheckCircle className="h-3 w-3 text-emerald-400 shrink-0" />
+                  <CircleCheck className="h-3 w-3 text-emerald-400 shrink-0" />
                   <div className="min-w-0">
                     <p className="text-[10px] font-medium text-foreground/60">{item.label}</p>
                     <p className="text-[10px] text-emerald-400/60">{item.status}</p>
@@ -813,7 +813,7 @@ export default function DashboardEmpresaPage() {
                 </Button>
                 <Button size="sm" variant="outline" className="w-full h-10 text-[10px] font-black tracking-widest uppercase rounded-xl border-white/5 bg-white/[0.03] text-white/60 hover:bg-rose-500/15 hover:border-rose-500/20 hover:text-rose-300 justify-start px-4 transition-all hover:translate-x-1"
                   onClick={() => { const inf = data ? data.gastos * 1.35 : 0; toast({ title: "SIMULACIÓN: INFLACIÓN 35%", description: `Gastos: ${fmtCur(inf)} · Utilidad Estimada: ${fmtCur((data?.ingresos ?? 0) - inf)}` }); }}>
-                  <AlertTriangle className="h-3.5 w-3.5 mr-3 text-rose-400" /> Simular Inflación 35%
+                  <TriangleAlert className="h-3.5 w-3.5 mr-3 text-rose-400" /> Simular Inflación 35%
                 </Button>
               </div>
 
@@ -944,7 +944,7 @@ export default function DashboardEmpresaPage() {
             </div>
           ) : (
             <div className="text-center py-6">
-              <CheckCircle className="h-6 w-6 text-emerald-400/30 mx-auto mb-2" />
+              <CircleCheck className="h-6 w-6 text-emerald-400/30 mx-auto mb-2" />
               <p className="text-[10px] text-muted-foreground/40">Sin cuentas pendientes</p>
             </div>
           )}
@@ -1001,7 +1001,7 @@ export default function DashboardEmpresaPage() {
               <div className="flex-1 p-4 min-w-0">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <AlertTriangle className={cn(
+                    <TriangleAlert className={cn(
                       "h-4 w-4",
                       semaforo.global.level === "rojo" ? "text-rose-400" :
                       semaforo.global.level === "amarillo" ? "text-amber-400" :
@@ -1035,7 +1035,7 @@ export default function DashboardEmpresaPage() {
 
                 {semaforo.alertas.length === 0 ? (
                   <div className="py-6 text-center">
-                    <CheckCircle className="h-8 w-8 text-emerald-400/20 mx-auto mb-2" />
+                    <CircleCheck className="h-8 w-8 text-emerald-400/20 mx-auto mb-2" />
                     <p className="text-[10px] text-muted-foreground/40">No hay vencimientos próximos ni pendientes</p>
                   </div>
                 ) : (
@@ -1149,7 +1149,7 @@ export default function DashboardEmpresaPage() {
             <Button variant="outline" onClick={() => setShowCierre(false)} className="rounded-xl text-xs h-8">Cancelar</Button>
             {closingData ? (
               <Button onClick={handleConfirmCierre} disabled={isClosing} className="rounded-xl text-xs h-8 bg-amber-500 text-black hover:bg-amber-400 font-semibold">
-                {isClosing ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <CheckCircle className="mr-1.5 h-3.5 w-3.5" />} {isClosing ? "Procesando..." : "Confirmar Cierre"}
+                {isClosing ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <CircleCheck className="mr-1.5 h-3.5 w-3.5" />} {isClosing ? "Procesando..." : "Confirmar Cierre"}
               </Button>
             ) : (
               <Button onClick={handlePreviewCierre} disabled={isClosing} className="rounded-xl text-xs h-8 bg-amber-500 text-black hover:bg-amber-400 font-semibold">
@@ -1241,7 +1241,7 @@ export default function DashboardEmpresaPage() {
                 {!aiLoading && !aiStreaming && (
                   <div className="flex items-center justify-between px-1">
                     <p className="text-[11px] text-muted-foreground/30 flex items-center gap-1.5">
-                      <CheckCircle className="h-3 w-3" /> Análisis completado · {clientDateStr ?? ""}
+                      <CircleCheck className="h-3 w-3" /> Análisis completado · {clientDateStr ?? ""}
                     </p>
                     <p className="text-[11px] text-muted-foreground/20">Powered by KYRON AI</p>
                   </div>

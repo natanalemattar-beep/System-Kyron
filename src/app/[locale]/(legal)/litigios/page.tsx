@@ -11,7 +11,7 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import { Loader2, Plus, Search, Trash2, ArrowLeft, Clock, CheckCircle, XCircle, Briefcase, Scale, TriangleAlert, AlertTriangle, FileText, Shield, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Phone, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
+  import { Loader2, Plus, Search, Trash2, ArrowLeft, Clock, CircleCheck, XCircle, Briefcase, Scale, TriangleAlert, TriangleAlert, FileText, Shield, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Phone, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";
@@ -104,7 +104,7 @@
       !search || JSON.stringify(r).toLowerCase().includes(search.toLowerCase())
     );
 
-    const StatIcon = { en_curso: Clock, ganados: CheckCircle, perdidos: XCircle, total: Briefcase };
+    const StatIcon = { en_curso: Clock, ganados: CircleCheck, perdidos: XCircle, total: Briefcase };
 
     return (
       <div className="space-y-8 pb-20 relative">
@@ -228,7 +228,7 @@
         <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
           {[
             { label: "En Curso", val: stats.en_curso ?? 0, icon: Clock, color: "text-amber-500", glow: "shadow-amber-500/20" },
-            { label: "Ganados", val: stats.ganados ?? 0, icon: CheckCircle, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
+            { label: "Ganados", val: stats.ganados ?? 0, icon: CircleCheck, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
             { label: "Perdidos", val: stats.perdidos ?? 0, icon: XCircle, color: "text-rose-500", glow: "shadow-rose-500/20" },
             { label: "Total", val: stats.total ?? 0, icon: Briefcase, color: "text-blue-500", glow: "shadow-blue-500/20" }
           ].map((kpi, i) => (

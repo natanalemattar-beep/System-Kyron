@@ -11,7 +11,7 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import { Loader2, Plus, Search, Trash2, ArrowLeft, CheckCircle, Clock, AlertTriangle, Shield, ShieldCheck, TriangleAlert, XCircle, FileText, Briefcase, Scale, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Phone, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
+  import { Loader2, Plus, Search, Trash2, ArrowLeft, CircleCheck, Clock, TriangleAlert, Shield, ShieldCheck, TriangleAlert, XCircle, FileText, Briefcase, Scale, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Phone, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";
@@ -100,7 +100,7 @@
       !search || JSON.stringify(r).toLowerCase().includes(search.toLowerCase())
     );
 
-    const StatIcon = { cumplidos: CheckCircle, pendientes: Clock, alto_riesgo: AlertTriangle, total: Shield };
+    const StatIcon = { cumplidos: CircleCheck, pendientes: Clock, alto_riesgo: TriangleAlert, total: Shield };
 
     return (
       <div className="space-y-8 pb-20 relative">
@@ -200,9 +200,9 @@
 
         <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
           {[
-            { label: "Cumplidos", val: stats.cumplidos ?? 0, icon: CheckCircle, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
+            { label: "Cumplidos", val: stats.cumplidos ?? 0, icon: CircleCheck, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
             { label: "Pendientes", val: stats.pendientes ?? 0, icon: Clock, color: "text-amber-500", glow: "shadow-amber-500/20" },
-            { label: "Alto Riesgo", val: stats.alto_riesgo ?? 0, icon: AlertTriangle, color: "text-rose-500", glow: "shadow-rose-500/20" },
+            { label: "Alto Riesgo", val: stats.alto_riesgo ?? 0, icon: TriangleAlert, color: "text-rose-500", glow: "shadow-rose-500/20" },
             { label: "Total", val: stats.total ?? 0, icon: Shield, color: "text-blue-500", glow: "shadow-blue-500/20" }
           ].map((kpi, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 * i }}>

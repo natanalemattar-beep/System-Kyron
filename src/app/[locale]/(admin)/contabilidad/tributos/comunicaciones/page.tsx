@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MailOpen, Printer, ChevronDown, Search, Info, ChevronRight, AlertTriangle, FileText } from "lucide-react";
+import { MailOpen, Printer, ChevronDown, Search, Info, ChevronRight, TriangleAlert, FileText } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -181,7 +181,7 @@ export default function ComunicacionesPage() {
 
                     <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
                         <div className="flex items-start gap-3">
-                            <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                            <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                             <div>
                                 <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Aviso</p>
                                 <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">

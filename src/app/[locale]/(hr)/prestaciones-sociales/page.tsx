@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Calculator, CircleCheck as CheckCircle, Download, Printer, Activity, ShieldCheck, Terminal, Scale, History, FileText, Zap, TrendingUp, Loader as Loader2 } from "lucide-react";
+import { Calculator, CircleCheck as CircleCheck, Download, Printer, Activity, ShieldCheck, Terminal, Scale, History, FileText, Zap, TrendingUp, Loader as Loader2 } from "lucide-react";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
@@ -64,7 +64,7 @@ export default function PrestacionesSocialesPage() {
                 body: JSON.stringify({ categoria: "rrhh", subcategoria: "prestaciones", descripcion: `Cálculo prestaciones sociales — Empleado ${emp?.nombre || selectedId}`, metadata: { empleado_id: selectedId } }),
             });
             if (res.ok) {
-                toast({ title: "CÁLCULO FINALIZADO", description: "Liquidación proyectada con 100% de precisión legal.", action: <CheckCircle className="text-emerald-500 h-4 w-4" /> });
+                toast({ title: "CÁLCULO FINALIZADO", description: "Liquidación proyectada con 100% de precisión legal.", action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
             } else {
                 toast({ variant: "destructive", title: "Error", description: "No se pudo ejecutar el cálculo." });
             }

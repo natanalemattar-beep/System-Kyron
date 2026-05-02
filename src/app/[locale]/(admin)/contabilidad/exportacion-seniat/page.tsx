@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Upload, Download, ShieldCheck, CheckCircle, Clock, Lock, ExternalLink, Zap, Loader2, Inbox } from "lucide-react";
+import { Upload, Download, ShieldCheck, CircleCheck, Clock, Lock, ExternalLink, Zap, Loader2, Inbox } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BackButton } from "@/components/back-button";
 import { useToast } from "@/hooks/use-toast";

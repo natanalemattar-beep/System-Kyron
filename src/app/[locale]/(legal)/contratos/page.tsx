@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
-import { FileSignature, Search, Download, Plus, Eye, Clock, CheckCircle, TriangleAlert, Loader2, Trash2, Upload } from "lucide-react";
+import { FileSignature, Search, Download, Plus, Eye, Clock, CircleCheck, TriangleAlert, Loader2, Trash2, Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "@/navigation";
 import { formatDate } from "@/lib/utils";
@@ -22,8 +22,8 @@ const estadoColor: Record<string, string> = {
   borrador: "bg-blue-500/20 text-blue-400 border-blue-500/30",
 };
 
-const estadoIcon: Record<string, typeof CheckCircle> = {
-  vigente: CheckCircle,
+const estadoIcon: Record<string, typeof CircleCheck> = {
+  vigente: CircleCheck,
   vencido: TriangleAlert,
   en_revision: Clock,
   borrador: Clock,
@@ -261,7 +261,7 @@ export default function ContratosPage() {
       ) : (
         <div className="space-y-4">
           {filtered.map((contrato, i) => {
-            const Icon = estadoIcon[contrato.estado] ?? CheckCircle;
+            const Icon = estadoIcon[contrato.estado] ?? CircleCheck;
             return (
               <motion.div
                 key={contrato.id}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Shield, ShieldCheck, ShieldAlert, Lock, Eye, KeyRound, MonitorSmartphone, Activity, AlertTriangle, CheckCircle, RefreshCw, Fingerprint, Globe, Server, Wifi, Clock, Users, FileText } from "lucide-react";
+import { Shield, ShieldCheck, ShieldAlert, Lock, Eye, KeyRound, MonitorSmartphone, Activity, TriangleAlert, CircleCheck, RefreshCw, Fingerprint, Globe, Server, Wifi, Clock, Users, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,7 @@ const protecciones = [
   { nombre: "Control de sesiones activas", estado: true, descripcion: "Monitoreo de quién está conectado", icono: Users },
   { nombre: "Registro de todo lo que pasa", estado: true, descripcion: "Historial completo de acciones en el sistema", icono: Activity },
   { nombre: "Bloqueo por ubicación", estado: false, descripcion: "Solo permitir acceso desde Venezuela", icono: Globe },
-  { nombre: "Alertas por correo", estado: true, descripcion: "Aviso cuando alguien inicia sesión desde un lugar nuevo", icono: AlertTriangle },
+  { nombre: "Alertas por correo", estado: true, descripcion: "Aviso cuando alguien inicia sesión desde un lugar nuevo", icono: TriangleAlert },
 ];
 
 const eventosRecientes = [
@@ -136,7 +136,7 @@ export default function SeguridadEmpresarialPage() {
                     "p-2 rounded-lg shrink-0",
                     e.estado === "ok" ? "bg-emerald-500/10" : e.estado === "bloqueado" ? "bg-red-500/10" : "bg-blue-500/10"
                   )}>
-                    {e.estado === "ok" ? <CheckCircle className="h-4 w-4 text-emerald-500" /> :
+                    {e.estado === "ok" ? <CircleCheck className="h-4 w-4 text-emerald-500" /> :
                      e.estado === "bloqueado" ? <ShieldAlert className="h-4 w-4 text-red-500" /> :
                      <Clock className="h-4 w-4 text-blue-500" />}
                   </div>

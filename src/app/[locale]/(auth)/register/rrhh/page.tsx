@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-    Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
+    Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
     Users, Check, Heart, Mail, RefreshCw, Smartphone, Building, User, Lock, Phone,
     Sparkles, Briefcase, GraduationCap,
 } from 'lucide-react';
@@ -45,7 +45,7 @@ const stepConfig = [
     { title: 'Empresa', desc: 'Cultura & Talento', icon: Building },
     { title: 'Gestor', desc: 'Acceso RRHH', icon: User },
     { title: 'Verificar', desc: 'Protocolo Seg', icon: Mail },
-    { title: 'Listo', desc: 'Equipo Activo', icon: CheckCircle },
+    { title: 'Listo', desc: 'Equipo Activo', icon: CircleCheck },
 ];
 
 export default function RegisterRRHHPage() {

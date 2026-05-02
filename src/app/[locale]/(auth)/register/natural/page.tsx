@@ -12,7 +12,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
-  User, Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
+  User, Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft,
   MapPin, Phone, Mail, Calendar as CalendarIcon, Shield, Eye, EyeOff,
   MessageSquare, RefreshCw, ShieldCheck, ChevronDown, Sparkles, Globe,
   Lock, Fingerprint, Upload,
@@ -322,7 +322,7 @@ export default function RegisterNaturalPage() {
 
           <div className="relative px-8 py-12 text-center">
             <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 via-green-500 to-teal-500 mb-8 shadow-xl shadow-emerald-500/20">
-              <CheckCircle className="h-12 w-12 text-white" />
+              <CircleCheck className="h-12 w-12 text-white" />
             </div>
 
             <div className="space-y-2 mb-8">
@@ -450,7 +450,7 @@ export default function RegisterNaturalPage() {
 
                 {hasSaimeData && (
                   <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                    <CheckCircle className="h-4 w-4 text-emerald-500 shrink-0" />
+                    <CircleCheck className="h-4 w-4 text-emerald-500 shrink-0" />
                     <p className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400">
                       Datos obtenidos del SAIME — los campos verificados no se pueden editar
                     </p>
@@ -630,7 +630,7 @@ export default function RegisterNaturalPage() {
                 {verifVerified ? (
                   <div className="text-center py-6">
                     <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 mb-5 shadow-lg shadow-emerald-500/20">
-                      <CheckCircle className="h-10 w-10 text-white" />
+                      <CircleCheck className="h-10 w-10 text-white" />
                     </div>
                     <h3 className="text-lg font-bold text-foreground">¡Identidad Verificada!</h3>
                     <p className="text-muted-foreground text-sm mt-1">

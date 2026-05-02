@@ -4,7 +4,7 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { TrendingUp, FileWarning, CircleHelp as HelpCircle, CircleCheck as CheckCircle, ListOrdered, Calculator, Activity, Terminal } from "lucide-react";
+import { TrendingUp, FileWarning, CircleHelp as HelpCircle, CircleCheck as CircleCheck, ListOrdered, Calculator, Activity, Terminal } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { motion } from "framer-motion";
 
@@ -52,7 +52,7 @@ export default function AjustePorInflacionPage() {
                         ].map((item, i) => (
                             <li key={i} className="flex items-start gap-6 group">
                                 <div className="p-2 bg-primary/10 rounded-lg group-hover:scale-110 transition-transform">
-                                    <CheckCircle className="h-5 w-5 text-primary" />
+                                    <CircleCheck className="h-5 w-5 text-primary" />
                                 </div>
                                 <span className="text-sm font-bold uppercase tracking-wide text-foreground/70">{item}</span>
                             </li>

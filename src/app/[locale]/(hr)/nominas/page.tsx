@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Calculator, CirclePlus as PlusCircle, CircleCheck as CheckCircle, Download, Users, Wallet, Loader as Loader2, Activity, Terminal, Calendar, Zap, TrendingUp, ShieldCheck, RefreshCw, UserPlus } from "lucide-react";
+import { Calculator, CirclePlus as PlusCircle, CircleCheck as CircleCheck, Download, Users, Wallet, Loader as Loader2, Activity, Terminal, Calendar, Zap, TrendingUp, ShieldCheck, RefreshCw, UserPlus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -82,7 +82,7 @@ export default function NominasPage() {
                 }),
             });
             if (res.ok) {
-                toast({ title: "NÓMINA CERTIFICADA", description: `Cálculo de ${empleados.length} empleados finalizado y guardado.`, action: <CheckCircle className="text-emerald-500 h-4 w-4" /> });
+                toast({ title: "NÓMINA CERTIFICADA", description: `Cálculo de ${empleados.length} empleados finalizado y guardado.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
             } else {
                 const data = await res.json();
                 toast({ title: "Error al procesar nómina", description: data.error ?? "Error desconocido", variant: "destructive" });
@@ -115,7 +115,7 @@ export default function NominasPage() {
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
-            toast({ title: "EMPLEADO REGISTRADO", description: `${form.nombre} ${form.apellido} incorporado.`, action: <CheckCircle className="text-secondary h-4 w-4" /> });
+            toast({ title: "EMPLEADO REGISTRADO", description: `${form.nombre} ${form.apellido} incorporado.`, action: <CircleCheck className="text-secondary h-4 w-4" /> });
             setShowDialog(false);
             setForm({ nombre: "", apellido: "", cedula: "", cargo: "", departamento: "Admin", fecha_ingreso: "", salario_base: "", tipo_contrato: "indefinido", telefono: "", email: "", cuenta_banco: "", numero_cuenta: "" });
             fetchEmpleados();
@@ -316,7 +316,7 @@ export default function NominasPage() {
                     <DialogFooter className="p-8 border-t border-border bg-muted/10 flex gap-3">
                         <Button variant="outline" className="flex-1 h-12 rounded-xl font-semibold uppercase text-[10px] tracking-widest" onClick={() => setShowDialog(false)}>Cancelar</Button>
                         <Button className="flex-1 btn-3d-secondary h-12 rounded-xl font-semibold uppercase text-[10px] tracking-widest" onClick={handleSave} disabled={saving}>
-                            {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle className="mr-2 h-4 w-4" />}
+                            {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CircleCheck className="mr-2 h-4 w-4" />}
                             {saving ? "GUARDANDO..." : "INCORPORAR EMPLEADO"}
                         </Button>
                     </DialogFooter>

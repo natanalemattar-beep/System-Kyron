@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import {
   Signal, Loader2, Phone, Plus, Pencil, Trash2, Power, PowerOff,
-  FileText, DollarSign, Wifi, Activity, CircleCheck as CheckCircle, MoreVertical,
+  FileText, DollarSign, Wifi, Activity, CircleCheck as CircleCheck, MoreVertical,
   RefreshCw, User, Building, Shield, Smartphone as SmartphoneIcon
 } from "lucide-react";
 import {
@@ -151,7 +151,7 @@ export default function MiLineaPage() {
       toast({
         title: editId ? 'Línea actualizada' : 'Línea registrada',
         description: `${form.numero} (${OPERADORAS.find(o => o.value === form.operadora)?.label}) procesada correctamente.`,
-        action: <CheckCircle className="h-4 w-4 text-emerald-500" />
+        action: <CircleCheck className="h-4 w-4 text-emerald-500" />
       });
       setShowForm(false);
       setEditId(null);
@@ -593,7 +593,7 @@ export default function MiLineaPage() {
                   <div className="space-y-1.5 mb-4">
                     {plan.caracteristicas.map((f) => (
                       <div key={f} className="flex items-center gap-1.5">
-                        <CheckCircle className="h-3 w-3 text-emerald-500 shrink-0" />
+                        <CircleCheck className="h-3 w-3 text-emerald-500 shrink-0" />
                         <span className="text-[10px] text-muted-foreground">{f}</span>
                       </div>
                     ))}
@@ -626,7 +626,7 @@ export default function MiLineaPage() {
             </div>
           </div>
           <Badge variant="outline" className="text-[10px] px-2.5 py-0.5 font-semibold bg-emerald-500/10 text-emerald-500 border-emerald-500/20">
-            <CheckCircle className="h-3 w-3 mr-1" />
+            <CircleCheck className="h-3 w-3 mr-1" />
             Equipo Homologado
           </Badge>
         </div>
@@ -635,7 +635,7 @@ export default function MiLineaPage() {
             { label: "IMEI", val: "356938035643809", icon: SmartphoneIcon },
             { label: "Modelo", val: "Samsung Galaxy S26", icon: FileText },
             { label: "Registro", val: "HOM-2025-89123", icon: Shield },
-            { label: "Estado", val: "Verificado", icon: CheckCircle },
+            { label: "Estado", val: "Verificado", icon: CircleCheck },
           ].map((item, i) => (
             <div key={i} className="p-3 rounded-xl bg-muted/10 border border-border/30 space-y-1">
               <div className="flex items-center gap-1.5">

@@ -2,7 +2,7 @@
 
 import { BackButton } from "@/components/back-button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { FileText, Info, ChevronRight, AlertTriangle } from "lucide-react";
+import { FileText, Info, ChevronRight, TriangleAlert } from "lucide-react";
 
 const REQUISITOS = [
     "Constancia de actividad exenta o exonerada",
@@ -74,7 +74,7 @@ export default function IvaTrimestralPage() {
                     </Card>
                     <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
                         <div className="flex items-start gap-3">
-                            <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                            <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                             <p className="text-[11px] text-muted-foreground leading-relaxed">Este módulo aplica exclusivamente a contribuyentes con actividades 100% exentas o exoneradas del IVA.</p>
                         </div>
                     </div>

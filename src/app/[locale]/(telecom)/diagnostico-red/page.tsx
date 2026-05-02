@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
   Wifi, Signal, Activity, Zap, Globe, Clock,
-  ArrowDown, ArrowUp, RefreshCw, CheckCircle,
-  AlertTriangle, XCircle, ArrowLeft, Server, Gauge
+  ArrowDown, ArrowUp, RefreshCw, CircleCheck,
+  TriangleAlert, XCircle, ArrowLeft, Server, Gauge
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
@@ -47,9 +47,9 @@ function getQuality(download: number, ping: number): TestResult["quality"] {
 }
 
 const QUALITY_CONFIG = {
-  excelente: { color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/30", label: "Excelente", icon: CheckCircle },
-  buena: { color: "text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/30", label: "Buena", icon: CheckCircle },
-  regular: { color: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/30", label: "Regular", icon: AlertTriangle },
+  excelente: { color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/30", label: "Excelente", icon: CircleCheck },
+  buena: { color: "text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/30", label: "Buena", icon: CircleCheck },
+  regular: { color: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/30", label: "Regular", icon: TriangleAlert },
   deficiente: { color: "text-rose-400", bg: "bg-rose-500/10", border: "border-rose-500/30", label: "Deficiente", icon: XCircle },
 };
 
@@ -362,7 +362,7 @@ export default function DiagnosticoRedPage() {
                         transition={{ delay: 0.7 + i * 0.1 }}
                         className="flex items-start gap-2.5 p-2.5 rounded-lg bg-muted/10"
                       >
-                        <CheckCircle className="h-3.5 w-3.5 text-emerald-400 mt-0.5 shrink-0" />
+                        <CircleCheck className="h-3.5 w-3.5 text-emerald-400 mt-0.5 shrink-0" />
                         <p className="text-xs text-foreground/80">{tip}</p>
                       </motion.div>
                     ))}
@@ -408,7 +408,7 @@ export default function DiagnosticoRedPage() {
                         )}
                         {check.status === "done" && (
                           <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", damping: 10 }}>
-                            <CheckCircle className="h-3.5 w-3.5 text-emerald-400" />
+                            <CircleCheck className="h-3.5 w-3.5 text-emerald-400" />
                           </motion.div>
                         )}
                       </div>

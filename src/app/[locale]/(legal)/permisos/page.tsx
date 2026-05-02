@@ -13,7 +13,7 @@ import {
   Gavel, ShieldCheck, Activity, FileText, Search, Filter, Plus, Landmark,
   Calendar, ChevronRight, ArrowRight, Clock, RefreshCw, FileSignature,
   Eye, Building2, Zap, Copy, Printer, Download, BookOpen, ClipboardList,
-  CircleCheck, AlertTriangle, XCircle, MapPin, Building, Flag, Scale, DollarSign
+  CircleCheck, TriangleAlert, XCircle, MapPin, Building, Flag, Scale, DollarSign
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
@@ -34,7 +34,7 @@ type PermisoRegistrado = {
 
 const estadoConfig: Record<string, { label: string; color: string; icon: typeof CircleCheck }> = {
   Vigente: { label: "VIGENTE", color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20", icon: CircleCheck },
-  "Por Vencer": { label: "POR VENCER", color: "bg-amber-500/10 text-amber-600 border-amber-500/20", icon: AlertTriangle },
+  "Por Vencer": { label: "POR VENCER", color: "bg-amber-500/10 text-amber-600 border-amber-500/20", icon: TriangleAlert },
   Vencido: { label: "VENCIDO", color: "bg-red-500/10 text-red-600 border-red-500/20", icon: XCircle },
   "En Trámite": { label: "EN TRÁMITE", color: "bg-blue-500/10 text-blue-600 border-blue-500/20", icon: Clock },
   "En Renovación": { label: "EN RENOVACIÓN", color: "bg-violet-500/10 text-violet-600 border-violet-500/20", icon: RefreshCw },
@@ -308,7 +308,7 @@ export default function PermisosPage() {
           { label: "Organismos", value: String(totalOrganismos), color: "text-primary", bg: "bg-primary/10", icon: Landmark },
           { label: "Permisos Catalogados", value: String(totalPermisosCatalogo), color: "text-violet-600", bg: "bg-violet-500/10", icon: BookOpen },
           { label: "Mis Trámites", value: String(permisos.length), color: "text-emerald-600", bg: "bg-emerald-500/10", icon: ClipboardList },
-          { label: "Alertas", value: String(permisos.filter(p => p.estado === 'Por Vencer' || p.estado === 'Vencido').length), color: "text-amber-600", bg: "bg-amber-500/10", icon: AlertTriangle },
+          { label: "Alertas", value: String(permisos.filter(p => p.estado === 'Por Vencer' || p.estado === 'Vencido').length), color: "text-amber-600", bg: "bg-amber-500/10", icon: TriangleAlert },
         ].map((kpi, i) => (
           <Card key={i} className="glass-card border-none bg-card/40 rounded-2xl p-4 md:p-5">
             <div className="flex items-center justify-between mb-2">

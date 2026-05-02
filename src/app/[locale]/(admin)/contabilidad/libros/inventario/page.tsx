@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils";
 import {
   Package, Search, Loader2, Inbox, Printer,
-  Box, TrendingUp, ChartColumn, ChevronLeft, ChevronRight, AlertTriangle
+  Box, TrendingUp, ChartColumn, ChevronLeft, ChevronRight, TriangleAlert
 } from "lucide-react";
 
 interface Item {
@@ -103,7 +103,7 @@ export default function LibroInventarioPage() {
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Stock Bajo</span>
-              <AlertTriangle className="h-4 w-4 text-amber-500" />
+              <TriangleAlert className="h-4 w-4 text-amber-500" />
             </div>
             <p className={cn("text-2xl font-bold", summary.lowStock > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.lowStock}</p>
           </Card>
@@ -166,7 +166,7 @@ export default function LibroInventarioPage() {
                         <span className={cn("font-mono text-sm font-semibold", isLow ? "text-amber-500" : "text-foreground")}>
                           {i.cantidad}
                         </span>
-                        {isLow && <AlertTriangle className="inline-block ml-2 h-3 w-3 text-amber-500" />}
+                        {isLow && <TriangleAlert className="inline-block ml-2 h-3 w-3 text-amber-500" />}
                       </TableCell>
                       <TableCell className="text-right py-4 text-xs text-muted-foreground">{i.unidad}</TableCell>
                       <TableCell className="text-right py-4 font-mono text-sm">{formatCurrency(parseFloat(i.precio), 'Bs.')}</TableCell>

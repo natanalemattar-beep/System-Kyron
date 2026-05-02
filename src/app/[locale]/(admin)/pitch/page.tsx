@@ -127,7 +127,7 @@ const slides = [
         title: "CIERRE",
         subtitle: "Blindando el Futuro de Venezuela",
         tag: "THE END",
-        icon: CheckCircle,
+        icon: CircleCheck,
         bg: "from-blue-600 to-indigo-900",
         script: "System Kyron está listo. La pregunta es: ¿Están listos para ser parte del sistema operativo del futuro? Muchas gracias."
     }

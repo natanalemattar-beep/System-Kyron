@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Lock, CheckCircle, Circle, AlertTriangle, Clock, ArrowRight, ShieldCheck, Zap, Calendar } from "lucide-react";
+import { Lock, CircleCheck, Circle, TriangleAlert, Clock, ArrowRight, ShieldCheck, Zap, Calendar } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -56,7 +56,7 @@ export default function CierreContablePage() {
   const progreso = pasos.length > 0 ? (completados / pasos.length) * 100 : 0;
 
   const estadoIcon: Record<string, React.ReactNode> = {
-    completado: <CheckCircle className="h-5 w-5 text-emerald-500" />,
+    completado: <CircleCheck className="h-5 w-5 text-emerald-500" />,
     en_progreso: <Clock className="h-5 w-5 text-amber-500" />,
     pendiente: <Circle className="h-5 w-5 text-muted-foreground/30" />,
   };
@@ -164,7 +164,7 @@ export default function CierreContablePage() {
 
           <Card className="border-rose-500/20 bg-rose-500/[0.03] rounded-2xl p-6">
             <div className="flex items-start gap-3">
-              <AlertTriangle className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
+              <TriangleAlert className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs font-bold text-rose-600 dark:text-rose-400">Advertencia de Cierre</p>
                 <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">

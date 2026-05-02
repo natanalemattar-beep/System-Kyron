@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
   Loader2, ChevronLeft, Mail, KeyRound, ShieldCheck, Eye, EyeOff,
-  CircleCheck, ArrowRight, RefreshCw, User, Search, AlertTriangle
+  CircleCheck, ArrowRight, RefreshCw, User, Search, TriangleAlert
 } from 'lucide-react';
 import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
@@ -206,7 +206,7 @@ export default function RecuperarCuentaPage() {
                 </div>
                 {error && (
                   <div className="flex items-start gap-2.5 p-3 rounded-xl bg-destructive/5 border border-destructive/15">
-                    <AlertTriangle className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                    <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
                     <p className="text-sm text-destructive">{error}</p>
                   </div>
                 )}

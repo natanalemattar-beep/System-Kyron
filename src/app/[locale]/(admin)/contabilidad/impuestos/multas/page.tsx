@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { AlertTriangle, Loader2, ShieldCheck } from "lucide-react";
+import { TriangleAlert, Loader2, ShieldCheck } from "lucide-react";
 import { BackButton } from "@/components/back-button";
 
 export default function MultasPage() {
@@ -19,7 +19,7 @@ export default function MultasPage() {
 
       <header className="space-y-1">
         <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
-          <AlertTriangle className="h-8 w-8 text-amber-500" />
+          <TriangleAlert className="h-8 w-8 text-amber-500" />
           Multas y Sanciones
         </h1>
         <p className="text-muted-foreground text-sm font-medium">

@@ -11,7 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
-  CreditCard, Plus, Loader2, TrendingUp, AlertTriangle, DollarSign,
+  CreditCard, Plus, Loader2, TrendingUp, TriangleAlert, DollarSign,
   Pencil, Trash2, Percent, Calendar, Building2, Wallet
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";

@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { CreditCard, CirclePlus as PlusCircle, CircleCheck as CheckCircle, Activity, DollarSign, AlertTriangle, Clock, Users, Zap, Loader2, Inbox } from "lucide-react";
+import { CreditCard, CirclePlus as PlusCircle, CircleCheck as CircleCheck, Activity, DollarSign, TriangleAlert, Clock, Users, Zap, Loader2, Inbox } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
@@ -92,8 +92,8 @@ export default function FacturacionCreditoPage() {
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         {[
           { label: "Por Cobrar", val: loading ? "—" : fmtCur(totalPendiente), icon: Clock, color: "text-amber-500", change: `${pendientes.length} facturas` },
-          { label: "Vencido", val: loading ? "—" : fmtCur(totalVencido), icon: AlertTriangle, color: "text-rose-500", change: `${vencidas.length} vencidas` },
-          { label: "Cobrado", val: loading ? "—" : fmtCur(totalCobrado), icon: CheckCircle, color: "text-emerald-500", change: "facturas pagadas" },
+          { label: "Vencido", val: loading ? "—" : fmtCur(totalVencido), icon: TriangleAlert, color: "text-rose-500", change: `${vencidas.length} vencidas` },
+          { label: "Cobrado", val: loading ? "—" : fmtCur(totalCobrado), icon: CircleCheck, color: "text-emerald-500", change: "facturas pagadas" },
           { label: "Clientes", val: loading ? "—" : String(clientesUnicos), icon: Users, color: "text-blue-500", change: "con crédito activo" },
         ].map((kpi, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 * i + 0.2, duration: 0.4 }}>

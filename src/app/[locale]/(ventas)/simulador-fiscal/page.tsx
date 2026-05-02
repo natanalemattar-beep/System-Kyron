@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsTrigger, TabsList } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Calculator, DollarSign, Receipt, Percent, Building, ArrowLeft, Activity, FileText, AlertTriangle, CheckCircle, Info, TrendingUp, Landmark, ShieldCheck } from "lucide-react";
+import { Calculator, DollarSign, Receipt, Percent, Building, ArrowLeft, Activity, FileText, TriangleAlert, CircleCheck, Info, TrendingUp, Landmark, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import { useToast } from "@/hooks/use-toast";
@@ -302,7 +302,7 @@ export default function SimuladorFiscalPage() {
 
                   {ivaExento && (
                     <div className="flex items-start gap-2 p-3 rounded-lg border border-amber-500/20 bg-amber-500/5">
-                      <AlertTriangle className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                      <TriangleAlert className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
                       <p className="text-[11px] text-amber-300/80">Operación exenta de IVA conforme al Art. 19 de la Ley del IVA.</p>
                     </div>
                   )}
@@ -313,7 +313,7 @@ export default function SimuladorFiscalPage() {
                 <CardHeader className="p-6 border-b border-border/20">
                   <div className="flex items-center gap-3">
                     <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/15">
-                      <CheckCircle className="h-4 w-4 text-emerald-500" />
+                      <CircleCheck className="h-4 w-4 text-emerald-500" />
                     </div>
                     <div>
                       <CardTitle className="text-xs font-semibold uppercase tracking-wide">Resultado IVA</CardTitle>
@@ -374,14 +374,14 @@ export default function SimuladorFiscalPage() {
 
                   {igtfMetodo === "bolivares" && (
                     <div className="flex items-start gap-2 p-3 rounded-lg border border-emerald-500/20 bg-emerald-500/5">
-                      <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                      <CircleCheck className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
                       <p className="text-[11px] text-emerald-300/80">Pagos en Bolívares NO generan IGTF. El impuesto solo aplica a operaciones en divisas o criptomonedas.</p>
                     </div>
                   )}
 
                   {igtfMetodo !== "bolivares" && (
                     <div className="flex items-start gap-2 p-3 rounded-lg border border-amber-500/20 bg-amber-500/5">
-                      <AlertTriangle className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                      <TriangleAlert className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
                       <p className="text-[11px] text-amber-300/80">IGTF del 3% aplica sobre pagos en {igtfMetodo === "divisas" ? "divisas" : "criptomonedas"} (Decreto N° 4.647).</p>
                     </div>
                   )}
@@ -392,7 +392,7 @@ export default function SimuladorFiscalPage() {
                 <CardHeader className="p-6 border-b border-border/20">
                   <div className="flex items-center gap-3">
                     <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/15">
-                      <CheckCircle className="h-4 w-4 text-emerald-500" />
+                      <CircleCheck className="h-4 w-4 text-emerald-500" />
                     </div>
                     <div>
                       <CardTitle className="text-xs font-semibold uppercase tracking-wide">Resultado IGTF</CardTitle>
@@ -480,7 +480,7 @@ export default function SimuladorFiscalPage() {
                 <CardHeader className="p-6 border-b border-border/20">
                   <div className="flex items-center gap-3">
                     <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/15">
-                      <CheckCircle className="h-4 w-4 text-emerald-500" />
+                      <CircleCheck className="h-4 w-4 text-emerald-500" />
                     </div>
                     <div>
                       <CardTitle className="text-xs font-semibold uppercase tracking-wide">Resultado ISLR</CardTitle>
@@ -556,7 +556,7 @@ export default function SimuladorFiscalPage() {
                 <CardHeader className="p-6 border-b border-border/20">
                   <div className="flex items-center gap-3">
                     <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/15">
-                      <CheckCircle className="h-4 w-4 text-emerald-500" />
+                      <CircleCheck className="h-4 w-4 text-emerald-500" />
                     </div>
                     <div>
                       <CardTitle className="text-xs font-semibold uppercase tracking-wide">Resultado Retención IVA</CardTitle>
@@ -712,11 +712,11 @@ export default function SimuladorFiscalPage() {
                   )}
 
                   {(resumenIslr || resumenRetIva) && (
-                    <ResultRow label="Total Retenciones" value={resumenCalc.totalRetenciones} icon={AlertTriangle} />
+                    <ResultRow label="Total Retenciones" value={resumenCalc.totalRetenciones} icon={TriangleAlert} />
                   )}
 
                   <div className="pt-2">
-                    <ResultRow label="Neto a Cobrar" value={resumenCalc.netoCobrar} accent bold icon={CheckCircle} />
+                    <ResultRow label="Neto a Cobrar" value={resumenCalc.netoCobrar} accent bold icon={CircleCheck} />
                   </div>
                 </CardContent>
               </Card>

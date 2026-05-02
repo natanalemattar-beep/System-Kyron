@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle, ChevronRight, Loader2, MessageSquareHeart, Star, ArrowLeft } from "lucide-react";
+import { CircleCheck, ChevronRight, Loader2, MessageSquareHeart, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import Link from "next/link";
@@ -101,7 +101,7 @@ export default function FeedbackPage() {
                     className="text-center max-w-md"
                 >
                     <div className="h-24 w-24 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto mb-8">
-                        <CheckCircle className="h-12 w-12 text-emerald-400" />
+                        <CircleCheck className="h-12 w-12 text-emerald-400" />
                     </div>
                     <h1 className="text-3xl font-black text-white uppercase tracking-tighter mb-3">¡Gracias!</h1>
                     <p className="text-slate-400 font-medium mb-8 leading-relaxed">Tu feedback ha sido registrado. Cada respuesta nos ayuda a construir la mejor plataforma para el sector privado venezolano.</p>

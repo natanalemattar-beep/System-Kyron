@@ -4,7 +4,7 @@ import { useState } from "react";
 import { BackButton } from "@/components/back-button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calculator, ShieldCheck, AlertTriangle, Info, ChevronRight, FileText } from "lucide-react";
+import { Calculator, ShieldCheck, TriangleAlert, Info, ChevronRight, FileText } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { formatCurrency } from "@/lib/utils";
@@ -142,7 +142,7 @@ export default function ProteccionPensionesPage() {
 
                     <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20">
                         <div className="flex items-start gap-3">
-                            <AlertTriangle className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
+                            <TriangleAlert className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
                             <div>
                                 <p className="text-xs font-bold text-rose-600 dark:text-rose-400">Sanción por Incumplimiento</p>
                                 <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">

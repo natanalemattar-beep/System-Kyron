@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import {
   Target, Briefcase, Users, TrendingUp, Calendar, Plus, Search,
-  ChevronRight, Clock, CheckCircle, AlertTriangle, Pause,
+  ChevronRight, Clock, CircleCheck, TriangleAlert, Pause,
   Loader2, FolderKanban, ChartColumn, Lightbulb, GraduationCap, Wrench
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
@@ -50,7 +50,7 @@ const TIPOS_PROYECTO = [
 const ESTADOS = {
   planificado: { label: "Planificado", color: "bg-slate-500/20 text-slate-400 border-slate-500/30", icon: Clock },
   en_progreso: { label: "En Progreso", color: "bg-blue-500/20 text-blue-400 border-blue-500/30", icon: TrendingUp },
-  completado: { label: "Completado", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30", icon: CheckCircle },
+  completado: { label: "Completado", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30", icon: CircleCheck },
   suspendido: { label: "Suspendido", color: "bg-red-500/20 text-red-400 border-red-500/30", icon: Pause },
 };
 
@@ -169,7 +169,7 @@ export default function ProyectosPersonalPage() {
         {[
           { label: "Total Proyectos", val: stats.total, icon: FolderKanban, color: "text-blue-500" },
           { label: "En Progreso", val: stats.activos, icon: TrendingUp, color: "text-amber-500" },
-          { label: "Completados", val: stats.completados, icon: CheckCircle, color: "text-emerald-500" },
+          { label: "Completados", val: stats.completados, icon: CircleCheck, color: "text-emerald-500" },
           { label: "Progreso Promedio", val: `${stats.avgProgreso}%`, icon: ChartColumn, color: "text-violet-500" },
         ].map((m, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>

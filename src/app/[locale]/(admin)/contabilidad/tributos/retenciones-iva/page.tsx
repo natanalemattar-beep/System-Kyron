@@ -5,7 +5,7 @@ import { BackButton } from "@/components/back-button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Percent, Info, ChevronRight, Inbox, Loader2, FileText, AlertTriangle } from "lucide-react";
+import { Percent, Info, ChevronRight, Inbox, Loader2, FileText, TriangleAlert } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 
@@ -139,7 +139,7 @@ export default function RetencionesIvaPage() {
                     <Card className="rounded-2xl shadow-lg border">
                         <CardHeader className="pb-3">
                             <CardTitle className="flex items-center gap-2 text-sm font-bold">
-                                <AlertTriangle className="h-4 w-4 text-amber-500" />
+                                <TriangleAlert className="h-4 w-4 text-amber-500" />
                                 Excepciones de Retención
                             </CardTitle>
                         </CardHeader>

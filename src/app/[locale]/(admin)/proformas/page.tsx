@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Receipt, CirclePlus as PlusCircle, Eye, CircleCheck as CheckCircle, TrendingUp, FileText, Clock, Send, DollarSign, Loader2, RefreshCw } from "lucide-react";
+import { Receipt, CirclePlus as PlusCircle, Eye, CircleCheck as CircleCheck, TrendingUp, FileText, Clock, Send, DollarSign, Loader2, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { BackButton } from "@/components/back-button";
@@ -219,7 +219,7 @@ export default function ProformasPage() {
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         {[
           { label: "Total Cotizado", val: fmtCur(totalCotizado), icon: DollarSign, color: "text-violet-500", change: `${proformas.length} proformas` },
-          { label: "Aprobadas", val: fmtCur(parseFloat(stats.total_aprobado || "0")), icon: CheckCircle, color: "text-emerald-500", change: `${stats.aprobadas} contratos` },
+          { label: "Aprobadas", val: fmtCur(parseFloat(stats.total_aprobado || "0")), icon: CircleCheck, color: "text-emerald-500", change: `${stats.aprobadas} contratos` },
           { label: "Tasa Conversión", val: proformas.length > 0 ? `${Math.round((stats.aprobadas / proformas.length) * 100)}%` : "0%", icon: TrendingUp, color: "text-blue-500", change: "este mes" },
           { label: "Pendientes", val: `${stats.enviadas}`, icon: Send, color: "text-amber-500", change: "en espera" },
         ].map((kpi, i) => (
@@ -322,7 +322,7 @@ export default function ProformasPage() {
                           statusConfig[p.estado]?.bgColor || "bg-muted/20 border-border/30",
                           statusConfig[p.estado]?.color || "text-muted-foreground"
                         )}>
-                          {p.estado === "aprobada" && <CheckCircle className="h-3 w-3" />}
+                          {p.estado === "aprobada" && <CircleCheck className="h-3 w-3" />}
                           {p.estado === "enviada" && <Send className="h-3 w-3" />}
                           {p.estado === "borrador" && <Clock className="h-3 w-3" />}
                           {p.estado}
@@ -337,7 +337,7 @@ export default function ProformasPage() {
                         )}
                         {p.estado === "enviada" && (
                           <Button variant="ghost" size="sm" className="h-8 px-3 rounded-xl hover:bg-emerald-500/10 hover:text-emerald-500 transition-all" onClick={() => handleUpdateEstado(p.id, "aprobada")}>
-                            <CheckCircle className="h-3.5 w-3.5 mr-1.5" />
+                            <CircleCheck className="h-3.5 w-3.5 mr-1.5" />
                             <span className="text-[11px] font-bold uppercase">Aprobar</span>
                           </Button>
                         )}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import {
   Wifi, Phone, Globe, Server, Router, Signal, Gauge, Shield,
-  CheckCircle, Clock, AlertTriangle, CreditCard, Calendar, MapPin,
+  CircleCheck, Clock, TriangleAlert, CreditCard, Calendar, MapPin,
   Plus, Search, Download, Headphones, Zap, Building2,
   ChevronRight, Star, TrendingUp, RefreshCw, FileText, DollarSign,
   Monitor, Users, Settings, ChartColumn, Lock, Eye, Activity

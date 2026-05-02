@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { BackButton } from "@/components/back-button";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils";
-import { Landmark, Search, Loader2, Inbox, Printer, AlertTriangle, TrendingUp, Users, Clock, Plus, Trash2, Pencil } from "lucide-react";
+import { Landmark, Search, Loader2, Inbox, Printer, TriangleAlert, TrendingUp, Users, Clock, Plus, Trash2, Pencil } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ModuleAutomation } from "@/components/module-automation";
 
@@ -217,7 +217,7 @@ export default function CuentasPorCobrarPage() {
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Monto Vencido</span>
-              <AlertTriangle className="h-4 w-4 text-rose-500" />
+              <TriangleAlert className="h-4 w-4 text-rose-500" />
             </div>
             <p className="text-2xl font-bold text-rose-500">{formatCurrency(summary.totalVencido, 'Bs.')}</p>
           </Card>

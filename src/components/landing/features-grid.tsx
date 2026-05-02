@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { 
     Calculator, Users, ShoppingCart, Smartphone, 
     Gavel, Recycle, Building2, ChartColumn, 
-    ShieldCheck, Zap, Globe, Cpu, CheckCircle, TrendingUp
+    ShieldCheck, Zap, Globe, Cpu, CircleCheck, TrendingUp
 } from 'lucide-react';
 import { ScrollReveal } from './scroll-reveal';
 import { useTranslations } from 'next-intl';

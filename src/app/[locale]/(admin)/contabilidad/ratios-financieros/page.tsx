@@ -12,7 +12,7 @@ import { Progress } from "@/components/ui/progress";
 import {
   ChartColumn, TrendingUp, TrendingDown, DollarSign, PieChart, Activity,
   ArrowLeft, Shield, Zap, Target, Info, Calculator, Scale, Landmark,
-  CheckCircle, AlertTriangle,
+  CircleCheck, TriangleAlert,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
@@ -90,8 +90,8 @@ function statusColor(s: RatioStatus) {
 }
 
 function statusIcon(s: RatioStatus) {
-  if (s === "Saludable") return <CheckCircle className="h-3.5 w-3.5" />;
-  if (s === "Precaución") return <AlertTriangle className="h-3.5 w-3.5" />;
+  if (s === "Saludable") return <CircleCheck className="h-3.5 w-3.5" />;
+  if (s === "Precaución") return <TriangleAlert className="h-3.5 w-3.5" />;
   return <TrendingDown className="h-3.5 w-3.5" />;
 }
 

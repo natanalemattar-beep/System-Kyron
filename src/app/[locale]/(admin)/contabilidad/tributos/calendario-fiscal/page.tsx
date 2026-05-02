@@ -2,7 +2,7 @@
 
 import { BackButton } from "@/components/back-button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Calendar, Clock, AlertTriangle, Info, ChevronRight } from "lucide-react";
+import { Calendar, Clock, TriangleAlert, Info, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const obligations = [
@@ -103,7 +103,7 @@ export default function CalendarioFiscalPage() {
                             )}>
                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
                                     <div className="flex items-start gap-3">
-                                        {row.urgency === 'high' && <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />}
+                                        {row.urgency === 'high' && <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />}
                                         {row.urgency === 'medium' && <Clock className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />}
                                         {row.urgency === 'low' && <Calendar className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />}
                                         <div>
@@ -127,7 +127,7 @@ export default function CalendarioFiscalPage() {
             <div className="grid md:grid-cols-2 gap-6">
                 <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
                     <div className="flex items-start gap-3">
-                        <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                        <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                         <div>
                             <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Calendario SPE</p>
                             <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">

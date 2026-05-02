@@ -2,7 +2,7 @@
 
 import { BackButton } from "@/components/back-button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Globe, Info, ChevronRight, FileText, AlertTriangle } from "lucide-react";
+import { Globe, Info, ChevronRight, FileText, TriangleAlert } from "lucide-react";
 
 const REQUISITOS = [
     "Inscripción en el Registro Único de Exportadores (RUSAD)",
@@ -75,7 +75,7 @@ export default function MinisterioComercioExteriorPage() {
                     </Card>
                     <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
                         <div className="flex items-start gap-3">
-                            <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                            <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                             <p className="text-[11px] text-muted-foreground leading-relaxed">Las comunicaciones al Ministerio pueden generarse desde el Centro de Comunicaciones.</p>
                         </div>
                     </div>

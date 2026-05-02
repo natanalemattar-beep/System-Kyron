@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, CirclePlus as PlusCircle, CircleCheck as CheckCircle, Clock, QrCode, Activity, Terminal, ShieldAlert, FileSearch, Loader2 } from "lucide-react";
+import { ShieldCheck, CirclePlus as PlusCircle, CircleCheck as CircleCheck, Clock, QrCode, Activity, Terminal, ShieldAlert, FileSearch, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";

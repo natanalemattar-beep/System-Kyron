@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Headphones, Plus, CircleCheck, Clock, MessageSquare,
-  Signal, AlertTriangle, Search, RefreshCw, Send, FileText, Wifi
+  Signal, TriangleAlert, Search, RefreshCw, Send, FileText, Wifi
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";

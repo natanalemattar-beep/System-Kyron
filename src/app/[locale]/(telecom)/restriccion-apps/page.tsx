@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   Ban, Shield, CircleCheck, Clock, Plus, Settings,
-  Smartphone, AppWindow, AlertTriangle, Lock, Eye
+  Smartphone, AppWindow, TriangleAlert, Lock, Eye
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
