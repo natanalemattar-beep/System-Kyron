@@ -13,7 +13,7 @@ import {
   Rocket,
   ChevronRight,
   ChevronLeft,
-  CircleCheck as CircleCheck,
+  CircleCheck,
   CircleUser as UserCircle,
   UserPlus,
   LayoutDashboard,

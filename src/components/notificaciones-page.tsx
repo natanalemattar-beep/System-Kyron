@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  Bell, Info, TriangleAlert as TriangleAlert, CircleCheck as CircleCheck,
+  Bell, Info, TriangleAlert, CircleCheck,
   Activity, ArrowLeft, Mail, MessageSquare, Smartphone, Loader2,
   CheckCheck, RefreshCw, Settings, FileText, CalendarClock,
   ShieldCheck, CreditCard, Construction

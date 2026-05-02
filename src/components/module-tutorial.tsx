@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import {
   ChevronRight,
   ChevronLeft,
-  CircleCheck as CircleCheck,
+  CircleCheck,
   PartyPopper,
 } from "lucide-react";
 import { Logo } from "./logo";

@@ -375,56 +375,61 @@ export function SpecializedLoginCard({
 
             <AnimatePresence>
               {error && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden mb-5"
-                >
-                  {error === 'NO_ACCOUNT' ? (
-                    <div className="flex flex-col gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
-                      <div className="flex items-start gap-3">
-                        <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
-                        <div className="space-y-1">
-                          <p className="text-[13px] font-semibold text-foreground">Credenciales incorrectas</p>
-                          <p className="text-[12px] text-muted-foreground">Verifica tus datos o crea una cuenta nueva.</p>
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                      className="overflow-hidden mb-6"
+                    >
+                      {error === 'NO_ACCOUNT' ? (
+                        <div className="flex flex-col gap-3 p-4 rounded-2xl bg-amber-500/5 border border-amber-500/20 backdrop-blur-md">
+                          <div className="flex items-start gap-3">
+                            <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                            <div className="space-y-1">
+                              <p className="text-[13px] font-bold text-white uppercase tracking-wider">Credenciales incorrectas</p>
+                              <p className="text-[12px] text-slate-400">Verifica tus datos o solicita acceso al administrador.</p>
+                            </div>
+                          </div>
+                          <Link href="/recuperar-cuenta">
+                            <Button type="button" variant="outline" size="sm" className="w-full h-9 text-[10px] font-black rounded-xl border-amber-500/20 text-amber-500 hover:bg-amber-500/10 uppercase tracking-widest">
+                              <KeyRound className="mr-2 h-3 w-3" /> Recuperar Acceso
+                            </Button>
+                          </Link>
                         </div>
-                      </div>
-                      <Link href="/register">
-                        <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-amber-500/25 text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 hover:text-amber-700 dark:hover:text-amber-300">
-                          <UserPlus className="mr-1.5 h-3.5 w-3.5" /> Crear Cuenta Ahora
-                        </Button>
-                      </Link>
-                    </div>
-                  ) : error?.startsWith('PORTAL_MISMATCH:') ? (
-                    <div className="flex flex-col gap-3 p-4 rounded-xl bg-blue-500/5 border border-blue-500/20">
-                      <div className="flex items-start gap-3">
-                        <Shield className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
-                        <div className="space-y-1">
-                          <p className="text-[13px] font-semibold text-foreground">Portal incorrecto</p>
-                          <p className="text-[12px] text-muted-foreground">{error.replace('PORTAL_MISMATCH:', '')}</p>
+                      ) : error?.startsWith('PORTAL_MISMATCH:') ? (
+                        <div className="flex flex-col gap-3 p-4 rounded-2xl bg-blue-500/5 border border-blue-500/20 backdrop-blur-md">
+                          <div className="flex items-start gap-3">
+                            <Shield className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
+                            <div className="space-y-1">
+                              <p className="text-[13px] font-bold text-white uppercase tracking-wider">Portal no autorizado</p>
+                              <p className="text-[12px] text-slate-400">{error.replace('PORTAL_MISMATCH:', '')}</p>
+                            </div>
+                          </div>
+                          <Link href="/login-personal">
+                            <Button type="button" variant="outline" size="sm" className="w-full h-9 text-[10px] font-black rounded-xl border-blue-500/20 text-blue-400 hover:bg-blue-500/10 uppercase tracking-widest">
+                              <ArrowRight className="mr-2 h-3 w-3" /> Cambiar a Portal Personal
+                            </Button>
+                          </Link>
                         </div>
-                      </div>
-                      <Link href="/login-personal">
-                        <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-blue-500/25 text-blue-600 dark:text-blue-400 hover:bg-blue-500/10 hover:text-blue-700 dark:hover:text-blue-300">
-                          <ArrowRight className="mr-1.5 h-3.5 w-3.5" /> Ir al Portal Personal
-                        </Button>
-                      </Link>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col gap-2 p-4 rounded-xl bg-destructive/5 border border-destructive/15">
-                      <div className="flex items-start gap-3">
-                        <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-                        <p className="text-[13px] text-destructive">{error}</p>
-                      </div>
-                      {emailDeliveryFailed && savedCredentials && (
-                        <Button type="button" variant="outline" size="sm" onClick={handleResendEmail} disabled={isLoading} className="self-start h-8 text-xs font-semibold rounded-lg border-destructive/20 text-destructive hover:bg-destructive/10">
-                          <RotateCcw className="mr-1.5 h-3.5 w-3.5" /> {isLoading ? 'Reenviando...' : 'Reenviar código'}
-                        </Button>
+                      ) : (
+                        <div className="relative group/err">
+                          <div className="absolute -inset-1 bg-rose-500/20 rounded-2xl blur opacity-25 group-hover/err:opacity-40 transition-opacity" />
+                          <div className="relative flex flex-col gap-2 p-4 rounded-2xl bg-slate-950/80 border border-rose-500/30 backdrop-blur-xl">
+                            <div className="flex items-start gap-3">
+                              <div className="h-5 w-5 rounded-lg bg-rose-500/10 flex items-center justify-center shrink-0">
+                                <TriangleAlert className="h-3.5 w-3.5 text-rose-500" />
+                              </div>
+                              <p className="text-[12px] text-rose-200 font-medium leading-relaxed">{error}</p>
+                            </div>
+                            {emailDeliveryFailed && savedCredentials && (
+                              <Button type="button" variant="outline" size="sm" onClick={handleResendEmail} disabled={isLoading} className="self-start h-8 text-[9px] font-black rounded-lg border-rose-500/20 text-rose-400 hover:bg-rose-500/10 uppercase tracking-widest">
+                                <RotateCcw className="mr-1.5 h-3 w-3" /> {isLoading ? 'Reenviando...' : 'Reenviar código'}
+                              </Button>
+                            )}
+                          </div>
+                        </div>
                       )}
-                    </div>
-                  )}
-                </motion.div>
+                    </motion.div>
               )}
             </AnimatePresence>
 
@@ -642,9 +647,31 @@ export function SpecializedLoginCard({
                 <h2 className="text-2xl font-black text-white tracking-tighter uppercase italic">Verificación Activa</h2>
                 <div className="flex items-center justify-center gap-2">
                   <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">
-                    {devCode ? 'Protocolo Kyron Safe' : `Enlace enviado vía ${verificationMethod === 'email' ? 'E-mail' : verificationMethod}`}
-                  </p>
+                    <div className="flex flex-col items-center">
+                      <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+                        {devCode ? 'Protocolo Kyron Safe' : `Enlace enviado vía ${verificationMethod === 'email' ? 'E-mail' : verificationMethod}`}
+                      </p>
+                      
+                      {devCode && (
+                        <motion.button
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          type="button"
+                          onClick={() => {
+                            setSingleCode(devCode);
+                            toast({ 
+                              title: "Kyron Access Chip", 
+                              description: "Código de acceso inyectado satisfactoriamente.",
+                              icon: <Zap className="h-4 w-4 text-amber-400" /> 
+                            });
+                          }}
+                          className="mt-4 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-black uppercase tracking-widest hover:bg-amber-500/20 transition-all flex items-center gap-2 group"
+                        >
+                          <Fingerprint className="h-3 w-3 group-hover:scale-110 transition-transform" />
+                          Auto-Completar: <span className="font-mono text-xs">{devCode}</span>
+                        </motion.button>
+                      )}
+                    </div>
                 </div>
               </div>
             </div>
@@ -712,22 +739,51 @@ export function SpecializedLoginCard({
                     )}
                   </div>
 
-                  <div className="relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-2xl blur opacity-0 group-focus-within:opacity-100 transition-opacity" />
-                    <Input
-                      ref={singleInputRef}
-                      placeholder="······"
-                      inputMode="numeric"
-                      maxLength={6}
-                      value={singleCode}
-                      onChange={e => setSingleCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                      className={cn(
-                        "relative z-10 text-center text-4xl font-black tracking-[0.5em] h-20 rounded-2xl bg-slate-900/50 border-white/10 focus:border-blue-500/50 text-white placeholder:text-slate-800 transition-all",
-                        singleCode.length === 6 && "border-blue-500/50 shadow-[0_0_20px_rgba(37,99,235,0.1)]"
-                      )}
-                      disabled={isLoading}
-                      autoComplete="one-time-code"
-                    />
+                  <div className="flex justify-center gap-3 py-2">
+                    {[...Array(6)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ delay: i * 0.05, type: "spring", stiffness: 300, damping: 20 }}
+                        className="relative group/input"
+                      >
+                        <input
+                          type="text"
+                          maxLength={1}
+                          inputMode="numeric"
+                          value={singleCode[i] || ''}
+                          onChange={(e) => {
+                            const val = e.target.value.replace(/\D/g, '');
+                            const newCode = singleCode.split('');
+                            newCode[i] = val;
+                            const finalCode = newCode.join('');
+                            setSingleCode(finalCode);
+                            if (val && i < 5) {
+                              const nextInput = e.currentTarget.parentElement?.nextElementSibling?.querySelector('input');
+                              nextInput?.focus();
+                            }
+                            if (finalCode.length === 6) {
+                              handleVerifyCode(finalCode);
+                            }
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Backspace' && !singleCode[i] && i > 0) {
+                              const prevInput = e.currentTarget.parentElement?.previousElementSibling?.querySelector('input');
+                              prevInput?.focus();
+                            }
+                          }}
+                          className={cn(
+                            "w-12 h-16 rounded-xl bg-slate-900/50 border-2 border-white/10 text-center text-2xl font-black text-white focus:border-blue-500/50 focus:bg-blue-500/5 focus:outline-none transition-all",
+                            singleCode[i] && "border-blue-500/30 bg-blue-500/5 shadow-[0_0_15px_rgba(59,130,246,0.1)]"
+                          )}
+                        />
+                        <div className={cn(
+                          "absolute bottom-0 left-2 right-2 h-0.5 rounded-full transition-all duration-300",
+                          singleCode[i] ? "bg-blue-500" : "bg-white/5"
+                        )} />
+                      </motion.div>
+                    ))}
                   </div>
 
                   {isLoading && (
@@ -772,7 +828,6 @@ export function SpecializedLoginCard({
                     </button>
                   )}
                 </div>
-              </div>
 
                 {hasPhone && (
                   <div id="login-method-cards" className="space-y-2 pt-2 border-t border-border/30">
@@ -1149,28 +1204,36 @@ export function SpecializedLoginCard({
                 { icon: RefreshCw, label: "BCV Sync", desc: "Tasas en tiempo real", color: "text-blue-400", bg: "bg-blue-400/10" },
                 { icon: KeyRound, label: "End-to-End", desc: "Cifrado militar", color: "text-indigo-400", bg: "bg-indigo-400/10" },
               ].map((card, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -30, filter: 'blur(10px)' }}
-                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                  transition={{ 
-                    delay: 0.4 + i * 0.1, 
-                    duration: 0.8, 
-                    ease: [0.22, 1, 0.36, 1] 
-                  }}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    backgroundColor: "rgba(255,255,255,0.08)",
-                    borderColor: "rgba(255,255,255,0.2)"
-                  }}
-                  className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-md transition-all group cursor-pointer"
-                >
-                  <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center mb-3 group-hover:rotate-12 transition-transform", card.bg)}>
-                    <card.icon className={cn("h-5 w-5", card.color)} />
-                  </div>
-                  <p className="text-sm font-bold text-white">{card.label}</p>
-                  <p className="text-[11px] text-slate-500 font-medium">{card.desc}</p>
-                </motion.div>
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -30, filter: 'blur(10px)' }}
+                    animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                    transition={{ 
+                      delay: 0.4 + i * 0.1, 
+                      duration: 0.8, 
+                      ease: [0.22, 1, 0.36, 1] 
+                    }}
+                    whileHover={{ 
+                      scale: 1.05, 
+                      backgroundColor: "rgba(255,255,255,0.08)",
+                      borderColor: "rgba(255,255,255,0.2)"
+                    }}
+                    onClick={() => {
+                      if (card.label === "BCV Sync") {
+                        toast({ title: "Sincronización Activa", description: "Tasas actualizadas: USD 36.50 | EUR 39.20", action: <RefreshCw className="h-4 w-4 text-blue-400 animate-spin" /> });
+                      } else {
+                        toast({ title: card.label, description: "Esta funcionalidad está optimizada para tu cuenta empresarial.", icon: <Sparkles className="h-4 w-4 text-blue-400" /> });
+                      }
+                    }}
+                    className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-md transition-all group cursor-pointer relative overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center mb-3 group-hover:rotate-12 transition-transform relative z-10", card.bg)}>
+                      <card.icon className={cn("h-5 w-5", card.color)} />
+                    </div>
+                    <p className="text-sm font-bold text-white relative z-10">{card.label}</p>
+                    <p className="text-[11px] text-slate-500 font-medium relative z-10">{card.desc}</p>
+                  </motion.div>
               ))}
             </div>
 
@@ -1516,3 +1579,4 @@ export function SpecializedLoginCard({
     </div>
   );
 }
+
