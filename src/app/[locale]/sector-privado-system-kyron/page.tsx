@@ -27,7 +27,7 @@ import { KyronDocumentAi } from '@/components/ai/document-ai';
 
 export function FolletoView({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = React.use(params);
-    const [baseUrl, setBaseUrl] = React.useState('https://system-kyron.vercel.app');
+    const [baseUrl, setBaseUrl] = React.useState('https://system-kyron.com');
     const [isExporting, setIsExporting] = React.useState(false);
     const [mounted, setMounted] = React.useState(false);
 
@@ -390,7 +390,7 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                         </div>
 
                         <div className="mt-6 flex justify-between items-center px-2">
-                            <p className="text-[12px] text-zinc-500 tracking-widest font-black uppercase">system-kyron.vercel.app</p>
+                            <p className="text-[12px] text-zinc-500 tracking-widest font-black uppercase">system-kyron.com</p>
                             <div className="flex gap-1.5">
                                 <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
                                 <div className="h-1.5 w-1.5 rounded-full bg-zinc-700" />

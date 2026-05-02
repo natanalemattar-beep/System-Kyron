@@ -1088,26 +1088,20 @@ export function SpecializedLoginCard({
             }} 
           />
           
-          {/* Floating Orbs */}
+          {/* Parallax Floating Orbs */}
           <motion.div 
             animate={{ 
-              scale: [1, 1.2, 1],
-              opacity: [0.1, 0.2, 0.1],
-              x: [0, 50, 0],
-              y: [0, -30, 0]
+              x: mousePos.x / 40,
+              y: mousePos.y / 40,
             }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]" 
+            className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" 
           />
           <motion.div 
             animate={{ 
-              scale: [1.2, 1, 1.2],
-              opacity: [0.1, 0.15, 0.1],
-              x: [0, -40, 0],
-              y: [0, 40, 0]
+              x: -mousePos.x / 50,
+              y: -mousePos.y / 50,
             }}
-            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-            className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-indigo-600/20 rounded-full blur-[100px]" 
+            className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none" 
           />
         </div>
 
@@ -1157,12 +1151,21 @@ export function SpecializedLoginCard({
               ].map((card, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3 + i * 0.1 }}
-                  className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-md hover:bg-white/[0.05] transition-colors group"
+                  initial={{ opacity: 0, x: -30, filter: 'blur(10px)' }}
+                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  transition={{ 
+                    delay: 0.4 + i * 0.1, 
+                    duration: 0.8, 
+                    ease: [0.22, 1, 0.36, 1] 
+                  }}
+                  whileHover={{ 
+                    scale: 1.05, 
+                    backgroundColor: "rgba(255,255,255,0.08)",
+                    borderColor: "rgba(255,255,255,0.2)"
+                  }}
+                  className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-md transition-all group cursor-pointer"
                 >
-                  <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform", card.bg)}>
+                  <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center mb-3 group-hover:rotate-12 transition-transform", card.bg)}>
                     <card.icon className={cn("h-5 w-5", card.color)} />
                   </div>
                   <p className="text-sm font-bold text-white">{card.label}</p>
@@ -1193,17 +1196,28 @@ export function SpecializedLoginCard({
 
           {/* Right Side: Login Form */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, x: 40, filter: 'blur(15px)' }}
+            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
-            {/* Glow effect behind the form */}
-            <div className="absolute -inset-4 bg-blue-500/10 blur-3xl rounded-[2.5rem] opacity-50" />
+            {/* Pulsing Glow behind the form */}
+            <motion.div 
+              animate={{ 
+                scale: [1, 1.1, 1],
+                opacity: [0.3, 0.5, 0.3]
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -inset-10 bg-blue-600/10 blur-[100px] rounded-full" 
+            />
             
-            <div className="relative rounded-[2rem] border border-white/10 bg-slate-900/40 backdrop-blur-2xl p-8 md:p-10 shadow-2xl overflow-hidden">
-              {/* Form top decoration */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+            <div className="relative rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-3xl p-8 md:p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden group">
+              {/* Form top decoration line with animation */}
+              <motion.div 
+                animate={{ x: ['-100%', '100%'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-50" 
+              />
               
               <div className="mb-8">
                 <motion.div

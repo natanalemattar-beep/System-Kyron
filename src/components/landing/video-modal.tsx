@@ -72,7 +72,7 @@ export function VideoModal({ isOpen, onClose, videoId = "dQw4w9WgXcQ" }: VideoMo
                             {/* Footer */}
                             <div className="flex items-center justify-between mt-4">
                                 <p className="text-[11px] text-white/30 font-medium">
-                                    ¿Tienes dudas? Contáctanos en <span className="text-cyan-400/60">system-kyron.vercel.app</span>
+                                    ¿Tienes dudas? Contáctanos en <span className="text-cyan-400/60">system-kyron.com</span>
                                 </p>
                                 <a
                                     href="/register"
