@@ -187,27 +187,34 @@ export function HeroSection() {
                             </ScrollReveal>
 
                             <ScrollReveal delay={0.4} scale={0.95}>
-                                <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-5 pt-4">
+                                <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
                                     <motion.div whileHover={{ scale: 1.05, translateZ: 20 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                                        <Button asChild size="lg" className="h-16 px-12 text-xs font-black uppercase tracking-[0.25em] rounded-2xl overflow-hidden group border-0 bg-gradient-to-r from-cyan-600 via-blue-500 to-emerald-600 bg-size-200 animate-gradient-flow text-white shadow-[0_20px_40px_-10px_rgba(6,182,212,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(16,185,129,0.7)] transition-all duration-500 active:scale-95 shine-effect" aria-label="Registrarse ahora en el ecosistema">
+                                        <Button asChild size="lg" className="h-14 px-10 text-xs font-black uppercase tracking-[0.25em] rounded-2xl overflow-hidden group border-0 bg-gradient-to-r from-cyan-600 via-blue-500 to-emerald-600 bg-size-200 animate-gradient-flow text-white shadow-[0_20px_40px_-10px_rgba(6,182,212,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(16,185,129,0.7)] transition-all duration-500 active:scale-95 shine-effect" aria-label="Registrarse ahora en el ecosistema">
                                             <Link href="/login" className="flex items-center gap-3">
                                                 {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
                                             </Link>
                                         </Button>
                                     </motion.div>
                                     
+                                    <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                                        <Button asChild variant="outline" size="lg" className="h-14 px-8 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-white/10 bg-blue-600/10 text-blue-400 hover:bg-blue-600/20 hover:border-blue-500/40 transition-all duration-500 backdrop-blur-xl group shadow-[0_0_30px_rgba(37,99,235,0.15)]">
+                                            <Link href="/pitch" className="flex items-center gap-2">
+                                                <Download className="h-4 w-4" />
+                                                PITCH & PRESENTACIÓN
+                                            </Link>
+                                        </Button>
+                                    </motion.div>
+
                                     <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400, damping: 17 }}>
                                         <Button
-                                            variant="outline"
+                                            variant="ghost"
                                             size="lg"
                                             onClick={() => setVideoOpen(true)}
-                                            className="h-16 px-10 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 transition-all duration-500 backdrop-blur-xl group"
+                                            className="h-14 px-6 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-transparent bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-all duration-500 backdrop-blur-xl group"
                                             aria-label="Ver tutorial de registro en video"
                                         >
                                             <span className="flex items-center gap-2">
-                                                <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                                                    <Play className="h-3 w-3 fill-current ml-0.5" />
-                                                </div>
+                                                <Play className="h-3 w-3 fill-current" />
                                                 {t('cta_secondary')}
                                             </span>
                                         </Button>

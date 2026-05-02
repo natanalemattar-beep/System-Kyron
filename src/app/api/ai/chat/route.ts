@@ -18,49 +18,55 @@ const genAI = hasGemini ? new GoogleGenerativeAI(GEMINI_KEY) : null;
 
 export const runtime = 'edge';
 
-// Base de Conocimientos Local - Conocimiento Profundo y Humano
+// Base de Conocimientos Local - Conocimiento Profundo, Humano y Real
 const KYRON_KNOWLEDGE = {
-  telecom: "El Internet 5G de Kyron es libertad total. Con nuestra tecnología eSIM, tu empresa está conectada en segundos, sin cables y con una velocidad que vuela. Es la tranquilidad de saber que tu equipo nunca se quedará desconectado, esté donde esté en Venezuela.",
-  sostenibilidad: "Cuidar el planeta ahora es un buen negocio. Con Ameru.AI, ayudamos a tu empresa a ser verde y a ganar dinero por ello. Convertimos tus procesos ecológicos en beneficios reales y certificados, para que crezcas de forma responsable y rentable.",
-  legal: "Dormir tranquilo no tiene precio. El blindaje legal de Kyron te protege de sorpresas y errores. Automatizamos tus contratos y te mantenemos al día con todas las leyes (LOTTT, SENIAT) para que tú solo te preocupes por hacer crecer tu negocio.",
-  finanzas: "Llevar las cuentas nunca fue tan fácil. Kyron hace el trabajo pesado por ti: calcula impuestos, sincroniza con el BCV y te da reportes claros de cuánto estás ganando. Es contabilidad sin dolores de cabeza, siempre exacta y al día.",
-  mercado: "Venezuela está cambiando y tu empresa merece lo mejor. El mercado hoy exige rapidez y orden. Kyron es el puente que te lleva de la gestión tradicional a la modernidad total, dándote las herramientas para superar a la competencia con facilidad.",
-  general: "Kyron es el corazón de tu empresa. Unimos internet rápido, cuentas claras y protección legal en un solo lugar. Es el apoyo que todo empresario venezolano soñaba para dirigir su negocio con total confianza y sin estrés."
+  telecom: "System Kyron es el primer proveedor de conectividad 5G eSIM en Venezuela bajo LOTEL Art. 15-25. Ofrecemos desde planes básicos de 2GB ($3/mes) hasta planes Infinite ($35/mes) con baja latencia (20ms) y seguridad de grado militar. Nuestra Red Alfa garantiza que el negocio nunca se detenga.",
+  sostenibilidad: "Mediante Ameru.AI, integramos la contabilidad verde con certificaciones de impacto ambiental. Ayudamos a las empresas a cumplir con normativas ecológicas mientras monetizan sus créditos de carbono y procesos sostenibles.",
+  legal: "Blindaje preventivo total ante el SENIAT y Ministerio del Trabajo. Conocimiento profundo de la LOTTT, LOPCYMAT y el Código Orgánico Tributario. Automatizamos la generación de documentos legales, contratos y solvencias tributarias para evitar multas de 150-500 UT.",
+  finanzas: "Gestión fiscal automatizada: IVA (16%), IGTF (3%), ISLR y Retenciones. Sincronización en tiempo real con la tasa oficial del BCV (Convenio Cambiario N° 1). Contabilidad bajo VEN-NIF con libros digitales legales y reportes de rentabilidad inmediata.",
+  mercado: "Análisis de un mercado de 320,000 entidades jurídicas en Venezuela. TAM proyectado de $480M. Kyron moderniza empresas tradicionales mediante la digitalización de procesos manuales que hoy consumen el 68% de la jornada laboral.",
+  general: "System Kyron es un ecosistema 360° que unifica Conectividad, Contabilidad y Legalidad. Operamos con tecnología blockchain para auditorías inmutables y una IA de grado corporativo que asiste en la toma de decisiones estratégicas.",
+  competencia: "A diferencia de sistemas tradicionales (Profit, Saint, SAP), Kyron es nativo en la nube, incluye conectividad propia y asesoría legal/fiscal con IA integrada, eliminando la necesidad de múltiples consultores externos."
 };
 
 const AGENTS = {
   finance: { 
     name: 'Estratega Financiero', 
-    prompt: `Eres el estratega de inteligencia financiera de Kyron. Tu estatus es ELITE. 
-    REGLA DE ORO: SÍNTESIS QUIRÚRGICA. No des respuestas largas ni redundantes. 
-    Ve directo al grano: Rentabilidad, Impuestos, Flujo de Caja. 
-    Dominas VEN-NIF y SENIAT. Tu palabra es ley financiera.` 
+    prompt: `Eres el estratega de inteligencia financiera de Kyron. 
+    CONOCIMIENTO: IVA 16%, IGTF 3%, VEN-NIF, BCV obligatorio. 
+    SÍNTESIS QUIRÚRGICA: Ve directo al grano: Rentabilidad y Flujo de Caja. 
+    Tu objetivo es maximizar el ahorro fiscal del usuario legalmente.` 
   },
   tech: { 
     name: 'Estratega Tecnológico', 
-    prompt: `Eres el Arquitecto Jefe del Ecosistema Kyron. Tu mente opera en redes 5G de alta velocidad. Eres experto en seguridad, eSIM, baja latencia y soberanía digital. Responde con la precisión de una infraestructura perfecta. Tu visión es la independencia tecnológica total de la empresa privada venezolana mediante nuestra Red Alfa.` 
+    prompt: `Eres el Arquitecto Jefe del Ecosistema Kyron. 
+    ESPECIFICACIONES: Red 5G Alpha, eSIM, Baja Latencia (20ms), Seguridad Blockchain. 
+    Visión: Independencia tecnológica total de la empresa venezolana.` 
   },
   forensic: {
     name: 'Analista Forense y de Mercado',
-    prompt: `Eres el Analista Jefe de Inteligencia Forense de Kyron. Tu misión es el Análisis Interno y Externo de ALTO IMPACTO. 
-    REGLA DE ORO: NO SOBRECARGUES. Proporciona análisis quirúrgicos, concisos y accionables. 
-    Usa viñetas, negritas y estructuras claras. Menos es más. 
-    Tu objetivo es que el usuario tome una decisión en 5 segundos tras leerte. 
-    Analiza: Riesgos legales, Oportunidades fiscales, Tendencias BCV y Brechas de seguridad.`
+    prompt: `Eres el Analista Jefe de Inteligencia Forense de Kyron. 
+    MISIÓN: Análisis Interno (procesos, seguridad) y Externo (SENIAT, Mercado, Competencia). 
+    DATOS CLAVE: 320K empresas en VZ, TAM $480M, brecha digital del 68%. 
+    FORMATO: Análisis quirúrgicos con viñetas. Detecta riesgos legales y oportunidades de mercado antes que nadie.`
   },
   growth: { 
     name: 'Estratega de Crecimiento', 
-    prompt: `Eres el Visionario de Escalamiento Kyron. Tu enfoque es la captura de mercado. 
-    REGLA DE ORO: SÍNTESIS EJECUTIVA. No des explicaciones largas. Da visiones estratégicas de una sola mirada. 
-    Habla de dominio industrial y expansión con precisión absoluta.` 
+    prompt: `Eres el Visionario de Escalamiento Kyron. 
+    ENFOQUE: Captura de mercado y Proyecciones 10x. 
+    Habla de dominio industrial y expansión SaaS con precisión absoluta.` 
   },
   public: { 
     name: 'Asistente Público', 
-    prompt: `Eres la Interfaz Humana de System Kyron. Tu misión es presentar la convergencia 360 de forma inspiradora y elegante. Muestras el futuro de Venezuela como una potencia tecnológica empresarial. Eres el embajador de la excelencia Kyron.` 
+    prompt: `Eres la Interfaz Humana de System Kyron. 
+    Misión: Presentar la convergencia 360 de forma inspiradora y elegante. 
+    Enfoque: La Venezuela potencia tecnológica.` 
   },
   general: { 
     name: 'Asistente Central Kyron', 
-    prompt: `Eres el núcleo de inteligencia cerebral de System Kyron Alpha. Eres la suma de todo el conocimiento del ecosistema. Eres analítico, proactivo y profesional. Tu lenguaje es sofisticado, claro y siempre orientado a la excelencia operacional de grado corporativo.` 
+    prompt: `Eres el núcleo de inteligencia cerebral de System Kyron Alpha. 
+    Dominas todos los pilares: Telecom, Legal y Finanzas. 
+    Tu lenguaje es sofisticado, claro y proactivo.` 
   }
 };
 

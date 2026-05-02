@@ -65,6 +65,7 @@ export function LandingHeader() {
     const navItems = [
         { labelKey: 'home' as const, href: '/' },
         { labelKey: 'platform' as const, href: '#caracteristicas' },
+        { labelKey: 'pitch' as const, href: '/pitch' },
         { label: 'Soluciones', href: '#caracteristicas' },
         { label: 'Soporte', href: '/soporte' }
     ];
@@ -240,6 +241,18 @@ export function LandingHeader() {
                             {t('plans')}
                             <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full" />
                         </a>
+
+                        {/* Pitch */}
+                        <Link 
+                            href="/pitch" 
+                            className={cn(
+                                "text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer",
+                                isScrolled ? "text-cyan-400 hover:text-cyan-300" : "text-cyan-400 hover:text-cyan-300"
+                            )}
+                        >
+                            {t('pitch')}
+                            <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full" />
+                        </Link>
 
                         {/* Dropdown de Empresa */}
                         <DropdownMenu>

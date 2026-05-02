@@ -3,12 +3,12 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-    ChevronLeft, ChevronRight, Rocket,
+    ChevronLeft, ChevronRight, Rocket, Leaf,
     Shield, BrainCircuit, TrendingUp,
-    Users, Globe, Zap, CircleCheck,
+    Users, Globe, Zap, CircleCheck, QrCode,
     TriangleAlert, Banknote, X, ArrowRight,
     Network, DollarSign, Download, Monitor, Smartphone,
-    Activity, Lock, Cpu
+    Activity, Lock, Cpu, MessageSquare
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -18,179 +18,140 @@ const slides = [
         id: "cover",
         tag: "INTRODUCCIÓN",
         title: "SYSTEM\nKYRON",
-        subtitle: "El Primer Sistema Operativo Empresarial de Venezuela.",
-        body: null,
+        subtitle: "La Infraestructura Digital para el Nuevo Siglo en Venezuela.",
+        body: "Unificando Conectividad, Contabilidad y Legalidad en un ecosistema soberano.",
         icon: Rocket,
         accent: "#3b82f6",
         bg: "from-blue-600/30 via-indigo-900/20 to-transparent",
-        script: "Buenos días. Estamos aquí para presentar System Kyron: No es solo un software de gestión, es la infraestructura digital que Venezuela necesita para volver a competir a nivel global.",
+        script: "Buenos días. No venimos a presentar un software, venimos a presentar System Kyron: la infraestructura digital que permitirá al sector privado venezolano competir en las ligas mayores globales.",
         stats: null,
     },
     {
         id: "problem",
-        tag: "EL PROBLEMA",
-        title: "CAOS\nOPERATIVO",
-        subtitle: "La fragmentación está matando la productividad.",
-        body: "Las empresas venezolanas operan en un entorno de alta complejidad: cambios diarios en tasa BCV, múltiples capas impositivas (IGTF, IVA, ISLR) y una conectividad inestable que detiene la facturación.",
+        tag: "EL DESAFÍO",
+        title: "EL MURO\nOPERATIVO",
+        subtitle: "La fragmentación y la burocracia digital asfixian el crecimiento.",
+        body: "Las empresas pierden el 68% de su capacidad productiva lidiando con desconexión técnica y un entorno fiscal complejo que castiga el error manual.",
         icon: TriangleAlert,
         accent: "#f43f5e",
         bg: "from-rose-900/30 via-slate-900/20 to-transparent",
-        script: "Llevar una empresa en Venezuela hoy es una labor heroica. Los empresarios pierden hasta un 60% de su tiempo en tareas administrativas manuales, intentando que sus sistemas se hablen entre sí en medio de apagones e inestabilidad.",
+        script: "Dirigir una empresa en Venezuela es hoy una labor de resistencia. El empresario vive atrapado entre sistemas que no se hablan, una conectividad que falla y el riesgo constante de multas millonarias.",
         stats: [
-            { label: "Carga Administrativa Manual", value: "68%" },
-            { label: "Sistemas Desconectados", value: "Prom. 4" },
-            { label: "Riesgo Fiscal SENIAT", value: "Crítico" },
+            { label: "Carga Administrativa", value: "68%" },
+            { label: "Riesgo Fiscal", value: "Crítico" },
+            { label: "Sistemas Desconectados", value: "4+" },
         ],
     },
     {
-        id: "solution",
-        tag: "LA SOLUCIÓN",
-        title: "ECOSISTEMA\nUNIFICADO",
-        subtitle: "Conectividad, Contabilidad y Legalidad en un solo lugar.",
-        body: "Kyron integra en una sola plataforma: Conectividad 5G eSIM, Contabilidad VEN-NIF automatizada y Asesoría Legal con IA entrenada en leyes venezolanas.",
-        icon: Shield,
-        accent: "#10b981",
-        bg: "from-emerald-900/30 via-blue-900/20 to-transparent",
-        script: "Nuestra solución es única. Unificamos la conectividad que el negocio necesita con el cumplimiento legal y fiscal que el estado exige. Todo automatizado, todo en la nube, todo seguro.",
-        stats: [
-            { label: "Conectividad Garantizada", value: "5G" },
-            { label: "Cumplimiento Fiscal", value: "100%" },
-            { label: "Ahorro Operativo", value: "45%" },
-        ],
-    },
-    {
-        id: "market",
-        tag: "EL MERCADO",
-        title: "MERCADO\nACTIVO",
-        subtitle: "320,000 empresas buscando digitalización real.",
-        body: "Venezuela cuenta con un sector privado resiliente que demanda herramientas de clase mundial adaptadas a la realidad local (IGTF, BCV, Multas COT).",
-        icon: Globe,
+        id: "module_telecom",
+        tag: "MÓDULO: TELECOM",
+        title: "CONECTIVIDAD\nALPHA 5G",
+        subtitle: "La primera red eSIM de grado empresarial en Venezuela.",
+        body: "Baja latencia (20ms), seguridad encriptada y gestión de flota directamente desde el panel administrativo. Tu negocio nunca se detiene.",
+        icon: Zap,
         accent: "#06b6d4",
         bg: "from-cyan-900/30 via-blue-900/20 to-transparent",
-        script: "Hablamos de más de 300 mil entidades jurídicas que hoy dependen de sistemas obsoletos. Kyron no solo entra a este mercado, lo moderniza.",
+        script: "Nuestra Red Alpha no es solo internet. Es la garantía de que tu facturación, tus cobros y tu comunicación nunca caigan, incluso en los escenarios más exigentes.",
         stats: [
-            { label: "Entidades Jurídicas VZ", value: "320K" },
-            { label: "TAM (Mercado Total)", value: "$480M" },
-            { label: "Proyección Crecimiento", value: "15x" },
+            { label: "Latencia", value: "20ms" },
+            { label: "Velocidad", value: "5G" },
+            { label: "Seguridad", value: "AES-256" },
         ],
-    },
-    {
-        id: "product_ui",
-        tag: "PLATAFORMA",
-        title: "CONTROL\nTOTAL",
-        subtitle: "Un Centro de Mando diseñado para la ejecución.",
-        body: "Desde el monitoreo de flotas 5G hasta la conciliación automática de pagos multimoneda. Todo bajo estándares de seguridad bancaria.",
-        icon: Monitor,
-        accent: "#3b82f6",
-        bg: "from-blue-600/20 via-slate-900/20 to-transparent",
-        script: "Este es el Admin Portal. Aquí el gerente ve su empresa en tiempo real: ventas por sucursal, alertas del SENIAT y estado de su red. Es el fin de esperar al cierre de mes para saber qué pasó.",
-        stats: null,
-        isMockup: true
-    },
-    {
-        id: "mobile_ui",
-        tag: "MOVILIDAD",
-        title: "GESTIÓN\nMÓVIL",
-        subtitle: "Tu empresa no se detiene, tú tampoco.",
-        body: "App nativa para gestionar eSIMs corporativas, revisar flujo de caja y recibir alertas críticas de seguridad y cumplimiento en tiempo real.",
-        icon: Smartphone,
-        accent: "#10b981",
-        bg: "from-emerald-900/30 via-slate-900/20 to-transparent",
-        script: "Con Kyron Mobile, el dueño de negocio tiene el mando en su bolsillo. Si hay una fluctuación del BCV o una alerta de CONATEL, Kyron te avisa y te da la solución al instante.",
-        stats: null,
         isMobileMockup: true
     },
     {
-        id: "product",
-        tag: "TECNOLOGÍA",
-        title: "PILARES\nKYRON",
-        subtitle: "Inteligencia que trabaja para tu negocio.",
-        body: "IA entrenada en VEN-NIF para contabilidad sin errores, conectividad de baja latencia y blindaje legal preventivo ante inspecciones.",
-        icon: Zap,
-        accent: "#a855f7",
-        bg: "from-purple-900/30 via-indigo-900/20 to-transparent",
-        script: "Nuestra IA no solo genera texto; entiende el Código Orgánico Tributario y la LOTTT. Te protege de multas antes de que ocurran.",
+        id: "module_accounting",
+        tag: "MÓDULO: FINANZAS",
+        title: "CONTABILIDAD\nIA VEN-NIF",
+        subtitle: "Sincronización total con BCV y SENIAT.",
+        body: "Automatización de IGTF, IVA y Retenciones. Libros legales digitales y conciliación bancaria instantánea bajo estándares internacionales.",
+        icon: Banknote,
+        accent: "#10b981",
+        bg: "from-emerald-900/30 via-slate-900/20 to-transparent",
+        script: "Convertimos la contabilidad de un dolor de cabeza en una ventaja competitiva. Nuestra IA entiende la tasa BCV y el Código Orgánico Tributario para que tú solo te preocupes por vender.",
         stats: [
-            { label: "Precisión Contable", value: "99.8%" },
-            { label: "Latencia Red 5G", value: "20ms" },
-            { label: "Asistente Legal", value: "24/7" },
+            { label: "Precisión", value: "99.9%" },
+            { label: "Ahorro Tiempo", value: "80%" },
+            { label: "Sincronía BCV", value: "Realtime" },
+        ],
+        isMockup: true
+    },
+    {
+        id: "module_legal",
+        tag: "MÓDULO: LEGAL",
+        title: "BLINDAJE\nIA ELITE",
+        subtitle: "Asesoría jurídica y cumplimiento LOTTT preventivo.",
+        body: "Generación automática de contratos, gestión de litigios y alertas de cumplimiento laboral. Tu escritorio jurídico disponible 24/7.",
+        icon: Shield,
+        accent: "#8b5cf6",
+        bg: "from-violet-900/30 via-indigo-900/20 to-transparent",
+        script: "Protegemos tu empresa desde adentro. Kyron Legal redacta contratos y te alerta sobre riesgos laborales antes de que se conviertan en demandas o multas.",
+        stats: [
+            { label: "Contratos IA", value: "Ilimitados" },
+            { label: "Protección LOTTT", value: "Total" },
+            { label: "Disponibilidad", value: "24/7" },
+        ],
+    },
+    {
+        id: "module_sustainability",
+        tag: "MÓDULO: VERDE",
+        title: "AMERU.AI\nSOSTENIBLE",
+        subtitle: "Monetización de huella ecológica y créditos de carbono.",
+        body: "Certificación de impacto ambiental integrada. Convierte tus procesos sostenibles en activos financieros y cumple con normativas globales.",
+        icon: Globe,
+        accent: "#22c55e",
+        bg: "from-green-900/30 via-emerald-900/20 to-transparent",
+        script: "Con Ameru.AI, la sostenibilidad no es un gasto, es un ingreso. Ayudamos a las empresas venezolanas a certificar su huella verde y a participar en el mercado de eco-créditos.",
+        stats: [
+            { label: "Certificación", value: "ISO-14001" },
+            { label: "Impacto", value: "Eco-Sync" },
+            { label: "Tokenización", value: "Activa" },
         ],
     },
     {
         id: "traction",
-        tag: "TRACCIÓN",
+        tag: "VALIDACIÓN",
         title: "HITOS\nLOGRADOS",
-        subtitle: "Crecimiento sostenido con usuarios reales.",
-        body: "Hemos validado el modelo con empresas de diversos sectores: desde retail hasta servicios logísticos, logrando retención total.",
+        subtitle: "Crecimiento real con infraestructura probada.",
+        body: "50 empresas piloto operando con éxito. Cero multas fiscales y una retención del 100% de los usuarios desde el lanzamiento Alfa.",
         icon: TrendingUp,
-        accent: "#10b981",
-        bg: "from-emerald-600/20 via-slate-900/20 to-transparent",
-        script: "Ya estamos en la calle. Nuestras empresas piloto reportan un ahorro de 12 horas semanales en conciliaciones bancarias y cero multas fiscales desde su implementación.",
+        accent: "#3b82f6",
+        bg: "from-blue-900/30 via-slate-900/20 to-transparent",
+        script: "Nuestros números no mienten. Las empresas que usan Kyron han eliminado sus multas fiscales y han recuperado 12 horas semanales de gestión administrativa.",
         stats: [
-            { label: "Empresas en Piloto", value: "50" },
-            { label: "NPS (Satisfacción)", value: "92" },
-            { label: "Retención Mensual", value: "100%" },
-        ],
-    },
-    {
-        id: "business_model",
-        tag: "MODELO NEGOCIO",
-        title: "ESCALA\nY VALOR",
-        subtitle: "Suscripciones diseñadas para cada etapa.",
-        body: "Modelos SaaS desde $29/mes (Profesional) hasta soluciones Enterprise con IA ilimitada y soporte prioritario 24/7.",
-        icon: Banknote,
-        accent: "#f59e0b",
-        bg: "from-amber-900/20 via-slate-900/20 to-transparent",
-        script: "Nuestro modelo es recurrente y escalable. Ofrecemos valor inmediato que paga la suscripción en la primera semana de uso mediante el ahorro de tiempo y multas.",
-        stats: [
-            { label: "ARPU Proyectado", value: "$45" },
-            { label: "Margen Bruto", value: "85%" },
-            { label: "LTV / CAC", value: "4.2x" },
-        ],
-    },
-    {
-        id: "team",
-        tag: "EQUIPO",
-        title: "EXPERIENCIA\nPROBADA",
-        subtitle: "Especialistas en Tecnología y Regulación.",
-        body: "Un equipo multidisciplinario con trayectoria en telecomunicaciones, finanzas corporativas y desarrollo de software de alta escala.",
-        icon: Users,
-        accent: "#8b5cf6",
-        bg: "from-violet-900/20 via-slate-900/20 to-transparent",
-        script: "Sabemos cómo construir en Venezuela. Combinamos décadas de experiencia en el sector tech con un conocimiento profundo del marco legal y financiero local.",
-        stats: [
-            { label: "Años Exp. Tech", value: "25+" },
-            { label: "Expertos Legales", value: "3" },
-            { label: "Devs Senior", value: "8" },
+            { label: "Empresas Piloto", value: "50" },
+            { label: "Satisfacción NPS", value: "92" },
+            { label: "Retención", value: "100%" },
         ],
     },
     {
         id: "cta",
         tag: "INVERSIÓN",
-        title: "EL\nFUTURO",
-        subtitle: "Buscamos socios para escalar la revolución digital.",
-        body: "Estamos abriendo nuestra ronda Seed para expandir infraestructura 5G, potenciar nuestra IA y llegar a 10,000 empresas en los próximos 18 meses.",
+        title: "RONDA\nSEED $2.5M",
+        subtitle: "Escalando la revolución digital de Venezuela.",
+        body: "Inversión destinada a: 40% Infraestructura 5G, 30% I+D IA, 30% Expansión Comercial. Meta: 10,000 empresas en 18 meses.",
         icon: DollarSign,
-        accent: "#3b82f6",
-        bg: "from-blue-600/30 via-indigo-600/20 to-transparent",
-        script: "Estamos listos para el siguiente nivel. Queremos que Kyron sea el estándar de la industria en Venezuela y el punto de partida para la región.",
+        accent: "#f59e0b",
+        bg: "from-amber-900/30 via-blue-900/20 to-transparent",
+        script: "Estamos listos para el siguiente nivel. Buscamos socios estratégicos que crean en el potencial tecnológico de Venezuela y quieran ser parte del próximo unicornio regional.",
         stats: [
             { label: "Meta Inversión", value: "$2.5M" },
-            { label: "Runway (Meses)", value: "24" },
+            { label: "Runway", value: "24 meses" },
             { label: "Objetivo 2026", value: "10K" },
         ],
     },
     {
         id: "closing",
         tag: "CONCLUSIÓN",
-        title: "ÚNETE A\nKYRON",
-        subtitle: "Estamos construyendo la Venezuela que viene.",
-        body: "Gracias por su tiempo. El futuro de la gestión empresarial comienza hoy, y se llama System Kyron.",
+        title: "CONSTRUYAMOS EL\nFUTURO HOY",
+        subtitle: "System Kyron: El nuevo estándar empresarial.",
+        body: "Escanea el QR para ver nuestra plataforma en vivo, descargar este pitch o completar nuestra encuesta de satisfacción.",
         icon: CircleCheck,
         accent: "#10b981",
-        bg: "from-emerald-600/20 via-blue-900/20 to-transparent",
-        script: "Muchas gracias. Ahora abrimos el espacio para sus preguntas. Estamos listos para demostrar por qué somos la mejor inversión en el sector tech del país.",
+        bg: "from-emerald-900/30 via-blue-900/20 to-transparent",
+        script: "Muchas gracias por su atención. System Kyron es más que tecnología, es el nuevo estándar para hacer negocios en Venezuela. Estamos listos para sus preguntas.",
         stats: null,
+        isQRSlide: true
     },
 ];
 
@@ -380,25 +341,33 @@ export default function PitchPage() {
 
     const handleExportWord = () => {
         const scriptContent = slides.map(s => `
-            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-bottom: 50px; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background: white;">
-                <div style="background: #3b82f6; color: white; padding: 15px 25px; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">
-                    DIAPOSITIVA: ${s.title.replace(/\n/g, ' ')}
+            <div style="font-family: 'Segoe UI', sans-serif; margin-bottom: 40px; border: 1px solid #f1f5f9; border-radius: 16px; overflow: hidden; background: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                <div style="background: #0f172a; color: white; padding: 12px 24px; font-weight: 900; font-size: 11px; text-transform: uppercase; letter-spacing: 3px;">
+                    MÓDULO DE PITCH: ${s.tag}
                 </div>
-                <div style="padding: 25px;">
-                    <div style="color: #64748b; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;">
-                        CONTEXTO: ${s.tag}
+                <div style="padding: 24px;">
+                    <div style="color: #3b82f6; font-size: 24px; font-weight: 900; text-transform: uppercase; margin-bottom: 8px; letter-spacing: -1px;">
+                        ${s.title.replace(/\n/g, ' ')}
                     </div>
-                    <div style="background: #f8fafc; border-left: 6px solid #3b82f6; padding: 30px; margin-bottom: 20px;">
-                        <div style="color: #1e293b; font-size: 18px; font-weight: 600; line-height: 1.6; font-style: italic;">
-                            "${s.script}"
+                    <div style="color: #64748b; font-size: 14px; font-weight: 600; margin-bottom: 24px;">
+                        ${s.subtitle}
+                    </div>
+
+                    <div style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 24px; margin-bottom: 24px;">
+                        <div style="color: #475569; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 2px;">
+                            Guion de Locución (Script)
+                        </div>
+                        <div style="color: #1e293b; font-size: 16px; font-weight: 500; line-height: 1.6; font-style: italic;">
+                            <span style="color: #3b82f6; font-weight: 800;">[INICIO]</span> "${s.script}" <span style="color: #3b82f6; font-weight: 800;">[PAUSA / TRANSICIÓN]</span>
                         </div>
                     </div>
+
                     ${s.stats ? `
-                        <div style="display: table; width: 100%; border-top: 1px solid #f1f5f9; pt: 20px;">
+                        <div style="display: table; width: 100%; border-top: 1px solid #f1f5f9; padding-top: 20px;">
                             ${s.stats.map(st => `
                                 <div style="display: table-cell; width: 33%;">
-                                    <div style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">${st.label}</div>
-                                    <div style="font-size: 20px; color: #3b82f6; font-weight: 800;">${st.value}</div>
+                                    <div style="font-size: 9px; color: #94a3b8; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">${st.label}</div>
+                                    <div style="font-size: 18px; color: #0f172a; font-weight: 900;">${st.value}</div>
                                 </div>
                             `).join('')}
                         </div>
@@ -412,19 +381,38 @@ export default function PitchPage() {
             <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
             <head>
                 <meta charset='utf-8'>
-                <title>Guion Kyron Pitch — Real Data</title>
+                <title>Kyron Pitch 2026 — Executive Script</title>
                 <style>
                     @page { size: 8.5in 11in; margin: 1in; }
-                    body { font-family: 'Segoe UI', sans-serif; background: #fff; }
+                    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #1e293b; }
+                    h1 { margin: 0; }
                 </style>
             </head>
             <body>
-                <div style="text-align: center; margin-bottom: 60px;">
-                    <h1 style="font-size: 36px; font-weight: 900; color: #0f172a; margin-bottom: 10px;">GUION DE PITCH KYRON</h1>
-                    <p style="font-size: 14px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 3px;">Documento de Competencia 2026</p>
+                <div style="text-align: left; margin-bottom: 50px; border-bottom: 2px solid #0f172a; padding-bottom: 20px;">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <h1 style="font-size: 28px; font-weight: 900; color: #0f172a; letter-spacing: -1px;">SYSTEM KYRON</h1>
+                                <p style="font-size: 10px; color: #3b82f6; font-weight: 800; text-transform: uppercase; letter-spacing: 4px; margin-top: 5px;">Soberanía Digital para Empresas Elite</p>
+                                <p style="font-size: 9px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-top: 2px;">Executive Pitch Script — Competition Edition v2.5</p>
+                            </td>
+                            <td align="right">
+                                <div style="font-size: 9px; color: #94a3b8; font-weight: 700; text-align: right;">
+                                    CONFIDENCIAL - USO COMPETENCIA<br>
+                                    EY VENEZUELA / INSPIRA VE 2026
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
         `;
-        const footer = "</body></html>";
+        const footer = `
+            <div style="margin-top: 40px; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 20px;">
+                <p style="font-size: 10px; color: #94a3b8; font-weight: 600;">© 2026 System Kyron. Todos los derechos reservados.</p>
+            </div>
+            </body></html>
+        `;
         const sourceHTML = header + scriptContent + footer;
         
         const blob = new Blob(['\ufeff', sourceHTML], {
@@ -434,7 +422,7 @@ export default function PitchPage() {
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = "Guion_Profesional_Kyron_2026.doc";
+        link.download = "Script_Ejecutivo_Kyron_2026.doc";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -555,19 +543,19 @@ export default function PitchPage() {
 
                 <div className="flex items-center gap-6">
                     {/* Export Buttons */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                         <button 
                             onClick={handleExportWord}
-                            className="group flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95"
+                            className="group flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95 hover:border-white/30"
                         >
-                            <span className="text-[10px] font-black uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">Guion (.doc)</span>
+                            <span className="text-xs font-black uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">Guion de Pitch (.doc)</span>
                         </button>
                         <button 
                             onClick={handleDownload}
-                            className="group flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-600 border border-blue-500 hover:bg-blue-500 transition-all active:scale-95 shadow-[0_0_20px_rgba(37,99,235,0.3)]"
+                            className="group flex items-center gap-3 px-8 py-2.5 rounded-full bg-blue-600 border border-blue-500 hover:bg-blue-500 transition-all active:scale-95 shadow-[0_0_30px_rgba(37,99,235,0.4)]"
                         >
-                            <Download className="h-3 w-3 text-white" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-white">Presentación (.pdf)</span>
+                            <Download className="h-4 w-4 text-white animate-bounce-subtle" />
+                            <span className="text-xs font-black uppercase tracking-widest text-white">Presentación 4K (.pdf)</span>
                         </button>
                     </div>
 
@@ -659,6 +647,25 @@ export default function PitchPage() {
                                     transition={{ delay: 0.3 }}
                                     className="space-y-6"
                                 >
+                                    {slide.id === 'cover' && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.2 }}
+                                            className="mb-8"
+                                        >
+                                            <div className="flex items-center gap-4">
+                                                <div className="h-16 w-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl">
+                                                    <Rocket className="h-10 w-10 text-blue-500" />
+                                                </div>
+                                                <div>
+                                                    <h1 className="text-2xl font-black tracking-tighter">SYSTEM KYRON</h1>
+                                                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400">Soberanía Digital para Empresas Elite</p>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    )}
+
                                     <p className="text-2xl md:text-3xl text-white/60 font-medium leading-tight max-w-xl">
                                         {slide.subtitle}
                                     </p>
@@ -673,7 +680,36 @@ export default function PitchPage() {
 
                             {/* Right — Stats or Icon or Mockup */}
                             <div className="hidden lg:block relative">
-                                {slide.isMockup ? (
+                                {slide.isQRSlide ? (
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.3 }}
+                                        className="grid grid-cols-2 gap-8"
+                                    >
+                                        {[
+                                            { label: "Ver Plataforma", sub: "system-kyron.vercel.app", icon: Globe },
+                                            { label: "Tu Feedback", sub: "Encuesta de Calidad", icon: MessageSquare },
+                                        ].map((qr, i) => (
+                                            <div key={i} className="p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl flex flex-col items-center text-center group hover:bg-white/[0.06] transition-all">
+                                                <div className="w-48 h-48 bg-white rounded-3xl mb-6 flex items-center justify-center relative overflow-hidden">
+                                                    <div className="absolute inset-0 bg-gradient-to-br from-black/5 to-transparent" />
+                                                    <QrCode className="h-32 w-32 text-black/10 absolute animate-pulse" />
+                                                    <div className="w-40 h-40 border-4 border-black/5 rounded-2xl flex items-center justify-center">
+                                                        <div className="w-full h-full bg-[radial-gradient(circle_at_2px_2px,rgba(0,0,0,0.8)_1px,transparent_0)] bg-[length:8px_8px] opacity-80" />
+                                                    </div>
+                                                    <div className="absolute inset-0 flex items-center justify-center">
+                                                        <div className="bg-white p-2 rounded-lg shadow-xl">
+                                                            <Rocket className="h-6 w-6 text-blue-600" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-2">{qr.label}</span>
+                                                <p className="text-sm font-bold text-emerald-400">{qr.sub}</p>
+                                            </div>
+                                        ))}
+                                    </motion.div>
+                                ) : slide.isMockup ? (
                                     <motion.div
                                         initial={{ opacity: 0, scale: 0.9, rotateY: 10 }}
                                         animate={{ opacity: 1, scale: 1, rotateY: 0 }}
