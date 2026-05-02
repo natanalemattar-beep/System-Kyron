@@ -22,7 +22,6 @@ export function Footer() {
         { label: t('nav_services'), href: "#servicios" },
         { label: t('nav_about'), href: "#nosotros" },
         { label: t('nav_contact'), href: "#contacto" },
-        { label: "Pitch", href: "/pitch" },
     ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
