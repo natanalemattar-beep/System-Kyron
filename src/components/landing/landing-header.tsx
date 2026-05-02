@@ -253,12 +253,6 @@ export function LandingHeader() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="center" className="w-64 p-2 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl mt-2">
                                 <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
-                                    <Link href="/pitch" className="flex items-center gap-3 p-3 hover:bg-white/[0.04]">
-                                        <Sparkles className="h-4 w-4 text-amber-400" />
-                                        <span className="text-xs font-bold uppercase tracking-wider">{t('pitch')}</span>
-                                    </Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
                                     <Link href="/soporte" className="flex items-center gap-3 p-3 hover:bg-white/[0.04]">
                                         <ShieldCheck className="h-4 w-4 text-blue-400" />
                                         <span className="text-xs font-bold uppercase tracking-wider">{t('support')}</span>
