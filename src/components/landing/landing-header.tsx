@@ -283,8 +283,23 @@ export function LandingHeader() {
                             <div className="hidden lg:block mr-1">
                                 <BcvRateBadge />
                             </div>
+                            
+                            {/* BÓTON DE PITCH DESTACADO PARA COMPETENCIA */}
+                            <Button variant="ghost" asChild className={cn(
+                                "rounded-xl h-9 px-4 text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative overflow-hidden group border",
+                                isScrolled 
+                                    ? "bg-slate-900/80 border-amber-500/40 text-amber-400 hover:border-amber-400 hover:text-amber-300 hover:bg-slate-800 shadow-lg shadow-amber-500/20"
+                                    : "bg-slate-900/50 backdrop-blur-md border-amber-500/30 text-amber-400 hover:bg-slate-900/80 hover:border-amber-400 shadow-lg shadow-amber-500/10"
+                            )}>
+                                <Link href="/pitch" className="flex items-center gap-1.5">
+                                    <span className="absolute inset-0 bg-gradient-to-r from-amber-500/0 via-amber-500/15 to-amber-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                                    <Sparkles className="h-3.5 w-3.5 group-hover:scale-110 transition-transform" />
+                                    PITCH
+                                </Link>
+                            </Button>
+
                             <Button variant="ghost" asChild data-guide="register" className={cn(
-                                "rounded-xl h-9 px-5 text-[10px] font-bold uppercase tracking-[0.15em] border-2 transition-all duration-300 relative overflow-hidden group",
+                                "rounded-xl h-9 px-4 lg:px-5 text-[10px] font-bold uppercase tracking-[0.15em] border-2 transition-all duration-300 relative overflow-hidden group",
                                 isScrolled
                                     ? "border-emerald-500/25 text-emerald-400 hover:border-emerald-500/40 hover:text-emerald-300 hover:bg-emerald-500/5"
                                     : "border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/40"
