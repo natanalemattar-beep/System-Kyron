@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
   Fingerprint, Smartphone, Shield, Search, CircleCheck,
-  AlertTriangle, FileText, RefreshCw, CircleCheck, XCircle
+  FileText, RefreshCw, XCircle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
