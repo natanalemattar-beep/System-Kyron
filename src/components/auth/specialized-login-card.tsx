@@ -597,25 +597,56 @@ export function SpecializedLoginCard({
             transition={{ duration: 0.3 }}
             className="space-y-6"
           >
-            <div className="text-center space-y-3">
-              <motion.div
-                className="inline-flex items-center justify-center w-16 h-16 rounded-2xl shadow-lg"
-                style={{ background: verificationMethod === 'whatsapp' ? 'linear-gradient(135deg, #22c55e, #16a34a)' : verificationMethod === 'sms' ? 'linear-gradient(135deg, #10b981, #059669)' : 'linear-gradient(135deg, #3b82f6, #1e40af)' }}
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.4, type: "spring" }}
-              >
-                {verificationMethod === 'whatsapp'
-                  ? <MessageCircle className="h-8 w-8 text-white" />
-                  : verificationMethod === 'sms'
-                    ? <Smartphone className="h-8 w-8 text-white" />
-                    : <Fingerprint className="h-8 w-8 text-white" />
-                }
-              </motion.div>
-              <h2 className="text-xl font-bold text-foreground">Verifica tu identidad</h2>
-              <p className="text-sm text-muted-foreground">
-                {devCode ? 'Ingresa el código de verificación segura' : `Código de 6 dígitos enviado a tu ${verificationMethod === 'email' ? 'correo' : verificationMethod === 'sms' ? 'SMS' : 'WhatsApp'}.`}
-              </p>
+            <div className="text-center space-y-6">
+              {/* High-Tech Security Scanner */}
+              <div className="relative inline-flex items-center justify-center">
+                {/* Rotating Rings */}
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                  className="absolute -inset-6 border-2 border-dashed border-blue-500/10 rounded-full"
+                />
+                <motion.div 
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                  className="absolute -inset-10 border border-blue-400/5 rounded-full"
+                />
+                
+                {/* Central Security Node */}
+                <motion.div
+                  className="relative z-10 w-24 h-24 rounded-3xl bg-slate-900 border border-blue-500/30 flex items-center justify-center shadow-[0_0_40px_rgba(37,99,235,0.15)] overflow-hidden group"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.4, type: "spring" }}
+                >
+                  {/* Internal Glow */}
+                  <div className="absolute inset-0 bg-blue-600/5 group-hover:bg-blue-600/10 transition-colors" />
+                  
+                  {/* Scanning Bar */}
+                  <motion.div 
+                    animate={{ top: ['0%', '100%', '0%'] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute left-0 right-0 h-1 bg-blue-400/40 blur-[2px] z-20 pointer-events-none"
+                  />
+
+                  {verificationMethod === 'whatsapp'
+                    ? <MessageCircle className="h-10 w-10 text-green-400 drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
+                    : verificationMethod === 'sms'
+                      ? <Smartphone className="h-10 w-10 text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+                      : <Fingerprint className="h-10 w-10 text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                  }
+                </motion.div>
+              </div>
+
+              <div className="space-y-1">
+                <h2 className="text-2xl font-black text-white tracking-tighter uppercase italic">Verificación Activa</h2>
+                <div className="flex items-center justify-center gap-2">
+                  <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+                    {devCode ? 'Protocolo Kyron Safe' : `Enlace enviado vía ${verificationMethod === 'email' ? 'E-mail' : verificationMethod}`}
+                  </p>
+                </div>
+              </div>
             </div>
 
             {verifVerified ? (
@@ -656,132 +687,92 @@ export function SpecializedLoginCard({
                 </div>
               </motion.div>
             ) : (
-              <div className="p-5 rounded-2xl border border-border/40 bg-muted/20 space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl" style={{
-                    background: verificationMethod === 'email'
-                      ? 'linear-gradient(135deg, #dbeafe, #bfdbfe)'
-                      : verificationMethod === 'whatsapp'
-                        ? 'linear-gradient(135deg, #bbf7d0, #86efac)'
-                        : 'linear-gradient(135deg, #d1fae5, #a7f3d0)'
-                  }}>
-                    {verificationMethod === 'email'
-                      ? <Mail className="h-5 w-5 text-blue-600" />
-                      : verificationMethod === 'whatsapp'
-                        ? <MessageCircle className="h-5 w-5 text-green-700" />
-                        : <Smartphone className="h-5 w-5 text-emerald-600" />
-                    }
+              <div className="p-6 rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-md space-y-6">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between px-1">
+                    <div className="space-y-0.5">
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Canal Seguro</p>
+                      <p className="text-sm font-medium text-white">
+                        {verificationMethod === 'email' ? maskedEmail : maskedPhone}
+                      </p>
+                    </div>
+                    {hasPhone && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSingleCode('');
+                          setError(null);
+                          const methodsEl = document.getElementById('login-method-cards');
+                          if (methodsEl) methodsEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }}
+                        className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-blue-400 transition-colors border-b border-slate-800 hover:border-blue-400/50 pb-0.5"
+                      >
+                        Cambiar
+                      </button>
+                    )}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-foreground/80">
-                      {verificationMethod === 'email' ? 'Código enviado por correo' : verificationMethod === 'sms' ? 'Código enviado por SMS' : 'Código enviado por WhatsApp'}
-                    </p>
-                    <p className="text-sm text-muted-foreground truncate">
-                      {verificationMethod === 'email' ? maskedEmail : maskedPhone}
-                    </p>
+
+                  <div className="relative group">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-2xl blur opacity-0 group-focus-within:opacity-100 transition-opacity" />
+                    <Input
+                      ref={singleInputRef}
+                      placeholder="······"
+                      inputMode="numeric"
+                      maxLength={6}
+                      value={singleCode}
+                      onChange={e => setSingleCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                      className={cn(
+                        "relative z-10 text-center text-4xl font-black tracking-[0.5em] h-20 rounded-2xl bg-slate-900/50 border-white/10 focus:border-blue-500/50 text-white placeholder:text-slate-800 transition-all",
+                        singleCode.length === 6 && "border-blue-500/50 shadow-[0_0_20px_rgba(37,99,235,0.1)]"
+                      )}
+                      disabled={isLoading}
+                      autoComplete="one-time-code"
+                    />
                   </div>
-                  {hasPhone && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSingleCode('');
-                        setError(null);
-                        const methodsEl = document.getElementById('login-method-cards');
-                        if (methodsEl) methodsEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                      }}
-                      className="text-xs font-bold text-muted-foreground hover:text-foreground px-2 py-1 rounded-lg hover:bg-muted/50 transition-colors shrink-0"
+
+                  {isLoading && (
+                    <motion.div 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="flex items-center justify-center gap-2 py-1 text-[11px] text-blue-400 font-black uppercase tracking-widest"
                     >
-                      Cambiar
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      Validando Credenciales...
+                    </motion.div>
+                  )}
+                </div>
+
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+                  
+                  {countdown > 0 ? (
+                    <div className="flex items-center gap-3">
+                      <div className="flex gap-1">
+                        {[...Array(3)].map((_, i) => (
+                          <motion.div 
+                            key={i}
+                            animate={{ opacity: [0.3, 1, 0.3] }}
+                            transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.2 }}
+                            className="w-1 h-1 rounded-full bg-blue-500"
+                          />
+                        ))}
+                      </div>
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+                        Sesión expira en <span className="text-amber-500">{formatCountdown(countdown)}</span>
+                      </p>
+                    </div>
+                  ) : (
+                    <button 
+                      type="button" 
+                      onClick={handleResendCode} 
+                      disabled={isLoading} 
+                      className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-2"
+                    >
+                      <RefreshCw className="h-3 w-3" /> Reintentar Protocolo
                     </button>
                   )}
                 </div>
-
-                {devCode && (
-                  <motion.div
-                    className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-cyan-500/5 to-blue-500/5 border border-cyan-500/20"
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                  >
-                    <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0 shadow-md">
-                      <Shield className="h-[18px] w-[18px] text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400">System Kyron — Verificación Segura</p>
-                      <p className="text-[12px] text-muted-foreground mt-0.5">Usa este código o haz clic para autocompletar:</p>
-                      <button
-                        type="button"
-                        onClick={() => { setSingleCode(devCode); }}
-                        className="text-3xl font-bold font-mono tracking-wider text-cyan-600 dark:text-cyan-400 mt-2 hover:text-cyan-500 dark:hover:text-cyan-300 transition-colors cursor-pointer"
-                      >
-                        {devCode}
-                      </button>
-                      <p className="text-[10px] text-muted-foreground/60 mt-1.5">Válido por 10 minutos · Toca el código para usar</p>
-                    </div>
-                  </motion.div>
-                )}
-
-                <div className="space-y-3">
-                  <div className="flex items-center justify-center gap-2 py-1">
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <p className="text-xs text-emerald-600 font-semibold uppercase tracking-widest">
-                      {verificationMethod === 'email' ? 'Esperando verificación' : verificationMethod === 'sms' ? 'Código enviado por SMS' : 'Código enviado por WhatsApp'}
-                    </p>
-                  </div>
-
-                  <Input
-                    ref={singleInputRef}
-                    placeholder="000000"
-                    inputMode="numeric"
-                    maxLength={6}
-                    value={singleCode}
-                    onChange={e => setSingleCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                    className={cn("text-center text-3xl font-bold tracking-wider h-16 rounded-2xl bg-card border-2 border-border/40 focus:border-primary shadow-sm text-foreground", singleCode.length === 6 && theme.codeBorder)}
-                    disabled={isLoading}
-                    autoComplete="one-time-code"
-                  />
-
-                  <AnimatePresence>
-                    {error && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -8, scale: 0.96 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -8, scale: 0.96 }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-500/[0.06] dark:bg-amber-500/[0.08] border border-amber-500/20">
-                          <div className="shrink-0 h-7 w-7 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                            <TriangleAlert className="h-3.5 w-3.5 text-amber-500" />
-                          </div>
-                          <p className="text-[12px] font-medium text-amber-600 dark:text-amber-400">{error}</p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  {isLoading && (
-                    <div className="flex items-center justify-center gap-2 py-3 text-sm text-primary font-semibold">
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      Verificando...
-                    </div>
-                  )}
-
-                  {!devCode && verificationMethod === 'email' && (
-                    <p className="text-[11px] text-muted-foreground/60 text-center">
-                      También puedes hacer clic en el <strong className="text-primary/70">enlace</strong> del correo para verificar automáticamente
-                    </p>
-                  )}
-
-                  <div className="text-center">
-                    {countdown > 0 ? (
-                      <p className="text-xs text-muted-foreground">Expira en <span className="font-bold font-mono text-amber-500">{formatCountdown(countdown)}</span></p>
-                    ) : (
-                      <button type="button" onClick={handleResendCode} disabled={isLoading} className={cn("text-xs font-semibold hover:underline inline-flex items-center gap-1.5 transition-colors", theme.accent)}>
-                        <RefreshCw className="h-3 w-3" /> Reenviar código
-                      </button>
-                    )}
-                  </div>
-                </div>
+              </div>
 
                 {hasPhone && (
                   <div id="login-method-cards" className="space-y-2 pt-2 border-t border-border/30">
