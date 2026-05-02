@@ -16,7 +16,7 @@ import { Logo } from '@/components/logo';
 import { cn, isNetworkError } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type LayoutVariant = 'split-left' | 'split-right' | 'centered' | 'stacked' | 'minimal' | 'dark-immersive';
+type LayoutVariant = 'split-left' | 'split-right' | 'centered' | 'stacked' | 'minimal' | 'dark-immersive' | 'accounting-premium';
 
 const ACCENT_THEMES: Record<string, { gradient: string; accent: string; ring: string; inputRing: string; codeBorder: string; btnBg: string; glowFrom: string }> = {
   'primary':     { gradient: 'from-blue-600 via-blue-500 to-indigo-700',     accent: 'text-cyan-400',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40', codeBorder: 'border-cyan-500', btnBg: 'bg-blue-600 hover:bg-blue-500', glowFrom: 'rgba(6,182,212,0.15)' },
@@ -1075,6 +1075,168 @@ export function SpecializedLoginCard({
           </motion.div>
         </motion.div>
         <p className="absolute bottom-6 text-[11px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+      </div>
+    );
+  }
+
+  if (layoutVariant === 'accounting-premium') {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden bg-[#020617]">
+        {/* Cinematic Background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(30,58,138,0.15),transparent_70%)]" />
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
+          
+          {/* Animated Grid */}
+          <div 
+            className="absolute inset-0 opacity-[0.03]" 
+            style={{ 
+              backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+              backgroundSize: '40px 40px'
+            }} 
+          />
+          
+          {/* Floating Orbs */}
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.1, 0.2, 0.1],
+              x: [0, 50, 0],
+              y: [0, -30, 0]
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]" 
+          />
+          <motion.div 
+            animate={{ 
+              scale: [1.2, 1, 1.2],
+              opacity: [0.1, 0.15, 0.1],
+              x: [0, -40, 0],
+              y: [0, 40, 0]
+            }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+            className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-indigo-600/20 rounded-full blur-[100px]" 
+          />
+        </div>
+
+        {backButton}
+
+        <div className="relative z-10 w-full max-w-[1100px] grid lg:grid-cols-[1.2fr,1fr] gap-12 items-center">
+          {/* Left Side: Branding & Intelligence Cards */}
+          <div className="hidden lg:block space-y-10">
+            <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-blue-500/10 border border-blue-500/20"
+              >
+                <div className="h-2 w-2 rounded-full bg-blue-400 animate-pulse" />
+                <span className="text-xs font-black uppercase tracking-widest text-blue-400">Portal Contable v2.0</span>
+              </motion.div>
+              
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-5xl xl:text-6xl font-black tracking-tight text-white leading-[0.9]"
+              >
+                Gestión <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 italic">Financiera</span><br />
+                Inteligente.
+              </motion.h1>
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-lg text-slate-400 max-w-md font-medium leading-relaxed"
+              >
+                {portalDescription}
+              </motion.p>
+            </div>
+
+            {/* Intelligence Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { icon: Zap, label: "IA Forense", desc: "Detección de riesgos", color: "text-amber-400", bg: "bg-amber-400/10" },
+                { icon: ShieldCheck, label: "Secure Ledger", desc: "Blockchain Audit", color: "text-emerald-400", bg: "bg-emerald-400/10" },
+                { icon: RefreshCw, label: "BCV Sync", desc: "Tasas en tiempo real", color: "text-blue-400", bg: "bg-blue-400/10" },
+                { icon: KeyRound, label: "End-to-End", desc: "Cifrado militar", color: "text-indigo-400", bg: "bg-indigo-400/10" },
+              ].map((card, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.3 + i * 0.1 }}
+                  className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-md hover:bg-white/[0.05] transition-colors group"
+                >
+                  <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform", card.bg)}>
+                    <card.icon className={cn("h-5 w-5", card.color)} />
+                  </div>
+                  <p className="text-sm font-bold text-white">{card.label}</p>
+                  <p className="text-[11px] text-slate-500 font-medium">{card.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Features Bar */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="flex items-center gap-6"
+            >
+              <div className="flex -space-x-3">
+                {[1,2,3,4].map(i => (
+                  <div key={i} className="h-8 w-8 rounded-full border-2 border-[#020617] bg-slate-800 flex items-center justify-center overflow-hidden">
+                    <div className="h-full w-full bg-gradient-to-br from-slate-600 to-slate-700" />
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">
+                Utilizado por +500 empresas en Venezuela
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Right Side: Login Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="relative"
+          >
+            {/* Glow effect behind the form */}
+            <div className="absolute -inset-4 bg-blue-500/10 blur-3xl rounded-[2.5rem] opacity-50" />
+            
+            <div className="relative rounded-[2rem] border border-white/10 bg-slate-900/40 backdrop-blur-2xl p-8 md:p-10 shadow-2xl overflow-hidden">
+              {/* Form top decoration */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+              
+              <div className="mb-8">
+                <motion.div
+                  initial={{ scale: 0.8 }}
+                  animate={{ scale: 1 }}
+                  className="h-12 w-12 rounded-xl bg-blue-600 flex items-center justify-center mb-6 shadow-lg shadow-blue-600/20"
+                >
+                  <Icon className="h-6 w-6 text-white" />
+                </motion.div>
+                <h2 className="text-2xl font-black text-white tracking-tight mb-2 uppercase italic">Bienvenido</h2>
+                <p className="text-sm text-slate-400 font-medium">Accede a tu panel de control financiero</p>
+              </div>
+
+              {formContent}
+              
+              <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-center gap-2">
+                <Shield className="h-3.5 w-3.5 text-blue-400/50" />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Conexión Segura TLS 1.3</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+        
+        <p className="absolute bottom-6 text-[10px] text-slate-700 uppercase tracking-[0.3em] font-black">System Kyron Quantum Guard</p>
       </div>
     );
   }
