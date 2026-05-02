@@ -97,7 +97,6 @@ export function SpecializedLoginCard({
   const identifierPlaceholder = isTelecomPortal ? '04XX-XXXXXXX' : (isPersonalPortal ? 'V-12345678 o tu@correo.com' : 'tu@correo.com');
   const IdentifierIcon = isTelecomPortal ? Smartphone : (isPersonalPortal ? Fingerprint : Mail);
 
-
   const handleMagicLinkVerified = useCallback(() => {
     setVerifVerified(true);
     toast({ title: 'Identidad verificada', description: 'Acceso verificado automáticamente.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
@@ -1222,14 +1221,17 @@ export function SpecializedLoginCard({
                       if (card.label === "BCV Sync") {
                         toast({ title: "Sincronización Activa", description: "Tasas actualizadas: USD 36.50 | EUR 39.20", action: <RefreshCw className="h-4 w-4 text-blue-400 animate-spin" /> });
                       } else {
-                        toast({ title: card.label, description: "Esta funcionalidad está optimizada para tu cuenta empresarial.", icon: <Sparkles className="h-4 w-4 text-blue-400" /> });
+                        toast({ title: card.label, description: "Esta funcionalidad está optimizada para tu cuenta empresarial.", action: <Sparkles className="h-4 w-4 text-blue-400" /> });
                       }
                     }}
                     className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-md transition-all group cursor-pointer relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center mb-3 group-hover:rotate-12 transition-transform relative z-10", card.bg)}>
-                      <card.icon className={cn("h-5 w-5", card.color)} />
+                      {(() => {
+                        const CardIcon = card.icon;
+                        return <CardIcon className={cn("h-5 w-5", card.color)} />;
+                      })()}
                     </div>
                     <p className="text-sm font-bold text-white relative z-10">{card.label}</p>
                     <p className="text-[11px] text-slate-500 font-medium relative z-10">{card.desc}</p>

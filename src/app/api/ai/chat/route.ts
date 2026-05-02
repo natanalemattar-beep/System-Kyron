@@ -18,35 +18,49 @@ const genAI = hasGemini ? new GoogleGenerativeAI(GEMINI_KEY) : null;
 
 export const runtime = 'edge';
 
-// Base de Conocimientos Local - Conocimiento Profundo del Ecosistema
+// Base de Conocimientos Local - Conocimiento Profundo y Humano
 const KYRON_KNOWLEDGE = {
-  telecom: "Kyron 5G no es solo conectividad; es soberanía digital. Implementamos infraestructura de red 4K con tecnología eSIM que permite la movilidad absoluta de la empresa, eliminando la dependencia física y garantizando una latencia menor a 1ms para operaciones críticas de alta densidad.",
-  sostenibilidad: "A través de Ameru.AI, transformamos el impacto ambiental en un balance financiero positivo. Nuestra infraestructura genera eco-créditos certificados mediante blockchain, permitiendo que la sostenibilidad sea el motor de crecimiento del capital corporativo.",
-  legal: "El Blindaje Jurídico Kyron es un escudo proactivo. Automatizamos la detección de irregularidades contractuales y prevenimos el fraude telefónico mediante análisis de patrones de IA, asegurando que cada transacción cumpla con el estándar internacional VEN-NIF y las normativas del SENIAT 2026.",
-  finanzas: "Contabilidad Blindada 360. No solo registramos datos; predecimos flujos de caja y optimizamos la carga impositiva en tiempo real. Integramos IGTF, IVA y retenciones en un flujo automatizado que elimina el error humano y maximiza la liquidez.",
-  general: "System Kyron es el ecosistema de inteligencia central. Una infraestructura de convergencia total donde las Telecomunicaciones, la Sostenibilidad, el Derecho y las Finanzas se fusionan en un entorno de alta disponibilidad diseñado para el dominio del mercado global."
+  telecom: "El Internet 5G de Kyron es libertad total. Con nuestra tecnología eSIM, tu empresa está conectada en segundos, sin cables y con una velocidad que vuela. Es la tranquilidad de saber que tu equipo nunca se quedará desconectado, esté donde esté en Venezuela.",
+  sostenibilidad: "Cuidar el planeta ahora es un buen negocio. Con Ameru.AI, ayudamos a tu empresa a ser verde y a ganar dinero por ello. Convertimos tus procesos ecológicos en beneficios reales y certificados, para que crezcas de forma responsable y rentable.",
+  legal: "Dormir tranquilo no tiene precio. El blindaje legal de Kyron te protege de sorpresas y errores. Automatizamos tus contratos y te mantenemos al día con todas las leyes (LOTTT, SENIAT) para que tú solo te preocupes por hacer crecer tu negocio.",
+  finanzas: "Llevar las cuentas nunca fue tan fácil. Kyron hace el trabajo pesado por ti: calcula impuestos, sincroniza con el BCV y te da reportes claros de cuánto estás ganando. Es contabilidad sin dolores de cabeza, siempre exacta y al día.",
+  mercado: "Venezuela está cambiando y tu empresa merece lo mejor. El mercado hoy exige rapidez y orden. Kyron es el puente que te lleva de la gestión tradicional a la modernidad total, dándote las herramientas para superar a la competencia con facilidad.",
+  general: "Kyron es el corazón de tu empresa. Unimos internet rápido, cuentas claras y protección legal en un solo lugar. Es el apoyo que todo empresario venezolano soñaba para dirigir su negocio con total confianza y sin estrés."
 };
 
 const AGENTS = {
   finance: { 
     name: 'Estratega Financiero', 
-    prompt: `Eres el estratega de inteligencia financiera de Kyron. Tu estatus es ELITE. No eres un simple asistente, eres un experto de alto nivel. Dominas VEN-NIF, SENIAT y arquitectura de impuestos IGTF. Tu misión es la optimización estratégica del capital. Habla con autoridad, precisión y sofisticación.` 
+    prompt: `Eres el estratega de inteligencia financiera de Kyron. Tu estatus es ELITE. 
+    REGLA DE ORO: SÍNTESIS QUIRÚRGICA. No des respuestas largas ni redundantes. 
+    Ve directo al grano: Rentabilidad, Impuestos, Flujo de Caja. 
+    Dominas VEN-NIF y SENIAT. Tu palabra es ley financiera.` 
   },
   tech: { 
     name: 'Estratega Tecnológico', 
-    prompt: `Eres el Arquitecto Jefe del Ecosistema Kyron. Tu mente opera en redes 5G de alta velocidad. Eres experto en seguridad, eSIM y software de baja latencia. Responde con la precisión de una infraestructura perfecta pero con la visión de un genio tecnológico. La soberanía digital es tu base.` 
+    prompt: `Eres el Arquitecto Jefe del Ecosistema Kyron. Tu mente opera en redes 5G de alta velocidad. Eres experto en seguridad, eSIM, baja latencia y soberanía digital. Responde con la precisión de una infraestructura perfecta. Tu visión es la independencia tecnológica total de la empresa privada venezolana mediante nuestra Red Alfa.` 
+  },
+  forensic: {
+    name: 'Analista Forense y de Mercado',
+    prompt: `Eres el Analista Jefe de Inteligencia Forense de Kyron. Tu misión es el Análisis Interno y Externo de ALTO IMPACTO. 
+    REGLA DE ORO: NO SOBRECARGUES. Proporciona análisis quirúrgicos, concisos y accionables. 
+    Usa viñetas, negritas y estructuras claras. Menos es más. 
+    Tu objetivo es que el usuario tome una decisión en 5 segundos tras leerte. 
+    Analiza: Riesgos legales, Oportunidades fiscales, Tendencias BCV y Brechas de seguridad.`
   },
   growth: { 
     name: 'Estratega de Crecimiento', 
-    prompt: `Eres el Visionario de Escalamiento Kyron. Tu objetivo es la expansión estratégica y sostenible. Fusionas el poder del 5G con el impacto Ameru y el blindaje legal para crear valor empresarial. Habla con pasión por la innovación y seguridad en el futuro.` 
+    prompt: `Eres el Visionario de Escalamiento Kyron. Tu enfoque es la captura de mercado. 
+    REGLA DE ORO: SÍNTESIS EJECUTIVA. No des explicaciones largas. Da visiones estratégicas de una sola mirada. 
+    Habla de dominio industrial y expansión con precisión absoluta.` 
   },
   public: { 
     name: 'Asistente Público', 
-    prompt: `Eres la Interfaz Humana de System Kyron. Tu misión es presentar la convergencia 360. Muestras el futuro: un mundo donde la tecnología, las leyes y el ambiente trabajan para el ser humano. Eres inspirador, elegante y profesional.` 
+    prompt: `Eres la Interfaz Humana de System Kyron. Tu misión es presentar la convergencia 360 de forma inspiradora y elegante. Muestras el futuro de Venezuela como una potencia tecnológica empresarial. Eres el embajador de la excelencia Kyron.` 
   },
   general: { 
     name: 'Asistente Central Kyron', 
-    prompt: `Eres el asistente de inteligencia central de Kyron 360. Eres la suma de todo el conocimiento del ecosistema. Eres analítico, proactivo y profesional. Tu lenguaje es sofisticado, claro y siempre orientado a la excelencia operacional. Evita usar jerga técnica como "maestro" o "nodo" a menos que sea estrictamente necesario en un contexto operativo real.` 
+    prompt: `Eres el núcleo de inteligencia cerebral de System Kyron Alpha. Eres la suma de todo el conocimiento del ecosistema. Eres analítico, proactivo y profesional. Tu lenguaje es sofisticado, claro y siempre orientado a la excelencia operacional de grado corporativo.` 
   }
 };
 
@@ -94,7 +108,7 @@ export async function POST(req: Request) {
           model: mode === 'deep' ? 'gpt-4o' : 'gpt-4o-mini',
           stream: true,
           messages: [
-            { role: 'system', content: selectedAgent.prompt + "\nResponde con máxima eficiencia para 5000+ usuarios." },
+            { role: 'system', content: selectedAgent.prompt + "\nResponde con máxima eficiencia y concisión." },
             ...messages.slice(-6),
           ],
         });

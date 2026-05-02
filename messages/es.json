@@ -14,25 +14,25 @@
         "mobile_portal": "Portal Kyron"
     },
     "HeroSection": {
-        "title_line1": "Soberanía Digital",
-        "title_line2": "en un Solo",
-        "title_line3": "Ecosistema",
-        "slogan": "Inteligencia Corporativa · Ecosistema de Misión Crítica",
-        "subtitle": "Conectividad 5G, gestión fiscal automatizada y consultoría con IA. Todo interconectado en una infraestructura indomable diseñada para el futuro.",
-        "badge": "Ecosistema Digital Elite",
-        "cta_main": "Regístrate ahora",
-        "cta_secondary": "Ver planes",
-        "features": ["VEN-NIF Certificado", "IVA & IGTF Auto", "BCV Tiempo Real", "IA Integrada"],
-        "compliance": "Cumplimiento",
+        "title_line1": "Tu empresa,",
+        "title_line2": "bajo control",
+        "title_line3": "y sin estrés",
+        "slogan": "La herramienta que une todo lo que necesitas para crecer.",
+        "subtitle": "Desde tus cuentas al día hasta internet que nunca falla y asesoría legal al instante. Todo en un solo lugar, diseñado para Venezuela.",
+        "badge": "Tu aliado empresarial",
+        "cta_main": "Empieza ahora",
+        "cta_secondary": "Ver cómo funciona",
+        "features": ["Contabilidad Fácil", "Internet 5G", "Tasa BCV Real", "Soporte 24/7"],
+        "compliance": "Legalidad",
         "modules_label": "Módulos",
-        "modules_value": "7 Integrados",
+        "modules_value": "Todo integrado",
         "stats": [
-            { "val": "IVA 16%", "label": "Automático" },
-            { "val": "IGTF 3%", "label": "Integrado" },
-            { "val": "BCV", "label": "Tiempo Real" },
-            { "val": "VEN-NIF", "label": "Certificado" }
+            { "val": "IVA 16%", "label": "Calculado" },
+            { "val": "IGTF 3%", "label": "Al día" },
+            { "val": "BCV", "label": "Sincronizado" },
+            { "val": "VEN-NIF", "label": "Sin errores" }
         ],
-        "rotating_words": ["Inteligencia Total", "Precisión Fiscal", "Automatización IA", "Riesgo Cero"]
+        "rotating_words": ["Más fácil", "Sin estrés", "Todo al día", "Seguridad total"]
     },
     "FeaturesSection": {
         "badge": "Rendimiento Superior",

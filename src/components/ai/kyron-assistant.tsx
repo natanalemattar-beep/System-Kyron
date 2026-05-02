@@ -21,7 +21,7 @@ export function KyronAssistant() {
     // Don't show the pro assistant bubble on landing or private sector document page
     if (isHomePage || isPrivateSector) return null;
     const [isMinimized, setIsMinimized] = useState(false);
-    const [selectedAgent, setSelectedAgent] = useState<'general' | 'finance' | 'tech' | 'growth'>('general');
+    const [selectedAgent, setSelectedAgent] = useState<'general' | 'finance' | 'tech' | 'growth' | 'forensic'>('general');
     const [thinkingMode, setThinkingMode] = useState<'fast' | 'deep'>('fast');
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState([
@@ -35,7 +35,8 @@ export function KyronAssistant() {
         general: { name: 'Asistente Central', color: 'text-cyan-400', icon: Cpu, bg: 'bg-cyan-500/10 border-cyan-500/20' },
         finance: { name: 'Estratega Financiero', color: 'text-blue-400', icon: Calculator, bg: 'bg-blue-500/10 border-blue-500/20' },
         tech: { name: 'Estratega Tecnológico', color: 'text-emerald-400', icon: Wrench, bg: 'bg-emerald-500/10 border-emerald-500/20' },
-        growth: { name: 'Estratega de Crecimiento', color: 'text-violet-400', icon: Sparkles, bg: 'bg-violet-500/10 border-violet-500/20' }
+        growth: { name: 'Estratega de Crecimiento', color: 'text-violet-400', icon: Sparkles, bg: 'bg-violet-500/10 border-violet-500/20' },
+        forensic: { name: 'Analista Forense', color: 'text-rose-400', icon: Fingerprint, bg: 'bg-rose-500/10 border-rose-500/20' }
     };
 
     const ActiveIcon = agentConfigs[selectedAgent].icon;
@@ -272,17 +273,26 @@ export function KyronAssistant() {
                                     ))}
                                     
                                     {(isLoading || isStreaming) && (
-                                        <div className="flex flex-col gap-2 ml-14">
+                                        <div className="flex flex-col gap-3 ml-14">
                                             <div className="flex items-center gap-3">
                                                 <RefreshCw className="h-3 w-3 text-primary animate-spin" />
-                                                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60">Procesando Flujo de Datos...</span>
+                                                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60">
+                                                    Sincronizando Análisis {selectedAgent === 'forensic' ? 'Interno/Externo' : 'Operacional'}...
+                                                </span>
                                             </div>
-                                            <div className="h-1 w-32 bg-white/5 rounded-full overflow-hidden">
-                                                <motion.div 
-                                                    className="h-full bg-primary"
-                                                    animate={{ x: [-128, 128] }}
-                                                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                                                />
+                                            <div className="flex gap-1">
+                                                {[...Array(3)].map((_, i) => (
+                                                    <motion.div 
+                                                        key={i}
+                                                        className="h-1 w-8 bg-primary/20 rounded-full overflow-hidden"
+                                                    >
+                                                        <motion.div 
+                                                            className="h-full bg-primary"
+                                                            animate={{ x: [-32, 32] }}
+                                                            transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                                                        />
+                                                    </motion.div>
+                                                ))}
                                             </div>
                                         </div>
                                     )}

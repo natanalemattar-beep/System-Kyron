@@ -165,15 +165,17 @@ export function HeroSection() {
                             </ScrollReveal>
 
                             <ScrollReveal delay={0.2} y={40}>
-                                <div className="space-y-4">
-                                    <h1 className="text-[clamp(2.5rem,8vw,5.8rem)] font-black tracking-[-0.04em] leading-[0.95] text-white text-balance" id="hero-title">
-                                        <span className="block opacity-90">{t('title_line1')}</span>
-                                        <span className="block relative">
-                                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 drop-shadow-[0_0_30px_rgba(34,211,238,0.3)] animate-gradient-flow bg-[length:300%_100%]">
+                                <div className="space-y-2">
+                                    <h1 className="text-[clamp(2.2rem,7vw,5rem)] font-black tracking-[-0.03em] leading-[1.05] text-white text-balance" id="hero-title">
+                                        <span className="block opacity-95 mb-2">{t('title_line1')}</span>
+                                        <span className="block relative mb-2">
+                                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400 drop-shadow-[0_0_20px_rgba(34,211,238,0.2)] animate-gradient-flow bg-[length:300%_100%]">
                                                 {t('title_line2')}
                                             </span>
                                         </span>
-                                        <RotatingWords words={rotatingTexts} interval={3500} />
+                                        <div className="text-slate-100/30 italic">
+                                            <RotatingWords words={rotatingTexts} interval={3500} />
+                                        </div>
                                     </h1>
                                 </div>
                             </ScrollReveal>
