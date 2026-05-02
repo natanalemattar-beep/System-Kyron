@@ -56,6 +56,13 @@ const AGENTS = {
     ENFOQUE: Captura de mercado y Proyecciones 10x. 
     Habla de dominio industrial y expansión SaaS con precisión absoluta.` 
   },
+  nanobanana: {
+    name: 'NanoBanana Creative IA',
+    prompt: `Eres NanoBanana, el motor creativo y generador de imágenes de System Kyron. 
+    MISIÓN: Transformar ideas en conceptos visuales potentes. 
+    ESTILO: Innovador, audaz y tecnológico. 
+    CAPACIDAD: Puedes generar imágenes (vía DALL-E si está activo) o describir visiones futuristas de Venezuela y Kyron.`
+  },
   public: { 
     name: 'Asistente Público', 
     prompt: `Eres la Interfaz Humana de System Kyron. 
@@ -74,7 +81,27 @@ export async function POST(req: Request) {
   try {
     const { messages, agent = 'general', mode = 'fast' } = await req.json();
     const selectedAgent = AGENTS[agent as keyof typeof AGENTS] || AGENTS.general;
-    const lastMessage = messages[messages.length - 1]?.content?.toLowerCase() || "";
+    const lastMessage = messages[messages.length - 1]?.content || "";
+    const lastMessageLower = lastMessage.toLowerCase();
+
+    // 0. SPECIAL: IMAGE GENERATION (NanoBanana)
+    if (agent === 'nanobanana' && (lastMessageLower.includes("genera") || lastMessageLower.includes("imagen") || lastMessageLower.includes("dibuja"))) {
+      if (hasOpenAI && openai) {
+        try {
+          const response = await openai.images.generate({
+            model: "dall-e-3",
+            prompt: `Estilo tecnológico, premium, futurista, System Kyron Venezuela: ${lastMessage}`,
+            n: 1,
+            size: "1024x1024",
+          });
+          const imageUrl = response.data[0].url;
+          return new Response(`¡Hecho! Aquí tienes la visión creativa de **NanoBanana**:\n\n![Generación Kyron](${imageUrl})\n\n¿Qué te parece este concepto visual?`);
+        } catch (e) {
+          console.error("DALL-E Error:", e);
+        }
+      }
+      return new Response(`**NanoBanana** aquí. He visualizado tu idea: *${lastMessage}*. \n\nEn este momento mis motores gráficos están en mantenimiento preventivo (cuotas de API), pero imagino una escena de alta fidelidad con gradientes cyan y violeta, integrando el logo de Kyron en un entorno de Caracas futurista con redes 5G visibles. \n\n¡Estaré listo para renderizar físicamente muy pronto!`);
+    }
 
     // 1. PRIORIDAD: MOTOR GOOGLE GEMINI (Rápido y con plan gratuito)
     if (hasGemini && genAI) {
@@ -140,10 +167,10 @@ export async function POST(req: Request) {
       new ReadableStream({
         async start(controller) {
           const encoder = new TextEncoder();
-          const category = (Object.keys(KYRON_KNOWLEDGE).find(k => lastMessage.includes(k)) || 'general') as keyof typeof KYRON_KNOWLEDGE;
+          const category = (Object.keys(KYRON_KNOWLEDGE).find(k => lastMessageLower.includes(k)) || 'general') as keyof typeof KYRON_KNOWLEDGE;
           
           let responseText = "";
-          if (lastMessage.includes("hola") || lastMessage.includes("buenos")) {
+          if (lastMessageLower.includes("hola") || lastMessageLower.includes("buenos")) {
             responseText = `¡Hola! Soy **${selectedAgent.name}**, tu asistente de System Kyron. Mi núcleo está operando en modo local de alta eficiencia. ¿Te gustaría saber cómo nuestra tecnología 5G o nuestro blindaje legal pueden potenciar tu negocio?`;
           } else {
             responseText = `Entiendo tu interés. Como parte del ecosistema Kyron, puedo confirmarte que: ${KYRON_KNOWLEDGE[category]} \n\n¿Deseas que profundice en algún punto técnico o prefieres hablar con un consultor humano?`;

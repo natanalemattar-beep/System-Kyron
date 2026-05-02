@@ -23,6 +23,7 @@ const slides = [
         icon: Rocket,
         accent: "#3b82f6",
         bg: "from-blue-600/30 via-indigo-900/20 to-transparent",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop", // Futuristic earth/data
         script: "Buenos días. No venimos a presentar un software, venimos a presentar System Kyron: la infraestructura digital que permitirá al sector privado venezolano competir en las ligas mayores globales.",
         stats: null,
     },
@@ -35,6 +36,7 @@ const slides = [
         icon: TriangleAlert,
         accent: "#f43f5e",
         bg: "from-rose-900/30 via-slate-900/20 to-transparent",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop", // Data chaos/charts
         script: "Dirigir una empresa en Venezuela es hoy una labor de resistencia. El empresario vive atrapado entre sistemas que no se hablan, una conectividad que falla y el riesgo constante de multas millonarias.",
         stats: [
             { label: "Carga Administrativa", value: "68%" },
@@ -51,11 +53,12 @@ const slides = [
         icon: Zap,
         accent: "#06b6d4",
         bg: "from-cyan-900/30 via-blue-900/20 to-transparent",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop", // Tech network
         script: "Nuestra Red Alpha no es solo internet. Es la garantía de que tu facturación, tus cobros y tu comunicación nunca caigan, incluso en los escenarios más exigentes.",
         stats: [
             { label: "Latencia", value: "20ms" },
             { label: "Velocidad", value: "5G" },
-            { label: "Seguridad", value: "AES-256" },
+            { label: "Security", value: "AES-256" },
         ],
         isMobileMockup: true
     },
@@ -68,6 +71,7 @@ const slides = [
         icon: Banknote,
         accent: "#10b981",
         bg: "from-emerald-900/30 via-slate-900/20 to-transparent",
+        image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1000&auto=format&fit=crop", // Finance/Calculations
         script: "Convertimos la contabilidad de un dolor de cabeza en una ventaja competitiva. Nuestra IA entiende la tasa BCV y el Código Orgánico Tributario para que tú solo te preocupes por vender.",
         stats: [
             { label: "Precisión", value: "99.9%" },
@@ -85,6 +89,7 @@ const slides = [
         icon: Shield,
         accent: "#8b5cf6",
         bg: "from-violet-900/30 via-indigo-900/20 to-transparent",
+        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1000&auto=format&fit=crop", // Justice/Legal
         script: "Protegemos tu empresa desde adentro. Kyron Legal redacta contratos y te alerta sobre riesgos laborales antes de que se conviertan en demandas o multas.",
         stats: [
             { label: "Contratos IA", value: "Ilimitados" },
@@ -101,6 +106,7 @@ const slides = [
         icon: Globe,
         accent: "#22c55e",
         bg: "from-green-900/30 via-emerald-900/20 to-transparent",
+        image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=1000&auto=format&fit=crop", // Green tech/Energy
         script: "Con Ameru.AI, la sostenibilidad no es un gasto, es un ingreso. Ayudamos a las empresas venezolanas a certificar su huella verde y a participar en el mercado de eco-créditos.",
         stats: [
             { label: "Certificación", value: "ISO-14001" },
@@ -117,6 +123,7 @@ const slides = [
         icon: TrendingUp,
         accent: "#3b82f6",
         bg: "from-blue-900/30 via-slate-900/20 to-transparent",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop", // Growth/Success
         script: "Nuestros números no mienten. Las empresas que usan Kyron han eliminado sus multas fiscales y han recuperado 12 horas semanales de gestión administrativa.",
         stats: [
             { label: "Empresas Piloto", value: "50" },
@@ -133,6 +140,7 @@ const slides = [
         icon: DollarSign,
         accent: "#f59e0b",
         bg: "from-amber-900/30 via-blue-900/20 to-transparent",
+        image: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?q=80&w=1000&auto=format&fit=crop", // Investment/Money
         script: "Estamos listos para el siguiente nivel. Buscamos socios estratégicos que crean en el potencial tecnológico de Venezuela y quieran ser parte del próximo unicornio regional.",
         stats: [
             { label: "Meta Inversión", value: "$2.5M" },
@@ -149,9 +157,10 @@ const slides = [
         icon: CircleCheck,
         accent: "#10b981",
         bg: "from-emerald-900/30 via-blue-900/20 to-transparent",
+        image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1000&auto=format&fit=crop", // Team/Collaboration
+        isQRSlide: true,
         script: "Muchas gracias por su atención. System Kyron es más que tecnología, es el nuevo estándar para hacer negocios en Venezuela. Estamos listos para sus preguntas.",
         stats: null,
-        isQRSlide: true
     },
 ];
 
@@ -730,6 +739,30 @@ export default function PitchPage() {
                                         style={{ perspective: "2000px" }}
                                     >
                                         <SmartphoneMockup />
+                                    </motion.div>
+                                ) : slide.image && !slide.isMockup && !slide.isMobileMockup && !slide.stats ? (
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
+                                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                                        transition={{ delay: 0.4, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                                        className="relative group"
+                                    >
+                                        <div 
+                                            className="absolute -inset-4 rounded-[4rem] blur-2xl opacity-20 animate-pulse"
+                                            style={{ backgroundColor: slide.accent }}
+                                        />
+                                        <div className="relative h-[450px] w-[550px] rounded-[3rem] border border-white/10 overflow-hidden shadow-2xl backdrop-blur-sm bg-white/5">
+                                            <img 
+                                                src={slide.image} 
+                                                alt={slide.title}
+                                                className="h-full w-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700 group-hover:scale-110"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                                            <div className="absolute bottom-8 left-8">
+                                                <slide.icon className="h-12 w-12 mb-4" style={{ color: slide.accent }} />
+                                                <p className="text-xs font-black uppercase tracking-[0.4em] text-white/40">Contexto Visual</p>
+                                            </div>
+                                        </div>
                                     </motion.div>
                                 ) : slide.stats ? (
                                     <motion.div

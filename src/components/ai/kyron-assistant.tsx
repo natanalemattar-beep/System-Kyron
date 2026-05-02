@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
     BrainCircuit, Send, X, Bot, User, Sparkles, 
     Maximize2, Minimize2, Paperclip, Mic, 
-    Zap, Terminal, Cpu, Calculator, Wrench, RefreshCw, Fingerprint
+    Zap, Terminal, Cpu, Calculator, Wrench, RefreshCw, Fingerprint,
+    Banana, Palette
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
@@ -21,7 +22,7 @@ export function KyronAssistant() {
     // Don't show the pro assistant bubble on landing or private sector document page
     if (isHomePage || isPrivateSector) return null;
     const [isMinimized, setIsMinimized] = useState(false);
-    const [selectedAgent, setSelectedAgent] = useState<'general' | 'finance' | 'tech' | 'growth' | 'forensic'>('general');
+    const [selectedAgent, setSelectedAgent] = useState<'general' | 'finance' | 'tech' | 'growth' | 'forensic' | 'nanobanana'>('general');
     const [thinkingMode, setThinkingMode] = useState<'fast' | 'deep'>('fast');
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState([
@@ -36,7 +37,8 @@ export function KyronAssistant() {
         finance: { name: 'Estratega Financiero', color: 'text-blue-400', icon: Calculator, bg: 'bg-blue-500/10 border-blue-500/20' },
         tech: { name: 'Estratega Tecnológico', color: 'text-emerald-400', icon: Wrench, bg: 'bg-emerald-500/10 border-emerald-500/20' },
         growth: { name: 'Estratega de Crecimiento', color: 'text-violet-400', icon: Sparkles, bg: 'bg-violet-500/10 border-violet-500/20' },
-        forensic: { name: 'Analista Forense', color: 'text-rose-400', icon: Fingerprint, bg: 'bg-rose-500/10 border-rose-500/20' }
+        forensic: { name: 'Analista Forense', color: 'text-rose-400', icon: Fingerprint, bg: 'bg-rose-500/10 border-rose-500/20' },
+        nanobanana: { name: 'NanoBanana Creative', color: 'text-yellow-400', icon: Banana, bg: 'bg-yellow-500/10 border-yellow-500/20' }
     };
 
     const ActiveIcon = agentConfigs[selectedAgent].icon;
