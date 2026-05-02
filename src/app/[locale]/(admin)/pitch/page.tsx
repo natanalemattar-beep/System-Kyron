@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
     ChevronLeft, ChevronRight, Play, Presentation, 
     Shield, Smartphone, BrainCircuit, TrendingUp, 
-    Users, Rocket, Globe, Zap, Landmark, Map, CheckCircle,
+    Users, Rocket, Globe, Zap, Landmark, Map, CircleCheck,
     TriangleAlert, Banknote, Eye, X
 } from "lucide-react";
 import { Link } from "@/navigation";
