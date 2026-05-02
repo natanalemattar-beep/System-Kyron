@@ -2,7 +2,7 @@
 
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
-import { User, Building2, ArrowRight, ChevronLeft, ShieldCheck, KeyRound, Globe, Signal, Smartphone, Banknote, Gavel, ShoppingCart, Users, Recycle, Sparkles, Lock, Zap, Fingerprint, Shield, Cpu } from 'lucide-react';
+import { User, Building2, ArrowRight, ChevronLeft, ShieldCheck, KeyRound, Globe, Signal, Smartphone, Banknote, Gavel, ShoppingCart, Users, Recycle, Sparkles, Lock, Zap, Fingerprint, Shield, Cpu, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/logo';
@@ -34,6 +34,7 @@ const itemVariants = {
 export default function LoginSelectionPage() {
   const t = useTranslations('LoginPage');
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
+  const [navigatingTo, setNavigatingTo] = useState<string | null>(null);
   const personalOptions = optionKeys.filter(o => o.category === 'citizen');
   const enterpriseOptions = optionKeys.filter(o => o.category === 'corporate');
 
@@ -50,6 +51,33 @@ export default function LoginSelectionPage() {
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           className="absolute left-0 right-0 h-[1px] bg-cyan-500/10 z-10 pointer-events-none"
         />
+
+        {/* Dynamic Particles */}
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(24)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full bg-cyan-400/30"
+              style={{
+                width: 2 + (i % 3),
+                height: 2 + (i % 3),
+                left: `${5 + (i * 4)}%`,
+                top: `${(i % 10) * 10}%`,
+              }}
+              animate={{
+                y: [0, -60, -120],
+                opacity: [0, 0.8, 0],
+                x: [0, i % 2 === 0 ? 20 : -20],
+              }}
+              transition={{
+                duration: 6 + (i % 4) * 2,
+                repeat: Infinity,
+                delay: i * 0.3,
+                ease: "linear",
+              }}
+            />
+          ))}
+        </div>
 
         <div className="absolute inset-0 hud-grid opacity-20" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050816]/50 to-[#050816]" />
@@ -126,31 +154,36 @@ export default function LoginSelectionPage() {
             <div className="h-px flex-1 bg-gradient-to-r from-slate-200 dark:from-slate-700 to-transparent dark:to-transparent" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {personalOptions.map((option) => (
-              <motion.div key={option.href} variants={itemVariants}>
-                <Link href={option.href as any} className="group block">
+            {personalOptions.map((o) => (
+              <motion.div variants={itemVariants} key={o.key}>
+                <Link href={o.href as any} className="group block" onClick={() => setNavigatingTo(o.href)}>
                   <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
+                    whileHover={{ scale: 1.02, y: -4 }}
                     whileTap={{ scale: 0.98 }}
+                    onHoverStart={() => setHoveredKey(o.key)}
+                    onHoverEnd={() => setHoveredKey(null)}
                     className={cn(
-                      "relative flex items-center gap-5 p-6 rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-3xl transition-all duration-500 overflow-hidden shadow-2xl",
-                      "hover:bg-white/[0.05] hover:border-white/10 group-hover:shadow-glow-sm",
-                      option.borderHover
+                      "relative flex items-center gap-4 p-5 rounded-[1.5rem] border border-white/5 bg-white/[0.02] backdrop-blur-3xl transition-all duration-500 overflow-hidden",
+                      "hover:bg-white/[0.05] hover:border-white/10",
+                      o.borderHover
                     )}
                   >
-                    {/* HUD corner accent */}
-                    <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none opacity-20 group-hover:opacity-100">
-                      <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-cyan-500/40 rounded-full animate-pulse" />
-                      <div className="absolute top-3 right-3 w-[1px] h-3 bg-cyan-500/20" />
-                      <div className="absolute top-3 right-3 w-3 h-[1px] bg-cyan-500/20" />
-                    </div>
-
-                    <div className={cn("h-14 w-14 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-lg text-white shrink-0 transition-transform group-hover:rotate-6 duration-500", option.color)}>
-                      <option.icon className="h-6 w-6" />
+                    {hoveredKey === o.key && (
+                      <motion.div
+                        layoutId="glow"
+                        className="absolute inset-0 z-0 pointer-events-none"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1, background: `radial-gradient(150px circle at 50% 50%, ${o.glow}, transparent)` }}
+                        exit={{ opacity: 0 }}
+                      />
+                    )}
+                    
+                    <div className={cn("h-14 w-14 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-lg text-white shrink-0 transition-transform group-hover:scale-110 duration-500 relative z-10", o.color)}>
+                      {navigatingTo === o.href ? <Loader2 className="h-6 w-6 animate-spin" /> : <o.icon className="h-6 w-6" />}
                     </div>
                     <div className="flex-1 min-w-0 relative z-10">
-                      <p className="text-base font-bold text-white tracking-tight group-hover:text-cyan-400 transition-colors uppercase">{t(`options.${option.key}.label`)}</p>
-                      <p className="text-[11px] text-slate-400 mt-1 leading-relaxed line-clamp-2 uppercase tracking-wider font-medium">{t(`options.${option.key}.description`)}</p>
+                      <p className="text-base font-bold text-white tracking-tight group-hover:text-cyan-400 transition-colors uppercase">{t(`options.${o.key}.label`)}</p>
+                      <p className="text-[11px] text-slate-400 mt-1 leading-relaxed line-clamp-2 uppercase tracking-wider font-medium">{t(`options.${o.key}.description`)}</p>
                     </div>
                     <div className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-all shrink-0 relative z-10">
                       <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all" />
@@ -181,7 +214,7 @@ export default function LoginSelectionPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {enterpriseOptions.map((option) => (
               <motion.div key={option.href} variants={itemVariants}>
-                <Link href={option.href as any} className="group block">
+                <Link href={option.href as any} className="group block" onClick={() => setNavigatingTo(option.href)}>
                   <motion.div
                     whileHover={{ scale: 1.02, y: -4 }}
                     whileTap={{ scale: 0.98 }}
@@ -199,7 +232,7 @@ export default function LoginSelectionPage() {
                     </div>
 
                     <div className={cn("h-11 w-11 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-md text-white shrink-0 transition-transform group-hover:scale-110 duration-500", option.color)}>
-                      <option.icon className="h-4 w-4" />
+                      {navigatingTo === option.href ? <Loader2 className="h-4 w-4 animate-spin" /> : <option.icon className="h-4 w-4" />}
                     </div>
                     <div className="flex-1 min-w-0 relative z-10">
                       <p className="text-sm font-bold text-white tracking-tight group-hover:text-cyan-400 transition-colors uppercase">{t(`options.${option.key}.label`)}</p>

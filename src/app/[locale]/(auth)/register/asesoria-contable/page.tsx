@@ -14,7 +14,7 @@ import {
 import {
     Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
     Calculator, Check, Star, Crown, Zap, Mail, RefreshCw, Smartphone, Building, User, Lock, Phone,
-    BarChart3, TrendingUp, ShieldCheck, FileText,
+    ChartColumn, TrendingUp, ShieldCheck, FileText,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
@@ -299,7 +299,7 @@ export default function RegisterContabilidadPage() {
                                                     {popularPlan === p.id && <div className="absolute -top-3 right-6 px-3 py-1 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-white shadow-lg">Más Vendido</div>}
                                                     <div className="flex justify-between items-center mb-3">
                                                         <div className={cn("p-2 rounded-xl", isSelected ? "bg-indigo-500 text-white" : "bg-indigo-50 dark:bg-indigo-900/20 text-indigo-500")}>
-                                                            <BarChart3 className="h-5 w-5" />
+                                                            <ChartColumn className="h-5 w-5" />
                                                         </div>
                                                         {isSelected && <CheckCircle className="h-5 w-5 text-indigo-500" />}
                                                     </div>
@@ -471,7 +471,7 @@ export default function RegisterContabilidadPage() {
 
                 <div className="mt-12 flex items-center justify-center gap-10 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
                     <div className="flex items-center gap-2">
-                        <BarChart3 className="h-4 w-4" />
+                        <ChartColumn className="h-4 w-4" />
                         <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Real-time Analytics</span>
                     </div>
                     <div className="flex items-center gap-2">

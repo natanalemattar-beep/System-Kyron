@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Link } from "@/navigation";
-import { ChartPie as PieChart, TrendingUp, ShieldCheck, Activity, Calculator, ChartBar as BarChart3, ChevronRight, Sparkles, Zap, AlertCircle, FileCheck2, Fingerprint } from "lucide-react";
+import { ChartPie as PieChart, TrendingUp, ShieldCheck, Activity, Calculator, ChartBar as ChartColumn, ChevronRight, Sparkles, Zap, TriangleAlert, FileCheck2, Fingerprint } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 import { BackButton } from "@/components/back-button";
@@ -13,7 +13,7 @@ export default function AnalisisPage() {
     {
       label: "Pulso de Ingresos",
       href: "/analisis-ventas",
-      icon: BarChart3,
+      icon: ChartColumn,
       color: "text-primary",
       bg: "bg-primary/10",
       border: "border-primary/20",
@@ -123,7 +123,7 @@ export default function AnalisisPage() {
                 <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Alertas Preventivas</p>
                 <div className="flex items-end gap-2">
                   <span className="text-4xl font-black text-amber-500 italic">02</span>
-                  <AlertCircle className="h-6 w-6 text-amber-500 mb-1" />
+                  <TriangleAlert className="h-6 w-6 text-amber-500 mb-1" />
                 </div>
                 <p className="text-[10px] font-bold text-muted-foreground italic underline">Ver conciliaciones bancarias</p>
               </div>

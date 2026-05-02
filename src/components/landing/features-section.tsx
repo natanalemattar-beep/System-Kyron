@@ -1,6 +1,6 @@
 'use client';
 
-import { Zap, Clock, Gauge, BarChart3, ArrowRight, TrendingUp, Timer, Sparkles } from "lucide-react";
+import { Zap, Clock, Gauge, ChartColumn, ArrowRight, TrendingUp, Timer, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
 import { motion, useInView } from 'framer-motion';

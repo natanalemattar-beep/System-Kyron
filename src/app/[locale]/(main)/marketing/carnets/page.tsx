@@ -11,7 +11,7 @@ import { Logo } from "@/components/logo";
 import {
   CreditCard, Users, Building2, ShieldCheck, Printer,
   Phone, Mail, MapPin, Briefcase, User, Globe, CalendarDays, Hash,
-  HeartPulse, CheckCircle2
+  HeartPulse, CircleCheck
 } from "lucide-react";
 import Image from "next/image";
 
@@ -452,7 +452,7 @@ function ServiceCardBack() {
               "Auditoría Interna", "Certificaciones"
             ].map(svc => (
               <div key={svc} className="flex items-center gap-1.5 text-[7px] text-white/50 font-bold">
-                <CheckCircle2 className="h-2.5 w-2.5 text-emerald-400/40 shrink-0" />
+                <CircleCheck className="h-2.5 w-2.5 text-emerald-400/40 shrink-0" />
                 {svc}
               </div>
             ))}
@@ -526,7 +526,7 @@ function InsuranceCardBack({ data }: { data: { poliza: string; aseguradora: stri
           <div className="space-y-1.5 flex-1">
             {servicios.map(svc => (
               <div key={svc} className="flex items-center gap-1.5 text-[10px] text-white/60 font-bold">
-                <CheckCircle2 className="h-2.5 w-2.5 text-violet-400/50 shrink-0" />
+                <CircleCheck className="h-2.5 w-2.5 text-violet-400/50 shrink-0" />
                 {svc}
               </div>
             ))}
@@ -546,7 +546,7 @@ function InsuranceCardBack({ data }: { data: { poliza: string; aseguradora: stri
             <p className="text-[5px] text-white/20 font-bold uppercase mt-0.5">Escanear para aprobar servicio</p>
           </div>
           <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[7px] font-semibold uppercase px-3 py-1">
-            <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> ACTIVO
+            <CircleCheck className="mr-1 h-2.5 w-2.5" /> ACTIVO
           </Badge>
         </div>
       </div>

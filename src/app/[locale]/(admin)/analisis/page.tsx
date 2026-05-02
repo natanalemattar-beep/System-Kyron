@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Link } from "@/navigation";
-import { ChartPie as PieChart, ArrowLeft, TrendingUp, ShieldCheck, Activity, ArrowRight, Calculator, ChartBar as BarChart3, ChevronRight, Sparkles, Zap, Target, BrainCircuit, Wallet } from "lucide-react";
+import { ChartPie as PieChart, ArrowLeft, TrendingUp, ShieldCheck, Activity, ArrowRight, Calculator, ChartBar as ChartColumn, ChevronRight, Sparkles, Zap, Target, BrainCircuit, Wallet } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -50,7 +50,7 @@ export default function AnalisisPage() {
     const riesgoLabel = data && data.facturas.vencidas > 0 ? 'ALERTAS ACTIVAS' : 'BLINDAJE: ACTIVO';
 
     const quickAccess = [
-        { label: "VENTAS E INGRESOS", href: "/analisis-ventas", icon: BarChart3, color: "text-blue-600", desc: "Análisis de volumen y tendencias comerciales." },
+        { label: "VENTAS E INGRESOS", href: "/analisis-ventas", icon: ChartColumn, color: "text-blue-600", desc: "Análisis de volumen y tendencias comerciales." },
         { label: "RIESGO FINANCIERO", href: "/analisis-riesgo", icon: ShieldCheck, color: "text-rose-600", desc: "Monitor de morosidad y alertas preventivas." },
         { label: "RENTABILIDAD AVANZADA", href: "/analisis-rentabilidad", icon: TrendingUp, color: "text-emerald-600", desc: "Márgenes netos y optimización de ROI." },
         { label: "FACTIBILIDAD", href: "/estudio-factibilidad-economica", icon: Calculator, color: "text-amber-600", desc: "VAN, TIR y escenarios de inversión." },

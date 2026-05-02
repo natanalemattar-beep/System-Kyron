@@ -8,7 +8,7 @@ import {
   Shield, Scale, Briefcase, Leaf, Globe, AlertTriangle, Wifi,
   PercentCircle, Building2, Gavel, Wallet, CreditCard, Banknote,
   CircleCheck as CheckCircle, Calculator, Bell, Package, DollarSign,
-  BarChart3, PieChart, Eye, ChevronRight, Sun, Moon, Sunrise, Clock
+  ChartColumn, PieChart, Eye, ChevronRight, Sun, Moon, Sunrise, Clock
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -567,7 +567,7 @@ export default function DashboardEmpresaPage() {
                   <div className="h-full flex items-center justify-center"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground/20" /></div>
                 ) : (data?.chartMensual?.length ?? 0) === 0 ? (
                   <div className="h-full flex flex-col items-center justify-center gap-2 text-muted-foreground/20">
-                    <BarChart3 className="h-10 w-10" />
+                    <ChartColumn className="h-10 w-10" />
                     <p className="text-[10px] font-semibold">Sin datos históricos</p>
                   </div>
                 ) : (
@@ -1098,7 +1098,7 @@ export default function DashboardEmpresaPage() {
             { label: "Legal", href: "/escritorio-juridico", icon: Gavel, color: "text-purple-500", bg: "bg-purple-500/8" },
             { label: "Inventario", href: "/inventario", icon: Briefcase, color: "text-amber-600", bg: "bg-amber-600/8" },
             { label: "Telecom", href: "/venta-linea", icon: Wifi, color: "text-teal-500", bg: "bg-teal-500/8" },
-            { label: "Reportes", href: "/reportes", icon: BarChart3, color: "text-rose-500", bg: "bg-rose-500/8" },
+            { label: "Reportes", href: "/reportes", icon: ChartColumn, color: "text-rose-500", bg: "bg-rose-500/8" },
             { label: "Marketing", href: "/marketing", icon: Users, color: "text-indigo-500", bg: "bg-indigo-500/8" },
             { label: "ECO", href: "/sostenibilidad", icon: Leaf, color: "text-green-500", bg: "bg-green-500/8" },
           ].map((mod, i) => (

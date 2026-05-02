@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { 
     Calculator, Users, ShoppingCart, Smartphone, 
-    Gavel, Recycle, Building2, BarChart3, 
+    Gavel, Recycle, Building2, ChartColumn, 
     ShieldCheck, Zap, Globe, Cpu, CheckCircle, TrendingUp
 } from 'lucide-react';
 import { ScrollReveal } from './scroll-reveal';

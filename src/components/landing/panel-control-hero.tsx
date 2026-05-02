@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, ShieldCheck, TrendingUp, DollarSign, Users, Calculator, Smartphone, Recycle, Gavel, BarChart3 } from "lucide-react";
+import { ArrowRight, ShieldCheck, TrendingUp, DollarSign, Users, Calculator, Smartphone, Recycle, Gavel, ChartColumn } from "lucide-react";
 import NextLink from "next/link";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
@@ -9,7 +9,7 @@ const kpiIcons = [TrendingUp, DollarSign, Users];
 const kpiColors = ["text-emerald-400", "text-cyan-400", "text-violet-400"];
 const kpiValues = ["Bs. 0", "0", "0"];
 
-const moduleIcons = [Calculator, Users, Smartphone, Gavel, Recycle, BarChart3];
+const moduleIcons = [Calculator, Users, Smartphone, Gavel, Recycle, ChartColumn];
 const moduleColors = ["text-cyan-400", "text-violet-400", "text-blue-400", "text-amber-400", "text-emerald-400", "text-rose-400"];
 const moduleBgs = [
     "from-cyan-500/20 to-cyan-500/5", "from-violet-500/20 to-violet-500/5", "from-blue-500/20 to-blue-500/5",

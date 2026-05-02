@@ -2,7 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChartBar as BarChart3, Download, Printer, Activity, ShieldCheck, TrendingUp, Search, CircleCheck as CheckCircle } from "lucide-react";
+import { ChartBar as ChartColumn, Download, Printer, Activity, ShieldCheck, TrendingUp, Search, CircleCheck as CheckCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -64,7 +64,7 @@ export default function ReportesGlobalPage() {
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 pt-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <BarChart3 className="h-5 w-5 text-primary" />
+            <ChartColumn className="h-5 w-5 text-primary" />
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
               Reportes
             </h1>

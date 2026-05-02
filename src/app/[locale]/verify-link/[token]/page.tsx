@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Loader2, AlertCircle, ArrowRight, Home } from 'lucide-react';
+import { ShieldCheck, Loader2, TriangleAlert, ArrowRight, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -93,7 +93,7 @@ export default function VerifyLinkPage() {
             <>
               <div className="absolute inset-0 bg-rose-500/20 rounded-full blur-xl animate-pulse" />
               <div className="relative h-16 w-16 rounded-2xl bg-rose-500/20 flex items-center justify-center border border-rose-500/30">
-                <AlertCircle className="h-8 w-8 text-rose-500" />
+                <TriangleAlert className="h-8 w-8 text-rose-500" />
               </div>
             </>
           )}

@@ -2,7 +2,7 @@
 "use client";
 
 import { ReportsView } from "@/components/reports/reports-view";
-import { ChartBar as BarChart3, Download, Printer, Activity } from "lucide-react";
+import { ChartBar as ChartColumn, Download, Printer, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function ReportsPage() {
@@ -11,7 +11,7 @@ export default function ReportsPage() {
       <header className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
-                <BarChart3 className="h-3 w-3" /> CENTRO ANALÍTICO
+                <ChartColumn className="h-3 w-3" /> CENTRO ANALÍTICO
             </div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Centro de <span className="text-primary italic">Inteligencia</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Reportes Principales • Auditoría Consolidada 2026</p>

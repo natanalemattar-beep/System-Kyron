@@ -13,7 +13,7 @@ import {
   Gavel, ShieldCheck, Activity, FileText, Search, Filter, Plus, Landmark,
   Calendar, ChevronRight, ArrowRight, Clock, RefreshCw, FileSignature,
   Eye, Building2, Zap, Copy, Printer, Download, BookOpen, ClipboardList,
-  CheckCircle2, AlertTriangle, XCircle, MapPin, Building, Flag, Scale, DollarSign
+  CircleCheck, AlertTriangle, XCircle, MapPin, Building, Flag, Scale, DollarSign
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
@@ -32,8 +32,8 @@ type PermisoRegistrado = {
   numero: string;
 };
 
-const estadoConfig: Record<string, { label: string; color: string; icon: typeof CheckCircle2 }> = {
-  Vigente: { label: "VIGENTE", color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20", icon: CheckCircle2 },
+const estadoConfig: Record<string, { label: string; color: string; icon: typeof CircleCheck }> = {
+  Vigente: { label: "VIGENTE", color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20", icon: CircleCheck },
   "Por Vencer": { label: "POR VENCER", color: "bg-amber-500/10 text-amber-600 border-amber-500/20", icon: AlertTriangle },
   Vencido: { label: "VENCIDO", color: "bg-red-500/10 text-red-600 border-red-500/20", icon: XCircle },
   "En Trámite": { label: "EN TRÁMITE", color: "bg-blue-500/10 text-blue-600 border-blue-500/20", icon: Clock },

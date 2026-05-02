@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import {
     Megaphone,
     TrendingUp,
-    BarChart3,
+    ChartColumn,
     Bell,
     RefreshCw,
     CheckCircle,
@@ -120,7 +120,7 @@ export default function MarketingDashboardPage() {
                 </div>
             ) : error ? (
                 <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground/40">
-                    <BarChart3 className="h-12 w-12" />
+                    <ChartColumn className="h-12 w-12" />
                     <p className="text-xs font-semibold uppercase tracking-widest">Error al cargar dashboard</p>
                     <Button variant="outline" size="sm" onClick={() => { setLoading(true); fetchDashboard(); }} className="rounded-xl text-[11px] font-semibold uppercase tracking-widest">
                         Reintentar
@@ -331,7 +331,7 @@ export default function MarketingDashboardPage() {
 
                     {totalCampanas === 0 && totalClientes === 0 && (
                         <div className="flex flex-col items-center justify-center py-20 gap-6 text-muted-foreground/30">
-                            <BarChart3 className="h-16 w-16" />
+                            <ChartColumn className="h-16 w-16" />
                             <div className="text-center space-y-2">
                                 <p className="text-sm font-semibold uppercase tracking-widest">Dashboard Vacío</p>
                                 <p className="text-xs text-muted-foreground/50 max-w-md">

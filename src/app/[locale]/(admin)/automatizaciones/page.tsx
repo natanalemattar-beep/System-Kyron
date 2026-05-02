@@ -5,8 +5,8 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Zap, Activity, Play, Pause, History, RefreshCw,
-  CheckCircle2, XCircle, Clock, Loader2, ChevronDown, ChevronUp,
-  AlertTriangle, Database, Shield, FileText, Bell, Trash2, BarChart3,
+  CircleCheck, XCircle, Clock, Loader2, ChevronDown, ChevronUp,
+  AlertTriangle, Database, Shield, FileText, Bell, Trash2, ChartColumn,
   Mail, Scale
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -60,7 +60,7 @@ const ACTION_ICONS: Record<string, typeof Zap> = {
   blockchain_batch_anchor: Shield,
   session_cleanup: Trash2,
   invoice_reminders: FileText,
-  activity_digest: BarChart3,
+  activity_digest: ChartColumn,
   email_automation: Mail,
 };
 
@@ -350,7 +350,7 @@ export default function AutomatizacionesPage() {
                                   {ruleLogs.map(log => (
                                     <div key={log.id} className="flex items-center gap-2.5 text-xs p-2 rounded-md bg-muted/50">
                                       {log.status === 'success' ? (
-                                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                                        <CircleCheck className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
                                       ) : log.status === 'error' ? (
                                         <XCircle className="h-3.5 w-3.5 text-red-500 shrink-0" />
                                       ) : (
@@ -389,7 +389,7 @@ export default function AutomatizacionesPage() {
                     ) : logs.map(log => (
                       <div key={log.id} className="flex items-center gap-3 p-3 rounded-lg bg-muted/40 hover:bg-muted/60 transition-colors">
                         {log.status === 'success' ? (
-                          <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                          <CircleCheck className="h-4 w-4 text-emerald-500 shrink-0" />
                         ) : log.status === 'error' ? (
                           <XCircle className="h-4 w-4 text-red-500 shrink-0" />
                         ) : (
@@ -473,7 +473,7 @@ export default function AutomatizacionesPage() {
                 { label: 'Cobranza', icon: FileText, color: 'text-orange-500' },
                 { label: 'Emails automáticos', icon: Mail, color: 'text-pink-500' },
                 { label: 'Limpieza', icon: Trash2, color: 'text-red-500' },
-                { label: 'Reportes', icon: BarChart3, color: 'text-cyan-500' },
+                { label: 'Reportes', icon: ChartColumn, color: 'text-cyan-500' },
               ].map(t => (
                 <div key={t.label} className="flex items-center gap-2.5 py-1.5 px-2 rounded-md hover:bg-muted/50 transition-colors">
                   <t.icon className={`h-3.5 w-3.5 ${t.color}`} />

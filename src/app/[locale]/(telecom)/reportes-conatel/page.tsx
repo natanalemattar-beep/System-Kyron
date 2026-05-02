@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
   FileText, Download, Calendar, CircleCheck, Clock,
-  Shield, BarChart3, TrendingUp, FileSpreadsheet, Send
+  Shield, ChartColumn, TrendingUp, FileSpreadsheet, Send
 } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -125,7 +125,7 @@ export default function ReportesConatelPage() {
           <CardHeader className="px-5 py-4 border-b border-border/50">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded-lg">
-                <BarChart3 className="h-4 w-4 text-primary" />
+                <ChartColumn className="h-4 w-4 text-primary" />
               </div>
               <div>
                 <CardTitle className="text-sm font-semibold text-foreground">Resumen Trimestral</CardTitle>

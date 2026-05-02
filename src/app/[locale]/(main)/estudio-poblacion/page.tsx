@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Users, Search, MapPin, TrendingUp, ChartBar as BarChart3, Loader as Loader2, Zap } from "lucide-react";
+import { Users, Search, MapPin, TrendingUp, ChartBar as ChartColumn, Loader as Loader2, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function EstudioPoblacionPage() {
@@ -83,7 +83,7 @@ export default function EstudioPoblacionPage() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 animate-in fade-in duration-700">
                             {[
                                 { label: "Población Est.", val: data.poblacion, icon: Users },
-                                { label: "Densidad", val: data.densidad, icon: BarChart3 },
+                                { label: "Densidad", val: data.densidad, icon: ChartColumn },
                                 { label: "Crecimiento", val: data.crecimiento, icon: TrendingUp },
                                 { label: "Potencial", val: data.potencial, icon: Zap }
                             ].map((item, i) => (

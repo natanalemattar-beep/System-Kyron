@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { 
     Leaf, Smartphone, Receipt, Zap, Globe, 
-    QrCode, ShieldCheck, BarChart3, Radio,
+    QrCode, ShieldCheck, ChartColumn, Radio,
     Cpu, RefreshCw, ArrowUpRight
 } from 'lucide-react';
 import { cn } from '@/lib/utils';

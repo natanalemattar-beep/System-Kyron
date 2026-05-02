@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { BarChart3, ShieldCheck, AlertTriangle, ArrowUpRight, ArrowDownRight, Loader2, Inbox } from "lucide-react";
+import { ChartColumn, ShieldCheck, AlertTriangle, ArrowUpRight, ArrowDownRight, Loader2, Inbox } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BackButton } from "@/components/back-button";
 
@@ -49,7 +49,7 @@ export default function IndicadoresFinancierosPage() {
 
       <header className="space-y-1">
         <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
-          <BarChart3 className="h-8 w-8 text-primary" />
+          <ChartColumn className="h-8 w-8 text-primary" />
           Indicadores Financieros
         </h1>
         <p className="text-muted-foreground text-sm font-medium">

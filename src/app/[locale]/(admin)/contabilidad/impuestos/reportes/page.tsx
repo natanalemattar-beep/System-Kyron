@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, Loader2, Download, BarChart3 } from "lucide-react";
+import { FileText, Loader2, Download, ChartColumn } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { BackButton } from "@/components/back-button";
 
@@ -53,7 +53,7 @@ export default function ReportesPage() {
         </div>
       ) : !data ? (
         <Card className="border rounded-2xl shadow-sm p-12 text-center">
-          <BarChart3 className="h-10 w-10 mx-auto text-muted-foreground/40 mb-4" />
+          <ChartColumn className="h-10 w-10 mx-auto text-muted-foreground/40 mb-4" />
           <p className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Sin datos fiscales disponibles</p>
           <p className="text-xs text-muted-foreground/70 mt-2">Registre operaciones para generar reportes tributarios.</p>
         </Card>

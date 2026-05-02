@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import {
-  Zap, Play, Pause, ChevronDown, ChevronUp, CheckCircle2, XCircle,
+  Zap, Play, Pause, ChevronDown, ChevronUp, CircleCheck, XCircle,
   Clock, Loader2, AlertTriangle, RefreshCw, Bell, Database, Shield,
-  Trash2, FileText, BarChart3, Mail
+  Trash2, FileText, ChartColumn, Mail
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -48,7 +48,7 @@ const ACTION_ICONS: Record<string, typeof Zap> = {
   blockchain_batch_anchor: Shield,
   session_cleanup: Trash2,
   invoice_reminders: FileText,
-  activity_digest: BarChart3,
+  activity_digest: ChartColumn,
   regulatory_alerts: Bell,
   email_automation: Mail,
 };
@@ -288,7 +288,7 @@ export function ModuleAutomation({ module }: ModuleAutomationProps) {
                                 {ruleLogs.map(log => (
                                   <div key={log.id} className="flex items-center gap-2 text-[10px] p-1.5 rounded-lg bg-muted/30">
                                     {log.status === 'success' ? (
-                                      <CheckCircle2 className="h-3 w-3 text-emerald-400 shrink-0" />
+                                      <CircleCheck className="h-3 w-3 text-emerald-400 shrink-0" />
                                     ) : log.status === 'error' ? (
                                       <XCircle className="h-3 w-3 text-red-400 shrink-0" />
                                     ) : (

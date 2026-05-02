@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { Upload, FileSpreadsheet, CheckCircle2, AlertTriangle, Loader2, X, Download, Info } from "lucide-react";
+import { Upload, FileSpreadsheet, CircleCheck, AlertTriangle, Loader2, X, Download, Info } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -224,7 +224,7 @@ export function ImportMovimientos({ cuentas, onImportComplete }: { cuentas: Cuen
         {result && (
           <div className="space-y-4">
             <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-              <CheckCircle2 className="h-8 w-8 text-emerald-500 shrink-0" />
+              <CircleCheck className="h-8 w-8 text-emerald-500 shrink-0" />
               <div>
                 <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">Importación completada</p>
                 <p className="text-xs text-muted-foreground mt-0.5">

@@ -24,7 +24,7 @@ import {
   Truck,
   Plus,
   Trash2,
-  BarChart3,
+  ChartColumn,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
@@ -165,7 +165,7 @@ export default function CalculadoraCostosPage() {
         {[
           { label: "Costos Fijos", value: totalFixed, icon: Building, color: "text-blue-500", bg: "bg-blue-500/10 border-blue-500/15" },
           { label: "Costos Variables", value: totalVariable, icon: Truck, color: "text-amber-500", bg: "bg-amber-500/10 border-amber-500/15" },
-          { label: "Costo Total", value: totalCost, icon: BarChart3, color: "text-rose-500", bg: "bg-rose-500/10 border-rose-500/15" },
+          { label: "Costo Total", value: totalCost, icon: ChartColumn, color: "text-rose-500", bg: "bg-rose-500/10 border-rose-500/15" },
           {
             label: "Margen de Ganancia",
             value: margin,
@@ -451,7 +451,7 @@ export default function CalculadoraCostosPage() {
           <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden">
             <CardHeader className="p-6 border-b border-border/30">
               <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground flex items-center gap-2">
-                <BarChart3 className="h-3.5 w-3.5 text-amber-500" />
+                <ChartColumn className="h-3.5 w-3.5 text-amber-500" />
                 Distribución de Costos
               </CardTitle>
             </CardHeader>

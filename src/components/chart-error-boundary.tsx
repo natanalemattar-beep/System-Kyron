@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { BarChart3 } from 'lucide-react';
+import { ChartColumn } from 'lucide-react';
 
 interface Props {
   children: React.ReactNode;
@@ -31,7 +31,7 @@ export class ChartErrorBoundary extends React.Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div className="h-full flex flex-col items-center justify-center gap-2 text-muted-foreground/30">
-          <BarChart3 className="h-8 w-8" />
+          <ChartColumn className="h-8 w-8" />
           <p className="text-[10px] font-semibold uppercase">
             {this.props.fallbackLabel ?? 'Error al cargar el gráfico'}
           </p>

@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import {
   Zap, TrendingUp, Target, BrainCircuit, ArrowRight, Star, RefreshCw,
-  ChartBar as BarChart3, Users, DollarSign, Inbox, Loader2
+  ChartBar as ChartColumn, Users, DollarSign, Inbox, Loader2
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -135,7 +135,7 @@ export default function EstrategiasVentasPage() {
         {[
           { label: "Total Estrategias", value: loading ? "—" : `${estrategias.length}`, icon: Target, color: "text-primary" },
           { label: "Ingresos Acumulados", value: loading ? "—" : (totalIngresos > 0 ? `Bs. ${totalIngresos.toLocaleString('es-VE', { maximumFractionDigits: 0 })}` : "Sin datos"), icon: TrendingUp, color: "text-emerald-400" },
-          { label: "Activas", value: loading ? "—" : `${activas}`, icon: BarChart3, color: "text-blue-400" },
+          { label: "Activas", value: loading ? "—" : `${activas}`, icon: ChartColumn, color: "text-blue-400" },
           { label: "Alto Impacto", value: loading ? "—" : `${altasYCriticas}`, icon: Zap, color: "text-amber-400" },
         ].map((kpi, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>

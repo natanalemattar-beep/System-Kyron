@@ -8,10 +8,10 @@ import {
     Calculator,
     Smartphone,
     TrendingUp,
-    CheckCircle2,
+    CircleCheck,
     Lock,
     Cpu,
-    BarChart3,
+    ChartColumn,
     ShoppingCart,
     ScanLine,
     Activity,
@@ -322,13 +322,13 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                             <h5 className="text-[15px] font-black text-cyan-400 uppercase tracking-widest mb-4">Nuestra Promesa</h5>
                             <ul className="space-y-5 relative z-10">
                                 <li className="flex items-start gap-3 text-[14px] text-white font-bold leading-tight">
-                                    <CheckCircle2 className="h-6 w-6 text-cyan-400 shrink-0" /> Soporte técnico humano, local y siempre disponible.
+                                    <CircleCheck className="h-6 w-6 text-cyan-400 shrink-0" /> Soporte técnico humano, local y siempre disponible.
                                 </li>
                                 <li className="flex items-start gap-3 text-[14px] text-white font-bold leading-tight">
-                                    <CheckCircle2 className="h-6 w-6 text-cyan-400 shrink-0" /> Capacitación total para ti y todo tu equipo.
+                                    <CircleCheck className="h-6 w-6 text-cyan-400 shrink-0" /> Capacitación total para ti y todo tu equipo.
                                 </li>
                                 <li className="flex items-start gap-3 text-[14px] text-white font-bold leading-tight">
-                                    <CheckCircle2 className="h-6 w-6 text-cyan-400 shrink-0" /> Migración de datos sin perder tu información actual.
+                                    <CircleCheck className="h-6 w-6 text-cyan-400 shrink-0" /> Migración de datos sin perder tu información actual.
                                 </li>
                             </ul>
                         </div>
@@ -465,7 +465,7 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                             {I:Users, t:"Recursos Humanos", d:"Nómina y control."},
                             {I:Calculator, t:"Finanzas", d:"Cuentas al día."},
                             {I:FileText, t:"Facturación", d:"Manejo de IGTF."},
-                            {I:BarChart3, t:"Reportes", d:"Métricas precisas."},
+                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas."},
                             {I:Lock, t:"Seguridad", d:"Permisos y roles."},
                             {I:Phone, t:"Líneas Telefónicas", d:"Comunicación segura."}
                         ].map(({I,t,d},i)=>(

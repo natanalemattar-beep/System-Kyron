@@ -6,7 +6,7 @@ import {
     ChevronLeft, ChevronRight, Play, Presentation, 
     Shield, Smartphone, BrainCircuit, TrendingUp, 
     Users, Rocket, Globe, Zap, Landmark, Map, CheckCircle,
-    AlertCircle, Banknote, Eye, X
+    TriangleAlert, Banknote, Eye, X
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
@@ -28,7 +28,7 @@ const slides = [
         title: "EL CAOS",
         subtitle: "Fragmentación & Riesgo Operativo",
         tag: "THE CHALLENGE",
-        icon: AlertCircle,
+        icon: TriangleAlert,
         bg: "from-rose-900/40 via-slate-900 to-[#050816]",
         script: "El empresario hoy vive en el caos: un software para facturar, un gestor para impuestos y una conexión a internet que falla cuando más se necesita. Esta desconexión mata la rentabilidad."
     },

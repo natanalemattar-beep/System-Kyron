@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
-import { BrainCircuit, MessageSquare, FileSearch, BarChart3, Sparkles, ArrowRight } from 'lucide-react';
+import { BrainCircuit, MessageSquare, FileSearch, ChartColumn, Sparkles, ArrowRight } from 'lucide-react';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -10,7 +10,7 @@ import { useState } from 'react';
 const capabilityConfigs = [
     { icon: MessageSquare, engine: 'Claude AI', color: 'text-violet-400', gradient: 'from-violet-500 to-purple-700', border: 'border-violet-500/20' },
     { icon: FileSearch, engine: 'GPT + Gemini + Claude', color: 'text-cyan-400', gradient: 'from-cyan-500 to-blue-700', border: 'border-cyan-500/20' },
-    { icon: BarChart3, engine: 'OpenAI', color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-700', border: 'border-emerald-500/20' },
+    { icon: ChartColumn, engine: 'OpenAI', color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-700', border: 'border-emerald-500/20' },
 ];
 
 const aiEngines = [

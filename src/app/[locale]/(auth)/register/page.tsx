@@ -7,11 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
     User, Building2, ArrowRight, ChevronLeft, ShieldCheck,
-    Search, CheckCircle2, AlertCircle, Fingerprint, Loader2,
+    Search, CircleCheck as CircleCheck, TriangleAlert as TriangleAlert, Fingerprint, Loader2,
     Signal, Gavel, ArrowLeft,
     ChevronDown, Globe, Landmark, FileSignature, Building, UserCircle,
     ShoppingCart, Lock, Recycle,
-    Calculator, Brain, Smartphone, Cpu, Shield, BarChart3, Zap,
+    Calculator, Brain, Smartphone, Cpu, Shield, ChartBar as ChartColumn, Zap,
     Hexagon, CircuitBoard,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -147,7 +147,7 @@ const BRANDING_FEATURES = [
     { icon: Shield, label: "Cifrado AES-256", color: "text-emerald-400", bg: "bg-emerald-500/10", desc: "Seguridad bancaria" },
     { icon: Brain, label: "Inteligencia Artificial", color: "text-violet-400", bg: "bg-violet-500/10", desc: "Automatización inteligente" },
     { icon: Smartphone, label: "Mi Línea 5G", color: "text-cyan-400", bg: "bg-cyan-500/10", desc: "Conectividad premium" },
-    { icon: BarChart3, label: "Reportes SENIAT", color: "text-amber-400", bg: "bg-amber-500/10", desc: "Declaraciones al día" },
+    { icon: ChartColumn, label: "Reportes SENIAT", color: "text-amber-400", bg: "bg-amber-500/10", desc: "Declaraciones al día" },
     { icon: Zap, label: "Automatización", color: "text-rose-400", bg: "bg-rose-500/10", desc: "Procesos en piloto automático" },
 ];
 
@@ -597,6 +597,7 @@ export default function RegisterSelectionPage() {
     }, [detected, prefix, fullDocument]);
 
     const handleSelectModule = useCallback((moduleRoute: string, moduleId: string) => {
+        setNavigatingModule(moduleId);
         const params = new URLSearchParams({ doc: fullDocument });
         if (moduleId !== moduleRoute) params.set('modulo', moduleId);
         if (rifLookup?.razonSocial) params.set('razon', rifLookup.razonSocial);
@@ -717,7 +718,7 @@ export default function RegisterSelectionPage() {
                                                     animate={isActive ? { scale: [1, 1.08, 1] } : {}}
                                                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                                                 >
-                                                    {isDone ? <CheckCircle2 className="h-3.5 w-3.5" /> : n + 1}
+                                                    {isDone ? <CircleCheck className="h-3.5 w-3.5" /> : n + 1}
                                                 </motion.div>
                                                 <span className={cn(
                                                     "text-[10px] font-semibold tracking-[0.1em] uppercase transition-colors hidden sm:block",
@@ -815,7 +816,7 @@ export default function RegisterSelectionPage() {
                                                                         </div>
                                                                         <span className={cn("text-xs font-bold", isActive ? p.color : "text-slate-700 dark:text-slate-200")}>{p.value}</span>
                                                                         <span className="text-[11px] text-slate-400">{p.desc}</span>
-                                                                        {isActive && <CheckCircle2 className={cn("h-3.5 w-3.5 shrink-0 ml-auto", p.color)} />}
+                                                                        {isActive && <CircleCheck className={cn("h-3.5 w-3.5 shrink-0 ml-auto", p.color)} />}
                                                                     </div>
                                                                 );
                                                             })}
@@ -932,14 +933,14 @@ export default function RegisterSelectionPage() {
 
                                         {rifSearched && rifValidationError && !rifSearching && (
                                             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-red-200 dark:border-red-700 bg-red-50/80 dark:bg-red-950/80 backdrop-blur-sm">
-                                                <AlertCircle className="h-4 w-4 text-red-400 shrink-0" />
+                                                <TriangleAlert className="h-4 w-4 text-red-400 shrink-0" />
                                                 <p className="text-[11px] font-medium text-red-600/70">{rifValidationError}</p>
                                             </motion.div>
                                         )}
 
                                         {rifSearched && !rifLookup && !rifValidationError && !rifSearching && (
                                             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-amber-200 dark:border-amber-700 bg-amber-50/80 dark:bg-amber-950/80 backdrop-blur-sm">
-                                                <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
+                                                <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0" />
                                                 <p className="text-[11px] font-medium text-amber-600/70 dark:text-amber-400/70">
                                                     RIF válido pero no encontrado en el sistema. Podrás ingresar los datos manualmente.
                                                 </p>
@@ -965,10 +966,10 @@ export default function RegisterSelectionPage() {
                                                             animate={{ scale: 1 }}
                                                             transition={{ type: "spring", stiffness: 400, damping: 15 }}
                                                         >
-                                                            <CheckCircle2 className={cn("h-4 w-4 shrink-0", isNatural ? "text-sky-400" : "text-emerald-400")} />
+                                                            <CircleCheck className={cn("h-4 w-4 shrink-0", isNatural ? "text-sky-400" : "text-emerald-400")} />
                                                         </motion.div>
                                                     ) : (
-                                                        <AlertCircle className="h-4 w-4 shrink-0 text-slate-300" />
+                                                        <TriangleAlert className="h-4 w-4 shrink-0 text-slate-300" />
                                                     )}
                                                     <div className="flex-1">
                                                         <p className={cn("text-[11px] font-semibold", isNatural ? "text-sky-600" : "text-emerald-600")}>{detected.label}</p>
@@ -1052,7 +1053,7 @@ export default function RegisterSelectionPage() {
 
                                         {isNatural && detected.valid && !cedulaLookup && !cedulaSearching && cedulaValidInfo && (
                                             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/80 dark:bg-emerald-950/80 backdrop-blur-sm">
-                                                <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                                                <CircleCheck className="h-4 w-4 text-emerald-500 shrink-0" />
                                                 <div className="flex-1 min-w-0">
                                                     <p className="text-[11px] font-semibold text-emerald-600">{cedulaValidInfo.nacionalidad || 'Documento válido'}</p>
                                                     {cedulaValidInfo.edadEstimada && (
@@ -1066,7 +1067,7 @@ export default function RegisterSelectionPage() {
 
                                         {existsResult?.exists && (
                                             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-amber-200 dark:border-amber-700 bg-amber-50/80 dark:bg-amber-950/80 backdrop-blur-sm">
-                                                <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
+                                                <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0" />
                                                 <div className="flex-1">
                                                     <p className="text-[11px] font-semibold text-amber-600 dark:text-amber-400">Documento ya registrado</p>
                                                     <p className="text-[10px] text-slate-400 mt-0.5">Ya existe una cuenta con este documento</p>
@@ -1191,7 +1192,11 @@ export default function RegisterSelectionPage() {
                                                                 <p className="text-[11px] text-slate-400 leading-relaxed line-clamp-2 group-hover:text-slate-500 dark:group-hover:text-slate-300 transition-colors">{mod.description}</p>
                                                             </div>
                                                             <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 flex items-center justify-center shrink-0 group-hover:bg-slate-200 dark:group-hover:bg-slate-600 group-hover:border-slate-300 dark:group-hover:border-slate-500 transition-all">
-                                                                <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 group-hover:translate-x-0.5 transition-all" />
+                                                                {navigatingModule === mod.id ? (
+                                                                    <Loader2 className="h-3.5 w-3.5 text-sky-500 animate-spin" />
+                                                                ) : (
+                                                                    <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 group-hover:translate-x-0.5 transition-all" />
+                                                                )}
                                                             </div>
                                                         </div>
                                                     </motion.button>

@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
 import {
     Calculator, Users, Gavel, Receipt, Smartphone,
-    BrainCircuit, BarChart3, Landmark, Lock, ArrowRight,
+    BrainCircuit, ChartColumn, Landmark, Lock, ArrowRight,
     Briefcase, FileText, Shield, Globe, Zap,
     Building2, Wallet, Scale, BadgeCheck,
     Wrench, GraduationCap, HeartPulse, Car, CreditCard, Sparkles,
@@ -30,7 +30,7 @@ const moduleConfigs = [
     { icon: Receipt, category: 'finance', color: 'text-cyan-400', gradient: 'from-cyan-500 to-cyan-700', accent: 'from-cyan-500/15', border: 'border-cyan-500/15' },
     { icon: Wallet, category: 'finance', color: 'text-emerald-400', gradient: 'from-emerald-500 to-emerald-700', accent: 'from-emerald-500/15', border: 'border-emerald-500/15' },
     { icon: Landmark, category: 'finance', color: 'text-indigo-400', gradient: 'from-indigo-500 to-indigo-700', accent: 'from-indigo-500/15', border: 'border-indigo-500/15', requiresOnline: true },
-    { icon: BarChart3, category: 'finance', color: 'text-violet-400', gradient: 'from-violet-500 to-violet-700', accent: 'from-violet-500/15', border: 'border-violet-500/15', requiresOnline: true },
+    { icon: ChartColumn, category: 'finance', color: 'text-violet-400', gradient: 'from-violet-500 to-violet-700', accent: 'from-violet-500/15', border: 'border-violet-500/15', requiresOnline: true },
     { icon: CreditCard, category: 'hr', color: 'text-green-400', gradient: 'from-green-500 to-green-700', accent: 'from-green-500/15', border: 'border-green-500/15' },
     { icon: Users, category: 'hr', color: 'text-teal-400', gradient: 'from-teal-500 to-teal-700', accent: 'from-teal-500/15', border: 'border-teal-500/15' },
     { icon: GraduationCap, category: 'hr', color: 'text-sky-400', gradient: 'from-sky-500 to-sky-700', accent: 'from-sky-500/15', border: 'border-sky-500/15' },

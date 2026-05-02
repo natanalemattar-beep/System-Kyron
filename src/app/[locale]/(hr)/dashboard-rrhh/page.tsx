@@ -6,7 +6,7 @@ import {
   CalendarCheck2, ShieldCheck, Activity, BrainCircuit, School, Terminal,
   CircleCheck as CheckCircle, Stethoscope, TrendingUp, Scale, Calculator,
   Loader as Loader2, Heart, ChevronRight, Search, Mail, Phone, Building2,
-  BarChart3, Clock, Award, Target
+  ChartColumn, Clock, Award, Target
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { formatCurrency, cn, isNetworkError } from "@/lib/utils";

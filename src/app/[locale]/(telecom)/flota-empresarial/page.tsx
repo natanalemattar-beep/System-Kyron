@@ -4,7 +4,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Signal, Users, Activity, DollarSign, TriangleAlert as AlertTriangle, ArrowLeft, Download, Search, CircleCheck as CheckCircle, CirclePlus as PlusCircle, FileText, Zap, ShieldCheck, ChartBar as BarChart3, Terminal, Smartphone, Shield, Printer, Recycle, ExternalLink, Loader2, Inbox } from "lucide-react";
+import { Signal, Users, Activity, DollarSign, TriangleAlert as AlertTriangle, ArrowLeft, Download, Search, CircleCheck as CheckCircle, CirclePlus as PlusCircle, FileText, Zap, ShieldCheck, ChartBar as ChartColumn, Terminal, Smartphone, Shield, Printer, Recycle, ExternalLink, Loader2, Inbox } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";

@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { Upload, X, FileText, Image, Loader2, CheckCircle2 } from 'lucide-react';
+import { Upload, X, FileText, Image, Loader2, CircleCheck } from 'lucide-react';
 import { DocumentVerification, VerificationResult } from '@/components/document-verification';
 
 export interface UploadedDoc {
@@ -144,7 +144,7 @@ export function DocumentUpload({
                     <p className="text-xs font-semibold text-foreground truncate">{doc.name}</p>
                     <p className="text-xs text-muted-foreground">{formatSize(doc.size)}</p>
                   </div>
-                  <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                  <CircleCheck className="h-4 w-4 text-emerald-500 shrink-0" />
                 </div>
 
                 <DocumentVerification

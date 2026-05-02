@@ -4,7 +4,7 @@ import { ModuleTutorial } from "@/components/module-tutorial";
 import { moduleTutorials } from "@/lib/module-tutorials";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, ArrowRight, TabletSmartphone, CreditCard, Receipt, FilePlus, FileMinus, ShieldAlert, CircleCheck as CheckCircle, Loader as Loader2, Activity, TrendingUp, DollarSign, FileCheck, AlertTriangle, BarChart3, Users, Wallet, Zap, Shield, Clock, ArrowUpRight, Sparkles, ChevronRight, BadgeCheck, Inbox } from "lucide-react";
+import { FileText, ArrowRight, TabletSmartphone, CreditCard, Receipt, FilePlus, FileMinus, ShieldAlert, CircleCheck as CheckCircle, Loader as Loader2, Activity, TrendingUp, DollarSign, FileCheck, AlertTriangle, ChartColumn, Users, Wallet, Zap, Shield, Clock, ArrowUpRight, Sparkles, ChevronRight, BadgeCheck, Inbox } from "lucide-react";
 import { Link } from "@/navigation";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -311,7 +311,7 @@ export default function FacturacionPage() {
                 <CardDescription className="text-[10px] mt-1">Últimos documentos fiscales procesados</CardDescription>
               </div>
               <Button variant="outline" size="sm" className="rounded-xl text-[10px] font-bold uppercase tracking-wider h-9 hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all">
-                <BarChart3 className="mr-2 h-3.5 w-3.5" /> Ver Reportes
+                <ChartColumn className="mr-2 h-3.5 w-3.5" /> Ver Reportes
               </Button>
             </div>
           </CardHeader>

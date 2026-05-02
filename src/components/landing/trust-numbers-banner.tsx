@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-import { Shield, Building2, Cpu, CheckCircle2, Lock, Zap } from 'lucide-react';
+import { Shield, Building2, Cpu, CircleCheck, Lock, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 
@@ -36,7 +36,7 @@ const metricsMeta = [
     { target: 19, suffix: '', icon: Zap, gradient: 'from-cyan-400 to-cyan-600', text: 'text-cyan-400', bg: 'bg-cyan-500/10', border: 'border-cyan-500/20' },
     { target: 9, suffix: '+', icon: Building2, gradient: 'from-blue-400 to-blue-600', text: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
     { target: 256, suffix: '-bit', icon: Lock, gradient: 'from-emerald-400 to-emerald-600', text: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
-    { target: 100, suffix: '%', icon: CheckCircle2, gradient: 'from-violet-400 to-violet-600', text: 'text-violet-400', bg: 'bg-violet-500/10', border: 'border-violet-500/20' },
+    { target: 100, suffix: '%', icon: CircleCheck, gradient: 'from-violet-400 to-violet-600', text: 'text-violet-400', bg: 'bg-violet-500/10', border: 'border-violet-500/20' },
     { target: 6, suffix: '', icon: Shield, gradient: 'from-amber-400 to-amber-600', text: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20' },
 ];
 

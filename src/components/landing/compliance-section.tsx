@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import {
     ShieldCheck, Landmark, Scale, Radio, FileCheck,
     Building2, Fingerprint, Globe, BadgeCheck, Lock,
-    Banknote, CheckCircle2, ArrowRight
+    Banknote, CircleCheck, ArrowRight
 } from "lucide-react";
 
 const regulationKeys = ["seniat", "bcv", "lottt", "conatel", "ven_nif", "sudeban"] as const;
@@ -153,7 +153,7 @@ export function ComplianceSection() {
                                 </div>
                                 {securityScore !== null && (
                                     <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase tracking-[0.15em]">
-                                        <CheckCircle2 className="h-3 w-3" />
+                                        <CircleCheck className="h-3 w-3" />
                                         {activeFeatures} protecciones activas
                                     </div>
                                 )}

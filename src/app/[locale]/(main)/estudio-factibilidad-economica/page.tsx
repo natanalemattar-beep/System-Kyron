@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatPercentage } from "@/lib/utils";
-import { Download, Printer, TrendingUp, ChartBar as BarChart, CircleCheck as CheckCircle, Zap, FileText, ShieldCheck, Activity, Target, ChartBar as BarChart3 } from "lucide-react";
+import { Download, Printer, TrendingUp, ChartBar as BarChart, CircleCheck as CheckCircle, Zap, FileText, ShieldCheck, Activity, Target, ChartBar as ChartColumn } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
@@ -15,7 +15,7 @@ const indicators = [
     { label: "Valor Actual Neto (VAN)", value: 450000, desc: "Flujo de caja descontado proyectado.", icon: TrendingUp },
     { label: "Tasa Interna de Retorno (TIR)", value: 0.285, desc: "Rendimiento anual del capital.", icon: Target },
     { label: "Período de Recuperación", value: "2.4 años", desc: "Retorno total de inversión inicial.", icon: Activity },
-    { label: "Margen de Contribución", value: 0.32, desc: "Eficiencia neta por transacción.", icon: BarChart3 },
+    { label: "Margen de Contribución", value: 0.32, desc: "Eficiencia neta por transacción.", icon: ChartColumn },
 ];
 
 const projections = [

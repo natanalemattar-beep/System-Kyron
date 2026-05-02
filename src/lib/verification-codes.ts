@@ -1,4 +1,5 @@
 import { query, queryOne } from '@/lib/db';
+import { encryptIfNotEmpty } from '@/lib/encryption';
 import crypto from 'crypto';
 
 const CODE_LENGTH = 6;
@@ -132,10 +133,12 @@ export async function verifyCode(
   // Marcar como usado
   await query(`UPDATE verification_codes SET usado = true WHERE id = $1`, [record.id]);
 
-  // Intentar obtener el usuario si existe (búsqueda dual email/teléfono)
+  // Intentar obtener el usuario (búsqueda dual email/teléfono, con soporte para teléfono encriptado)
+  const looksLikeEmail = key.includes('@');
+  const encPhone = !looksLikeEmail ? encryptIfNotEmpty(key.replace(/\D/g, '')) : null;
   const user = await queryOne<{ id: number }>(
-    `SELECT id FROM users WHERE email = $1 OR telefono = $1`, 
-    [key]
+    `SELECT id FROM users WHERE email = $1 OR telefono = $1 OR ($2 IS NOT NULL AND telefono = $2)`,
+    [key, encPhone]
   );
   return { valid: true, userId: user?.id };
 }

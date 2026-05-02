@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BarChart3, TrendingUp, DollarSign, Users, Wifi, Target, Download, Loader2, Inbox } from "lucide-react";
+import { ChartColumn, TrendingUp, DollarSign, Users, Wifi, Target, Download, Loader2, Inbox } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
@@ -55,7 +55,7 @@ export default function AnaliticaEmpresarialPage() {
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 pb-2">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <BarChart3 className="h-4 w-4 text-primary" />
+            <ChartColumn className="h-4 w-4 text-primary" />
             <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Flota Empresarial</span>
           </div>
           <h1 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">Analítica Empresarial</h1>
@@ -89,7 +89,7 @@ export default function AnaliticaEmpresarialPage() {
       <Card className="bg-card/60 border border-border/50 rounded-xl overflow-hidden">
         <CardHeader className="px-5 py-4 border-b border-border/50">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-lg"><BarChart3 className="h-4 w-4 text-primary" /></div>
+            <div className="p-2 bg-primary/10 rounded-lg"><ChartColumn className="h-4 w-4 text-primary" /></div>
             <div>
               <CardTitle className="text-sm font-semibold text-foreground">Consumo por Departamento</CardTitle>
               <CardDescription className="text-[10px] text-muted-foreground">Distribución de líneas y costos</CardDescription>

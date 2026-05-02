@@ -1,5 +1,5 @@
 
-import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles, Palmtree, Trophy, FolderKanban, Server, Gauge, ScanLine, Wifi, CreditCard as CreditCardIcon, SlidersHorizontal, ChartLine, Fingerprint, FileSpreadsheet, Eye, KeyRound, ShieldAlert, MonitorSmartphone, Scan, Plane, Headphones, Navigation, AppWindow, Monitor as MonitorIcon } from "lucide-react";
+import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as ChartColumn, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles, Palmtree, Trophy, FolderKanban, Server, Gauge, ScanLine, Wifi, CreditCard as CreditCardIcon, SlidersHorizontal, ChartLine, Fingerprint, FileSpreadsheet, Eye, KeyRound, ShieldAlert, MonitorSmartphone, Scan, Plane, Headphones, Navigation, AppWindow, Monitor as MonitorIcon } from "lucide-react";
 
 export const naturalNavGroups = [
     {
@@ -71,7 +71,7 @@ export const asesoriaContableNavGroups = [
         { href: "/contabilidad/libros", label: "Libros Consolidados", icon: BookOpen, section: "Contabilidad" },
         { href: "/contabilidad/plan-cuentas", label: "Plan de Cuentas", icon: FolderArchive, section: "Contabilidad" },
         { href: "/contabilidad/asientos-contables", label: "Asientos Contables", icon: FileEdit, section: "Contabilidad" },
-        { href: "/contabilidad/estados-financieros", label: "Estados Financieros", icon: BarChart3, section: "Contabilidad" },
+        { href: "/contabilidad/estados-financieros", label: "Estados Financieros", icon: ChartColumn, section: "Contabilidad" },
         { href: "/contabilidad/presupuesto", label: "Presupuesto", icon: Target, section: "Contabilidad" },
         { href: "/contabilidad/indicadores-financieros", label: "Indicadores", icon: TrendingUp, section: "Contabilidad" },
         { href: "/contabilidad/centro-costos", label: "Centro de Costos", icon: Building2, section: "Contabilidad" },
@@ -176,7 +176,7 @@ export const ventasNavGroups = [
     title: "Inteligencia",
     icon: TrendingUp,
     items: [
-        { href: "/analisis-ventas", label: "Análisis Comercial", icon: BarChart3 },
+        { href: "/analisis-ventas", label: "Análisis Comercial", icon: ChartColumn },
         { href: "/analisis-ventas", label: "Estrategias IA", icon: Zap },
     ]
   }
@@ -288,7 +288,7 @@ export const telecomNavGroups = [
       { href: "/geolocalizacion-flota", label: "Geolocalización", icon: Navigation, badge: "NUEVO" },
       { href: "/mdm-corporativo", label: "MDM Corporativo", icon: MonitorIcon },
       { href: "/restriccion-apps", label: "Restricción Apps", icon: AppWindow },
-      { href: "/analitica-empresarial", label: "Analítica Empresarial", icon: BarChart3, badge: "NUEVO" },
+      { href: "/analitica-empresarial", label: "Analítica Empresarial", icon: ChartColumn, badge: "NUEVO" },
       { href: "/cotizador-equipos", label: "Cotizador Equipos", icon: ShoppingCart },
       { href: "/dashboard-ejecutivo", label: "Dashboard Ejecutivo", icon: LayoutDashboard },
       { href: "/reportes-conatel", label: "Reportes CONATEL", icon: FileSpreadsheet, badge: "NUEVO" },

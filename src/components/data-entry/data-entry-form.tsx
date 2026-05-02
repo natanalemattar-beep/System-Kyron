@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader as Loader2, CloudUpload as UploadCloud, CircleCheck as CheckCircle, CircleAlert as AlertCircle, Download } from "lucide-react";
+import { Loader as Loader2, CloudUpload as UploadCloud, CircleCheck as CheckCircle, CircleAlert as TriangleAlert, Download } from "lucide-react";
 import { processDocumentAction } from "@/app/[locale]/(main)/data-entry/actions";
 import type { AutomatedDataEntryOutput } from "@/ai/flows/automated-data-entry-from-image";
 import { formatCurrency, formatDate } from "@/lib/utils";
@@ -155,7 +155,7 @@ MÉTODO DE PAGO: ${result.paymentMethod || 'N/A'}
           )}
           {status === "error" && (
              <div className="flex flex-col items-center justify-center h-full text-center text-destructive">
-                <AlertCircle className="w-12 h-12" />
+                <TriangleAlert className="w-12 h-12" />
                 <p className="mt-4 font-semibold">Error al Procesar</p>
                 <p className="text-sm">{error}</p>
              </div>

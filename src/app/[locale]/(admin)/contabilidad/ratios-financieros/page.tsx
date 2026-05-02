@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsTrigger, TabsList } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import {
-  BarChart3, TrendingUp, TrendingDown, DollarSign, PieChart, Activity,
+  ChartColumn, TrendingUp, TrendingDown, DollarSign, PieChart, Activity,
   ArrowLeft, Shield, Zap, Target, Info, Calculator, Scale, Landmark,
   CheckCircle, AlertTriangle,
 } from "lucide-react";
@@ -57,7 +57,7 @@ const inputFields: { key: keyof FinancialInputs; label: string; placeholder: str
   { key: "ventasNetas", label: "Ventas Netas", placeholder: "Ej: 800000", icon: TrendingUp },
   { key: "costoVentas", label: "Costo de Ventas", placeholder: "Ej: 500000", icon: Calculator },
   { key: "utilidadNeta", label: "Utilidad Neta", placeholder: "Ej: 120000", icon: Target },
-  { key: "inventario", label: "Inventario", placeholder: "Ej: 150000", icon: BarChart3 },
+  { key: "inventario", label: "Inventario", placeholder: "Ej: 150000", icon: ChartColumn },
   { key: "cuentasCobrar", label: "Cuentas por Cobrar", placeholder: "Ej: 200000", icon: Zap },
   { key: "cuentasPagar", label: "Cuentas por Pagar", placeholder: "Ej: 180000", icon: Activity },
   { key: "gastosFinancieros", label: "Gastos Financieros (opcional)", placeholder: "Ej: 50000", icon: PieChart },
@@ -404,7 +404,7 @@ export default function RatiosFinancierosPage() {
 
       <motion.header initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-[11px] font-semibold uppercase tracking-widest text-cyan-400">
-          <BarChart3 className="h-3 w-3" />
+          <ChartColumn className="h-3 w-3" />
           RATIOS FINANCIEROS
         </div>
         <h1 className="text-2xl md:text-4xl font-bold tracking-tight uppercase bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">

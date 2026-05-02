@@ -11,7 +11,7 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import { Loader2, Plus, Search, Trash2, ArrowLeft, Users, CheckCircle, Building, Clock, AlertCircle, XCircle, AlertTriangle, FileText, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, DollarSign, Car, Heart, Phone, Globe, Package, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
+  import { Loader2, Plus, Search, Trash2, ArrowLeft, Users, CheckCircle, Building, Clock, TriangleAlert, XCircle, AlertTriangle, FileText, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, DollarSign, Car, Heart, Phone, Globe, Package, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";

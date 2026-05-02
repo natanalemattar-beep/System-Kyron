@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { BarChart3, TrendingUp, BrainCircuit, Wifi, Bell, Zap, Target, Loader2, Inbox } from "lucide-react";
+import { ChartColumn, TrendingUp, BrainCircuit, Wifi, Bell, Zap, Target, Loader2, Inbox } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
@@ -57,7 +57,7 @@ export default function AnaliticaConsumoPage() {
       <div className="space-y-6 pb-16 px-4 md:px-6 lg:px-8 animate-in fade-in duration-700">
         <header className="pt-6 pb-2">
           <div className="flex items-center gap-2 mb-1">
-            <BarChart3 className="h-4 w-4 text-primary" />
+            <ChartColumn className="h-4 w-4 text-primary" />
             <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Mi Línea Personal</span>
           </div>
           <h1 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">Analítica de Consumo</h1>
@@ -75,7 +75,7 @@ export default function AnaliticaConsumoPage() {
     <div className="space-y-6 pb-16 px-4 md:px-6 lg:px-8 animate-in fade-in duration-700">
       <header className="pt-6 pb-2">
         <div className="flex items-center gap-2 mb-1">
-          <BarChart3 className="h-4 w-4 text-primary" />
+          <ChartColumn className="h-4 w-4 text-primary" />
           <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Mi Línea Personal</span>
         </div>
         <h1 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">Analítica de Consumo</h1>

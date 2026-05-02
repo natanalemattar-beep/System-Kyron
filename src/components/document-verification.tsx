@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import {
   ShieldCheck, ShieldAlert, ShieldX, ShieldQuestion,
   Loader2, ChevronDown, ChevronUp, AlertTriangle,
-  CheckCircle2, Info, X, Fingerprint, Eye, EyeOff,
+  CircleCheck, Info, X, Fingerprint, Eye, EyeOff,
   Brain, Cpu, Zap, Search, FileSearch, Lock,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -148,7 +148,7 @@ function ScoreBar({ label, puntaje, estado }: { label: string; puntaje: number; 
 
 function DetailsList({ section, label }: { section: AnalysisSection; label: string }) {
   const [open, setOpen] = useState(false);
-  const StatusIcon = section.estado === 'ok' ? CheckCircle2 : section.estado === 'advertencia' ? AlertTriangle : ShieldX;
+  const StatusIcon = section.estado === 'ok' ? CircleCheck : section.estado === 'advertencia' ? AlertTriangle : ShieldX;
   const statusColor = section.estado === 'ok' ? 'text-emerald-400' : section.estado === 'advertencia' ? 'text-amber-400' : 'text-red-400';
   return (
     <div className="border border-border/15 rounded-xl overflow-hidden bg-card/30">
@@ -192,7 +192,7 @@ function ScanningAnimation({ stage }: { stage: number }) {
               isDone ? 'opacity-50' : isCurrent ? 'bg-primary/8' : 'opacity-25'
             )}>
               {isDone ? (
-                <CheckCircle2 className="h-3 w-3 text-emerald-400 shrink-0" />
+                <CircleCheck className="h-3 w-3 text-emerald-400 shrink-0" />
               ) : isCurrent ? (
                 <StageIcon className="h-3 w-3 text-primary animate-pulse shrink-0" />
               ) : (
@@ -442,7 +442,7 @@ export function DocumentVerification({
                 <p className="text-[11px] font-semibold uppercase tracking-widest text-primary/40">Recomendaciones</p>
                 {result.recomendaciones.map((r, i) => (
                   <p key={i} className="text-[10px] text-muted-foreground/55 flex items-start gap-2">
-                    <CheckCircle2 className="h-3 w-3 text-primary/35 mt-0.5 shrink-0" /> {r}
+                    <CircleCheck className="h-3 w-3 text-primary/35 mt-0.5 shrink-0" /> {r}
                   </p>
                 ))}
               </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { BookOpen, Search, ArrowRightLeft, Loader2, Inbox, Printer, Plus, Trash2, Zap, AlertTriangle, CheckCircle2, FileText, Receipt } from "lucide-react";
+import { BookOpen, Search, ArrowRightLeft, Loader2, Inbox, Printer, Plus, Trash2, Zap, AlertTriangle, CircleCheck, FileText, Receipt } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -344,7 +344,7 @@ export default function AsientosContablesPage() {
               <div className="space-y-4">
                 {autoResult.success ? (
                   <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                    <CheckCircle2 className="h-8 w-8 text-emerald-500 shrink-0" />
+                    <CircleCheck className="h-8 w-8 text-emerald-500 shrink-0" />
                     <div>
                       <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
                         {autoResult.asientos_creados > 0 ? `${autoResult.asientos_creados} asientos generados exitosamente` : 'No hay operaciones pendientes'}

@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils";
 import {
   Package, Search, Loader2, Inbox, Printer,
-  Box, TrendingUp, BarChart3, ChevronLeft, ChevronRight, AlertTriangle
+  Box, TrendingUp, ChartColumn, ChevronLeft, ChevronRight, AlertTriangle
 } from "lucide-react";
 
 interface Item {
@@ -89,7 +89,7 @@ export default function LibroInventarioPage() {
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Unidades Total</span>
-              <BarChart3 className="h-4 w-4 text-emerald-500" />
+              <ChartColumn className="h-4 w-4 text-emerald-500" />
             </div>
             <p className="text-2xl font-bold text-emerald-500">{summary.totalItems}</p>
           </Card>

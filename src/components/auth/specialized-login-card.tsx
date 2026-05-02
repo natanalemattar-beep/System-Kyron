@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import {
   Loader2, ChevronLeft, CircleCheck, ShieldCheck, ArrowRight, Shield,
   UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound, RotateCcw, Sparkles, Zap,
-  Smartphone, MessageSquare, MessageCircle, Fingerprint, CheckCircle, RefreshCw, Construction
+  Smartphone, MessageSquare, MessageCircle, Fingerprint, RefreshCw, Construction
 } from 'lucide-react';
 import { Link, useRouter } from "@/navigation";
 import { useToast } from '@/hooks/use-toast';
@@ -81,6 +81,14 @@ export function SpecializedLoginCard({
   const router = useRouter();
   const { toast } = useToast();
   const theme = ACCENT_THEMES[accentColor] || ACCENT_THEMES['primary'];
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
 
   const isPersonalPortal = portalName.toLowerCase().includes('personal') || portalName.toLowerCase().includes('ciudadano');
   const isTelecomPortal = portalName.toLowerCase().includes('línea') || portalName.toLowerCase().includes('teléfono') || portalName.toLowerCase().includes('móvil');
@@ -129,7 +137,7 @@ export function SpecializedLoginCard({
       const json = await res.json();
       if (!res.ok) {
         if (json.emailDeliveryFailed) {
-          setSavedCredentials({ email, password });
+          setSavedCredentials({ email: identifier, password });
           setEmailDeliveryFailed(true);
           setError(json.error || 'No pudimos enviar el código de verificación.');
         } else if (res.status === 401) {
@@ -171,7 +179,7 @@ export function SpecializedLoginCard({
         } else if (json.emailFailed && json.hasPhone) {
           toast({ title: 'Correo no disponible', description: json.emailFailedMessage || 'Usa SMS o WhatsApp para recibir tu código.', action: <Smartphone className="text-amber-500 h-4 w-4" /> });
         } else {
-          toast({ title: 'Código enviado', description: `Revisa tu correo ${json.maskedEmail || email}`, action: <Mail className="text-cyan-500 h-4 w-4" /> });
+          toast({ title: 'Código enviado', description: `Revisa tu correo ${json.maskedEmail || identifier}`, action: <Mail className="text-cyan-500 h-4 w-4" /> });
         }
         return;
       }
@@ -611,20 +619,42 @@ export function SpecializedLoginCard({
             </div>
 
             {verifVerified ? (
-              <div className="text-center py-6 space-y-4">
+              <motion.div 
+                className="text-center py-10 space-y-6 relative overflow-hidden rounded-2xl"
+                initial={{ opacity: 0, scale: 0.5, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                transition={{ type: "spring", bounce: 0.5, duration: 0.8 }}
+              >
                 <motion.div
-                  className="inline-flex items-center justify-center w-20 h-20 rounded-3xl shadow-lg shadow-emerald-100 dark:shadow-emerald-900/30 bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900 dark:to-emerald-800"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", duration: 0.5 }}
+                  className="absolute inset-0 bg-emerald-500/20 dark:bg-emerald-500/10 rounded-full blur-3xl animate-pulse"
+                />
+                <motion.div
+                  className="inline-flex relative z-10 items-center justify-center w-24 h-24 rounded-[2rem] shadow-2xl shadow-emerald-500/40 bg-gradient-to-br from-emerald-400 to-emerald-600 border-4 border-emerald-300 dark:border-emerald-700/50"
+                  initial={{ scale: 0, rotate: -90 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ type: "spring", duration: 0.7, bounce: 0.5 }}
                 >
-                  <CheckCircle className="h-10 w-10 text-emerald-600" />
+                  <CircleCheck className="h-12 w-12 text-white drop-shadow-md" />
                 </motion.div>
-                <div>
-                  <p className="text-lg font-bold text-emerald-600 uppercase tracking-widest">¡Verificado!</p>
-                  <p className="text-sm text-muted-foreground mt-1">Redirigiendo...</p>
+                <div className="relative z-10">
+                  <motion.p 
+                    className="text-2xl font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-[0.2em] mb-2"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    ¡Acceso Concedido!
+                  </motion.p>
+                  <motion.p 
+                    className="text-xs text-emerald-700/60 dark:text-emerald-400/60 uppercase tracking-widest font-semibold flex items-center justify-center gap-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <Loader2 className="h-3 w-3 animate-spin" /> Estableciendo enlace seguro...
+                  </motion.p>
                 </div>
-              </div>
+              </motion.div>
             ) : (
               <div className="p-5 rounded-2xl border border-border/40 bg-muted/20 space-y-4">
                 <div className="flex items-center gap-3">
@@ -1025,12 +1055,23 @@ export function SpecializedLoginCard({
             )}
           </div>
           <motion.div
-            className="rounded-2xl border border-border/40 bg-card/80 backdrop-blur-xl p-6 md:p-8 shadow-lg shadow-black/[0.08]"
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={() => setMousePos({ x: -1000, y: -1000 })}
+            className="group relative rounded-2xl border border-border/40 bg-card/80 backdrop-blur-xl p-6 md:p-8 shadow-lg shadow-black/[0.08] overflow-hidden"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            {formContent}
+            <div
+              className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
+              style={{
+                background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${theme.glowFrom}, transparent 40%)`,
+              }}
+            />
+            <div className="relative z-10">
+              {formContent}
+            </div>
           </motion.div>
         </motion.div>
         <p className="absolute bottom-6 text-[11px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
@@ -1044,12 +1085,21 @@ export function SpecializedLoginCard({
         {pageBackground}
         {backButton}
         <motion.div
+          ref={cardRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={() => setMousePos({ x: -1000, y: -1000 })}
           initial={{ opacity: 0, y: 24, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-[540px] rounded-3xl shadow-lg shadow-black/[0.12] overflow-hidden border border-border/40"
+          className="group relative w-full max-w-[540px] rounded-3xl shadow-lg shadow-black/[0.12] overflow-hidden border border-border/40"
         >
-          <div className={cn('relative overflow-hidden text-white bg-gradient-to-br p-8 md:p-10', theme.gradient)}>
+          <div
+            className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
+            style={{
+              background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${theme.glowFrom}, transparent 40%)`,
+            }}
+          />
+          <div className={cn('relative z-10 overflow-hidden text-white bg-gradient-to-br p-8 md:p-10', theme.gradient)}>
             <div className="absolute inset-0 overflow-hidden">
               <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-white/[0.07] blur-[70px]" />
               <div className="absolute -bottom-12 -left-12 w-36 h-36 rounded-full bg-white/[0.05] blur-[50px]" />
@@ -1148,9 +1198,22 @@ export function SpecializedLoginCard({
               ))}
             </motion.div>
           )}
-          <div className="rounded-2xl border border-border/30 bg-card p-6 md:p-8 shadow-xl shadow-black/[0.06]">
-            {formContent}
-          </div>
+          <motion.div
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={() => setMousePos({ x: -1000, y: -1000 })}
+            className="group relative rounded-2xl border border-border/30 bg-card p-6 md:p-8 shadow-xl shadow-black/[0.06] overflow-hidden"
+          >
+            <div
+              className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
+              style={{
+                background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${theme.glowFrom}, transparent 40%)`,
+              }}
+            />
+            <div className="relative z-10">
+              {formContent}
+            </div>
+          </motion.div>
         </motion.div>
         <p className="absolute bottom-6 text-[11px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
       </div>
@@ -1242,12 +1305,21 @@ export function SpecializedLoginCard({
             )}
           </div>
           <motion.div
-            className="rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl p-6 md:p-8 shadow-lg"
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={() => setMousePos({ x: -1000, y: -1000 })}
+            className="group relative rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl p-6 md:p-8 shadow-lg overflow-hidden"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            <div className="dark-immersive-form" style={{ '--di-fg': 'rgb(255 255 255)', '--di-fg-80': 'rgb(255 255 255 / 0.7)', '--di-muted': 'rgb(255 255 255 / 0.4)', '--di-muted-60': 'rgb(255 255 255 / 0.25)', '--di-bg-subtle': 'rgb(255 255 255 / 0.05)', '--di-bg-card': 'rgb(255 255 255 / 0.06)', '--di-border': 'rgb(255 255 255 / 0.08)', '--di-border-strong': 'rgb(255 255 255 / 0.1)' } as React.CSSProperties}>
+            <div
+              className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
+              style={{
+                background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${theme.glowFrom}, transparent 40%)`,
+              }}
+            />
+            <div className="relative z-10 dark-immersive-form" style={{ '--di-fg': 'rgb(255 255 255)', '--di-fg-80': 'rgb(255 255 255 / 0.7)', '--di-muted': 'rgb(255 255 255 / 0.4)', '--di-muted-60': 'rgb(255 255 255 / 0.25)', '--di-bg-subtle': 'rgb(255 255 255 / 0.05)', '--di-bg-card': 'rgb(255 255 255 / 0.06)', '--di-border': 'rgb(255 255 255 / 0.08)', '--di-border-strong': 'rgb(255 255 255 / 0.1)' } as React.CSSProperties}>
               {formContent}
             </div>
           </motion.div>

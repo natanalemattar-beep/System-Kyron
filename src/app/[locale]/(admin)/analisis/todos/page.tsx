@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import { Link } from "@/navigation";
-import { ArrowLeft, Search, ChartBar as BarChart3, Users, Globe, TrendingUp, Calendar, Calculator, ChartPie as PieChart, Scale, Target, Zap, UserCheck, Briefcase, ChartLine as LineChart, ShieldAlert, Droplets, RefreshCw, TrendingDown, Wallet, History, ArrowRightLeft, Percent, Activity, ChartBar as BarChart, FileText, Layers, Store, Tag, Clock, UserCog, LayoutDashboard, Bell, ArrowUpRight, Package, ShieldCheck, BrainCircuit, Boxes, Truck, GraduationCap, Sparkles, Gavel, Star, Landmark } from "lucide-react";
+import { ArrowLeft, Search, ChartBar as ChartColumn, Users, Globe, TrendingUp, Calendar, Calculator, ChartPie as PieChart, Scale, Target, Zap, UserCheck, Briefcase, ChartLine as LineChart, ShieldAlert, Droplets, RefreshCw, TrendingDown, Wallet, History, ArrowRightLeft, Percent, Activity, ChartBar as BarChart, FileText, Layers, Store, Tag, Clock, UserCog, LayoutDashboard, Bell, ArrowUpRight, Package, ShieldCheck, BrainCircuit, Boxes, Truck, GraduationCap, Sparkles, Gavel, Star, Landmark } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +15,7 @@ const libraryCategories = [
     title: "Ventas e Ingresos",
     icon: TrendingUp,
     items: [
-      { label: "Ventas por Producto", href: "/analisis-ventas", kpi: "Último: 15/03", icon: BarChart3, color: "text-blue-600" },
+      { label: "Ventas por Producto", href: "/analisis-ventas", kpi: "Último: 15/03", icon: ChartColumn, color: "text-blue-600" },
       { label: "Análisis por Cliente", href: "#", kpi: "Tendencia: +5%", icon: Users, color: "text-emerald-600" },
       { label: "Desglose Regional", href: "#", kpi: "Sede Caracas", icon: Globe, color: "text-blue-600" },
       { label: "Evolución Mensual", href: "/analisis-ventas", kpi: "Auditado", icon: LineChart, color: "text-primary" },

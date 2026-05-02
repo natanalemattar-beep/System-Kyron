@@ -6,7 +6,7 @@ import { useLocale } from 'next-intl';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import {
-  Search, BarChart3, FileText, Users, Shield, Building2, Phone, Cpu, ShoppingCart,
+  Search, ChartColumn, FileText, Users, Shield, Building2, Phone, Cpu, ShoppingCart,
   Scale, Landmark, Globe, CreditCard, Settings, BookOpen, Activity, Zap,
   Calculator, Briefcase, TrendingUp, Bot, Bell, Database,
   Banknote, Receipt, PiggyBank, Wallet, ReceiptText, ClipboardList,
@@ -26,7 +26,7 @@ interface SearchItem {
 }
 
 const SEARCH_ITEMS: SearchItem[] = [
-  { title: 'Dashboard Principal', description: 'Panel de control corporativo', href: '/dashboard', icon: BarChart3, category: 'General', keywords: ['inicio', 'panel', 'kpi', 'resumen'] },
+  { title: 'Dashboard Principal', description: 'Panel de control corporativo', href: '/dashboard', icon: ChartColumn, category: 'General', keywords: ['inicio', 'panel', 'kpi', 'resumen'] },
   { title: 'Configuración', description: 'Ajustes del sistema', href: '/configuracion', icon: Settings, category: 'General', keywords: ['ajustes', 'config', 'perfil'] },
   { title: 'Manual de Usuario', description: 'Guía completa del sistema', href: '/manual-usuario', icon: BookOpen, category: 'General', keywords: ['ayuda', 'guia', 'documentacion'] },
   { title: 'Notificaciones', description: 'Centro de alertas', href: '/notificaciones', icon: Bell, category: 'General', keywords: ['alertas', 'mensajes', 'avisos'] },
@@ -69,7 +69,7 @@ const SEARCH_ITEMS: SearchItem[] = [
   { title: 'Cuentas por Pagar', description: 'Gestión de pagos a proveedores', href: '/contabilidad/cuentas-por-pagar', icon: Wallet, category: 'Contabilidad', keywords: ['pagar', 'proveedor', 'deuda'] },
   { title: 'Centro de Costos', description: 'Distribución por centros', href: '/contabilidad/centro-costos', icon: PiggyBank, category: 'Contabilidad', keywords: ['costo', 'centro', 'distribucion'] },
   { title: 'Depreciación de Activos', description: 'Cálculo de depreciación', href: '/contabilidad/depreciacion-activos', icon: TrendingUp, category: 'Contabilidad', keywords: ['depreciacion', 'activo', 'fijo'] },
-  { title: 'Indicadores Financieros', description: 'Ratios y métricas financieras', href: '/contabilidad/indicadores-financieros', icon: BarChart3, category: 'Contabilidad', keywords: ['ratio', 'indicador', 'liquidez', 'solvencia'] },
+  { title: 'Indicadores Financieros', description: 'Ratios y métricas financieras', href: '/contabilidad/indicadores-financieros', icon: ChartColumn, category: 'Contabilidad', keywords: ['ratio', 'indicador', 'liquidez', 'solvencia'] },
   { title: 'Exportación SENIAT', description: 'Exportar datos para SENIAT', href: '/contabilidad/exportacion-seniat', icon: FileText, category: 'Contabilidad', keywords: ['seniat', 'exportar', 'xml', 'txt'] },
   { title: 'Ajuste por Inflación', description: 'Ajuste fiscal y financiero', href: '/ajuste-por-inflacion', icon: TrendingUp, category: 'Contabilidad', keywords: ['inflacion', 'ajuste', 'reexpresion'] },
   { title: 'Dictamen del Contador', description: 'Informe de auditoría', href: '/contabilidad/dictamen-contador', icon: FileCheck, category: 'Contabilidad', keywords: ['dictamen', 'contador', 'auditoria'] },
@@ -81,7 +81,7 @@ const SEARCH_ITEMS: SearchItem[] = [
   { title: 'Certificaciones de Socios', description: 'Documentos de socios', href: '/contabilidad/certificaciones/socios', icon: BadgeCheck, category: 'Contabilidad', keywords: ['socio', 'accionista'] },
 
   { title: 'Presupuesto', description: 'Control presupuestario', href: '/contabilidad/presupuesto', icon: PiggyBank, category: 'Contabilidad', keywords: ['presupuesto', 'partida', 'asignacion'] },
-  { title: 'Ratios Financieros', description: 'Ratios y análisis financiero', href: '/contabilidad/ratios-financieros', icon: BarChart3, category: 'Contabilidad', keywords: ['ratio', 'analisis', 'financiero'] },
+  { title: 'Ratios Financieros', description: 'Ratios y análisis financiero', href: '/contabilidad/ratios-financieros', icon: ChartColumn, category: 'Contabilidad', keywords: ['ratio', 'analisis', 'financiero'] },
   { title: 'Punto de Ventas', description: 'Terminal de punto de venta', href: '/contabilidad/punto-de-ventas', icon: ShoppingCart, category: 'Contabilidad', keywords: ['punto', 'venta', 'pos', 'terminal'] },
   { title: 'Pagos Digitales', description: 'Gestión de pagos electrónicos', href: '/contabilidad/pagos-digitales', icon: CreditCard, category: 'Contabilidad', keywords: ['pago', 'digital', 'electronico'] },
   { title: 'Entidades Sin Fines de Lucro', description: 'Contabilidad para ONG', href: '/contabilidad/entidades-sin-fines-lucro', icon: Building, category: 'Contabilidad', keywords: ['ong', 'fundacion', 'sin fines'] },
@@ -120,7 +120,7 @@ const SEARCH_ITEMS: SearchItem[] = [
   { title: 'Reportes', description: 'Generación de informes', href: '/reportes', icon: FileText, category: 'Ventas y Facturación', keywords: ['informe', 'reporte', 'pdf', 'excel'] },
   { title: 'Arqueo de Caja', description: 'Cierre y conciliación de caja', href: '/arqueo-caja', icon: CreditCard, category: 'Ventas y Facturación', keywords: ['caja', 'cierre', 'conciliacion', 'efectivo'] },
   { title: 'Estrategias de Ventas', description: 'Planificación comercial', href: '/estrategias-ventas', icon: TrendingUp, category: 'Ventas y Facturación', keywords: ['venta', 'estrategia', 'comercial'] },
-  { title: 'Análisis de Ventas', description: 'Métricas de ventas', href: '/analisis-ventas', icon: BarChart3, category: 'Ventas y Facturación', keywords: ['venta', 'metrica', 'analisis'] },
+  { title: 'Análisis de Ventas', description: 'Métricas de ventas', href: '/analisis-ventas', icon: ChartColumn, category: 'Ventas y Facturación', keywords: ['venta', 'metrica', 'analisis'] },
   { title: 'Fidelización de Clientes', description: 'Programa de fidelidad', href: '/fidelizacion-clientes', icon: Users, category: 'Ventas y Facturación', keywords: ['cliente', 'fidelidad', 'programa'] },
   { title: 'Marketing', description: 'Campañas y publicidad', href: '/marketing', icon: Briefcase, category: 'Ventas y Facturación', keywords: ['campaña', 'publicidad', 'promocion'] },
 
@@ -147,7 +147,7 @@ const SEARCH_ITEMS: SearchItem[] = [
 
   { title: 'Activos Inmobiliarios', description: 'Registro de propiedades', href: '/activos-inmobiliarios', icon: Building2, category: 'Activos', keywords: ['propiedad', 'inmueble', 'activo'] },
   { title: 'Calculadora de Costos', description: 'Estimación de costos', href: '/calculadora-costos', icon: Calculator, category: 'Activos', keywords: ['costo', 'calculadora', 'estimacion'] },
-  { title: 'Estructura de Costos', description: 'Desglose de costos', href: '/estructura-costos', icon: BarChart3, category: 'Activos', keywords: ['estructura', 'costo', 'desglose'] },
+  { title: 'Estructura de Costos', description: 'Desglose de costos', href: '/estructura-costos', icon: ChartColumn, category: 'Activos', keywords: ['estructura', 'costo', 'desglose'] },
   { title: 'Líneas de Crédito', description: 'Gestión de líneas de crédito', href: '/lineas-credito', icon: Banknote, category: 'Activos', keywords: ['credito', 'linea', 'financiamiento'] },
   { title: 'Billetera de Cambio', description: 'Operaciones en divisas', href: '/billetera-cambio', icon: Wallet, category: 'Activos', keywords: ['divisa', 'cambio', 'dolar'] },
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Target, Plus, Users, TrendingUp, Eye, BarChart3, DollarSign, CheckCircle, Clock, Pause, Play, Loader2 } from "lucide-react";
+import { Target, Plus, Users, TrendingUp, Eye, ChartColumn, DollarSign, CheckCircle, Clock, Pause, Play, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -276,7 +276,7 @@ export default function CampanasPage() {
                     </div>
                     <div className="flex gap-2">
                       <Button size="sm" className="rounded-lg text-[10px] font-bold gap-1.5">
-                        <BarChart3 className="h-3 w-3" /> Analítica
+                        <ChartColumn className="h-3 w-3" /> Analítica
                       </Button>
                       <Button variant="outline" size="sm" className="rounded-lg text-[10px] font-bold gap-1.5">
                         <Eye className="h-3 w-3" /> Detalles

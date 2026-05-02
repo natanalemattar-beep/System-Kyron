@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Sparkles, ArrowRight, CheckCircle2, Shield, Zap, Clock } from "lucide-react";
+import { Sparkles, ArrowRight, CircleCheck, Shield, Zap, Clock } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -64,7 +64,7 @@ export function CtaSection() {
                             <ScrollReveal delay={0.4} className="flex flex-wrap justify-center lg:justify-start gap-4">
                                 {checks.map((label, i) => (
                                     <div key={i} className="flex items-center gap-3 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                                        <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                                        <CircleCheck className="h-4 w-4 text-emerald-400" />
                                         <span className="text-[10px] font-black uppercase tracking-[0.15em] text-emerald-100">{label}</span>
                                     </div>
                                 ))}

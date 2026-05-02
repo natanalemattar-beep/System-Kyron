@@ -23,7 +23,7 @@ import {
   Shield,
   Save,
   Loader2,
-  CheckCircle2,
+  CircleCheck,
   Building2,
   Receipt,
   Construction,
@@ -269,7 +269,7 @@ export default function ConfiguracionPage() {
           {timeoutConfig.mode === 'manual' && (
             <div className="border-t border-border/15 pt-4">
               <p className="text-[10px] text-emerald-500 font-medium flex items-center gap-1.5">
-                <CheckCircle2 className="h-3.5 w-3.5" />
+                <CircleCheck className="h-3.5 w-3.5" />
                 Sesión permanente — no se cerrará por inactividad
               </p>
             </div>

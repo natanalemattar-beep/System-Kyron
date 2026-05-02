@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils";
 import {
   Wine, Search, Loader2, Inbox, Printer,
-  Package, BarChart3, AlertTriangle
+  Package, ChartColumn, AlertTriangle
 } from "lucide-react";
 
 interface ItemLicor {
@@ -88,7 +88,7 @@ export default function ControlLicoresPage() {
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Valoración</span>
-              <BarChart3 className="h-4 w-4 text-primary" />
+              <ChartColumn className="h-4 w-4 text-primary" />
             </div>
             <p className="text-2xl font-bold text-primary">{formatCurrency(summary.totalValor, 'Bs.')}</p>
           </Card>

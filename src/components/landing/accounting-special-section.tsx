@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { 
     Calculator, ShieldCheck, LineChart, FileSpreadsheet, 
-    Zap, Lock, Eye, ArrowRight, CheckCircle2, TrendingUp,
+    Zap, Lock, Eye, ArrowRight, CircleCheck, TrendingUp,
     Landmark, BadgePercent
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -139,7 +139,7 @@ export function AccountingSpecialSection() {
                                 >
                                     <div className="flex items-center justify-between">
                                         <span className="text-[10px] font-black text-white/30 uppercase tracking-widest">Protocolo 0{i+1}</span>
-                                        <CheckCircle2 className="h-3 w-3 text-emerald-500" />
+                                        <CircleCheck className="h-3 w-3 text-emerald-500" />
                                     </div>
                                     <p className="text-sm font-black text-white uppercase tracking-tight">{item.name}</p>
                                     <span className={cn("text-[9px] font-black uppercase tracking-widest", item.color)}>

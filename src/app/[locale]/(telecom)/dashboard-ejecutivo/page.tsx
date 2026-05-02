@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   LayoutDashboard, TrendingUp, DollarSign, Users,
   Signal, Shield, Wifi, AlertTriangle, CircleCheck,
-  BarChart3, PieChart, Download, BrainCircuit,
+  ChartColumn, PieChart, Download, BrainCircuit,
   ArrowUp, ArrowDown, Loader2, Inbox
 } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
@@ -227,7 +227,7 @@ export default function DashboardEjecutivoPage() {
         <Card className="lg:col-span-2 bg-card/60 border border-border/50 rounded-xl overflow-hidden">
           <CardHeader className="px-5 py-4 border-b border-border/50">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded-lg"><BarChart3 className="h-4 w-4 text-primary" /></div>
+              <div className="p-2 bg-primary/10 rounded-lg"><ChartColumn className="h-4 w-4 text-primary" /></div>
               <div>
                 <CardTitle className="text-sm font-semibold text-foreground">Tendencia de Costos Corporativos</CardTitle>
                 <CardDescription className="text-[10px] text-muted-foreground">Proyección financiera Q2-2026</CardDescription>

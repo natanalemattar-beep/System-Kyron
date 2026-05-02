@@ -5,6 +5,7 @@ import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail } from '@/lib/input-sanitizer';
 import { verifyCode, normalizePhone } from '@/lib/verification-codes';
+import { encryptIfNotEmpty } from '@/lib/encryption';
 
 export const dynamic = 'force-dynamic';
 
@@ -49,14 +50,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: verification.error }, { status: isRateLimited ? 429 : 401 });
     }
 
+    const looksLikeEmail = normalizedDestino.includes('@');
+    const searchPhone = !looksLikeEmail ? normalizedDestino.replace(/\D/g, '') : null;
+    const encryptedPhone = searchPhone ? encryptIfNotEmpty(searchPhone) : null;
+
     const user = await queryOne<DbUser>(
       `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif
        FROM users 
        WHERE email = $1 
           OR telefono = $1 
-          OR telefono = CONCAT('0', SUBSTRING($1 FROM 4)) 
-          OR telefono = CONCAT('+58', SUBSTRING($1 FROM 2))`,
-      [normalizedDestino]
+          OR (telefono IS NOT NULL AND telefono = $2)
+          OR ($3 IS NOT NULL AND telefono = $3)`,
+      [normalizedDestino, searchPhone, encryptedPhone]
     );
 
     if (!user || proposito === 'registration') {

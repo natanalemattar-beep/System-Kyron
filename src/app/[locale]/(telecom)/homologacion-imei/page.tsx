@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
   Fingerprint, Smartphone, Shield, Search, CircleCheck,
-  AlertTriangle, FileText, RefreshCw, CheckCircle2, XCircle
+  AlertTriangle, FileText, RefreshCw, CircleCheck, XCircle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -24,7 +24,7 @@ const EQUIPOS = [
 ];
 
 const ESTADO_CONFIG: Record<string, { label: string; color: string; icon: typeof CircleCheck }> = {
-  homologado: { label: "Homologado", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20", icon: CheckCircle2 },
+  homologado: { label: "Homologado", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20", icon: CircleCheck },
   pendiente: { label: "Pendiente", color: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20", icon: RefreshCw },
   rechazado: { label: "Rechazado", color: "bg-rose-500/10 text-rose-500 border-rose-500/20", icon: XCircle },
 };
@@ -85,7 +85,7 @@ export default function HomologacionIMEIPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
           { label: "Equipos", val: `${EQUIPOS.length}`, icon: Smartphone, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
-          { label: "Homologados", val: `${homologados}`, icon: CheckCircle2, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
+          { label: "Homologados", val: `${homologados}`, icon: CircleCheck, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
           { label: "Pendientes", val: `${pendientes}`, icon: RefreshCw, color: "text-yellow-500", accent: "from-yellow-500/20 to-yellow-500/0", ring: "ring-yellow-500/20", iconBg: "bg-yellow-500/10" },
           { label: "Rechazados", val: `${rechazados}`, icon: XCircle, color: "text-rose-500", accent: "from-rose-500/20 to-rose-500/0", ring: "ring-rose-500/20", iconBg: "bg-rose-500/10" },
         ].map((stat, i) => (
@@ -134,7 +134,7 @@ export default function HomologacionIMEIPage() {
                 resultado.valido ? "bg-emerald-500/5 border-emerald-500/20" : "bg-rose-500/5 border-rose-500/20"
               )}
             >
-              {resultado.valido ? <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" /> : <XCircle className="h-5 w-5 text-rose-500 shrink-0" />}
+              {resultado.valido ? <CircleCheck className="h-5 w-5 text-emerald-500 shrink-0" /> : <XCircle className="h-5 w-5 text-rose-500 shrink-0" />}
               <div>
                 <p className={cn("text-sm font-bold", resultado.valido ? "text-emerald-500" : "text-rose-500")}>
                   {resultado.valido ? "EQUIPO HOMOLOGADO" : "NO HOMOLOGADO"}

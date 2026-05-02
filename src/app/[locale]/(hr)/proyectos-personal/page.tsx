@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import {
   Target, Briefcase, Users, TrendingUp, Calendar, Plus, Search,
   ChevronRight, Clock, CheckCircle, AlertTriangle, Pause,
-  Loader2, FolderKanban, BarChart3, Lightbulb, GraduationCap, Wrench
+  Loader2, FolderKanban, ChartColumn, Lightbulb, GraduationCap, Wrench
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -170,7 +170,7 @@ export default function ProyectosPersonalPage() {
           { label: "Total Proyectos", val: stats.total, icon: FolderKanban, color: "text-blue-500" },
           { label: "En Progreso", val: stats.activos, icon: TrendingUp, color: "text-amber-500" },
           { label: "Completados", val: stats.completados, icon: CheckCircle, color: "text-emerald-500" },
-          { label: "Progreso Promedio", val: `${stats.avgProgreso}%`, icon: BarChart3, color: "text-violet-500" },
+          { label: "Progreso Promedio", val: `${stats.avgProgreso}%`, icon: ChartColumn, color: "text-violet-500" },
         ].map((m, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
             <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-xl group hover:bg-secondary/5 transition-all">

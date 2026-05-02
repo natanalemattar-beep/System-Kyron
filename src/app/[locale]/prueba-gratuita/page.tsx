@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import {
-  Send, Sparkles, Lock, CheckCircle2, ArrowRight,
+  Send, Sparkles, Lock, CircleCheck, ArrowRight,
   MessageSquare, Zap, Shield, Bot, ChevronRight, ArrowLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -354,7 +354,7 @@ export default function PruebaGratuitaPage() {
             <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground/40">
               {['Chat ilimitado', 'Kyron Fiscal', 'Kyron Legal', 'Kyron RRHH', 'Módulos VEN-NIF'].map(f => (
                 <span key={f} className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3 w-3 text-emerald-400" />
+                  <CircleCheck className="h-3 w-3 text-emerald-400" />
                   {f}
                 </span>
               ))}
@@ -390,7 +390,7 @@ export default function PruebaGratuitaPage() {
             Respuesta en segundos
           </span>
           <span className="flex items-center gap-1.5">
-            <CheckCircle2 className="h-3 w-3 text-violet-400/40" />
+            <CircleCheck className="h-3 w-3 text-violet-400/40" />
             VEN-NIF · SENIAT · LOTTT
           </span>
         </motion.div>

@@ -6,7 +6,7 @@ import {
   CheckCircle, Clock, AlertTriangle, CreditCard, Calendar, MapPin,
   Plus, Search, Download, Headphones, Zap, Building2,
   ChevronRight, Star, TrendingUp, RefreshCw, FileText, DollarSign,
-  Monitor, Users, Settings, BarChart3, Lock, Eye, Activity
+  Monitor, Users, Settings, ChartColumn, Lock, Eye, Activity
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -124,7 +124,7 @@ export default function InternetEmpresarialPage() {
             <Settings className="h-3.5 w-3.5" /> Servicios
           </TabsTrigger>
           <TabsTrigger value="comparador" className="gap-1.5">
-            <BarChart3 className="h-3.5 w-3.5" /> Comparador
+            <ChartColumn className="h-3.5 w-3.5" /> Comparador
           </TabsTrigger>
         </TabsList>
 
@@ -283,7 +283,7 @@ export default function InternetEmpresarialPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <BarChart3 className="h-5 w-5 text-amber-500" />
+                <ChartColumn className="h-5 w-5 text-amber-500" />
                 Comparador de Proveedores
               </CardTitle>
               <CardDescription>Compara características y precios entre proveedores empresariales</CardDescription>

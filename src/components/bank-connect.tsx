@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Link2, Unlink, Loader2, CheckCircle2, AlertTriangle, RefreshCw, Wifi, WifiOff, Building2, ArrowRight, X, Zap } from "lucide-react";
+import { Link2, Unlink, Loader2, CircleCheck, AlertTriangle, RefreshCw, Wifi, WifiOff, Building2, ArrowRight, X, Zap } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -219,7 +219,7 @@ export function BankConnect({ cuentas, onSyncComplete }: { cuentas: CuentaBancar
           <div className="space-y-4">
             {result.success && result.importados > 0 ? (
               <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                <CheckCircle2 className="h-8 w-8 text-emerald-500 shrink-0" />
+                <CircleCheck className="h-8 w-8 text-emerald-500 shrink-0" />
                 <div>
                   <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
                     ¡Sincronización exitosa!

@@ -13,7 +13,7 @@ import {
   Rocket,
   ChevronRight,
   ChevronLeft,
-  CircleCheck as CheckCircle2,
+  CircleCheck as CircleCheck,
   CircleUser as UserCircle,
   UserPlus,
   LayoutDashboard,
@@ -455,7 +455,7 @@ export function WelcomeTutorial() {
                   onClick={handleClose}
                   className="btn-3d-primary rounded-xl px-5 sm:px-8 h-9 sm:h-11 text-[10px] font-semibold uppercase tracking-widest shadow-glow"
                 >
-                  Comenzar <CheckCircle2 className="ml-1 sm:ml-1.5 h-3.5 w-3.5" />
+                  Comenzar <CircleCheck className="ml-1 sm:ml-1.5 h-3.5 w-3.5" />
                 </Button>
               )}
             </div>

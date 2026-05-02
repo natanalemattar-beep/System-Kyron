@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 import {
-    Zap, Brain, Globe, Lock, CheckCircle2,
+    Zap, Brain, Globe, Lock, CircleCheck,
     X, ArrowRight, Sparkles, Server, Clock, BadgeCheck
 } from 'lucide-react';
 import { Link } from '@/navigation';
@@ -148,7 +148,7 @@ export function WhyKyronSection() {
                                     {feature}
                                 </div>
                                 <div className="px-3 sm:px-5 py-3 text-center min-w-[80px] sm:min-w-[120px]">
-                                    <CheckCircle2 className="h-[18px] w-[18px] text-emerald-500 mx-auto" />
+                                    <CircleCheck className="h-[18px] w-[18px] text-emerald-500 mx-auto" />
                                 </div>
                                 <div className="px-3 sm:px-5 py-3 text-center min-w-[80px] sm:min-w-[120px]">
                                     <X className="h-4 w-4 text-red-400/60 mx-auto" />

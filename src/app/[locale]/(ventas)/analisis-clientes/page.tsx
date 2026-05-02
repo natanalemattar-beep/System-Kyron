@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
 import { BackButton } from "@/components/back-button";
-import { Users, TrendingUp, DollarSign, BarChart3, ArrowLeft, Activity, Star, Target, Clock, AlertTriangle, Plus, Trash2, Crown, Award, PieChart } from "lucide-react";
+import { Users, TrendingUp, DollarSign, ChartColumn, ArrowLeft, Activity, Star, Target, Clock, AlertTriangle, Plus, Trash2, Crown, Award, PieChart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import { useToast } from "@/hooks/use-toast";
@@ -282,7 +282,7 @@ export default function AnalisisClientesPage() {
           >
             {[
               { label: "Ingresos Totales", value: `Bs ${fmt(analysis.totalRevenue)}`, icon: DollarSign, color: "emerald" },
-              { label: "Costos Totales", value: `Bs ${fmt(analysis.totalCost)}`, icon: BarChart3, color: "rose" },
+              { label: "Costos Totales", value: `Bs ${fmt(analysis.totalCost)}`, icon: ChartColumn, color: "rose" },
               { label: "Rentabilidad Promedio", value: `${analysis.avgProfitability.toFixed(1)}%`, icon: TrendingUp, color: "violet" },
               { label: "Top Cliente", value: analysis.topClient.name, icon: Crown, color: "amber" },
             ].map((stat, i) => (

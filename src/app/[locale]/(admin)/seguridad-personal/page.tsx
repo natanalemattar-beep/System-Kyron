@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { 
     Shield, ShieldCheck, KeyRound, MonitorSmartphone, 
     Activity, Mail, Smartphone, Loader2, 
-    CheckCircle2, AlertCircle, History, Fingerprint,
+    CircleCheck, TriangleAlert, History, Fingerprint,
     ShieldAlert, Lock, ArrowRight, Sparkles
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -163,7 +163,7 @@ export default function SecurityPage() {
                                     </div>
                                     {notificationMethod === 'email' && (
                                         <div className="absolute bottom-1 right-1">
-                                            <CheckCircle2 className="h-4 w-4 text-primary" />
+                                            <CircleCheck className="h-4 w-4 text-primary" />
                                         </div>
                                     )}
                                 </div>
@@ -314,7 +314,7 @@ export default function SecurityPage() {
 
                     <div className="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/20 space-y-3">
                         <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
-                            <AlertCircle className="h-4 w-4" />
+                            <TriangleAlert className="h-4 w-4" />
                             <p className="text-[10px] font-black uppercase tracking-widest">Alerta Pro</p>
                         </div>
                         <p className="text-[10px] text-muted-foreground leading-relaxed font-medium">

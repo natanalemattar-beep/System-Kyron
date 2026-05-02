@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { ChartBar as BarChart3, Droplets, Wallet, ShieldCheck, Recycle, Fingerprint, Activity, Calendar, ShieldAlert, Lock, Zap, ArrowRight } from 'lucide-react';
+import { ChartBar as ChartColumn, Droplets, Wallet, ShieldCheck, Recycle, Fingerprint, Activity, Calendar, ShieldAlert, Lock, Zap, ArrowRight } from 'lucide-react';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer
@@ -95,7 +95,7 @@ export default function EcosistemaKyron() {
                   </div>
                   <CardHeader className="p-6 md:p-10 pb-0">
                     <CardTitle className="text-xl md:text-2xl font-semibold uppercase tracking-tight flex items-center gap-3 md:gap-4 text-foreground">
-                        <BarChart3 className="text-primary h-5 w-5 md:h-6 md:w-6" />
+                        <ChartColumn className="text-primary h-5 w-5 md:h-6 md:w-6" />
                         Flujo de Red IA
                     </CardTitle>
                     <CardDescription className="text-[10px] md:text-[10px] font-bold uppercase tracking-wide md:tracking-wider text-muted-foreground/40 mt-1 md:mt-2">Métricas vectoriales de rendimiento</CardDescription>

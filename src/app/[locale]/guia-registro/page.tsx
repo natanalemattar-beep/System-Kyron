@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
     ChevronLeft, ChevronRight, Play, Fingerprint, Building2,
-    CreditCard, MapPin, CheckCircle2, ArrowRight, User,
+    CreditCard, MapPin, CircleCheck, ArrowRight, User,
     ShieldCheck, Lock, Sparkles, Eye, Phone, Mail, KeyRound,
     Globe, FileSignature, Landmark, Building, Signal, Gavel,
     ShoppingCart, Recycle,
@@ -95,7 +95,7 @@ function buildSteps(): TutorialStep[] {
                         {[
                             { icon: Fingerprint, label: "Paso 1", desc: "Identificación", color: "text-sky-400", bg: "bg-sky-500/10" },
                             { icon: Building2, label: "Paso 2", desc: "Elige tu portal", color: "text-emerald-400", bg: "bg-emerald-500/10" },
-                            { icon: CheckCircle2, label: "Paso 3", desc: "Crea tu cuenta", color: "text-violet-400", bg: "bg-violet-500/10" },
+                            { icon: CircleCheck, label: "Paso 3", desc: "Crea tu cuenta", color: "text-violet-400", bg: "bg-violet-500/10" },
                         ].map(s => (
                             <FakeCard key={s.label}>
                                 <div className="flex flex-col items-center text-center gap-2">
@@ -194,7 +194,7 @@ function buildSteps(): TutorialStep[] {
                             </div>
                         </div>
                         <div className="flex items-center gap-2 p-2.5 rounded-lg border border-sky-500/15 bg-sky-500/[0.03]">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-sky-400 shrink-0" />
+                            <CircleCheck className="h-3.5 w-3.5 text-sky-400 shrink-0" />
                             <p className="text-[11px] text-sky-300/70">Ciudadano Venezolano — Documento válido</p>
                         </div>
                     </FakeCard>
@@ -245,7 +245,7 @@ function buildSteps(): TutorialStep[] {
                             </div>
                         </div>
                         <div className="flex items-center gap-2 p-2.5 rounded-lg border border-emerald-500/15 bg-emerald-500/[0.03]">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                            <CircleCheck className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
                             <div>
                                 <p className="text-[11px] text-emerald-300/70 font-semibold">{FAKE_DATA.empresa}</p>
                                 <p className="text-[10px] text-muted-foreground/40">Persona Jurídica · {FAKE_DATA.estado}</p>
@@ -385,7 +385,7 @@ function buildSteps(): TutorialStep[] {
                             { text: "Las contraseñas coinciden", ok: true },
                         ].map(r => (
                             <div key={r.text} className="flex items-center gap-2">
-                                <CheckCircle2 className="h-3 w-3 text-emerald-400" />
+                                <CircleCheck className="h-3 w-3 text-emerald-400" />
                                 <p className="text-[11px] text-emerald-400/60">{r.text}</p>
                             </div>
                         ))}
@@ -397,14 +397,14 @@ function buildSteps(): TutorialStep[] {
             id: "done",
             title: "¡Cuenta creada exitosamente!",
             subtitle: "Ya puedes iniciar sesión con tus credenciales",
-            icon: CheckCircle2,
+            icon: CircleCheck,
             iconColor: "text-emerald-400",
             iconBg: "bg-emerald-500/10 ring-emerald-500/20",
             content: (
                 <div className="space-y-5">
                     <div className="flex flex-col items-center text-center py-4">
                         <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 ring-1 ring-emerald-500/20 flex items-center justify-center mb-4">
-                            <CheckCircle2 className="h-8 w-8 text-emerald-400" />
+                            <CircleCheck className="h-8 w-8 text-emerald-400" />
                         </div>
                         <p className="text-lg font-bold text-foreground mb-2">Registro completado</p>
                         <p className="text-sm text-muted-foreground max-w-sm">

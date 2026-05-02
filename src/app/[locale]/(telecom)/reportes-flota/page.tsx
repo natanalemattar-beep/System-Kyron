@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   ChartLine, Users, Wifi, DollarSign, Download, TrendingUp,
-  TrendingDown, Building2, Calendar, FileText, BarChart3
+  TrendingDown, Building2, Calendar, FileText, ChartColumn
 } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -84,7 +84,7 @@ export default function ReportesFlotaPage() {
         <Card className="lg:col-span-3 bg-card/60 border border-border/50 rounded-xl overflow-hidden">
           <CardHeader className="px-5 py-4 border-b border-border/50">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded-lg"><BarChart3 className="h-4 w-4 text-primary" /></div>
+              <div className="p-2 bg-primary/10 rounded-lg"><ChartColumn className="h-4 w-4 text-primary" /></div>
               <div>
                 <CardTitle className="text-sm font-semibold text-foreground">Gasto Mensual</CardTitle>
                 <CardDescription className="text-[10px] text-muted-foreground">Últimos 6 meses (USD)</CardDescription>

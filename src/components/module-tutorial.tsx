@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import {
   ChevronRight,
   ChevronLeft,
-  CircleCheck as CheckCircle2,
+  CircleCheck as CircleCheck,
   PartyPopper,
 } from "lucide-react";
 import { Logo } from "./logo";
@@ -161,7 +161,7 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
                   <div className="grid gap-1.5 pl-1">
                     {step.bullets.map((bullet, i) => (
                       <div key={i} className="flex items-start gap-2">
-                        <CheckCircle2 className={cn("h-3 w-3 mt-0.5 shrink-0", step.color)} />
+                        <CircleCheck className={cn("h-3 w-3 mt-0.5 shrink-0", step.color)} />
                         <span className="text-[10px] sm:text-xs text-muted-foreground/70 font-medium leading-snug">
                           {bullet}
                         </span>
@@ -226,7 +226,7 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
                   onClick={handleClose}
                   className="btn-3d-primary rounded-xl px-4 sm:px-6 h-9 sm:h-10 text-[10px] font-semibold uppercase tracking-widest shadow-glow"
                 >
-                  Entendido <CheckCircle2 className="ml-1 h-3.5 w-3.5" />
+                  Entendido <CircleCheck className="ml-1 h-3.5 w-3.5" />
                 </Button>
               )}
             </div>

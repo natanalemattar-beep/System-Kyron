@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle, ArrowRight, UserCheck, X } from 'lucide-react';
+import { TriangleAlert, ArrowRight, UserCheck, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/navigation';
 import { useAuth } from '@/lib/auth/context';
@@ -35,7 +35,7 @@ export function ProfileCompletionNotice() {
         <div className="relative overflow-hidden rounded-3xl border border-amber-500/20 bg-amber-500/5 backdrop-blur-md p-6">
           <div className="flex items-start gap-4">
             <div className="h-12 w-12 rounded-2xl bg-amber-500/20 flex items-center justify-center shrink-0 border border-amber-500/30">
-              <AlertCircle className="h-6 w-6 text-amber-500 animate-pulse" />
+              <TriangleAlert className="h-6 w-6 text-amber-500 animate-pulse" />
             </div>
             
             <div className="flex-1 min-w-0 space-y-1">

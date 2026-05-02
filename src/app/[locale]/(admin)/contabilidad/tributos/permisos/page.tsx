@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
-  Download, ShieldCheck, FileText, Printer, Bell, AlertTriangle, CheckCircle2,
+  Download, ShieldCheck, FileText, Printer, Bell, AlertTriangle, CircleCheck,
   Clock, Search, Landmark, Filter, Plus, RefreshCw,
   FileSignature, XCircle, Calendar, ChevronRight, Zap, ArrowRight, Copy,
   BellRing, ClipboardList, Phone, Mail, Globe, MapPin, MessageCircle,
@@ -44,7 +44,7 @@ function getOrganismoTipo(org: Organismo): string {
 const nivelAlertaConfig = {
   critico: { label: "CRÍTICO", color: "bg-red-500/10 text-red-400 border-red-500/30", icon: XCircle },
   advertencia: { label: "ADVERTENCIA", color: "bg-amber-500/10 text-amber-400 border-amber-500/30", icon: AlertTriangle },
-  ok: { label: "AL DÍA", color: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30", icon: CheckCircle2 },
+  ok: { label: "AL DÍA", color: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30", icon: CircleCheck },
 };
 
 type AlertaDB = {
@@ -253,7 +253,7 @@ export default function PermisologiaPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { label: "Total Registrados", value: misPermisos.length, icon: ClipboardList, color: "text-blue-400" },
-            { label: "Vigentes", value: misPermisosStats.vigentes, icon: CheckCircle2, color: "text-emerald-400" },
+            { label: "Vigentes", value: misPermisosStats.vigentes, icon: CircleCheck, color: "text-emerald-400" },
             { label: "Por Vencer", value: misPermisosStats.por_vencer, icon: Clock, color: "text-amber-400" },
             { label: "Vencidos", value: misPermisosStats.vencidos, icon: XCircle, color: "text-red-400" },
           ].map(stat => (
@@ -577,8 +577,8 @@ function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; 
     );
   }
 
-  const estadoConfig: Record<string, { label: string; color: string; icon: typeof CheckCircle2 }> = {
-    vigente: { label: "VIGENTE", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20", icon: CheckCircle2 },
+  const estadoConfig: Record<string, { label: string; color: string; icon: typeof CircleCheck }> = {
+    vigente: { label: "VIGENTE", color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20", icon: CircleCheck },
     por_vencer: { label: "POR VENCER", color: "bg-amber-500/10 text-amber-500 border-amber-500/20", icon: AlertTriangle },
     vencido: { label: "VENCIDO", color: "bg-red-500/10 text-red-500 border-red-500/20", icon: XCircle },
     en_tramite: { label: "EN TRÁMITE", color: "bg-blue-500/10 text-blue-500 border-blue-500/20", icon: Clock },
@@ -712,7 +712,7 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
         <div className="px-8 py-5 flex items-center gap-6">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 mb-1">
-              <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
+              <CircleCheck className="h-4 w-4 text-emerald-400 shrink-0" />
               <p className="font-semibold text-sm text-emerald-400/80 uppercase truncate">{permiso.nombre}</p>
               <Badge className="text-[7px] font-semibold uppercase bg-emerald-500/15 text-emerald-400 border-emerald-500/20 px-2 shrink-0">
                 PAGADO
@@ -802,7 +802,7 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
                   className="h-10 px-5 rounded-xl border-emerald-500/20 text-emerald-400 font-semibold uppercase text-[10px] hover:bg-emerald-500/10"
                   onClick={e => { e.stopPropagation(); handleConfirmarPago(); }}
                 >
-                  <CheckCircle2 className="mr-2 h-3.5 w-3.5" /> CONFIRMAR PAGO REALIZADO
+                  <CircleCheck className="mr-2 h-3.5 w-3.5" /> CONFIRMAR PAGO REALIZADO
                 </Button>
                 <p className="text-[10px] text-muted-foreground/40 italic">Al confirmar, las alertas de pago de este banco se desactivarán</p>
               </div>
@@ -859,7 +859,7 @@ function AlertasSection({ alertas }: { alertas: AlertaDB[] }) {
   if (alertas.length === 0) {
     return (
       <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 p-16 text-center">
-        <CheckCircle2 className="h-12 w-12 text-emerald-400/30 mx-auto mb-4" />
+        <CircleCheck className="h-12 w-12 text-emerald-400/30 mx-auto mb-4" />
         <p className="text-lg font-bold text-foreground/60 uppercase">Sin Alertas Pendientes</p>
         <p className="text-[10px] text-muted-foreground/40 mt-2">Todos los permisos registrados están al día. Registre sus permisos para activar el sistema de alertas.</p>
       </Card>

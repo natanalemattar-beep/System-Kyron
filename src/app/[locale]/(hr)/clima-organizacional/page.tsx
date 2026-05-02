@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Heart, BrainCircuit, Zap, Users, Star, MessageSquare, Activity, TrendingUp, Terminal, Award, Loader2, Plus, BarChart3 } from "lucide-react";
+import { Heart, BrainCircuit, Zap, Users, Star, MessageSquare, Activity, TrendingUp, Terminal, Award, Loader2, Plus, ChartColumn } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
@@ -147,7 +147,7 @@ export default function ClimaOrganizacionalPage() {
 
       {resumen.length === 0 && encuestas.length === 0 ? (
         <Card className="glass-card border-none rounded-2xl bg-card/40 p-16 shadow-lg text-center">
-          <BarChart3 className="h-16 w-16 text-muted-foreground/20 mx-auto mb-6" />
+          <ChartColumn className="h-16 w-16 text-muted-foreground/20 mx-auto mb-6" />
           <h3 className="text-lg font-semibold uppercase text-muted-foreground/50 tracking-widest mb-2">Sin datos de clima organizacional</h3>
           <p className="text-xs text-muted-foreground/40 mb-8">Registre encuestas de clima para ver métricas y tendencias del equipo.</p>
           <Button className="btn-3d-primary rounded-xl font-semibold uppercase text-[10px] tracking-widest" onClick={() => setShowDialog(true)}>

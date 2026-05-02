@@ -8,7 +8,7 @@ import {
   Download, Printer, Loader as Loader2, CircleCheck as CheckCircle,
   Target, LayoutDashboard, ShoppingCart,
   Landmark, Activity, Cpu, Building2, FileText,
-  Gavel, Radio, Recycle, Wallet, ChartBar as BarChart3, BrainCircuit,
+  Gavel, Radio, Recycle, Wallet, ChartBar as ChartColumn, BrainCircuit,
   ExternalLink, ChevronUp, Search, Menu, X,
   CreditCard, Briefcase, Settings,
   DollarSign, FolderOpen,
@@ -324,7 +324,7 @@ const chapters = [
   {
     id: "reportes",
     title: "Reportes & Analítica Avanzada",
-    icon: BarChart3,
+    icon: ChartColumn,
     color: "from-pink-500 to-rose-500",
     content: `System Kyron transforma los datos en decisiones. El generador de reportes extrae información analítica de cualquier módulo del sistema. Desde reportes de ventas por hora hasta análisis de rentabilidad por producto. Incluye resumen de negocio ejecutivo, análisis de riesgo financiero, proyecciones con IA y documentos listos para auditorías del SENIAT. Todos los reportes son exportables en PDF y Excel, diseñados para juntas directivas o entes gubernamentales con total transparencia.`,
     details: [

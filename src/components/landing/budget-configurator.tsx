@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 import {
     Sparkles, Phone, RadioTower, Calculator, Scale, Receipt, Users,
-    ArrowRight, Check, TrendingDown, Loader2, BarChart3
+    ArrowRight, Check, TrendingDown, Loader2, ChartColumn
 } from 'lucide-react';
 
 const MODULE_DEFS = [
@@ -210,7 +210,7 @@ export function BudgetConfigurator() {
                             <div className="border-t border-white/[0.06] p-6 md:p-8 space-y-6 bg-gradient-to-b from-violet-500/[0.02] to-transparent">
                                 <div className="flex items-start gap-3">
                                     <div className="p-2 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 shadow-lg shrink-0">
-                                        <BarChart3 className="h-5 w-5 text-white" />
+                                        <ChartColumn className="h-5 w-5 text-white" />
                                     </div>
                                     <div>
                                         <h4 className="text-sm font-bold text-foreground mb-1">{t('result_title')}</h4>

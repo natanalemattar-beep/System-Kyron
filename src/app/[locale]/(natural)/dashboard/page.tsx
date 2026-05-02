@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Clock, User, FileText, Stethoscope, Scale, History, ChevronRight,
   Search, Lock, LifeBuoy, Bell, CircleCheck as CheckCircle, Fingerprint,
-  Shield, Sparkles, Folder, AlertCircle, ArrowRight, Eye, Leaf,
+  Shield, Sparkles, Folder, TriangleAlert, ArrowRight, Eye, Leaf,
   Sun, Moon, Sunrise, Heart, BadgeCheck, Trophy
 } from "lucide-react";
 import { Link } from "@/navigation";
@@ -127,7 +127,7 @@ export default function DashboardPersonalPage() {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
         <div className="text-center space-y-3">
-          <AlertCircle className="h-8 w-8 text-rose-500 mx-auto" />
+          <TriangleAlert className="h-8 w-8 text-rose-500 mx-auto" />
           <p className="text-sm font-semibold text-foreground">No se pudo cargar el dashboard</p>
           <p className="text-xs text-muted-foreground">Hubo un error al obtener tus datos. Intenta de nuevo.</p>
           <Button size="sm" onClick={fetchData} className="rounded-lg text-xs mt-2">Reintentar</Button>
@@ -405,7 +405,7 @@ export default function DashboardPersonalPage() {
       >
         <Card className="border border-amber-500/10 rounded-xl bg-card/80 p-4">
           <div className="flex items-center gap-2 mb-3">
-            <AlertCircle className="h-4 w-4 text-amber-400" />
+            <TriangleAlert className="h-4 w-4 text-amber-400" />
             <span className="text-[11px] font-semibold text-foreground/60">Vencimiento de Documentos</span>
           </div>
           <div className="flex flex-col items-center justify-center py-6 gap-2">
