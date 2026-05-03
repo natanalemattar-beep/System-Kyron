@@ -5,7 +5,7 @@ import { Logo } from "@/components/logo";
 import { 
     Mail, MapPin, FileText, Shield, Gavel, 
     ArrowUpRight, Hexagon, Github, Twitter, 
-    Linkedin, Heart 
+    Linkedin, Heart, Instagram 
 } from "lucide-react";
 
 import { useTranslations } from 'next-intl';
@@ -139,6 +139,9 @@ export function Footer() {
                             </p>
                         </div>
                         <div className="flex items-center gap-4">
+                            <a href="https://instagram.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-foreground/20 hover:text-pink-500 hover:border-pink-500/20 hover:bg-pink-500/[0.06] transition-all duration-300">
+                                <Instagram className="h-3.5 w-3.5" />
+                            </a>
                             <a href="https://twitter.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-foreground/20 hover:text-cyan-400 hover:border-cyan-500/20 hover:bg-cyan-500/[0.06] transition-all duration-300">
                                 <Twitter className="h-3.5 w-3.5" />
                             </a>

@@ -21,7 +21,8 @@ import {
     Image as ImageIcon,
     Cloud,
     Package,
-    Phone
+    Phone,
+    Instagram
 } from 'lucide-react';
 import { KyronDocumentAi } from '@/components/ai/document-ai';
 
@@ -52,6 +53,7 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
 
     const QR_PRINCIPAL = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl)}&color=000000&bgcolor=ffffff&margin=2`;
     const QR_FEEDBACK = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl + '/feedback')}&color=000000&bgcolor=ffffff&margin=2`;
+    const QR_INSTAGRAM = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('https://instagram.com/systemkyron')}&color=000000&bgcolor=ffffff&margin=2`;
 
     const handleDownloadPDF = async () => {
         if (isExporting) return;
@@ -348,7 +350,10 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                         <div className="text-right">
                             <p className="text-[14px] text-zinc-400 font-black uppercase tracking-[0.2em] mb-1">Contacto Directo</p>
                             <p className="text-[20px] text-white font-black uppercase tracking-widest">0424-1846016</p>
-                            <p className="text-[15px] text-zinc-300 font-black tracking-wide">systemkyronofficial@gmail.com</p>
+                            <p className="text-[15px] text-zinc-300 font-black tracking-wide flex items-center justify-end gap-2">
+                                <Instagram className="h-4 w-4 text-cyan-400" /> @systemkyron
+                            </p>
+                            <p className="text-[13px] text-zinc-400 font-bold tracking-tight">systemkyronofficial@gmail.com</p>
                         </div>
                     </div>
                 </div>
@@ -379,18 +384,24 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                         <div className="mt-auto bg-zinc-900/50 backdrop-blur-xl rounded-[1.5rem] border border-zinc-800 p-5 flex flex-col items-center shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
                             <p className="text-[11px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-4 text-center">CONOCE MÁS DE NUESTRO SISTEMA</p>
                             
-                            <div className="flex gap-6 w-full justify-center mb-4">
-                                <div className="flex flex-col items-center gap-3 group">
-                                    <div className="p-2 bg-white rounded-2xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(6,182,212,0.15)] border border-cyan-500/20">
-                                        <img src={QR_PRINCIPAL} alt="Portal" width={100} height={100} className="rounded-xl" crossOrigin="anonymous" />
+                            <div className="flex gap-4 w-full justify-center mb-4">
+                                <div className="flex flex-col items-center gap-2 group">
+                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(6,182,212,0.15)] border border-cyan-500/20">
+                                        <img src={QR_PRINCIPAL} alt="Portal" width={85} height={85} className="rounded-lg" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[12px] font-black uppercase tracking-widest text-cyan-400">Portal Web</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-cyan-400">Portal Web</p>
                                 </div>
-                                <div className="flex flex-col items-center gap-3 group">
-                                    <div className="p-2 bg-white rounded-2xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.05)] border border-zinc-200">
-                                        <img src={QR_FEEDBACK} alt="Encuesta" width={100} height={100} className="rounded-xl" crossOrigin="anonymous" />
+                                <div className="flex flex-col items-center gap-2 group">
+                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(236,72,153,0.15)] border border-pink-500/20">
+                                        <img src={QR_INSTAGRAM} alt="Instagram" width={85} height={85} className="rounded-lg" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[12px] font-black uppercase tracking-widest text-white">Encuesta</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-pink-500">Instagram</p>
+                                </div>
+                                <div className="flex flex-col items-center gap-2 group">
+                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.05)] border border-zinc-200">
+                                        <img src={QR_FEEDBACK} alt="Encuesta" width={85} height={85} className="rounded-lg" crossOrigin="anonymous" />
+                                    </div>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-white">Encuesta</p>
                                 </div>
                             </div>
                             <p className="text-[12px] text-zinc-300 font-bold flex items-center gap-2">
@@ -399,7 +410,12 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                         </div>
 
                         <div className="mt-6 flex justify-between items-center px-2">
-                            <p className="text-[12px] text-zinc-500 tracking-widest font-black uppercase">system-kyron.com</p>
+                            <div className="flex flex-col">
+                                <p className="text-[12px] text-zinc-500 tracking-widest font-black uppercase">system-kyron.com</p>
+                                <p className="text-[10px] text-cyan-500/60 font-black uppercase tracking-[0.2em] flex items-center gap-1.5 mt-1">
+                                    <Instagram className="h-3 w-3" /> @systemkyron
+                                </p>
+                            </div>
                             <div className="flex gap-1.5">
                                 <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
                                 <div className="h-1.5 w-1.5 rounded-full bg-zinc-700" />
