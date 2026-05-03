@@ -47,6 +47,7 @@ interface NotifConfig {
   telefono_whatsapp: string;
   notif_sms: boolean;
   telefono_sms: string;
+  notif_push: boolean;
   notif_vencimientos: boolean;
   notif_pagos: boolean;
   email_verificacion: string;
@@ -184,6 +185,7 @@ export function NotificacionesPageContent() {
           telefono_whatsapp: config.telefono_whatsapp || null,
           notif_sms: config.notif_sms,
           telefono_sms: config.telefono_sms || null,
+          notif_push: config.notif_push,
           notif_vencimientos: config.notif_vencimientos,
           notif_pagos: config.notif_pagos,
         }),
@@ -298,6 +300,29 @@ export function NotificacionesPageContent() {
                 {config.notif_email && (
                   <div className="pl-2 border-t border-border/20 pt-3">
                     <p className="text-[10px] text-muted-foreground/60">Las alertas, verificaciones y notificaciones fiscales se enviarán automáticamente al correo registrado en tu cuenta.</p>
+                  </div>
+                )}
+              </div>
+
+              <div className="space-y-3 p-4 rounded-xl bg-muted/30 border border-border/50">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/20">
+                      <Bell className="h-4 w-4 text-cyan-400" />
+                    </div>
+                    <div>
+                      <Label className="text-sm font-bold">Push Notifications</Label>
+                      <p className="text-xs text-muted-foreground">Alertas directas en tu navegador y móvil</p>
+                    </div>
+                  </div>
+                  <Switch
+                    checked={config.notif_push}
+                    onCheckedChange={(v) => setConfig({ ...config, notif_push: v })}
+                  />
+                </div>
+                {config.notif_push && (
+                  <div className="pl-2 border-t border-border/20 pt-3">
+                    <p className="text-[10px] text-muted-foreground/60">Recibirás burbujas de notificación instantáneas incluso con la pestaña cerrada (requiere permiso del navegador).</p>
                   </div>
                 )}
               </div>
