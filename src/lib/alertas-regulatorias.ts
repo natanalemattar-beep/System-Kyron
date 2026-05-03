@@ -57,6 +57,31 @@ export interface AlertaRegulatoria {
 
 const GACETAS_RECIENTES: GacetaOficial[] = [
   {
+    id: 'GO-6970',
+    numero: '6.970 Extraordinario',
+    tipo: 'extraordinaria',
+    fecha: '2026-05-01',
+    titulo: 'Ajuste del Ingreso Mínimo Integral Indexado — Mayo 2026',
+    resumen: 'Decreto presidencial que establece el nuevo valor del Ingreso Mínimo Integral en $240 USD (indexados), compuesto por el ajuste del Bono de Guerra Económica y el Cestaticket Socialista.',
+    enteEmisor: 'Presidencia de la República',
+    impactoFiscal: true,
+    impactoLaboral: true,
+    impactoComercial: true,
+    impactoAmbiental: false,
+    urgencia: 'critica',
+    decretos: [
+      {
+        numero: '6.600',
+        titulo: 'Ajuste de Bonificaciones de Protección Social',
+        resumen: 'Incremento del Bono de Guerra Económica y Cestaticket para alcanzar un total de $240 mensuales pagaderos en Bolívares según tasa BCV.',
+        articulosClaves: ['Art. 1 — Monto Integral', 'Art. 4 — Indexación Mensual'],
+        impacto: 'Impacto inmediato en flujo de caja de nómina y costos operativos.',
+      }
+    ],
+    vigenciaDesde: '2026-05-01',
+    tags: ['salario', 'bono', 'laboral', 'mayo 2026'],
+  },
+  {
     id: 'GO-6965',
     numero: '6.965 Extraordinario',
     tipo: 'extraordinaria',
@@ -536,8 +561,8 @@ export async function verificarAlertasRegulatorias(): Promise<number> {
       const mensaje = `${alerta.resumen}\n\nAcción Requerida: ${alerta.accionRequerida}\n\nBase Legal: ${alerta.baseLegal}`;
 
       await query(
-        `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, metadata)
-         VALUES ($1, $2, $3, $4, $5)`,
+        `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, metadata, canal)
+         VALUES ($1, $2, $3, $4, $5, 'email,app')`,
         [
           empresa.user_id,
           'regulatorio',

@@ -210,13 +210,13 @@ export default function LoginPersonalPage() {
             </svg>
           </div>
 
-          <div className="relative z-10 space-y-8">
-            <div className="h-14 w-14 rounded-2xl bg-white/[0.12] backdrop-blur-sm border border-white/[0.15] flex items-center justify-center shadow-lg">
-              <Fingerprint className="h-7 w-7 text-white" />
+          <div className="relative z-10 space-y-10">
+            <div className="h-16 w-16 rounded-2xl bg-white/[0.1] backdrop-blur-xl border border-white/[0.1] flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+              <Fingerprint className="h-8 w-8 text-white" />
             </div>
-            <div className="space-y-3">
-              <h1 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">Mi Cuenta Personal</h1>
-              <p className="text-sm font-medium text-white/70 leading-relaxed max-w-sm">Gestión de identidad, trámites civiles y bóveda digital ciudadana.</p>
+            <div className="space-y-4">
+              <h1 className="text-4xl md:text-5xl font-black tracking-tighter leading-[0.85] uppercase font-impact italic text-white">Mi Cuenta <br/><span className="text-cyan-400">Personal</span></h1>
+              <p className="text-[10px] font-bold text-white/50 uppercase tracking-[0.2em] leading-relaxed max-w-sm font-tech">Identidad Digital • Ciudadanía Soberana v2.8</p>
             </div>
           </div>
 
@@ -234,10 +234,10 @@ export default function LoginPersonalPage() {
             </ul>
           </div>
 
-          <div className="relative z-10 mt-8 pt-4 border-t border-white/[0.06]">
-            <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-white/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Portal ciudadano activo
+          <div className="relative z-10 mt-8 pt-6 border-t border-white/[0.1]">
+            <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.25em] text-cyan-400">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
+              Portal Ciudadano Online
             </div>
           </div>
         </div>
@@ -245,21 +245,21 @@ export default function LoginPersonalPage() {
         <div className="p-8 md:p-10 flex flex-col justify-center bg-card">
           {step === 'credentials' ? (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold tracking-tight text-foreground">Iniciar Sesión</h2>
-                <p className="text-sm text-muted-foreground mt-1.5">Elige cómo quieres acceder</p>
+              <div className="mb-8">
+                <h2 className="text-3xl font-black tracking-tighter text-white uppercase italic font-impact leading-none">Acceso Seguro</h2>
+                <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest mt-2">Protocolo de Autenticación Kyron</p>
               </div>
 
-              <div className="flex rounded-xl bg-white/5 border border-white/5 p-1 mb-6">
+              <div className="flex rounded-xl bg-white/[0.03] border border-white/5 p-1.5 mb-8">
                 <button type="button" onClick={() => { setLoginMode('email'); setError(null); }}
-                  className={cn("flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-[11px] font-black uppercase tracking-widest transition-all",
-                    loginMode === 'email' ? "bg-blue-600 text-white shadow-lg" : "text-slate-400 hover:text-white"
+                  className={cn("flex-1 flex items-center justify-center gap-3 py-3 rounded-lg text-[10px] font-black uppercase tracking-[0.15em] transition-all",
+                    loginMode === 'email' ? "bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)]" : "text-white/30 hover:text-white"
                   )}>
                   <Mail className="h-3.5 w-3.5" /> Correo
                 </button>
                 <button type="button" onClick={() => { setLoginMode('phone'); setError(null); }}
-                  className={cn("flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-[11px] font-black uppercase tracking-widest transition-all",
-                    loginMode === 'phone' ? "bg-emerald-600 text-white shadow-lg" : "text-slate-400 hover:text-white"
+                  className={cn("flex-1 flex items-center justify-center gap-3 py-3 rounded-lg text-[10px] font-black uppercase tracking-[0.15em] transition-all",
+                    loginMode === 'phone' ? "bg-emerald-600 text-white shadow-[0_0_20px_rgba(5,150,105,0.3)]" : "text-white/30 hover:text-white"
                   )}>
                   <Smartphone className="h-3.5 w-3.5" /> Teléfono
                 </button>
@@ -291,24 +291,24 @@ export default function LoginPersonalPage() {
 
               {loginMode === 'email' ? (
                 <form onSubmit={handleLogin} className="space-y-5">
-                  <div className="space-y-2">
-                    <Label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Número de Cédula / Correo</Label>
+                  <div className="space-y-3">
+                    <Label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Identificación</Label>
                     <div className="relative group">
-                      <Fingerprint className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 transition-colors group-focus-within:text-blue-500" />
-                      <Input name="identifier" type="text" placeholder="V-12345678" required className="h-14 pl-12 rounded-xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-blue-500/20 focus-visible:border-blue-500/40 transition-all placeholder:text-slate-600" />
+                      <Fingerprint className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 transition-colors group-focus-within:text-blue-500" />
+                      <Input name="identifier" type="text" placeholder="V-12.345.678" required className="h-16 pl-14 rounded-2xl border-white/5 bg-white/[0.02] text-white focus-visible:ring-blue-500/20 focus-visible:border-blue-500/40 transition-all placeholder:text-white/10 font-bold tracking-wider" />
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <Label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Contraseña</Label>
-                      <Link href="/recuperar-cuenta" className="text-[10px] font-bold text-blue-400 hover:text-blue-300 uppercase tracking-wider">¿Olvidaste?</Link>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center px-1">
+                      <Label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Contraseña</Label>
+                      <Link href="/recuperar-cuenta" className="text-[9px] font-black text-blue-400 hover:text-cyan-400 uppercase tracking-widest transition-colors">¿Olvidaste?</Link>
                     </div>
                     <div className="relative group">
-                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 transition-colors group-focus-within:text-blue-500" />
-                      <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className="h-14 pl-12 pr-12 rounded-xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-blue-500/20 focus-visible:border-blue-500/40 transition-all placeholder:text-slate-600" />
-                      <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white transition-colors" tabIndex={-1}>
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      <Lock className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 transition-colors group-focus-within:text-blue-500" />
+                      <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className="h-16 pl-14 pr-14 rounded-2xl border-white/5 bg-white/[0.02] text-white focus-visible:ring-blue-500/20 focus-visible:border-blue-500/40 transition-all placeholder:text-white/10 font-mono text-xl" />
+                      <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-5 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors" tabIndex={-1}>
+                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                       </button>
                     </div>
                   </div>
@@ -331,8 +331,8 @@ export default function LoginPersonalPage() {
                     )}
                   </div>
 
-                  <Button type="submit" className="w-full h-12 rounded-xl font-bold text-sm shadow-lg bg-blue-600 hover:bg-blue-500 text-white transition-all hover:shadow-xl" disabled={isLoading || isScanning}>
-                    {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Acceder <ArrowRight className="ml-2 h-4 w-4" /></>}
+                  <Button type="submit" className="w-full h-16 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] shadow-xl bg-blue-600 hover:bg-blue-500 text-white transition-all hover:scale-[1.02] active:scale-[0.98] italic" disabled={isLoading || isScanning}>
+                    {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <>Validar Identidad <ArrowRight className="ml-3 h-4 w-4" /></>}
                   </Button>
                 </form>
               ) : (

@@ -65,7 +65,7 @@ export function LandingHeader() {
     const navItems = [
         { labelKey: 'home' as const, href: '/' },
         { labelKey: 'platform' as const, href: '#caracteristicas' },
-        { labelKey: 'pitch' as const, href: '/pitch' },
+
         { label: 'Soluciones', href: '#caracteristicas' },
         { label: 'Soporte', href: '/soporte' }
     ];
@@ -242,17 +242,7 @@ export function LandingHeader() {
                             <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full" />
                         </a>
 
-                        {/* Pitch */}
-                        <Link 
-                            href="/pitch" 
-                            className={cn(
-                                "text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer",
-                                isScrolled ? "text-cyan-400 hover:text-cyan-300" : "text-cyan-400 hover:text-cyan-300"
-                            )}
-                        >
-                            {t('pitch')}
-                            <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full" />
-                        </Link>
+
 
                         {/* Dropdown de Empresa */}
                         <DropdownMenu>
@@ -291,25 +281,25 @@ export function LandingHeader() {
                                 <BcvRateBadge />
                             </div>
                             <Button variant="ghost" asChild data-guide="register" className={cn(
-                                "rounded-xl h-9 px-5 text-[10px] font-bold uppercase tracking-[0.15em] border-2 transition-all duration-300 relative overflow-hidden group",
+                                "rounded-xl h-10 px-6 text-[11px] font-black uppercase tracking-[0.2em] border-2 transition-all duration-300 relative overflow-hidden group",
                                 isScrolled
-                                    ? "border-emerald-500/25 text-emerald-400 hover:border-emerald-500/40 hover:text-emerald-300 hover:bg-emerald-500/5"
+                                    ? "border-emerald-500/25 text-emerald-400 hover:border-emerald-500/40 hover:text-emerald-300 hover:bg-emerald-500/5 shadow-[0_0_20px_rgba(16,185,129,0.1)]"
                                     : "border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/40"
                             )}>
                                 <Link href="/register" prefetch={false} className="flex items-center gap-2">
                                     <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                                    <UserPlus className="h-3 w-3 group-hover:scale-110 transition-transform" />
+                                    <UserPlus className="h-3.5 w-3.5 group-hover:scale-110 transition-transform" />
                                     {t('register')}
                                 </Link>
                             </Button>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button data-guide="access" className="rounded-xl h-9 px-5 text-[10px] font-bold uppercase tracking-[0.15em] border-0 text-white shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 hover:scale-[1.04] active:scale-[0.97] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600">
+                                    <Button data-guide="access" className="rounded-xl h-10 px-6 text-[11px] font-black uppercase tracking-[0.2em] border-0 text-white shadow-lg hover:scale-[1.05] active:scale-[0.97] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600">
                                         <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
-                                        <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/15" />
-                                        <ShieldCheck className="h-3.5 w-3.5 mr-2 group-hover:scale-110 transition-transform drop-shadow-sm" /> 
+                                        <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/20" />
+                                        <ShieldCheck className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" /> 
                                         {t('access')}
-                                        <ChevronDown className="h-2.5 w-2.5 ml-1.5 opacity-70" />
+                                        <ChevronDown className="h-3 w-3 ml-2 opacity-70 group-hover:rotate-180 transition-transform" />
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" className="w-[min(520px,calc(100vw-2rem))] p-0 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl shadow-black/[0.15] overflow-hidden">
@@ -320,8 +310,8 @@ export function LandingHeader() {
                                                 <Sparkles className="h-4 w-4 text-white" />
                                             </div>
                                             <div className="flex flex-col">
-                                                <span className="text-sm font-bold text-foreground tracking-tight">{t('control_center')}</span>
-                                                <span className="text-[10px] text-muted-foreground/40 font-medium">{t('security_protocol')}</span>
+                                                <span className="text-sm font-bold text-foreground tracking-tight">Panel de Gestión</span>
+                                                <span className="text-[10px] text-muted-foreground/40 font-medium">Acceso Seguro</span>
                                             </div>
                                         </DropdownMenuLabel>
                                     </div>
@@ -407,12 +397,7 @@ export function LandingHeader() {
                                                 <ChevronRight className="h-3.5 w-3.5 opacity-20" />
                                             </a>
                                         </SheetClose>
-                                        <SheetClose asChild>
-                                            <Link href="/pitch" className="text-sm font-semibold py-2.5 px-3 rounded-xl text-amber-400/60 hover:text-amber-300 hover:bg-amber-500/[0.05] transition-all flex items-center justify-between cursor-pointer">
-                                                {t('pitch')}
-                                                <ChevronRight className="h-3.5 w-3.5 opacity-20" />
-                                            </Link>
-                                        </SheetClose>
+
                                     </nav>
 
                                     {/* Portals */}
@@ -443,20 +428,20 @@ export function LandingHeader() {
                                         <LanguageSwitcher variant="default" align="start" />
                                         <ThemeToggle />
                                     </div>
-                                    <Button asChild variant="outline" className="w-full h-12 rounded-2xl font-bold text-xs uppercase tracking-[0.15em] border-2 border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/[0.06] hover:border-emerald-500/40 transition-all duration-300 relative overflow-hidden group">
-                                        <Link href="/register" prefetch={false} className="flex items-center justify-center gap-2.5">
+                                    <Button asChild variant="outline" className="w-full h-14 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] border-2 border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/[0.06] hover:border-emerald-500/40 transition-all duration-300 relative overflow-hidden group">
+                                        <Link href="/register" prefetch={false} className="flex items-center justify-center gap-3">
                                             <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                                            <UserPlus className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                                            <UserPlus className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
                                             {t('register')}
                                         </Link>
                                     </Button>
-                                    <Button asChild className="w-full h-12 rounded-2xl font-bold text-xs uppercase tracking-[0.15em] border-0 text-white shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600">
-                                        <Link href="/login" prefetch={false} className="flex items-center justify-center gap-2.5">
+                                    <Button asChild className="w-full h-14 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] border-0 text-white shadow-xl shadow-cyan-500/20 hover:shadow-2xl hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600">
+                                        <Link href="/login" prefetch={false} className="flex items-center justify-center gap-3">
                                             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                                             <span className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/15" />
-                                            <ShieldCheck className="h-4 w-4 group-hover:scale-110 transition-transform duration-300 drop-shadow-sm" />
+                                            <ShieldCheck className="h-5 w-5 group-hover:scale-110 transition-transform duration-300 drop-shadow-md" />
                                             {t('access')}
-                                            <ArrowRight className="h-3.5 w-3.5 opacity-80 group-hover:translate-x-1 transition-transform duration-300" />
+                                            <ArrowRight className="h-4 w-4 opacity-80 group-hover:translate-x-1.5 transition-transform duration-300" />
                                         </Link>
                                     </Button>
                                 </div>

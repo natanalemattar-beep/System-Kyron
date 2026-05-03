@@ -119,16 +119,16 @@ export default function LoginSelectionPage() {
             </div>
           </motion.div>
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 text-slate-800 dark:text-slate-100 leading-[1.1] uppercase"
+            className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter mb-4 text-white leading-[0.9] uppercase font-impact italic"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             {t('title')}{' '}
-            <span className="bg-gradient-to-r from-primary via-cyan-500 to-emerald-500 bg-clip-text text-transparent">{t('title_highlight')}</span>
+            <span className="bg-gradient-to-r from-cyan-400 via-primary to-emerald-400 bg-clip-text text-transparent">{t('title_highlight')}</span>
           </motion.h1>
           <motion.p
-            className="text-sm text-slate-400 max-w-lg mx-auto leading-relaxed"
+            className="text-[10px] font-bold text-cyan-500/40 max-w-lg mx-auto leading-relaxed uppercase tracking-[0.2em] font-tech"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.4 }}
@@ -143,29 +143,28 @@ export default function LoginSelectionPage() {
           initial="hidden"
           animate="visible"
         >
-          <div className="flex items-center gap-3 mb-5">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 border border-blue-200/50 dark:border-blue-700/50 flex items-center justify-center">
-              <User className="h-4 w-4 text-blue-600" />
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+              <User className="h-4 w-4 text-blue-400" />
             </div>
             <div>
-              <h2 className="text-xs font-bold text-slate-800 dark:text-slate-100 uppercase tracking-[0.15em]">{t('citizen_portal')}</h2>
-              <p className="text-[10px] text-slate-400 mt-0.5">Servicios para ciudadanos</p>
+              <h2 className="text-[11px] font-black text-white uppercase tracking-[0.2em]">{t('citizen_portal')}</h2>
+              <p className="text-[9px] font-bold text-blue-500/40 uppercase tracking-widest mt-0.5">Identidad Digital Soberana</p>
             </div>
-            <div className="h-px flex-1 bg-gradient-to-r from-slate-200 dark:from-slate-700 to-transparent dark:to-transparent" />
+            <div className="h-px flex-1 bg-gradient-to-r from-blue-500/20 to-transparent" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {personalOptions.map((o) => (
               <motion.div variants={itemVariants} key={o.key}>
                 <Link href={o.href as any} className="group block" onClick={() => setNavigatingTo(o.href)}>
                   <motion.div
-                    whileHover={{ scale: 1.02, y: -4 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={{ scale: 1.01, x: 4 }}
+                    whileTap={{ scale: 0.99 }}
                     onHoverStart={() => setHoveredKey(o.key)}
                     onHoverEnd={() => setHoveredKey(null)}
                     className={cn(
-                      "relative flex items-center gap-4 p-5 rounded-[1.5rem] border border-white/5 bg-white/[0.02] backdrop-blur-3xl transition-all duration-500 overflow-hidden",
-                      "hover:bg-white/[0.05] hover:border-white/10",
-                      o.borderHover
+                      "relative flex items-center gap-5 p-6 rounded-[1.2rem] border border-white/5 bg-white/[0.01] backdrop-blur-3xl transition-all duration-500 overflow-hidden group/card",
+                      "hover:bg-white/[0.04] hover:border-white/10"
                     )}
                   >
                     {hoveredKey === o.key && (
@@ -182,8 +181,8 @@ export default function LoginSelectionPage() {
                       {navigatingTo === o.href ? <Loader2 className="h-6 w-6 animate-spin" /> : <o.icon className="h-6 w-6" />}
                     </div>
                     <div className="flex-1 min-w-0 relative z-10">
-                      <p className="text-base font-bold text-white tracking-tight group-hover:text-cyan-400 transition-colors uppercase">{t(`options.${o.key}.label`)}</p>
-                      <p className="text-[11px] text-slate-400 mt-1 leading-relaxed line-clamp-2 uppercase tracking-wider font-medium">{t(`options.${o.key}.description`)}</p>
+                      <p className="text-lg font-black text-white tracking-tighter group-hover/card:text-cyan-400 transition-colors uppercase italic">{t(`options.${o.key}.label`)}</p>
+                      <p className="text-[9px] font-bold text-white/30 mt-1 leading-relaxed line-clamp-1 uppercase tracking-[0.15em]">{t(`options.${o.key}.description`)}</p>
                     </div>
                     <div className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-all shrink-0 relative z-10">
                       <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all" />
@@ -201,27 +200,26 @@ export default function LoginSelectionPage() {
           initial="hidden"
           animate="visible"
         >
-          <div className="flex items-center gap-3 mb-5">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border border-emerald-200/50 dark:border-emerald-700/50 flex items-center justify-center">
-              <Building2 className="h-4 w-4 text-emerald-600" />
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-10 w-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+              <Building2 className="h-4 w-4 text-emerald-400" />
             </div>
             <div>
-              <h2 className="text-xs font-bold text-slate-800 dark:text-slate-100 uppercase tracking-[0.15em]">{t('corporate_portals')}</h2>
-              <p className="text-[10px] text-slate-400 mt-0.5">Portales empresariales</p>
+              <h2 className="text-[11px] font-black text-white uppercase tracking-[0.2em]">{t('corporate_portals')}</h2>
+              <p className="text-[9px] font-bold text-emerald-500/40 uppercase tracking-widest mt-0.5">Infraestructura Corporativa Kyron</p>
             </div>
-            <div className="h-px flex-1 bg-gradient-to-r from-slate-200 dark:from-slate-700 to-transparent dark:to-transparent" />
+            <div className="h-px flex-1 bg-gradient-to-r from-emerald-500/20 to-transparent" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {enterpriseOptions.map((option) => (
               <motion.div key={option.href} variants={itemVariants}>
                 <Link href={option.href as any} className="group block" onClick={() => setNavigatingTo(option.href)}>
                   <motion.div
-                    whileHover={{ scale: 1.02, y: -4 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={{ scale: 1.01, x: 4 }}
+                    whileTap={{ scale: 0.99 }}
                     className={cn(
-                      "relative flex items-center gap-4 p-5 rounded-[1.5rem] border border-white/5 bg-white/[0.02] backdrop-blur-3xl transition-all duration-500 overflow-hidden",
-                      "hover:bg-white/[0.05] hover:border-white/10",
-                      option.borderHover
+                      "relative flex items-center gap-4 p-5 rounded-[1rem] border border-white/5 bg-white/[0.01] backdrop-blur-3xl transition-all duration-500 overflow-hidden group/card",
+                      "hover:bg-white/[0.04] hover:border-white/10"
                     )}
                   >
                     {/* HUD corner accent */}
@@ -247,29 +245,28 @@ export default function LoginSelectionPage() {
         </motion.section>
 
         <motion.div
-          className="rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md p-6 mb-8 relative overflow-hidden"
+          className="rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-3xl p-8 mb-8 relative overflow-hidden group"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.4 }}
         >
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent" />
-          <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-cyan-400/[0.06] blur-[60px]" />
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary/10 to-cyan-500/10 flex items-center justify-center border border-blue-200/40 dark:border-blue-700/40 shrink-0">
-                <Sparkles className="h-5 w-5 text-primary" />
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent" />
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-5">
+              <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary/10 to-cyan-500/10 flex items-center justify-center border border-white/10 shrink-0 group-hover:scale-110 transition-transform">
+                <Sparkles className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100">{t('full_ecosystem')}</p>
-                <p className="text-[11px] text-slate-400">{t('ecosystem_desc')}</p>
+                <p className="text-sm font-black text-white uppercase italic tracking-tighter">{t('full_ecosystem')}</p>
+                <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mt-1">{t('ecosystem_desc')}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <Link href="/recuperar-cuenta" className="text-xs text-slate-400 hover:text-blue-600 transition-colors flex items-center gap-1.5">
+            <div className="flex items-center gap-4">
+              <Link href="/recuperar-cuenta" className="text-[10px] font-bold text-white/40 hover:text-cyan-400 transition-colors flex items-center gap-2 uppercase tracking-widest">
                 <KeyRound className="h-3.5 w-3.5" /> {t('recover_account')}
               </Link>
               <Link href="/register">
-                <Button size="sm" className="rounded-xl text-xs font-bold px-6 shadow-md hover:shadow-lg transition-all h-10 bg-gradient-to-r from-primary to-cyan-600 hover:from-primary/90 hover:to-cyan-500">
+                <Button size="sm" className="rounded-xl text-[10px] font-black px-8 shadow-xl hover:shadow-cyan-500/20 transition-all h-12 bg-gradient-to-r from-primary to-cyan-600 hover:from-primary/90 hover:to-cyan-500 uppercase tracking-widest italic">
                   <User className="mr-2 h-3.5 w-3.5" /> {t('create_account')}
                 </Button>
               </Link>

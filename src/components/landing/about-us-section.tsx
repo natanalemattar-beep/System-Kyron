@@ -213,8 +213,8 @@ export function AboutUsSection() {
                         viewport={{ once: true }}
                         transition={{ delay: 0.5, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     >
-                        <Link href="/register" className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 rounded-2xl border border-border/30 bg-muted/30 text-foreground text-xs font-bold uppercase tracking-widest hover:bg-muted/60 hover:border-border/50 transition-all duration-500">
-                            {t('join_cta')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        <Link href="/register" className="group inline-flex items-center gap-4 px-10 py-4 rounded-2xl glass-liquid-hud text-white text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-500">
+                            {t('join_cta')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1.5 transition-transform text-cyan-400" />
                         </Link>
                     </motion.div>
                 </div>

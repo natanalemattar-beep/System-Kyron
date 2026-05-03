@@ -277,11 +277,11 @@ export function CtaForm() {
                     )}
                 />
 
-                <Button type="submit" className="w-full text-[10px] md:text-[10px] font-bold h-12 md:h-14 mt-4 shadow-xl btn-3d-primary rounded-xl" disabled={isSubmitting}>
+                <Button type="submit" className="w-full text-[13px] font-bold h-14 md:h-16 mt-6 shadow-2xl rounded-2xl tracking-[0.05em]" disabled={isSubmitting}>
                     {isSubmitting ? (
-                        <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> {t('btn_submitting')}</>
+                        <><Loader2 className="mr-3 h-5 w-5 animate-spin"/> {t('btn_submitting')}</>
                     ) : (
-                        <span className="flex items-center gap-2 justify-center">{t('btn_submit')} <Send className="h-3 w-3" /></span>
+                        <span className="flex items-center gap-3 justify-center">{t('btn_submit')} <Send className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
                     )}
                 </Button>
                 <p className="text-center text-[11px] md:text-[10px] text-muted-foreground/70 uppercase font-bold tracking-wider mt-4">{t('footer_text')}</p>

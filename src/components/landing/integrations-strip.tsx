@@ -18,7 +18,6 @@ const integrationCategories = [
             { name: "Banesco", status: "Active", brandColor: "text-[#ed1c24]" },
             { name: "Mercantil", status: "Active", brandColor: "text-[#005596]" },
             { name: "Provincial", status: "Active", brandColor: "text-[#004481]" },
-            { name: "BNC", status: "Active", brandColor: "text-[#007041]" },
             { name: "Venezuela", status: "Active", brandColor: "text-[#c20e1a]" },
             { name: "Bicentenario", status: "Active", brandColor: "text-[#e30613]" },
         ],

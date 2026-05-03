@@ -31,8 +31,6 @@ const BANCOS_VE = [
   { key: "mercantil", nombre: "Mercantil", codigo: "0105", color: "bg-blue-600" },
   { key: "provincial", nombre: "Provincial (BBVA)", codigo: "0108", color: "bg-blue-800" },
   { key: "venezuela", nombre: "Banco de Venezuela", codigo: "0102", color: "bg-blue-500" },
-  { key: "bnc", nombre: "BNC", codigo: "0191", color: "bg-yellow-600" },
-  { key: "bod", nombre: "BOD", codigo: "0116", color: "bg-red-600" },
   { key: "exterior", nombre: "Banco Exterior", codigo: "0115", color: "bg-teal-600" },
   { key: "fondo_comun", nombre: "BFC", codigo: "0151", color: "bg-purple-600" },
   { key: "bancaribe", nombre: "Bancaribe", codigo: "0114", color: "bg-orange-500" },

@@ -70,6 +70,7 @@ function canonicalize(value: unknown): string {
     const keys = Object.keys(obj).sort();
     return '{' + keys.map(k => JSON.stringify(k) + ':' + canonicalize(obj[k])).join(',') + '}';
   }
+  if (typeof value === 'bigint') return value.toString();
   return String(value);
 }
 

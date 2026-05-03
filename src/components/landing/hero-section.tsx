@@ -4,8 +4,8 @@ import { ScrollReveal } from "./scroll-reveal";
 import { useScroll, useTransform, AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useRef, useEffect, useState } from 'react';
-import { Sparkles, ArrowRight, Play, TrendingUp, Shield, Wifi, Zap } from 'lucide-react';
-import Link from 'next/link';
+import { Sparkles, ArrowRight, Play, TrendingUp, Shield, Wifi, Zap, Download } from 'lucide-react';
+import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { VideoHeroBg } from "./video-hero-bg";
@@ -160,7 +160,7 @@ export function HeroSection() {
                             <ScrollReveal delay={0.1}>
                                 <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md transition-all hover:bg-amber-500/20 group shadow-glow-sm">
                                     <Sparkles className="h-4 w-4 text-amber-400 group-hover:rotate-12 transition-transform" />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-200/80">Líneas · eSIM · Gestión Elite</span>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-200/80">{t('badge')}</span>
                                 </div>
                             </ScrollReveal>
 
@@ -182,39 +182,34 @@ export function HeroSection() {
 
                             <ScrollReveal delay={0.3} y={20}>
                                 <p className="text-lg md:text-xl text-slate-100/65 max-w-2xl mx-auto lg:ml-0 font-medium leading-relaxed text-pretty">
-                                    Infraestructura móvil de grado empresarial, gestión fiscal automatizada y consultoría con IA. Todo en un ecosistema unificado para el sector privado venezolano.
+                                    {t('subtitle')}
                                 </p>
                             </ScrollReveal>
 
                             <ScrollReveal delay={0.4} scale={0.95}>
                                 <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
-                                    <motion.div whileHover={{ scale: 1.05, translateZ: 20 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                                        <Button asChild size="lg" className="h-14 px-10 text-xs font-black uppercase tracking-[0.25em] rounded-2xl overflow-hidden group border-0 bg-gradient-to-r from-cyan-600 via-blue-500 to-emerald-600 bg-size-200 animate-gradient-flow text-white shadow-[0_20px_40px_-10px_rgba(6,182,212,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(16,185,129,0.7)] transition-all duration-500 active:scale-95 shine-effect" aria-label="Registrarse ahora en el ecosistema">
-                                            <Link href="/login" className="flex items-center gap-3">
+                                    <motion.div whileHover={{ scale: 1.05, y: -4 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                                        <Button asChild size="lg" className="h-16 px-12 text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl overflow-hidden group border-0 bg-gradient-to-r from-cyan-600 via-blue-500 to-emerald-600 bg-size-200 animate-gradient-flow text-white shadow-[0_20px_50px_-12px_rgba(6,182,212,0.4)] hover:shadow-[0_30px_60px_-12px_rgba(16,185,129,0.5)] transition-all duration-500 active:scale-95 relative" aria-label="Registrarse ahora en el ecosistema">
+                                            <Link href="/login" className="relative z-10 flex items-center gap-4">
                                                 {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
                                             </Link>
                                         </Button>
                                     </motion.div>
                                     
-                                    <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                                        <Button asChild variant="outline" size="lg" className="h-14 px-8 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-white/10 bg-blue-600/10 text-blue-400 hover:bg-blue-600/20 hover:border-blue-500/40 transition-all duration-500 backdrop-blur-xl group shadow-[0_0_30px_rgba(37,99,235,0.15)]">
-                                            <Link href="/pitch" className="flex items-center gap-2">
-                                                <Download className="h-4 w-4" />
-                                                PITCH & PRESENTACIÓN
-                                            </Link>
-                                        </Button>
-                                    </motion.div>
+
 
                                     <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400, damping: 17 }}>
                                         <Button
                                             variant="ghost"
                                             size="lg"
                                             onClick={() => setVideoOpen(true)}
-                                            className="h-14 px-6 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-transparent bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-all duration-500 backdrop-blur-xl group"
+                                            className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl border-white/5 bg-white/[0.02] text-white/40 hover:bg-white/[0.05] hover:text-white transition-all duration-500 backdrop-blur-3xl group"
                                             aria-label="Ver tutorial de registro en video"
                                         >
-                                            <span className="flex items-center gap-2">
-                                                <Play className="h-3 w-3 fill-current" />
+                                            <span className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
+                                                    <Play className="h-3 w-3 fill-current group-hover:text-cyan-400" />
+                                                </div>
                                                 {t('cta_secondary')}
                                             </span>
                                         </Button>
@@ -284,7 +279,7 @@ export function HeroSection() {
                                             <div className="glass-elite px-4 py-2 rounded-2xl border-white/20 backdrop-blur-3xl shadow-glow-sm">
                                                 <div className="flex items-center gap-2">
                                                     <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                                                    <span className="text-[10px] font-black text-white tracking-widest tabular-nums uppercase">Protocolo Alfa Activo</span>
+                                                    <span className="text-[10px] font-black text-white tracking-widest tabular-nums uppercase">Sistema en Línea</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -301,8 +296,8 @@ export function HeroSection() {
                                             <TrendingUp className="h-6 w-6" />
                                         </div>
                                         <div>
-                                            <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">{t('live_users_label') || "USUARIOS ELITE"}</p>
-                                            <p className="text-xl font-black text-white tabular-nums">{liveStats ? liveStats.totalUsuarios.toLocaleString() : "2,840"}</p>
+                                            <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">{t('live_users_label')}</p>
+                                            <p className="text-xl font-black text-white tabular-nums">{liveStats?.totalUsuarios ? liveStats.totalUsuarios.toLocaleString() : "2,840"}</p>
                                         </div>
                                     </div>
                                 </FloatingCard>
@@ -313,7 +308,7 @@ export function HeroSection() {
                                             <Shield className="h-6 w-6" />
                                         </div>
                                         <div>
-                                            <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">ENCRIPTACIÓN</p>
+                                            <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">{t('encryption_label')}</p>
                                             <p className="text-xl font-black text-white uppercase tracking-tighter">AES-256</p>
                                         </div>
                                     </div>

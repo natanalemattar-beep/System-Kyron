@@ -35,7 +35,16 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
         setMounted(true);
         if (typeof window !== 'undefined') {
             setBaseUrl(window.location.origin);
+            // Permitir scroll horizontal en esta página específica para el folleto de 11in
+            document.documentElement.classList.remove('overflow-x-hidden');
+            document.body.classList.remove('overflow-x-hidden');
         }
+        return () => {
+            if (typeof window !== 'undefined') {
+                document.documentElement.classList.add('overflow-x-hidden');
+                document.body.classList.add('overflow-x-hidden');
+            }
+        };
     }, []);
 
     // Si no está montado en el cliente, retornamos un placeholder o nada para evitar errores de servidor
@@ -56,14 +65,14 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
             const h2c = (await import('html2canvas')).default;
             const { jsPDF } = await import('jspdf');
 
-            // ESCALA 4 = ULTRA NITIDEZ (4K+). Genera imágenes masivas para impresión profesional.
+            // ESCALA 2.5 = Balance ideal entre velocidad y nitidez profesional (aprox 240 DPI).
             const canvasOpts = { 
-                scale: 4, 
+                scale: 2.5, 
                 useCORS: true, 
                 backgroundColor: '#09090b', 
                 logging: false, 
                 allowTaint: false,
-                imageTimeout: 0,
+                imageTimeout: 15000,
                 removeContainer: true
             };
             
@@ -78,16 +87,16 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                 compress: false // Desactivamos compresión para mantener nitidez 4K
             });
 
-            // Página 1: Cara Exterior (Calidad 1.0 = Sin pérdida)
-            const img1 = canvas1.toDataURL('image/png');
-            pdf.addImage(img1, 'PNG', 0, 0, 11, 8.5, undefined, 'FAST');
+            // Página 1: Cara Exterior (JPEG 0.95 para velocidad)
+            const img1 = canvas1.toDataURL('image/jpeg', 0.95);
+            pdf.addImage(img1, 'JPEG', 0, 0, 11, 8.5, undefined, 'FAST');
 
             // Página 2: Cara Interior
             pdf.addPage();
-            const img2 = canvas2.toDataURL('image/png');
-            pdf.addImage(img2, 'PNG', 0, 0, 11, 8.5, undefined, 'FAST');
+            const img2 = canvas2.toDataURL('image/jpeg', 0.95);
+            pdf.addImage(img2, 'JPEG', 0, 0, 11, 8.5, undefined, 'FAST');
 
-            pdf.save('System-Kyron-Folleto-4K-Carta.pdf');
+            pdf.save('System-Kyron-Folleto-Elite.pdf');
         } catch (error) {
             console.error('Error generando PDF 4K:', error);
             alert('Error de memoria (4K requiere muchos recursos). Si falla, cierra otras pestañas.');
@@ -241,15 +250,15 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(6,182,212,0.04),transparent_50%)] pointer-events-none" />
 
                 {/* P1 (C1-Left, Flap): QUÉ ES SYSTEM KYRON (Ancho: 3.62in) */}
-                <div className="w-[3.62in] border-r border-zinc-800 p-9 flex flex-col relative z-10 bg-black/40 overflow-hidden">
+                <div className="w-[3.62in] border-r border-zinc-800 p-7 flex flex-col relative z-10 bg-black/40 overflow-hidden min-h-0">
                     <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
                     
-                    <div className="mb-6 relative z-10">
-                        <span className="inline-block px-3 py-1.5 bg-cyan-950 rounded-md text-[12px] font-black uppercase tracking-widest text-cyan-400 mb-3 border border-cyan-900 shadow-lg">La Solución Integral</span>
-                        <h3 className="text-[24px] font-black text-white uppercase tracking-tighter leading-tight">¿Qué es <br/><span className="text-cyan-400">System Kyron?</span></h3>
+                    <div className="mb-4 relative z-10">
+                        <span className="inline-block px-3 py-1 bg-cyan-950 rounded-md text-[11px] font-black uppercase tracking-widest text-cyan-400 mb-2 border border-cyan-900 shadow-lg">La Solución Integral</span>
+                        <h3 className="text-[22px] font-black text-white uppercase tracking-tighter leading-tight">¿Qué es <br/><span className="text-cyan-400">System Kyron?</span></h3>
                     </div>
 
-                    <div className="space-y-4 relative z-10 mb-8">
+                    <div className="space-y-3 relative z-10 mb-6">
                         <p className="text-[16px] text-white font-black leading-tight text-justify">
                             System Kyron es un **Ecosistema Digital Unificado** (ERP + Punto de Venta + RRHH) diseñado para digitalizar el 100% de las operaciones de una empresa en una sola pantalla.
                         </p>
@@ -258,8 +267,8 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                         </p>
                     </div>
 
-                    <div className="flex-1 flex flex-col justify-center relative z-10 p-6 bg-zinc-900/40 rounded-2xl border border-zinc-800/50">
-                        <div className="space-y-8">
+                    <div className="flex-1 flex flex-col justify-center relative z-10 p-5 bg-zinc-900/40 rounded-2xl border border-zinc-800/50 min-h-0">
+                        <div className="space-y-6">
                             <div className="flex items-center gap-5">
                                 <div className="h-12 w-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
                                     <Cloud className="h-7 w-7 text-cyan-400" />
@@ -300,14 +309,14 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                 </div>
 
                 {/* P2 (C1-Center, Back Cover): CIERRE Y ACCIÓN (Ancho: 3.69in) */}
-                <div className="w-[3.69in] border-r border-zinc-800 p-9 flex flex-col relative z-10 bg-[#09090b]">
+                <div className="w-[3.69in] border-r border-zinc-800 p-7 flex flex-col relative z-10 bg-[#09090b] min-h-0">
                     <div className="absolute -right-20 -bottom-20 opacity-[0.03] pointer-events-none">
                         <img src="/images/logo-black.png" alt="Logo Fondo" className="w-[450px] h-[450px] object-contain opacity-20" crossOrigin="anonymous" />
                     </div>
                     
-                    <div className="mb-10">
-                        <span className="inline-block px-3 py-1.5 bg-zinc-800 rounded-md text-[12px] font-black uppercase tracking-widest text-zinc-300 mb-3 border border-zinc-700 shadow-lg">El Siguiente Paso</span>
-                        <h3 className="text-[24px] font-black uppercase tracking-tighter text-white leading-tight">Únete a la<br/><span className="text-zinc-500 font-medium">Evolución.</span></h3>
+                    <div className="mb-6">
+                        <span className="inline-block px-3 py-1 bg-zinc-800 rounded-md text-[11px] font-black uppercase tracking-widest text-zinc-300 mb-2 border border-zinc-700 shadow-lg">El Siguiente Paso</span>
+                        <h3 className="text-[22px] font-black uppercase tracking-tighter text-white leading-tight">Únete a la<br/><span className="text-zinc-500 font-medium">Evolución.</span></h3>
                     </div>
 
                     <div className="space-y-6 flex-1">
@@ -315,7 +324,7 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                             No dejes que el caos administrativo frene el potencial de tu empresa. Con System Kyron, adquieres **orden, rapidez y transparencia** desde el primer día.
                         </p>
 
-                        <div className="p-6 bg-cyan-950/20 rounded-2xl border border-cyan-500/20 mt-6 relative overflow-hidden">
+                        <div className="p-5 bg-cyan-950/20 rounded-2xl border border-cyan-500/20 mt-4 relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-4 opacity-5">
                                 <Shield className="h-20 w-20 text-cyan-400" />
                             </div>
@@ -334,7 +343,7 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                         </div>
                     </div>
 
-                    <div className="mt-8 flex justify-between items-end pt-6 border-t border-zinc-800">
+                    <div className="mt-6 flex justify-between items-end pt-5 border-t border-zinc-800">
                         <img src="/images/logo-black.png" alt="Kyron Mini" className="h-16 w-16 opacity-30 object-contain" crossOrigin="anonymous" />
                         <div className="text-right">
                             <p className="text-[14px] text-zinc-400 font-black uppercase tracking-[0.2em] mb-1">Contacto Directo</p>
@@ -345,32 +354,32 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                 </div>
 
                 {/* P3 (C1-Right, Front Cover): PORTADA (Ancho: 3.69in) */}
-                <div className="w-[3.69in] p-9 flex flex-col relative z-10 overflow-hidden bg-black">
+                <div className="w-[3.69in] p-7 flex flex-col relative z-10 overflow-hidden bg-black min-h-0">
                     <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none" />
                     
                     <div className="relative z-10 flex flex-col h-full">
-                        <div className="flex justify-between items-start mb-10">
-                            <img src="/images/logo-black.png" alt="Kyron" className="h-16 w-16 object-contain opacity-90" crossOrigin="anonymous" />
+                        <div className="flex justify-between items-start mb-8">
+                            <img src="/images/logo-black.png" alt="Kyron" className="h-14 w-14 object-contain opacity-90" crossOrigin="anonymous" />
                             <div className="flex flex-col items-end">
                                 <span className="px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-md text-[12px] font-black uppercase tracking-widest text-white mb-1 shadow-lg">Presentación Oficial</span>
                                 <span className="text-[11px] font-black text-zinc-500 tracking-widest uppercase">Versión 2.0</span>
                             </div>
                         </div>
 
-                        <div className="mb-8">
-                            <p className="text-[13px] font-black uppercase tracking-[0.4em] text-cyan-400 mb-3 flex items-center gap-2">
-                                <span className="h-[2px] w-12 bg-cyan-500 inline-block" /> Plataforma Empresarial
+                        <div className="mb-6">
+                            <p className="text-[12px] font-black uppercase tracking-[0.3em] text-cyan-400 mb-2 flex items-center gap-2">
+                                <span className="h-[2px] w-10 bg-cyan-500 inline-block" /> Plataforma Empresarial
                             </p>
-                            <h1 className="text-[58px] font-black uppercase tracking-tighter leading-[0.9] mb-4 text-white">System<br/><span className="text-zinc-500">Kyron.</span></h1>
+                            <h1 className="text-[52px] font-black uppercase tracking-tighter leading-[0.9] mb-4 text-white">System<br/><span className="text-zinc-500">Kyron.</span></h1>
                             <p className="text-[13px] text-zinc-400 leading-relaxed font-medium border-l-2 border-cyan-500 pl-4">
                                 El aliado digital definitivo que centraliza y optimiza todas las operaciones de tu negocio.
                             </p>
                         </div>
 
-                        <div className="mt-auto bg-zinc-900/50 backdrop-blur-xl rounded-[2rem] border border-zinc-800 p-6 flex flex-col items-center shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
-                            <p className="text-[12px] font-black uppercase tracking-[0.3em] text-zinc-400 mb-5 text-center">CONOCE MÁS DE NUESTRO SISTEMA</p>
+                        <div className="mt-auto bg-zinc-900/50 backdrop-blur-xl rounded-[1.5rem] border border-zinc-800 p-5 flex flex-col items-center shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
+                            <p className="text-[11px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-4 text-center">CONOCE MÁS DE NUESTRO SISTEMA</p>
                             
-                            <div className="flex gap-8 w-full justify-center mb-5">
+                            <div className="flex gap-6 w-full justify-center mb-4">
                                 <div className="flex flex-col items-center gap-3 group">
                                     <div className="p-2 bg-white rounded-2xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(6,182,212,0.15)] border border-cyan-500/20">
                                         <img src={QR_PRINCIPAL} alt="Portal" width={100} height={100} className="rounded-xl" crossOrigin="anonymous" />
@@ -405,42 +414,42 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
             <div id="cara-interior" className="w-[11in] h-[8.5in] bg-[#09090b] text-zinc-300 shadow-[0_24px_60px_rgba(0,0,0,0.8)] flex shrink-0 overflow-hidden print:shadow-none relative font-[family-name:var(--font-outfit)]">
                 
                 {/* P4 (C2-Left, Inside Left): PROBLEMAS CRÍTICOS (Ancho: 3.69in) */}
-                <div className="w-[3.69in] border-r border-zinc-800 p-9 flex flex-col relative z-10 bg-black/40">
-                    <div className="mb-6">
-                        <span className="inline-block px-3 py-1.5 bg-zinc-800 rounded-md text-[12px] font-black uppercase tracking-widest text-zinc-300 mb-3 border border-zinc-700 shadow-lg">El Reto Operativo</span>
-                        <h3 className="text-[24px] font-black text-white leading-tight tracking-tighter">Problemas Críticos <br/><span className="text-zinc-500 font-medium">que tu negocio enfrenta.</span></h3>
+                <div className="w-[3.69in] border-r border-zinc-800 p-7 flex flex-col relative z-10 bg-black/40 min-h-0">
+                    <div className="mb-4">
+                        <span className="inline-block px-3 py-1 bg-zinc-800 rounded-md text-[11px] font-black uppercase tracking-widest text-zinc-300 mb-2 border border-zinc-700 shadow-lg">El Reto Operativo</span>
+                        <h3 className="text-[22px] font-black text-white leading-tight tracking-tighter">Problemas Críticos <br/><span className="text-zinc-500 font-medium">que tu negocio enfrenta.</span></h3>
                     </div>
                     
                     <div className="space-y-4 flex-1">
-                        <div className="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
-                            <h4 className="text-[15px] font-black text-white uppercase tracking-widest mb-2 flex items-center gap-2">
+                        <div className="p-3.5 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
+                            <h4 className="text-[14px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
                                 <Activity className="h-5 w-5 text-rose-400 group-hover:scale-110 transition-transform" /> Fuga de Capital Oculta
                             </h4>
-                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                            <p className="text-[13px] text-white font-bold leading-snug text-justify">
                                 La pérdida de mercancía, errores de cobro y el descontrol en los inventarios físicos generan hasta un 15% de pérdidas mensuales invisibles.
                             </p>
                         </div>
-                        <div className="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
-                            <h4 className="text-[15px] font-black text-white uppercase tracking-widest mb-2 flex items-center gap-2">
+                        <div className="p-3.5 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
+                            <h4 className="text-[14px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
                                 <TrendingUp className="h-5 w-5 text-rose-400 group-hover:scale-110 transition-transform" /> Caos Administrativo
                             </h4>
-                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                            <p className="text-[13px] text-white font-bold leading-snug text-justify">
                                 Invertir cientos de horas calculando impuestos, nóminas y cierres de caja a mano o en Excel, aumentando el riesgo de costosas multas fiscales.
                             </p>
                         </div>
-                        <div className="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
-                            <h4 className="text-[15px] font-black text-white uppercase tracking-widest mb-2 flex items-center gap-2">
+                        <div className="p-3.5 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
+                            <h4 className="text-[14px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
                                 <Cpu className="h-5 w-5 text-rose-400 group-hover:scale-110 transition-transform" /> Sistemas Desconectados
                             </h4>
-                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                            <p className="text-[13px] text-white font-bold leading-snug text-justify">
                                 Pagar por programas de facturación y hojas de cálculo que no se comunican entre sí, duplicando el trabajo del equipo.
                             </p>
                         </div>
-                        <div className="p-4 bg-zinc-900/50 rounded-xl border border-rose-900/40 hover:border-rose-500/50 transition-colors group bg-rose-950/10">
-                            <h4 className="text-[15px] font-black text-white uppercase tracking-widest mb-2 flex items-center gap-2">
+                        <div className="p-3.5 bg-zinc-900/50 rounded-xl border border-rose-900/40 hover:border-rose-500/50 transition-colors group bg-rose-950/10">
+                            <h4 className="text-[14px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
                                 <Phone className="h-5 w-5 text-rose-400 group-hover:scale-110 transition-transform" /> Estafas Telefónicas
                             </h4>
-                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                            <p className="text-[13px] text-white font-bold leading-snug text-justify">
                                 Llamadas fraudulentas que suplantan a proveedores o bancos generan pérdidas económicas directas y dañan la reputación sin dejar rastro.
                             </p>
                         </div>
@@ -452,13 +461,13 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                 </div>
 
                 {/* P5 (C2-Center, Inside Center): EL ECOSISTEMA (Ancho: 3.69in) */}
-                <div className="w-[3.69in] border-r border-zinc-800 p-9 flex flex-col relative z-10 bg-[#09090b]">
-                    <div className="mb-8">
-                        <span className="inline-block px-3 py-1.5 bg-cyan-950 rounded-md text-[12px] font-black uppercase tracking-widest text-cyan-400 mb-3 border border-cyan-900 shadow-lg">Herramientas Base</span>
-                        <h3 className="text-[24px] font-black uppercase tracking-tighter text-white leading-tight">El Ecosistema<br/><span className="text-cyan-400 font-medium">Funcional.</span></h3>
+                <div className="w-[3.69in] border-r border-zinc-800 p-7 flex flex-col relative z-10 bg-[#09090b] min-h-0">
+                    <div className="mb-6">
+                        <span className="inline-block px-3 py-1 bg-cyan-950 rounded-md text-[11px] font-black uppercase tracking-widest text-cyan-400 mb-2 border border-cyan-900 shadow-lg">Herramientas Base</span>
+                        <h3 className="text-[22px] font-black uppercase tracking-tighter text-white leading-tight">El Ecosistema<br/><span className="text-cyan-400 font-medium">Funcional.</span></h3>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 flex-1 content-start mt-2">
+                    <div className="grid grid-cols-2 gap-3 flex-1 content-start mt-1">
                         {[
                             {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas."},
                             {I:Package, t:"Inventario", d:"Control de stock."},
@@ -469,10 +478,10 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                             {I:Lock, t:"Seguridad", d:"Permisos y roles."},
                             {I:Phone, t:"Líneas Telefónicas", d:"Comunicación segura."}
                         ].map(({I,t,d},i)=>(
-                            <div key={i} className="flex flex-col p-3.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 hover:bg-zinc-900/80 transition-colors cursor-default">
-                                <I className="h-8 w-8 text-cyan-400 mb-2.5" />
-                                <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1">{t}</h4>
-                                <p className="text-[11px] text-zinc-300 font-bold leading-tight">{d}</p>
+                            <div key={i} className="flex flex-col p-3 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 hover:bg-zinc-900/80 transition-colors cursor-default min-h-0">
+                                <I className="h-7 w-7 text-cyan-400 mb-2" />
+                                <h4 className="font-black text-white uppercase text-[11px] tracking-widest mb-1">{t}</h4>
+                                <p className="text-[10px] text-zinc-300 font-bold leading-tight">{d}</p>
                             </div>
                         ))}
                     </div>
@@ -485,43 +494,43 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                 </div>
 
                 {/* P6 (C2-Right, Inside Right): LA INNOVACIÓN (Ancho: 3.62in) */}
-                <div className="w-[3.62in] p-9 flex flex-col relative z-10 bg-[#09090b]">
-                    <div className="mb-8">
-                        <span className="inline-block px-3 py-1.5 bg-zinc-800 rounded-md text-[12px] font-black uppercase tracking-widest text-zinc-300 mb-3 border border-zinc-700 shadow-lg">Ventaja Competitiva</span>
-                        <h3 className="text-[24px] font-black uppercase tracking-tighter text-white leading-tight">La Innovación<br/><span className="text-zinc-500 font-medium">detrás del sistema.</span></h3>
+                <div className="w-[3.62in] p-7 flex flex-col relative z-10 bg-[#09090b] min-h-0">
+                    <div className="mb-6">
+                        <span className="inline-block px-3 py-1 bg-zinc-800 rounded-md text-[11px] font-black uppercase tracking-widest text-zinc-300 mb-2 border border-zinc-700 shadow-lg">Ventaja Competitiva</span>
+                        <h3 className="text-[22px] font-black uppercase tracking-tighter text-white leading-tight">La Innovación<br/><span className="text-zinc-500 font-medium">detrás del sistema.</span></h3>
                     </div>
 
-                    <div className="space-y-6 flex-1 mt-4">
-                        <div className="relative pl-7 border-l-[2px] border-cyan-500 pb-4">
+                    <div className="space-y-4 flex-1 mt-2">
+                        <div className="relative pl-6 border-l-[2px] border-cyan-500 pb-3">
                             <div className="absolute left-[-11px] top-0 h-5 w-5 rounded-full bg-cyan-500 border-2 border-cyan-500 flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.5)]">
                                 <div className="h-2 w-2 bg-white rounded-full" />
                             </div>
-                            <h4 className="font-black text-white uppercase text-[15px] tracking-widest mb-2">Conectividad Híbrida</h4>
-                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                            <h4 className="font-black text-white uppercase text-[14px] tracking-widest mb-1.5">Conectividad Híbrida</h4>
+                            <p className="text-[13px] text-white font-bold leading-snug text-justify">
                                 ¿Sin internet? Sigue facturando localmente. Todo se **sincroniza automáticamente** al recuperar la conexión.
                             </p>
                         </div>
 
-                        <div className="relative pl-7 border-l-[2px] border-zinc-700 pb-4">
+                        <div className="relative pl-6 border-l-[2px] border-zinc-700 pb-3">
                             <div className="absolute left-[-11px] top-0 h-5 w-5 rounded-full bg-[#09090b] border-2 border-zinc-700" />
-                            <h4 className="font-black text-white uppercase text-[15px] tracking-widest mb-2">Actualización Autónoma</h4>
-                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                            <h4 className="font-black text-white uppercase text-[14px] tracking-widest mb-1.5">Actualización Autónoma</h4>
+                            <p className="text-[13px] text-white font-bold leading-snug text-justify">
                                 Normas del SENIAT al día automáticamente. Cumples la ley sin esfuerzo y sin parches manuales.
                             </p>
                         </div>
 
-                        <div className="relative pl-7 border-l-[2px] border-zinc-700 pb-4">
+                        <div className="relative pl-6 border-l-[2px] border-zinc-700 pb-3">
                             <div className="absolute left-[-11px] top-0 h-5 w-5 rounded-full bg-[#09090b] border-2 border-zinc-700" />
-                            <h4 className="font-black text-white uppercase text-[15px] tracking-widest mb-2">Métricas Dinámicas</h4>
-                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                            <h4 className="font-black text-white uppercase text-[14px] tracking-widest mb-1.5">Métricas Dinámicas</h4>
+                            <p className="text-[13px] text-white font-bold leading-snug text-justify">
                                 Gráficos interactivos en tiempo real. Analiza qué vendes y a qué hora para tomar decisiones inteligentes.
                             </p>
                         </div>
 
-                        <div className="relative pl-7 border-l-[2px] border-transparent">
+                        <div className="relative pl-6 border-l-[2px] border-transparent">
                             <div className="absolute left-[-11px] top-0 h-5 w-5 rounded-full bg-[#09090b] border-2 border-zinc-700" />
-                            <h4 className="font-black text-white uppercase text-[15px] tracking-widest mb-2">Escalabilidad Total</h4>
-                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                            <h4 className="font-black text-white uppercase text-[14px] tracking-widest mb-1.5">Escalabilidad Total</h4>
+                            <p className="text-[13px] text-white font-bold leading-snug text-justify">
                                 Crece de una a cien sucursales. Gestiona inventarios centrales y sedes desde un único panel administrativo.
                             </p>
                         </div>

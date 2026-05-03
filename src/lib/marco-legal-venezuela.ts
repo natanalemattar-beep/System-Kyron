@@ -1387,6 +1387,7 @@ export const tasasVigentes = {
   prestacionesSociales: { diasPorTrimestre: 15, diasAdicionales: 2, tope: 30 },
   vacaciones: { diasBase: 15, diasAdicionales: 1, tope: 30 },
   bonoVacacional: { diasBase: 15, diasAdicionales: 1, tope: 30 },
+  ingresoMinimoIntegral: 240, // Mayo 2026
 };
 
 export const tasasVigentesEspana = {

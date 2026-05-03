@@ -29,52 +29,33 @@ export function VideoHeroBg() {
         <div className="absolute inset-0 h-[100%] w-full bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent animate-[scan-line_10s_linear_infinite]" />
       </div>
 
-      {/* Digital Data Particles (Hex drift) */}
+      {/* Digital Data Particles (Hex drift) - Optimized with CSS */}
       {[...Array(15)].map((_, i) => (
-        <motion.div
+        <div
           key={`hex-${i}`}
-          className="absolute text-[10px] font-mono text-cyan-500/20 whitespace-nowrap select-none pointer-events-none"
-          initial={{ 
-            x: Math.random() * 100 + '%', 
-            y: Math.random() * 100 + '%',
-            opacity: 0
-          }}
-          animate={{ 
-            y: [null, '-10%', '110%'],
-            x: [null, (Math.random() - 0.5) * 20 + '%'],
-            opacity: [0, 0.3, 0]
-          }}
-          transition={{ 
-            duration: Math.random() * 20 + 20, 
-            repeat: Infinity, 
-            ease: "linear",
-            delay: Math.random() * 20
+          className="absolute text-[10px] font-mono text-cyan-500/20 whitespace-nowrap select-none pointer-events-none animate-float-slow"
+          style={{ 
+            left: Math.random() * 100 + '%', 
+            top: Math.random() * 100 + '%',
+            animationDelay: `${Math.random() * 20}s`,
+            animationDuration: `${Math.random() * 20 + 20}s`
           }}
         >
           {Math.random().toString(16).substring(2, 8).toUpperCase()}
-        </motion.div>
+        </div>
       ))}
 
-      {/* Floating Particles (Pseudo-Video Effect) */}
+      {/* Floating Particles (Pseudo-Video Effect) - Optimized with CSS */}
       {[...Array(25)].map((_, i) => (
-        <motion.div
+        <div
           key={i}
-          className="absolute h-[1px] w-[1px] bg-white rounded-full"
-          initial={{ 
-            x: Math.random() * 100 + '%', 
-            y: Math.random() * 100 + '%',
+          className="absolute h-[1px] w-[1px] bg-white rounded-full animate-float-particle"
+          style={{ 
+            left: Math.random() * 100 + '%', 
+            top: Math.random() * 100 + '%',
             opacity: Math.random() * 0.3,
-            scale: Math.random() * 0.5 + 0.5
-          }}
-          animate={{ 
-            y: [null, '-20%', '120%'],
-            opacity: [0, 0.4, 0]
-          }}
-          transition={{ 
-            duration: Math.random() * 15 + 15, 
-            repeat: Infinity, 
-            ease: "linear",
-            delay: Math.random() * 20
+            animationDelay: `${Math.random() * 20}s`,
+            animationDuration: `${Math.random() * 15 + 15}s`
           }}
         />
       ))}

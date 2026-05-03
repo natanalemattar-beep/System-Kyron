@@ -335,16 +335,16 @@ function BrandingPanel() {
                             <div className="h-px flex-1 max-w-[40px] bg-gradient-to-r from-sky-500/50 to-transparent" />
                             <span className="text-[10px] font-semibold text-sky-400/60 tracking-wide uppercase">Crear Cuenta</span>
                         </div>
-                        <h2 className="text-3xl xl:text-[2.5rem] font-bold text-white leading-[1.15] mb-5">
+                        <h2 className="text-4xl xl:text-[3.5rem] font-black text-white leading-[0.85] mb-6 uppercase italic font-impact tracking-tighter">
                             Tu ecosistema{" "}
-                            <span className="bg-gradient-to-r from-sky-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">
+                            <span className="bg-gradient-to-r from-sky-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent italic">
                                 corporativo
                             </span>
                             <br />
                             <span className="text-white/90">integral.</span>
                         </h2>
-                        <p className="text-white/30 text-sm leading-relaxed max-w-[320px]">
-                            Gestiona contabilidad, nómina, facturación y más. La plataforma diseñada para el mercado venezolano.
+                        <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.2em] leading-relaxed max-w-sm font-tech italic">
+                            Identidad Digital • Infraestructura de Misión Crítica v2.8.5
                         </p>
                     </motion.div>
                 </div>
@@ -692,13 +692,14 @@ export default function RegisterSelectionPage() {
                                 initial={{ opacity: 0, y: 15 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                                className="text-center mb-8"
+                                className="text-center mb-10"
                             >
-                                <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1]">
+                                <h1 className="text-5xl sm:text-6xl font-black tracking-tighter leading-none uppercase font-impact italic">
                                     <span className="bg-gradient-to-b from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
                                         Crear Cuenta
                                     </span>
                                 </h1>
+                                <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] mt-3">Registro de Identidad Kyron</p>
                             </motion.div>
 
                             <div className="flex items-start gap-3 mb-8 px-1">

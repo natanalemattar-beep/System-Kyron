@@ -127,12 +127,32 @@ registerAction('fiscal_alerts', async () => {
 });
 
 registerAction('regulatory_alerts', async () => {
-  const recentChanges = await queryOne<{ cnt: string }>(
-    `SELECT COUNT(*) as cnt FROM notificaciones WHERE tipo = 'fiscal' AND created_at > NOW() - INTERVAL '24 hours'`
-  );
-  const recent = parseInt(recentChanges?.cnt || '0');
+  const { verificarAlertasRegulatorias } = await import('@/lib/alertas-regulatorias');
+  const nuevasAlertas = await verificarAlertasRegulatorias();
 
-  return `Monitor regulatorio ejecutado — ${recent} alerta(s) fiscal(es) en últimas 24h`;
+  return `Monitor regulatorio ejecutado — ${nuevasAlertas} nueva(s) alerta(s) generada(s) para los usuarios`;
+});
+
+registerAction('ai_proactive_investigation', async () => {
+  const { investigarNovedadesRegulatorias } = await import('@/lib/ai-investigator');
+  const novedades = await investigarNovedadesRegulatorias();
+
+  if (novedades.length > 0) {
+    for (const n of novedades) {
+      await safeQuery(
+        `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
+         SELECT id, 'regulatorio', $1, $2, $3, 'email,app'
+         FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`,
+        [
+          `[IA Kyron] Investigación: ${n.titulo}`,
+          `${n.resumen}\n\nFuente probable: ${n.fuente_probable}\n\nAcción recomendada: ${n.accion_recomendada}`,
+          n.impacto === 'alto' ? 'critica' : 'alta'
+        ]
+      );
+    }
+  }
+
+  return `Investigación IA completada: ${novedades.length} novedad(es) detectada(s) y procesada(s)`;
 });
 
 registerAction('db_health_check', async () => {
@@ -483,7 +503,7 @@ registerAction('payroll_alerts', async () => {
     for (const [userId, count] of userPayrolls) {
       await safeQuery(
         `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-         VALUES ($1, 'alerta', 'Nóminas pendientes de pago', $2, 'alta', 'app')`,
+         VALUES ($1, 'alerta', 'Nóminas pendientes de pago', $2, 'alta', 'email,app')`,
         [userId, `${count} nómina(s) pendiente(s) con fecha de pago en los próximos 3 días`]
       );
       notified++;

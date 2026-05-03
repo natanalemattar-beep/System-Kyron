@@ -314,15 +314,21 @@ export function NotificacionesPageContent() {
                     </div>
                   </div>
                   <Switch
-                    checked={false}
-                    onCheckedChange={() => {
-                      toast({ title: 'WhatsApp en construcción', description: 'Las alertas por WhatsApp estarán disponibles próximamente.' });
-                    }}
+                    checked={config.notif_whatsapp}
+                    onCheckedChange={(v) => setConfig({ ...config, notif_whatsapp: v })}
                   />
                 </div>
-                <p className="text-[11px] text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1.5 mt-1">
-                  <Construction className="h-3.5 w-3.5" /> En construcción — disponible próximamente
-                </p>
+                {config.notif_whatsapp && (
+                  <div className="space-y-2 mt-2">
+                    <Label className="text-[10px] text-muted-foreground uppercase font-bold">Número de WhatsApp (con +58)</Label>
+                    <Input
+                      placeholder="+58 412 0000000"
+                      value={config.telefono_whatsapp || ''}
+                      onChange={(e) => setConfig({ ...config, telefono_whatsapp: e.target.value })}
+                      className="h-8 text-xs rounded-lg"
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="space-y-3 p-4 rounded-xl bg-muted/30 border border-border/50">
@@ -337,15 +343,21 @@ export function NotificacionesPageContent() {
                     </div>
                   </div>
                   <Switch
-                    checked={false}
-                    onCheckedChange={() => {
-                      toast({ title: 'SMS en construcción', description: 'Las alertas por SMS estarán disponibles próximamente.' });
-                    }}
+                    checked={config.notif_sms}
+                    onCheckedChange={(v) => setConfig({ ...config, notif_sms: v })}
                   />
                 </div>
-                <p className="text-[11px] text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1.5 mt-1">
-                  <Construction className="h-3.5 w-3.5" /> En construcción — disponible próximamente
-                </p>
+                {config.notif_sms && (
+                  <div className="space-y-2 mt-2">
+                    <Label className="text-[10px] text-muted-foreground uppercase font-bold">Número de SMS (con +58)</Label>
+                    <Input
+                      placeholder="+58 412 0000000"
+                      value={config.telefono_sms || ''}
+                      onChange={(e) => setConfig({ ...config, telefono_sms: e.target.value })}
+                      className="h-8 text-xs rounded-lg"
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
@@ -474,7 +486,7 @@ export function NotificacionesPageContent() {
                       )}
                     </div>
                   )}
-                  {noti.metadata?.ente && (
+                  {Boolean(noti.metadata?.ente) && (
                     <div className="flex items-center gap-1.5 mt-1.5">
                       <ShieldCheck className="h-3 w-3 text-muted-foreground/50" />
                       <span className="text-[10px] text-muted-foreground/60 font-medium">
@@ -484,7 +496,7 @@ export function NotificacionesPageContent() {
                   )}
                   {noti.accion_url && (
                     <Link
-                      href={noti.accion_url}
+                      href={noti.accion_url as any}
                       className="inline-flex items-center gap-1 text-[10px] font-bold text-primary hover:underline mt-1"
                       onClick={(e) => e.stopPropagation()}
                     >

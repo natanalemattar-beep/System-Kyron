@@ -270,13 +270,13 @@ function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
       )}
 
       <Button asChild className={cn(
-        'w-full h-12 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] transition-all duration-500 hover:scale-[1.03] active:scale-[0.98]',
+        'w-full h-14 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 hover:scale-[1.03] active:scale-[0.98]',
         isFree
-          ? 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30'
-          : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'
+          ? 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.1)]'
+          : 'glass-liquid-hud text-white border-white/20'
       )}>
         <Link href={(MODULE_ROUTES[mod.id] ?? '/register') as any}>
-          {isFree ? 'Crear Cuenta Gratis' : mod.id === 'milinea' ? 'Elegir el plan' : 'Activar Módulo'} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
+          {isFree ? 'Comenzar Ahora' : mod.id === 'milinea' ? 'Elegir el plan' : 'Comenzar Ahora'} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
         </Link>
       </Button>
     </ScrollReveal>
@@ -424,13 +424,13 @@ export function PricingSection() {
                 </div>
 
                 <Button asChild className={cn(
-                  'w-full h-11 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] transition-all duration-500 hover:scale-[1.03]',
+                  'w-full h-12 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 hover:scale-[1.05]',
                   plan.popular
-                    ? 'bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20'
-                    : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'
+                    ? 'btn-3d-primary'
+                    : 'glass-liquid-hud text-white'
                 )}>
-                  <Link href="/registro">
-                    Contratar <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <Link href="/register">
+                    Comenzar Ahora <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
               </motion.div>
@@ -499,9 +499,9 @@ export function PricingSection() {
                       <p className="text-[9px] text-white/20 font-black uppercase tracking-[0.2em] mb-1">Inversión única</p>
                       <p className="text-3xl font-black text-white tracking-tighter">${hw.precio}</p>
                     </div>
-                    <Button asChild className="h-12 px-8 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] bg-amber-500 hover:bg-amber-600 text-black shadow-lg shadow-amber-500/20 transition-all hover:scale-[1.03]">
+                    <Button asChild className="h-14 px-10 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] bg-amber-500 hover:bg-amber-600 text-black shadow-lg transition-all hover:scale-[1.05]">
                       <Link href="#contacto">
-                        Cotizar <ArrowRight className="w-4 h-4 ml-2" />
+                        Comenzar Ahora <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                     </Button>
                   </div>
@@ -570,8 +570,8 @@ export function PricingSection() {
                       </p>
                     </div>
                     <Button asChild className="h-11 px-6 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-all hover:scale-[1.03]">
-                      <Link href="/registro">
-                        Iniciar <ArrowRight className="w-4 h-4 ml-2" />
+                      <Link href="/register">
+                        Comenzar Ahora <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                     </Button>
                   </div>

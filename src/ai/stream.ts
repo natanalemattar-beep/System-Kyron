@@ -34,17 +34,22 @@ async function streamGemini(
     role: m.role === 'user' ? 'user' as const : 'model' as const,
     parts: [{ text: m.content }],
   }));
-  const response = await client.models.generateContentStream({
+
+  const model = client.getGenerativeModel({ 
     model: MODELS.GEMINI,
+    systemInstruction: config.system 
+  });
+
+  const result = await model.generateContentStream({
     contents: geminiHistory,
-    config: {
-      systemInstruction: config.system,
+    generationConfig: {
       maxOutputTokens: config.maxTokens ?? 8192,
       temperature: config.temperature ?? 0.7,
     },
   });
-  for await (const chunk of response) {
-    const text = chunk.text;
+
+  for await (const chunk of result.stream) {
+    const text = chunk.text();
     if (text) encode(text);
   }
 }

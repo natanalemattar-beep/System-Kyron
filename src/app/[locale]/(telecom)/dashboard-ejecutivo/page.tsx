@@ -61,21 +61,22 @@ export default function DashboardEjecutivoPage() {
   const consumoTotal = data?.lineas.consumo_gb ?? 0;
   const promedio = data?.lineas.promedio_por_linea ?? 0;
 
-  const KPI_DATA = [
+  const KPI_DATA = useMemo(() => [
     { label: "Líneas Totales", val: loading ? "—" : String(totalLineas), sub: `${data?.lineas.activas ?? 0} activas`, icon: Users, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10", trend: totalLineas > 0 ? "Activo" : "—", up: true },
     { label: "Gasto Mensual", val: loading ? "—" : (gastoMensual > 0 ? formatCurrency(gastoMensual, 'USD', currentLocale) : "Sin datos"), sub: "Plan contratado", icon: DollarSign, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10", trend: "Mensual", up: true },
     { label: "Consumo Total", val: loading ? "—" : (consumoTotal > 0 ? `${consumoTotal.toFixed(1)} GB` : "Sin datos"), sub: consumoTotal > 0 ? `Promedio ${promedio.toFixed(1)} GB/línea` : "Sin consumo registrado", icon: Wifi, color: "text-cyan-500", accent: "from-cyan-500/20 to-cyan-500/0", ring: "ring-cyan-500/20", iconBg: "bg-cyan-500/10", trend: "Acumulado", up: true },
     { label: "Líneas Activas", val: loading ? "—" : String(data?.lineas.activas ?? 0), sub: "De la flota total", icon: Signal, color: "text-amber-500", accent: "from-amber-500/20 to-amber-500/0", ring: "ring-amber-500/20", iconBg: "bg-amber-500/10", trend: totalLineas > 0 ? `${Math.round(((data?.lineas.activas ?? 0) / totalLineas) * 100)}%` : "—", up: true },
-  ];
+  ], [loading, totalLineas, data, gastoMensual, currentLocale, consumoTotal, promedio]);
 
-  const tendencia = data?.tendencia && data.tendencia.length > 0 ? data.tendencia : [
+  const tendencia = useMemo(() => (data?.tendencia && data.tendencia.length > 0 ? data.tendencia : [
     { mes: "Oct", costo: 0, lineas: 0 }, { mes: "Nov", costo: 0, lineas: 0 },
     { mes: "Dic", costo: 0, lineas: 0 }, { mes: "Ene", costo: 0, lineas: 0 },
     { mes: "Feb", costo: 0, lineas: 0 }, { mes: "Mar", costo: 0, lineas: 0 },
-  ];
-  const maxCosto = Math.max(...tendencia.map(m => m.costo), 1);
+  ]), [data]);
 
-  const distribucion = data?.distribucion && data.distribucion.length > 0 ? data.distribucion : [];
+  const maxCosto = useMemo(() => Math.max(...tendencia.map(m => m.costo), 1), [tendencia]);
+
+  const distribucion = useMemo(() => (data?.distribucion && data.distribucion.length > 0 ? data.distribucion : []), [data]);
 
   if (!loading && loadError) {
     return (

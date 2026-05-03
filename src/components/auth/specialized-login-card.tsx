@@ -19,12 +19,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 type LayoutVariant = 'split-left' | 'split-right' | 'centered' | 'stacked' | 'minimal' | 'dark-immersive' | 'accounting-premium';
 
 const ACCENT_THEMES: Record<string, { gradient: string; accent: string; ring: string; inputRing: string; codeBorder: string; btnBg: string; glowFrom: string }> = {
-  'primary':     { gradient: 'from-blue-600 via-blue-500 to-indigo-700',     accent: 'text-cyan-400',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40', codeBorder: 'border-cyan-500', btnBg: 'bg-blue-600 hover:bg-blue-500', glowFrom: 'rgba(6,182,212,0.15)' },
-  'secondary':   { gradient: 'from-emerald-600 via-emerald-500 to-teal-700',  accent: 'text-emerald-400', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/20 focus-visible:border-emerald-500/40', codeBorder: 'border-emerald-500', btnBg: 'bg-emerald-600 hover:bg-emerald-500', glowFrom: 'rgba(16,185,129,0.15)' },
-  'emerald-600': { gradient: 'from-emerald-600 via-emerald-500 to-green-600', accent: 'text-emerald-400', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/20 focus-visible:border-emerald-500/40', codeBorder: 'border-emerald-500', btnBg: 'bg-emerald-600 hover:bg-emerald-500', glowFrom: 'rgba(16,185,129,0.15)' },
-  'indigo-950':  { gradient: 'from-indigo-900 via-purple-800 to-violet-900', accent: 'text-purple-400',  ring: 'ring-purple-500/20',  inputRing: 'focus-visible:ring-purple-500/20 focus-visible:border-purple-500/40', codeBorder: 'border-purple-500', btnBg: 'bg-purple-600 hover:bg-purple-500', glowFrom: 'rgba(139,92,246,0.15)' },
-  'blue-900':    { gradient: 'from-blue-900 via-blue-800 to-cyan-800',       accent: 'text-cyan-400',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40', codeBorder: 'border-cyan-500', btnBg: 'bg-blue-800 hover:bg-blue-700', glowFrom: 'rgba(6,182,212,0.15)' },
-  'amber-700':   { gradient: 'from-amber-700 via-amber-600 to-orange-700',   accent: 'text-amber-400',   ring: 'ring-amber-500/20',   inputRing: 'focus-visible:ring-amber-500/20 focus-visible:border-amber-500/40', codeBorder: 'border-amber-500', btnBg: 'bg-amber-600 hover:bg-amber-500', glowFrom: 'rgba(245,158,11,0.15)' },
+  'primary':     { gradient: 'from-blue-600 via-blue-500 to-indigo-700',     accent: 'text-cyan-400',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40', codeBorder: 'border-cyan-500', btnBg: 'bg-blue-600 hover:bg-blue-500 shadow-[0_0_20px_rgba(37,99,235,0.3)]', glowFrom: 'rgba(6,182,212,0.15)' },
+  'secondary':   { gradient: 'from-emerald-600 via-emerald-500 to-teal-700',  accent: 'text-emerald-400', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/20 focus-visible:border-emerald-500/40', codeBorder: 'border-emerald-500', btnBg: 'bg-emerald-600 hover:bg-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.3)]', glowFrom: 'rgba(16,185,129,0.15)' },
+  'emerald-600': { gradient: 'from-emerald-600 via-emerald-500 to-green-600', accent: 'text-emerald-400', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/20 focus-visible:border-emerald-500/40', codeBorder: 'border-emerald-500', btnBg: 'bg-emerald-600 hover:bg-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.3)]', glowFrom: 'rgba(16,185,129,0.15)' },
+  'emerald-800': { gradient: 'from-emerald-800 via-emerald-700 to-green-900', accent: 'text-emerald-400', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/20 focus-visible:border-emerald-500/40', codeBorder: 'border-emerald-500', btnBg: 'bg-emerald-800 hover:bg-emerald-700 shadow-[0_0_20px_rgba(6,78,59,0.3)]', glowFrom: 'rgba(16,185,129,0.15)' },
+  'indigo-950':  { gradient: 'from-indigo-900 via-purple-800 to-violet-900', accent: 'text-purple-400',  ring: 'ring-purple-500/20',  inputRing: 'focus-visible:ring-purple-500/20 focus-visible:border-purple-500/40', codeBorder: 'border-purple-500', btnBg: 'bg-purple-600 hover:bg-purple-500 shadow-[0_0_20px_rgba(139,92,246,0.3)]', glowFrom: 'rgba(139,92,246,0.15)' },
+  'blue-900':    { gradient: 'from-blue-900 via-blue-800 to-cyan-800',       accent: 'text-cyan-400',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40', codeBorder: 'border-cyan-500', btnBg: 'bg-blue-800 hover:bg-blue-700 shadow-[0_0_20px_rgba(30,58,138,0.3)]', glowFrom: 'rgba(6,182,212,0.15)' },
+  'cyan-700':    { gradient: 'from-cyan-700 via-cyan-600 to-blue-800',      accent: 'text-cyan-300',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40', codeBorder: 'border-cyan-500', btnBg: 'bg-cyan-700 hover:bg-cyan-600 shadow-[0_0_20px_rgba(14,116,144,0.3)]', glowFrom: 'rgba(6,182,212,0.15)' },
+  'slate-800':   { gradient: 'from-slate-800 via-slate-700 to-slate-900',   accent: 'text-slate-300',   ring: 'ring-slate-500/20',   inputRing: 'focus-visible:ring-slate-500/20 focus-visible:border-slate-500/40', codeBorder: 'border-slate-500', btnBg: 'bg-slate-800 hover:bg-slate-700 shadow-[0_0_20px_rgba(30,41,59,0.3)]', glowFrom: 'rgba(148,163,184,0.15)' },
+  'amber-700':   { gradient: 'from-amber-700 via-amber-600 to-orange-700',   accent: 'text-amber-400',   ring: 'ring-amber-500/20',   inputRing: 'focus-visible:ring-amber-500/20 focus-visible:border-amber-500/40', codeBorder: 'border-amber-500', btnBg: 'bg-amber-600 hover:bg-amber-500 shadow-[0_0_20px_rgba(180,83,9,0.3)]', glowFrom: 'rgba(245,158,11,0.15)' },
 };
 
 interface SpecializedLoginCardProps {
@@ -340,35 +343,35 @@ export function SpecializedLoginCard({
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="mb-6">
-              <h2 className="text-xl font-bold tracking-tight text-foreground">Iniciar Sesión</h2>
-              <p className="text-[13px] text-muted-foreground mt-1.5">Elige cómo quieres acceder</p>
+            <div className="mb-10">
+              <h2 className="text-3xl font-black tracking-tight text-white uppercase leading-none">Acceso Seguro</h2>
+              <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest mt-2">Identificación de Usuario Protegida</p>
             </div>
 
-            <div className="flex rounded-xl bg-muted/30 border border-border/30 p-1 mb-6">
+            <div className="flex rounded-2xl bg-white/[0.03] border border-white/5 p-1.5 mb-10">
               <button
                 type="button"
                 onClick={() => { setLoginMode('email'); setError(null); }}
                 className={cn(
                   "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
                   loginMode === 'email'
-                    ? cn("bg-card shadow-sm border border-border/30", theme.accent)
-                    : "text-muted-foreground hover:text-foreground"
+                    ? cn("bg-blue-600 shadow-[0_0_20px_rgba(37,99,235,0.3)] text-white border border-white/10")
+                    : "text-white/30 hover:text-white"
                 )}
               >
-                <Mail className="h-3.5 w-3.5" /> Correo
+                <Mail className="h-4 w-4" /> Correo
               </button>
               <button
                 type="button"
                 onClick={() => { setLoginMode('phone'); setError(null); }}
                 className={cn(
-                  "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
+                  "flex-1 flex items-center justify-center gap-3 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all",
                   loginMode === 'phone'
-                    ? "bg-card shadow-sm border border-border/30 text-emerald-500"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-emerald-600 shadow-[0_0_20px_rgba(16,185,129,0.3)] text-white border border-white/10"
+                    : "text-white/30 hover:text-white"
                 )}
               >
-                <Smartphone className="h-3.5 w-3.5" /> Teléfono
+                <Smartphone className="h-4 w-4" /> Teléfono
               </button>
             </div>
 
@@ -443,25 +446,25 @@ export function SpecializedLoginCard({
                   exit={{ opacity: 0, x: 10 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="space-y-2">
-                    <Label className="text-[13px] font-semibold text-foreground/80">{identifierLabel}</Label>
+                  <div className="space-y-4">
+                    <Label className="text-[10px] font-black text-white/30 uppercase tracking-[0.25em]">{identifierLabel}</Label>
                     <div className="relative group">
-                      <IdentifierIcon className={cn("absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors")} />
-                      <Input name="identifier" type="text" placeholder={identifierPlaceholder} required className={cn("h-12 pl-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)} />
+                      <IdentifierIcon className={cn("absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-blue-500 transition-colors")} />
+                      <Input name="identifier" type="text" placeholder={identifierPlaceholder} required className={cn("h-16 pl-14 rounded-2xl border-white/5 bg-white/[0.02] text-white text-base font-bold tracking-tight transition-all placeholder:text-white/10")} />
                     </div>
                   </div>
 
 
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <Label className="text-[13px] font-semibold text-foreground/80">Contraseña</Label>
-                      <Link href="/recuperar-cuenta" className={cn("text-xs font-medium hover:underline", theme.accent)}>¿Olvidaste?</Link>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center px-1">
+                      <Label className="text-[10px] font-black text-white/30 uppercase tracking-[0.25em]">Contraseña</Label>
+                      <Link href="/recuperar-cuenta" className={cn("text-[10px] font-black uppercase tracking-widest hover:text-cyan-400 transition-colors", theme.accent)}>¿Olvidaste?</Link>
                     </div>
                     <div className="relative group">
-                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
-                      <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className={cn("h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)} />
-                      <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      <Lock className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-blue-500 transition-colors" />
+                      <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className={cn("h-16 pl-14 pr-14 rounded-2xl border-white/5 bg-white/[0.02] text-xl font-mono transition-all placeholder:text-white/10")} />
+                      <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-5 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors" tabIndex={-1}>
+                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                       </button>
                     </div>
                   </div>
@@ -505,8 +508,8 @@ export function SpecializedLoginCard({
                     </AnimatePresence>
                   </div>
 
-                  <Button type="submit" className={cn("w-full h-12 rounded-xl font-bold text-[13px] text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99]", theme.btnBg)} disabled={isLoading}>
-                    {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Acceder <ArrowRight className="ml-2 h-4 w-4" /></>}
+                  <Button type="submit" className={cn("w-full h-16 rounded-2xl font-black text-[11px] uppercase tracking-[0.25em] text-white shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98]", theme.btnBg)} disabled={isLoading}>
+                    {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <>Validar Acceso <ArrowRight className="ml-3 h-4 w-4" /></>}
                   </Button>
                 </motion.form>
               ) : (
@@ -643,12 +646,12 @@ export function SpecializedLoginCard({
               </div>
 
               <div className="space-y-1">
-                <h2 className="text-2xl font-black text-white tracking-tighter uppercase italic">Verificación Activa</h2>
+                <h2 className="text-2xl font-black text-white tracking-tight uppercase">Verificación Activa</h2>
                 <div className="flex items-center justify-center gap-2">
                   <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
                     <div className="flex flex-col items-center">
                       <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">
-                        {devCode ? 'Protocolo Kyron Safe' : `Enlace enviado vía ${verificationMethod === 'email' ? 'E-mail' : verificationMethod}`}
+                        {devCode ? 'Verificación Kyron' : `Enlace enviado vía ${verificationMethod === 'email' ? 'E-mail' : verificationMethod}`}
                       </p>
                       
                       {devCode && (
@@ -659,12 +662,12 @@ export function SpecializedLoginCard({
                           onClick={() => {
                             setSingleCode(devCode);
                             toast({ 
-                              title: "Kyron Access Chip", 
-                              description: "Código de acceso inyectado satisfactoriamente.",
+                              title: "Clave de Acceso", 
+                              description: "Código de acceso aplicado correctamente.",
                               icon: <Zap className="h-4 w-4 text-amber-400" /> 
                             });
                           }}
-                          className="mt-4 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-black uppercase tracking-widest hover:bg-amber-500/20 transition-all flex items-center gap-2 group"
+                          className="mt-4 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest hover:bg-amber-500/20 transition-all flex items-center gap-2 group"
                         >
                           <Fingerprint className="h-3 w-3 group-hover:scale-110 transition-transform" />
                           Auto-Completar: <span className="font-mono text-xs">{devCode}</span>
@@ -708,7 +711,7 @@ export function SpecializedLoginCard({
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
                   >
-                    <Loader2 className="h-3 w-3 animate-spin" /> Estableciendo enlace seguro...
+                    <Loader2 className="h-3 w-3 animate-spin" /> Cargando sesión...
                   </motion.p>
                 </div>
               </motion.div>
@@ -717,7 +720,7 @@ export function SpecializedLoginCard({
                 <div className="space-y-4">
                   <div className="flex items-center justify-between px-1">
                     <div className="space-y-0.5">
-                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Canal Seguro</p>
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Verificando en</p>
                       <p className="text-sm font-medium text-white">
                         {verificationMethod === 'email' ? maskedEmail : maskedPhone}
                       </p>
@@ -763,7 +766,7 @@ export function SpecializedLoginCard({
                               nextInput?.focus();
                             }
                             if (finalCode.length === 6) {
-                              handleVerifyCode(finalCode);
+                              submitCode(finalCode);
                             }
                           }}
                           onKeyDown={(e) => {
@@ -792,7 +795,7 @@ export function SpecializedLoginCard({
                       className="flex items-center justify-center gap-2 py-1 text-[11px] text-blue-400 font-black uppercase tracking-widest"
                     >
                       <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                      Validando Credenciales...
+                      Comprobando datos...
                     </motion.div>
                   )}
                 </div>
@@ -893,16 +896,16 @@ export function SpecializedLoginCard({
 
       <div className="relative z-10 space-y-8">
         <motion.div
-          className="h-14 w-14 rounded-2xl bg-white/[0.12] backdrop-blur-sm border border-white/[0.15] flex items-center justify-center shadow-lg"
+          className="h-16 w-16 rounded-2xl bg-white/[0.1] backdrop-blur-xl border border-white/[0.1] flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.4 }}
         >
-          <Icon className="h-7 w-7 text-white" />
+          <Icon className="h-8 w-8 text-white" />
         </motion.div>
-        <div className="space-y-3">
+        <div className="space-y-4">
           <motion.h1
-            className="text-2xl md:text-3xl font-bold tracking-tight leading-tight"
+            className="text-4xl md:text-5xl font-black tracking-tighter leading-[0.85] uppercase font-impact italic text-white"
             initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.25, duration: 0.4 }}
@@ -910,7 +913,7 @@ export function SpecializedLoginCard({
             {portalName}
           </motion.h1>
           <motion.p
-            className="text-[13px] font-medium text-white/70 leading-relaxed max-w-sm"
+            className="text-[10px] font-bold text-white/50 uppercase tracking-[0.2em] leading-relaxed max-w-sm font-tech"
             initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3, duration: 0.4 }}
@@ -922,23 +925,23 @@ export function SpecializedLoginCard({
 
       {features.length > 0 && (
         <motion.div
-          className="relative z-10 mt-10"
+          className="relative z-10 mt-12"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.4 }}
         >
-          <div className="h-px bg-white/10 mb-6" />
-          <ul className="space-y-3">
+          <div className="h-px bg-white/10 mb-8" />
+          <ul className="space-y-4">
             {features.map((feature, i) => (
               <motion.li
                 key={i}
-                className="flex items-center gap-3 text-[13px] font-medium text-white/80"
+                className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.15em] text-white/80 italic"
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.45 + i * 0.06, duration: 0.3 }}
               >
-                <div className="w-6 h-6 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-300" />
+                <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center shrink-0 border border-white/5">
+                  <ShieldCheck className="h-4 w-4 text-cyan-400" />
                 </div>
                 {feature}
               </motion.li>
@@ -948,14 +951,14 @@ export function SpecializedLoginCard({
       )}
 
       <motion.div
-        className="relative z-10 mt-8 pt-4 border-t border-white/[0.06]"
+        className="relative z-10 mt-8 pt-6 border-t border-white/[0.1]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.3 }}
       >
-        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-white/30">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          Sistema activo · Enlace seguro
+        <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.25em] text-cyan-400">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
+          System Kyron Online · v2.8.0
         </div>
       </motion.div>
     </div>
@@ -1068,7 +1071,7 @@ export function SpecializedLoginCard({
               <Icon className="h-8 w-8 text-white" />
             </motion.div>
             <motion.h1
-              className={cn("text-3xl font-bold tracking-tight bg-gradient-to-r bg-clip-text text-transparent", theme.gradient)}
+              className={cn("text-4xl md:text-5xl font-black tracking-tighter uppercase font-impact italic bg-gradient-to-r bg-clip-text text-transparent", theme.gradient)}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25, duration: 0.4 }}
@@ -1411,8 +1414,8 @@ export function SpecializedLoginCard({
               <Icon className="h-6 w-6" />
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-tight text-foreground">{portalName}</h1>
-              <p className="text-[12px] text-muted-foreground mt-0.5">{portalDescription}</p>
+              <h1 className="text-2xl font-black tracking-tighter uppercase font-impact italic text-white leading-none">{portalName}</h1>
+              <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mt-1.5">{portalDescription}</p>
             </div>
           </div>
           {features.length > 0 && (
@@ -1505,7 +1508,7 @@ export function SpecializedLoginCard({
               <Icon className="h-8 w-8 text-white" />
             </motion.div>
             <motion.h1
-              className="text-3xl font-bold tracking-tight text-white"
+              className="text-4xl font-black tracking-tighter uppercase font-impact italic text-white"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.25, duration: 0.4 }}
