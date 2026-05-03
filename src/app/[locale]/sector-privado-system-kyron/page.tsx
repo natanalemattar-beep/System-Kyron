@@ -260,10 +260,10 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
 
                     <div className="space-y-3 relative z-10 mb-6">
                         <p className="text-[16px] text-white font-black leading-tight text-justify">
-                            System Kyron es un **Ecosistema Digital Unificado** (ERP + Punto de Venta + RRHH) diseñado para digitalizar el 100% de las operaciones de una empresa en una sola pantalla.
+                            System Kyron es un <span className="text-cyan-400">Ecosistema Digital Unificado</span> (ERP + Punto de Venta + RRHH) diseñado para digitalizar el 100% de las operaciones de una empresa en una sola pantalla.
                         </p>
                         <p className="text-[14px] text-white font-bold leading-snug text-justify">
-                            En lugar de tener múltiples herramientas dispersas, centralizamos tus ventas, inventario, finanzas y empleados en **una sola plataforma en la nube, rápida y segura**.
+                            En lugar de tener múltiples herramientas dispersas, centralizamos tus ventas, inventario, finanzas y empleados en <span className="text-cyan-400">una sola plataforma en la nube, rápida y segura</span>.
                         </p>
                     </div>
 
@@ -321,7 +321,7 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
 
                     <div className="space-y-6 flex-1">
                         <p className="text-[16px] text-white leading-tight text-justify font-black">
-                            No dejes que el caos administrativo frene el potencial de tu empresa. Con System Kyron, adquieres **orden, rapidez y transparencia** desde el primer día.
+                            No dejes que el caos administrativo frene el potencial de tu empresa. Con System Kyron, adquieres <span className="text-cyan-400">orden, rapidez y transparencia</span> desde el primer día.
                         </p>
 
                         <div className="p-5 bg-cyan-950/20 rounded-2xl border border-cyan-500/20 mt-4 relative overflow-hidden">
@@ -507,7 +507,7 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                             </div>
                             <h4 className="font-black text-white uppercase text-[14px] tracking-widest mb-1.5">Conectividad Híbrida</h4>
                             <p className="text-[13px] text-white font-bold leading-snug text-justify">
-                                ¿Sin internet? Sigue facturando localmente. Todo se **sincroniza automáticamente** al recuperar la conexión.
+                                ¿Sin internet? Sigue facturando localmente. Todo se <span className="text-cyan-400">sincroniza automáticamente</span> al recuperar la conexión.
                             </p>
                         </div>
 

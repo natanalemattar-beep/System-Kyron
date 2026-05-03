@@ -14,7 +14,7 @@ import {
 import {
     Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
     Building, Check, Gavel, Mail, RefreshCw, Smartphone, Users, Lock, Phone,
-    GripVertical, Briefcase, Landmark, Shield,
+    GripVertical, Briefcase, Landmark, Shield, ShieldCheck,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';

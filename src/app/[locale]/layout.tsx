@@ -4,7 +4,6 @@ import { getMessages } from 'next-intl/server';
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { DemoBannerProvider } from "@/components/demo-banner";
 import { DemoBannerSpacer } from "@/components/demo-banner-spacer";
-import { PerformanceProvider } from "@/components/performance-provider";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
 import { Inter, Outfit } from 'next/font/google';
@@ -71,17 +70,16 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       <body className="antialiased font-inter bg-[#030711] text-foreground selection:bg-primary/30 selection:text-white overflow-x-hidden w-full" suppressHydrationWarning>
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <PerformanceProvider>
-              <DynamicBackground />
+            <DynamicBackground />
+            <div className="flex flex-col min-h-screen relative">
               <DemoBannerProvider>
                 <DemoBannerSpacer />
                 <div className="relative flex min-h-screen flex-col">
                   <main className="flex-1">{children}</main>
-                  <KyronAssistantWrapper />
-
                 </div>
               </DemoBannerProvider>
-            </PerformanceProvider>
+              <KyronAssistantWrapper />
+            </div>
           </NextIntlClientProvider>
         </Providers>
       </body>

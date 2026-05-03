@@ -30,7 +30,20 @@ export default function Error({
   // Optionally show a quick toast before full error, but here we just go straight to full error
   // so the user isn't stuck on a black screen.
   if (!showFullError) {
-     return null;
+    return (
+      <div className="min-h-screen bg-[#030711] flex flex-col items-center justify-center p-6 gap-6">
+        <div className="relative">
+          <div className="h-16 w-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center animate-pulse">
+            <Cpu className="h-8 w-8 text-primary animate-spin" />
+          </div>
+          <div className="absolute -top-1 -right-1 h-3 w-3 bg-primary rounded-full animate-ping" />
+        </div>
+        <div className="text-center space-y-2">
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary animate-pulse">Protocolo de Recuperación</p>
+          <p className="text-xs text-slate-500 font-medium italic">Sincronizando flujos de datos...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
