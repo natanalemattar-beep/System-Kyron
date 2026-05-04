@@ -131,6 +131,7 @@ export const asesoriaContableNavGroups = [
     icon: Megaphone,
     items: [
         { href: "/marketing", label: "Dashboard Marketing", icon: Megaphone, section: "Marketing" },
+        { href: "/feedback-responses", label: "Respuestas QR", icon: MessageSquare, badge: "NUEVO", section: "Marketing" },
         { href: "/marketing/campanas", label: "Campañas", icon: Target, section: "Marketing" },
         { href: "/marketing/embudos", label: "Embudos de Venta", icon: TrendingUp, section: "Marketing" },
         { href: "/marketing/crm", label: "CRM Clientes", icon: Users, section: "Marketing" },

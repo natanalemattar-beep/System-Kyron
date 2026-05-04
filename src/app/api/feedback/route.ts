@@ -12,11 +12,12 @@ export async function POST(req: NextRequest) {
 
         // Formatear las respuestas para el correo
         const questionLabels: Record<string, string> = {
-            useful_module: "¿Qué módulo te parece más útil?",
-            missing_info: "¿Qué información no encontró?",
-            improve: "¿Qué mejoraría en diseño/experiencia?",
-            recommend: "¿Lo recomendaría? (Rating 1-5)",
-            price: "¿Precio dispuesto a pagar?"
+            industry: "Sector Industrial",
+            team_size: "Tamaño del Equipo",
+            tech_spend: "Presupuesto Mensual Tech",
+            regulator_pressure: "Presión Fiscal (1-10)",
+            missing_link: "Eslabón Perdido Digital",
+            contact_info: "Contacto para Lead"
         };
 
         let answersHtml = '<div style="background:#0F172A; border-radius:15px; padding:20px; border:1px solid #1E293B;">';
@@ -46,6 +47,21 @@ export async function POST(req: NextRequest) {
             html: emailContent,
             module: 'feedback'
         });
+        
+        // Persistir en Base de Datos para el dashboard interno
+        try {
+            const { query } = await import('@/lib/db');
+            const ip = req.headers.get('x-forwarded-for') || '0.0.0.0';
+            const ua = req.headers.get('user-agent') || 'unknown';
+            
+            await query(
+                `INSERT INTO feedback_responses (answers, ip_address, user_agent) VALUES ($1, $2, $3)`,
+                [JSON.stringify(answers), ip, ua]
+            );
+        } catch (dbErr) {
+            console.error('[API_FEEDBACK] Error persistiendo en DB:', dbErr);
+            // No bloqueamos la respuesta exitosa si solo falla la DB
+        }
 
         return NextResponse.json({ success: true });
     } catch (error) {

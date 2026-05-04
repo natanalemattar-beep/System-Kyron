@@ -35,6 +35,7 @@ export async function initializeDatabase(): Promise<void> {
     await createPlanUsageTables();
     await createPerformanceOptimizations();
     await createMarketingTables();
+    await createFeedbackTables();
     await createNewModulesTables();
     await createCreditoComercioTables();
     console.log('[db-schema] Base de datos inicializada correctamente — v3.4.0');
@@ -3678,4 +3679,18 @@ async function seedEmailAutomaticos(): Promise<void> {
       [t.tipo, t.nombre, t.asunto, t.destinatario_tipo, t.intervalo ?? null]
     );
   }
+}
+
+async function createFeedbackTables() {
+  await query(`
+    CREATE TABLE IF NOT EXISTS feedback_responses (
+      id SERIAL PRIMARY KEY,
+      source TEXT NOT NULL DEFAULT 'qr_brochure',
+      answers JSONB NOT NULL,
+      ip_address TEXT,
+      user_agent TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_feedback_created_at ON feedback_responses(created_at DESC)`);
 }

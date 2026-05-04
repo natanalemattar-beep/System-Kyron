@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export const MODELS = {
-  GEMINI: 'gemini-3.1-pro-preview',
+  GEMINI: 'gemini-1.5-flash', // Cambio a modelo estable y ultra-rápido para System Kyron
 } as const;
 
 type ProviderName = 'gemini';
