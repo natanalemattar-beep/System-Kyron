@@ -54,6 +54,9 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
     const QR_PRINCIPAL = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl)}&color=000000&bgcolor=ffffff&margin=2`;
     const QR_FEEDBACK = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl + '/feedback')}&color=000000&bgcolor=ffffff&margin=2`;
     const QR_INSTAGRAM = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('https://instagram.com/systemkyron')}&color=000000&bgcolor=ffffff&margin=2`;
+    const handleExportPDF = async () => {
+        if (isExporting) return;
+        setIsExporting(true);
 
         try {
             const h2c = (await import('html2canvas')).default;
