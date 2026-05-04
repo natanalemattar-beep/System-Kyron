@@ -3,7 +3,12 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { RefreshCcw, Home, ShieldAlert, Cpu, Zap, TriangleAlert, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
+
+const motion = {
+  div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as any,
+};
+import { AnimatePresence } from 'framer-motion';
 
 export default function Error({
   error,

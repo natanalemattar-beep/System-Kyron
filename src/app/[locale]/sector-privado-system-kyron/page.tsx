@@ -24,8 +24,12 @@ import {
     Phone,
     Instagram
 } from 'lucide-react';
-import { motion } from "framer-motion";
+import dynamic from 'next/dynamic';
 import { KyronDocumentAi } from '@/components/ai/document-ai';
+
+const motion = {
+    div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as any,
+};
 
 export default function SectorPrivadoPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = React.use(params);
