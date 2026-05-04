@@ -150,14 +150,26 @@ const slides = [
     },
     {
         id: "closing",
-        tag: "CONCLUSIÓN",
-        title: "CONSTRUYAMOS EL\nFUTURO HOY",
+        tag: "EL SIGUIENTE PASO",
+        title: "ÚNETE A LA\nEVOLUCIÓN",
         subtitle: "System Kyron: El nuevo estándar empresarial.",
-        body: "Escanea el QR para ver nuestra plataforma en vivo, descargar este pitch o completar nuestra encuesta de satisfacción.",
+        body: "No dejes que el caos administrativo frene el potencial de tu empresa. Con System Kyron, adquieres orden, rapidez y transparencia desde el primer día.",
+        promise: {
+            title: "NUESTRA PROMESA",
+            items: [
+                "Soporte técnico humano, local y siempre disponible.",
+                "Capacitación total para ti y todo tu equipo.",
+                "Migración de datos sin perder tu información actual."
+            ]
+        },
+        contact: {
+            phone: "0424-1846016",
+            instagram: "@systemkyron"
+        },
         icon: CircleCheck,
         accent: "#10b981",
         bg: "from-emerald-900/30 via-blue-900/20 to-transparent",
-        image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1000&auto=format&fit=crop", // Team/Collaboration
+        image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1000&auto=format&fit=crop",
         isQRSlide: true,
         script: "Muchas gracias por su atención. System Kyron es más que tecnología, es el nuevo estándar para hacer negocios en Venezuela. Estamos listos para sus preguntas.",
         stats: null,
@@ -223,15 +235,15 @@ function KyronMockup() {
                     {/* Chart Mockup */}
                     <div className="h-32 md:h-48 rounded-2xl bg-white/[0.01] border border-white/5 p-4 relative overflow-hidden">
                         <div className="absolute inset-0 opacity-10">
-                            <div className="h-full w-full" style={{ 
+                            <div className="h-full w-full" style={{
                                 backgroundImage: "linear-gradient(90deg, #3b82f6 2px, transparent 2px), linear-gradient(#3b82f6 2px, transparent 2px)",
                                 backgroundSize: "20px 20px"
                             }} />
                         </div>
                         <div className="flex items-end justify-between h-full gap-2 relative z-10">
                             {[40, 70, 45, 90, 65, 80, 50, 100, 60, 85].map((h, i) => (
-                                <motion.div 
-                                    key={i} 
+                                <motion.div
+                                    key={i}
                                     initial={{ height: 0 }}
                                     animate={{ height: `${h}%` }}
                                     transition={{ delay: 1 + i * 0.05, duration: 0.8 }}
@@ -423,11 +435,11 @@ export default function PitchPage() {
             </body></html>
         `;
         const sourceHTML = header + scriptContent + footer;
-        
+
         const blob = new Blob(['\ufeff', sourceHTML], {
             type: 'application/msword'
         });
-        
+
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
@@ -462,17 +474,16 @@ export default function PitchPage() {
         )}>
             <style jsx global>{`
                 @media print {
-                    body { background: white !important; }
+                    body { background: #04060f !important; color: white !important; -webkit-print-color-adjust: exact; }
                     .no-print { display: none !important; }
-                    .print-slide { 
+                    main { 
                         display: block !important; 
-                        width: 100vw !important; 
-                        height: 100vh !important; 
-                        page-break-after: always;
-                        position: relative !important;
-                        overflow: hidden;
+                        overflow: visible !important;
                     }
-                    .fixed { position: absolute !important; }
+                    .fixed { position: relative !important; }
+                    section { page-break-after: always; height: 100vh; display: flex; align-items: center; justify-content: center; }
+                    .grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
+                    .bg-gradient-to-br { display: block !important; }
                 }
 
                 @keyframes float {
@@ -509,15 +520,15 @@ export default function PitchPage() {
                         className={cn("absolute inset-0 bg-gradient-to-br", slide.bg)}
                     />
                 </AnimatePresence>
-                
+
                 {/* Visual Layers */}
                 <div className="absolute inset-0 grain" />
                 <div className="absolute inset-0 neural-grid opacity-20" />
-                
+
                 {/* Dynamic Orbs */}
-                <motion.div 
-                    animate={{ 
-                        x: [0, 100, 0], 
+                <motion.div
+                    animate={{
+                        x: [0, 100, 0],
                         y: [0, 50, 0],
                         opacity: [0.1, 0.2, 0.1]
                     }}
@@ -530,12 +541,12 @@ export default function PitchPage() {
             {/* Header */}
             <header className="relative z-30 flex items-center justify-between px-10 py-6 border-b border-white/[0.05] backdrop-blur-xl bg-black/20 no-print">
                 <div className="flex items-center gap-4">
-                    <motion.div 
+                    <motion.div
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        className="h-10 w-10 rounded-xl flex items-center justify-center shadow-lg" 
-                        style={{ 
+                        className="h-10 w-10 rounded-xl flex items-center justify-center shadow-lg"
+                        style={{
                             background: `linear-gradient(135deg, ${slide.accent}44, ${slide.accent}11)`,
-                            border: `1px solid ${slide.accent}44` 
+                            border: `1px solid ${slide.accent}44`
                         }}
                     >
                         <Rocket className="h-5 w-5" style={{ color: slide.accent }} />
@@ -553,13 +564,13 @@ export default function PitchPage() {
                 <div className="flex items-center gap-6">
                     {/* Export Buttons */}
                     <div className="flex items-center gap-3">
-                        <button 
+                        <button
                             onClick={handleExportWord}
                             className="group flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95 hover:border-white/30"
                         >
                             <span className="text-xs font-black uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">Guion de Pitch (.doc)</span>
                         </button>
-                        <button 
+                        <button
                             onClick={handleDownload}
                             className="group flex items-center gap-3 px-8 py-2.5 rounded-full bg-blue-600 border border-blue-500 hover:bg-blue-500 transition-all active:scale-95 shadow-[0_0_30px_rgba(37,99,235,0.4)]"
                         >
@@ -601,9 +612,35 @@ export default function PitchPage() {
                 </div>
             </header>
 
-            {/* Main */}
-            <main className="flex-1 relative overflow-hidden flex items-center no-print">
-                <AnimatePresence mode="wait" custom={direction}>
+            {/* Main Content */}
+            <main className={cn(
+                "flex-1 relative flex items-center",
+                !isPrinting && "overflow-hidden"
+            )}>
+                {isPrinting ? (
+                    <div className="w-full">
+                        {slides.map((s, i) => (
+                            <section key={s.id} className="print-slide w-full min-h-screen flex items-center px-16 border-b border-white/5">
+                                <div className="max-w-7xl mx-auto grid grid-cols-2 gap-20 items-center">
+                                    {/* Aquí va una versión simplificada del slide para impresión */}
+                                    <div className="space-y-8">
+                                        <span className="text-sm font-black tracking-[0.3em] text-blue-500 uppercase">{s.tag}</span>
+                                        <h2 className="text-6xl font-black leading-tight uppercase whitespace-pre-line">{s.title}</h2>
+                                        <p className="text-2xl text-white/60 font-medium">{s.subtitle}</p>
+                                        <p className="text-lg text-white/30 leading-relaxed border-l-2 border-white/10 pl-6">{s.body}</p>
+                                    </div>
+                                    <div className="relative">
+                                        {/* Mockups o Stats simplificados para PDF */}
+                                        <div className="aspect-video rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
+                                            {s.image ? <img src={s.image} className="w-full h-full object-cover opacity-40" /> : <Rocket className="h-20 w-20 text-white/10" />}
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        ))}
+                    </div>
+                ) : (
+                    <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                         key={current}
                         custom={direction}
@@ -641,7 +678,7 @@ export default function PitchPage() {
                                                 {line}
                                             </span>
                                             {i === 0 && (
-                                                <span 
+                                                <span
                                                     className="absolute -inset-x-4 inset-y-2 blur-3xl opacity-10 -z-10"
                                                     style={{ backgroundColor: slide.accent }}
                                                 />
@@ -684,6 +721,40 @@ export default function PitchPage() {
                                             {slide.body}
                                         </p>
                                     )}
+
+                                    {slide.promise && (
+                                        <motion.div 
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.4 }}
+                                            className="p-8 rounded-3xl border border-cyan-500/10 bg-cyan-500/[0.02] backdrop-blur-md max-w-lg space-y-6"
+                                        >
+                                            <h4 className="text-[10px] font-black tracking-[0.3em] text-cyan-400 uppercase">{slide.promise.title}</h4>
+                                            <div className="space-y-4">
+                                                {slide.promise.items.map((item, i) => (
+                                                    <div key={i} className="flex items-start gap-4">
+                                                        <div className="h-5 w-5 rounded-full border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                                                            <CircleCheck className="h-3 w-3 text-emerald-400" />
+                                                        </div>
+                                                        <p className="text-sm font-bold text-white/80 leading-snug">{item}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </motion.div>
+                                    )}
+
+                                    {slide.contact && (
+                                        <div className="pt-8 space-y-4 border-t border-white/5 max-w-lg">
+                                            <p className="text-[10px] font-black tracking-[0.3em] text-white/20 uppercase">Contacto Directo</p>
+                                            <div className="flex flex-col gap-2">
+                                                <p className="text-4xl font-black italic tracking-tighter">{slide.contact.phone}</p>
+                                                <div className="flex items-center gap-2 text-cyan-400">
+                                                    <Instagram className="h-4 w-4" />
+                                                    <span className="text-sm font-bold tracking-widest">{slide.contact.instagram}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </motion.div>
                             </div>
 
@@ -697,24 +768,23 @@ export default function PitchPage() {
                                         className="grid grid-cols-2 gap-8"
                                     >
                                         {[
-                                            { label: "Ver Plataforma", sub: "system-kyron.vercel.app", icon: Globe },
-                                            { label: "Tu Feedback", sub: "Encuesta de Calidad", icon: MessageSquare },
+                                            { label: "Ver Plataforma", sub: "system-kyron.vercel.app", data: "https://system-kyron.vercel.app", color: "text-cyan-400" },
+                                            { label: "Instagram", sub: "@systemkyron", data: "https://instagram.com/systemkyron", color: "text-pink-500" },
+                                            { label: "Tu Feedback", sub: "Encuesta de Calidad", data: "https://system-kyron.vercel.app/feedback", color: "text-amber-400" },
                                         ].map((qr, i) => (
-                                            <div key={i} className="p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl flex flex-col items-center text-center group hover:bg-white/[0.06] transition-all">
-                                                <div className="w-48 h-48 bg-white rounded-3xl mb-6 flex items-center justify-center relative overflow-hidden">
-                                                    <div className="absolute inset-0 bg-gradient-to-br from-black/5 to-transparent" />
-                                                    <QrCode className="h-32 w-32 text-black/10 absolute animate-pulse" />
-                                                    <div className="w-40 h-40 border-4 border-black/5 rounded-2xl flex items-center justify-center">
-                                                        <div className="w-full h-full bg-[radial-gradient(circle_at_2px_2px,rgba(0,0,0,0.8)_1px,transparent_0)] bg-[length:8px_8px] opacity-80" />
-                                                    </div>
-                                                    <div className="absolute inset-0 flex items-center justify-center">
-                                                        <div className="bg-white p-2 rounded-lg shadow-xl">
-                                                            <Rocket className="h-6 w-6 text-blue-600" />
-                                                        </div>
-                                                    </div>
+                                            <div key={i} className={cn(
+                                                "p-6 rounded-[2.5rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl flex flex-col items-center text-center group hover:bg-white/[0.06] transition-all",
+                                                i === 2 ? "col-span-2 mt-8 max-w-xs mx-auto" : ""
+                                            )}>
+                                                <div className="w-40 h-40 bg-white rounded-3xl mb-4 flex items-center justify-center relative overflow-hidden p-3 shadow-2xl">
+                                                    <img 
+                                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qr.data)}&bgcolor=ffffff&color=000000`} 
+                                                        alt={qr.label}
+                                                        className="w-full h-full relative z-10"
+                                                    />
                                                 </div>
-                                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-2">{qr.label}</span>
-                                                <p className="text-sm font-bold text-emerald-400">{qr.sub}</p>
+                                                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 mb-1">{qr.label}</span>
+                                                <p className={cn("text-[11px] font-bold", qr.color)}>{qr.sub}</p>
                                             </div>
                                         ))}
                                     </motion.div>
@@ -747,13 +817,13 @@ export default function PitchPage() {
                                         transition={{ delay: 0.4, duration: 1, ease: [0.16, 1, 0.3, 1] }}
                                         className="relative group"
                                     >
-                                        <div 
+                                        <div
                                             className="absolute -inset-4 rounded-[4rem] blur-2xl opacity-20 animate-pulse"
                                             style={{ backgroundColor: slide.accent }}
                                         />
                                         <div className="relative h-[450px] w-[550px] rounded-[3rem] border border-white/10 overflow-hidden shadow-2xl backdrop-blur-sm bg-white/5">
-                                            <img 
-                                                src={slide.image} 
+                                            <img
+                                                src={slide.image}
                                                 alt={slide.title}
                                                 className="h-full w-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700 group-hover:scale-110"
                                             />
@@ -776,9 +846,9 @@ export default function PitchPage() {
                                                 key={i}
                                                 whileHover={{ x: 10, backgroundColor: slide.accent + "15" }}
                                                 className="group p-8 rounded-3xl border backdrop-blur-md transition-all flex items-center justify-between"
-                                                style={{ 
-                                                    backgroundColor: slide.accent + "05", 
-                                                    borderColor: slide.accent + "15" 
+                                                style={{
+                                                    backgroundColor: slide.accent + "05",
+                                                    borderColor: slide.accent + "15"
                                                 }}
                                             >
                                                 <div className="space-y-1">
@@ -810,7 +880,7 @@ export default function PitchPage() {
                             </div>
                         </div>
                     </motion.div>
-                </AnimatePresence>
+                )}
             </main>
 
             {/* Footer / Teleprompter + Controls */}
@@ -873,10 +943,10 @@ export default function PitchPage() {
                 {/* Mobile progress */}
                 <div className="md:hidden mt-6 flex items-center gap-4">
                     <div className="flex-1 h-1 bg-white/5 rounded-full overflow-hidden">
-                        <motion.div 
-                            className="h-full rounded-full" 
-                            style={{ backgroundColor: slide.accent }} 
-                            animate={{ width: `${progress}%` }} 
+                        <motion.div
+                            className="h-full rounded-full"
+                            style={{ backgroundColor: slide.accent }}
+                            animate={{ width: `${progress}%` }}
                         />
                     </div>
                     <span className="text-[10px] font-black text-white/20 tabular-nums tracking-widest">{current + 1} / {slides.length}</span>

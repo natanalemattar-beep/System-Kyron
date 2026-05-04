@@ -16,7 +16,8 @@
         "control_center": "Centro de Control",
         "security_protocol": "Cifrado AES-256",
         "see_all_services": "Ver Todos los Servicios",
-        "mobile_portal": "Portal Kyron"
+        "mobile_portal": "Portal Kyron",
+        "contact": "Contacto"
     },
     "DemoBanner": {
         "message": "⚠️ Plataforma en desarrollo · Precios mostrados son de prueba y NO son los precios finales · Pueden ocurrir cambios sin previo aviso.",

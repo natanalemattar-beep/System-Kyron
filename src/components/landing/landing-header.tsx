@@ -144,7 +144,7 @@ export function LandingHeader() {
                         </Link>
                     </div>
 
-                    <nav className="hidden lg:flex items-center justify-center gap-7 xl:gap-10 flex-1">
+                    <nav className="hidden xl:flex items-center justify-center gap-7 xl:gap-10 flex-1">
                         <Link 
                             href="/" 
                             className={cn(
@@ -276,30 +276,26 @@ export function LandingHeader() {
                             <LanguageSwitcher variant="default" align="end" />
                             <ThemeToggle />
                         </div>
-                        <div className="hidden sm:flex items-center gap-2">
-                            <div className="hidden lg:block mr-1">
+                        <div className="hidden md:flex items-center gap-3">
+                            <div className="hidden xl:block mr-1">
                                 <BcvRateBadge />
                             </div>
-                            <Button variant="ghost" asChild data-guide="register" className={cn(
-                                "rounded-xl h-10 px-6 text-[11px] font-black uppercase tracking-[0.2em] border-2 transition-all duration-300 relative overflow-hidden group",
-                                isScrolled
-                                    ? "border-emerald-500/25 text-emerald-400 hover:border-emerald-500/40 hover:text-emerald-300 hover:bg-emerald-500/5 shadow-[0_0_20px_rgba(16,185,129,0.1)]"
-                                    : "border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/40"
+                            <Button variant="ghost" asChild className={cn(
+                                "rounded-xl h-10 px-5 text-[10px] font-black uppercase tracking-[0.2em] border border-white/10 transition-all duration-300 relative overflow-hidden group hover:bg-white/5 hover:border-white/20",
+                                "text-foreground/60 hover:text-foreground"
                             )}>
                                 <Link href="/register" prefetch={false} className="flex items-center gap-2">
-                                    <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                                    <UserPlus className="h-3.5 w-3.5 group-hover:scale-110 transition-transform" />
+                                    <UserPlus className="h-3.5 w-3.5 opacity-40 group-hover:opacity-100 transition-opacity" />
                                     {t('register')}
                                 </Link>
                             </Button>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button data-guide="access" className="rounded-xl h-10 px-6 text-[11px] font-black uppercase tracking-[0.2em] border-0 text-white shadow-lg hover:scale-[1.05] active:scale-[0.97] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600">
-                                        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
-                                        <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/20" />
-                                        <ShieldCheck className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" /> 
+                                    <Button className="rounded-xl h-10 px-6 text-[10px] font-black uppercase tracking-[0.2em] border-0 text-white shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group bg-zinc-900 border border-white/5 hover:border-cyan-500/30">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                                        <ShieldCheck className="h-4 w-4 mr-2 text-cyan-400" /> 
                                         {t('access')}
-                                        <ChevronDown className="h-3 w-3 ml-2 opacity-70 group-hover:rotate-180 transition-transform" />
+                                        <ChevronDown className="h-3 w-3 ml-2 opacity-30 group-hover:rotate-180 transition-transform" />
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" className="w-[min(520px,calc(100vw-2rem))] p-0 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl shadow-black/[0.15] overflow-hidden">
@@ -352,7 +348,7 @@ export function LandingHeader() {
                                     variant="ghost" 
                                     size="icon" 
                                     className={cn(
-                                        "lg:hidden rounded-xl h-9 w-9 border transition-all duration-500",
+                                        "xl:hidden rounded-xl h-9 w-9 border transition-all duration-500",
                                         isScrolled
                                             ? "bg-white/[0.03] border-white/[0.08] text-foreground"
                                             : "bg-black/[0.03] dark:bg-white/[0.03] border-black/[0.06] dark:border-white/[0.06] text-foreground"

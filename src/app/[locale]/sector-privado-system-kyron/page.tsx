@@ -318,7 +318,7 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                     
                     <div className="mb-6">
                         <span className="inline-block px-3 py-1 bg-zinc-800 rounded-md text-[11px] font-black uppercase tracking-widest text-zinc-300 mb-2 border border-zinc-700 shadow-lg">El Siguiente Paso</span>
-                        <h3 className="text-[22px] font-black uppercase tracking-tighter text-white leading-tight">Únete a la<br/><span className="text-zinc-500 font-medium">Evolución.</span></h3>
+                        <h3 className="text-[22px] font-black uppercase tracking-tighter text-white leading-tight">ÚNETE A LA<br/><span className="text-cyan-400">EVOLUCIÓN.</span></h3>
                     </div>
 
                     <div className="space-y-6 flex-1">
@@ -386,22 +386,22 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                             
                             <div className="flex gap-4 w-full justify-center mb-4">
                                 <div className="flex flex-col items-center gap-2 group">
-                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(6,182,212,0.15)] border border-cyan-500/20">
+                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(6,182,212,0.3)] border border-cyan-500/30">
                                         <img src={QR_PRINCIPAL} alt="Portal" width={85} height={85} className="rounded-lg" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-cyan-400">Portal Web</p>
+                                    <p className="text-[9px] font-black uppercase tracking-[0.15em] text-cyan-400">Plataforma</p>
                                 </div>
-                                <div className="flex flex-col items-center gap-2 group">
-                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(236,72,153,0.15)] border border-pink-500/20">
+                                <div className="flex flex-col items-center gap-2 group mx-4">
+                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(236,72,153,0.3)] border border-pink-500/30">
                                         <img src={QR_INSTAGRAM} alt="Instagram" width={85} height={85} className="rounded-lg" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-pink-500">Instagram</p>
+                                    <p className="text-[9px] font-black uppercase tracking-[0.15em] text-pink-500">Instagram</p>
                                 </div>
                                 <div className="flex flex-col items-center gap-2 group">
-                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.05)] border border-zinc-200">
+                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(251,191,36,0.3)] border border-amber-500/30">
                                         <img src={QR_FEEDBACK} alt="Encuesta" width={85} height={85} className="rounded-lg" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-white">Encuesta</p>
+                                    <p className="text-[9px] font-black uppercase tracking-[0.15em] text-amber-400">Encuesta</p>
                                 </div>
                             </div>
                             <p className="text-[12px] text-zinc-300 font-bold flex items-center gap-2">

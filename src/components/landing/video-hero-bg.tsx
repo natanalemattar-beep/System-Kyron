@@ -29,22 +29,6 @@ export function VideoHeroBg() {
         <div className="absolute inset-0 h-[100%] w-full bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent animate-[scan-line_10s_linear_infinite]" />
       </div>
 
-      {/* Digital Data Particles (Hex drift) - Optimized with CSS */}
-      {[...Array(15)].map((_, i) => (
-        <div
-          key={`hex-${i}`}
-          className="absolute text-[10px] font-mono text-cyan-500/20 whitespace-nowrap select-none pointer-events-none animate-float-slow"
-          style={{ 
-            left: Math.random() * 100 + '%', 
-            top: Math.random() * 100 + '%',
-            animationDelay: `${Math.random() * 20}s`,
-            animationDuration: `${Math.random() * 20 + 20}s`
-          }}
-        >
-          {Math.random().toString(16).substring(2, 8).toUpperCase()}
-        </div>
-      ))}
-
       {/* Floating Particles (Pseudo-Video Effect) - Optimized with CSS */}
       {[...Array(25)].map((_, i) => (
         <div
