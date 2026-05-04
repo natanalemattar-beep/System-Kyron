@@ -5,8 +5,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 const springBounce = { type: 'spring', stiffness: 100, damping: 18, mass: 0.8 } as const;
-const smoothEase = [0.16, 1, 0.3, 1] as const;
-const snappyEase = [0.22, 0.68, 0, 1.02] as const;
+const smoothEase = [0.25, 0.1, 0.25, 1] as const; // Standard Ease-In-Out
+const snappyEase = [0.4, 0, 0.2, 1] as const; // High authority transition
 
 function useHasMounted() {
   const [mounted, setMounted] = useState(false);
@@ -15,9 +15,9 @@ function useHasMounted() {
 }
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24, filter: 'blur(6px)' },
+  hidden: { opacity: 0, y: 12, filter: 'blur(2px)' },
   visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
-  exit: { opacity: 0, y: -12, filter: 'blur(4px)' },
+  exit: { opacity: 0, y: -6, filter: 'blur(2px)' },
 };
 
 const fadeDown: Variants = {
@@ -39,9 +39,9 @@ const fadeRight: Variants = {
 };
 
 const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.9, filter: 'blur(8px)' },
+  hidden: { opacity: 0, scale: 0.98, filter: 'blur(2px)' },
   visible: { opacity: 1, scale: 1, filter: 'blur(0px)' },
-  exit: { opacity: 0, scale: 0.95, filter: 'blur(4px)' },
+  exit: { opacity: 0, scale: 0.99, filter: 'blur(2px)' },
 };
 
 const blurIn: Variants = {
@@ -91,9 +91,9 @@ export function MotionContainer({
   className,
   variant = 'fade-up',
   delay = 0,
-  duration = 0.55,
+  duration = 0.35,
   once = true,
-  amount = 0.2,
+  amount = 0.1,
   as = 'div',
 }: MotionContainerProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -178,7 +178,7 @@ export function StaggerItem({
   children,
   className,
   variant = 'fade-up',
-  duration = 0.5,
+  duration = 0.3,
 }: StaggerItemProps) {
   return (
     <motion.div
@@ -212,9 +212,9 @@ export function PageTransition({ children, className }: PageTransitionProps) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 18, filter: 'blur(8px)', scale: 0.98 }}
+      initial={{ opacity: 0, y: 8, filter: 'blur(2px)', scale: 0.99 }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
-      transition={{ duration: 0.5, ease: smoothEase }}
+      transition={{ duration: 0.3, ease: smoothEase }}
     >
       {children}
     </motion.div>

@@ -219,4 +219,24 @@ body::after {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  /* --- KYRON PROFESSIONAL ANIMATIONS --- */
+  .animate-kyron-breathe {
+    animation: kyron-breathe 3s ease-in-out infinite;
+  }
+
+  @keyframes kyron-breathe {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(0.98); }
+  }
+
+  .kyron-dot {
+    @apply h-1.5 w-1.5 rounded-full bg-emerald-500;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  }
+
+  .kyron-accent-line {
+    @apply h-px w-full;
+    background: linear-gradient(90deg, transparent, hsla(var(--primary), 0.3), transparent);
+  }
 }

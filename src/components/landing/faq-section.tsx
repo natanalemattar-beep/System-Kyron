@@ -86,15 +86,15 @@ export function FaqSection() {
 
                 <ScrollReveal
                     delay={0.2}
-                    y={20}
-                    blur={10}
+                    y={12}
+                    blur={4}
                 >
                     <Accordion type="single" collapsible className="w-full space-y-3">
                         {filteredItems.map((item, index) => (
                             <div key={index}>
                                 <AccordionItem
                                     value={`item-${index}`}
-                                    className="rounded-2xl border-2 border-gray-200 dark:border-white/[0.06] bg-white/80 dark:bg-white/[0.02] px-6 transition-all duration-350 ease-out hover:border-gray-300 dark:hover:border-white/[0.1] data-[state=open]:border-cyan-500/20 data-[state=open]:bg-white dark:data-[state=open]:bg-white/[0.04] data-[state=open]:shadow-xl"
+                                    className="rounded-2xl border-2 border-gray-200 dark:border-white/[0.06] bg-white/80 dark:bg-white/[0.02] px-6 transition-all duration-200 ease-out hover:border-gray-300 dark:hover:border-white/[0.1] data-[state=open]:border-cyan-500/20 data-[state=open]:bg-white dark:data-[state=open]:bg-white/[0.04] data-[state=open]:shadow-xl"
                                 >
                                     <AccordionTrigger className="text-left hover:no-underline py-5">
                                         <div className="flex items-center gap-4">

@@ -880,8 +880,9 @@ export default function PitchPage() {
                             </div>
                         </div>
                     </motion.div>
-                )}
-            </main>
+                </AnimatePresence>
+            )}
+        </main>
 
             {/* Footer / Teleprompter + Controls */}
             <footer className="relative z-30 border-t border-white/[0.05] px-10 py-8 backdrop-blur-2xl bg-black/40 no-print">

@@ -76,13 +76,13 @@ function FloatingCard({ children, className, delay = 0 }: { children: React.Reac
 // ─── DATA & ANIMATIONS ────────────────────────────────
 
 const fadeUp = {
-    hidden: { opacity: 0, y: 30, filter: 'blur(12px)', scale: 0.97 },
+    hidden: { opacity: 0, y: 12, filter: 'blur(4px)', scale: 0.99 },
     visible: (delay: number) => ({
         opacity: 1,
         y: 0,
         filter: 'blur(0px)',
         scale: 1,
-        transition: { duration: 1.1, delay, ease: [0.16, 1, 0.3, 1] }
+        transition: { duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] }
     })
 };
 
@@ -188,7 +188,7 @@ export function HeroSection() {
 
                             <ScrollReveal delay={0.4} scale={0.95}>
                                 <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
-                                    <motion.div whileHover={{ scale: 1.05, y: -4 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                                    <motion.div whileHover={{ scale: 1.02, y: -2 }} transition={{ type: "spring", stiffness: 400, damping: 25 }}>
                                         <Button asChild size="lg" className="h-16 px-12 text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl overflow-hidden group border-0 bg-gradient-to-r from-cyan-600 via-blue-500 to-emerald-600 bg-size-200 animate-gradient-flow text-white shadow-[0_20px_50px_-12px_rgba(6,182,212,0.4)] hover:shadow-[0_30px_60px_-12px_rgba(16,185,129,0.5)] transition-all duration-500 active:scale-95 relative" aria-label="Registrarse ahora en el ecosistema">
                                             <Link href="/login" className="relative z-10 flex items-center gap-4">
                                                 {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
@@ -198,7 +198,7 @@ export function HeroSection() {
                                     
 
 
-                                    <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400, damping: 17 }}>
+                                    <motion.div whileHover={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 25 }}>
                                         <Button
                                             variant="ghost"
                                             size="lg"

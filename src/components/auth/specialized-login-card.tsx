@@ -341,7 +341,7 @@ export function SpecializedLoginCard({
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
             <div className="mb-10">
               <h2 className="text-3xl font-black tracking-tight text-white uppercase leading-none">Acceso Seguro</h2>
@@ -378,9 +378,10 @@ export function SpecializedLoginCard({
             <AnimatePresence>
               {error && (
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.2 }}
                       className="overflow-hidden mb-6"
                     >
                       {error === 'NO_ACCOUNT' ? (
@@ -484,6 +485,7 @@ export function SpecializedLoginCard({
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.2 }}
                           className="overflow-hidden space-y-2"
                         >
                           <div className="relative group">
@@ -622,9 +624,9 @@ export function SpecializedLoginCard({
                 {/* Central Security Node */}
                 <motion.div
                   className="relative z-10 w-24 h-24 rounded-3xl bg-slate-900 border border-blue-500/30 flex items-center justify-center shadow-[0_0_40px_rgba(37,99,235,0.15)] overflow-hidden group"
-                  initial={{ scale: 0.8, opacity: 0 }}
+                  initial={{ scale: 0.95, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.4, type: "spring" }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                 >
                   {/* Internal Glow */}
                   <div className="absolute inset-0 bg-blue-600/5 group-hover:bg-blue-600/10 transition-colors" />
@@ -681,18 +683,18 @@ export function SpecializedLoginCard({
             {verifVerified ? (
               <motion.div 
                 className="text-center py-10 space-y-6 relative overflow-hidden rounded-2xl"
-                initial={{ opacity: 0, scale: 0.5, filter: 'blur(10px)' }}
+                initial={{ opacity: 0, scale: 0.98, filter: 'blur(4px)' }}
                 animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                transition={{ type: "spring", bounce: 0.5, duration: 0.8 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 <motion.div
                   className="absolute inset-0 bg-emerald-500/20 dark:bg-emerald-500/10 rounded-full blur-3xl animate-pulse"
                 />
                 <motion.div
                   className="inline-flex relative z-10 items-center justify-center w-24 h-24 rounded-[2rem] shadow-2xl shadow-emerald-500/40 bg-gradient-to-br from-emerald-400 to-emerald-600 border-4 border-emerald-300 dark:border-emerald-700/50"
-                  initial={{ scale: 0, rotate: -90 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ type: "spring", duration: 0.7, bounce: 0.5 }}
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                 >
                   <CircleCheck className="h-12 w-12 text-white drop-shadow-md" />
                 </motion.div>
@@ -745,9 +747,9 @@ export function SpecializedLoginCard({
                     {[...Array(6)].map((_, i) => (
                       <motion.div
                         key={i}
-                        initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        transition={{ delay: i * 0.05, type: "spring", stiffness: 300, damping: 20 }}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.03, duration: 0.2, ease: "easeOut" }}
                         className="relative group/input"
                       >
                         <input

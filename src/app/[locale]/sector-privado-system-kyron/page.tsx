@@ -55,53 +55,41 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
     const QR_FEEDBACK = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl + '/feedback')}&color=000000&bgcolor=ffffff&margin=2`;
     const QR_INSTAGRAM = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('https://instagram.com/systemkyron')}&color=000000&bgcolor=ffffff&margin=2`;
 
-    const handleDownloadPDF = async () => {
-        if (isExporting) return;
-        setIsExporting(true);
-
-        const frontal = document.getElementById('cara-frontal');
-        const interior = document.getElementById('cara-interior');
-        if (!frontal || !interior) { setIsExporting(false); return; }
-
         try {
             const h2c = (await import('html2canvas')).default;
             const { jsPDF } = await import('jspdf');
 
-            // ESCALA 2.5 = Balance ideal entre velocidad y nitidez profesional (aprox 240 DPI).
+            // Clonar temporalmente para asegurar dimensiones perfectas sin importar el viewport
+            const frontal = document.getElementById('cara-frontal');
+            const interior = document.getElementById('cara-interior');
+            
             const canvasOpts = { 
-                scale: 2.5, 
+                scale: 3, // Aumentamos a 3 para nitidez suprema
                 useCORS: true, 
                 backgroundColor: '#09090b', 
-                logging: false, 
-                allowTaint: false,
-                imageTimeout: 15000,
-                removeContainer: true
+                logging: false,
+                windowWidth: 1056, // Forzamos ancho de 11in en pixeles (96dpi)
+                windowHeight: 816   // Forzamos alto de 8.5in
             };
             
-            const canvas1 = await h2c(frontal, canvasOpts);
-            const canvas2 = await h2c(interior, canvasOpts);
+            const canvas1 = await h2c(frontal!, canvasOpts);
+            const canvas2 = await h2c(interior!, canvasOpts);
 
-            // Crear PDF landscape letter EXACTO (11 x 8.5 in)
             const pdf = new jsPDF({ 
                 orientation: 'landscape', 
                 unit: 'in', 
                 format: 'letter',
-                compress: false // Desactivamos compresión para mantener nitidez 4K
+                compress: true
             });
 
-            // Página 1: Cara Exterior (JPEG 0.95 para velocidad)
-            const img1 = canvas1.toDataURL('image/jpeg', 0.95);
-            pdf.addImage(img1, 'JPEG', 0, 0, 11, 8.5, undefined, 'FAST');
-
-            // Página 2: Cara Interior
+            pdf.addImage(canvas1.toDataURL('image/jpeg', 0.98), 'JPEG', 0, 0, 11, 8.5);
             pdf.addPage();
-            const img2 = canvas2.toDataURL('image/jpeg', 0.95);
-            pdf.addImage(img2, 'JPEG', 0, 0, 11, 8.5, undefined, 'FAST');
+            pdf.addImage(canvas2.toDataURL('image/jpeg', 0.98), 'JPEG', 0, 0, 11, 8.5);
 
             pdf.save('System-Kyron-Folleto-Elite.pdf');
         } catch (error) {
-            console.error('Error generando PDF 4K:', error);
-            alert('Error de memoria (4K requiere muchos recursos). Si falla, cierra otras pestañas.');
+            console.error('Error generando PDF:', error);
+            alert('Error en la generación del PDF. Intente en un navegador de escritorio.');
         } finally {
             setIsExporting(false);
         }
@@ -384,28 +372,33 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                         <div className="mt-auto bg-zinc-900/50 backdrop-blur-xl rounded-[1.5rem] border border-zinc-800 p-5 flex flex-col items-center shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
                             <p className="text-[11px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-4 text-center">CONOCE MÁS DE NUESTRO SISTEMA</p>
                             
-                            <div className="flex gap-4 w-full justify-center mb-4">
+                            <div className="flex flex-col gap-6 w-full items-center">
+                                {/* QR Principal - Arriba solo para que sea el foco primario */}
                                 <div className="flex flex-col items-center gap-2 group">
-                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(6,182,212,0.3)] border border-cyan-500/30">
-                                        <img src={QR_PRINCIPAL} alt="Portal" width={85} height={85} className="rounded-lg" crossOrigin="anonymous" />
+                                    <div className="p-2 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(6,182,212,0.4)] border border-cyan-500/30">
+                                        <img src={QR_PRINCIPAL} alt="Portal" width={110} height={110} className="rounded-lg" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[9px] font-black uppercase tracking-[0.15em] text-cyan-400">Plataforma</p>
+                                    <p className="text-[10px] font-black uppercase tracking-[0.15em] text-cyan-400">Plataforma Principal</p>
                                 </div>
-                                <div className="flex flex-col items-center gap-2 group mx-4">
-                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(236,72,153,0.3)] border border-pink-500/30">
-                                        <img src={QR_INSTAGRAM} alt="Instagram" width={85} height={85} className="rounded-lg" crossOrigin="anonymous" />
+
+                                {/* QRs de Acción - Separados para evitar escaneos accidentales */}
+                                <div className="flex justify-between w-full px-6 pt-2 border-t border-white/5">
+                                    <div className="flex flex-col items-center gap-2 group">
+                                        <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(236,72,153,0.3)] border border-pink-500/30">
+                                            <img src={QR_INSTAGRAM} alt="Instagram" width={75} height={75} className="rounded-lg" crossOrigin="anonymous" />
+                                        </div>
+                                        <p className="text-[9px] font-black uppercase tracking-[0.15em] text-pink-500">Instagram</p>
                                     </div>
-                                    <p className="text-[9px] font-black uppercase tracking-[0.15em] text-pink-500">Instagram</p>
-                                </div>
-                                <div className="flex flex-col items-center gap-2 group">
-                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(251,191,36,0.3)] border border-amber-500/30">
-                                        <img src={QR_FEEDBACK} alt="Encuesta" width={85} height={85} className="rounded-lg" crossOrigin="anonymous" />
+                                    <div className="flex flex-col items-center gap-2 group">
+                                        <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(251,191,36,0.3)] border border-amber-500/30">
+                                            <img src={QR_FEEDBACK} alt="Encuesta" width={75} height={75} className="rounded-lg" crossOrigin="anonymous" />
+                                        </div>
+                                        <p className="text-[9px] font-black uppercase tracking-[0.15em] text-amber-400">Tu Encuesta</p>
                                     </div>
-                                    <p className="text-[9px] font-black uppercase tracking-[0.15em] text-amber-400">Encuesta</p>
                                 </div>
                             </div>
-                            <p className="text-[12px] text-zinc-300 font-bold flex items-center gap-2">
-                                <ScanLine className="h-5 w-5" /> Escanea con tu móvil
+                            <p className="text-[11px] text-zinc-400 font-bold flex items-center gap-2 mt-4">
+                                <ScanLine className="h-5 w-5 text-cyan-500" /> Escaneo de Seguridad Activo
                             </p>
                         </div>
 
