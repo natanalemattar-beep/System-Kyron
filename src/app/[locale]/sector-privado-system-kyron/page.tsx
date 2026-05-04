@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 import { KyronDocumentAi } from '@/components/ai/document-ai';
 
-export function FolletoView({ params }: { params: Promise<{ locale: string }> }) {
+export default function SectorPrivadoPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = React.use(params);
     const [baseUrl, setBaseUrl] = React.useState('https://system-kyron.com');
     const [isExporting, setIsExporting] = React.useState(false);
@@ -585,4 +585,3 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
     );
 }
 
-export default FolletoView;
