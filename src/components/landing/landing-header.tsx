@@ -81,46 +81,22 @@ export function LandingHeader() {
     };
 
     return (
-        <motion.div
-            initial={false}
-            animate={{
-                top: bannerVisible
-                    ? (isScrolled ? 44 : 36)
-                    : (isScrolled ? 12 : 0),
-                paddingTop: isScrolled ? 6 : 24,
-                paddingBottom: isScrolled ? 6 : 24,
-                borderRadius: isScrolled ? 20 : 0,
-                marginLeft: isScrolled ? 12 : 0,
-                marginRight: isScrolled ? 12 : 0,
-            }}
-            transition={{
-                type: "spring",
-                stiffness: 220,
-                damping: 26,
-                mass: 0.9,
-            }}
+        <header
             className={cn(
-                "fixed left-0 right-0 z-[150] transition-[background-color,box-shadow,backdrop-filter,border-color] duration-500 ease-out",
+                "fixed left-0 right-0 z-[150] transition-all duration-500 ease-in-out",
                 isScrolled
                     ? cn(
-                        "border",
-                        isDark
-                            ? "bg-[#060a14]/85 backdrop-blur-2xl border-white/[0.06] shadow-[0_8px_40px_-8px_rgba(0,0,0,0.6),0_2px_16px_-4px_rgba(14,165,233,0.08)]"
-                            : "bg-white/80 backdrop-blur-2xl border-black/[0.04] shadow-[0_8px_40px_-8px_rgba(0,0,0,0.1),0_2px_16px_-4px_rgba(14,165,233,0.06)]"
+                        "top-0 bg-[#060a14]/80 backdrop-blur-xl border-b border-white/[0.05] py-3 shadow-2xl",
+                        "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:bg-gradient-to-r after:from-transparent after:via-cyan-500/20 after:to-transparent"
                       )
-                    : "bg-transparent shadow-none backdrop-blur-0 border-transparent landing-hero-header"
+                    : cn(
+                        "top-0 py-6 bg-transparent border-b border-transparent",
+                        bannerVisible ? "mt-9" : "mt-0"
+                      )
             )}
             role="banner"
         >
-            <motion.div
-                initial={{ scaleX: 0, opacity: 0 }}
-                animate={{
-                    scaleX: isScrolled ? 1 : 0,
-                    opacity: isScrolled ? 0.5 : 0,
-                }}
-                transition={{ type: "spring", stiffness: 200, damping: 25, delay: isScrolled ? 0.15 : 0 }}
-                className="absolute -bottom-[1px] left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent origin-center rounded-full"
-            />
+
             <div className="container mx-auto px-5 md:px-10">
                 <div className="flex items-center justify-between h-16 sm:h-20 w-full">
                     
@@ -447,6 +423,6 @@ export function LandingHeader() {
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </header>
     )
 }
