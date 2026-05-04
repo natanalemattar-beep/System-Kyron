@@ -466,6 +466,7 @@ export default function PitchPage() {
     }, [next, prev]);
 
     const slide = slides[current];
+    const Icon = slide.icon;
     const progress = ((current + 1) / slides.length) * 100;
 
     const variants = {
@@ -875,18 +876,13 @@ export default function PitchPage() {
                                         transition={{ delay: 0.3, duration: 1, type: "spring", bounce: 0.4 }}
                                         className="flex items-center justify-center"
                                     >
-                                        {(() => {
-                                            const Icon = slide.icon;
-                                            return (
-                                                <div
-                                                    className="h-80 w-80 rounded-[4rem] flex items-center justify-center relative group"
-                                                    style={{ backgroundColor: slide.accent + "08", border: `2px solid ${slide.accent}15` }}
-                                                >
-                                                    <div className="absolute inset-0 bg-white/5 blur-3xl rounded-full group-hover:bg-white/10 transition-all" />
-                                                    <Icon className="h-40 w-40 relative z-10" style={{ color: slide.accent }} />
-                                                </div>
-                                            );
-                                        })()}
+                                        <div
+                                            className="h-80 w-80 rounded-[4rem] flex items-center justify-center relative group"
+                                            style={{ backgroundColor: slide.accent + "08", border: `2px solid ${slide.accent}15` }}
+                                        >
+                                            <div className="absolute inset-0 bg-white/5 blur-3xl rounded-full group-hover:bg-white/10 transition-all" />
+                                            <Icon className="h-40 w-40 relative z-10" style={{ color: slide.accent }} />
+                                        </div>
                                     </motion.div>
                                 )}
                             </div>

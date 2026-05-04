@@ -24,6 +24,7 @@ import {
     Phone,
     Instagram
 } from 'lucide-react';
+import { motion } from "framer-motion";
 import { KyronDocumentAi } from '@/components/ai/document-ai';
 
 export default function SectorPrivadoPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -238,7 +239,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 </button>
             </div>
 
-            {/* ═ CARA 1: EXTERIOR (Paneles: Qué es, Cierre, Portada) ═ */}
+            {/* --- CARA 1: EXTERIOR (Paneles: Qué es, Cierre, Portada) --- */}
             <motion.div 
                 id="cara-frontal" 
                 style={{ pageBreakAfter: 'always' }} 
