@@ -612,12 +612,12 @@ export function SpecializedLoginCard({
                 {/* Rotating Rings */}
                 <motion.div 
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                   className="absolute -inset-6 border-2 border-dashed border-blue-500/10 rounded-full"
                 />
                 <motion.div 
                   animate={{ rotate: -360 }}
-                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
                   className="absolute -inset-10 border border-blue-400/5 rounded-full"
                 />
                 
@@ -626,7 +626,7 @@ export function SpecializedLoginCard({
                   className="relative z-10 w-24 h-24 rounded-3xl bg-slate-900 border border-blue-500/30 flex items-center justify-center shadow-[0_0_40px_rgba(37,99,235,0.15)] overflow-hidden group"
                   initial={{ scale: 0.95, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  transition={{ type: "spring", damping: 35, stiffness: 300 }}
                 >
                   {/* Internal Glow */}
                   <div className="absolute inset-0 bg-blue-600/5 group-hover:bg-blue-600/10 transition-colors" />
@@ -634,7 +634,7 @@ export function SpecializedLoginCard({
                   {/* Scanning Bar */}
                   <motion.div 
                     animate={{ top: ['0%', '100%', '0%'] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     className="absolute left-0 right-0 h-1 bg-blue-400/40 blur-[2px] z-20 pointer-events-none"
                   />
 
@@ -1012,7 +1012,7 @@ export function SpecializedLoginCard({
         <motion.div
           initial={{ opacity: 0, y: 24, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ type: "spring", damping: 35, stiffness: 300 }}
           className="w-full max-w-[1040px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-lg shadow-black/[0.12] overflow-hidden border border-border/40"
         >
           <div className="p-6 md:p-10 flex flex-col justify-center bg-card">

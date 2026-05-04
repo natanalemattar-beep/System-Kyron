@@ -8,7 +8,7 @@ import {
     Users, Globe, Zap, CircleCheck, QrCode,
     TriangleAlert, Banknote, X, ArrowRight,
     Network, DollarSign, Download, Monitor, Smartphone,
-    Activity, Lock, Cpu, MessageSquare
+    Activity, Lock, Cpu, MessageSquare, Instagram
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -341,6 +341,13 @@ export default function PitchPage() {
     const [current, setCurrent] = useState(0);
     const [direction, setDirection] = useState(1);
     const [isPrinting, setIsPrinting] = useState(false);
+    const [baseUrl, setBaseUrl] = useState('https://system-kyron.vercel.app');
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setBaseUrl(window.location.origin);
+        }
+    }, []);
 
     const next = useCallback(() => {
         setDirection(1);
@@ -768,9 +775,9 @@ export default function PitchPage() {
                                         className="grid grid-cols-2 gap-8"
                                     >
                                         {[
-                                            { label: "Ver Plataforma", sub: "system-kyron.vercel.app", data: "https://system-kyron.vercel.app", color: "text-cyan-400" },
+                                            { label: "Ver Plataforma", sub: baseUrl.replace('https://', ''), data: baseUrl, color: "text-cyan-400" },
                                             { label: "Instagram", sub: "@systemkyron", data: "https://instagram.com/systemkyron", color: "text-pink-500" },
-                                            { label: "Tu Feedback", sub: "Encuesta de Calidad", data: "https://system-kyron.vercel.app/feedback", color: "text-amber-400" },
+                                            { label: "Tu Feedback", sub: "Encuesta de Calidad", data: `${baseUrl}/feedback`, color: "text-amber-400" },
                                         ].map((qr, i) => (
                                             <div key={i} className={cn(
                                                 "p-6 rounded-[2.5rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl flex flex-col items-center text-center group hover:bg-white/[0.06] transition-all",
@@ -868,13 +875,18 @@ export default function PitchPage() {
                                         transition={{ delay: 0.3, duration: 1, type: "spring", bounce: 0.4 }}
                                         className="flex items-center justify-center"
                                     >
-                                        <div
-                                            className="h-80 w-80 rounded-[4rem] flex items-center justify-center relative group"
-                                            style={{ backgroundColor: slide.accent + "08", border: `2px solid ${slide.accent}15` }}
-                                        >
-                                            <div className="absolute inset-0 bg-white/5 blur-3xl rounded-full group-hover:bg-white/10 transition-all" />
-                                            <slide.icon className="h-40 w-40 relative z-10" style={{ color: slide.accent }} />
-                                        </div>
+                                        {(() => {
+                                            const Icon = slide.icon;
+                                            return (
+                                                <div
+                                                    className="h-80 w-80 rounded-[4rem] flex items-center justify-center relative group"
+                                                    style={{ backgroundColor: slide.accent + "08", border: `2px solid ${slide.accent}15` }}
+                                                >
+                                                    <div className="absolute inset-0 bg-white/5 blur-3xl rounded-full group-hover:bg-white/10 transition-all" />
+                                                    <Icon className="h-40 w-40 relative z-10" style={{ color: slide.accent }} />
+                                                </div>
+                                            );
+                                        })()}
                                     </motion.div>
                                 )}
                             </div>

@@ -54,7 +54,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
     const QR_PRINCIPAL = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl)}&color=000000&bgcolor=ffffff&margin=2`;
     const QR_FEEDBACK = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl + '/feedback')}&color=000000&bgcolor=ffffff&margin=2`;
     const QR_INSTAGRAM = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('https://instagram.com/systemkyron')}&color=000000&bgcolor=ffffff&margin=2`;
-    const handleExportPDF = async () => {
+    const handleDownloadPDF = async () => {
         if (isExporting) return;
         setIsExporting(true);
 
@@ -429,7 +429,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 </div>
             </motion.div>
 
-            {/* ═ CARA 2: INTERIOR (Paneles: Problemas, Módulos, Innovación) ═ */}
+            {/* --- CARA 2: INTERIOR (Paneles: Problemas, Módulos, Innovación) --- */}
             <motion.div 
                 id="cara-interior" 
                 initial={{ opacity: 0, y: 40 }}
@@ -566,9 +566,9 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
-            {/* ═ DIGITAL SUPPLEMENT: INTELLIGENCE REPORT (Document AI) ═ */}
+            {/* --- DIGITAL SUPPLEMENT: INTELLIGENCE REPORT (Document AI) --- */}
             <div className="w-full max-w-[11in] mt-24 mb-32 no-print">
                 <div className="mb-12 text-center">
                     <span className="inline-block px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4">

@@ -1,5 +1,5 @@
 
-import { CircleCheck as CheckCircle, Shield, KeyRound, ShieldCheck, FileScan, ListTree, BrainCircuit } from "lucide-react";
+import { CircleCheck, Shield, KeyRound, ShieldCheck, FileScan, ListTree, BrainCircuit } from "lucide-react";
 
 export const planes = [
     {
