@@ -4,7 +4,7 @@ import { motion, useInView, useReducedMotion, AnimatePresence, type Variants } f
 import React, { useRef, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-const springBounce = { type: 'spring', stiffness: 100, damping: 18, mass: 0.8 } as const;
+const springBounce = { type: 'spring', stiffness: 100, damping: 35, mass: 0.8 } as const;
 const smoothEase = [0.25, 0.1, 0.25, 1] as const; // Standard Ease-In-Out
 const snappyEase = [0.4, 0, 0.2, 1] as const; // High authority transition
 

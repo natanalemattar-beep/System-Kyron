@@ -26,8 +26,8 @@ export const QuantumVerification = () => {
           validationType: 'quantum',
           status: 'verified',
           timestamp: new Date(),
-          hash: `0x${Math.random().toString(16).substr(2, 16)}...`,
-          confidence: 99.9999 + Math.random() * 0.0001,
+          hash: `KYRON-V3-SECURE-${Math.floor(Date.now()/1000).toString(16).toUpperCase()}`,
+          confidence: 99.9999,
           verificationLayers: 8
         };
         setValidations(prev => [newValidation, ...prev.slice(0, 4)]);
@@ -40,7 +40,7 @@ export const QuantumVerification = () => {
         validationType: 'quantum',
         status: 'verified',
         timestamp: new Date(),
-        hash: '0x1a2b3c4d5e6f7890...',
+        hash: 'KYRON-V3-TX-1A2B3C',
         confidence: 99.9999,
         verificationLayers: 7
       },
@@ -50,7 +50,7 @@ export const QuantumVerification = () => {
         validationType: 'quantum',
         status: 'verified',
         timestamp: new Date(),
-        hash: '0x2b3c4d5e6f7890a1...',
+        hash: 'KYRON-V3-TX-2B3C4D',
         confidence: 99.9998,
         verificationLayers: 5
       },
@@ -60,7 +60,7 @@ export const QuantumVerification = () => {
         validationType: 'blockchain',
         status: 'verified',
         timestamp: new Date(),
-        hash: '0x4d5e6f7890a1b2c3...',
+        hash: 'KYRON-V3-TX-4D5E6F',
         confidence: 100,
         verificationLayers: 12
       }

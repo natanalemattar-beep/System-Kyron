@@ -965,7 +965,7 @@ export default function RegisterSelectionPage() {
                                                         <motion.div
                                                             initial={{ scale: 0 }}
                                                             animate={{ scale: 1 }}
-                                                            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                                                            transition={{ type: "spring", stiffness: 400, damping: 35 }}
                                                         >
                                                             <CircleCheck className={cn("h-4 w-4 shrink-0", isNatural ? "text-sky-400" : "text-emerald-400")} />
                                                         </motion.div>

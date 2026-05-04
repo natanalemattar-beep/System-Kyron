@@ -236,7 +236,14 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
             </div>
 
             {/* ═ CARA 1: EXTERIOR (Paneles: Qué es, Cierre, Portada) ═ */}
-            <div id="cara-frontal" style={{ pageBreakAfter: 'always' }} className="w-[11in] h-[8.5in] bg-[#09090b] text-zinc-300 shadow-[0_24px_60px_rgba(0,0,0,0.8)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative font-[family-name:var(--font-outfit)]">
+            <motion.div 
+                id="cara-frontal" 
+                style={{ pageBreakAfter: 'always' }} 
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="w-[11in] h-[8.5in] bg-[#09090b] text-zinc-300 shadow-[0_24px_60px_rgba(0,0,0,0.8)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative font-[family-name:var(--font-outfit)]"
+            >
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(6,182,212,0.04),transparent_50%)] pointer-events-none" />
 
                 {/* P1 (C1-Left, Flap): QUÉ ES SYSTEM KYRON (Ancho: 3.62in) */}
@@ -417,10 +424,16 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             {/* ═ CARA 2: INTERIOR (Paneles: Problemas, Módulos, Innovación) ═ */}
-            <div id="cara-interior" className="w-[11in] h-[8.5in] bg-[#09090b] text-zinc-300 shadow-[0_24px_60px_rgba(0,0,0,0.8)] flex shrink-0 overflow-hidden print:shadow-none relative font-[family-name:var(--font-outfit)]">
+            <motion.div 
+                id="cara-interior" 
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="w-[11in] h-[8.5in] bg-[#09090b] text-zinc-300 shadow-[0_24px_60px_rgba(0,0,0,0.8)] flex shrink-0 overflow-hidden print:shadow-none relative font-[family-name:var(--font-outfit)]"
+            >
                 
                 {/* P4 (C2-Left, Inside Left): PROBLEMAS CRÍTICOS (Ancho: 3.69in) */}
                 <div className="w-[3.69in] border-r border-zinc-800 p-7 flex flex-col relative z-10 bg-black/40 min-h-0">
@@ -487,11 +500,16 @@ export function FolletoView({ params }: { params: Promise<{ locale: string }> })
                             {I:Lock, t:"Seguridad", d:"Permisos y roles."},
                             {I:Phone, t:"Líneas Telefónicas", d:"Comunicación segura."}
                         ].map(({I,t,d},i)=>(
-                            <div key={i} className="flex flex-col p-3 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 hover:bg-zinc-900/80 transition-colors cursor-default min-h-0">
+                            <motion.div 
+                                key={i} 
+                                whileHover={{ scale: 1.02, backgroundColor: "rgba(39, 39, 42, 0.8)" }}
+                                transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                                className="flex flex-col p-3 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0"
+                            >
                                 <I className="h-7 w-7 text-cyan-400 mb-2" />
                                 <h4 className="font-black text-white uppercase text-[11px] tracking-widest mb-1">{t}</h4>
                                 <p className="text-[10px] text-zinc-300 font-bold leading-tight">{d}</p>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
 

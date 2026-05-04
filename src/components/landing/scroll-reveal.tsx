@@ -6,7 +6,6 @@ import { ReactNode, useRef } from 'react';
 interface ScrollRevealProps {
   children: ReactNode;
   delay?: number;
-  duration?: number;
   y?: number;
   x?: number;
   scale?: number;
@@ -23,7 +22,6 @@ interface ScrollRevealProps {
 export function ScrollReveal({
   children,
   delay = 0,
-  duration = 1.2,
   y = 30,
   x = 0,
   scale = 0.96,
@@ -53,9 +51,10 @@ export function ScrollReveal({
         filter: 'blur(0px)' 
       } : {}}
       transition={{
-        duration: duration,
+        type: 'spring',
+        stiffness: 150,
+        damping: 35,
         delay: delay,
-        ease: [0.16, 1, 0.3, 1], // Liquid easing (Cubic Bezier for Apple-like motion)
       }}
       className={className}
     >
@@ -70,7 +69,6 @@ export function ScrollReveal({
 interface GroupProps {
   children: ReactNode[];
   staggerDelay?: number;
-  childDuration?: number;
   className?: string;
   baseDelay?: number;
   y?: number;
@@ -80,7 +78,6 @@ interface GroupProps {
 export function ScrollRevealGroup({
   children,
   staggerDelay = 0.1,
-  childDuration = 1.0,
   baseDelay = 0,
   y = 20,
   blur = 8,
@@ -92,7 +89,6 @@ export function ScrollRevealGroup({
         <ScrollReveal 
           key={i} 
           delay={baseDelay + (i * staggerDelay)} 
-          duration={childDuration}
           y={y}
           blur={blur}
         >

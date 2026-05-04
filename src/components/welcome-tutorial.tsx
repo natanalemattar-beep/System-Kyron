@@ -379,7 +379,7 @@ export function WelcomeTutorial() {
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.2 }}
+                        transition={{ type: 'spring', stiffness: 200, damping: 35, delay: 0.2 }}
                       >
                         <PartyPopper className="h-14 w-14 sm:h-20 sm:w-20 text-amber-400 drop-shadow-lg" />
                       </motion.div>

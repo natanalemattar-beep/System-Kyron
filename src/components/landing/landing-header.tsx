@@ -81,22 +81,23 @@ export function LandingHeader() {
     };
 
     return (
-        <header
+        <motion.header
             className={cn(
-                "fixed left-0 right-0 z-[150] transition-all duration-500 ease-in-out",
-                isScrolled
-                    ? cn(
-                        "top-0 bg-[#060a14]/80 backdrop-blur-xl border-b border-white/[0.05] py-3 shadow-2xl",
-                        "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:bg-gradient-to-r after:from-transparent after:via-cyan-500/20 after:to-transparent"
-                      )
-                    : cn(
-                        "top-0 py-6 bg-transparent border-b border-transparent",
-                        bannerVisible ? "mt-9" : "mt-0"
-                      )
+                "fixed left-0 right-0 z-[150]",
+                isScrolled ? "py-3 shadow-2xl" : "py-6"
             )}
-            role="banner"
+            style={{
+                backdropFilter: isScrolled ? `blur(${24}px)` : 'blur(0px)',
+                WebkitBackdropFilter: isScrolled ? `blur(${24}px)` : 'blur(0px)',
+                backgroundColor: isScrolled ? 'rgba(6, 10, 20, 0.8)' : 'transparent',
+                borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.05)' : '1px solid transparent',
+            }}
+            initial={false}
+            animate={{
+                y: bannerVisible && !isScrolled ? 36 : 0,
+            }}
+            transition={{ type: 'spring', stiffness: 300, damping: 35 }}
         >
-
             <div className="container mx-auto px-5 md:px-10">
                 <div className="flex items-center justify-between h-16 sm:h-20 w-full">
                     
@@ -106,63 +107,42 @@ export function LandingHeader() {
                             <div className="flex flex-col">
                                 <span className={cn(
                                     "text-xs sm:text-[13px] font-black tracking-[0.15em] sm:tracking-wide uppercase leading-none transition-colors duration-500",
-                                    "text-foreground"
+                                    "text-white"
                                 )}>
-                                    System Kyron
+                                    System <span className="text-cyan-400">Kyron</span>
                                 </span>
                                 <span className={cn(
-                                    "hidden md:inline-block text-[7px] font-bold uppercase tracking-[0.3em] mt-1 transition-opacity duration-500",
-                                    "bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent opacity-0"
+                                    "hidden md:inline-block text-[7px] font-bold uppercase tracking-[0.3em] mt-1 transition-all duration-500",
+                                    "bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent",
+                                    isScrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"
                                 )}>
-                                    System Kyron
+                                    Intelligence Platform
                                 </span>
                             </div>
                         </Link>
                     </div>
 
-                    <nav className="hidden xl:flex items-center justify-center gap-7 xl:gap-10 flex-1">
-                        <Link 
-                            href="/" 
-                            className={cn(
-                                "text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer",
-                                isScrolled ? "text-foreground/70 hover:text-cyan-400" : "text-foreground/65 hover:text-cyan-500"
-                            )}
-                        >
-                            {t('home')}
-                            <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full" />
-                        </Link>
-
-                        {/* Dropdown de Plataforma */}
-                        <DropdownMenu>
-                            <DropdownMenuTrigger className={cn(
-                                "flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer outline-none",
-                                isScrolled ? "text-foreground/70 hover:text-cyan-400" : "text-foreground/65 hover:text-cyan-500"
-                            )}>
-                                {t('platform')}
-                                <ChevronDown className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-transform group-data-[state=open]:rotate-180" />
-                                <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full group-data-[state=open]:w-full" />
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="center" className="w-64 p-2 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl mt-2">
-                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
-                                    <a href="#caracteristicas" onClick={(e) => handleAnchorClick(e, '#caracteristicas')} className="flex items-center gap-3 p-3 hover:bg-white/[0.04]">
-                                        <Sparkles className="h-4 w-4 text-cyan-400" />
-                                        <span className="text-xs font-bold uppercase tracking-wider">{t('features')}</span>
-                                    </a>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
-                                    <a href="#beneficios" onClick={(e) => handleAnchorClick(e, '#beneficios')} className="flex items-center gap-3 p-3 hover:bg-white/[0.04]">
-                                        <ShieldCheck className="h-4 w-4 text-emerald-400" />
-                                        <span className="text-xs font-bold uppercase tracking-wider">{t('benefits')}</span>
-                                    </a>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                    <nav className="hidden xl:flex items-center justify-center gap-7 xl:gap-10 flex-1 px-8">
+                        {navItems.slice(0, 2).map((item) => (
+                            <Link 
+                                key={item.labelKey}
+                                href={item.href} 
+                                onClick={(e) => handleAnchorClick(e, item.href)}
+                                className={cn(
+                                    "text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer",
+                                    isScrolled ? "text-white/70 hover:text-cyan-400" : "text-white/60 hover:text-cyan-400"
+                                )}
+                            >
+                                {t(item.labelKey)}
+                                <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full" />
+                            </Link>
+                        ))}
 
                         {/* Dropdown de Soluciones */}
                         <DropdownMenu>
                             <DropdownMenuTrigger className={cn(
                                 "flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer outline-none",
-                                isScrolled ? "text-foreground/70 hover:text-cyan-400" : "text-foreground/65 hover:text-cyan-500"
+                                isScrolled ? "text-white/70 hover:text-cyan-400" : "text-white/60 hover:text-cyan-400"
                             )}>
                                 {t('solutions')}
                                 <ChevronDown className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-transform group-data-[state=open]:rotate-180" />
@@ -205,26 +185,11 @@ export function LandingHeader() {
                             </DropdownMenuContent>
                         </DropdownMenu>
 
-                        {/* Planes */}
-                        <a 
-                            href="#servicios" 
-                            onClick={(e) => handleAnchorClick(e, '#servicios')}
-                            className={cn(
-                                "text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer",
-                                isScrolled ? "text-foreground/70 hover:text-cyan-400" : "text-foreground/65 hover:text-cyan-500"
-                            )}
-                        >
-                            {t('plans')}
-                            <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full" />
-                        </a>
-
-
-
                         {/* Dropdown de Empresa */}
                         <DropdownMenu>
                             <DropdownMenuTrigger className={cn(
                                 "flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer outline-none",
-                                isScrolled ? "text-foreground/70 hover:text-cyan-400" : "text-foreground/65 hover:text-cyan-500"
+                                isScrolled ? "text-white/70 hover:text-cyan-400" : "text-white/60 hover:text-cyan-400"
                             )}>
                                 {t('company')}
                                 <ChevronDown className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-transform group-data-[state=open]:rotate-180" />
@@ -258,7 +223,7 @@ export function LandingHeader() {
                             </div>
                             <Button variant="ghost" asChild className={cn(
                                 "rounded-xl h-10 px-5 text-[10px] font-black uppercase tracking-[0.2em] border border-white/10 transition-all duration-300 relative overflow-hidden group hover:bg-white/5 hover:border-white/20",
-                                "text-foreground/60 hover:text-foreground"
+                                "text-white/60 hover:text-white"
                             )}>
                                 <Link href="/register" prefetch={false} className="flex items-center gap-2">
                                     <UserPlus className="h-3.5 w-3.5 opacity-40 group-hover:opacity-100 transition-opacity" />
@@ -326,8 +291,8 @@ export function LandingHeader() {
                                     className={cn(
                                         "xl:hidden rounded-xl h-9 w-9 border transition-all duration-500",
                                         isScrolled
-                                            ? "bg-white/[0.03] border-white/[0.08] text-foreground"
-                                            : "bg-black/[0.03] dark:bg-white/[0.03] border-black/[0.06] dark:border-white/[0.06] text-foreground"
+                                            ? "bg-white/[0.03] border-white/[0.08] text-white"
+                                            : "bg-black/[0.03] dark:bg-white/[0.03] border-black/[0.06] dark:border-white/[0.06] text-white"
                                     )}
                                     aria-label={t('mobile_portal')}
                                 >
@@ -423,6 +388,6 @@ export function LandingHeader() {
                     </div>
                 </div>
             </div>
-        </header>
-    )
+        </motion.header>
+    );
 }

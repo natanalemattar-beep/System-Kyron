@@ -269,7 +269,7 @@ export default function DiagnosticoRedPage() {
                         <motion.div
                           initial={{ scale: 0.5, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
-                          transition={{ type: "spring", damping: 15 }}
+                          transition={{ type: "spring", damping: 35 }}
                           className="text-center"
                         >
                           <p className="text-3xl font-bold tabular-nums text-foreground">
@@ -407,7 +407,7 @@ export default function DiagnosticoRedPage() {
                           </motion.div>
                         )}
                         {check.status === "done" && (
-                          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", damping: 10 }}>
+                          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", damping: 35 }}>
                             <CircleCheck className="h-3.5 w-3.5 text-emerald-400" />
                           </motion.div>
                         )}
