@@ -29,7 +29,7 @@ export function WhyKyronSection() {
     const comparisonRows = t.raw('comparison_rows') as string[];
 
     return (
-        <section className="py-24 md:py-36 relative overflow-hidden bg-gradient-to-br from-indigo-50/60 via-blue-50/40 to-slate-50/60 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]">
+        <section className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-indigo-50/60 via-blue-50/40 to-slate-50/60 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]">
             <div className="absolute inset-0 -z-10 pointer-events-none">
                 <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/15 to-transparent" />
                 <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/15 to-transparent" />
@@ -130,7 +130,7 @@ export function WhyKyronSection() {
                     </div>
 
                     <div className="max-w-3xl mx-auto rounded-2xl liquid-glass overflow-hidden">
-                        <div className="grid grid-cols-[1fr_auto_auto] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-muted-foreground border-b border-border/30">
+                        <div className="grid grid-cols-[1fr_auto_auto] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-white/80 border-b border-border/30">
                             <div className="px-3 sm:px-5 py-3.5">{t('comparison_header')}</div>
                             <div className="px-3 sm:px-5 py-3.5 text-center min-w-[80px] sm:min-w-[120px] kyron-gradient-text">System Kyron</div>
                             <div className="px-3 sm:px-5 py-3.5 text-center min-w-[80px] sm:min-w-[120px]">{t('comparison_title_generic')}</div>

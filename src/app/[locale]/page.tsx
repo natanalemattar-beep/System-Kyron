@@ -24,64 +24,18 @@ export default function LandingPage() {
   return (
     <div className="relative min-h-screen selection:bg-primary/20 w-full bg-transparent">
       <LandingClientWrapper>
-        <main className="w-full">
+        <main className="w-full bg-[#03050a]">
             <HeroSection />
             
-            <LazySection fallbackHeight="100px">
-                <TrustNumbersBanner />
-            </LazySection>
-
-            <LazySection fallbackHeight="400px">
-                <WhyKyronSection />
-            </LazySection>
-
-            <LazySection fallbackHeight="600px">
-                <ModulesGridSection />
-            </LazySection>
-
-            <LazySection fallbackHeight="500px">
-                <HowItWorksSection />
-            </LazySection>
-
-            <LazySection fallbackHeight="200px">
-                <PartnersSection />
-            </LazySection>
-
-            <LazySection fallbackHeight="400px">
-                <FeaturesSection />
-            </LazySection>
-
-            <LazySection fallbackHeight="600px">
-                <PricingSection />
-            </LazySection>
-
-            <LazySection fallbackHeight="400px">
-                <ShowcaseSection />
-            </LazySection>
-
-            <LazySection fallbackHeight="400px">
-                <ComplianceSection />
-            </LazySection>
-
-            <LazySection fallbackHeight="100px">
-                <IntegrationsStrip />
-            </LazySection>
-
-            <LazySection fallbackHeight="400px">
-                <AboutUsSection />
-            </LazySection>
-
-            <LazySection fallbackHeight="400px">
-                <CommentsSection />
-            </LazySection>
-
-            <LazySection fallbackHeight="600px">
-                <CtaSection />
-            </LazySection>
-
-            <LazySection fallbackHeight="400px">
-                <FaqSection />
-            </LazySection>
+            <WhyKyronSection />
+            <ModulesGridSection />
+            <HowItWorksSection />
+            <FeaturesSection />
+            <PricingSection />
+            <ComplianceSection />
+            <CommentsSection />
+            <CtaSection />
+            <FaqSection />
         </main>
         <Footer />
       </LandingClientWrapper>

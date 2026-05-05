@@ -28,7 +28,7 @@ function RotatingWords({ words, interval = 3000 }: { words: string[], interval?:
     }, [words.length, interval]);
 
     return (
-        <div className="relative h-[1.1em] overflow-hidden">
+        <div className="relative h-[1.3em] overflow-hidden">
             <AnimatePresence mode="wait">
                 <motion.span
                     key={index}
@@ -141,7 +141,7 @@ export function HeroSection() {
             <section 
                 id="inicio" 
                 ref={containerRef}
-                className="relative min-h-[100svh] flex flex-col items-center justify-start lg:justify-center overflow-hidden pt-32 pb-10 md:pt-28 md:pb-0"
+                className="relative min-h-[90svh] flex flex-col items-center justify-start lg:justify-center overflow-hidden pt-24 pb-8 md:pt-20 md:pb-0"
             >
                 <VideoHeroBg />
                 

@@ -89,7 +89,7 @@ export function ModulesGridSection() {
     const hasMore = isMobile && !searchQuery && activeCategory === 'all' && allFiltered.length > MOBILE_LIMIT;
 
     return (
-        <section className="py-24 md:py-36 relative overflow-hidden bg-gradient-to-br from-purple-50/40 via-indigo-50/30 to-blue-50/40 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]">
+        <section className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-purple-50/40 via-indigo-50/30 to-blue-50/40 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]">
             <div className="absolute inset-0 -z-10 pointer-events-none">
                 <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/15 to-transparent" />
                 <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/15 to-transparent" />

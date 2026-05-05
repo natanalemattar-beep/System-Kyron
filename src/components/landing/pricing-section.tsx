@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { ScrollReveal, ScrollRevealGroup } from "./scroll-reveal";
 import {
-  User, Phone, Calculator, Scale, Receipt, Users, Leaf,
-  Shield, Wifi, Monitor, Printer, Package, ArrowRight,
+  Users, Tablet, Calculator, Shield, Receipt, Leaf,
+  ShieldCheck, Wifi, Monitor, Printer, Package, ArrowRight,
   Check, Sparkles, ChevronRight, Zap, Star,
 } from 'lucide-react';
 
@@ -48,7 +48,7 @@ interface SaasModule {
 const SAAS_MODULES: SaasModule[] = [
   {
     id: 'personal',
-    icon: User,
+    icon: Users,
     nombre: 'Cuenta Personal',
     descripcion: 'Bóveda biométrica 3D, firma digital, certificados de ingreso y protección familiar LOPNNA.',
     precio: null,
@@ -58,7 +58,7 @@ const SAAS_MODULES: SaasModule[] = [
   },
   {
     id: 'milinea',
-    icon: Phone,
+    icon: Tablet,
     nombre: 'Mi Línea 5G',
     descripcion: 'Gestión de tu línea telefónica dentro de la plataforma. No incluye plan de datos — solo la administración inteligente.',
     precio: 3,
@@ -77,7 +77,7 @@ const SAAS_MODULES: SaasModule[] = [
   },
   {
     id: 'legal',
-    icon: Scale,
+    icon: Shield,
     nombre: 'Asesoría Legal',
     descripcion: 'Kyron Voice (IA legal), contratos, permisología integral (483+ trámites) y directorio de 58 organismos venezolanos.',
     precio: 25,
@@ -290,7 +290,7 @@ export function PricingSection() {
   return (
     <section
       id="pricing"
-      className="relative py-32 md:py-48 w-full overflow-hidden scroll-mt-20 bg-[#050816]"
+      className="relative py-20 md:py-28 w-full overflow-hidden scroll-mt-20 bg-[#050816]"
     >
       {/* Background elements */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
