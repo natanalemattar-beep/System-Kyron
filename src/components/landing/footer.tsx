@@ -5,7 +5,7 @@ import { Logo } from "@/components/logo";
 import { 
     Mail, MapPin, FileText, Shield, Gavel, 
     ArrowUpRight, Hexagon, Github, Twitter, 
-    Linkedin, Heart, Instagram 
+    Linkedin, Heart, Instagram, BadgeCheck
 } from "lucide-react";
 
 import { useTranslations } from 'next-intl';
