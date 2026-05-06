@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { ScrollReveal, ScrollRevealGroup } from "./scroll-reveal";
 import {
-  Users, Tablet, Calculator, Shield, Receipt, Leaf,
+  Users, User, Tablet, Calculator, Shield, Receipt, Leaf,
   ShieldCheck, Wifi, Monitor, Printer, Package, ArrowRight,
   Check, Sparkles, ChevronRight, Zap, Star,
 } from 'lucide-react';
