@@ -26,19 +26,8 @@ interface FeedbackResponse {
 export default function FeedbackResponsesPage() {
     const [responses, setResponses] = useState<FeedbackResponse[]>([]);
     const [loading, setLoading] = useState(true);
-    const [pass, setPass] = useState("");
-    const [isAuthorized, setIsAuthorized] = useState(false);
-
-    const checkPass = () => {
-        if (pass === "Carlos123") {
-            setIsAuthorized(true);
-        } else {
-            alert("Acceso denegado");
-        }
-    };
 
     const fetchResponses = async () => {
-        if (!isAuthorized) return;
         setLoading(true);
         try {
             const res = await fetch('/api/admin/feedback-responses');
@@ -59,41 +48,21 @@ export default function FeedbackResponsesPage() {
 
     const getQuestionLabel = (id: string) => {
         const labels: Record<string, string> = {
-            industry: "Sector",
-            team_size: "Equipo",
-            tech_spend: "Presupuesto",
-            regulator_pressure: "Presión Fiscal",
-            missing_link: "Falta Digital",
-            contact_info: "Contacto"
+            useful_module: "¿Módulo útil?",
+            missing_info: "¿Falta info?",
+            improve: "¿Mejoras?",
+            recommend: "Recomendación",
+            price: "Precio dispuesto"
         };
         return labels[id] || id;
     };
 
     return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {!isAuthorized ? (
-                <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-                    <div className="h-20 w-20 bg-zinc-800/50 rounded-3xl flex items-center justify-center mb-6 border border-zinc-700">
-                        <Lock className="h-10 w-10 text-amber-500" />
-                    </div>
-                    <h2 className="text-2xl font-black text-white uppercase tracking-tighter mb-2">Acceso Restringido</h2>
-                    <p className="text-zinc-500 text-sm mb-8 max-w-xs">Este enlace es privado. Ingresa la clave secreta para continuar.</p>
-                    <div className="flex flex-col w-full max-w-xs gap-3">
-                        <input 
-                            type="password" 
-                            placeholder="Clave secreta..."
-                            className="h-12 bg-zinc-900 border border-zinc-800 rounded-xl px-4 text-white text-center focus:border-amber-500/50 outline-none transition-colors"
-                            value={pass}
-                            onChange={(e) => setPass(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' && checkPass()}
-                        />
-                        <Button onClick={checkPass} className="h-12 bg-amber-600 hover:bg-amber-500 text-white font-black uppercase tracking-widest text-[11px] rounded-xl">
-                            Desbloquear Acceso
-                        </Button>
-                    </div>
-                </div>
-            ) : (
-                <>
+        <PasswordGate 
+            title="Respuestas de Encuesta" 
+            description="Visualización de leads y feedback del folleto QR. Clave requerida: Carlos123."
+        >
+            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
@@ -202,8 +171,7 @@ export default function FeedbackResponsesPage() {
                     ))}
                 </div>
             )}
-            </>
-            )}
-        </div>
+            </div>
+        </PasswordGate>
     );
 }

@@ -421,11 +421,11 @@
             "Facturación SENIAT", "Tributos & Retenciones", "Dashboard Ejecutivo"
         ],
         "version_stable": "v2.8.5 — Estable",
-        "copyright": "System Kyron · Inteligencia Corporativa · v2.8.5",
+        "copyright": "System Kyron · EMPRENDIMIENTO CARLOS MATTAR · RIF: J-50832149-9",
         "user_manual": "Manual de Usuario",
         "terms": "Términos",
         "privacy": "Privacidad",
-        "location": "Caracas, Venezuela · Distrito Capital"
+        "location": "La Guaira, Venezuela"
     },
     "ScrollCinematic": {
         "tagline": "System Kyron — Inteligencia Corporativa",
@@ -688,7 +688,7 @@
         "security_title_2": "grado bancario",
         "security_desc": "Cada operación está protegida con los más altos estándares de la industria.",
         "regulations": {
-            "seniat": { "full": "Servicio Nacional Integrado de Administración Aduanera y Tributaria", "badges": ["IVA 16%", "ISLR", "IGTF 3%", "Retenciones"] },
+            "seniat": { "full": "Servicio Nacional Integrado de Administración Aduanera y Tributaria · RIF: J-50832149-9", "badges": ["IVA 16%", "ISLR", "IGTF 3%", "Retenciones"] },
             "bcv": { "full": "Banco Central de Venezuela — Tasas en tiempo real", "badges": ["Tasa Oficial", "USD/Bs", "EUR/Bs", "Histórico"] },
             "lottt": { "full": "Ley Orgánica del Trabajo, los Trabajadores y las Trabajadoras", "badges": ["Nómina", "Prestaciones", "Vacaciones", "Utilidades"] },
             "conatel": { "full": "Comisión Nacional de Telecomunicaciones", "badges": ["5G", "eSIM", "PBX", "Permisos"] },

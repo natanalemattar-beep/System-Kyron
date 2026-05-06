@@ -70,7 +70,7 @@ export default function KyronMailPage() {
   const promptRef = useRef<HTMLTextAreaElement>(null);
 
   const handleAuth = () => {
-    if (masterKey === 'Carlos0507..') {
+    if (masterKey === 'Carlos123') {
       setAuthenticated(true);
       setFailCount(0);
       toast({ title: 'Bienvenido, jefe', description: 'Panel desbloqueado.' });

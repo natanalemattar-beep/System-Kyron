@@ -337,6 +337,8 @@ function SmartphoneMockup() {
     );
 }
 
+import { PasswordGate } from "@/components/auth/password-gate";
+
 export default function PitchPage() {
     const [current, setCurrent] = useState(0);
     const [direction, setDirection] = useState(1);
@@ -476,10 +478,14 @@ export default function PitchPage() {
     };
 
     return (
-        <div className={cn(
-            "fixed inset-0 bg-[#04060f] text-white flex flex-col overflow-hidden transition-all duration-700",
-            isPrinting ? "print-mode" : ""
-        )}>
+        <PasswordGate 
+            title="Pitch Ejecutivo" 
+            description="Documentación confidencial para inversores y competencia. Ingresa la clave Carlos123."
+        >
+            <div className={cn(
+                "fixed inset-0 bg-[#04060f] text-white flex flex-col overflow-hidden transition-all duration-700",
+                isPrinting ? "print-mode" : ""
+            )}>
             <style jsx global>{`
                 @media print {
                     body { background: #04060f !important; color: white !important; -webkit-print-color-adjust: exact; }
@@ -962,5 +968,6 @@ export default function PitchPage() {
                 </div>
             </footer>
         </div>
+        </PasswordGate>
     );
 }

@@ -134,9 +134,15 @@ export function Footer() {
                                     &copy; 2026 {t('copyright')}
                                 </p>
                             </div>
-                            <p className="text-[9px] font-black uppercase tracking-[0.2em] text-cyan-400/50 ml-6">
-                                Fundador y CEO Carlos Mattar
-                            </p>
+                            <div className="flex items-center gap-3 ml-6">
+                                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-cyan-400/50">
+                                    Fundador y CEO Carlos Mattar
+                                </p>
+                                <div className="h-1 w-1 rounded-full bg-emerald-500/40" />
+                                <p className="text-[8px] font-bold uppercase tracking-[0.1em] text-emerald-500/40 flex items-center gap-1">
+                                    <BadgeCheck className="h-3 w-3" /> ESTATUS: ACTIVO · SOLVENTE
+                                </p>
+                            </div>
                         </div>
                         <div className="flex items-center gap-4">
                             <a href="https://instagram.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-foreground/20 hover:text-pink-500 hover:border-pink-500/20 hover:bg-pink-500/[0.06] transition-all duration-300">

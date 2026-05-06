@@ -103,7 +103,7 @@ const sections = [
   },
   {
     title: "25. Contacto",
-    body: "Para consultas, reclamaciones, ejercicio de derechos o notificaciones relacionadas con estos Terminos de Servicio: Correo electronico: infosystemkyron@gmail.com — Direccion: Caracas, Venezuela, Distrito Capital. Horario de atencion: Lunes a Viernes, 8:00 AM - 6:00 PM (hora de Venezuela, UTC-4). Asistencia automatizada 24/7 mediante Kyron AI."
+    body: "Para consultas, reclamaciones, ejercicio de derechos o notificaciones relacionadas con estos Terminos de Servicio: Correo electronico: infosystemkyron@gmail.com — Responsable: EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9) — Direccion: La Guaira, Venezuela. Horario de atencion: Lunes a Viernes, 8:00 AM - 6:00 PM (hora de Venezuela, UTC-4). Asistencia automatizada 24/7 mediante Kyron AI."
   }
 ];
 
@@ -124,7 +124,7 @@ export default function TermsPage() {
             </div>
             <div>
               <h1 className="text-3xl font-semibold uppercase tracking-tight text-foreground">Terminos de Servicio</h1>
-              <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest mt-1">System Kyron v3.0 &bull; Ultima actualizacion: Abril 2026</p>
+              <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest mt-1">System Kyron v3.0 &bull; Ultima actualizacion: Mayo 2026</p>
             </div>
           </div>
 
@@ -149,7 +149,7 @@ export default function TermsPage() {
 
           <div className="pt-8 border-t border-border/50 text-center">
             <p className="text-[10px] text-muted-foreground/60 font-bold uppercase tracking-widest">
-              System Kyron v3.0 &bull; Inteligencia Corporativa &bull; Caracas, Venezuela &bull; &copy; 2026
+              System Kyron v3.0 &bull; EMPRENDIMIENTO CARLOS MATTAR &bull; RIF: J-50832149-9 &bull; La Guaira, Venezuela &bull; &copy; 2026
             </p>
           </div>
         </div>
