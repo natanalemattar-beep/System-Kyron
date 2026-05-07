@@ -8,7 +8,7 @@ import { ScrollReveal, ScrollRevealGroup } from "./scroll-reveal";
 import {
   Users, User, Tablet, Calculator, Shield, Receipt, Leaf,
   ShieldCheck, Wifi, Monitor, Printer, Package, ArrowRight,
-  Check, Sparkles, ChevronRight, Zap, Star,
+  Check, Sparkles, ChevronRight, Zap, Star, Phone
 } from 'lucide-react';
 
 // ─── Route mapping per module ───────────────────────
