@@ -16,11 +16,11 @@ import {
 import Image from "next/image";
 
 const companyInfo = {
-  nombre: "System Kyron, C.A.",
-  rif: "J-50328471-6",
-  direccion: "Torre Kyron, Piso 8, Av. Francisco de Miranda, Urb. El Rosal, Chacao",
-  telefono: "0212-267-8490",
-  email: "contacto@systemkyron.com",
+  nombre: "EMPRENDIMIENTO CARLOS MATTAR",
+  rif: "J-50832149-9",
+  direccion: "La Guaira, República Bolivariana de Venezuela",
+  telefono: "0424-1846016",
+  email: "infosystemkyron@gmail.com",
   web: "systemkyron.com",
 };
 
@@ -360,7 +360,7 @@ function EmployeeCardBack({ employee }: { employee: typeof emptyEmployee }) {
       <div className="relative h-full flex flex-col p-6">
         <div className="flex items-center gap-2 mb-6">
           <Logo className="h-6 w-6" />
-          <p className="text-[7px] font-semibold uppercase tracking-wide text-white/60">System Kyron, C.A.</p>
+          <p className="text-[7px] font-semibold uppercase tracking-wide text-white/60">EMPRENDIMIENTO CARLOS MATTAR</p>
         </div>
 
         <div className="space-y-3 flex-1">

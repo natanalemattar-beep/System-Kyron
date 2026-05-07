@@ -15,6 +15,7 @@ import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { PasswordGate } from "@/components/auth/password-gate";
 
 interface FeedbackResponse {
     id: number;

@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       default: 'System Kyron - Ecosistema de Inteligencia Corporativa 2026',
     },
     description: locale === 'es' 
-      ? 'Plataforma líder en gestión empresarial, legal y tecnológica en Venezuela con inteligencia artificial integrada.'
-      : 'Leading corporate, legal, and tech platform in Venezuela with integrated AI.',
+      ? 'Plataforma líder en gestión empresarial, legal y tecnológica en Venezuela. EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9).'
+      : 'Leading corporate, legal, and tech platform in Venezuela. EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9).',
     viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
     themeColor: '#030711',
     manifest: '/manifest.json',

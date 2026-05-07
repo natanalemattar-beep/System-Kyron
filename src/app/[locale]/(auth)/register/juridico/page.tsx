@@ -30,7 +30,7 @@ const TIPOS_EMPRESA = [
 
 const schema = z.object({
     razonSocial: z.string().min(3, 'Ingrese la razón social'),
-    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50328471-6'),
+    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50832149-9'),
     tipo_empresa: z.string().min(1, 'Seleccione el tipo'),
     repNombre: z.string().min(2, 'Ingrese el nombre'),
     repApellido: z.string().min(2, 'Ingrese el apellido'),

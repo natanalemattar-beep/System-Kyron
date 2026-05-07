@@ -21,7 +21,8 @@ import { useToast } from "@/hooks/use-toast";
 /**
  * @fileOverview Página de Identidad de Marca Consolidada.
  */
-import { PasswordGate } from "@/components/auth/password-gate";
+
+import { PasswordGate } from "@/components/auth/password-gate";
 
 export default function IdentidadMarcaPage() {
   const { toast } = useToast();
@@ -183,4 +184,4 @@ export default function IdentidadMarcaPage() {
     </PasswordGate>
   );
 }
-
+

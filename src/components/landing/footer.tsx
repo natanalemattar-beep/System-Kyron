@@ -136,11 +136,11 @@ export function Footer() {
                             </div>
                             <div className="flex items-center gap-3 ml-6">
                                 <p className="text-[9px] font-black uppercase tracking-[0.2em] text-cyan-400/50">
-                                    Fundador y CEO Carlos Mattar
+                                    Fundador: Carlos Mattar
                                 </p>
                                 <div className="h-1 w-1 rounded-full bg-emerald-500/40" />
                                 <p className="text-[8px] font-bold uppercase tracking-[0.1em] text-emerald-500/40 flex items-center gap-1">
-                                    <BadgeCheck className="h-3 w-3" /> ESTATUS: ACTIVO · SOLVENTE
+                                    <BadgeCheck className="h-3 w-3" /> EMPRENDIMIENTO CARLOS MATTAR · RIF: J-50832149-9
                                 </p>
                             </div>
                         </div>
@@ -183,6 +183,5 @@ export function Footer() {
                 </div>
             </div>
         </footer>
-
     );
 }

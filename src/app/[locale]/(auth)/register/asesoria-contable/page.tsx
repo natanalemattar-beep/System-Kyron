@@ -57,7 +57,7 @@ const PLANES_CONTABILIDAD = [
 
 const schema = z.object({
     razonSocial: z.string().min(3, 'Ingrese la razón social'),
-    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50328471-6'),
+    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50832149-9'),
     nombre: z.string().min(2, 'Ingrese su nombre'),
     apellido: z.string().min(2, 'Ingrese su apellido'),
     email: z.string().email('Correo inválido'),

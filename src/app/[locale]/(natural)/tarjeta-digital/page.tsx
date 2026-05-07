@@ -14,7 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const userData = {
     name: "Usuario Natural",
     position: "Desarrollador de Software & Consultor TI",
-    company: "System Kyron, C.A.",
+    company: "EMPRENDIMIENTO CARLOS MATTAR",
     phone: "+58 414-9377068",
     email: "usuario.natural@email.com",
     address: "Caracas, Venezuela",
