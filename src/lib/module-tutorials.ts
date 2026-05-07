@@ -3,7 +3,7 @@ import {
   BrainCircuit, LayoutDashboard, Building2, BookOpen, Landmark, Shield,
   FileText, Briefcase, UserPlus, Scale, Target, CreditCard,
   Wallet, Banknote, UserCheck, Stethoscope, School, Recycle,
-  Smartphone, Gauge, Bot, ShieldCheck, Sparkles, Globe, MailOpen,
+  Gauge, Bot, ShieldCheck, Sparkles, Globe, MailOpen,
   type LucideIcon,
 } from "lucide-react";
 
