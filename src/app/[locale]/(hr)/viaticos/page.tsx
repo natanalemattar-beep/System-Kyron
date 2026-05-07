@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import {
   Plane, MapPin, Building2, Hotel, UtensilsCrossed, Car, Fuel, Receipt,
-  Phone, ShieldCheck, CreditCard, Banknote, Plus, Search, Loader2,
+  Smartphone, ShieldCheck, CreditCard, Banknote, Plus, Search, Loader2,
   Globe, Flag, Users, FileText, CircleCheck, XCircle, Clock, Eye,
   Trash2, DollarSign, TrendingUp, Briefcase, Calendar, Filter,
   Download, ChevronDown, TriangleAlert, Gift, Wallet, ArrowUpDown
@@ -77,7 +77,7 @@ const CATEGORIAS = [
   { value: "transporte_local", label: "Transporte Local", icon: Car, color: "text-teal-500" },
   { value: "combustible", label: "Combustible", icon: Fuel, color: "text-amber-600" },
   { value: "peaje", label: "Peajes", icon: CreditCard, color: "text-gray-500" },
-  { value: "telefonia", label: "Telefonía / Internet", icon: Phone, color: "text-indigo-500" },
+  { value: "telefonia", label: "Telefonía / Internet", icon: Smartphone, color: "text-indigo-500" },
   { value: "seguro_viaje", label: "Seguro de Viaje", icon: ShieldCheck, color: "text-green-500" },
   { value: "visa", label: "Visa / Permisos", icon: FileText, color: "text-red-500" },
   { value: "impuestos", label: "Impuestos de Salida", icon: Receipt, color: "text-rose-600" },

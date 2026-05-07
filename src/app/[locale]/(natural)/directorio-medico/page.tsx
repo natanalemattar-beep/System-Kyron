@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { Stethoscope, Search, Phone, MapPin, ArrowLeft, Info, Loader2, Inbox } from "lucide-react";
+import { Stethoscope, Search, Smartphone, MapPin, ArrowLeft, Info, Loader2, Inbox } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from '@/navigation';
 import { cn } from "@/lib/utils";
@@ -141,7 +141,7 @@ export default function DirectorioMedicoPage() {
                       <MapPin className="h-3 w-3 text-rose-500 shrink-0" /> {centro.zona}
                     </p>
                     <p className="text-[11px] flex items-center gap-2 text-muted-foreground">
-                      <Phone className="h-3 w-3 text-rose-500 shrink-0" /> {centro.tel}
+                      <Smartphone className="h-3 w-3 text-rose-500 shrink-0" /> {centro.tel}
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-1.5 pt-2 border-t border-border/30">
@@ -155,7 +155,7 @@ export default function DirectorioMedicoPage() {
                     className="mt-3 w-full h-9 rounded-xl text-[10px] font-bold uppercase tracking-wider border-rose-500/20 text-rose-600 hover:bg-rose-500/10"
                     onClick={() => toast({ title: `Contactando ${centro.nombre}`, description: `Llamar al ${centro.tel}` })}
                   >
-                    <Phone className="h-3.5 w-3.5 mr-2" /> Contactar
+                    <Smartphone className="h-3.5 w-3.5 mr-2" /> Contactar
                   </Button>
                 </CardContent>
               </Card>

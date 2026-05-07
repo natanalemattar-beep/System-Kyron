@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 
 export default function LoginLineaEmpresaRedirect() {
     const router = useRouter();

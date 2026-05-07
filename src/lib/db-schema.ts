@@ -2058,7 +2058,7 @@ async function createProyectosTables() {
       id                SERIAL PRIMARY KEY,
       user_id           INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       tipo              TEXT NOT NULL
-                        CHECK (tipo IN ('licencia','permiso','registro','certificacion','habilitacion','solvencia','autorizacion','municipal','ambiental','sanitario','bomberos','trabajo','intt','seniat','sunagro','sasa','minpet','conatel','otro')),
+                        CHECK (tipo IN ('licencia','permiso','registro','certificacion','habilitacion','solvencia','autorizacion','municipal','ambiental','sanitario','bomberos','trabajo','intt','seniat','sunagro','sasa','minpet','conatel','sapi','propiedad_intelectual','otro')),
       nombre_permiso    TEXT NOT NULL,
       numero_permiso    TEXT,
       organismo         TEXT NOT NULL,

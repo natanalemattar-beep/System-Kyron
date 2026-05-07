@@ -220,7 +220,7 @@ export function LandingHeader() {
                             <div className="hidden xl:block mr-1">
                                 <BcvRateBadge />
                             </div>
-                            <Button variant="ghost" asChild className={cn(
+                            <Button variant="ghost" asChild data-guide="register" className={cn(
                                 "rounded-xl h-10 px-5 text-[10px] font-black uppercase tracking-[0.2em] border border-white/10 transition-all duration-300 relative overflow-hidden group hover:bg-white/5 hover:border-white/20",
                                 "text-white/60 hover:text-white"
                             )}>
@@ -230,7 +230,7 @@ export function LandingHeader() {
                                 </Link>
                             </Button>
                             <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
+                                <DropdownMenuTrigger asChild data-guide="access">
                                     <Button className="rounded-xl h-10 px-6 text-[10px] font-black uppercase tracking-[0.2em] border-0 text-white shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group bg-zinc-900 border border-white/5 hover:border-cyan-500/30">
                                         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                                         <ShieldCheck className="h-4 w-4 mr-2 text-cyan-400" /> 

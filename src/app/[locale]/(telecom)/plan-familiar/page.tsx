@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import {
-  Users, Plus, CircleCheck, Share2, Shield, Wifi, Phone,
+  Users, Plus, CircleCheck, Share2, Shield, Wifi, Smartphone,
   DollarSign, ArrowLeftRight, UserPlus, Settings, Crown
 } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";

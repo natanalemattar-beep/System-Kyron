@@ -12,7 +12,7 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger
 } from "@/components/ui/dialog";
 import {
-  Signal, Loader2, Phone, Plus, Pencil, Trash2, Power, PowerOff,
+  Signal, Loader2, Smartphone, Plus, Pencil, Trash2, Power, PowerOff,
   FileText, DollarSign, Wifi, Activity, CircleCheck as CircleCheck, MoreVertical,
   RefreshCw, User, Building, Shield, Smartphone as SmartphoneIcon
 } from "lucide-react";
@@ -259,7 +259,7 @@ export default function MiLineaPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: "Líneas Activas", val: `${totalActivas} / ${lineas.length}`, icon: Phone, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
+          { label: "Líneas Activas", val: `${totalActivas} / ${lineas.length}`, icon: Smartphone, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
           { label: "Datos Usados", val: `${totalDatosUsados.toFixed(1)} GB`, icon: Wifi, color: "text-kyron-cyan", accent: "from-kyron-cyan/20 to-kyron-cyan/0", ring: "ring-kyron-cyan/20", iconBg: "bg-kyron-cyan/10" },
           { label: "Gasto Mensual", val: formatCurrency(totalGasto, 'USD'), icon: DollarSign, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
           { label: "Facturas Pendientes", val: `${facturasPendientes}`, icon: FileText, color: facturasPendientes > 0 ? "text-amber-500" : "text-emerald-500", accent: facturasPendientes > 0 ? "from-amber-500/20 to-amber-500/0" : "from-emerald-500/20 to-emerald-500/0", ring: facturasPendientes > 0 ? "ring-amber-500/20" : "ring-emerald-500/20", iconBg: facturasPendientes > 0 ? "bg-amber-500/10" : "bg-emerald-500/10" },
@@ -298,7 +298,7 @@ export default function MiLineaPage() {
           {lineas.length === 0 ? (
             <div className="py-12 px-6 text-center space-y-3">
               <div className="mx-auto w-12 h-12 rounded-xl bg-muted/30 flex items-center justify-center">
-                <Phone className="h-5 w-5 text-muted-foreground/30" />
+                <Smartphone className="h-5 w-5 text-muted-foreground/30" />
               </div>
               <div>
                 <p className="text-sm font-medium text-muted-foreground/60">No tienes líneas registradas</p>

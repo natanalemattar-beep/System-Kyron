@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import {
-  Wifi, Phone, Globe, Server, Router, Signal, Gauge, Shield,
+  Wifi, Smartphone, Globe, Server, Router, Signal, Gauge, Shield,
   CircleCheck, Clock, TriangleAlert, CreditCard, Calendar, MapPin,
   Plus, Search, Download, Headphones, Zap, Building2,
   ChevronRight, Star, TrendingUp, RefreshCw, FileText, DollarSign,
@@ -118,7 +118,7 @@ export default function InternetEmpresarialPage() {
             <Wifi className="h-3.5 w-3.5" /> Internet
           </TabsTrigger>
           <TabsTrigger value="telefonia" className="gap-1.5">
-            <Phone className="h-3.5 w-3.5" /> Telefonía
+            <Smartphone className="h-3.5 w-3.5" /> Telefonía
           </TabsTrigger>
           <TabsTrigger value="servicios" className="gap-1.5">
             <Settings className="h-3.5 w-3.5" /> Servicios
@@ -198,7 +198,7 @@ export default function InternetEmpresarialPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Phone className="h-5 w-5 text-emerald-500" />
+                <Smartphone className="h-5 w-5 text-emerald-500" />
                 Planes de Telefonía Corporativa
               </CardTitle>
               <CardDescription>Centrex, troncales SIP, Cloud PBX y VoIP empresarial</CardDescription>
@@ -211,7 +211,7 @@ export default function InternetEmpresarialPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
                           <div className="h-12 w-12 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 flex items-center justify-center">
-                            <Phone className="h-6 w-6 text-emerald-500" />
+                            <Smartphone className="h-6 w-6 text-emerald-500" />
                           </div>
                           <div>
                             <h4 className="font-bold text-sm">{plan.nombre}</h4>

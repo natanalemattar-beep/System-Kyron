@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import {
-  Wifi, Phone, Globe, Tv, Router, Signal, Gauge, ArrowUpDown,
+  Wifi, Globe, Tv, Router, Signal, Gauge, ArrowUpDown,
   CircleCheck, Clock, TriangleAlert, CreditCard, Calendar, MapPin,
   Plus, Search, Download, PhoneCall, Headphones, Shield, Zap,
   ChevronRight, Star, TrendingUp, RefreshCw, FileText, DollarSign,
@@ -150,7 +150,7 @@ export default function MiInternetPage() {
         <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 dark:from-emerald-950/30 dark:to-emerald-900/20 border-emerald-200/50">
           <CardContent className="p-3">
             <div className="flex items-center gap-2">
-              <Phone className="h-4 w-4 text-emerald-500" />
+              <Smartphone className="h-4 w-4 text-emerald-500" />
               <span className="text-[10px] font-bold uppercase text-muted-foreground">Líneas Telefónicas</span>
             </div>
             <p className="text-2xl font-bold mt-1">{lineas.length}</p>
@@ -182,7 +182,7 @@ export default function MiInternetPage() {
             <Wifi className="h-3.5 w-3.5" /> Internet
           </TabsTrigger>
           <TabsTrigger value="telefono" className="gap-1.5">
-            <Phone className="h-3.5 w-3.5" /> Teléfono
+            <Smartphone className="h-3.5 w-3.5" /> Teléfono
           </TabsTrigger>
           <TabsTrigger value="planes" className="gap-1.5">
             <Star className="h-3.5 w-3.5" /> Planes Disponibles
@@ -272,7 +272,7 @@ export default function MiInternetPage() {
             <Card className="border-dashed">
               <CardContent className="flex flex-col items-center justify-center py-16 text-center">
                 <div className="h-20 w-20 rounded-full bg-emerald-50 dark:bg-emerald-950/30 flex items-center justify-center mb-4">
-                  <Phone className="h-10 w-10 text-emerald-400" />
+                  <Smartphone className="h-10 w-10 text-emerald-400" />
                 </div>
                 <h3 className="font-bold text-lg">Sin líneas telefónicas registradas</h3>
                 <p className="text-sm text-muted-foreground mt-1 max-w-md">
@@ -287,7 +287,7 @@ export default function MiInternetPage() {
                   {PROVEEDORES_TELEFONO.map((p) => (
                     <Card key={p.id} className="hover:shadow-md transition-all cursor-pointer" onClick={() => { setFormLinea({ ...formLinea, proveedor: p.nombre }); setShowNuevaLinea(true); }}>
                       <CardContent className="p-3 text-center">
-                        <Phone className={cn("h-6 w-6 mx-auto", p.color)} />
+                        <Smartphone className={cn("h-6 w-6 mx-auto", p.color)} />
                         <p className="text-xs font-bold mt-1">{p.nombre}</p>
                         <Badge variant="outline" className="text-[11px] mt-1">{p.tipo === "fijo" ? "FIJO" : "MÓVIL"}</Badge>
                       </CardContent>
@@ -304,7 +304,7 @@ export default function MiInternetPage() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
-                          {l.tipo === "fijo" ? <Phone className="h-5 w-5 text-emerald-500" /> : <Smartphone className="h-5 w-5 text-emerald-500" />}
+                          {l.tipo === "fijo" ? <Smartphone className="h-5 w-5 text-emerald-500" /> : <Smartphone className="h-5 w-5 text-emerald-500" />}
                         </div>
                         <div>
                           <h4 className="font-bold text-sm">{l.numero}</h4>
@@ -388,7 +388,7 @@ export default function MiInternetPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Phone className="h-5 w-5" />
+                <Smartphone className="h-5 w-5" />
                 Servicios Telefónicos
               </CardTitle>
               <CardDescription>Líneas fijas y móviles disponibles</CardDescription>
@@ -397,7 +397,7 @@ export default function MiInternetPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="p-4 rounded-lg border space-y-3">
                   <div className="flex items-center gap-2">
-                    <Phone className="h-5 w-5 text-blue-600" />
+                    <Smartphone className="h-5 w-5 text-blue-600" />
                     <h4 className="font-bold">Línea Fija CANTV</h4>
                   </div>
                   <p className="text-xs text-muted-foreground">Servicio de telefonía fija con cobertura nacional. Planes con llamadas locales ilimitadas y larga distancia.</p>
@@ -437,7 +437,7 @@ export default function MiInternetPage() {
                   <div className="flex gap-2 mt-3">
                     <Badge variant="outline"><Wifi className="h-3 w-3 mr-1" /> Internet</Badge>
                     <Badge variant="outline"><Tv className="h-3 w-3 mr-1" /> TV Cable</Badge>
-                    <Badge variant="outline"><Phone className="h-3 w-3 mr-1" /> Teléfono</Badge>
+                    <Badge variant="outline"><Smartphone className="h-3 w-3 mr-1" /> Teléfono</Badge>
                   </div>
                 </div>
               </div>
@@ -491,7 +491,7 @@ export default function MiInternetPage() {
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Phone className="h-5 w-5" /> Registrar Línea Telefónica
+              <Smartphone className="h-5 w-5" /> Registrar Línea Telefónica
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4">

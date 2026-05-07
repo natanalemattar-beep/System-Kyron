@@ -358,7 +358,7 @@ export function HeroSection() {
                     </div>
                 </motion.div>
             </section>
-            <VideoModal isOpen={videoOpen} onClose={() => setVideoOpen(false)} videoId="dQw4w9WgXcQ" />
+            <VideoModal isOpen={videoOpen} onClose={() => setVideoOpen(false)} videoId="ScMzIvxBSi4" />
         </>
     );
 }

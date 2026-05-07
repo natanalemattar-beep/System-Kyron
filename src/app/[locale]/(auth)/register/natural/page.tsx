@@ -4,7 +4,8 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from '@/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import {
   User, Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft,
-  MapPin, Phone, Mail, Calendar as CalendarIcon, Shield, Eye, EyeOff,
+  MapPin, Smartphone, Mail, Calendar as CalendarIcon, Shield, Eye, EyeOff,
   MessageSquare, RefreshCw, ShieldCheck, ChevronDown, Sparkles, Globe,
   Lock, Fingerprint, Upload,
 } from 'lucide-react';
@@ -357,7 +358,7 @@ export default function RegisterNaturalPage() {
             <Button
               className="w-full h-12 rounded-2xl bg-gradient-to-r from-primary via-blue-500 to-emerald-500 hover:opacity-90 text-white font-bold text-base shadow-lg shadow-primary/20 transition-all"
               onClick={() => {
-                window.location.href = '/es/dashboard';
+                router.push('/dashboard' as any);
               }}
             >
               Explorar la Plataforma
@@ -548,7 +549,7 @@ export default function RegisterNaturalPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <Field id="telefono" label="Teléfono Celular" error={errors.telefono?.message}>
                     <div className="relative">
-                      <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+                      <Smartphone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                       <Input id="telefono" placeholder="0412-1234567" className="pl-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('telefono')} />
                     </div>
                   </Field>

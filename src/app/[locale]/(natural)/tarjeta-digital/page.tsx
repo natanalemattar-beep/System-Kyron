@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Chrome as Home, Mail, Phone, Linkedin, Twitter, Github, Download, Share2, RefreshCcw, Briefcase, Sparkles, Globe, Printer, QrCode } from "lucide-react";
+import { Chrome as Home, Mail, Smartphone, Linkedin, Twitter, Github, Download, Share2, RefreshCcw, Briefcase, Sparkles, Globe, Printer, QrCode } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -155,7 +155,7 @@ export default function TarjetaDigitalPage() {
 
                             <div className="w-full space-y-3">
                                 <div className="flex items-center gap-3 text-[11px]">
-                                    <div className="p-1.5 rounded-lg bg-primary/5 text-primary border border-primary/10"><Phone className="h-3.5 w-3.5"/></div>
+                                    <div className="p-1.5 rounded-lg bg-primary/5 text-primary border border-primary/10"><Smartphone className="h-3.5 w-3.5"/></div>
                                     <span className="font-mono font-bold tracking-tight text-white/80">{userData.phone}</span>
                                 </div>
                                 <div className="flex items-center gap-3 text-[11px]">

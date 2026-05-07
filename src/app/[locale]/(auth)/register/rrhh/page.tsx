@@ -4,13 +4,14 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from '@/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
     Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
-    Users, Check, Heart, Mail, RefreshCw, Smartphone, Building, User, Lock, Phone,
+    Users, Check, Heart, Mail, RefreshCw, Smartphone, Building, User, Lock,
     Sparkles, Briefcase, GraduationCap,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -391,7 +392,7 @@ export default function RegisterRRHHPage() {
                                         </div>
                                     </div>
 
-                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-pink-600 hover:bg-slate-800 dark:hover:bg-pink-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => window.location.href = '/dashboard-empresa'}>
+                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-pink-600 hover:bg-slate-800 dark:hover:bg-pink-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => router.push('/dashboard-empresa' as any)}>
                                         Ir al Panel RRHH <ArrowRight className="ml-2 h-5 w-5" />
                                     </Button>
                                 </div>

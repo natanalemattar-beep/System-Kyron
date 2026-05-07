@@ -9,8 +9,7 @@ import {
   Eye, EyeOff, CircleCheck, ArrowRight, TriangleAlert, Mail, Lock,
   KeyRound, RotateCcw, Scan, Sparkles, Smartphone, MessageSquare, MessageCircle
 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { Link } from '@/navigation';
+import { useRouter, Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { Logo } from '@/components/logo';
@@ -167,7 +166,7 @@ export default function LoginPersonalPage() {
       const json = await res.json();
       if (!res.ok) { setError(json.error || 'Código incorrecto.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); setTimeout(() => inputRefs.current[0]?.focus(), 100); return; }
       toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-      router.push('/dashboard');
+      router.push('/dashboard' as any);
     } catch { setError('Error de conexión.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); }
   };
 

@@ -396,6 +396,19 @@
             "module_required": "Select a module"
         }
     },
+    "IntellectualProperty": {
+      "title": "Legal Protection Status",
+      "subtitle": "Tracking SAPI registration processes",
+      "rne_benefit_title": "Entrepreneurship Law Exemption Benefit",
+      "rne_benefit_desc": "System Kyron operates as EMPRENDIMIENTO CARLOS MATTAR (RNE: CRNE2026/46455), with 100% SAPI fee exemption.",
+      "applied": "APPLIED",
+      "progress_label": "Registration Progress",
+      "how_it_works": "How does the process work?",
+      "how_it_works_desc": "It starts with an antecedent search, followed by form pre-loading and publication in the Industrial Bulletin.",
+      "next_step": "Next Step",
+      "next_step_desc": "Awaiting issuance of the search fee (exempted) for official publication.",
+      "doc_sent": "Documentation sent to SAPI"
+    },
     "Footer": {
         "description": "Corporate-grade software engineering. Mission-critical solutions for the future of Venezuelan finance and telecommunications.",
         "platform": "Platform",
@@ -412,7 +425,7 @@
             "SENIAT Invoicing", "Taxes & Withholdings", "Executive Dashboard"
         ],
         "version_stable": "v2.8.5 — Stable",
-        "copyright": "System Kyron · EMPRENDIMIENTO CARLOS MATTAR · RIF: J-50832149-9",
+        "copyright": "System Kyron · EMPRENDIMIENTO CARLOS MATTAR · RIF: J-50832149-9 · RNE: CRNE2026/46455",
         "user_manual": "User Manual",
         "terms": "Terms",
         "privacy": "Privacy",
@@ -691,7 +704,8 @@
             "twofa": { "label": "2FA", "desc": "Two-factor authentication" },
             "jwt": { "label": "JWT HTTP-only", "desc": "Secure tokens" },
             "audit": { "label": "Audit", "desc": "Immutable record" }
-        }
+        },
+        "rne_verified": "RNE CERTIFIED: CRNE2026/46455"
     },
     "ModulesGridSection": {
         "badge": "System Modules",

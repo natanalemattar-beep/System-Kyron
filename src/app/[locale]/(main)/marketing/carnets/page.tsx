@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
 import {
   CreditCard, Users, Building2, ShieldCheck, Printer,
-  Phone, Mail, MapPin, Briefcase, User, Globe, CalendarDays, Hash,
+  Smartphone, Mail, MapPin, Briefcase, User, Globe, CalendarDays, Hash,
   HeartPulse, CircleCheck
 } from "lucide-react";
 import Image from "next/image";
@@ -123,7 +123,7 @@ export default function CarnetsPage() {
                   { label: "Nombre completo", key: "nombre" as const, icon: User },
                   { label: "Cargo", key: "cargo" as const, icon: Briefcase },
                   { label: "Departamento", key: "departamento" as const, icon: Building2 },
-                  { label: "Teléfono", key: "telefono" as const, icon: Phone },
+                  { label: "Teléfono", key: "telefono" as const, icon: Smartphone },
                   { label: "Email", key: "email" as const, icon: Mail },
                 ].map(field => (
                   <div key={field.key} className="space-y-1.5">
@@ -266,7 +266,7 @@ function BusinessCardFront({ data }: { data: { nombre: string; cargo: string; te
           <p className="text-[11px] font-bold text-primary uppercase tracking-widest mt-1">{data.cargo}</p>
           <div className="h-[1px] bg-gradient-to-r from-primary/40 to-transparent my-3 w-24" />
           <div className="flex gap-6 text-[10px] text-white/50 font-bold">
-            <span className="flex items-center gap-1.5"><Phone className="h-2.5 w-2.5 text-primary/60" />{data.telefono}</span>
+            <span className="flex items-center gap-1.5"><Smartphone className="h-2.5 w-2.5 text-primary/60" />{data.telefono}</span>
             <span className="flex items-center gap-1.5"><Mail className="h-2.5 w-2.5 text-primary/60" />{data.email}</span>
           </div>
         </div>
@@ -285,7 +285,7 @@ function BusinessCardBack({ data }: { data: { nombre: string; email: string } })
           <Logo className="h-10 w-10 mb-4" />
           <p className="text-[7px] font-bold text-white/40 uppercase tracking-widest leading-relaxed max-w-[200px]">{companyInfo.direccion}</p>
           <div className="space-y-1.5 text-[10px] text-white/50 font-bold">
-            <p className="flex items-center gap-2"><Phone className="h-2.5 w-2.5 text-primary/50" /> {companyInfo.telefono}</p>
+            <p className="flex items-center gap-2"><Smartphone className="h-2.5 w-2.5 text-primary/50" /> {companyInfo.telefono}</p>
             <p className="flex items-center gap-2"><Globe className="h-2.5 w-2.5 text-primary/50" /> {companyInfo.web}</p>
             <p className="flex items-center gap-2"><Mail className="h-2.5 w-2.5 text-primary/50" /> {companyInfo.email}</p>
           </div>
@@ -367,7 +367,7 @@ function EmployeeCardBack({ employee }: { employee: typeof emptyEmployee }) {
           <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 space-y-2">
             <p className="text-[7px] font-semibold uppercase tracking-widest text-primary/50">Contacto</p>
             <div className="space-y-1.5 text-[10px] text-white/60 font-bold">
-              <p className="flex items-center gap-2"><Phone className="h-2.5 w-2.5 text-primary/40" /> {employee.telefono}</p>
+              <p className="flex items-center gap-2"><Smartphone className="h-2.5 w-2.5 text-primary/40" /> {employee.telefono}</p>
               <p className="flex items-center gap-2"><Mail className="h-2.5 w-2.5 text-primary/40" /> {employee.email}</p>
               <p className="flex items-center gap-2"><MapPin className="h-2.5 w-2.5 text-primary/40" /> {companyInfo.direccion}</p>
             </div>
@@ -461,7 +461,7 @@ function ServiceCardBack() {
 
         <div className="pt-4 border-t border-white/5 space-y-1 text-[7px] text-white/30 font-bold">
           <p className="flex items-center gap-2"><MapPin className="h-2.5 w-2.5 text-emerald-400/30" /> {companyInfo.direccion}</p>
-          <p className="flex items-center gap-2"><Phone className="h-2.5 w-2.5 text-emerald-400/30" /> {companyInfo.telefono}</p>
+          <p className="flex items-center gap-2"><Smartphone className="h-2.5 w-2.5 text-emerald-400/30" /> {companyInfo.telefono}</p>
           <p className="flex items-center gap-2"><Globe className="h-2.5 w-2.5 text-emerald-400/30" /> {companyInfo.web}</p>
         </div>
       </div>

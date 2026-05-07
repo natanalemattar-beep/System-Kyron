@@ -3,7 +3,7 @@ import {
   BrainCircuit, LayoutDashboard, Building2, BookOpen, Landmark, Shield,
   FileText, Briefcase, UserPlus, Scale, Target, CreditCard,
   Wallet, Banknote, UserCheck, Stethoscope, School, Recycle,
-  Phone, Gauge, Bot, ShieldCheck, Sparkles, Globe, MailOpen,
+  Smartphone, Gauge, Bot, ShieldCheck, Sparkles, Globe, MailOpen,
   type LucideIcon,
 } from "lucide-react";
 
@@ -302,7 +302,7 @@ export const moduleTutorials: Record<string, ModuleTutorialConfig> = {
       {
         title: "Líneas Personales",
         description: "Gestiona tus líneas telefónicas: recargas, consumo de datos 5G, activación de eSIM digital y consulta de facturas de telecom.",
-        icon: Phone,
+        icon: Smartphone,
         color: "text-teal-400",
         bg: "bg-teal-400/15",
         border: "border-teal-400/20",

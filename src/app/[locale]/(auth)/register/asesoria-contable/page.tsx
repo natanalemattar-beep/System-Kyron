@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from '@/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import {
     Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
-    Calculator, Check, Star, Crown, Zap, Mail, RefreshCw, Smartphone, Building, User, Lock, Phone,
+    Calculator, Check, Star, Crown, Zap, Mail, RefreshCw, Smartphone, Building, User, Lock,
     ChartColumn, TrendingUp, ShieldCheck, FileText,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -460,7 +461,7 @@ export default function RegisterContabilidadPage() {
                                         </div>
                                     </div>
 
-                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-indigo-600 hover:bg-slate-800 dark:hover:bg-indigo-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => window.location.href = '/dashboard-empresa'}>
+                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-indigo-600 hover:bg-slate-800 dark:hover:bg-indigo-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => router.push('/dashboard-empresa' as any)}>
                                         Explorar Dashboard <ArrowRight className="ml-2 h-5 w-5" />
                                     </Button>
                                 </div>

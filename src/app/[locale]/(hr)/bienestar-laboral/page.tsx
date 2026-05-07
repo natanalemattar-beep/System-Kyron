@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import {
   Heart, Star, Award, Gift, Users, MapPin, Calendar, Sun, Palmtree,
   Plus, Search, Trophy, Sparkles, Loader2, PartyPopper,
-  Building2, Phone, Mail, Globe, CircleCheck, Clock, Plane,
+  Building2, Smartphone, Mail, Globe, CircleCheck, Clock, Plane,
   Umbrella, Coffee, Dumbbell, UtensilsCrossed, Waves
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
@@ -524,7 +524,7 @@ export default function BienestarLaboralPage() {
                       )}
 
                       <div className="flex items-center gap-3 pt-3 border-t border-border/30">
-                        {a.contacto_telefono && <Phone className="h-3 w-3 text-muted-foreground" />}
+                        {a.contacto_telefono && <Smartphone className="h-3 w-3 text-muted-foreground" />}
                         {a.contacto_email && <Mail className="h-3 w-3 text-muted-foreground" />}
                         <p className="text-[11px] text-muted-foreground font-bold truncate">{a.contacto_nombre}</p>
                       </div>

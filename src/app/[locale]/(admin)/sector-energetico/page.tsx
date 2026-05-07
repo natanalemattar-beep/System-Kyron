@@ -6,7 +6,7 @@ import {
     Flame, TriangleAlert, Zap, Globe, Handshake, Users, HardHat, Scale, Shield,
     Smartphone, Leaf, Mountain, Landmark, Building2, UserPlus, Briefcase,
     FileText, CircleCheck, ChevronDown, ChevronUp, Send, Loader as Loader2,
-    TrendingUp, Truck, Droplets, Factory, Hotel, TreePine, Package, Phone,
+    TrendingUp, Truck, Droplets, Factory, Hotel, TreePine, Package,
     ShieldCheck, ArrowRight, Star, Radio, Wrench
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

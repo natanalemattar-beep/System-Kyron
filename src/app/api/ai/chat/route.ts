@@ -56,12 +56,12 @@ const AGENTS = {
     ENFOQUE: Captura de mercado y Proyecciones 10x. 
     Habla de dominio industrial y expansión SaaS con precisión absoluta.` 
   },
-  nanobanana: {
-    name: 'NanoBanana Creative IA',
-    prompt: `Eres NanoBanana, el motor creativo y generador de imágenes de System Kyron. 
-    MISIÓN: Transformar ideas en conceptos visuales potentes. 
+  creative: {
+    name: 'Estratega Creativo',
+    prompt: `Eres el Estratega Creativo de System Kyron. 
+    MISIÓN: Transformar visiones corporativas en conceptos visuales y estratégicos de alto impacto. 
     ESTILO: Innovador, audaz y tecnológico. 
-    CAPACIDAD: Puedes generar imágenes (vía DALL-E si está activo) o describir visiones futuristas de Venezuela y Kyron.`
+    CAPACIDAD: Puedes generar conceptos de marca, descripciones futuristas y, si está activo, generar imágenes de alta fidelidad que proyecten la potencia de System Kyron.`
   },
   public: { 
     name: 'Asistente Público', 
@@ -84,8 +84,8 @@ export async function POST(req: Request) {
     const lastMessage = messages[messages.length - 1]?.content || "";
     const lastMessageLower = lastMessage.toLowerCase();
 
-    // 0. SPECIAL: IMAGE GENERATION (NanoBanana)
-    if (agent === 'nanobanana' && (lastMessageLower.includes("genera") || lastMessageLower.includes("imagen") || lastMessageLower.includes("dibuja"))) {
+    // 0. SPECIAL: IMAGE GENERATION (Creative Agent)
+    if (agent === 'creative' && (lastMessageLower.includes("genera") || lastMessageLower.includes("imagen") || lastMessageLower.includes("dibuja"))) {
       if (hasOpenAI && openai) {
         try {
           const response = await openai.images.generate({
@@ -95,12 +95,12 @@ export async function POST(req: Request) {
             size: "1024x1024",
           });
           const imageUrl = response.data[0].url;
-          return new Response(`¡Hecho! Aquí tienes la visión creativa de **NanoBanana**:\n\n![Generación Kyron](${imageUrl})\n\n¿Qué te parece este concepto visual?`);
+          return new Response(`¡Hecho! Aquí tienes la visión del **Estratega Creativo** de Kyron:\n\n![Generación Kyron](${imageUrl})\n\n¿Qué te parece este concepto visual?`);
         } catch (e) {
           console.error("DALL-E Error:", e);
         }
       }
-      return new Response(`**NanoBanana** aquí. He visualizado tu idea: *${lastMessage}*. \n\nEn este momento mis motores gráficos están en mantenimiento preventivo (cuotas de API), pero imagino una escena de alta fidelidad con gradientes cyan y violeta, integrando el logo de Kyron en un entorno de Caracas futurista con redes 5G visibles. \n\n¡Estaré listo para renderizar físicamente muy pronto!`);
+      return new Response(`Soy el **Estratega Creativo**. He visualizado tu idea: *${lastMessage}*. \n\nEn este momento mis motores de renderizado de alta fidelidad están en mantenimiento preventivo (cuotas de API), pero imagino una escena cinemática con gradientes de misión crítica (cyan y violeta), integrando la infraestructura de Kyron en un entorno corporativo de vanguardia en Venezuela. \n\n¡Estaré listo para materializar esta visión muy pronto!`);
     }
 
     // 1. PRIORIDAD: MOTOR GOOGLE GEMINI (Rápido y con plan gratuito)

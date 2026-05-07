@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
-import { LayoutGrid, Users, CircleHelp as HelpCircle, Smartphone, Zap, Magnet, Phone, ShoppingCart, ShieldCheck, Contact, Package, ChevronDown, CircleUser as UserCircle2 } from "lucide-react";
+import { LayoutGrid, Users, CircleHelp as HelpCircle, Smartphone, Zap, Magnet, ShoppingCart, ShieldCheck, Contact, Package, ChevronDown, CircleUser as UserCircle2 } from "lucide-react";
 import {
     Collapsible,
     CollapsibleContent,
@@ -33,7 +33,7 @@ export function LandingSidebar() {
       { href: "#servicios", label: "Ecosistema", icon: Zap },
       { href: "#nosotros", label: "Nosotros", icon: Users },
       { href: "#faq", label: "FAQ", icon: HelpCircle },
-      { href: "#contacto", label: "Contacto", icon: Phone },
+      { href: "#contacto", label: "Contacto", icon: Smartphone },
     ];
 
     return (
@@ -78,7 +78,7 @@ export function LandingSidebar() {
                         Smartphones Pro X
                     </Link>
                     <Link href="/venta-linea" className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground hover:text-primary transition-colors">
-                        <div className="p-1.5 bg-primary/5 rounded-lg"><Phone className="h-3.5 w-3.5 text-primary" /></div>
+                        <div className="p-1.5 bg-primary/5 rounded-lg"><Smartphone className="h-3.5 w-3.5 text-primary" /></div>
                         Números y Datos
                     </Link>
                 </div>

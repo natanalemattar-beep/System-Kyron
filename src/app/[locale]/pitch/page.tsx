@@ -10,8 +10,9 @@ import {
     Network, DollarSign, Download, Monitor, Smartphone,
     Activity, Lock, Cpu, MessageSquare, Instagram
 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
+import { PasswordGate } from "@/components/auth/password-gate";
 
 const slides = [
     {
@@ -336,8 +337,6 @@ function SmartphoneMockup() {
         </div>
     );
 }
-
-import { PasswordGate } from "@/components/auth/password-gate";
 
 export default function PitchPage() {
     const [current, setCurrent] = useState(0);

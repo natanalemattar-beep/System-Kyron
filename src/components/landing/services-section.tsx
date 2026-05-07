@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, Check, Sparkles, Crown, Zap, Building2, Star, Globe, ShieldCheck, Phone, Calculator, Receipt, Users, Scale, RadioTower, Package, ChevronDown, Layers } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Crown, Zap, Building2, Star, Globe, ShieldCheck, Smartphone, Calculator, Receipt, Users, Scale, RadioTower, Package, ChevronDown, Layers } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -17,7 +17,7 @@ const planConfigs = [
 ];
 
 const moduleConfigs = [
-    { price: 3, color: 'text-cyan-400', gradient: 'from-cyan-500 to-teal-600', icon: Phone },
+    { price: 3, color: 'text-cyan-400', gradient: 'from-cyan-500 to-teal-600', icon: Smartphone },
     { price: 15, color: 'text-pink-400', gradient: 'from-pink-500 to-rose-600', icon: RadioTower },
     { price: 8, color: 'text-blue-400', gradient: 'from-blue-500 to-indigo-600', icon: Calculator },
     { price: 5, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-600', icon: Scale },

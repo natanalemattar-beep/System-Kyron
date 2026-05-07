@@ -126,17 +126,20 @@ export function SpecializedLoginCard({
     setIsLoading(true);
     setError(null);
     setEmailDeliveryFailed(false);
+    console.log('[Login] Attempting login for:', identifier, 'Portal:', portalName);
     try {
       const body: Record<string, string> = { identifier, password, portal: 'business' };
       if (accessKey && accessKey.trim()) body.accessKey = accessKey.trim();
-
 
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
+
       const json = await res.json();
+      console.log('[Login] API Response status:', res.status, json);
+
       if (!res.ok) {
         if (json.emailDeliveryFailed) {
           setSavedCredentials({ email: identifier, password });
@@ -155,15 +158,16 @@ export function SpecializedLoginCard({
         setIsLoading(false);
         return;
       }
+
       if (json.accessKeyUsed || json.success) {
         toast({ title: json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
         router.push(redirectPath as any);
         return;
       }
+
       if (json.requiresVerification) {
         setVerificationEmail(json.email || identifier);
         setMaskedEmail(json.maskedEmail || json.email || identifier);
-
         setUserName(json.nombre || '');
         setHasPhone(!!json.hasPhone);
         setMaskedPhone(json.maskedPhone || '');
@@ -188,7 +192,7 @@ export function SpecializedLoginCard({
       toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
       router.push(redirectPath as any);
     } catch (err: any) {
-      console.error('[Login] Connection error:', err);
+      console.error('[Login] CRITICAL Connection error:', err);
       const isNet = isNetworkError(err);
       setError(isNet 
         ? 'Error de conexión. El servidor no responde o no tienes internet.' 
@@ -202,24 +206,79 @@ export function SpecializedLoginCard({
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const identifier = (formData.get('identifier') as string || '').trim().toLowerCase();
-
     const password = formData.get('password') as string;
     const accessKey = formData.get('accessKey') as string || '';
     await attemptLogin(identifier, password, accessKey);
-
   };
 
   const handleResendEmail = async () => {
     if (!savedCredentials) return;
     await attemptLogin(savedCredentials.email, savedCredentials.password);
-
   };
 
-  const handlePhoneLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const channelName = phoneMethod === 'sms' ? 'SMS' : 'WhatsApp';
-    toast({ title: `${channelName} en construcción`, description: `La verificación por ${channelName} estará disponible próximamente. Usa tu correo electrónico para iniciar sesión.`, action: <Construction className="text-amber-500 h-4 w-4" /> });
-    return;
+  const handlePhoneLogin = async (event?: React.FormEvent<HTMLFormElement>) => {
+    if (event) event.preventDefault();
+    setIsLoading(true);
+    setError(null);
+    
+    let phone = '';
+    if (event) {
+      const formData = new FormData(event.currentTarget);
+      phone = (formData.get('phone') as string || '').trim();
+    } else {
+      // Resend case
+      phone = verificationEmail;
+    }
+    
+    if (!phone) {
+      setError('Número de teléfono requerido.');
+      setIsLoading(false);
+      return;
+    }
+
+    console.log('[PhoneLogin] Initiating for:', phone, 'Method:', phoneMethod, event ? '(New Login)' : '(Resend)');
+    
+    try {
+      const res = await fetch('/api/auth/login-phone', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, method: phoneMethod }),
+      });
+      
+      const json = await res.json();
+      console.log('[PhoneLogin] API Response status:', res.status, json);
+      
+      if (!res.ok) {
+        setError(json.error || 'Error al iniciar sesión con teléfono.');
+        setIsLoading(false);
+        return;
+      }
+      
+      if (json.requiresVerification) {
+        setVerificationEmail(json.email || phone);
+        setMaskedPhone(json.maskedPhone);
+        setUserName(json.nombre || '');
+        setChallengeToken(json.challengeToken || '');
+        setVerificationMethod(phoneMethod === 'sms' ? 'sms' : 'whatsapp');
+        setStep('verification');
+        setCountdown(600);
+        setSingleCode('');
+        
+        toast({ 
+          title: event ? 'Código enviado' : 'Código reenviado', 
+          description: `Revisa tu ${phoneMethod === 'sms' ? 'SMS' : 'WhatsApp'} en ${json.maskedPhone}`, 
+          action: phoneMethod === 'sms' ? <Smartphone className="text-cyan-500 h-4 w-4" /> : <MessageCircle className="text-green-500 h-4 w-4" /> 
+        });
+      } else {
+        toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+        router.push(redirectPath as any);
+      }
+    } catch (err: any) {
+      console.error('[PhoneLogin] CRITICAL Connection error:', err);
+      setError(isNetworkError(err) ? 'Error de conexión. El servidor no responde.' : 'Error inesperado al procesar el teléfono.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const submitCode = async (code: string) => {

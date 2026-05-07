@@ -173,6 +173,74 @@ export const organismos: Organismo[] = [
 
 export const tiposPermiso: PermisoTipo[] = [
   // ═══════════════════════════════════════════════════════════════
+  // SAPI — PROPIEDAD INTELECTUAL
+  // ═══════════════════════════════════════════════════════════════
+  {
+    id: 'SAPI-TRADEMARK',
+    nombre: 'Registro de Marca Comercial',
+    organismoId: 'SAPI',
+    descripcion: 'Protección legal del nombre, logo o slogan de un producto o servicio. Otorga derecho exclusivo de uso por 15 años renovables.',
+    vigencia: 180,
+    requisitosInscripcion: [
+      'Búsqueda de antecedentes (Fonética y Gráfica)',
+      'Solicitud de registro (Planilla FM-02)',
+      'Logo en formato digital/físico',
+      'Copia del RIF y Acta Constitutiva',
+      'Pago de tasas (Exonerado para Emprendedores RNE)'
+    ],
+    requisitosRenovacion: [
+      'Solicitud de renovación (6 meses antes del vencimiento)',
+      'Declaración de uso real y efectivo',
+      'Pago de tasas de renovación'
+    ],
+    costoEstimado: 'Exonerado (RNE) / Tasas SAPI + Publicación en Boletín',
+    baseLegal: 'Ley de Propiedad Industrial, Ley para el Fomento y Desarrollo de Nuevos Emprendimientos',
+    aplica: ['todos'],
+  },
+  {
+    id: 'SAPI-PATENT',
+    nombre: 'Patente de Invención / Modelo de Utilidad',
+    organismoId: 'SAPI',
+    descripcion: 'Protección para invenciones técnicas, procedimientos o mejoras funcionales. Otorga exclusividad para explotación comercial.',
+    vigencia: 240,
+    requisitosInscripcion: [
+      'Memoria descriptiva detallada',
+      'Reivindicaciones técnicas',
+      'Planos o dibujos técnicos',
+      'Resumen de la invención',
+      'Examen de patentabilidad',
+      'Pago de tasas (Exonerado para Emprendedores RNE)'
+    ],
+    requisitosRenovacion: [
+      'Pago de anualidades para mantenimiento',
+      'Informe de explotación'
+    ],
+    costoEstimado: 'Exonerado (RNE) / Tasas SAPI + Exámenes técnicos',
+    baseLegal: 'Ley de Propiedad Industrial',
+    aplica: ['tecnologia', 'industria', 'ingenieria'],
+  },
+  {
+    id: 'SAPI-COPYRIGHT',
+    nombre: 'Registro de Derecho de Autor (Software/Obras)',
+    organismoId: 'SAPI',
+    descripcion: 'Protección de obras literarias, científicas, artísticas y desarrollo de software (código fuente).',
+    vigencia: null,
+    requisitosInscripcion: [
+      'Ejemplar de la obra (Código fuente en CD/Digital)',
+      'Manual de usuario (para software)',
+      'Descripción del programa y algoritmos',
+      'Datos del autor y cesión de derechos (si aplica)',
+      'Pago de tasas (Exonerado para Emprendedores RNE)'
+    ],
+    requisitosRenovacion: [
+      'No aplica (Protección de por vida + 60 años)'
+    ],
+    costoEstimado: 'Exonerado (RNE) / Tasas SAPI',
+    baseLegal: 'Ley sobre el Derecho de Autor',
+    aplica: ['tecnologia', 'servicios', 'cultura'],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
   // SENIAT — OBLIGACIONES TRIBUTARIAS NACIONALES
   // ═══════════════════════════════════════════════════════════════
   {

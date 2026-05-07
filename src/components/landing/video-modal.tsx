@@ -11,7 +11,7 @@ interface VideoModalProps {
     videoId?: string;
 }
 
-export function VideoModal({ isOpen, onClose, videoId = "dQw4w9WgXcQ" }: VideoModalProps) {
+export function VideoModal({ isOpen, onClose, videoId = "ScMzIvxBSi4" }: VideoModalProps) {
     return (
         <AnimatePresence>
             {isOpen && (

@@ -5,7 +5,7 @@ import {
   Briefcase, Users, DollarSign, UserPlus, ArrowRight, FileWarning,
   CalendarCheck2, ShieldCheck, Activity, BrainCircuit, School, Terminal,
   CircleCheck as CircleCheck, Stethoscope, TrendingUp, Scale, Calculator,
-  Loader as Loader2, Heart, ChevronRight, Search, Mail, Phone, Building2,
+  Loader as Loader2, Heart, ChevronRight, Search, Mail, Building2,
   ChartColumn, Clock, Award, Target
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";

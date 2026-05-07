@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import {
   Smartphone, Signal, Wifi, Globe, DollarSign, Check, X,
-  ArrowLeft, Activity, Zap, Phone, MessageSquare, Star, Crown
+  ArrowLeft, Activity, Zap, MessageSquare, Star, Crown
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
@@ -160,7 +160,7 @@ const PLANS: Plan[] = [
 
 const CATEGORIES = [
   { id: "todos", label: "Todos", icon: Signal },
-  { id: "basico", label: "Uso básico", icon: Phone },
+  { id: "basico", label: "Uso básico", icon: Smartphone },
   { id: "social", label: "Redes sociales", icon: MessageSquare },
   { id: "trabajo", label: "Trabajo remoto", icon: Globe },
   { id: "gaming", label: "Gaming/Streaming", icon: Zap },
@@ -442,7 +442,7 @@ export default function ComparadorPlanesPage() {
 
                     <div className="space-y-2.5">
                       <FeatureRow icon={Wifi} label="Datos" value={`${plan.data} GB`} />
-                      <FeatureRow icon={Phone} label="Minutos" value={plan.minutes} />
+                      <FeatureRow icon={Smartphone} label="Minutos" value={plan.minutes} />
                       <FeatureRow icon={MessageSquare} label="SMS" value={plan.sms} />
                       <FeatureCheck icon={Zap} label="Red 5G" enabled={plan.has5G} />
                       <FeatureCheck icon={Globe} label="Roaming" enabled={plan.roaming} />
@@ -537,7 +537,7 @@ export default function ComparadorPlanesPage() {
                       <p className="text-xs font-semibold text-foreground">{plan.name}</p>
                       <div className="flex items-center gap-3 mt-1.5 text-[10px] text-muted-foreground">
                         <span className="flex items-center gap-1"><Wifi className="h-3 w-3" />{plan.data} GB</span>
-                        <span className="flex items-center gap-1"><Phone className="h-3 w-3" />{plan.minutes}</span>
+                        <span className="flex items-center gap-1"><Smartphone className="h-3 w-3" />{plan.minutes}</span>
                         {plan.has5G && <span className="flex items-center gap-1 text-cyan-400"><Zap className="h-3 w-3" />5G</span>}
                       </div>
                       {isSelected && (

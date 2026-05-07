@@ -13,10 +13,12 @@ import {
   Gavel, ShieldCheck, Activity, FileText, Search, Filter, Plus, Landmark,
   Calendar, ChevronRight, ArrowRight, Clock, RefreshCw, FileSignature,
   Eye, Building2, Zap, Copy, Printer, Download, BookOpen, ClipboardList,
-  CircleCheck, TriangleAlert, XCircle, MapPin, Building, Flag, Scale, DollarSign
+  CircleCheck, TriangleAlert, XCircle, MapPin, Building, Flag, Scale, DollarSign,
+  Lightbulb
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { useRouter } from "@/navigation";
 import { organismos, permisosTipos, getPermisosByOrganismo, type Organismo, type PermisoTipo } from "@/lib/permisologia-data";
 import { Logo } from "@/components/logo";
 
@@ -97,7 +99,7 @@ Asunto: Solicitud de ${tipo === 'inscripcion' ? 'Inscripción' : 'Renovación'} 
 
 Estimados Señores:
 
-Por medio de la presente, me dirijo a ustedes en representación de [NOMBRE DE LA EMPRESA], identificada con RIF [RIF], domiciliada en [DIRECCIÓN], con el fin de solicitar formalmente la ${tipo === 'inscripcion' ? 'inscripción' : 'renovación'} ante ese organismo del trámite denominado "${permiso.nombre}".
+Por medio de la presente, me dirijo a ustedes en representación de EMPRENDIMIENTO CARLOS MATTAR, identificada con RIF J-50832149-9, domiciliada en Venezuela, con el fin de solicitar formalmente la ${tipo === 'inscripcion' ? 'inscripción' : 'renovación'} ante ese organismo del trámite denominado "${permiso.nombre}".
 
 ${permiso.baseLegal ? `Fundamento legal: ${permiso.baseLegal}.\n` : ''}
 A tal efecto, adjunto la siguiente documentación conforme a los requisitos establecidos:
@@ -111,16 +113,17 @@ Atentamente,
 ____________________________
 [NOMBRE DEL REPRESENTANTE LEGAL]
 [CARGO]
-[NOMBRE DE LA EMPRESA]
-RIF: [RIF]
-Teléfono: [TELÉFONO]
-Correo: [CORREO]`;
+EMPRENDIMIENTO CARLOS MATTAR
+RIF: J-50832149-9
+Teléfono: 0412-1234567
+Correo: carlosmattar@system-kyron.com`;
 }
 
 export default function PermisosPage() {
   const [permisos, setPermisos] = useState<PermisoRegistrado[]>([]);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
   const [registroOpen, setRegistroOpen] = useState(false);
   const [detallePermiso, setDetallePermiso] = useState<PermisoRegistrado | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -319,6 +322,39 @@ export default function PermisosPage() {
           </Card>
         ))}
       </div>
+
+      {/* IP Protection Status Banner */}
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="relative group cursor-pointer"
+        onClick={() => router.push('/propiedad-intelectual')}
+      >
+        <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+        <div className="relative p-6 rounded-3xl border border-white/[0.05] bg-card/40 backdrop-blur-xl flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
+          <div className="absolute right-0 top-0 -mr-12 -mt-12 h-48 w-48 bg-cyan-500/10 rounded-full blur-3xl" />
+          <div className="flex items-center gap-6 relative z-10">
+            <div className="h-14 w-14 rounded-2xl bg-cyan-500 flex items-center justify-center shrink-0 shadow-lg shadow-cyan-500/20">
+              <Lightbulb className="h-7 w-7 text-white" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold uppercase tracking-tight mb-1">Protección de Marca y Patentes</h3>
+              <p className="text-muted-foreground/60 text-[10px] font-bold uppercase tracking-widest">
+                Monitoreo de trámites ante el SAPI · Beneficio RNE Aplicado
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 relative z-10">
+            <div className="text-right hidden md:block">
+              <p className="text-xs font-bold text-cyan-400 uppercase tracking-widest">Ver Estatus Legal</p>
+              <p className="text-[9px] text-muted-foreground/40 font-bold uppercase tracking-tighter">System Kyron Trademark</p>
+            </div>
+            <div className="h-10 w-10 rounded-full border border-cyan-500/30 flex items-center justify-center group-hover:bg-cyan-500 group-hover:border-cyan-500 transition-all">
+              <ArrowRight className="h-5 w-5 text-cyan-500 group-hover:text-white transition-all" />
+            </div>
+          </div>
+        </div>
+      </motion.div>
 
       <Tabs defaultValue="catalogo" className="w-full">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-2">

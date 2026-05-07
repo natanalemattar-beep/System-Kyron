@@ -8,7 +8,7 @@ import { ScrollReveal, ScrollRevealGroup } from "./scroll-reveal";
 import {
   Users, User, Tablet, Calculator, Shield, Receipt, Leaf,
   ShieldCheck, Wifi, Monitor, Printer, Package, ArrowRight,
-  Check, Sparkles, ChevronRight, Zap, Star, Phone
+  Check, Sparkles, ChevronRight, Zap, Star, Smartphone
 } from 'lucide-react';
 
 // ─── Route mapping per module ───────────────────────
@@ -170,7 +170,7 @@ const COMBOS = [
   },
   {
     perfil: 'Comerciante con línea',
-    icon: Phone,
+    icon: Smartphone,
     items: ['Cuenta Personal', 'Mi Línea 5G ($5)', 'Plan Básico 5G ($11.25)'],
     total: 16.25,
     color: 'border-cyan-500/25 bg-cyan-500/[0.04]',
@@ -446,7 +446,7 @@ export function PricingSection() {
             className="mt-12 p-8 rounded-3xl border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-md flex items-start gap-5 max-w-4xl mx-auto"
           >
             <div className="h-12 w-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center shrink-0">
-              <Phone className="h-6 w-6 text-cyan-400" />
+              <Smartphone className="h-6 w-6 text-cyan-400" />
             </div>
             <p className="text-sm text-white/50 font-medium leading-relaxed">
               <span className="text-cyan-400 font-black uppercase tracking-widest block mb-1">¿Ya tienes línea con otro operador?</span>{' '}
@@ -500,7 +500,7 @@ export function PricingSection() {
                       <p className="text-3xl font-black text-white tracking-tighter">${hw.precio}</p>
                     </div>
                     <Button asChild className="h-14 px-10 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] bg-amber-500 hover:bg-amber-600 text-black shadow-lg transition-all hover:scale-[1.05]">
-                      <Link href="#contacto">
+                      <Link href="/#contacto">
                         Comenzar Ahora <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                     </Button>

@@ -34,10 +34,16 @@ function maskPhone(phone: string): string {
 export async function POST(req: NextRequest) {
   try {
     const ip = getClientIP(req);
+    console.log(`[login-phone] Request from IP: ${ip}`);
+    
     const rl = rateLimit(`login-phone:${ip}`, 8, 15 * 60 * 1000);
-    if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs);
+    if (!rl.allowed) {
+      console.warn(`[login-phone] Rate limit exceeded for IP: ${ip}`);
+      return rateLimitResponse(rl.retryAfterMs);
+    }
 
     const { phone, method } = await req.json();
+    console.log(`[login-phone] Data: phone=${phone}, method=${method}`);
 
     if (!phone || typeof phone !== 'string') {
       return NextResponse.json({ error: 'Número de teléfono requerido' }, { status: 400 });
@@ -48,23 +54,30 @@ export async function POST(req: NextRequest) {
     }
 
     const normalized = normalizePhone(phone);
+    console.log(`[login-phone] Normalized phone: ${normalized}`);
 
     if (!/^\+\d{10,15}$/.test(normalized)) {
+      console.warn(`[login-phone] Invalid phone format: ${normalized}`);
       return NextResponse.json({ error: 'Formato de número inválido. Usa formato venezolano (04XX-XXXXXXX)' }, { status: 400 });
     }
 
     const phoneRl = rateLimit(`login-phone:${normalized}`, 5, 15 * 60 * 1000);
-    if (!phoneRl.allowed) return rateLimitResponse(phoneRl.retryAfterMs);
+    if (!phoneRl.allowed) {
+      console.warn(`[login-phone] Rate limit exceeded for phone: ${normalized}`);
+      return rateLimitResponse(phoneRl.retryAfterMs);
+    }
 
     const bruteCheck = checkBruteForce(`bf:phone:${normalized}`);
     if (bruteCheck.locked) {
       const mins = Math.ceil(bruteCheck.retryAfterMs / 60000);
+      console.warn(`[login-phone] Brute force lock for phone: ${normalized}`);
       return NextResponse.json(
         { error: `Número temporalmente bloqueado por múltiples intentos. Intenta de nuevo en ${mins} minuto${mins > 1 ? 's' : ''}.` },
         { status: 423 }
       );
     }
 
+    console.log(`[login-phone] Searching user for phone: ${normalized}`);
     const user = await queryOne<DbUser>(
       `SELECT id, email, tipo, nombre, apellido, razon_social, telefono,
               COALESCE(telefono_verificado, false) as telefono_verificado
@@ -75,6 +88,7 @@ export async function POST(req: NextRequest) {
     );
 
     if (!user) {
+      console.log(`[login-phone] User NOT found for phone: ${normalized}`);
       recordLoginFailure(`bf:phone:${normalized}`);
       await new Promise(r => setTimeout(r, 200 + Math.random() * 300));
       return NextResponse.json({
@@ -82,29 +96,35 @@ export async function POST(req: NextRequest) {
       }, { status: 404 });
     }
 
+    console.log(`[login-phone] User found: ${user.email} (ID: ${user.id})`);
     const displayName = user.tipo === 'juridico'
       ? (user.razon_social ?? user.nombre)
       : user.nombre;
 
     const code = generateCode();
+    console.log(`[login-phone] Generated code for ${user.email}`);
+    
     await storeCode(user.email, code, 'verification', method === 'whatsapp' ? 'whatsapp' : 'sms');
 
     const maskedPhoneStr = maskPhone(normalized);
 
     try {
+      console.log(`[login-phone] Attempting to send ${method.toUpperCase()} to ${normalized}`);
       if (method === 'sms') {
         const { sendSms } = await import('@/lib/twilio-client');
         const smsBody = `\u{1F510} System Kyron\n\nTu código de acceso:\n${code}\n\nVálido por 10 minutos.\nNo lo compartas con nadie.`;
         const result = await sendSms(normalized, smsBody);
         if (!result.success) throw new Error(result.error || 'SMS failed');
+        console.log(`[login-phone] SMS sent successfully to ${normalized}`);
       } else {
         const { sendWhatsAppMessage } = await import('@/lib/whatsapp-service');
-        const waBody = `\u{1F510} *System Kyron*\n\n_Código de Acceso_\n\n*${code}*\n\nVálido por 10 minutos.\nNo lo compartas con nadie.`;
+        const waBody = `\u{1F510} *System Kyron*\n\_Código de Acceso_\n\n*${code}*\n\nVálido por 10 minutos.\nNo lo compartas con nadie.`;
         const result = await sendWhatsAppMessage(normalized, waBody);
         if (!result.success) throw new Error(result.error || 'WhatsApp failed');
+        console.log(`[login-phone] WhatsApp sent successfully to ${normalized}`);
       }
     } catch (sendErr) {
-      console.error(`[login-phone] ${method.toUpperCase()} send failed:`, sendErr);
+      console.error(`[login-phone] CRITICAL: ${method.toUpperCase()} send failed for ${normalized}:`, sendErr);
       const errorMsg = String(sendErr);
       if (errorMsg.includes('not configured') || errorMsg.includes('not connected')) {
         const channel = method === 'sms' ? 'SMS' : 'WhatsApp';
@@ -131,6 +151,7 @@ export async function POST(req: NextRequest) {
       metadata: { method, phone: maskedPhoneStr },
     });
 
+    console.log(`[login-phone] Success for ${user.email}. requiresVerification=true`);
     return NextResponse.json({
       requiresVerification: true,
       email: user.email,
@@ -140,7 +161,7 @@ export async function POST(req: NextRequest) {
       challengeToken,
     });
   } catch (err) {
-    console.error('[login-phone] error:', err);
+    console.error('[login-phone] UNEXPECTED CRITICAL ERROR:', err);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }
 }

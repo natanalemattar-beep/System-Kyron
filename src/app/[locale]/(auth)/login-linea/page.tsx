@@ -9,7 +9,8 @@ import {
   UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound,
   Smartphone, Signal, RotateCcw
 } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from '@/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';

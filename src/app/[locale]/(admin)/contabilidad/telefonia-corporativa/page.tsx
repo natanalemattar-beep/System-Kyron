@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Phone, Loader2, Inbox, Download } from "lucide-react";
+import { Smartphone, Loader2, Inbox, Download } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { BackButton } from "@/components/back-button";
@@ -38,7 +38,7 @@ export default function TelefoniaCorporativaPage() {
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
           <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
-            <Phone className="h-8 w-8 text-indigo-500" />
+            <Smartphone className="h-8 w-8 text-indigo-500" />
             Telefonía Corporativa
           </h1>
           <p className="text-muted-foreground text-sm font-medium">

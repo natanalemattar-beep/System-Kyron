@@ -6,7 +6,7 @@ import { useLocale } from 'next-intl';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import {
-  Search, ChartColumn, FileText, Users, Shield, Building2, Phone, Cpu, ShoppingCart,
+  Search, ChartColumn, FileText, Users, Shield, Building2, Smartphone, Cpu, ShoppingCart,
   Scale, Landmark, Globe, CreditCard, Settings, BookOpen, Activity, Zap,
   Calculator, Briefcase, TrendingUp, Bot, Bell, Database,
   Banknote, Receipt, PiggyBank, Wallet, ReceiptText, ClipboardList,
@@ -91,8 +91,8 @@ const SEARCH_ITEMS: SearchItem[] = [
   { title: 'Alianza Mercantil Seguros', description: 'Seguros Mercantil', href: '/contabilidad/alianzas/mercantil-seguros', icon: Shield, category: 'Contabilidad', keywords: ['mercantil', 'seguros', 'alianza'] },
   { title: 'Anteproyecto', description: 'Gestión de anteproyectos', href: '/contabilidad/proyectos/anteproyecto', icon: FileText, category: 'Contabilidad', keywords: ['anteproyecto', 'proyecto', 'planificacion'] },
   { title: 'Proyecto Maestro', description: 'Proyecto maestro corporativo', href: '/contabilidad/proyectos/proyecto-maestro', icon: FileText, category: 'Contabilidad', keywords: ['proyecto', 'maestro', 'planificacion'] },
-  { title: 'WhatsApp Empresarial', description: 'Comunicación empresarial', href: '/contabilidad/whatsapp-empresarial', icon: Phone, category: 'Contabilidad', keywords: ['whatsapp', 'mensaje', 'comunicacion'] },
-  { title: 'Telefonía Corporativa', description: 'Gestión de telefonía', href: '/contabilidad/telefonia-corporativa', icon: Phone, category: 'Contabilidad', keywords: ['telefonia', 'corporativa', 'pbx'] },
+  { title: 'WhatsApp Empresarial', description: 'Comunicación empresarial', href: '/contabilidad/whatsapp-empresarial', icon: Smartphone, category: 'Contabilidad', keywords: ['whatsapp', 'mensaje', 'comunicacion'] },
+  { title: 'Telefonía Corporativa', description: 'Gestión de telefonía', href: '/contabilidad/telefonia-corporativa', icon: Smartphone, category: 'Contabilidad', keywords: ['telefonia', 'corporativa', 'pbx'] },
   { title: 'CONATEL', description: 'Trámites telecomunicaciones', href: '/contabilidad/conatel', icon: Globe, category: 'Contabilidad', keywords: ['conatel', 'licencia', 'telecom'] },
   { title: 'Facturación Telecom', description: 'Facturación de telecomunicaciones', href: '/contabilidad/facturacion-telecom', icon: Receipt, category: 'Contabilidad', keywords: ['factura', 'telecom'] },
 
@@ -136,8 +136,8 @@ const SEARCH_ITEMS: SearchItem[] = [
   { title: 'Trámites Fiscales', description: 'Gestión de trámites ante entes', href: '/tramites-fiscales', icon: ClipboardList, category: 'Legal', keywords: ['tramite', 'fiscal', 'seniat'] },
   { title: 'Flujo de Aprobaciones', description: 'Cadena de aprobaciones', href: '/flujo-aprobaciones', icon: FileCheck, category: 'Legal', keywords: ['aprobacion', 'flujo', 'autorizacion'] },
 
-  { title: 'Mi Línea', description: 'Gestión de línea móvil', href: '/mi-linea', icon: Phone, category: 'Telecom', keywords: ['telefono', 'movil', 'celular', 'plan'] },
-  { title: 'Flota Empresarial', description: 'Control de flota corporativa', href: '/flota-empresarial', icon: Phone, category: 'Telecom', keywords: ['flota', 'corporativo', 'lineas'] },
+  { title: 'Mi Línea', description: 'Gestión de línea móvil', href: '/mi-linea', icon: Smartphone, category: 'Telecom', keywords: ['telefono', 'movil', 'celular', 'plan'] },
+  { title: 'Flota Empresarial', description: 'Control de flota corporativa', href: '/flota-empresarial', icon: Smartphone, category: 'Telecom', keywords: ['flota', 'corporativo', 'lineas'] },
   { title: 'Facturación Corporativa', description: 'Facturas de telecomunicaciones', href: '/facturacion-corporativa', icon: CreditCard, category: 'Telecom', keywords: ['factura', 'pago', 'consumo'] },
   { title: 'eSIM', description: 'Gestión de eSIM digital', href: '/esim', icon: Cpu, category: 'Telecom', keywords: ['esim', 'digital', 'sim'] },
 

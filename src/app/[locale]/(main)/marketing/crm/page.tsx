@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Users, Plus, Search, Star, Phone, Mail, Building2, TrendingUp, Download, Loader2 } from "lucide-react";
+import { Users, Plus, Search, Star, Smartphone, Mail, Building2, TrendingUp, Download, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -278,7 +278,7 @@ export default function CRMPage() {
                     <p className="text-[10px] text-muted-foreground">{cliente.nombre_contacto ?? ""}{cliente.rif ? ` • ${cliente.rif}` : ""}</p>
                     <div className="flex gap-4 mt-2 text-[10px] text-muted-foreground">
                       {cliente.email && <span className="flex items-center gap-1"><Mail className="h-3 w-3" /> {cliente.email}</span>}
-                      {cliente.telefono && <span className="flex items-center gap-1"><Phone className="h-3 w-3" /> {cliente.telefono}</span>}
+                      {cliente.telefono && <span className="flex items-center gap-1"><Smartphone className="h-3 w-3" /> {cliente.telefono}</span>}
                     </div>
                   </div>
                   <div className="text-right shrink-0">

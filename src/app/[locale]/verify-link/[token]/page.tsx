@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter } from '@/navigation';
+import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Loader2, TriangleAlert, ArrowRight, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';

@@ -425,7 +425,8 @@
         "security_badge": "Infraestructura Blindada",
         "security_title_1": "Seguridad de grado",
         "security_title_2": "bancario",
-        "security_desc": "Cifrado AES-256, sellado blockchain y auditoría inmutable. Tu información está más protegida que en un banco."
+        "security_desc": "Cifrado AES-256, sellado blockchain y auditoría inmutable. Tu información está más protegida que en un banco.",
+        "rne_verified": "CERTIFICADO RNE: CRNE2026/46455"
     },
     "IntegrationsStrip": {
         "badge": "Ecosistema Conectado",
@@ -571,6 +572,7 @@
         "guarantee_activation": "Activación Inmediata",
         "guarantee_support": "Soporte 24/7"
     },
+
     "Footer": {
         "description": "Ingeniería de software de grado corporativo. Soluciones de misión crítica para el futuro de las finanzas y telecomunicaciones de Venezuela.",
         "platform": "Plataforma",
@@ -593,7 +595,7 @@
             "Dashboard Ejecutivo"
         ],
         "status_online": "Plataforma Operativa",
-        "copyright": "EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9). Todos los derechos reservados.",
+        "copyright": "EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9 · RNE: CRNE2026/46455). Todos los derechos reservados.",
         "user_manual": "Manual de Usuario",
         "terms": "Términos",
         "privacy": "Privacidad",
@@ -1200,5 +1202,20 @@
                 "desc": "Facturación legal VEN-NIF con cálculo automático de IGTF y generación instantánea de reportes ejecutivos."
             }
         }
+    },
+    "IntellectualProperty": {
+        "badge": "Propiedad Intelectual",
+        "title_highlight": "Protección Legal",
+        "title_rest": "Estatus de",
+        "subtitle": "Seguimiento en tiempo real de los trámites de registro ante el SAPI (Servicio Autónomo de la Propiedad Intelectual).",
+        "rne_benefit_title": "Beneficio de Exoneración Ley de Emprendimiento",
+        "rne_benefit_desc": "System Kyron opera bajo la figura de **EMPRENDIMIENTO CARLOS MATTAR** (Certificado RNE: CRNE2026/46455), lo que otorga el beneficio de exoneración del 100% de las tasas SAPI según el marco legal vigente.",
+        "rne_applied": "APLICADO",
+        "progress_label": "Progreso de Registro",
+        "how_it_works_title": "¿Cómo funciona el proceso?",
+        "how_it_works_desc": "Los trámites de propiedad intelectual en Venezuela inician con una búsqueda de antecedentes (1-2 semanas) para verificar que no existan conflictos. Posteriormente se realiza la precarga de la planilla y la publicación en el Boletín de la Propiedad Industrial.",
+        "next_step_title": "Siguiente Paso",
+        "next_step_desc": "Estamos a la espera de la emisión de la tasa de búsqueda (exonerada por RNE) para avanzar a la fase de publicación oficial.",
+        "docs_sent": "Documentación enviada al SAPI"
     }
 }

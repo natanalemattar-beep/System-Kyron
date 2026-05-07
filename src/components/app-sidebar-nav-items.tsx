@@ -1,5 +1,5 @@
 
-import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as ChartColumn, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles, Palmtree, Trophy, FolderKanban, Server, Gauge, ScanLine, Wifi, CreditCard as CreditCardIcon, SlidersHorizontal, ChartLine, Fingerprint, FileSpreadsheet, Eye, KeyRound, ShieldAlert, MonitorSmartphone, Scan, Plane, Headphones, Navigation, AppWindow, Monitor as MonitorIcon } from "lucide-react";
+import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as ChartColumn, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles, Palmtree, Trophy, FolderKanban, Server, Gauge, ScanLine, Wifi, CreditCard as CreditCardIcon, SlidersHorizontal, ChartLine, Fingerprint, FileSpreadsheet, Eye, KeyRound, ShieldAlert, MonitorSmartphone, Scan, Plane, Headphones, Navigation, AppWindow, Monitor as MonitorIcon, MessageSquare } from "lucide-react";
 
 export const naturalNavGroups = [
     {
@@ -264,7 +264,7 @@ export const telecomNavGroups = [
     title: "Mi Línea Personal", 
     icon: Smartphone, 
     items: [ 
-      { href: "/mi-linea", label: "Mis Líneas", icon: Phone },
+      { href: "/mi-linea", label: "Mis Líneas", icon: Smartphone },
       { href: "/venta-linea", label: "Nueva Línea", icon: Smartphone },
       { href: "/recargas", label: "Recargas", icon: CreditCardIcon },
       { href: "/consumo-5g", label: "Consumo 5G", icon: Gauge },

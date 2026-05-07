@@ -8,7 +8,7 @@ import {
   Calculator, Wallet, TrendingUp, Activity, BookOpen, Receipt, Users, HandCoins, Zap,
   ArrowRight, Book, History, Box, Landmark, BrainCircuit, ShieldCheck, Bot, Loader2,
   ShieldAlert, ChartColumn, CircleCheck as CircleCheck, Handshake,
-  CreditCard, Smartphone, Building2, Phone, MessageSquare, Heart, Shield, Car,
+  CreditCard, Smartphone, Building2, MessageSquare, Heart, Shield, Car,
   Banknote, RefreshCw, Store, Wifi, Globe, Sparkles
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -72,7 +72,7 @@ const serviciosTelecom = [
     label: "Telefonía Corporativa",
     desc: "Líneas telefónicas con planes integrados",
     href: "/contabilidad/telefonia-corporativa",
-    icon: Phone,
+    icon: Smartphone,
     color: "text-indigo-500",
     bg: "bg-indigo-500/10",
     border: "border-indigo-500/20",

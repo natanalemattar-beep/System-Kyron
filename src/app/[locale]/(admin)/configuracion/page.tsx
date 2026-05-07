@@ -18,7 +18,6 @@ import {
   Bell,
   Mail,
   MessageSquare,
-  Phone,
   Globe,
   Shield,
   Save,

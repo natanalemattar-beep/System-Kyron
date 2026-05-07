@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import { cn } from '@/lib/utils';
 
 type Step = 'choose' | 'find-account' | 'code-sent' | 'new-password' | 'done';

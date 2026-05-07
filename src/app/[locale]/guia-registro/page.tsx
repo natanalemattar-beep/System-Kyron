@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
     ChevronLeft, ChevronRight, Play, Fingerprint, Building2,
     CreditCard, MapPin, CircleCheck, ArrowRight, User,
-    ShieldCheck, Lock, Sparkles, Eye, Phone, Mail, KeyRound,
+    ShieldCheck, Lock, Sparkles, Eye, Smartphone, Mail, KeyRound,
     Globe, FileSignature, Landmark, Building, Signal, Gavel,
     ShoppingCart, Recycle,
 } from "lucide-react";
@@ -345,7 +345,7 @@ function buildSteps(): TutorialStep[] {
                         <p className="text-[10px] font-semibold text-muted-foreground/50 uppercase tracking-wider mb-3">Contacto</p>
                         <div className="grid grid-cols-2 gap-3">
                             <FakeInput label="Correo *" value={FAKE_DATA.email} icon={Mail} highlight />
-                            <FakeInput label="Teléfono *" value={FAKE_DATA.telefono} icon={Phone} highlight />
+                            <FakeInput label="Teléfono *" value={FAKE_DATA.telefono} icon={Smartphone} highlight />
                         </div>
                     </FakeCard>
                     <FakeCard>

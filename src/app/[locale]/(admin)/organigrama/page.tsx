@@ -35,7 +35,7 @@ import {
   Crown,
   Briefcase,
   User,
-  Phone,
+  Smartphone,
   Mail,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -343,7 +343,7 @@ export default function OrganigramaPage() {
                 </div>
                 {ceo.phone && (
                   <span className="text-[11px] text-muted-foreground flex items-center justify-center gap-1 mt-1">
-                    <Phone className="h-3 w-3" /> {ceo.phone}
+                    <Smartphone className="h-3 w-3" /> {ceo.phone}
                   </span>
                 )}
               </CardContent>
@@ -445,7 +445,7 @@ export default function OrganigramaPage() {
                                       )}
                                       {person.phone && (
                                         <p className="text-[10px] text-muted-foreground/60 flex items-center gap-1 truncate">
-                                          <Phone className="h-2.5 w-2.5 shrink-0" /> {person.phone}
+                                          <Smartphone className="h-2.5 w-2.5 shrink-0" /> {person.phone}
                                         </p>
                                       )}
                                     </div>

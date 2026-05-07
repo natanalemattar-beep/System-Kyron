@@ -21,7 +21,6 @@ import {
     Image as ImageIcon,
     Cloud,
     Package,
-    Phone,
     Instagram
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -477,7 +476,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                         </div>
                         <div className="p-3.5 bg-zinc-900/50 rounded-xl border border-rose-900/40 hover:border-rose-500/50 transition-colors group bg-rose-950/10">
                             <h4 className="text-[14px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
-                                <Phone className="h-5 w-5 text-rose-400 group-hover:scale-110 transition-transform" /> Estafas Telefónicas
+                                <Smartphone className="h-5 w-5 text-rose-400 group-hover:scale-110 transition-transform" /> Estafas Telefónicas
                             </h4>
                             <p className="text-[13px] text-white font-bold leading-snug text-justify">
                                 Llamadas fraudulentas que suplantan a proveedores o bancos generan pérdidas económicas directas y dañan la reputación sin dejar rastro.
@@ -506,7 +505,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                             {I:FileText, t:"Facturación", d:"Manejo de IGTF."},
                             {I:ChartColumn, t:"Reportes", d:"Métricas precisas."},
                             {I:Lock, t:"Seguridad", d:"Permisos y roles."},
-                            {I:Phone, t:"Líneas Telefónicas", d:"Comunicación segura."}
+                            {I:Smartphone, t:"Líneas Telefónicas", d:"Comunicación segura."}
                         ].map(({I,t,d},i)=>(
                             <motion.div 
                                 key={i} 

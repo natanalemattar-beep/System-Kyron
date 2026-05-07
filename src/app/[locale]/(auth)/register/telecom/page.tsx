@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from '@/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import {
     Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
-    Signal, Check, Star, Crown, Zap, Mail, RefreshCw, Smartphone, Building, User, Lock, Phone,
+    Signal, Check, Star, Crown, Zap, Mail, RefreshCw, Smartphone, Building, User, Lock,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
@@ -473,7 +474,7 @@ export default function RegisterTelecomPage() {
                                             <span className="px-2 py-0.5 bg-green-500 text-white rounded text-[9px] font-black uppercase tracking-widest">Activo</span>
                                         </div>
                                     </div>
-                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 dark:hover:bg-blue-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => window.location.href = '/dashboard'}>
+                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 dark:hover:bg-blue-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => router.push('/dashboard' as any)}>
                                         Ir al Panel de Control <ArrowRight className="ml-2 h-5 w-5" />
                                     </Button>
                                 </div>

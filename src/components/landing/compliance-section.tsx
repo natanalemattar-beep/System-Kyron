@@ -69,6 +69,10 @@ export function ComplianceSection() {
                             <BadgeCheck className="h-3.5 w-3.5" />
                             RIF VERIFICADO: J-50832149-9
                         </div>
+                        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-emerald-500/20 bg-emerald-500/[0.06] text-[10px] font-bold uppercase tracking-[0.25em] text-emerald-500 dark:text-emerald-400">
+                            <CircleCheck className="h-3.5 w-3.5" />
+                            {t('rne_verified')}
+                        </div>
                     </div>
                     <h2 className="text-[clamp(1.5rem,4.5vw,3.75rem)] font-bold tracking-tight text-foreground uppercase leading-[1.05] mb-4 break-words">
                         {t('title_highlight')}{' '}

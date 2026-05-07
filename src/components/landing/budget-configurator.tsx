@@ -6,12 +6,12 @@ import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 import {
-    Sparkles, Phone, RadioTower, Calculator, Scale, Receipt, Users,
+    Sparkles, Smartphone, RadioTower, Calculator, Scale, Receipt, Users,
     ArrowRight, Check, TrendingDown, Loader2, ChartColumn
 } from 'lucide-react';
 
 const MODULE_DEFS = [
-    { key: 'mi_linea_personal', icon: Phone, color: 'text-cyan-400', gradient: 'from-cyan-500 to-teal-600', border: 'border-cyan-500/20' },
+    { key: 'mi_linea_personal', icon: Smartphone, color: 'text-cyan-400', gradient: 'from-cyan-500 to-teal-600', border: 'border-cyan-500/20' },
     { key: 'mi_linea_juridica', icon: RadioTower, color: 'text-pink-400', gradient: 'from-pink-500 to-rose-600', border: 'border-pink-500/20' },
     { key: 'asesoria_contable', icon: Calculator, color: 'text-blue-400', gradient: 'from-blue-500 to-indigo-600', border: 'border-blue-500/20' },
     { key: 'asesoria_legal', icon: Scale, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-600', border: 'border-amber-500/20' },

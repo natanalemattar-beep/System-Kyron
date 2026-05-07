@@ -17,11 +17,11 @@ export function Footer() {
     const modules = t.raw('module_list') as string[];
 
     const navItems = [
-        { label: t('nav_home'), href: "#inicio" },
-        { label: t('nav_platform'), href: "#caracteristicas" },
-        { label: t('nav_services'), href: "#servicios" },
-        { label: t('nav_about'), href: "#nosotros" },
-        { label: t('nav_contact'), href: "#contacto" },
+        { label: t('nav_home'), href: "/#inicio" },
+        { label: t('nav_platform'), href: "/#caracteristicas" },
+        { label: t('nav_services'), href: "/#servicios" },
+        { label: t('nav_about'), href: "/#nosotros" },
+        { label: t('nav_contact'), href: "/#contacto" },
     ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -77,11 +77,11 @@ export function Footer() {
                         <h4 className="text-[10px] font-black uppercase tracking-[0.25em] bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">{t('platform')}</h4>
                         <nav className="flex flex-col gap-3">
                             {navItems.map(item => (
-                                <a key={item.label} href={item.href} onClick={(e) => handleAnchorClick(e, item.href)}
+                                <Link key={item.label} href={item.href as any}
                                     className="text-[10px] font-semibold text-foreground/55 hover:text-foreground/90 transition-colors uppercase tracking-[0.15em] group flex items-center gap-1">
                                     {item.label}
                                     <ArrowUpRight className="h-2.5 w-2.5 opacity-0 group-hover:opacity-70 transition-opacity" />
-                                </a>
+                                </Link>
                             ))}
                         </nav>
                     </div>
@@ -137,10 +137,6 @@ export function Footer() {
                             <div className="flex items-center gap-3 ml-6">
                                 <p className="text-[9px] font-black uppercase tracking-[0.2em] text-cyan-400/50">
                                     Fundador: Carlos Mattar
-                                </p>
-                                <div className="h-1 w-1 rounded-full bg-emerald-500/40" />
-                                <p className="text-[8px] font-bold uppercase tracking-[0.1em] text-emerald-500/40 flex items-center gap-1">
-                                    <BadgeCheck className="h-3 w-3" /> EMPRENDIMIENTO CARLOS MATTAR · RIF: J-50832149-9
                                 </p>
                             </div>
                         </div>

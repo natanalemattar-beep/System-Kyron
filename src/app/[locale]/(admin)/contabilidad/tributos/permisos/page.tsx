@@ -11,7 +11,7 @@ import {
   Download, ShieldCheck, FileText, Printer, Bell, TriangleAlert, CircleCheck,
   Clock, Search, Landmark, Filter, Plus, RefreshCw,
   FileSignature, XCircle, Calendar, ChevronRight, Zap, ArrowRight, Copy,
-  BellRing, ClipboardList, Phone, Mail, Globe, MapPin, MessageCircle,
+  BellRing, ClipboardList, Smartphone, Mail, Globe, MapPin, MessageCircle,
   Building2, Scale, FileWarning, ExternalLink, BookOpen
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -984,7 +984,7 @@ function DirectorioInstitucional() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pl-[52px]">
                     {c.telefono && (
                       <div className="flex items-start gap-2.5">
-                        <Phone className="h-3.5 w-3.5 text-primary/50 mt-0.5 shrink-0" />
+                        <Smartphone className="h-3.5 w-3.5 text-primary/50 mt-0.5 shrink-0" />
                         <div>
                           <p className="text-[10px] font-semibold uppercase text-muted-foreground/40">Teléfono</p>
                           <p className="text-[10px] font-bold text-foreground/80">{c.telefono}</p>
