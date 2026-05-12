@@ -119,7 +119,9 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 useCORS: true,
                 backgroundColor: '#09090b',
                 logging: false,
-                allowTaint: false
+                allowTaint: false,
+                windowWidth: 1056,
+                windowHeight: 816
             });
             
             // JPEG codifica más rápido y usa menos memoria que PNG
@@ -149,8 +151,9 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
             const h2c = (await import('html2canvas')).default;
             
             // Escala 1.0 para mantener el DOM del word ligero
-            const canvasFrontal = await h2c(frontal, { scale: 1.0, useCORS: true, backgroundColor: '#09090b', allowTaint: false });
-            const canvasInterior = await h2c(interior, { scale: 1.0, useCORS: true, backgroundColor: '#09090b', allowTaint: false });
+            const wordOpts = { scale: 1.0, useCORS: true, backgroundColor: '#09090b', allowTaint: false, windowWidth: 1056, windowHeight: 816 };
+            const canvasFrontal = await h2c(frontal, wordOpts);
+            const canvasInterior = await h2c(interior, wordOpts);
             
             const imgFrontal = canvasFrontal.toDataURL('image/jpeg', 0.85);
             const imgInterior = canvasInterior.toDataURL('image/jpeg', 0.85);
