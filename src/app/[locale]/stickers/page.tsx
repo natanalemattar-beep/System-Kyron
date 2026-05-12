@@ -34,26 +34,36 @@ export default function StickersPage() {
             const element = document.getElementById('stickers-sheet');
             if (!element) return;
 
+            // Removamos temporalmente cualquier transform para la captura
+            const originalTransform = element.style.transform;
+            element.style.transform = 'none';
+
             const canvas = await html2canvas(element, {
-                scale: 3, // High quality
+                scale: 2, // Bajamos un poco el scale para evitar problemas de memoria/estiramiento
                 useCORS: true,
                 backgroundColor: '#ffffff',
                 logging: false,
+                width: element.offsetWidth,
+                height: element.offsetHeight
             });
 
-            const imgData = canvas.toDataURL('image/jpeg', 1.0);
+            // Restaurar transform
+            element.style.transform = originalTransform;
+
+            const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF({
                 orientation: 'portrait',
                 unit: 'in',
                 format: 'letter'
             });
 
-            const imgProps = pdf.getImageProperties(imgData);
             const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            const pdfHeight = pdf.internal.pageSize.getHeight();
 
-            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save('System-Kyron-Stickers-Oficiales.pdf');
+            // Dibujar la imagen ajustada al tamaño exacto de la página sin estirar
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+            pdf.save('System-Kyron-Stickers-Elite.pdf');
+            
         } catch (error) {
             console.error('Error generating PDF:', error);
             alert('Error al generar el PDF. Por favor, intente de nuevo.');
@@ -124,20 +134,20 @@ export default function StickersPage() {
             <div className="pb-20 px-4 print:p-0 flex justify-center">
                 <div 
                     id="stickers-sheet"
-                    className="bg-white shadow-[0_0_80px_rgba(0,0,0,0.5)] print:shadow-none w-[8.5in] min-h-[11in] p-[0.75in] origin-top transform transition-transform duration-500"
+                    className="bg-white shadow-[0_0_80px_rgba(0,0,0,0.5)] print:shadow-none w-[8.5in] min-h-[11in] p-[0.5in] flex flex-col items-center justify-center"
                 >
-                    <div className="grid grid-cols-3 gap-y-12 gap-x-12">
+                    <div className="grid grid-cols-3 gap-y-14 gap-x-12">
                         {stickersArray.map((_, index) => (
                             <div 
                                 key={index} 
-                                className="aspect-square bg-white border border-zinc-200 rounded-full flex flex-col items-center justify-center p-12 relative overflow-hidden break-inside-avoid shadow-[0_4px_15px_rgba(0,0,0,0.05)]"
+                                className="w-[2.2in] h-[2.2in] bg-white border border-zinc-200 rounded-full flex flex-col items-center justify-center p-8 relative overflow-hidden break-inside-avoid shadow-[0_4px_10px_rgba(0,0,0,0.03)]"
                             >
                                 {/* Borde de corte sutil */}
                                 <div className="absolute inset-0 rounded-full border border-zinc-100 pointer-events-none" />
                                 
-                                <div className="flex flex-col items-center w-full relative z-10 translate-y-2">
-                                    {/* Logo Principal - Aumentado significativamente */}
-                                    <div className="relative w-28 h-16 mb-2 flex items-center justify-center">
+                                <div className="flex flex-col items-center w-full relative z-10 translate-y-1">
+                                    {/* Logo Principal */}
+                                    <div className="relative w-20 h-12 mb-1 flex items-center justify-center">
                                         <img 
                                             src="/images/logo-black.png" 
                                             alt="Kyron Logo" 
@@ -145,19 +155,19 @@ export default function StickersPage() {
                                         />
                                     </div>
                                     
-                                    <div className="flex flex-col items-center mb-5">
-                                        <h2 className="text-black font-black uppercase tracking-[-0.05em] text-[20px] leading-none text-center">
+                                    <div className="flex flex-col items-center mb-3">
+                                        <h2 className="text-black font-black uppercase tracking-[-0.05em] text-[16px] leading-none text-center">
                                             System
                                         </h2>
-                                        <span className="text-cyan-600 font-black uppercase text-[18px] tracking-[0.15em] leading-none mt-1">Kyron</span>
+                                        <span className="text-cyan-600 font-black uppercase text-[14px] tracking-[0.1em] leading-none mt-1">Kyron</span>
                                     </div>
 
-                                    {/* QR Code - Un poco más grande al quitar el texto */}
-                                    <div className="p-3 bg-white border border-zinc-100 rounded-[1.75rem] shadow-[0_6px_15px_rgba(0,0,0,0.06)]">
+                                    {/* QR Code */}
+                                    <div className="p-2.5 bg-white border border-zinc-100 rounded-[1.5rem] shadow-[0_4px_8px_rgba(0,0,0,0.04)]">
                                         <img 
                                             src={qrCodeImage} 
                                             alt="QR" 
-                                            className="w-20 h-20"
+                                            className="w-16 h-16"
                                             crossOrigin="anonymous"
                                         />
                                     </div>
@@ -165,7 +175,7 @@ export default function StickersPage() {
 
                                 {/* Subtle background pattern */}
                                 <div className="absolute inset-0 opacity-[0.02] pointer-events-none select-none z-0">
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rotate-12 border-[0.5px] border-zinc-900 rounded-[4rem]" />
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rotate-12 border-[0.5px] border-zinc-900 rounded-[3rem]" />
                                 </div>
                             </div>
                         ))}
@@ -188,9 +198,13 @@ export default function StickersPage() {
                     #stickers-sheet {
                         box-shadow: none !important;
                         margin: 0 !important;
-                        padding: 0.75in !important;
+                        padding: 0.5in !important;
                         width: 8.5in !important;
-                        min-height: 11in !important;
+                        height: 11in !important;
+                        display: flex !important;
+                        flex-direction: column !important;
+                        align-items: center !important;
+                        justify-content: center !important;
                     }
                 }
             `}</style>
