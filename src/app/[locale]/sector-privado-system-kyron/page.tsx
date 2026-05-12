@@ -255,6 +255,13 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 >
                     <FileText className="h-4 w-4 text-cyan-400" /> Resumen Ejecutivo
                 </a>
+                <div className="w-px h-8 bg-zinc-700 mx-2" />
+                <Link 
+                    href="/brand-kit"
+                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all shadow-[0_10px_30px_rgba(37,99,235,0.3)] hover:scale-105 active:scale-95"
+                >
+                    <Sparkles className="h-4 w-4" /> RECURSOS ELITE
+                </Link>
             </div>
 
             {/* --- CARA 1: EXTERIOR (Paneles: Qué es, Cierre, Portada) --- */}
