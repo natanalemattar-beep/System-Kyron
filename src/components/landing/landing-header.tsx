@@ -110,7 +110,7 @@ export function LandingHeader() {
                     </Link>
 
                     {/* Desktop Nav */}
-                    <nav className="hidden xl:flex items-center gap-7 flex-1 justify-center">
+                    <nav className="hidden lg:flex items-center gap-5 flex-1 justify-center">
                         {navItems.map((item) => (
                             <Link
                                 key={item.labelKey}
@@ -191,14 +191,11 @@ export function LandingHeader() {
 
                     {/* Right Actions */}
                     <div className="flex items-center gap-2 shrink-0">
-                        <div className="hidden sm:flex items-center gap-1.5">
+                        <div className="hidden lg:flex items-center gap-1.5">
                             <LanguageSwitcher variant="default" align="end" />
                             <ThemeToggle />
                         </div>
-                        <div className="hidden md:flex items-center gap-2">
-                            <div className="hidden xl:block">
-                                <BcvRateBadge />
-                            </div>
+                        <div className="hidden lg:flex items-center gap-2">
                             <Button variant="ghost" asChild className="h-9 px-4 text-[10px] font-black uppercase tracking-[0.18em] border border-white/10 text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all">
                                 <Link href="/register" prefetch={false} className="flex items-center gap-1.5">
                                     <UserPlus className="h-3.5 w-3.5" />
@@ -262,7 +259,7 @@ export function LandingHeader() {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="xl:hidden rounded-xl h-9 w-9 border border-white/[0.08] text-white bg-white/[0.03]"
+                                    className="lg:hidden rounded-xl h-9 w-9 border border-white/[0.08] text-white bg-white/[0.03]"
                                     aria-label={t('mobile_portal')}
                                 >
                                     <Menu className="h-4 w-4" />
