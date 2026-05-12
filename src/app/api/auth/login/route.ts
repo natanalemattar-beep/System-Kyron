@@ -245,11 +245,42 @@ export async function POST(req: NextRequest) {
                     emailFailedMessage: 'No pudimos enviar el código por correo. Usa SMS o WhatsApp.',
                 });
             }
-            return NextResponse.json({
-                error: 'No pudimos enviar el código de verificación a tu correo. Por favor intenta de nuevo en unos momentos.',
-                emailDeliveryFailed: true,
-                maskedEmail,
-            }, { status: 503 });
+
+            // FALLBACK: Si el email falla y no tiene teléfono, crear sesión directamente
+            // para no bloquear al usuario. La contraseña ya fue verificada arriba.
+            console.warn(`[login] Email delivery failed for ${user.email}. Granting direct session as fallback.`);
+            const fallbackToken = await createToken({
+                userId: user.id,
+                email: user.email,
+                tipo: user.tipo,
+                nombre: displayName,
+            });
+            const fallbackCookie = setSessionCookie(fallbackToken);
+            const fallbackRes = NextResponse.json({
+                success: true,
+                emailBypass: true,
+                user: {
+                    id: user.id,
+                    email: user.email,
+                    tipo: user.tipo,
+                    nombre: displayName,
+                    apellido: user.apellido,
+                    cedula: user.cedula,
+                    razon_social: user.razon_social,
+                    rif: user.rif,
+                },
+            });
+            fallbackRes.cookies.set(fallbackCookie.name, fallbackCookie.value, fallbackCookie.options as Parameters<typeof fallbackRes.cookies.set>[2]);
+            await logActivity({
+                userId: user.id,
+                evento: 'LOGIN',
+                categoria: 'auth',
+                descripcion: `Login directo (email fallback): ${displayName} (${user.email})`,
+                entidadTipo: 'usuario',
+                entidadId: user.id,
+                metadata: { email: user.email, tipo: user.tipo, metodo: 'email_fallback' },
+            });
+            return fallbackRes;
         }
 
         return NextResponse.json({
