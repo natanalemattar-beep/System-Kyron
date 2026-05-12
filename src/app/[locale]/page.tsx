@@ -6,13 +6,13 @@ import { LazySection } from '@/components/landing/lazy-section';
 const HeroSection      = dynamic(() => import('@/components/landing/hero-section-optimized').then(m => ({ default: m.HeroSectionOptimized })), { ssr: true });
 const FeaturesSection  = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: true });
 
-// Below-the-fold — client-side only, loaded lazily via IntersectionObserver
-const PricingSection    = dynamic(() => import('@/components/landing/pricing-section').then(m => ({ default: m.PricingSection })), { ssr: false });
-const ComplianceSection = dynamic(() => import('@/components/landing/compliance-section').then(m => ({ default: m.ComplianceSection })), { ssr: false });
-const CommentsSection   = dynamic(() => import('@/components/landing/comments-section').then(m => ({ default: m.CommentsSection })), { ssr: false });
-const FaqSection        = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: false });
-const CtaSection        = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })), { ssr: false });
-const Footer            = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: false });
+// Below-the-fold — loaded dynamically
+const PricingSection    = dynamic(() => import('@/components/landing/pricing-section').then(m => ({ default: m.PricingSection })));
+const ComplianceSection = dynamic(() => import('@/components/landing/compliance-section').then(m => ({ default: m.ComplianceSection })));
+const CommentsSection   = dynamic(() => import('@/components/landing/comments-section').then(m => ({ default: m.CommentsSection })));
+const FaqSection        = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })));
+const CtaSection        = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })));
+const Footer            = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })));
 
 export default function LandingPage() {
   return (
