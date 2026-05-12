@@ -57,8 +57,8 @@ export function LandingHeader() {
 
     const navItems = [
         { labelKey: 'home' as const, href: '/' },
-        { labelKey: 'platform' as const, href: '#caracteristicas' },
-        { labelKey: 'plans' as const, href: '#planes' },
+        { labelKey: 'platform' as const, href: '/#caracteristicas' },
+        { labelKey: 'plans' as const, href: '/planes' },
     ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -217,8 +217,8 @@ export function LandingHeader() {
                                         <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-4 px-4">Directorio</p>
                                         {[
                                             { label: t('home'), href: '/', icon: Globe },
-                                            { label: t('platform'), href: '#caracteristicas', icon: Cpu },
-                                            { label: t('plans'), href: '#planes', icon: Zap },
+                                            { label: t('platform'), href: '/#caracteristicas', icon: Cpu },
+                                            { label: t('plans'), href: '/planes', icon: Zap },
                                         ].map((item) => (
                                             <SheetClose key={item.href} asChild>
                                                 <a 

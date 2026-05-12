@@ -30,11 +30,9 @@ export default function LandingPage() {
             <FeaturesSection />
           </section>
 
-          {/* 3. Planes — lazy (client-side) */}
-          <LazySection fallbackHeight="600px">
-            <section id="planes">
-              <PricingSection />
-            </section>
+          {/* 3. CTA — El cierre rápido */}
+          <LazySection fallbackHeight="400px">
+            <CtaSection />
           </LazySection>
 
           {/* Secciones ocultas para acortar la landing page y dejar lo esencial:
@@ -43,10 +41,7 @@ export default function LandingPage() {
               - FaqSection
           */}
 
-          {/* 4. CTA — lazy */}
-          <LazySection fallbackHeight="200px">
-            <CtaSection />
-          </LazySection>
+          {/* Footer se encarga del cierre */}
 
         </main>
 
