@@ -38,8 +38,6 @@ export default function BrandKitPage() {
         }
     }, []);
 
-    if (!mounted) return null;
-
     const resources = [
         {
             id: 'pitch',
@@ -149,12 +147,16 @@ export default function BrandKitPage() {
                         transition={{ delay: 0.2 }}
                         className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-[2rem] flex items-center gap-6"
                     >
-                        <div className="p-3 bg-white rounded-2xl shadow-2xl">
-                            <img 
-                                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(baseUrl)}&color=000000&bgcolor=ffffff&margin=1`} 
-                                alt="Master QR" 
-                                className="w-20 h-20"
-                            />
+                        <div className="p-3 bg-white rounded-2xl shadow-2xl relative w-20 h-20 flex-shrink-0">
+                            {mounted ? (
+                                <img 
+                                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(baseUrl)}&color=000000&bgcolor=ffffff&margin=1`} 
+                                    alt="Master QR" 
+                                    className="w-full h-full object-contain"
+                                />
+                            ) : (
+                                <div className="w-full h-full bg-zinc-200 animate-pulse rounded-lg" />
+                            )}
                         </div>
                         <div>
                             <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500 mb-1">Enlace Maestro</p>
