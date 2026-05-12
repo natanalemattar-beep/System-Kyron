@@ -37,26 +37,13 @@ export default function LandingPage() {
             </section>
           </LazySection>
 
-          {/* 4. Cumplimiento — lazy */}
-          <LazySection fallbackHeight="400px">
-            <section id="cumplimiento">
-              <ComplianceSection />
-            </section>
-          </LazySection>
+          {/* Secciones ocultas para acortar la landing page y dejar lo esencial:
+              - ComplianceSection
+              - CommentsSection
+              - FaqSection
+          */}
 
-          {/* 5. Testimonios — lazy */}
-          <LazySection fallbackHeight="400px">
-            <CommentsSection />
-          </LazySection>
-
-          {/* 6. FAQ — lazy */}
-          <LazySection fallbackHeight="300px">
-            <section id="preguntas">
-              <FaqSection />
-            </section>
-          </LazySection>
-
-          {/* 7. CTA — lazy */}
+          {/* 4. CTA — lazy */}
           <LazySection fallbackHeight="200px">
             <CtaSection />
           </LazySection>
