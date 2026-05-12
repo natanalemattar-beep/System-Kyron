@@ -197,22 +197,22 @@ export default function IdentityAssetsPage() {
                     className="bg-white shadow-[0_0_100px_rgba(0,0,0,0.6)] print:shadow-none w-[8.5in] h-[11in] p-[0.5in] flex flex-col items-center justify-center overflow-hidden"
                 >
                     {assetType === 'stickers' && (
-                        <div className="grid grid-cols-3 gap-y-16 gap-x-12">
+                        <div className="grid grid-cols-3 gap-y-6 gap-x-4 place-items-center">
                             {Array.from({ length: 12 }).map((_, index) => (
                                 <StickerItem key={index} qrCodeImage={qrCodeImage} />
                             ))}
                         </div>
                     )}
                     {assetType === 'bookmarks' && (
-                        <div className="grid grid-cols-2 gap-y-12 gap-x-16">
-                            {Array.from({ length: 4 }).map((_, index) => (
+                        <div className="flex gap-8 justify-center items-center w-full h-full">
+                            {Array.from({ length: 3 }).map((_, index) => (
                                 <BookmarkItem key={index} qrCodeImage={qrCodeImage} />
                             ))}
                         </div>
                     )}
                     {assetType === 'business-cards' && (
-                        <div className="grid grid-cols-2 gap-x-12 gap-y-10">
-                            {Array.from({ length: 10 }).map((_, index) => (
+                        <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                            {Array.from({ length: 8 }).map((_, index) => (
                                 <BusinessCard key={index} qrCodeImage={qrCodeImage} />
                             ))}
                         </div>
@@ -239,10 +239,10 @@ export default function IdentityAssetsPage() {
 
 function StickerItem({ qrCodeImage }: { qrCodeImage: string }) {
     return (
-        <div className="w-[2.25in] h-[2.25in] bg-white rounded-full flex flex-col items-center justify-center relative overflow-hidden break-inside-avoid border-[0.5px] border-zinc-100">
+        <div className="w-[2.25in] h-[2.25in] bg-white rounded-full flex flex-col items-center justify-center relative overflow-hidden break-inside-avoid border border-zinc-200 shadow-sm">
             <div className="absolute inset-0 rounded-full border-[1.5px] border-zinc-200 pointer-events-none z-20 opacity-30" />
-            <div className="flex flex-col items-center w-full relative z-10 translate-y-1">
-                <div className="relative w-16 h-16 mb-1 flex items-center justify-center overflow-hidden">
+            <div className="flex flex-col items-center w-full relative z-10 pt-1">
+                <div className="relative w-10 h-10 mb-1.5 flex items-center justify-center">
                     <img 
                         src="/images/logo-black.png" 
                         alt="Kyron Logo" 
@@ -250,22 +250,22 @@ function StickerItem({ qrCodeImage }: { qrCodeImage: string }) {
                         style={{ imageRendering: 'auto' }}
                     />
                 </div>
-                <div className="flex flex-col items-center mb-4">
-                    <h2 className="text-black font-black uppercase tracking-[-0.05em] text-[22px] leading-none text-center">System</h2>
-                    <span className="text-cyan-600 font-black uppercase text-[18px] tracking-[0.18em] leading-none mt-1">Kyron</span>
+                <div className="flex flex-col items-center mb-3">
+                    <h2 className="text-black font-black uppercase tracking-tight text-[16px] leading-none text-center">System</h2>
+                    <span className="text-cyan-600 font-black uppercase text-[12px] tracking-[0.15em] leading-none mt-1">Kyron</span>
                 </div>
-                <div className="p-3 bg-white border border-zinc-100 rounded-[2rem] shadow-[0_8px_20px_rgba(0,0,0,0.06)]">
-                    <img src={qrCodeImage} alt="QR" className="w-20 h-20" crossOrigin="anonymous" />
+                <div className="p-1.5 bg-white border border-zinc-100 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.05)]">
+                    <img src={qrCodeImage} alt="QR" className="w-12 h-12" crossOrigin="anonymous" />
                 </div>
-                <div className="mt-4 flex items-center gap-1.5 opacity-20">
-                    <div className="h-[1px] w-4 bg-black" />
-                    <span className="text-[6px] font-black uppercase tracking-widest text-black">Authentic Identity</span>
-                    <div className="h-[1px] w-4 bg-black" />
+                <div className="mt-2.5 flex items-center gap-1.5 opacity-30">
+                    <div className="h-[1px] w-3 bg-black" />
+                    <span className="text-[5px] font-black uppercase tracking-widest text-black">Authentic Identity</span>
+                    <div className="h-[1px] w-3 bg-black" />
                 </div>
             </div>
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none z-0">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rotate-12 border-[0.5px] border-zinc-900 rounded-[4rem]" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 -rotate-12 border-[0.5px] border-zinc-900 rounded-[4rem]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rotate-12 border-[0.5px] border-zinc-900 rounded-[2rem]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 -rotate-12 border-[0.5px] border-zinc-900 rounded-[2rem]" />
             </div>
         </div>
     );
