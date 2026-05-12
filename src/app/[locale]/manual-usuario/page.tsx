@@ -29,7 +29,7 @@ const chapters = [
     content: `Bienvenido a la documentación unificada de System Kyron v3.0. Este legajo representa la visión técnica y operativa de un ecosistema integral diseñado para la excelencia en la gestión empresarial y ciudadana en Venezuela. Bajo la dirección estratégica de Carlos Mattar (CM), Sebastián Garrido (SG) y Marcos Sousa (MS), System Kyron se propone como el núcleo de inteligencia que fusiona telecomunicaciones, finanzas y cumplimiento legal automatizado. El ecosistema cuenta con más de 80 tablas en base de datos, más de 60 rutas API y más de 10 módulos especializados. Este manual detalla las capacidades técnicas disponibles para transformar la operatividad del sector privado bajo los más altos estándares de seguridad y eficiencia.`,
     details: [
       "Centralizar el 100% de las operaciones críticas en una plataforma única.",
-      "Ingeniería soberana desarrollada en el Colegio Santa Rosa de Lima.",
+      "Ingeniería avanzada desarrollada en el Colegio Santa Rosa de Lima.",
       "Preparar a las empresas para la economía digital de 2026.",
       "Más de 10 áreas independientes que escalan con su organización.",
       "Soporte multimoneda (Bs., USD, EUR) con tasas BCV en tiempo real."

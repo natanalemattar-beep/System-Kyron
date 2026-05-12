@@ -143,7 +143,7 @@ const slides = [
             items: [
                 "Te hablamos claro, sin términos raros o técnicos.",
                 "Soporte rápido de personas reales, no de robots.",
-                "Nos encargamos de todo el trabajo pesado por ti."
+                "Ingeniería avanzada desarrollada en el Colegio Santa Rosa de Lima."
             ]
         },
         contact: {
@@ -406,7 +406,7 @@ export default function PitchPage() {
                         <tr>
                             <td>
                                 <h1 style="font-size: 28px; font-weight: 900; color: #0f172a; letter-spacing: -1px;">SYSTEM KYRON</h1>
-                                <p style="font-size: 10px; color: #3b82f6; font-weight: 800; text-transform: uppercase; letter-spacing: 4px; margin-top: 5px;">Soberanía Digital para Empresas Elite</p>
+                                <p style="font-size: 10px; color: #3b82f6; font-weight: 800; text-transform: uppercase; letter-spacing: 4px; margin-top: 5px;">Identidad Digital para Empresas Elite</p>
                                 <p style="font-size: 9px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-top: 2px;">Executive Pitch Script — Competition Edition v2.5</p>
                             </td>
                             <td align="right">
@@ -702,7 +702,7 @@ export default function PitchPage() {
                                                 </div>
                                                 <div>
                                                     <h1 className="text-2xl font-black tracking-tighter">SYSTEM KYRON</h1>
-                                                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400">Soberanía Digital para Empresas Elite</p>
+                                                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400">Identidad Digital para Empresas Elite</p>
                                                 </div>
                                             </div>
                                         </motion.div>

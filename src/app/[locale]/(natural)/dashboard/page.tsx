@@ -163,7 +163,7 @@ export default function DashboardPersonalPage() {
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Sparkles className="h-4 w-4 text-blue-400" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400/80 font-tech">Soberanía Digital SK-Core</span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400/80 font-tech">Identidad Digital SK-Core</span>
                 </div>
                 <h1 className="text-4xl md:text-7xl font-black tracking-tighter leading-none font-impact uppercase">
                   {greeting?.text ?? "Hola"}{firstName ? `, ${firstName}` : ""}

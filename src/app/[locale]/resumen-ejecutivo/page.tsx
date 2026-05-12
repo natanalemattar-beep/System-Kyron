@@ -35,7 +35,7 @@ const sections = [
         id: "solution",
         icon: Zap,
         title: "3. Propuesta de Valor (La Solución)",
-        content: "Ecosistema Digital Unificado: Telecomunicaciones (5G/eSIM), Web y Gestión Fiscal en un solo panel. El cliente obtiene 'Soberanía Digital', reduciendo costos en 40% con cumplimiento nativo de leyes venezolanas (IVA, IGTF, BCV).",
+        content: "Ecosistema Digital Unificado: Telecomunicaciones (5G/eSIM), Web y Gestión Fiscal en un solo panel. El cliente obtiene autonomía operativa total, reduciendo costos en 40% con cumplimiento nativo de leyes venezolanas (IVA, IGTF, BCV).",
         color: "cyan"
     },
     {
@@ -89,11 +89,11 @@ export default function ResumenEjecutivoPage() {
             </head>
             <body>
                 <h1>SYSTEM KYRON</h1>
-                <div class="slogan">"Soberanía digital para empresas: tus líneas, tu web y cero complicaciones."</div>
+                <div class="slogan">"Tu ecosistema digital: tus líneas, tu web y cero complicaciones."</div>
                 
                 <h2>1. Información General</h2>
                 <p><b>Nombre del Proyecto:</b> System Kyron</p>
-                <p><b>Eslogan:</b> Soberanía digital para empresas: tus líneas, tu web y cero complicaciones.</p>
+                <p><b>Eslogan:</b> Tu ecosistema digital: tus líneas, tu web y cero complicaciones.</p>
                 <p><b>Equipo:</b> Carlos Mattar (Líder / Fundador)</p>
 
                 <h2>2. Definición del Problema</h2>
@@ -183,7 +183,7 @@ export default function ResumenEjecutivoPage() {
                             Resumen<br/>Ejecutivo
                         </h1>
                         <p className="text-xl md:text-2xl text-zinc-400 font-medium max-w-2xl mx-auto mb-12">
-                            Soberanía digital para empresas: tus líneas, tu web y cero complicaciones.
+                            Tu ecosistema digital: tus líneas, tu web y cero complicaciones.
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">

@@ -115,7 +115,7 @@ export function HeroSection() {
 
     const [liveStats, setLiveStats] = useState({ totalUsuarios: 0 });
     const [videoOpen, setVideoOpen] = useState(false);
-    const rotatingTexts = t.raw('rotating_words') as string[] || ["Corporativo", "Empresarial", "Soberano", "Elite"];
+    const rotatingTexts = t.raw('rotating_words') as string[] || ["Corporativo", "Empresarial", "Autónomo", "Elite"];
 
     useEffect(() => {
         fetch('/api/stats')

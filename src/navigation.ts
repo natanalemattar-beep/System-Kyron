@@ -191,6 +191,7 @@ export const pathnames = {
   '/activos-inmobiliarios': '/activos-inmobiliarios',
   '/stickers': '/stickers',
   '/resumen-ejecutivo': '/resumen-ejecutivo',
+  '/brand-kit': '/brand-kit',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({

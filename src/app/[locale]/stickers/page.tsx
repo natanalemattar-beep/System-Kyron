@@ -240,8 +240,13 @@ function StickerItem({ qrCodeImage }: { qrCodeImage: string }) {
         <div className="w-[2.25in] h-[2.25in] bg-white rounded-full flex flex-col items-center justify-center relative overflow-hidden break-inside-avoid border-[0.5px] border-zinc-100">
             <div className="absolute inset-0 rounded-full border-[1.5px] border-zinc-200 pointer-events-none z-20 opacity-30" />
             <div className="flex flex-col items-center w-full relative z-10 translate-y-1">
-                <div className="relative w-24 h-12 mb-2 flex items-center justify-center">
-                    <img src="/images/logo-black.png" alt="Kyron Logo" className="w-full h-full object-contain" />
+                <div className="relative w-16 h-16 mb-1 flex items-center justify-center overflow-hidden">
+                    <img 
+                        src="/images/logo-black.png" 
+                        alt="Kyron Logo" 
+                        className="max-w-full max-h-full object-contain" 
+                        style={{ imageRendering: 'auto' }}
+                    />
                 </div>
                 <div className="flex flex-col items-center mb-4">
                     <h2 className="text-black font-black uppercase tracking-[-0.05em] text-[22px] leading-none text-center">System</h2>
@@ -270,8 +275,12 @@ function BookmarkItem({ qrCodeImage }: { qrCodeImage: string }) {
             <div className="absolute left-0 top-0 bottom-0 w-2 bg-zinc-50 border-r border-zinc-100" />
             <div className="absolute right-0 top-0 bottom-0 w-2 bg-zinc-50 border-l border-zinc-100" />
             <div className="flex flex-col items-center gap-4 relative z-10 pt-4">
-                <div className="w-16 h-16 rounded-2xl bg-zinc-950 flex items-center justify-center p-3">
-                    <img src="/images/logo-kyron-hq.png" alt="Kyron Logo" className="w-full h-full object-contain filter invert" />
+                <div className="w-20 h-20 rounded-[2rem] bg-zinc-950 flex items-center justify-center p-4 shadow-2xl">
+                    <img 
+                        src="/images/logo-kyron-hq.png" 
+                        alt="Kyron Logo" 
+                        className="max-w-full max-h-full object-contain filter invert" 
+                    />
                 </div>
                 <div className="text-center">
                     <h2 className="text-black font-black uppercase tracking-tighter text-3xl leading-none">KYRON</h2>
@@ -284,7 +293,7 @@ function BookmarkItem({ qrCodeImage }: { qrCodeImage: string }) {
                 </div>
             </div>
             <div className="text-center relative z-10 pb-4">
-                <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4">Soberanía Tecnológica</p>
+                <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4">Innovación Empresarial</p>
                 <div className="flex flex-col items-center gap-1">
                     <span className="text-[7px] font-black uppercase text-zinc-300">Reto InspiraVe 2026</span>
                 </div>
@@ -308,7 +317,9 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
             <div className="flex-1 flex flex-col justify-between relative z-10">
                 <div className="space-y-1">
                     <div className="flex items-center gap-2 mb-2">
-                        <img src="/images/logo-black.png" alt="Kyron" className="h-6 object-contain" />
+                    <div className="h-8 w-8 flex items-center justify-center overflow-hidden">
+                        <img src="/images/logo-black.png" alt="Kyron" className="max-w-full max-h-full object-contain" />
+                    </div>
                         <div className="h-4 w-[1px] bg-zinc-200" />
                         <span className="text-[8px] font-black uppercase tracking-[0.3em] text-cyan-600">Elite</span>
                     </div>

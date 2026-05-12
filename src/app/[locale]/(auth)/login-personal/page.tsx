@@ -215,7 +215,7 @@ export default function LoginPersonalPage() {
             </div>
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl font-black tracking-tighter leading-[0.85] uppercase font-impact italic text-white">Mi Cuenta <br/><span className="text-cyan-400">Personal</span></h1>
-              <p className="text-[10px] font-bold text-white/50 uppercase tracking-[0.2em] leading-relaxed max-w-sm font-tech">Identidad Digital • Ciudadanía Soberana v2.8</p>
+              <p className="text-[10px] font-bold text-white/50 uppercase tracking-[0.2em] leading-relaxed max-w-sm font-tech">Identidad Digital • Ciudadanía Digital v2.8</p>
             </div>
           </div>
 

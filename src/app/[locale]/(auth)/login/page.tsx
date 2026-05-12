@@ -149,7 +149,7 @@ export default function LoginSelectionPage() {
             </div>
             <div>
               <h2 className="text-[11px] font-black text-white uppercase tracking-[0.2em]">{t('citizen_portal')}</h2>
-              <p className="text-[9px] font-bold text-blue-500/40 uppercase tracking-widest mt-0.5">Identidad Digital Soberana</p>
+              <p className="text-[9px] font-bold text-blue-500/40 uppercase tracking-widest mt-0.5">Identidad Digital Avanzada</p>
             </div>
             <div className="h-px flex-1 bg-gradient-to-r from-blue-500/20 to-transparent" />
           </div>

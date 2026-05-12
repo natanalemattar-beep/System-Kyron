@@ -192,7 +192,7 @@ export function buildKyronEmailTemplate(content: {
                 <tr>
                   <td style="padding:24px;background:rgba(245,158,11,0.03);border-radius:16px;border-left:4px solid #f59e0b;">
                     <p style="margin:0;color:#94a3b8;font-size:12px;line-height:1.6;">
-                      <strong style="color:#f59e0b;">Soberanía de Datos:</strong> ${content.footer ?? 'Este código es confidencial. Si usted no inició esta solicitud, el núcleo de seguridad ha bloqueado el intento preventivamente.'}
+                      <strong style="color:#f59e0b;">Privacidad de Datos:</strong> ${content.footer ?? 'Este código es confidencial. Si usted no inició esta solicitud, el núcleo de seguridad ha bloqueado el intento preventivamente.'}
                     </p>
                   </td>
                 </tr>

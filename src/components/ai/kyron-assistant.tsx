@@ -110,7 +110,7 @@ export function KyronAssistant() {
             clearTimeout(watchdog);
         } catch (error: any) {
             console.error('AI Error:', error);
-            const errorMsg = 'Interferencia en el flujo de datos. He activado el núcleo local para mantener la soberanía del sistema. ¿Deseas un reporte técnico?';
+            const errorMsg = 'Interferencia en el flujo de datos. He activado el núcleo local para mantener la integridad del sistema. ¿Deseas un reporte técnico?';
             setMessages(prev => [...prev, { role: 'assistant', content: errorMsg }]);
         } finally {
             setIsLoading(false);

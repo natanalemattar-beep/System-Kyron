@@ -187,7 +187,7 @@ export default function BrandKitPage() {
                         <img src="/images/logo-black.png" alt="Kyron" className="h-10 w-10 object-contain invert opacity-50" />
                         <div>
                             <p className="text-sm font-black uppercase tracking-widest text-white/40">System Kyron</p>
-                            <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em]">Soberanía Digital · v2.8.0</p>
+                            <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em]">Identidad Digital · v2.8.0</p>
                         </div>
                     </div>
                     
