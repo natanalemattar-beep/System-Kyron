@@ -136,8 +136,8 @@ export default function StickersPage() {
                                 <div className="absolute inset-0 rounded-full border border-zinc-100 pointer-events-none" />
                                 
                                 <div className="flex flex-col items-center w-full relative z-10 translate-y-2">
-                                    {/* Logo Principal - Ajustado para que no se corte */}
-                                    <div className="relative w-20 h-10 mb-1 flex items-center justify-center">
+                                    {/* Logo Principal - Aumentado significativamente */}
+                                    <div className="relative w-28 h-16 mb-2 flex items-center justify-center">
                                         <img 
                                             src="/images/logo-black.png" 
                                             alt="Kyron Logo" 
@@ -145,26 +145,22 @@ export default function StickersPage() {
                                         />
                                     </div>
                                     
-                                    <div className="flex flex-col items-center mb-3">
-                                        <h2 className="text-black font-black uppercase tracking-[-0.05em] text-[16px] leading-none text-center">
+                                    <div className="flex flex-col items-center mb-5">
+                                        <h2 className="text-black font-black uppercase tracking-[-0.05em] text-[20px] leading-none text-center">
                                             System
                                         </h2>
-                                        <span className="text-cyan-600 font-black uppercase text-[14px] tracking-[0.12em] leading-none mt-1">Kyron</span>
+                                        <span className="text-cyan-600 font-black uppercase text-[18px] tracking-[0.15em] leading-none mt-1">Kyron</span>
                                     </div>
 
-                                    {/* QR Code */}
-                                    <div className="p-2 bg-white border border-zinc-100 rounded-2xl shadow-[0_4px_10px_rgba(0,0,0,0.05)] mb-3">
+                                    {/* QR Code - Un poco más grande al quitar el texto */}
+                                    <div className="p-3 bg-white border border-zinc-100 rounded-[1.75rem] shadow-[0_6px_15px_rgba(0,0,0,0.06)]">
                                         <img 
                                             src={qrCodeImage} 
                                             alt="QR" 
-                                            className="w-16 h-16"
+                                            className="w-20 h-20"
                                             crossOrigin="anonymous"
                                         />
                                     </div>
-                                    
-                                    <p className="text-[8px] font-black text-zinc-400 tracking-[0.2em] uppercase">
-                                        system-kyron.vercel.app
-                                    </p>
                                 </div>
 
                                 {/* Subtle background pattern */}
