@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
           OR telefono_hash = $2
           OR cedula_hash = $2
           OR rif_hash = $2`,
-      [destino, searchHash]
+      [normalizedDestino, searchHash]
     );
 
     if (!user || proposito === 'registration') {

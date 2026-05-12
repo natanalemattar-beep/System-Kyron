@@ -193,7 +193,7 @@ export async function POST(req: NextRequest) {
         phoneNumber = normalizePhone(userPhone.telefono);
       }
 
-      await storeCode(phoneNumber, codigo, proposito, tipo);
+      await storeCode(destino, codigo, proposito, tipo);
       const twilioResult = await trySendViaTwilio(tipo, phoneNumber, codigo);
 
 
