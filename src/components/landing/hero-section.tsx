@@ -4,7 +4,7 @@ import { ScrollReveal } from "./scroll-reveal";
 import { useScroll, useTransform, AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useRef, useEffect, useState } from 'react';
-import { Sparkles, ArrowRight, Play, TrendingUp, Shield, Wifi, Zap, Download } from 'lucide-react';
+import { Sparkles, ArrowRight, Play, TrendingUp, Shield, Wifi, Zap, Download, Construction, AlertTriangle } from 'lucide-react';
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -13,9 +13,6 @@ import Image from 'next/image';
 import { VideoModal } from "./video-modal";
 
 // ─── HELPER COMPONENTS ────────────────────────────────
-
-// Hook removed as it was unused and causing lint errors in Vercel build
-
 
 function RotatingWords({ words, interval = 3000 }: { words: string[], interval?: number }) {
     const [index, setIndex] = useState(0);
@@ -110,15 +107,11 @@ export function HeroSection() {
         offset: ["start start", "end start"]
     });
 
-    // 5-Layer Parallax System
-    // 4-Layer active Parallax System (Unused Layer 1 removed for Vercel build stability)
-
     const yLayer2 = useTransform(scrollYProgress, [0, 1], [0, 100]); // Stats/Badges
     const yLayer3 = useTransform(scrollYProgress, [0, 1], [0, -50]); // Main Text (Counter-scroll)
     const yLayer4 = useTransform(scrollYProgress, [0, 1], [0, 40]);  // Dashboard
     const opacityHero = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
     const scaleHero = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
-
 
     const [liveStats, setLiveStats] = useState({ totalUsuarios: 0 });
     const [videoOpen, setVideoOpen] = useState(false);
@@ -138,6 +131,17 @@ export function HeroSection() {
 
     return (
         <>
+            {/* Aviso 1: Marquee Superior (Visible en todos los dispositivos) */}
+            <div className="fixed top-0 left-0 right-0 z-[200] bg-amber-500 text-black py-1.5 overflow-hidden whitespace-nowrap border-b border-amber-600 shadow-xl">
+                <motion.div 
+                    animate={{ x: ['100%', '-100%'] }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="inline-block font-black text-[10px] uppercase tracking-[0.3em]"
+                >
+                    ⚠️ PLATAFORMA EN CONSTRUCCIÓN • PRÓXIMAMENTE LANZAMIENTO OFICIAL • SYSTEM KYRON 2026 • ⚠️ PLATAFORMA EN CONSTRUCCIÓN • PRÓXIMAMENTE LANZAMIENTO OFICIAL • SYSTEM KYRON 2026 • ⚠️ PLATAFORMA EN CONSTRUCCIÓN • PRÓXIMAMENTE LANZAMIENTO OFICIAL • SYSTEM KYRON 2026
+                </motion.div>
+            </div>
+
             <section 
                 id="inicio" 
                 ref={containerRef}
@@ -159,8 +163,8 @@ export function HeroSection() {
                         >
                             <ScrollReveal delay={0.1}>
                                 <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md transition-all hover:bg-amber-500/20 group shadow-glow-sm">
-                                    <Sparkles className="h-4 w-4 text-amber-400 group-hover:rotate-12 transition-transform" />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-200/80">{t('badge')}</span>
+                                    <AlertTriangle className="h-4 w-4 text-amber-400 group-hover:rotate-12 transition-transform" />
+                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-200/80">Página en Construcción</span>
                                 </div>
                             </ScrollReveal>
 
@@ -186,18 +190,22 @@ export function HeroSection() {
                                 </p>
                             </ScrollReveal>
 
+                            {/* Aviso 2: Placa de Aviso Central (Reemplaza los botones) */}
                             <ScrollReveal delay={0.4} scale={0.95}>
                                 <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
-                                    <motion.div whileHover={{ scale: 1.02, y: -2 }} transition={{ type: "spring", stiffness: 400, damping: 25 }}>
-                                        <Button asChild size="lg" className="h-16 px-12 text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl overflow-hidden group border-0 bg-gradient-to-r from-cyan-600 via-blue-500 to-emerald-600 bg-size-200 animate-gradient-flow text-white shadow-[0_20px_50px_-12px_rgba(6,182,212,0.4)] hover:shadow-[0_30px_60px_-12px_rgba(16,185,129,0.5)] transition-all duration-500 active:scale-95 relative" aria-label="Registrarse ahora en el ecosistema">
-                                            <Link href="/login" className="relative z-10 flex items-center gap-4">
-                                                {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
-                                            </Link>
-                                        </Button>
-                                    </motion.div>
+                                    <div className="relative group overflow-hidden px-8 py-5 rounded-3xl border border-amber-500/20 bg-amber-500/5 backdrop-blur-2xl flex items-center gap-5 transition-all hover:border-amber-500/40">
+                                        <div className="h-14 w-14 rounded-2xl bg-amber-500/20 flex items-center justify-center shrink-0">
+                                            <Construction className="h-8 w-8 text-amber-400 animate-bounce" />
+                                        </div>
+                                        <div className="text-left">
+                                            <p className="text-white font-black uppercase text-sm tracking-tighter mb-1">Sitio en Desarrollo</p>
+                                            <p className="text-amber-200/50 text-[11px] font-bold leading-tight max-w-[200px]">El acceso a clientes estará disponible próximamente. Gracias por su paciencia.</p>
+                                        </div>
+                                        <div className="absolute top-0 right-0 p-4 opacity-[0.03]">
+                                            <Construction className="h-32 w-32 text-white" />
+                                        </div>
+                                    </div>
                                     
-
-
                                     <motion.div whileHover={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 25 }}>
                                         <Button
                                             variant="ghost"
@@ -235,6 +243,14 @@ export function HeroSection() {
                         </motion.div>
 
                         <div className="hidden lg:block lg:col-span-5 relative">
+                            {/* Aviso 3: Badge flotante en el Dashboard */}
+                            <FloatingCard className="-top-12 right-0 z-50 p-4 bg-amber-500 text-black rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-2xl border-2 border-white/20 animate-pulse">
+                                <div className="flex items-center gap-2">
+                                    <Construction className="h-4 w-4" />
+                                    Acceso en Construcción
+                                </div>
+                            </FloatingCard>
+
                             <motion.div
                                 style={{ 
                                     y: yLayer4, 
@@ -278,8 +294,8 @@ export function HeroSection() {
                                         <div className="absolute bottom-8 right-8 flex items-center gap-3 z-20">
                                             <div className="glass-elite px-4 py-2 rounded-2xl border-white/20 backdrop-blur-3xl shadow-glow-sm">
                                                 <div className="flex items-center gap-2">
-                                                    <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                                                    <span className="text-[10px] font-black text-white tracking-widest tabular-nums uppercase">Sistema en Línea</span>
+                                                    <div className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
+                                                    <span className="text-[10px] font-black text-white tracking-widest tabular-nums uppercase">Modo Mantenimiento</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -362,4 +378,3 @@ export function HeroSection() {
         </>
     );
 }
-

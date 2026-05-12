@@ -14,7 +14,8 @@ import {
     UserPlus,
     User,
     Building2,
-    Smartphone
+    Smartphone,
+    Construction
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { 
@@ -131,59 +132,26 @@ export function LandingHeader() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="center" className="w-72 p-2 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl mt-3">
                                 <DropdownMenuItem asChild className="rounded-xl cursor-pointer p-0 mb-1 focus:bg-transparent">
-                                    <Link href="/dashboard-rrhh" prefetch={false} className="flex items-center gap-3 p-3 hover:bg-white/[0.04] transition-all group">
+                                    <div className="flex items-center gap-3 p-3 opacity-50 cursor-not-allowed">
                                         <div className="h-9 w-9 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 shrink-0">
                                             <UserPlus className="h-4 w-4" />
                                         </div>
                                         <div>
                                             <p className="text-sm font-bold">Nexo RRHH & Nómina</p>
-                                            <p className="text-[11px] text-muted-foreground">Gestión LOTTT Integral</p>
+                                            <p className="text-[11px] text-muted-foreground">Próximamente</p>
                                         </div>
-                                    </Link>
+                                    </div>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild className="rounded-xl cursor-pointer p-0 mb-1 focus:bg-transparent">
-                                    <Link href="/dashboard-empresa" prefetch={false} className="flex items-center gap-3 p-3 hover:bg-white/[0.04] transition-all group">
+                                    <div className="flex items-center gap-3 p-3 opacity-50 cursor-not-allowed">
                                         <div className="h-9 w-9 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 shrink-0">
                                             <Building2 className="h-4 w-4" />
                                         </div>
                                         <div>
                                             <p className="text-sm font-bold">Nexo Contable</p>
-                                            <p className="text-[11px] text-muted-foreground">VEN-NIF & SENIAT 360</p>
+                                            <p className="text-[11px] text-muted-foreground">Próximamente</p>
                                         </div>
-                                    </Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer p-0 focus:bg-transparent">
-                                    <Link href="/mi-linea" prefetch={false} className="flex items-center gap-3 p-3 hover:bg-white/[0.04] transition-all group">
-                                        <div className="h-9 w-9 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
-                                            <Smartphone className="h-4 w-4" />
-                                        </div>
-                                        <div>
-                                            <p className="text-sm font-bold">Nexo Telecom</p>
-                                            <p className="text-[11px] text-muted-foreground">Gestión de Flota & 5G</p>
-                                        </div>
-                                    </Link>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-
-                        {/* Empresa Dropdown */}
-                        <DropdownMenu>
-                            <DropdownMenuTrigger className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white/60 hover:text-cyan-400 transition-colors duration-200 outline-none cursor-pointer">
-                                {t('company')}
-                                <ChevronDown className="h-3 w-3 opacity-50 transition-transform group-data-[state=open]:rotate-180" />
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="center" className="w-56 p-2 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl mt-3">
-                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
-                                    <Link href="/soporte" className="flex items-center gap-3 p-3 hover:bg-white/[0.04]">
-                                        <ShieldCheck className="h-4 w-4 text-blue-400" />
-                                        <span className="text-xs font-bold uppercase tracking-wider">{t('support')}</span>
-                                    </Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
-                                    <a href="#contacto" onClick={(e) => handleAnchorClick(e, '#contacto')} className="flex items-center gap-3 p-3 hover:bg-white/[0.04]">
-                                        <User className="h-4 w-4 text-emerald-400" />
-                                        <span className="text-xs font-bold uppercase tracking-wider">{t('contact')}</span>
-                                    </a>
+                                    </div>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -196,61 +164,11 @@ export function LandingHeader() {
                             <ThemeToggle />
                         </div>
                         <div className="hidden lg:flex items-center gap-2">
-                            <Button variant="ghost" asChild className="h-9 px-4 text-[10px] font-black uppercase tracking-[0.18em] border border-white/10 text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all">
-                                <Link href="/register" prefetch={false} className="flex items-center gap-1.5">
-                                    <UserPlus className="h-3.5 w-3.5" />
-                                    {t('register')}
-                                </Link>
-                            </Button>
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button className="h-9 px-5 text-[10px] font-black uppercase tracking-[0.18em] rounded-xl bg-zinc-900 border border-white/10 hover:border-cyan-500/40 text-white transition-all relative overflow-hidden group">
-                                        <span className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                                        <ShieldCheck className="h-3.5 w-3.5 mr-1.5 text-cyan-400" />
-                                        {t('access')}
-                                        <ChevronDown className="h-3 w-3 ml-1.5 opacity-40" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-[min(500px,calc(100vw-2rem))] p-0 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl overflow-hidden">
-                                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
-                                    <div className="p-4 pb-3 border-b border-white/[0.06]">
-                                        <DropdownMenuLabel className="p-0 flex items-center gap-3">
-                                            <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg">
-                                                <Sparkles className="h-4 w-4 text-white" />
-                                            </div>
-                                            <div>
-                                                <p className="text-sm font-bold">Panel de Gestión</p>
-                                                <p className="text-[10px] text-muted-foreground/40">Acceso Seguro</p>
-                                            </div>
-                                        </DropdownMenuLabel>
-                                    </div>
-                                    <div className="p-3 max-h-[60vh] overflow-y-auto">
-                                        <div className="grid grid-cols-2 gap-1.5">
-                                            {loginOptions.map((option) => (
-                                                <DropdownMenuItem key={option.href} asChild className="rounded-xl p-0 cursor-pointer focus:bg-transparent data-[highlighted]:bg-transparent">
-                                                    <Link href={option.href as any} prefetch={false} className="flex items-center gap-3 p-3 rounded-xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.04] hover:border-white/[0.08] hover:-translate-y-0.5 transition-all duration-200 group">
-                                                        <div className={cn("h-8 w-8 rounded-lg bg-gradient-to-br flex items-center justify-center text-white shrink-0 shadow-sm group-hover:scale-105 transition-transform", option.gradient)}>
-                                                            <option.icon className="h-3.5 w-3.5" />
-                                                        </div>
-                                                        <div className="flex-1 min-w-0">
-                                                            <p className="text-[11px] font-bold text-foreground/60 group-hover:text-foreground/80 transition-colors">{option.label}</p>
-                                                            <p className="text-[9px] text-muted-foreground/30 line-clamp-1 mt-0.5">{option.description}</p>
-                                                        </div>
-                                                        <ChevronRight className="h-3 w-3 text-muted-foreground/10 group-hover:text-foreground/20 transition-all shrink-0" />
-                                                    </Link>
-                                                </DropdownMenuItem>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="p-3 pt-2 border-t border-white/[0.04]">
-                                        <Link href="/login" prefetch={false} className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-cyan-500/[0.04] hover:bg-cyan-500/[0.08] border border-cyan-500/10 hover:border-cyan-500/20 transition-all group">
-                                            <KeyRound className="h-3 w-3 text-cyan-400/50 group-hover:text-cyan-400 transition-colors" />
-                                            <span className="text-[10px] font-semibold text-cyan-400/50 group-hover:text-cyan-400 transition-colors">{t('see_all_services')}</span>
-                                            <ArrowRight className="h-2.5 w-2.5 text-cyan-400/30 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all" />
-                                        </Link>
-                                    </div>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                             {/* Aviso de Construcción en Header */}
+                             <div className="flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+                                <Construction className="h-3.5 w-3.5 text-amber-500" />
+                                <span className="text-[10px] font-black uppercase tracking-widest text-amber-200/60">En Construcción</span>
+                            </div>
                         </div>
 
                         {/* Mobile menu */}
@@ -282,7 +200,6 @@ export function LandingHeader() {
                                             { label: t('home'), href: '/' },
                                             { label: t('platform'), href: '#caracteristicas' },
                                             { label: t('plans'), href: '#planes' },
-                                            { label: t('support'), href: '/soporte' },
                                         ].map((item) => (
                                             <SheetClose key={item.href} asChild>
                                                 <a href={item.href} onClick={(e) => handleAnchorClick(e as any, item.href)} className="text-sm font-semibold py-2.5 px-3 rounded-xl text-white/50 hover:text-white hover:bg-white/[0.04] transition-all flex items-center justify-between cursor-pointer">
@@ -292,23 +209,11 @@ export function LandingHeader() {
                                             </SheetClose>
                                         ))}
                                     </nav>
-                                    <div className="p-4 border-b border-white/[0.04]">
-                                        <p className="text-[9px] font-black uppercase tracking-[0.35em] text-white/20 mb-3 px-1">Acceder a un Portal</p>
-                                        <div className="grid grid-cols-1 gap-1.5">
-                                            {loginOptions.map((option) => (
-                                                <SheetClose key={option.href} asChild>
-                                                    <Link href={option.href as any} prefetch={false} className="flex items-center gap-3 p-3 rounded-xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.05] hover:border-white/[0.08] transition-all group">
-                                                        <div className={cn("h-8 w-8 rounded-lg bg-gradient-to-br flex items-center justify-center text-white shrink-0", option.gradient)}>
-                                                            <option.icon className="h-3.5 w-3.5" />
-                                                        </div>
-                                                        <div className="flex-1 min-w-0">
-                                                            <p className="text-[12px] font-bold text-white/70 group-hover:text-white block">{option.label}</p>
-                                                            <p className="text-[10px] text-white/25 line-clamp-1 mt-0.5">{option.description}</p>
-                                                        </div>
-                                                        <ChevronRight className="h-3.5 w-3.5 text-white/10 shrink-0" />
-                                                    </Link>
-                                                </SheetClose>
-                                            ))}
+                                    <div className="p-6 text-center space-y-4">
+                                        <Construction className="h-12 w-12 text-amber-500 mx-auto animate-pulse" />
+                                        <div className="space-y-1">
+                                            <p className="text-white font-black uppercase text-xs tracking-widest">Plataforma en Desarrollo</p>
+                                            <p className="text-zinc-500 text-[10px] font-medium leading-relaxed uppercase tracking-tighter">Los accesos públicos están restringidos temporalmente.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -317,19 +222,9 @@ export function LandingHeader() {
                                         <LanguageSwitcher variant="default" align="start" />
                                         <ThemeToggle />
                                     </div>
-                                    <Button asChild variant="outline" className="w-full h-12 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] border-2 border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/[0.06] hover:border-emerald-500/40">
-                                        <Link href="/register" prefetch={false} className="flex items-center justify-center gap-2">
-                                            <UserPlus className="h-4 w-4" />
-                                            {t('register')}
-                                        </Link>
-                                    </Button>
-                                    <Button asChild className="w-full h-12 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600">
-                                        <Link href="/login" prefetch={false} className="flex items-center justify-center gap-2">
-                                            <ShieldCheck className="h-4 w-4" />
-                                            {t('access')}
-                                            <ArrowRight className="h-3.5 w-3.5" />
-                                        </Link>
-                                    </Button>
+                                    <div className="w-full py-4 text-center bg-amber-500/10 border border-amber-500/20 rounded-2xl">
+                                        <span className="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em]">⚠️ Mantenimiento ⚠️</span>
+                                    </div>
                                 </div>
                             </SheetContent>
                         </Sheet>
