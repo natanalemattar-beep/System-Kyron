@@ -353,9 +353,6 @@ export function SpecializedLoginCard({
     setSingleCode('');
     try {
       const body: Record<string, string> = { method, destino: verificationEmail, tipo: method };
-      if ((method === 'sms' || method === 'whatsapp') && challengeToken) {
-        body.challengeToken = challengeToken;
-      }
       const res = await fetch('/api/auth/send-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

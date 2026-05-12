@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { useRouter } from '@/navigation';
+import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Loader2, TriangleAlert, ArrowRight, Home } from 'lucide-react';

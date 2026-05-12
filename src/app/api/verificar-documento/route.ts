@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
     await logActivity({
       userId: session.userId,
       evento: 'DOCUMENTO_VERIFICADO',
-      categoria: 'seguridad',
+      categoria: 'documentos',
       descripcion: `Verificación: ${originalName} → ${resultado.veredicto.toUpperCase()} (${resultado.puntaje_total}%)`,
       entidadTipo: 'verificacion_documento',
       entidadId: (row as { id: number }).id,

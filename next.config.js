@@ -53,6 +53,25 @@ const nextConfig = {
     },
   },
   allowedDevOrigins: ['*.replit.dev', '*.picard.replit.dev', '*.kirk.replit.dev', '*.spock.replit.dev', '*.riker.replit.dev', '*.janeway.replit.dev'],
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+        child_process: false,
+        "node:fs": false,
+        "node:https": false,
+        "node:http": false,
+        "node:path": false,
+        "node:crypto": false,
+        "node:stream": false,
+        "node:url": false,
+      };
+    }
+    return config;
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'flagcdn.com' },
