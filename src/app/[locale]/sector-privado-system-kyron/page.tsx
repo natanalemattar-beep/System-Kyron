@@ -382,7 +382,6 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                             <img src="/images/logo-black.png" alt="Kyron" className="h-12 w-12 object-contain opacity-90" crossOrigin="anonymous" />
                             <div className="flex flex-col items-end">
                                 <span className="px-2 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-[10px] font-black uppercase tracking-widest text-white mb-1 shadow-lg">Presentación Oficial</span>
-                                <span className="text-[9px] font-black text-zinc-500 tracking-widest uppercase">Versión 2.0</span>
                             </div>
                         </div>
 
