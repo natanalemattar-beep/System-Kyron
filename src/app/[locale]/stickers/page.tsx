@@ -62,9 +62,9 @@ export default function StickersPage() {
         }
     };
 
-    const stickersArray = Array.from({ length: 24 });
+    const stickersArray = Array.from({ length: 12 });
     const qrUrl = "https://system-kyron.vercel.app";
-    const qrCodeImage = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrUrl)}&color=000000&bgcolor=ffffff&margin=1`;
+    const qrCodeImage = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(qrUrl)}&color=000000&bgcolor=ffffff&margin=1`;
 
     return (
         <div className="min-h-screen bg-[#030711] text-white font-[family-name:var(--font-outfit)] print:bg-white print:text-black">
@@ -126,16 +126,16 @@ export default function StickersPage() {
                     id="stickers-sheet"
                     className="bg-white shadow-[0_0_80px_rgba(0,0,0,0.5)] print:shadow-none w-[8.5in] min-h-[11in] p-[0.5in] origin-top transform transition-transform duration-500"
                 >
-                    <div className="grid grid-cols-4 gap-y-8 gap-x-6">
+                    <div className="grid grid-cols-3 gap-y-12 gap-x-10">
                         {stickersArray.map((_, index) => (
                             <div 
                                 key={index} 
-                                className="aspect-square bg-white border border-zinc-100 rounded-full flex flex-col items-center justify-center p-5 relative overflow-hidden break-inside-avoid shadow-[inset_0_0_20px_rgba(0,0,0,0.02)]"
+                                className="aspect-square bg-white border border-zinc-100 rounded-full flex flex-col items-center justify-center p-8 relative overflow-hidden break-inside-avoid shadow-[inset_0_0_20px_rgba(0,0,0,0.02)]"
                             >
                                 {/* Borde de corte sutil */}
                                 <div className="absolute inset-0 rounded-full border-[0.5px] border-zinc-200 pointer-events-none opacity-50" />
                                 
-                                <div className="relative w-12 h-12 mb-2 z-10">
+                                <div className="relative w-20 h-20 mb-3 z-10">
                                     <Image 
                                         src="/images/logo-black.png" 
                                         alt="Kyron Logo" 
@@ -145,27 +145,27 @@ export default function StickersPage() {
                                     />
                                 </div>
                                 
-                                <h2 className="text-black font-black uppercase tracking-tighter text-[10px] leading-none text-center z-10">
+                                <h2 className="text-black font-black uppercase tracking-tighter text-[16px] leading-none text-center z-10">
                                     System<br/>
-                                    <span className="text-cyan-600 text-[9px] tracking-[0.1em]">Kyron</span>
+                                    <span className="text-cyan-600 text-[14px] tracking-[0.1em]">Kyron</span>
                                 </h2>
 
-                                <div className="mt-2 p-1 bg-white border border-zinc-100 rounded-lg shadow-sm z-10">
+                                <div className="mt-4 p-2 bg-white border border-zinc-100 rounded-2xl shadow-sm z-10">
                                     <img 
                                         src={qrCodeImage} 
                                         alt="QR" 
-                                        className="w-8 h-8 opacity-90"
+                                        className="w-16 h-16 opacity-90"
                                         crossOrigin="anonymous"
                                     />
                                 </div>
                                 
-                                <p className="text-[5px] font-black text-zinc-400 tracking-[0.2em] mt-2 uppercase z-10">
+                                <p className="text-[8px] font-black text-zinc-400 tracking-[0.2em] mt-4 uppercase z-10">
                                     system-kyron.vercel.app
                                 </p>
 
                                 {/* Subtle background pattern */}
                                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none z-0">
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rotate-12 border-[0.5px] border-zinc-900 rounded-3xl" />
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rotate-12 border-[0.5px] border-zinc-900 rounded-[3rem]" />
                                 </div>
                             </div>
                         ))}
@@ -197,4 +197,3 @@ export default function StickersPage() {
         </div>
     );
 }
-
