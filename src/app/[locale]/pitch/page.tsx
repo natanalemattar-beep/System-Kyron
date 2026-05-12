@@ -542,7 +542,7 @@ export default function PitchPage() {
     const handleExportPPTX = async () => {
         setIsExporting(true);
         try {
-            const PptxGenJS = (await import("pptxgenjs")).default;
+            const PptxGenJS = (await import("pptxgenjs/dist/pptxgen.bundle.js")).default;
             const pptx = new PptxGenJS();
             
             pptx.layout = 'LAYOUT_16x9';
