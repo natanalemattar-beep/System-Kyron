@@ -64,7 +64,7 @@ export default function StickersPage() {
 
     const stickersArray = Array.from({ length: 12 });
     const qrUrl = "https://system-kyron.vercel.app";
-    const qrCodeImage = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(qrUrl)}&color=000000&bgcolor=ffffff&margin=1`;
+    const qrCodeImage = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrUrl)}&color=000000&bgcolor=ffffff&margin=1`;
 
     return (
         <div className="min-h-screen bg-[#030711] text-white font-[family-name:var(--font-outfit)] print:bg-white print:text-black">
@@ -124,48 +124,52 @@ export default function StickersPage() {
             <div className="pb-20 px-4 print:p-0 flex justify-center">
                 <div 
                     id="stickers-sheet"
-                    className="bg-white shadow-[0_0_80px_rgba(0,0,0,0.5)] print:shadow-none w-[8.5in] min-h-[11in] p-[0.5in] origin-top transform transition-transform duration-500"
+                    className="bg-white shadow-[0_0_80px_rgba(0,0,0,0.5)] print:shadow-none w-[8.5in] min-h-[11in] p-[0.6in] origin-top transform transition-transform duration-500"
                 >
-                    <div className="grid grid-cols-3 gap-y-12 gap-x-10">
+                    <div className="grid grid-cols-3 gap-y-16 gap-x-12">
                         {stickersArray.map((_, index) => (
                             <div 
                                 key={index} 
-                                className="aspect-square bg-white border border-zinc-100 rounded-full flex flex-col items-center justify-center p-8 relative overflow-hidden break-inside-avoid shadow-[inset_0_0_20px_rgba(0,0,0,0.02)]"
+                                className="aspect-square bg-white border border-zinc-200 rounded-full flex flex-col items-center justify-center p-6 relative overflow-hidden break-inside-avoid shadow-[0_4px_15px_rgba(0,0,0,0.05)]"
                             >
                                 {/* Borde de corte sutil */}
-                                <div className="absolute inset-0 rounded-full border-[0.5px] border-zinc-200 pointer-events-none opacity-50" />
+                                <div className="absolute inset-0 rounded-full border border-zinc-100 pointer-events-none" />
                                 
-                                <div className="relative w-20 h-20 mb-3 z-10">
-                                    <Image 
-                                        src="/images/logo-black.png" 
-                                        alt="Kyron Logo" 
-                                        fill 
-                                        className="object-contain"
-                                        unoptimized
-                                    />
-                                </div>
-                                
-                                <h2 className="text-black font-black uppercase tracking-tighter text-[16px] leading-none text-center z-10">
-                                    System<br/>
-                                    <span className="text-cyan-600 text-[14px] tracking-[0.1em]">Kyron</span>
-                                </h2>
+                                <div className="flex flex-col items-center w-full">
+                                    {/* Logo Principal - Aumentado y Centrado */}
+                                    <div className="relative w-24 h-14 mb-1">
+                                        <img 
+                                            src="/images/logo-black.png" 
+                                            alt="Kyron Logo" 
+                                            className="w-full h-full object-contain"
+                                        />
+                                    </div>
+                                    
+                                    <div className="flex flex-col items-center mb-3">
+                                        <h2 className="text-black font-black uppercase tracking-[-0.05em] text-[18px] leading-none text-center">
+                                            System
+                                        </h2>
+                                        <span className="text-cyan-600 font-black uppercase text-[15px] tracking-[0.15em] leading-none mt-1">Kyron</span>
+                                    </div>
 
-                                <div className="mt-4 p-2 bg-white border border-zinc-100 rounded-2xl shadow-sm z-10">
-                                    <img 
-                                        src={qrCodeImage} 
-                                        alt="QR" 
-                                        className="w-16 h-16 opacity-90"
-                                        crossOrigin="anonymous"
-                                    />
+                                    {/* QR Code - Enmarcado */}
+                                    <div className="p-2.5 bg-white border border-zinc-100 rounded-[1.5rem] shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
+                                        <img 
+                                            src={qrCodeImage} 
+                                            alt="QR" 
+                                            className="w-20 h-20"
+                                            crossOrigin="anonymous"
+                                        />
+                                    </div>
+                                    
+                                    <p className="text-[9px] font-black text-zinc-400 tracking-[0.25em] mt-4 uppercase">
+                                        system-kyron.vercel.app
+                                    </p>
                                 </div>
-                                
-                                <p className="text-[8px] font-black text-zinc-400 tracking-[0.2em] mt-4 uppercase z-10">
-                                    system-kyron.vercel.app
-                                </p>
 
                                 {/* Subtle background pattern */}
-                                <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none z-0">
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rotate-12 border-[0.5px] border-zinc-900 rounded-[3rem]" />
+                                <div className="absolute inset-0 opacity-[0.02] pointer-events-none select-none z-0">
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rotate-12 border-[0.5px] border-zinc-900 rounded-[4rem]" />
                                 </div>
                             </div>
                         ))}
@@ -188,7 +192,7 @@ export default function StickersPage() {
                     #stickers-sheet {
                         box-shadow: none !important;
                         margin: 0 !important;
-                        padding: 0.5in !important;
+                        padding: 0.6in !important;
                         width: 8.5in !important;
                         min-height: 11in !important;
                     }
