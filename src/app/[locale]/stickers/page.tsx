@@ -339,8 +339,12 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
                         <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">www.system-kyron.app</span>
                     </div>
                     <div className="flex items-center gap-2">
+                        <Phone className="h-2.5 w-2.5 text-cyan-600" />
+                        <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">+58 414-9377068</span>
+                    </div>
+                    <div className="flex items-center gap-2">
                         <MapPin className="h-2.5 w-2.5 text-cyan-600" />
-                        <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">Caracas, Venezuela</span>
+                        <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">La Guaira, Venezuela</span>
                     </div>
                 </div>
             </div>
