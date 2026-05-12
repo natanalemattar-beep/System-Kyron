@@ -802,19 +802,20 @@ export function SpecializedLoginCard({
                     )}
                   </div>
 
-                  <div className="flex justify-center gap-3 py-2">
+                  <div className="flex justify-center gap-4 py-6">
                     {[...Array(6)].map((_, i) => (
                       <motion.div
                         key={i}
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.03, duration: 0.2, ease: "easeOut" }}
+                        initial={{ opacity: 0, y: 15, scale: 0.8 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ delay: i * 0.05, duration: 0.5, type: "spring", stiffness: 300, damping: 20 }}
                         className="relative group/input"
                       >
                         <input
                           type="text"
                           maxLength={1}
                           inputMode="numeric"
+                          autoComplete="one-time-code"
                           value={singleCode[i] || ''}
                           onChange={(e) => {
                             const val = e.target.value.replace(/\D/g, '');
@@ -837,14 +838,18 @@ export function SpecializedLoginCard({
                             }
                           }}
                           className={cn(
-                            "w-12 h-16 rounded-xl bg-slate-900/50 border-2 border-white/10 text-center text-2xl font-black text-white focus:border-blue-500/50 focus:bg-blue-500/5 focus:outline-none transition-all",
-                            singleCode[i] && "border-blue-500/30 bg-blue-500/5 shadow-[0_0_15px_rgba(59,130,246,0.1)]"
+                            "w-14 h-20 rounded-[1.25rem] bg-slate-950/80 border-2 border-white/10 text-center text-3xl font-black text-white focus:border-blue-500 focus:bg-blue-500/10 focus:outline-none transition-all duration-300 shadow-[0_20px_50px_rgba(0,0,0,0.4)]",
+                            singleCode[i] && "border-blue-500/60 bg-blue-500/5 shadow-[0_0_30px_rgba(59,130,246,0.2)]"
                           )}
                         />
-                        <div className={cn(
-                          "absolute bottom-0 left-2 right-2 h-0.5 rounded-full transition-all duration-300",
-                          singleCode[i] ? "bg-blue-500" : "bg-white/5"
-                        )} />
+                        {/* Interactive underline indicator */}
+                        <motion.div 
+                          className={cn(
+                            "absolute bottom-3 left-4 right-4 h-1 rounded-full blur-[1px] transition-all duration-500",
+                            singleCode[i] ? "bg-blue-400 opacity-100" : "bg-white/5 opacity-40"
+                          )} 
+                          animate={singleCode[i] ? { scaleX: [0.5, 1], opacity: [0.5, 1] } : {}}
+                        />
                       </motion.div>
                     ))}
                   </div>
