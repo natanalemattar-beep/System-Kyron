@@ -164,11 +164,41 @@ export function LandingHeader() {
                             <ThemeToggle />
                         </div>
                         <div className="hidden lg:flex items-center gap-2">
-                             {/* Aviso de Construcción en Header */}
-                             <div className="flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-xl">
-                                <Construction className="h-3.5 w-3.5 text-amber-500" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-amber-200/60">En Construcción</span>
-                            </div>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="ghost" className="h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest text-white/60 hover:text-white hover:bg-white/[0.05] transition-all group">
+                                        <KeyRound className="h-3.5 w-3.5 mr-2 opacity-60 group-hover:opacity-100 transition-opacity" />
+                                        {t('login')}
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-64 p-2 rounded-2xl border border-white/[0.06] bg-card/98 backdrop-blur-3xl shadow-2xl mt-2">
+                                    <DropdownMenuLabel className="px-3 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-white/30">
+                                        Portales de Acceso
+                                    </DropdownMenuLabel>
+                                    <div className="space-y-1">
+                                        {loginOptions.map((option) => (
+                                            <DropdownMenuItem key={option.href} asChild className="rounded-xl cursor-pointer p-0 focus:bg-transparent group/item">
+                                                <Link href={option.href as any} prefetch={false} className="flex items-center gap-3 p-2 hover:bg-white/[0.04] transition-colors w-full">
+                                                    <div className={cn("h-8 w-8 rounded-lg bg-gradient-to-br flex items-center justify-center text-white shrink-0 shadow-inner", option.gradient)}>
+                                                        <option.icon className="h-3.5 w-3.5" />
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-sm font-bold text-white/80 group-hover/item:text-white transition-colors">{option.label}</p>
+                                                        <p className="text-[10px] text-white/30 group-hover/item:text-white/50 transition-colors">{option.description}</p>
+                                                    </div>
+                                                </Link>
+                                            </DropdownMenuItem>
+                                        ))}
+                                    </div>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+
+                            <Button asChild className="h-9 px-5 rounded-xl font-black text-[10px] uppercase tracking-widest text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 hover:shadow-lg hover:shadow-cyan-500/20 transition-all ml-1 border-0">
+                                <Link href="/register" prefetch={false} className="flex items-center gap-2">
+                                    <UserPlus className="h-3.5 w-3.5" />
+                                    {t('register')}
+                                </Link>
+                            </Button
                         </div>
 
                         {/* Mobile menu */}
@@ -209,11 +239,23 @@ export function LandingHeader() {
                                             </SheetClose>
                                         ))}
                                     </nav>
-                                    <div className="p-6 text-center space-y-4">
-                                        <Construction className="h-12 w-12 text-amber-500 mx-auto animate-pulse" />
-                                        <div className="space-y-1">
-                                            <p className="text-white font-black uppercase text-xs tracking-widest">Plataforma en Desarrollo</p>
-                                            <p className="text-zinc-500 text-[10px] font-medium leading-relaxed uppercase tracking-tighter">Los accesos públicos están restringidos temporalmente.</p>
+                                    <div className="p-4 border-b border-white/[0.04]">
+                                        <p className="text-[9px] font-black uppercase tracking-[0.35em] text-white/20 mb-3 px-1">Acceder a un Portal</p>
+                                        <div className="grid grid-cols-1 gap-1.5">
+                                            {loginOptions.map((option) => (
+                                                <SheetClose key={option.href} asChild>
+                                                    <Link href={option.href as any} prefetch={false} className="flex items-center gap-3 p-3 rounded-xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.05] hover:border-white/[0.08] transition-all group">
+                                                        <div className={cn("h-8 w-8 rounded-lg bg-gradient-to-br flex items-center justify-center text-white shrink-0", option.gradient)}>
+                                                            <option.icon className="h-3.5 w-3.5" />
+                                                        </div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <p className="text-[12px] font-bold text-white/70 group-hover:text-white block">{option.label}</p>
+                                                            <p className="text-[10px] text-white/25 line-clamp-1 mt-0.5">{option.description}</p>
+                                                        </div>
+                                                        <ChevronRight className="h-3.5 w-3.5 text-white/10 shrink-0" />
+                                                    </Link>
+                                                </SheetClose>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
@@ -222,9 +264,19 @@ export function LandingHeader() {
                                         <LanguageSwitcher variant="default" align="start" />
                                         <ThemeToggle />
                                     </div>
-                                    <div className="w-full py-4 text-center bg-amber-500/10 border border-amber-500/20 rounded-2xl">
-                                        <span className="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em]">⚠️ Mantenimiento ⚠️</span>
-                                    </div>
+                                    <Button asChild variant="outline" className="w-full h-12 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] border-2 border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/[0.06] hover:border-emerald-500/40">
+                                        <Link href="/register" prefetch={false} className="flex items-center justify-center gap-2">
+                                            <UserPlus className="h-4 w-4" />
+                                            {t('register')}
+                                        </Link>
+                                    </Button>
+                                    <Button asChild className="w-full h-12 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600">
+                                        <Link href="/login" prefetch={false} className="flex items-center justify-center gap-2">
+                                            <ShieldCheck className="h-4 w-4" />
+                                            {t('access')}
+                                            <ArrowRight className="h-3.5 w-3.5" />
+                                        </Link>
+                                    </Button
                                 </div>
                             </SheetContent>
                         </Sheet>

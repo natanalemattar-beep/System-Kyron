@@ -239,7 +239,7 @@ export default function IdentityAssetsPage() {
 
 function StickerItem({ qrCodeImage }: { qrCodeImage: string }) {
     return (
-        <div className="w-[2.25in] h-[2.25in] bg-white rounded-full flex flex-col items-center justify-center relative overflow-hidden break-inside-avoid border border-zinc-200 shadow-sm">
+        <div className="w-[2.25in] h-[2.25in] aspect-square shrink-0 bg-white rounded-full flex flex-col items-center justify-center relative overflow-hidden break-inside-avoid border border-zinc-200 shadow-sm">
             <div className="absolute inset-0 rounded-full border-[1.5px] border-zinc-200 pointer-events-none z-20 opacity-30" />
             <div className="flex flex-col items-center w-full relative z-10 pt-1">
                 <div className="relative w-10 h-10 mb-1.5 flex items-center justify-center">
