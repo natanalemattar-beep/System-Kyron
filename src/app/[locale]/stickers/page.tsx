@@ -3,15 +3,16 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { Printer as PrinterIcon, ArrowLeft } from 'lucide-react';
+import { Printer as PrinterIcon, ArrowLeft, Download, Sparkles, QrCode } from 'lucide-react';
 import { Link } from '@/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function StickersPage() {
     const [mounted, setMounted] = useState(false);
+    const [isExporting, setIsExporting] = useState(false);
     
     useEffect(() => {
         setMounted(true);
-        // Permitir scroll libre para ver todos los stickers
         document.documentElement.classList.remove('overflow-hidden');
         document.body.classList.remove('overflow-hidden');
     }, []);
@@ -22,57 +23,153 @@ export default function StickersPage() {
         window.print();
     };
 
-    // Generamos un arreglo de 24 stickers (4 columnas x 6 filas) para llenar una página carta
+    const handleDownloadPDF = async () => {
+        if (isExporting) return;
+        setIsExporting(true);
+
+        try {
+            const html2canvas = (await import('html2canvas')).default;
+            const { jsPDF } = await import('jspdf');
+
+            const element = document.getElementById('stickers-sheet');
+            if (!element) return;
+
+            const canvas = await html2canvas(element, {
+                scale: 3, // High quality
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                logging: false,
+            });
+
+            const imgData = canvas.toDataURL('image/jpeg', 1.0);
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'in',
+                format: 'letter'
+            });
+
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save('System-Kyron-Stickers-Oficiales.pdf');
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            alert('Error al generar el PDF. Por favor, intente de nuevo.');
+        } finally {
+            setIsExporting(false);
+        }
+    };
+
     const stickersArray = Array.from({ length: 24 });
+    const qrUrl = "https://system-kyron.vercel.app";
+    const qrCodeImage = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrUrl)}&color=000000&bgcolor=ffffff&margin=1`;
 
     return (
-        <div className="min-h-screen bg-zinc-950 text-white font-[family-name:var(--font-outfit)] print:bg-white print:text-black">
+        <div className="min-h-screen bg-[#030711] text-white font-[family-name:var(--font-outfit)] print:bg-white print:text-black">
             
             {/* Toolbar No Imprimible */}
-            <div className="p-6 flex justify-between items-center bg-zinc-900 border-b border-zinc-800 print:hidden sticky top-0 z-50">
-                <div>
-                    <h1 className="text-2xl font-black uppercase tracking-tighter text-white">Generador de Stickers</h1>
-                    <p className="text-zinc-400 text-sm mt-1">Imprime esta página en papel adhesivo para tener stickers oficiales de System Kyron.</p>
+            <div className="p-6 flex flex-col md:flex-row justify-between items-center bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10 print:hidden sticky top-0 z-50 gap-4">
+                <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+                        <Sparkles className="h-6 w-6 text-cyan-400" />
+                    </div>
+                    <div>
+                        <h1 className="text-xl md:text-2xl font-black uppercase tracking-tighter text-white">Generador Elite de Stickers</h1>
+                        <p className="text-zinc-500 text-xs mt-0.5 font-medium uppercase tracking-widest">System Kyron Digital Identity Assets</p>
+                    </div>
                 </div>
-                <div className="flex gap-4">
-                    <Link href="/sector-privado-system-kyron" className="flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg text-sm font-bold transition-all">
-                        <ArrowLeft className="h-4 w-4" /> Volver
+                
+                <div className="flex flex-wrap justify-center gap-3">
+                    <Link href="/sector-privado-system-kyron" className="flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/10 text-zinc-300 rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-white/5">
+                        <ArrowLeft className="h-3.5 w-3.5" /> Volver
                     </Link>
+                    
+                    <button 
+                        onClick={handleDownloadPDF}
+                        disabled={isExporting}
+                        className="flex items-center gap-2 px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-50 text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-zinc-700 shadow-xl"
+                    >
+                        <Download className={`h-3.5 w-3.5 ${isExporting ? 'animate-bounce' : ''}`} /> 
+                        {isExporting ? 'Generando...' : 'Descargar PDF'}
+                    </button>
+
                     <button 
                         onClick={handlePrint}
-                        className="flex items-center gap-2 px-6 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-sm font-black uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+                        className="flex items-center gap-2 px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-[0_10px_25px_rgba(6,182,212,0.3)] hover:scale-105 active:scale-95"
                     >
-                        <PrinterIcon className="h-4 w-4" /> Imprimir Stickers
+                        <PrinterIcon className="h-3.5 w-3.5" /> Imprimir Ahora
                     </button>
                 </div>
             </div>
 
-            {/* Hoja de Stickers (Formato A4/Carta) */}
-            <div className="p-8 mx-auto w-full max-w-[8.5in] print:p-0 print:m-0 print:max-w-none">
-                <div className="grid grid-cols-4 gap-4 print:gap-2">
-                    {stickersArray.map((_, index) => (
-                        <div 
-                            key={index} 
-                            className="aspect-square bg-white border-2 border-dashed border-zinc-300 print:border-solid print:border-zinc-200 rounded-full flex flex-col items-center justify-center p-4 relative overflow-hidden break-inside-avoid"
-                        >
-                            {/* Borde de corte */}
-                            <div className="absolute inset-1 rounded-full border border-zinc-100 print:border-zinc-100 pointer-events-none" />
-                            
-                            <div className="relative w-16 h-16 mb-2">
-                                <Image 
-                                    src="/images/logo-black.png" 
-                                    alt="Kyron Logo" 
-                                    fill 
-                                    className="object-contain" 
-                                />
+            {/* Preview Banner */}
+            <div className="max-w-4xl mx-auto px-6 py-8 print:hidden">
+                <div className="bg-cyan-500/5 border border-cyan-500/10 rounded-3xl p-6 flex items-start gap-4">
+                    <div className="p-3 bg-cyan-500/10 rounded-2xl">
+                        <PrinterIcon className="h-6 w-6 text-cyan-400" />
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-black uppercase tracking-tight text-white mb-1">Instrucciones de Impresión</h3>
+                        <p className="text-zinc-400 text-sm leading-relaxed">
+                            Para obtener resultados óptimos, utilice **papel adhesivo brillante o mate (Letter/Carta)**. 
+                            Asegúrese de configurar la escala al **100% (Tamaño Real)** en los ajustes de impresión para que los stickers mantengan su dimensión original.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Hoja de Stickers (Formato Carta) */}
+            <div className="pb-20 px-4 print:p-0 flex justify-center">
+                <div 
+                    id="stickers-sheet"
+                    className="bg-white shadow-[0_0_80px_rgba(0,0,0,0.5)] print:shadow-none w-[8.5in] min-h-[11in] p-[0.5in] origin-top transform transition-transform duration-500"
+                >
+                    <div className="grid grid-cols-4 gap-y-8 gap-x-6">
+                        {stickersArray.map((_, index) => (
+                            <div 
+                                key={index} 
+                                className="aspect-square bg-white border border-zinc-100 rounded-full flex flex-col items-center justify-center p-5 relative overflow-hidden break-inside-avoid shadow-[inset_0_0_20px_rgba(0,0,0,0.02)]"
+                            >
+                                {/* Borde de corte sutil */}
+                                <div className="absolute inset-0 rounded-full border-[0.5px] border-zinc-200 pointer-events-none opacity-50" />
+                                
+                                <div className="relative w-12 h-12 mb-2 z-10">
+                                    <Image 
+                                        src="/images/logo-black.png" 
+                                        alt="Kyron Logo" 
+                                        fill 
+                                        className="object-contain"
+                                        unoptimized
+                                    />
+                                </div>
+                                
+                                <h2 className="text-black font-black uppercase tracking-tighter text-[10px] leading-none text-center z-10">
+                                    System<br/>
+                                    <span className="text-cyan-600 text-[9px] tracking-[0.1em]">Kyron</span>
+                                </h2>
+
+                                <div className="mt-2 p-1 bg-white border border-zinc-100 rounded-lg shadow-sm z-10">
+                                    <img 
+                                        src={qrCodeImage} 
+                                        alt="QR" 
+                                        className="w-8 h-8 opacity-90"
+                                        crossOrigin="anonymous"
+                                    />
+                                </div>
+                                
+                                <p className="text-[5px] font-black text-zinc-400 tracking-[0.2em] mt-2 uppercase z-10">
+                                    system-kyron.vercel.app
+                                </p>
+
+                                {/* Subtle background pattern */}
+                                <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none z-0">
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rotate-12 border-[0.5px] border-zinc-900 rounded-3xl" />
+                                </div>
                             </div>
-                            <h2 className="text-black font-black uppercase tracking-tighter text-[11px] leading-none text-center">
-                                System<br/>
-                                <span className="text-zinc-500 text-[10px]">Kyron</span>
-                            </h2>
-                            <p className="text-[6px] font-bold text-zinc-400 tracking-[0.2em] mt-1 uppercase">system-kyron.vercel.app</p>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
 
@@ -81,13 +178,23 @@ export default function StickersPage() {
                 @media print {
                     @page {
                         size: letter;
-                        margin: 0.5in;
+                        margin: 0;
                     }
                     body {
                         background-color: white !important;
+                        -webkit-print-color-adjust: exact !important;
+                        print-color-adjust: exact !important;
+                    }
+                    #stickers-sheet {
+                        box-shadow: none !important;
+                        margin: 0 !important;
+                        padding: 0.5in !important;
+                        width: 8.5in !important;
+                        min-height: 11in !important;
                     }
                 }
             `}</style>
         </div>
     );
 }
+
