@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const WHATSAPP_NUMBER = '584149377068';
+const WHATSAPP_NUMBER = '584241846016';
 const WHATSAPP_MESSAGE = encodeURIComponent(
   '¡Hola! Me interesa conocer más sobre System Kyron. ¿Pueden brindarme información?'
 );

@@ -338,10 +338,14 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
                         <Globe className="h-2.5 w-2.5 text-cyan-600" />
                         <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">www.system-kyron.app</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <a 
+                        href="https://wa.me/584241846016" 
+                        target="_blank" 
+                        className="flex items-center gap-2 group/wa hover:text-cyan-600 transition-colors"
+                    >
                         <Phone className="h-2.5 w-2.5 text-cyan-600" />
-                        <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">+58 414-9377068</span>
-                    </div>
+                        <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider group-hover/wa:text-cyan-600">+58 424-1846016</span>
+                    </a>
                     <div className="flex items-center gap-2">
                         <MapPin className="h-2.5 w-2.5 text-cyan-600" />
                         <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">La Guaira, Venezuela</span>
