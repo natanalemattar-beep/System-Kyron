@@ -173,9 +173,9 @@ export function KyronAssistant() {
                 {isOpen && (
                     <motion.div
                         key="chat-window"
-                        initial={{ opacity: 0, scale: 0.9, y: 50, filter: "blur(20px)" }}
-                        animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
-                        exit={{ opacity: 0, scale: 0.9, y: 50, filter: "blur(20px)" }}
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: 20 }}
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
                         className={cn(
                             "liquid-glass-apple flex flex-col border-white/10 shadow-[0_30px_100px_rgba(0,0,0,0.8)] overflow-hidden",
