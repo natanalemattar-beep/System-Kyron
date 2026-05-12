@@ -248,6 +248,13 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 >
                     <ImageIcon className="h-4 w-4" /> Crear Stickers
                 </a>
+                <a 
+                    href="/es/resumen-ejecutivo"
+                    target="_blank"
+                    className="flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all border border-white/10 shadow-lg hover:scale-105 active:scale-95"
+                >
+                    <FileText className="h-4 w-4 text-cyan-400" /> Resumen Ejecutivo
+                </a>
             </div>
 
             {/* --- CARA 1: EXTERIOR (Paneles: Qué es, Cierre, Portada) --- */}
