@@ -32,7 +32,7 @@ const motion = {
 
 export default function SectorPrivadoPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = React.use(params);
-    const [baseUrl, setBaseUrl] = React.useState('https://system-kyron.com');
+    const [baseUrl, setBaseUrl] = React.useState('https://system-kyron.vercel.app');
     const [isExporting, setIsExporting] = React.useState(false);
     const [mounted, setMounted] = React.useState(false);
 
@@ -426,7 +426,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
 
                         <div className="mt-6 flex justify-between items-center px-2">
                             <div className="flex flex-col">
-                                <p className="text-[12px] text-zinc-500 tracking-widest font-black uppercase">system-kyron.com</p>
+                                <p className="text-[12px] text-zinc-500 tracking-widest font-black uppercase">system-kyron.vercel.app</p>
                                 <p className="text-[10px] text-cyan-500/60 font-black uppercase tracking-[0.2em] flex items-center gap-1.5 mt-1">
                                     <Instagram className="h-3 w-3" /> @systemkyron
                                 </p>

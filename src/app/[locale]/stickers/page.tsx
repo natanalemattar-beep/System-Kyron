@@ -70,7 +70,7 @@ export default function StickersPage() {
                                 System<br/>
                                 <span className="text-zinc-500 text-[10px]">Kyron</span>
                             </h2>
-                            <p className="text-[6px] font-bold text-zinc-400 tracking-[0.2em] mt-1 uppercase">system-kyron.com</p>
+                            <p className="text-[6px] font-bold text-zinc-400 tracking-[0.2em] mt-1 uppercase">system-kyron.vercel.app</p>
                         </div>
                     ))}
                 </div>

@@ -21,7 +21,7 @@ import { KyronAssistantWrapper } from "@/components/ai/kyron-assistant-wrapper";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://system-kyron.com'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://system-kyron.vercel.app'),
     title: {
       template: '%s | System Kyron',
       default: 'System Kyron - Ecosistema de Inteligencia Corporativa 2026',

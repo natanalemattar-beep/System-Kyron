@@ -56,6 +56,7 @@ export function LandingHeader() {
     const navItems = [
         { labelKey: 'home' as const, href: '/' },
         { labelKey: 'platform' as const, href: '#caracteristicas' },
+        { labelKey: 'pitch' as const, href: '/pitch' },
         { labelKey: 'plans' as const, href: '#planes' },
     ];
 
@@ -73,7 +74,7 @@ export function LandingHeader() {
             initial={false}
             animate={{
                 top: isScrolled ? 12 : 0,
-                y: bannerVisible && !isScrolled ? 36 : 0,
+                y: bannerVisible ? 36 : 0,
             }}
             transition={{ type: 'spring', stiffness: 300, damping: 35 }}
         >
@@ -281,6 +282,7 @@ export function LandingHeader() {
                                         {[
                                             { label: t('home'), href: '/' },
                                             { label: t('platform'), href: '#caracteristicas' },
+                                            { label: t('pitch'), href: '/pitch' },
                                             { label: t('plans'), href: '#planes' },
                                             { label: t('support'), href: '/soporte' },
                                         ].map((item) => (

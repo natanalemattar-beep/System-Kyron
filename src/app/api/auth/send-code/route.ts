@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
         // 3. Generar Magic Link
         const token = generateMagicToken();
         // Forzar dominio oficial en producción
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.com';
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.vercel.app';
         
         const magicLink = `${baseUrl}/es/verify-link/${token}`;
         

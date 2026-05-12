@@ -2,16 +2,26 @@
     "LandingHeader": {
         "home": "Home",
         "platform": "Platform",
+        "pitch": "Pitch",
+        "plans": "Plans",
         "services": "Services",
         "about": "About Us",
         "contact": "Contact",
         "login": "Sign In",
         "register": "Get Started",
         "access": "Access",
+        "solutions": "Solutions",
+        "company": "Company",
+        "support": "Support",
         "control_center": "Command Center",
         "security_protocol": "AES-256 Encryption",
         "see_all_services": "View All Services",
         "mobile_portal": "Kyron Portal"
+    },
+    "DemoBanner": {
+        "message": "PLATFORM UNDER DEVELOPMENT — EXCLUSIVE ACCESS TO RETO INSPIRAVE 2026 PITCH",
+        "cta": "VIEW PITCH",
+        "dismiss": "Dismiss"
     },
     "HeroSection": {
         "title_line1": "Digital Sovereignty",

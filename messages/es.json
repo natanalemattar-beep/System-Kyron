@@ -2,17 +2,26 @@
     "LandingHeader": {
         "home": "Inicio",
         "platform": "Plataforma",
+        "pitch": "Pitch",
+        "plans": "Planes",
         "services": "Servicios",
         "about": "Nosotros",
         "contact": "Contacto",
-        "pitch": "Pitch & Presentación",
         "login": "Acceder",
         "register": "Registrarse",
         "access": "Acceso",
+        "solutions": "Soluciones",
+        "company": "Empresa",
+        "support": "Soporte",
         "control_center": "Centro de Control",
         "security_protocol": "Cifrado AES-256",
         "see_all_services": "Ver Todos los Servicios",
         "mobile_portal": "Portal Kyron"
+    },
+    "DemoBanner": {
+        "message": "PLATAFORMA EN DESARROLLO — ACCESO EXCLUSIVO AL PITCH RETO INSPIRAVE 2026",
+        "cta": "VER PITCH",
+        "dismiss": "Cerrar"
     },
     "HeroSection": {
         "title_line1": "Tu empresa,",

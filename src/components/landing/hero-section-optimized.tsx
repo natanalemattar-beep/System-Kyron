@@ -50,10 +50,13 @@ export function HeroSectionOptimized() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Text column */}
             <div className="lg:col-span-7 text-center lg:text-left space-y-6">
-              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md hover:bg-amber-500/20 transition-colors">
-                <Sparkles className="h-4 w-4 text-amber-400" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-200/80">{t('badge')}</span>
-              </div>
+              <Link 
+                href="/pitch"
+                className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md hover:bg-amber-500/20 transition-all hover:scale-105 group"
+              >
+                <Sparkles className="h-4 w-4 text-amber-400 group-hover:animate-pulse" />
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-200/80 group-hover:text-amber-100 transition-colors">{t('badge')}</span>
+              </Link>
               <h1 className="text-[clamp(2.2rem,7vw,5rem)] font-black leading-tight text-white">
                 <span className="block mb-2">{t('title_line1')}</span>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400">{t('title_line2')}</span>

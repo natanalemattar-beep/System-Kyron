@@ -184,7 +184,7 @@ export async function POST(req: NextRequest) {
 
 
         // Forzar dominio oficial en producción
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.com';
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.vercel.app';
         
         const magicLinkUrl = `${baseUrl}/es/verify-link/${magicToken}`;
 
