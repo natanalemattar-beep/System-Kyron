@@ -8,7 +8,6 @@ import {
     FileText, 
     Presentation, 
     Sparkles, 
-    ChevronRight,
     Home
 } from 'lucide-react';
 import { Link, usePathname } from '@/navigation';
@@ -26,21 +25,21 @@ export function ResourceHeader() {
     const pathname = usePathname();
 
     return (
-        <header className="sticky top-0 z-[100] w-full bg-[#020617]/80 backdrop-blur-2xl border-b border-white/5 px-6 py-3 print:hidden">
-            <div className="max-w-7xl mx-auto flex items-center justify-between gap-8">
-                {/* Logo & Project */}
-                <div className="flex items-center gap-3">
-                    <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                        <Sparkles className="h-5 w-5 text-white" />
-                    </div>
-                    <div className="hidden md:block">
-                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400 leading-none mb-1">System Kyron</p>
-                        <p className="text-[12px] font-bold text-white uppercase tracking-tight">Recursos Elite</p>
-                    </div>
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-fit print:hidden pointer-events-none">
+            <motion.header 
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className="pointer-events-auto flex items-center gap-1.5 bg-[#09090b]/60 backdrop-blur-3xl px-2 py-1.5 rounded-full border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] group hover:border-cyan-500/30 transition-colors duration-500"
+            >
+                {/* Logo Minimal */}
+                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/20 ml-1">
+                    <Sparkles className="h-4 w-4 text-white" />
                 </div>
 
+                <div className="w-[1px] h-4 bg-white/10 mx-1" />
+
                 {/* Navigation Pills */}
-                <nav className="flex items-center bg-white/5 p-1 rounded-2xl border border-white/5">
+                <nav className="flex items-center gap-1">
                     {navItems.map((item) => {
                         const Icon = item.icon;
                         const isActive = pathname === item.href || (item.href !== '/brand-kit' && pathname.includes(item.href));
@@ -50,25 +49,34 @@ export function ResourceHeader() {
                                 key={item.href}
                                 href={item.href}
                                 className={cn(
-                                    "flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
+                                    "relative flex items-center gap-2 px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-widest transition-all duration-300",
                                     isActive 
-                                        ? "bg-white text-black shadow-lg" 
-                                        : "text-zinc-500 hover:text-white hover:bg-white/5"
+                                        ? "bg-white text-black shadow-[0_5px_15px_rgba(255,255,255,0.2)]" 
+                                        : "text-zinc-500 hover:text-zinc-200 hover:bg-white/5"
                                 )}
                             >
-                                <Icon className="h-3.5 w-3.5" />
-                                <span className="hidden lg:inline">{item.name}</span>
+                                <Icon className="h-3 w-3" />
+                                <span className="hidden md:inline">{item.name}</span>
+                                {isActive && (
+                                    <motion.div 
+                                        layoutId="active-pill"
+                                        className="absolute inset-0 bg-white rounded-full -z-10"
+                                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                    />
+                                )}
                             </Link>
                         );
                     })}
                 </nav>
 
-                {/* Status / Edition */}
-                <div className="hidden sm:flex items-center gap-4">
-                    <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-[9px] font-black uppercase tracking-widest text-zinc-500">Live Edition 2026</span>
+                <div className="w-[1px] h-4 bg-white/10 mx-1" />
+
+                {/* Status indicator simple */}
+                <div className="pr-3 pl-1 flex items-center gap-2">
+                    <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_10px_rgba(6,182,212,0.5)]" />
+                    <span className="text-[8px] font-black text-zinc-600 uppercase tracking-tighter">Elite</span>
                 </div>
-            </div>
-        </header>
+            </motion.header>
+        </div>
     );
 }
