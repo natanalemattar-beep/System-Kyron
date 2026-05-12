@@ -257,6 +257,19 @@ export const moduleTutorials: Record<string, ModuleTutorialConfig> = {
           "Trámites fiscales y autorizaciones en un solo lugar",
         ],
       },
+      {
+        title: "Propiedad Intelectual (SAPI)",
+        description: "Protege tu marca y patentes con seguimiento en tiempo real. Beneficio de exoneración del 100% para emprendimientos registrado automáticamente.",
+        icon: ShieldCheck,
+        color: "text-emerald-400",
+        bg: "bg-emerald-400/15",
+        border: "border-emerald-400/20",
+        bullets: [
+          "Registro de marcas, patentes y derechos de autor",
+          "Exoneración de tasas SAPI vía RNE (Emprende Juntos)",
+          "Monitoreo de estatus de publicación en Boletín Oficial",
+        ],
+      },
     ],
   },
 

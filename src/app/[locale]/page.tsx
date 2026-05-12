@@ -1,43 +1,58 @@
 import dynamic from 'next/dynamic';
 import { LandingClientWrapper } from '@/components/landing/landing-client-wrapper';
-import { LazySection } from '@/components/landing/lazy-section';
 
-// Dynamic imports with prefetch and proper loading states
-const HeroSection = dynamic(() => import('@/components/landing/hero-section').then(m => ({ default: m.HeroSection })), { ssr: true });
-const TrustNumbersBanner = dynamic(() => import('@/components/landing/trust-numbers-banner').then(m => ({ default: m.TrustNumbersBanner })), { ssr: true });
-const WhyKyronSection = dynamic(() => import('@/components/landing/why-kyron-section').then(m => ({ default: m.WhyKyronSection })), { ssr: true });
-const ModulesGridSection = dynamic(() => import('@/components/landing/modules-grid-section').then(m => ({ default: m.ModulesGridSection })), { ssr: true });
-const HowItWorksSection = dynamic(() => import('@/components/landing/how-it-works-section').then(m => ({ default: m.HowItWorksSection })), { ssr: true });
-const PartnersSection = dynamic(() => import('@/components/landing/partners-section').then(m => ({ default: m.PartnersSection })), { ssr: true });
-const FeaturesSection = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: true });
-const PricingSection = dynamic(() => import('@/components/landing/pricing-section').then(m => ({ default: m.PricingSection })), { ssr: true });
+// Secciones principales — optimizadas para máximo impacto, mínimo scroll
+const HeroSection      = dynamic(() => import('@/components/landing/hero-section').then(m => ({ default: m.HeroSection })), { ssr: true });
+const FeaturesSection  = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: true });
+const PricingSection   = dynamic(() => import('@/components/landing/pricing-section').then(m => ({ default: m.PricingSection })), { ssr: true });
 const ComplianceSection = dynamic(() => import('@/components/landing/compliance-section').then(m => ({ default: m.ComplianceSection })), { ssr: true });
-const IntegrationsStrip = dynamic(() => import('@/components/landing/integrations-strip').then(m => ({ default: m.IntegrationsStrip })), { ssr: true });
-const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: true });
-const CommentsSection = dynamic(() => import('@/components/landing/comments-section').then(m => ({ default: m.CommentsSection })), { ssr: true });
-const ShowcaseSection = dynamic(() => import('@/components/landing/showcase-section').then(m => ({ default: m.ShowcaseSection })), { ssr: true });
-const CtaSection = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })), { ssr: true });
-const FaqSection = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: true });
-const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: true });
+const CommentsSection  = dynamic(() => import('@/components/landing/comments-section').then(m => ({ default: m.CommentsSection })), { ssr: true });
+const FaqSection       = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: true });
+const CtaSection       = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })), { ssr: true });
+const Footer           = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: true });
 
 export default function LandingPage() {
   return (
     <div className="relative min-h-screen selection:bg-primary/20 w-full bg-transparent">
       <LandingClientWrapper>
         <main className="w-full bg-[#03050a]">
+
+          {/* 1. Hero — El gancho principal */}
+          <div id="inicio">
             <HeroSection />
-            
-            <WhyKyronSection />
-            <ModulesGridSection />
-            <HowItWorksSection />
+          </div>
+
+          {/* 2. Features — Qué hace la plataforma */}
+          <section id="caracteristicas">
             <FeaturesSection />
+          </section>
+
+          {/* 3. Planes — Cuánto cuesta */}
+          <section id="planes">
             <PricingSection />
+          </section>
+
+          {/* 4. Cumplimiento — Por qué confiar */}
+          <section id="cumplimiento">
             <ComplianceSection />
-            <CommentsSection />
-            <CtaSection />
+          </section>
+
+          {/* 5. Testimonios — Prueba social */}
+          <CommentsSection />
+
+          {/* 6. FAQ — Dudas frecuentes */}
+          <section id="preguntas">
             <FaqSection />
+          </section>
+
+          {/* 7. CTA — Llamado a la acción */}
+          <CtaSection />
+
         </main>
-        <Footer />
+
+        <div id="contacto">
+          <Footer />
+        </div>
       </LandingClientWrapper>
     </div>
   );

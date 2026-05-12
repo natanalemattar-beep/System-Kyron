@@ -1,4 +1,4 @@
-import { createCipheriv, createDecipheriv, randomBytes, scryptSync } from 'crypto';
+import { createCipheriv, createDecipheriv, randomBytes, scryptSync, createHash } from 'crypto';
 
 const ALGORITHM = 'aes-256-gcm';
 const IV_LENGTH = 16;
@@ -119,3 +119,19 @@ export function decryptSensitiveFields<T extends Record<string, unknown>>(
     }
     return result;
 }
+
+/**
+ * Genera un hash determinista para búsqueda (Blind Index)
+ * Permite buscar campos encriptados sin usar encriptación determinista.
+ */
+export function generateSearchHash(value: string | null | undefined): string {
+    if (!value) return '';
+    // Normalizar: quitar espacios y símbolos para consistencia en búsquedas
+    const normalized = String(value).trim().toLowerCase().replace(/[\s\-\(\)\.\+]/g, '');
+    const salt = process.env.ENCRYPTION_KEY || 'kyron-blind-index-salt-static';
+    return createHash('sha256')
+        .update(normalized + salt)
+        .digest('hex');
+}
+
+

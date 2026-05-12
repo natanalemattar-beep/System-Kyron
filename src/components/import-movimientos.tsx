@@ -13,6 +13,7 @@ interface CuentaBancaria {
   id: number;
   banco: string;
   cuenta: string;
+  tipo?: string;
 }
 
 interface ImportResult {

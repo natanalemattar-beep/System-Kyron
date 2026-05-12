@@ -15,7 +15,7 @@ export function LandingClientWrapper({ children }: { children: React.ReactNode }
   return (
     <>
       {mounted && <PageTracker />}
-      <LandingHeader />
+      {mounted && <LandingHeader />}
       {children}
       {mounted && <WhatsAppButton />}
     </>

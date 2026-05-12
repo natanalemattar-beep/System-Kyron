@@ -8,7 +8,7 @@ import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { generateCode, storeCode, generateMagicToken, storeMagicToken } from '@/lib/verification-codes';
 import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { createLoginChallenge } from '@/lib/login-challenge';
-import { decryptIfEncrypted, encryptIfNotEmpty } from '@/lib/encryption';
+import { decryptIfEncrypted, encryptIfNotEmpty, generateSearchHash } from '@/lib/encryption';
 
 interface DbUser {
     id: number;
@@ -61,26 +61,21 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // Búsqueda flexible: Email, Cédula o Teléfono
-        // Intentamos normalizar el ID como teléfono por si acaso
-        let searchPhone = normalizedId;
-        if (!looksLikeEmail && /^\d+$/.test(normalizedId.replace(/\D/g, ''))) {
-            const { normalizePhone } = await import('@/lib/verification-codes');
-            searchPhone = normalizePhone(normalizedId);
-        }
+        // Prepare search hash for lookup
+        const searchHash = generateSearchHash(normalizedId);
 
-        // Prepare possible encrypted phone for lookup when identifier is a phone number
-        const encryptedPhone = (!looksLikeEmail && /^[\d]+$/.test(normalizedId.replace(/\D/g, ''))) ? encryptIfNotEmpty(normalizedId) : null;
         const user = await queryOne<DbUser>(
             `SELECT id, email, password_hash, tipo, nombre, apellido, cedula, razon_social, rif, access_key_hash, telefono, COALESCE(telefono_verificado, false) as telefono_verificado
              FROM users 
              WHERE email = $1 
                 OR cedula = $1 
                 OR telefono = $1 
-                OR (telefono IS NOT NULL AND telefono = $2)
-                OR ($3 IS NOT NULL AND telefono = $3)`,
-            [normalizedId, searchPhone, encryptedPhone]
+                OR telefono_hash = $2
+                OR cedula_hash = $2
+                OR rif_hash = $2`,
+            [normalizedId, searchHash]
         );
+
 
         if (!user) {
             await new Promise(r => setTimeout(r, 200 + Math.random() * 300));
@@ -229,7 +224,7 @@ export async function POST(req: NextRequest) {
 
         const challengeToken = createLoginChallenge(user.email, user.id);
 
-        const isDev = !process.env.REPLIT_DEPLOYMENT_URL;
+        const isDev = process.env.NODE_ENV === 'development';
 
         if (emailResult && !emailResult.success) {
             console.error('[login] Verification email failed:', emailResult.error);

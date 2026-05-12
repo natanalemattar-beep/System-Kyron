@@ -87,15 +87,21 @@ export async function POST(req: Request) {
     // 0. SPECIAL: IMAGE GENERATION (Creative Agent)
     if (agent === 'creative' && (lastMessageLower.includes("genera") || lastMessageLower.includes("imagen") || lastMessageLower.includes("dibuja"))) {
       if (hasOpenAI && openai) {
-        try {
-          const response = await openai.images.generate({
-            model: "dall-e-3",
-            prompt: `Estilo tecnológico, premium, futurista, System Kyron Venezuela: ${lastMessage}`,
-            n: 1,
-            size: "1024x1024",
-          });
-          const imageUrl = response.data[0].url;
-          return new Response(`¡Hecho! Aquí tienes la visión del **Estratega Creativo** de Kyron:\n\n![Generación Kyron](${imageUrl})\n\n¿Qué te parece este concepto visual?`);
+          try {
+            const response = await openai.images.generate({
+              model: "dall-e-3",
+              prompt: `Estilo tecnológico, premium, futurista, System Kyron Venezuela: ${lastMessage}`,
+              n:1,
+              size: "1024x1024",
+            });
+            if (!response.data || response.data.length === 0) {
+              throw new Error('No se generó ninguna imagen');
+            }
+            const imageUrl = response.data[0].url;
+            if (!imageUrl) {
+              throw new Error('URL de imagen no encontrada');
+            }
+            return new Response(`¡Hecho! Aquí tienes la visión del **Estratega Creativo** de Kyron:\n\n![Generación Kyron](${imageUrl})\n\n¿Qué te parece este concepto visual?`);
         } catch (e) {
           console.error("DALL-E Error:", e);
         }

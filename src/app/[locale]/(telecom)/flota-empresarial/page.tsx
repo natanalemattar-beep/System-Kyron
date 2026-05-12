@@ -247,8 +247,8 @@ export default function FlotaEmpresarialPage() {
                 </CardContent>
             </Card>
 
-            <ConatelCompliancePanel />
-            <ReservaDatosPanel />
+            <ConatelCompliancePanel tipo="empresa" />
+            <ReservaDatosPanel tipo="empresa" />
         </div>
     );
 }

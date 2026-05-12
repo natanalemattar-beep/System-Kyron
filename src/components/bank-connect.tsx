@@ -13,6 +13,7 @@ interface CuentaBancaria {
   id: number;
   banco: string;
   cuenta: string;
+  tipo?: string;
 }
 
 interface SyncResult {
@@ -247,7 +248,7 @@ export function BankConnect({ cuentas, onSyncComplete }: { cuentas: CuentaBancar
                 <div className="text-center">
                   <p className="text-sm font-bold text-red-600 dark:text-red-400">Integración de correo requerida</p>
                   <p className="text-xs text-muted-foreground mt-1 max-w-sm">
-                    Para sincronizar automáticamente, necesita tener la integración de Google Mail (Gmail) activa en su cuenta de Replit.
+                    Para sincronizar automáticamente, necesita tener la integración de Google Mail (Gmail) activa en su panel de configuración de System Kyron.
                   </p>
                 </div>
               </div>

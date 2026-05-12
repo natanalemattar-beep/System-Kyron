@@ -88,6 +88,9 @@ async function createCoreAuthTables() {
       activo              BOOLEAN NOT NULL DEFAULT true,
       ultimo_login        TIMESTAMPTZ,
       access_key_hash     TEXT,
+      telefono_hash       TEXT,
+      cedula_hash         TEXT,
+      rif_hash            TEXT,
       created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
@@ -99,6 +102,9 @@ async function createCoreAuthTables() {
   await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS two_factor_enabled BOOLEAN NOT NULL DEFAULT false`);
   await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS two_factor_secret TEXT`);
   await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS notification_method TEXT DEFAULT 'email'`);
+  await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS telefono_hash TEXT`);
+  await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS cedula_hash TEXT`);
+  await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS rif_hash TEXT`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS user_modules (

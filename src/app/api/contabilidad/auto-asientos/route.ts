@@ -31,7 +31,8 @@ function categorizarMovimiento(concepto: string, tipo: string, plan: PlanCuenta[
   const lower = concepto.toLowerCase();
 
   const cuentaBanco = findCuenta(plan, ['banco', 'bancos', 'caja'], 'activo')
-    || plan.find(c => c.tipo === 'activo' && c.codigo.startsWith('1.1'));
+    ?? plan.find(c => c.tipo === 'activo' && c.codigo.startsWith('1.1'))
+    ?? null;
 
   if (!cuentaBanco) return null;
 
@@ -50,7 +51,8 @@ function categorizarMovimiento(concepto: string, tipo: string, plan: PlanCuenta[
 
     if (!contrapartida) {
       contrapartida = findCuenta(plan, ['otros ingresos', 'ingresos diversos', 'ingreso'], 'ingreso')
-        || plan.find(c => c.tipo === 'ingreso');
+        ?? plan.find(c => c.tipo === 'ingreso')
+        ?? null;
     }
 
     if (!contrapartida) return null;
@@ -81,7 +83,8 @@ function categorizarMovimiento(concepto: string, tipo: string, plan: PlanCuenta[
 
     if (!contrapartida) {
       contrapartida = findCuenta(plan, ['otros gastos', 'gastos diversos', 'gastos generales'], 'gasto')
-        || plan.find(c => c.tipo === 'gasto');
+        ?? plan.find(c => c.tipo === 'gasto')
+        ?? null;
     }
 
     if (!contrapartida) return null;
@@ -177,9 +180,9 @@ export async function POST(request: NextRequest) {
           continue;
         }
 
-        const clasificacion = categorizarMovimiento(mov.concepto, mov.tipo, plan);
+        const clasificacion = categorizarMovimiento(String(mov.concepto), mov.tipo, plan);
         if (!clasificacion) {
-          errores.push(`Mov #${mov.id}: No se encontró cuenta contable para "${mov.concepto.substring(0, 40)}"`);
+          errores.push(`Mov #${mov.id}: No se encontró cuenta contable para "${String(mov.concepto).substring(0, 40)}"`);
           omitidos++;
           continue;
         }
@@ -187,7 +190,7 @@ export async function POST(request: NextRequest) {
         try {
           await transaction(async (client) => {
             const numero = `AUTO-${Date.now().toString(36).toUpperCase()}-${mov.id}`;
-            const conceptoAsiento = `${mov.tipo === 'credito' ? 'Ingreso' : 'Egreso'}: ${mov.concepto}${mov.banco ? ` (${mov.banco})` : ''}`;
+            const conceptoAsiento = `${mov.tipo === 'credito' ? 'Ingreso' : 'Egreso'}: ${String(mov.concepto)}${mov.banco ? ` (${mov.banco})` : ''}`;
 
             const refDoc = `mov_bancario:${mov.id}`;
             const existing = await client.query(
@@ -211,13 +214,13 @@ export async function POST(request: NextRequest) {
             await client.query(
               `INSERT INTO libro_diario_lineas (asiento_id, cuenta_codigo, cuenta_nombre, descripcion, debe, haber)
                VALUES ($1, $2, $3, $4, $5, $6)`,
-              [asientoId, clasificacion.debe.codigo, clasificacion.debe.nombre, mov.concepto, monto, 0]
+              [asientoId, clasificacion.debe.codigo, clasificacion.debe.nombre, String(mov.concepto), monto, 0]
             );
 
             await client.query(
               `INSERT INTO libro_diario_lineas (asiento_id, cuenta_codigo, cuenta_nombre, descripcion, debe, haber)
                VALUES ($1, $2, $3, $4, $5, $6)`,
-              [asientoId, clasificacion.haber.codigo, clasificacion.haber.nombre, mov.concepto, 0, monto]
+              [asientoId, clasificacion.haber.codigo, clasificacion.haber.nombre, String(mov.concepto), 0, monto]
             );
           });
           creados++;

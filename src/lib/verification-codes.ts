@@ -133,13 +133,20 @@ export async function verifyCode(
   // Marcar como usado
   await query(`UPDATE verification_codes SET usado = true WHERE id = $1`, [record.id]);
 
-  // Intentar obtener el usuario (búsqueda dual email/teléfono, con soporte para teléfono encriptado)
-  const looksLikeEmail = key.includes('@');
-  const encPhone = !looksLikeEmail ? encryptIfNotEmpty(key.replace(/\D/g, '')) : null;
+  // Intentar obtener el usuario (búsqueda dual email/teléfono/cédula usando Blind Index)
+  const { generateSearchHash } = await import('@/lib/encryption');
+  const searchHash = generateSearchHash(key);
+  
   const user = await queryOne<{ id: number }>(
-    `SELECT id FROM users WHERE email = $1 OR telefono = $1 OR ($2 IS NOT NULL AND telefono = $2)`,
-    [key, encPhone]
+    `SELECT id FROM users 
+     WHERE email = $1 
+        OR telefono = $1 
+        OR telefono_hash = $2 
+        OR cedula_hash = $2 
+        OR rif_hash = $2`,
+    [key, searchHash]
   );
   return { valid: true, userId: user?.id };
 }
+
 

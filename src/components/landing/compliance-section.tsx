@@ -164,7 +164,7 @@ export function ComplianceSection() {
                                 {securityScore !== null && (
                                     <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase tracking-[0.15em]">
                                         <CircleCheck className="h-3 w-3" />
-                                        {activeFeatures} protecciones activas
+                                        {activeFeatures} {t('active_protections')}
                                     </div>
                                 )}
                             </div>

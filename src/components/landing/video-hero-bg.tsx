@@ -1,8 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export function VideoHeroBg() {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div className="absolute inset-0 -z-20 overflow-hidden bg-[#050816]">
       {/* Fallback Static Image with Premium Effects */}
@@ -30,7 +37,7 @@ export function VideoHeroBg() {
       </div>
 
       {/* Floating Particles (Pseudo-Video Effect) - Optimized with CSS */}
-      {[...Array(25)].map((_, i) => (
+      {mounted && [...Array(25)].map((_, i) => (
         <div
           key={i}
           className="absolute h-[1px] w-[1px] bg-white rounded-full animate-float-particle"

@@ -6,7 +6,7 @@ import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail, isStrongPassword, sanitizeString } from '@/lib/input-sanitizer';
 import { validarRIF, validarFormatoCedula } from '@/lib/validacion-venezuela';
-import { encryptIfNotEmpty } from '@/lib/encryption';
+import { encryptIfNotEmpty, generateSearchHash } from '@/lib/encryption';
 
 async function verificarCodigoUsado(destino: string, proposito: string = 'registration'): Promise<boolean> {
     const record = await queryOne<{ id: number }>(
@@ -103,15 +103,18 @@ async function registerNatural(body: Record<string, unknown>) {
 
     const encTelefono = encryptIfNotEmpty(telefono);
     const encTelefonoAlt = encryptIfNotEmpty(telefono_alt);
+    const telefonoHash = generateSearchHash(telefono);
+    const cedulaHash = generateSearchHash(cedula);
+
 
     const [user] = await query<{ id: number; email: string }>(
         `INSERT INTO users (
             email, password_hash, nombre, apellido, cedula, telefono, telefono_alt,
             fecha_nacimiento, genero, estado_civil,
             estado_residencia, municipio, ciudad, direccion, tipo,
-            verificado, email_verificado, telefono_verificado
+            verificado, email_verificado, telefono_verificado, telefono_hash, cedula_hash
          )
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'natural', $15, $16, $17)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'natural', $15, $16, $17, $18, $19)
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
@@ -122,6 +125,8 @@ async function registerNatural(body: Record<string, unknown>) {
             emailVerified || phoneVerified,
             emailVerified,
             phoneVerified,
+            telefonoHash,
+            cedulaHash
         ]
     );
 
@@ -241,6 +246,10 @@ async function registerJuridico(body: Record<string, unknown>) {
     const sanitizedCapitalSocial = capital_social ? sanitizeString(String(capital_social), 50) : '';
     const sanitizedCodigoCiiu = codigo_ciiu ? sanitizeString(String(codigo_ciiu), 10) : '';
     const repNombreStr = sanitizeString((repNombre ?? '') as string, 200);
+    const telefonoHash = generateSearchHash(telefono as string);
+    const rifHash = generateSearchHash(rif as string);
+    const repCedulaHash = generateSearchHash(repCedula as string);
+
 
     const results = await query<{ id: string; email: string }>(
         `INSERT INTO users (
@@ -250,7 +259,8 @@ async function registerJuridico(body: Record<string, unknown>) {
             telefono, telefono_alt, estado_empresa, municipio_empresa, direccion,
             rep_nombre, rep_cedula, rep_email, rep_cargo, rep_telefono,
             plan, plan_monto,
-            verificado, email_verificado, telefono_verificado
+            verificado, email_verificado, telefono_verificado,
+            telefono_hash, rif_hash, rep_cedula_hash
          )
          VALUES ($1, $2, 'juridico',
                  $3, $4, $5, $6, $7, $8,
@@ -258,7 +268,8 @@ async function registerJuridico(body: Record<string, unknown>) {
                  $12, $13, $14, $15, $16,
                  $17, $18, $19, $20, $21,
                  $22, $23,
-                 $24, $25, $26)
+                 $24, $25, $26,
+                 $27, $28, $29)
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
@@ -286,6 +297,9 @@ async function registerJuridico(body: Record<string, unknown>) {
             emailVerified || phoneVerified,
             emailVerified,
             phoneVerified,
+            telefonoHash,
+            rifHash,
+            repCedulaHash
         ]
     );
 
@@ -300,7 +314,7 @@ async function registerJuridico(body: Record<string, unknown>) {
                 await query(
                     `INSERT INTO user_modules (user_id, module_id, module_label)
                      VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`,
-                    [user.id, mod.id, mod.label]
+                    [Number(user.id), parseInt(mod.id), mod.label]
                 );
             }
         } catch (modErr) {
@@ -310,7 +324,7 @@ async function registerJuridico(body: Record<string, unknown>) {
     }
 
     const token = await createToken({
-        userId: user.id,
+        userId: Number(user.id),
         email: user.email,
         tipo: 'juridico',
         nombre: razonSocial as string,
@@ -319,7 +333,7 @@ async function registerJuridico(body: Record<string, unknown>) {
     const cookie = setSessionCookie(token);
     const res = NextResponse.json({
         success: true,
-        user: { id: user.id, email: user.email, tipo: 'juridico', nombre: razonSocial },
+        user: { id: Number(user.id), email: user.email, tipo: 'juridico', nombre: razonSocial },
     });
     res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
 

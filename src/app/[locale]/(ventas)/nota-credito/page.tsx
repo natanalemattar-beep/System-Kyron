@@ -32,8 +32,8 @@ export default function NotaCreditoPage() {
   const [clienteNombre, setClienteNombre] = useState('');
   const [facturaRef, setFacturaRef] = useState('');
   const [motivo, setMotivo] = useState('');
-  const [items, setItems] = useState([
-    { descripcion: '', cantidad: 1, precio_unitario: 0, tipo_gravamen: 'gravado' as const },
+  const [items, setItems] = useState<Array<{ descripcion: string; cantidad: number; precio_unitario: number; tipo_gravamen: 'gravado' | 'exento' }>>([
+    { descripcion: '', cantidad: 1, precio_unitario: 0, tipo_gravamen: 'gravado' },
   ]);
 
   const addItem = () => setItems([...items, { descripcion: '', cantidad: 1, precio_unitario: 0, tipo_gravamen: 'gravado' }]);

@@ -18,9 +18,6 @@ export function KyronAssistant() {
     const isPrivateSector = pathname?.includes('sector-privado');
     
     const [isOpen, setIsOpen] = useState(false);
-    
-    // Don't show the pro assistant bubble on landing or private sector document page
-    if (isHomePage || isPrivateSector) return null;
     const [isMinimized, setIsMinimized] = useState(false);
     const [selectedAgent, setSelectedAgent] = useState<'general' | 'finance' | 'tech' | 'growth' | 'forensic' | 'creative'>('general');
     const [thinkingMode, setThinkingMode] = useState<'fast' | 'deep'>('fast');
@@ -120,6 +117,9 @@ export function KyronAssistant() {
             setIsStreaming(false);
         }
     };
+
+    // Don't show the pro assistant bubble on landing or private sector document page
+    if (isHomePage || isPrivateSector) return null;
 
     return (
         <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[1000] font-tech">

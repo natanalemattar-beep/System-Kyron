@@ -1,6 +1,6 @@
 # System Kyron v2.8.5 - Inteligencia Corporativa
 
-Sistema corporativo de misión crítica diseñado para el mercado venezolano.
+Ecosistema corporativo de misión crítica diseñado para el mercado venezolano, unificando Conectividad, Contabilidad y Blindaje Legal en una sola plataforma de alta fidelidad.
 
 ## Stack Tecnológico
 
@@ -8,26 +8,26 @@ Sistema corporativo de misión crítica diseñado para el mercado venezolano.
 - **Base de Datos:** PostgreSQL
 - **Autenticación:** JWT con cookies HTTP-only + 2FA (Email/SMS)
 - **Estilos:** Tailwind CSS + shadcn/ui
-- **IA:** Claude (Anthropic) via Replit AI Integrations
-- **Blockchain:** ethers.js v6 (Polygon/Ethereum/BSC)
-- **Email:** Gmail (OTP/2FA), Outlook (alertas)
+- **Inteligencia Artificial:** Anthropic Claude (Sonnet 3.5), OpenAI (GPT-4o), Google Gemini 1.5
+- **Blockchain:** ethers.js v6 (Soberanía de datos)
+- **Email:** SMTP (Gmail / Outlook) para notificaciones y 2FA
 - **SMS/WhatsApp:** Twilio
-- **i18n:** next-intl (ES/EN)
+- **i18n:** next-intl (Soporte Multi-idioma ES/EN)
 
-## Módulos
+## Módulos Principales
 
 1. **Contabilidad VEN-NIF** — SENIAT, IVA 16%, IGTF 3%, ISLR 34%
-2. **Mi Línea 5G** — eSIM, telemetría, flota empresarial
-3. **RRHH** — Nómina LOTTT, bienestar laboral, desarrollo
-4. **Asesoría Legal IA** — Contratos, marco legal Venezuela
-5. **Sostenibilidad Ameru** — Eco-Créditos, reciclaje
-6. **Marketing** — Campañas, SEO, analytics
-7. **Kyron Chat** — Asistente IA contextual con 10+ modos
+2. **Mi Línea 5G** — eSIM, telemetría, gestión de flotas empresariales
+3. **RRHH & Nómina** — Cálculos bajo LOTTT, bienestar laboral y desarrollo humano
+4. **Asesoría Legal IA** — Generación de contratos y blindaje preventivo
+5. **Sostenibilidad Ameru** — Gestión de Eco-Créditos y reciclaje corporativo
+6. **Marketing & CRM** — Gestión de campañas, carnets digitales y analytics
+7. **Centro de Inteligencia Kyron** — Asistente IA con 10+ modos estratégicos
 
-## Desarrollo
+## Desarrollo Local
 
 ```bash
 npm run dev
 ```
 
-La aplicación corre en el puerto 5000.
+La aplicación opera por defecto en el puerto 5000.

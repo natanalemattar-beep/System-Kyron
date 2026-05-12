@@ -412,6 +412,14 @@
                     "Regulations",
                     "Reports"
                 ]
+            },
+            "sapi": {
+                "full": "Autonomous Intellectual Property Service",
+                "badges": [
+                    "Trademarks",
+                    "Patents",
+                    "RNE Exemption"
+                ]
             }
         },
         "security": {
@@ -435,7 +443,9 @@
         "security_badge": "Security Infrastructure",
         "security_title_1": "Bank-grade",
         "security_title_2": "security",
-        "security_desc": "All infrastructure is protected with the highest security standards, comparable to international banking systems."
+        "security_desc": "All infrastructure is protected with the highest security standards, comparable to international banking systems.",
+        "rne_verified": "RNE CERTIFICATE: CRNE2026/46455",
+        "active_protections": "active protections"
     },
     "IntegrationsStrip": {
         "badge": "Connected Ecosystem",

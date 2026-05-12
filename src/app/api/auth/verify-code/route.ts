@@ -50,18 +50,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: verification.error }, { status: isRateLimited ? 429 : 401 });
     }
 
-    const looksLikeEmail = normalizedDestino.includes('@');
-    const searchPhone = !looksLikeEmail ? normalizedDestino.replace(/\D/g, '') : null;
-    const encryptedPhone = searchPhone ? encryptIfNotEmpty(searchPhone) : null;
+    // Prepare search hash for lookup
+    const searchHash = generateSearchHash(destino);
 
     const user = await queryOne<DbUser>(
       `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif
        FROM users 
        WHERE email = $1 
           OR telefono = $1 
-          OR (telefono IS NOT NULL AND telefono = $2)
-          OR ($3 IS NOT NULL AND telefono = $3)`,
-      [normalizedDestino, searchPhone, encryptedPhone]
+          OR telefono_hash = $2
+          OR cedula_hash = $2
+          OR rif_hash = $2`,
+      [destino, searchHash]
     );
 
     if (!user || proposito === 'registration') {
