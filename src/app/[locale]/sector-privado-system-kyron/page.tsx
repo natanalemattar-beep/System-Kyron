@@ -20,9 +20,11 @@ import {
     Printer as PrinterIcon,
     Image as ImageIcon,
     Cloud,
+    Globe,
     Package,
     Instagram
 } from 'lucide-react';
+import { ResourceHeader } from '@/components/brand/ResourceHeader';
 import dynamic from 'next/dynamic';
 import { KyronDocumentAi } from '@/components/ai/document-ai';
 
@@ -208,7 +210,9 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
     };
 
     return (
-        <div id="folleto-content" className="w-full bg-zinc-950 p-8 flex flex-col items-center gap-12 overflow-x-auto print:bg-white print:p-0 print:gap-0 font-[family-name:var(--font-outfit)] relative">
+        <div className="flex flex-col">
+            <ResourceHeader />
+            <div id="folleto-content" className="w-full bg-zinc-950 p-8 flex flex-col items-center gap-12 overflow-x-auto print:bg-white print:p-0 print:gap-0 font-[family-name:var(--font-outfit)] relative">
             
             {/* Toolbar Flotante (Oculta en impresión) */}
             <div id="folleto-toolbar" className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex gap-3 bg-zinc-900/90 backdrop-blur-3xl px-6 py-4 rounded-[2.5rem] border border-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.8)] print:hidden transition-opacity duration-300">

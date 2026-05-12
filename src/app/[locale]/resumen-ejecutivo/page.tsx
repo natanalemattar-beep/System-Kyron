@@ -20,6 +20,7 @@ import {
     FileText as FileIcon,
     Download as DownloadIcon
 } from 'lucide-react';
+import { ResourceHeader } from '@/components/brand/ResourceHeader';
 import { Link } from '@/navigation';
 import { PasswordGate } from '@/components/auth/password-gate';
 
@@ -141,7 +142,8 @@ export default function ResumenEjecutivoPage() {
             title="Resumen Ejecutivo Elite" 
             description="Información estratégica para el Reto InspiraVe 2026. Contenido confidencial."
         >
-            <div className="min-h-screen bg-[#030711] text-white font-[family-name:var(--font-outfit)] selection:bg-cyan-500/30">
+            <div className="min-h-screen bg-[#020617] text-white font-[family-name:var(--font-outfit)] selection:bg-cyan-500/30 overflow-x-hidden">
+                <ResourceHeader />
                 {/* Background Decor */}
                 <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-20">
                     <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cyan-600/20 blur-[120px] rounded-full" />

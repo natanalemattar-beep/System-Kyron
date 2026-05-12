@@ -21,6 +21,7 @@ import {
 import { Link } from '@/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { ResourceHeader } from '@/components/brand/ResourceHeader';
 
 type AssetType = 'stickers' | 'bookmarks' | 'business-cards';
 
@@ -102,6 +103,7 @@ export default function IdentityAssetsPage() {
 
     return (
         <div className="min-h-screen bg-[#030711] text-white font-[family-name:var(--font-outfit)] print:bg-white print:text-black">
+            <ResourceHeader />
             
             {/* Toolbar Elite */}
             <div className="p-6 flex flex-col lg:flex-row justify-between items-center bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10 print:hidden sticky top-0 z-50 gap-6">

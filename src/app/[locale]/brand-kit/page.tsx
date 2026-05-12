@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
+import { ResourceHeader } from '@/components/brand/ResourceHeader';
 
 export default function BrandKitPage() {
     const [mounted, setMounted] = useState(false);
@@ -104,6 +105,7 @@ export default function BrandKitPage() {
 
     return (
         <div className="min-h-screen bg-[#020617] text-white font-[family-name:var(--font-outfit)] selection:bg-cyan-500/30">
+            <ResourceHeader />
             {/* Background elements */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden">
                 <div className="absolute top-0 left-1/4 w-[800px] h-[600px] bg-blue-600/10 blur-[150px] rounded-full animate-pulse" />
