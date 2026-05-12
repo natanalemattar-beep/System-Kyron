@@ -3,7 +3,7 @@ import { LandingClientWrapper } from '@/components/landing/landing-client-wrappe
 import { LazySection } from '@/components/landing/lazy-section';
 
 // Above-the-fold — SSR for SEO & LCP
-const HeroSection      = dynamic(() => import('@/components/landing/hero-section-optimized').then(m => ({ default: m.HeroSection })), { ssr: true });
+const HeroSection      = dynamic(() => import('@/components/landing/hero-section-optimized').then(m => ({ default: m.HeroSectionOptimized })), { ssr: true });
 const FeaturesSection  = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: true });
 
 // Below-the-fold — client-side only, loaded lazily via IntersectionObserver

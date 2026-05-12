@@ -240,6 +240,14 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 >
                     <FileText className={`h-4 w-4 ${isExporting ? 'animate-pulse text-cyan-500' : ''}`} /> {isExporting ? 'Generando...' : 'Word Doc'}
                 </button>
+                <div className="w-px h-8 bg-zinc-700 mx-2" />
+                <a 
+                    href="/es/stickers"
+                    target="_blank"
+                    className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-500 hover:to-rose-400 text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all shadow-lg hover:scale-105 active:scale-95"
+                >
+                    <ImageIcon className="h-4 w-4" /> Crear Stickers
+                </a>
             </div>
 
             {/* --- CARA 1: EXTERIOR (Paneles: Qué es, Cierre, Portada) --- */}
