@@ -2,7 +2,7 @@ import { OpenAI } from 'openai';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Configuración de Motores de Inteligencia
-const OPENAI_KEY = process.env.KYRON_AI_KEY;
+const OPENAI_KEY = process.env.KYRON_AI_KEY || process.env.OPENAI_API_KEY;
 const GEMINI_KEY = process.env.GEMINI_API_KEY;
 
 const hasOpenAI = OPENAI_KEY && OPENAI_KEY !== 'dummy_key' && OPENAI_KEY.length > 20;
@@ -22,10 +22,10 @@ export const runtime = 'edge';
 const KYRON_KNOWLEDGE = {
   telecom: "System Kyron es el primer proveedor de conectividad 5G eSIM en Venezuela bajo LOTEL Art. 15-25. Ofrecemos desde planes básicos de 2GB ($3/mes) hasta planes Infinite ($35/mes) con baja latencia (20ms) y seguridad de grado militar. Nuestra Red Alfa garantiza que el negocio nunca se detenga.",
   sostenibilidad: "Mediante Ameru.AI, integramos la contabilidad verde con certificaciones de impacto ambiental. Ayudamos a las empresas a cumplir con normativas ecológicas mientras monetizan sus créditos de carbono y procesos sostenibles.",
-  legal: "Blindaje preventivo total ante el SENIAT y Ministerio del Trabajo. Conocimiento profundo de la LOTTT, LOPCYMAT y el Código Orgánico Tributario. Automatizamos la generación de documentos legales, contratos y solvencias tributarias para evitar multas de 150-500 UT.",
-  finanzas: "Gestión fiscal automatizada: IVA (16%), IGTF (3%), ISLR y Retenciones. Sincronización en tiempo real con la tasa oficial del BCV (Convenio Cambiario N° 1). Contabilidad bajo VEN-NIF con libros digitales legales y reportes de rentabilidad inmediata.",
+  legal: "Blindaje preventivo total ante el SENIAT y Ministerio del Trabajo bajo la identidad de EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9). Automatizamos la generación de documentos legales, contratos y solvencias tributarias para evitar multas de 150-500 UT.",
+  finanzas: "Gestión fiscal automatizada para EMPRENDIMIENTO CARLOS MATTAR: IVA (16%), IGTF (3%), ISLR y Retenciones. Sincronización en tiempo real con la tasa oficial del BCV (Convenio Cambiario N° 1). Contabilidad bajo VEN-NIF con libros digitales legales.",
   mercado: "Análisis de un mercado de 320,000 entidades jurídicas en Venezuela. TAM proyectado de $480M. Kyron moderniza empresas tradicionales mediante la digitalización de procesos manuales que hoy consumen el 68% de la jornada laboral.",
-  general: "System Kyron es un ecosistema 360° que unifica Conectividad, Contabilidad y Legalidad. Operamos con tecnología blockchain para auditorías inmutables y una IA de grado corporativo que asiste en la toma de decisiones estratégicas.",
+  general: "System Kyron es un ecosistema 360° operado por EMPRENDIMIENTO CARLOS MATTAR que unifica Conectividad, Contabilidad y Legalidad. Operamos con tecnología blockchain para auditorías inmutables y una IA de grado corporativo.",
   competencia: "A diferencia de sistemas tradicionales (Profit, Saint, SAP), Kyron es nativo en la nube, incluye conectividad propia y asesoría legal/fiscal con IA integrada, eliminando la necesidad de múltiples consultores externos."
 };
 
@@ -118,10 +118,10 @@ export async function POST(req: Request) {
             role: m.role === 'user' ? 'user' : 'model',
             parts: [{ text: m.content }],
           })),
-          generationConfig: { maxOutputTokens: 500 },
+          generationConfig: { maxOutputTokens: 1000 },
         });
 
-        const systemPrompt = `${selectedAgent.prompt}\nPROTOCOLO ALTA DENSIDAD: Responde de forma humana, fluida y potente. Prioriza System Kyron.`;
+        const systemPrompt = `${selectedAgent.prompt}\nPROTOCOLO ALTA DENSIDAD: Responde de forma humana, fluida y potente. Prioriza System Kyron. Conocimiento Actual: ${JSON.stringify(KYRON_KNOWLEDGE)}`;
         const result = await chat.sendMessageStream(`${systemPrompt}\n\nUsuario dice: ${messages[messages.length - 1].content}`);
         
         const stream = new ReadableStream({
@@ -147,7 +147,7 @@ export async function POST(req: Request) {
           model: mode === 'deep' ? 'gpt-4o' : 'gpt-4o-mini',
           stream: true,
           messages: [
-            { role: 'system', content: selectedAgent.prompt + "\nResponde con máxima eficiencia y concisión." },
+            { role: 'system', content: selectedAgent.prompt + "\nConocimiento Kyron: " + JSON.stringify(KYRON_KNOWLEDGE) },
             ...messages.slice(-6),
           ],
         });
@@ -177,9 +177,9 @@ export async function POST(req: Request) {
           
           let responseText = "";
           if (lastMessageLower.includes("hola") || lastMessageLower.includes("buenos")) {
-            responseText = `¡Hola! Soy **${selectedAgent.name}**, tu asistente de System Kyron. Mi núcleo está operando en modo local de alta eficiencia. ¿Te gustaría saber cómo nuestra tecnología 5G o nuestro blindaje legal pueden potenciar tu negocio?`;
+            responseText = `¡Hola! Soy **${selectedAgent.name}**, tu asistente de System Kyron. Mi núcleo está operando en modo local de alta eficiencia. ¿Te gustaría saber cómo nuestra tecnología 5G o nuestro blindaje legal pueden potenciar tu negocio bajo el RIF J-50832149-9?`;
           } else {
-            responseText = `Entiendo tu interés. Como parte del ecosistema Kyron, puedo confirmarte que: ${KYRON_KNOWLEDGE[category]} \n\n¿Deseas que profundice en algún punto técnico o prefieres hablar con un consultor humano?`;
+            responseText = `Entiendo tu interés. Como parte del ecosistema Kyron operado por EMPRENDIMIENTO CARLOS MATTAR, puedo confirmarte que: ${KYRON_KNOWLEDGE[category]} \n\n¿Deseas que profundice en algún punto técnico o prefieres hablar con un consultor humano?`;
           }
           
           const chunks = responseText.match(/.{1,4}/g) || [];

@@ -3,14 +3,14 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { 
-    Printer as PrinterIcon, 
-    ArrowLeft, 
-    Download, 
-    Sparkles, 
-    QrCode, 
-    Bookmark as BookmarkIcon, 
-    Circle, 
+import {
+    Printer as PrinterIcon,
+    ArrowLeft,
+    Download,
+    Sparkles,
+    QrCode,
+    Bookmark as BookmarkIcon,
+    Circle,
     Contact,
     Mail,
     Globe,
@@ -29,7 +29,7 @@ export default function IdentityAssetsPage() {
     const [mounted, setMounted] = useState(false);
     const [isExporting, setIsExporting] = useState(false);
     const [assetType, setAssetType] = useState<AssetType>('stickers');
-    
+
     useEffect(() => {
         setMounted(true);
         document.documentElement.classList.remove('overflow-hidden');
@@ -89,7 +89,7 @@ export default function IdentityAssetsPage() {
 
             pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'SLOW');
             pdf.save(`System-Kyron-${assetType.charAt(0).toUpperCase() + assetType.slice(1)}-Elite.pdf`);
-            
+
         } catch (error) {
             console.error('Error generating PDF:', error);
             alert('Error al generar el PDF. Por favor, intente de nuevo.');
@@ -104,7 +104,7 @@ export default function IdentityAssetsPage() {
     return (
         <div className="min-h-screen bg-[#030711] text-white font-[family-name:var(--font-outfit)] print:bg-white print:text-black">
             <ResourceHeader />
-            
+
             {/* Toolbar Elite */}
             <div className="p-6 flex flex-col lg:flex-row justify-between items-center bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10 print:hidden sticky top-0 z-50 gap-6">
                 <div className="flex items-center gap-4">
@@ -116,11 +116,11 @@ export default function IdentityAssetsPage() {
                         <p className="text-zinc-500 text-[10px] mt-0.5 font-black uppercase tracking-[0.2em]">Asset Engineering System • v2.2 Ultra</p>
                     </div>
                 </div>
-                
+
                 <div className="flex flex-wrap items-center justify-center gap-4">
                     {/* Selector de Tipo */}
                     <div className="flex bg-white/5 p-1.5 rounded-2xl border border-white/5">
-                        <button 
+                        <button
                             onClick={() => setAssetType('stickers')}
                             className={cn(
                                 "flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
@@ -129,7 +129,7 @@ export default function IdentityAssetsPage() {
                         >
                             <Circle className="h-3.5 w-3.5" /> Stickers
                         </button>
-                        <button 
+                        <button
                             onClick={() => setAssetType('bookmarks')}
                             className={cn(
                                 "flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
@@ -138,7 +138,7 @@ export default function IdentityAssetsPage() {
                         >
                             <BookmarkIcon className="h-3.5 w-3.5" /> Marca Libros
                         </button>
-                        <button 
+                        <button
                             onClick={() => setAssetType('business-cards')}
                             className={cn(
                                 "flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
@@ -152,17 +152,17 @@ export default function IdentityAssetsPage() {
                     <Link href="/sector-privado-system-kyron" className="flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/10 text-zinc-300 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border border-white/5">
                         <ArrowLeft className="h-3.5 w-3.5" /> Volver
                     </Link>
-                    
-                    <button 
+
+                    <button
                         onClick={handleDownloadPDF}
                         disabled={isExporting}
                         className="flex items-center gap-2 px-5 py-2.5 bg-zinc-100 hover:bg-white disabled:opacity-50 text-black rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-xl"
                     >
-                        <Download className={`h-3.5 w-3.5 ${isExporting ? 'animate-spin' : ''}`} /> 
+                        <Download className={`h-3.5 w-3.5 ${isExporting ? 'animate-spin' : ''}`} />
                         {isExporting ? 'PROCESANDO...' : 'DESCARGAR PDF'}
                     </button>
 
-                    <button 
+                    <button
                         onClick={handlePrint}
                         className="flex items-center gap-2 px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg"
                     >
@@ -192,7 +192,7 @@ export default function IdentityAssetsPage() {
 
             {/* Hoja de Activos */}
             <div className="pb-20 px-4 print:p-0 flex justify-center">
-                <div 
+                <div
                     id="assets-sheet"
                     className="bg-white shadow-[0_0_100px_rgba(0,0,0,0.6)] print:shadow-none w-[8.5in] h-[11in] p-[0.5in] flex flex-col items-center justify-center overflow-hidden"
                 >
@@ -239,14 +239,14 @@ export default function IdentityAssetsPage() {
 
 function StickerItem({ qrCodeImage }: { qrCodeImage: string }) {
     return (
-        <div className="w-[2.25in] h-[2.25in] aspect-square shrink-0 bg-white rounded-full flex flex-col items-center justify-center relative overflow-hidden break-inside-avoid border border-zinc-200 shadow-sm">
+        <div className="w-[2.25in] h-[2.25in] bg-white rounded-full flex flex-col items-center justify-center relative overflow-hidden break-inside-avoid border border-zinc-200 shadow-sm">
             <div className="absolute inset-0 rounded-full border-[1.5px] border-zinc-200 pointer-events-none z-20 opacity-30" />
             <div className="flex flex-col items-center w-full relative z-10 pt-1">
                 <div className="relative w-10 h-10 mb-1.5 flex items-center justify-center">
-                    <img 
-                        src="/images/logo-black.png" 
-                        alt="Kyron Logo" 
-                        className="max-w-full max-h-full object-contain" 
+                    <img
+                        src="/images/logo-black.png"
+                        alt="Kyron Logo"
+                        className="max-w-full max-h-full object-contain"
                         style={{ imageRendering: 'auto' }}
                     />
                 </div>
@@ -277,7 +277,7 @@ function BookmarkItem({ qrCodeImage }: { qrCodeImage: string }) {
             <div className="absolute left-0 top-0 bottom-0 w-2 bg-zinc-50 border-r border-zinc-100" />
             <div className="absolute right-0 top-0 bottom-0 w-2 bg-zinc-50 border-l border-zinc-100" />
             <div className="flex flex-col items-center gap-4 relative z-10 pt-4">
-                <div className="w-20 h-20 rounded-[2rem] bg-zinc-950 flex items-center justify-center p-4 shadow-2xl">
+                <div className="w-16 h-16 rounded-[1.5rem] bg-zinc-950 flex items-center justify-center p-3 shadow-2xl">
                     <img 
                         src="/images/logo-kyron-hq.png" 
                         alt="Kyron Logo" 
@@ -285,14 +285,24 @@ function BookmarkItem({ qrCodeImage }: { qrCodeImage: string }) {
                     />
                 </div>
                 <div className="text-center">
-                    <h2 className="text-black font-black uppercase tracking-tighter text-3xl leading-none">KYRON</h2>
-                    <p className="text-[8px] font-black uppercase tracking-[0.4em] text-zinc-400 mt-2">Elite System</p>
+                    <h2 className="text-black font-black uppercase tracking-tighter text-2xl leading-none">KYRON</h2>
+                    <p className="text-[7px] font-black uppercase tracking-[0.4em] text-zinc-400 mt-1.5">Elite System</p>
                 </div>
             </div>
-            <div className="flex flex-col items-center gap-6 relative z-10">
-                <div className="p-4 bg-white border border-zinc-100 rounded-3xl shadow-[0_15px_40px_rgba(0,0,0,0.08)]">
-                    <img src={qrCodeImage} alt="QR" className="w-24 h-24" crossOrigin="anonymous" />
+
+            {/* Dedication Message */}
+            <div className="relative z-10 px-4 text-center">
+                <div className="h-px w-8 bg-zinc-100 mx-auto mb-4" />
+                <p className="text-[10px] font-medium text-zinc-500 leading-relaxed italic">
+                    "Para aquellos que se atreven a soñar en grande y construir el futuro de Venezuela. Sigue adelante."
+                </p>
+                <div className="h-px w-8 bg-zinc-100 mx-auto mt-4" />
+            </div>
+            <div className="flex flex-col items-center gap-4 relative z-10">
+                <div className="p-3 bg-white border border-zinc-100 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
+                    <img src={qrCodeImage} alt="QR" className="w-14 h-14" crossOrigin="anonymous" />
                 </div>
+                <p className="text-[7px] font-black uppercase tracking-widest text-zinc-300">Escanear para acceso</p>
             </div>
             <div className="text-center relative z-10 pb-4">
                 <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4">Innovación Empresarial</p>
@@ -315,20 +325,20 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
             {/* Background pattern */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-zinc-50 -mr-16 -mt-16 rounded-full opacity-50" />
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-cyan-50 -ml-12 -mb-12 rounded-full opacity-30" />
-            
+
             <div className="flex-1 flex flex-col justify-between relative z-10">
                 <div className="space-y-1">
                     <div className="flex items-center gap-2 mb-2">
-                    <div className="h-8 w-8 flex items-center justify-center overflow-hidden">
-                        <img src="/images/logo-black.png" alt="Kyron" className="max-w-full max-h-full object-contain" />
-                    </div>
+                        <div className="h-8 w-8 flex items-center justify-center overflow-hidden">
+                            <img src="/images/logo-black.png" alt="Kyron" className="max-w-full max-h-full object-contain" />
+                        </div>
                         <div className="h-4 w-[1px] bg-zinc-200" />
                         <span className="text-[8px] font-black uppercase tracking-[0.3em] text-cyan-600">Elite</span>
                     </div>
                     <h2 className="text-black font-black uppercase tracking-tight text-xl leading-none">Carlos Mattar</h2>
                     <p className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest">Founder & CEO · System Kyron</p>
                 </div>
-                
+
                 <div className="space-y-1.5">
                     <div className="flex items-center gap-2">
                         <Mail className="h-2.5 w-2.5 text-cyan-600" />
@@ -338,9 +348,9 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
                         <Globe className="h-2.5 w-2.5 text-cyan-600" />
                         <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">www.system-kyron.app</span>
                     </div>
-                    <a 
-                        href="https://wa.me/584241846016" 
-                        target="_blank" 
+                    <a
+                        href="https://wa.me/584241846016"
+                        target="_blank"
                         className="flex items-center gap-2 group/wa hover:text-cyan-600 transition-colors"
                     >
                         <Phone className="h-2.5 w-2.5 text-cyan-600" />
@@ -352,7 +362,7 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
                     </div>
                 </div>
             </div>
-            
+
             <div className="flex flex-col items-center justify-center gap-3 pl-6 border-l border-zinc-100 relative z-10">
                 <div className="p-2 bg-white border border-zinc-100 rounded-xl shadow-md">
                     <img src={qrCodeImage} alt="QR" className="w-16 h-16" crossOrigin="anonymous" />
@@ -362,7 +372,7 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
                     <span className="text-[5px] font-black uppercase tracking-widest text-black">Secure ID</span>
                 </div>
             </div>
-            
+
             {/* Identity line */}
             <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-600" />
         </div>
