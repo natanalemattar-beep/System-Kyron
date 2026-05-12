@@ -190,41 +190,6 @@ export function HeroSection() {
                                 </p>
                             </ScrollReveal>
 
-                            {/* Aviso 2: Placa de Aviso Central (Reemplaza los botones) */}
-                            <ScrollReveal delay={0.4} scale={0.95}>
-                                <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
-                                    <div className="relative group overflow-hidden px-8 py-5 rounded-3xl border border-amber-500/20 bg-amber-500/5 backdrop-blur-2xl flex items-center gap-5 transition-all hover:border-amber-500/40">
-                                        <div className="h-14 w-14 rounded-2xl bg-amber-500/20 flex items-center justify-center shrink-0">
-                                            <Construction className="h-8 w-8 text-amber-400 animate-bounce" />
-                                        </div>
-                                        <div className="text-left">
-                                            <p className="text-white font-black uppercase text-sm tracking-tighter mb-1">Sitio en Desarrollo</p>
-                                            <p className="text-amber-200/50 text-[11px] font-bold leading-tight max-w-[200px]">El acceso a clientes estará disponible próximamente. Gracias por su paciencia.</p>
-                                        </div>
-                                        <div className="absolute top-0 right-0 p-4 opacity-[0.03]">
-                                            <Construction className="h-32 w-32 text-white" />
-                                        </div>
-                                    </div>
-                                    
-                                    <motion.div whileHover={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 25 }}>
-                                        <Button
-                                            variant="ghost"
-                                            size="lg"
-                                            onClick={() => setVideoOpen(true)}
-                                            className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl border-white/5 bg-white/[0.02] text-white/40 hover:bg-white/[0.05] hover:text-white transition-all duration-500 backdrop-blur-3xl group"
-                                            aria-label="Ver tutorial de registro en video"
-                                        >
-                                            <span className="flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                                                    <Play className="h-3 w-3 fill-current group-hover:text-cyan-400" />
-                                                </div>
-                                                {t('cta_secondary')}
-                                            </span>
-                                        </Button>
-                                    </motion.div>
-                                </div>
-                            </ScrollReveal>
-
                             <motion.div
                                 className="flex flex-wrap justify-center lg:justify-start gap-8 pt-8 opacity-50"
                                 variants={fadeUp}
