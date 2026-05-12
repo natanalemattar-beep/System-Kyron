@@ -281,7 +281,7 @@ function BookmarkItem({ qrCodeImage }: { qrCodeImage: string }) {
                     <img 
                         src="/images/logo-kyron-hq.png" 
                         alt="Kyron Logo" 
-                        className="max-w-full max-h-full object-contain filter invert" 
+                        className="max-w-full max-h-full object-contain" 
                     />
                 </div>
                 <div className="text-center">
@@ -332,7 +332,7 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
                 <div className="space-y-1.5">
                     <div className="flex items-center gap-2">
                         <Mail className="h-2.5 w-2.5 text-cyan-600" />
-                        <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">carlos@system-kyron.com</span>
+                        <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">systemkyronofficial@gmail.com</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <Globe className="h-2.5 w-2.5 text-cyan-600" />
