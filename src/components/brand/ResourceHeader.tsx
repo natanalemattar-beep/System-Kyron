@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
     Layout, 
     Circle, 
@@ -29,17 +29,28 @@ export function ResourceHeader() {
             <motion.header 
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                className="pointer-events-auto flex items-center gap-1.5 bg-[#09090b]/60 backdrop-blur-3xl px-2 py-1.5 rounded-full border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] group hover:border-cyan-500/30 transition-colors duration-500"
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="pointer-events-auto flex items-center gap-1 bg-black/40 backdrop-blur-[32px] px-2 py-1.5 rounded-full border border-white/10 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] group transition-all duration-500 hover:border-white/20"
             >
-                {/* Logo Minimal */}
-                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/20 ml-1">
-                    <Sparkles className="h-4 w-4 text-white" />
+                {/* Logo Minimal con Liquid Glow */}
+                <div className="relative flex items-center justify-center h-9 w-9 rounded-full bg-zinc-950 border border-white/10 ml-1 group/logo overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 to-blue-600 opacity-20 group-hover/logo:opacity-100 transition-opacity duration-500" />
+                    <Sparkles className="h-4 w-4 text-white relative z-10" />
+                    {/* Animated Glow behind logo */}
+                    <motion.div 
+                        animate={{ 
+                            scale: [1, 1.2, 1],
+                            opacity: [0.3, 0.6, 0.3]
+                        }}
+                        transition={{ duration: 4, repeat: Infinity }}
+                        className="absolute inset-0 bg-cyan-500/20 blur-xl rounded-full" 
+                    />
                 </div>
 
-                <div className="w-[1px] h-4 bg-white/10 mx-1" />
+                <div className="w-[1px] h-4 bg-white/10 mx-1.5" />
 
-                {/* Navigation Pills */}
-                <nav className="flex items-center gap-1">
+                {/* Navigation Pills - Liquid Style */}
+                <nav className="flex items-center gap-1 relative">
                     {navItems.map((item) => {
                         const Icon = item.icon;
                         const isActive = pathname === item.href || (item.href !== '/brand-kit' && pathname.includes(item.href));
@@ -49,34 +60,51 @@ export function ResourceHeader() {
                                 key={item.href}
                                 href={item.href}
                                 className={cn(
-                                    "relative flex items-center gap-2 px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-widest transition-all duration-300",
-                                    isActive 
-                                        ? "bg-white text-black shadow-[0_5px_15px_rgba(255,255,255,0.2)]" 
-                                        : "text-zinc-500 hover:text-zinc-200 hover:bg-white/5"
+                                    "relative flex items-center gap-2 px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.1em] transition-colors duration-500",
+                                    isActive ? "text-black" : "text-zinc-500 hover:text-zinc-200"
                                 )}
                             >
-                                <Icon className="h-3 w-3" />
-                                <span className="hidden md:inline">{item.name}</span>
+                                <Icon className="h-3.5 w-3.5 relative z-10" />
+                                <span className="hidden md:inline relative z-10">{item.name}</span>
+                                
                                 {isActive && (
                                     <motion.div 
-                                        layoutId="active-pill"
-                                        className="absolute inset-0 bg-white rounded-full -z-10"
-                                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                                    />
+                                        layoutId="active-pill-liquid"
+                                        className="absolute inset-0 bg-white rounded-full shadow-[0_10px_20px_rgba(255,255,255,0.2)]"
+                                        transition={{ 
+                                            type: "spring", 
+                                            stiffness: 400, 
+                                            damping: 32,
+                                            mass: 1,
+                                            // Esto crea el efecto "liquid" de estiramiento
+                                            layout: {
+                                                duration: 0.4,
+                                                ease: [0.23, 1, 0.32, 1]
+                                            }
+                                        }}
+                                    >
+                                        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white to-zinc-200 opacity-50" />
+                                    </motion.div>
                                 )}
                             </Link>
                         );
                     })}
                 </nav>
 
-                <div className="w-[1px] h-4 bg-white/10 mx-1" />
+                <div className="w-[1px] h-4 bg-white/10 mx-1.5" />
 
-                {/* Status indicator simple */}
-                <div className="pr-3 pl-1 flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_10px_rgba(6,182,212,0.5)]" />
-                    <span className="text-[8px] font-black text-zinc-600 uppercase tracking-tighter">Elite</span>
+                {/* Edition Tag Liquid */}
+                <div className="pr-4 pl-1 flex items-center gap-2.5">
+                    <div className="relative h-2 w-2">
+                        <div className="absolute inset-0 rounded-full bg-cyan-500 animate-ping opacity-40" />
+                        <div className="relative h-2 w-2 rounded-full bg-cyan-500 shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
+                    </div>
+                    <span className="text-[8px] font-black text-white/40 uppercase tracking-[0.2em] italic">Elite</span>
                 </div>
             </motion.header>
+
+            {/* Inset Shadow Border for depth */}
+            <div className="absolute inset-x-0 -bottom-1 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent blur-sm pointer-events-none" />
         </div>
     );
 }

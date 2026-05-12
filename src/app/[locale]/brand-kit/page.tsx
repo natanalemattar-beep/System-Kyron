@@ -215,27 +215,38 @@ function ResourceCard({ resource: res }: { resource: any }) {
     const Icon = res.icon;
     
     return (
-        <div className="group relative h-full">
+        <motion.div 
+            whileHover={{ y: -8, scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            className="group relative h-full"
+        >
+            {/* Liquid Glow Background */}
             <div className={cn(
-                "absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 blur-[20px] transition-opacity duration-500 rounded-[2.5rem] -z-10",
+                "absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-40 blur-[40px] transition-opacity duration-700 rounded-[2.5rem] -z-10",
                 res.color
             )} />
             
-            <div className="h-full bg-white/[0.03] backdrop-blur-3xl border border-white/10 p-8 rounded-[2.5rem] flex flex-col justify-between hover:border-white/20 transition-all hover:translate-y-[-4px]">
+            {/* The Glass Container */}
+            <div className="h-full bg-white/[0.02] backdrop-blur-[40px] border border-white/10 p-8 rounded-[2.5rem] flex flex-col justify-between hover:border-white/20 transition-all duration-500 overflow-hidden relative">
+                {/* Internal Reflection */}
+                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                
                 <div>
+                    {/* Icon with Glass Sphere effect */}
                     <div className={cn(
-                        "h-14 w-14 rounded-2xl flex items-center justify-center mb-6 shadow-xl",
-                        "bg-zinc-900 border border-white/10 group-hover:scale-110 transition-transform"
+                        "h-16 w-16 rounded-[1.5rem] flex items-center justify-center mb-8 relative",
+                        "bg-zinc-950 border border-white/10 group-hover:border-cyan-500/50 transition-colors shadow-2xl"
                     )}>
-                        <Icon className="h-7 w-7 text-white" />
+                        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent rounded-[1.5rem]" />
+                        <Icon className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform duration-500" />
                     </div>
                     
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400">{res.tag}</span>
-                            {res.type === 'external' ? <ExternalLink className="h-3 w-3 text-zinc-600" /> : <Layers className="h-3 w-3 text-zinc-600" />}
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400/80">{res.tag}</span>
+                            {res.type === 'external' ? <ExternalLink className="h-3.5 w-3.5 text-zinc-600" /> : <Layers className="h-3.5 w-3.5 text-zinc-600" />}
                         </div>
-                        <h3 className="text-2xl font-black uppercase tracking-tight italic text-white group-hover:text-cyan-400 transition-colors">
+                        <h3 className="text-3xl font-black uppercase tracking-tighter italic text-white group-hover:text-cyan-400 transition-colors duration-500">
                             {res.title}
                         </h3>
                         <p className="text-zinc-400 text-sm leading-relaxed font-medium">
@@ -244,16 +255,19 @@ function ResourceCard({ resource: res }: { resource: any }) {
                     </div>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-white/5">
+                <div className="mt-10 pt-6 border-t border-white/5">
                     {res.type === 'internal' ? (
                         <Link 
                             href={res.href}
                             className="flex items-center justify-between group/link"
                         >
-                            <span className="text-[11px] font-black uppercase tracking-widest text-zinc-500 group-hover/link:text-white transition-colors">Acceder Recurso</span>
-                            <div className="h-8 w-8 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-white group-hover/link:text-black transition-all">
-                                <ArrowRight className="h-4 w-4" />
-                            </div>
+                            <span className="text-[11px] font-black uppercase tracking-[0.2em] text-zinc-500 group-hover/link:text-white transition-colors">Acceder Recurso</span>
+                            <motion.div 
+                                whileHover={{ x: 5 }}
+                                className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-white group-hover/link:text-black transition-all shadow-xl"
+                            >
+                                <ArrowRight className="h-5 w-5" />
+                            </motion.div>
                         </Link>
                     ) : (
                         <a 
@@ -262,14 +276,17 @@ function ResourceCard({ resource: res }: { resource: any }) {
                             rel="noopener noreferrer"
                             className="flex items-center justify-between group/link"
                         >
-                            <span className="text-[11px] font-black uppercase tracking-widest text-zinc-500 group-hover/link:text-white transition-colors">Seguir a Instagram</span>
-                            <div className="h-8 w-8 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-white group-hover/link:text-black transition-all">
-                                <ExternalLink className="h-4 w-4" />
-                            </div>
+                            <span className="text-[11px] font-black uppercase tracking-[0.2em] text-zinc-500 group-hover/link:text-white transition-colors">Instagram</span>
+                            <motion.div 
+                                whileHover={{ scale: 1.1, rotate: 15 }}
+                                className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-white group-hover/link:text-black transition-all shadow-xl"
+                            >
+                                <Instagram className="h-5 w-5" />
+                            </motion.div>
                         </a>
                     )}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
