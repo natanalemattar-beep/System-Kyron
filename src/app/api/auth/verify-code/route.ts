@@ -5,7 +5,7 @@ import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail } from '@/lib/input-sanitizer';
 import { verifyCode, normalizePhone } from '@/lib/verification-codes';
-import { encryptIfNotEmpty } from '@/lib/encryption';
+import { encryptIfNotEmpty, generateSearchHash } from '@/lib/encryption';
 
 export const dynamic = 'force-dynamic';
 
