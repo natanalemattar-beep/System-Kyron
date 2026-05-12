@@ -84,7 +84,7 @@ export function LandingHeader() {
             <div className={cn(
                 "mx-auto px-4 transition-all duration-500",
                 isScrolled
-                    ? "max-w-[1100px] rounded-[2.5rem] border border-white/10 bg-[#060a14]/85 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+                    ? "max-w-[1400px] rounded-[2.5rem] border border-white/10 bg-[#060a14]/85 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
                     : "max-w-full px-6 md:px-12"
             )}>
                 {/* Scroll progress bar */}
