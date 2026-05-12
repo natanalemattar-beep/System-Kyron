@@ -6,7 +6,7 @@ import {
     BrainCircuit, Send, X, Bot, User, Sparkles, 
     Maximize2, Minimize2, Paperclip, Mic, 
     Zap, Terminal, Cpu, Calculator, Wrench, RefreshCw, Fingerprint,
-    Palette, Activity, ChevronRight, Share2, Info
+    Palette, Activity, ChevronRight, Share2, Info, Headphones
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
@@ -14,23 +14,30 @@ import { MarkdownRenderer } from '@/components/markdown-renderer';
 
 export function KyronAssistant() {
     const pathname = usePathname();
-    const isHomePage = pathname === '/' || pathname === '/es' || pathname === '/en';
-    const isPrivateSector = pathname?.includes('sector-privado');
+    // Determinamos si es un usuario invitado (Guest) basándonos en la ruta
+    const isGuest = pathname === '/' || pathname === '/es' || pathname === '/en' || pathname === '/es/' || pathname === '/en/';
     
     const [isOpen, setIsOpen] = useState(false);
     const [isMinimized, setIsMinimized] = useState(false);
     const [selectedAgent, setSelectedAgent] = useState<'general' | 'finance' | 'tech' | 'growth' | 'forensic' | 'creative'>('general');
     const [thinkingMode, setThinkingMode] = useState<'fast' | 'deep'>('fast');
     const [input, setInput] = useState('');
+    
     const [messages, setMessages] = useState([
-        { role: 'assistant', content: 'Bienvenido al **Centro de Inteligencia Kyron**. Estoy sincronizado con tu infraestructura. ¿Qué área del ecosistema deseas optimizar hoy?' }
+        { 
+            role: 'assistant', 
+            content: isGuest 
+                ? 'Hola, soy el asistente de **Atención al Cliente Kyron**. ¿En qué puedo ayudarte hoy con respecto a nuestros planes o servicios?' 
+                : 'Bienvenido al **Centro de Inteligencia Kyron**. Estoy sincronizado con tu infraestructura. ¿Qué área del ecosistema deseas optimizar hoy?' 
+        }
     ]);
+
     const [isLoading, setIsLoading] = useState(false);
     const [isStreaming, setIsStreaming] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const agentConfigs = {
-        general: { name: 'Asistente Central', color: 'text-cyan-400', icon: Cpu, bg: 'bg-cyan-500/10 border-cyan-500/20' },
+        general: { name: isGuest ? 'Atención al Cliente' : 'Asistente Central', color: 'text-cyan-400', icon: isGuest ? Headphones : Cpu, bg: 'bg-cyan-500/10 border-cyan-500/20' },
         finance: { name: 'Estratega Financiero', color: 'text-blue-400', icon: Calculator, bg: 'bg-blue-500/10 border-blue-500/20' },
         tech: { name: 'Estratega Tecnológico', color: 'text-emerald-400', icon: Wrench, bg: 'bg-emerald-500/10 border-emerald-500/20' },
         growth: { name: 'Estratega de Crecimiento', color: 'text-violet-400', icon: Sparkles, bg: 'bg-violet-500/10 border-violet-500/20' },
@@ -70,8 +77,8 @@ export function KyronAssistant() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     messages: [...messages, userMessage],
-                    agent: selectedAgent,
-                    mode: thinkingMode
+                    agent: isGuest ? 'general' : selectedAgent,
+                    mode: isGuest ? 'fast' : thinkingMode
                 }),
                 signal: controller.signal
             });
@@ -118,7 +125,8 @@ export function KyronAssistant() {
         }
     };
 
-    if (isHomePage || isPrivateSector) return null;
+    // No ocultamos el asistente en la home, lo mostramos como Atención al Cliente
+    // Pero sí lo ocultamos en páginas administrativas sensibles si no hay sesión (esto se maneja por ruta)
 
     return (
         <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[1000] font-tech">
@@ -137,19 +145,26 @@ export function KyronAssistant() {
                 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
             `}</style>
 
-            <AnimatePresence>
+            <AnimatePresence mode="wait">
                 {!isOpen && (
                     <motion.button
-                        layoutId="kyron-ai-vessel"
+                        key="launcher"
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0, opacity: 0 }}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
                         onClick={() => setIsOpen(true)}
-                        className="h-16 w-16 rounded-2xl bg-gradient-to-br from-cyan-500 via-blue-600 to-violet-600 p-[1.5px] shadow-[0_0_50px_rgba(14,165,233,0.4)] hover:scale-110 active:scale-95 transition-all group"
-                        initial={{ scale: 0, rotate: -45 }}
-                        animate={{ scale: 1, rotate: 0 }}
+                        className="h-16 w-16 rounded-2xl bg-gradient-to-br from-cyan-500 via-blue-600 to-violet-600 p-[1.5px] shadow-[0_0_50px_rgba(14,165,233,0.4)] transition-all group"
                     >
                         <div className="h-full w-full rounded-2xl bg-[#030711] flex items-center justify-center relative overflow-hidden">
                             <div className="absolute inset-0 bg-gradient-to-t from-cyan-500/20 to-transparent group-hover:opacity-100 opacity-0 transition-opacity" />
                             <div className="absolute inset-0 hud-grid-ai opacity-20" />
-                            <BrainCircuit className="h-8 w-8 text-white group-hover:text-cyan-400 transition-colors relative z-10" />
+                            {isGuest ? (
+                                <Headphones className="h-8 w-8 text-white group-hover:text-cyan-400 transition-colors relative z-10" />
+                            ) : (
+                                <BrainCircuit className="h-8 w-8 text-white group-hover:text-cyan-400 transition-colors relative z-10" />
+                            )}
                             <div className="absolute -bottom-1 -right-1 h-4 w-4 bg-emerald-500 rounded-full border-[3px] border-[#030711] animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
                         </div>
                     </motion.button>
@@ -157,14 +172,15 @@ export function KyronAssistant() {
 
                 {isOpen && (
                     <motion.div
-                        layoutId="kyron-ai-vessel"
+                        key="chat-window"
+                        initial={{ opacity: 0, scale: 0.9, y: 50, filter: "blur(20px)" }}
+                        animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, scale: 0.9, y: 50, filter: "blur(20px)" }}
+                        transition={{ type: "spring", damping: 25, stiffness: 200 }}
                         className={cn(
-                            "liquid-glass-apple flex flex-col border-white/10 shadow-[0_30px_100px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-500",
+                            "liquid-glass-apple flex flex-col border-white/10 shadow-[0_30px_100px_rgba(0,0,0,0.8)] overflow-hidden",
                             isMinimized ? "w-80 h-16" : "w-[480px] h-[720px] max-w-[95vw] max-h-[90vh]"
                         )}
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
                     >
                         {/* Immersive Neural Background */}
                         <div className="absolute inset-0 pointer-events-none z-0">
@@ -172,22 +188,11 @@ export function KyronAssistant() {
                             <div className="absolute inset-0 neural-bg" />
                             <div className="absolute inset-0 hud-grid-ai opacity-[0.05]" />
                             <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-primary/10 to-transparent" />
-                            {/* Animated Orbs */}
                             <motion.div 
                                 animate={{ x: [0, 100, 0], y: [0, 50, 0], opacity: [0.1, 0.2, 0.1] }}
                                 transition={{ duration: 10, repeat: Infinity }}
                                 className="absolute top-1/4 left-1/4 w-64 h-64 bg-cyan-500/10 blur-[100px] rounded-full" 
                             />
-                            <motion.div 
-                                animate={{ x: [0, -100, 0], y: [0, -50, 0], opacity: [0.05, 0.15, 0.05] }}
-                                transition={{ duration: 12, repeat: Infinity, delay: 1 }}
-                                className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-violet-500/10 blur-[100px] rounded-full" 
-                            />
-                        </div>
-
-                        {/* Top Scanline */}
-                        <div className="absolute top-0 left-0 right-0 h-1 z-30 pointer-events-none">
-                            <div className="w-full h-full bg-primary/20 animate-scanline" />
                         </div>
 
                         {/* Header Ejecutivo */}
@@ -198,7 +203,6 @@ export function KyronAssistant() {
                                         "h-14 w-14 rounded-2xl flex items-center justify-center border transition-all duration-700 bg-white/[0.02] relative group shadow-2xl", 
                                         agentConfigs[selectedAgent].bg
                                     )}>
-                                        <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
                                         <ActiveIcon className={cn("h-7 w-7 relative z-10", agentConfigs[selectedAgent].color)} />
                                     </div>
                                     <div>
@@ -207,12 +211,16 @@ export function KyronAssistant() {
                                                 {agentConfigs[selectedAgent].name}
                                             </h3>
                                             <div className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                                                <span className="text-[7px] font-black text-emerald-400 uppercase tracking-widest">Live Sync</span>
+                                                <span className="text-[7px] font-black text-emerald-400 uppercase tracking-widest">
+                                                    {isGuest ? 'Atención 24/7' : 'Live Sync'}
+                                                </span>
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <Activity className="h-3 w-3 text-white/20 animate-pulse" />
-                                            <span className="text-[9px] text-zinc-500 font-black uppercase tracking-widest">Kyron.Core v4.2.0-Alpha</span>
+                                            <span className="text-[9px] text-zinc-500 font-black uppercase tracking-widest">
+                                                {isGuest ? 'Portal de Consultas Públicas' : 'Kyron.Core v4.2.0-Alpha'}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -232,8 +240,8 @@ export function KyronAssistant() {
                                 </div>
                             </div>
 
-                            {/* Enhanced Agent Selector */}
-                            {!isMinimized && (
+                            {/* Enhanced Agent Selector - SOLO SE MUESTRA SI NO ES GUEST */}
+                            {!isMinimized && !isGuest && (
                                 <div className="flex items-center gap-2 p-1.5 bg-white/[0.02] rounded-2xl border border-white/5 shadow-inner">
                                     <div className="flex flex-1 justify-around gap-1">
                                         {(Object.keys(agentConfigs) as Array<keyof typeof agentConfigs>).map((key) => {
@@ -282,6 +290,18 @@ export function KyronAssistant() {
                                     </button>
                                 </div>
                             )}
+
+                            {/* MODO GUEST: BANNER SIMPLE */}
+                            {!isMinimized && isGuest && (
+                                <div className="p-3 bg-cyan-500/5 border border-cyan-500/10 rounded-2xl flex items-center gap-3">
+                                    <div className="h-8 w-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400">
+                                        <Info className="h-4 w-4" />
+                                    </div>
+                                    <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest leading-relaxed">
+                                        Acceso de Invitado: <span className="text-white">Consultas generales sobre el ecosistema.</span>
+                                    </p>
+                                </div>
+                            )}
                         </div>
 
                         {!isMinimized && (
@@ -294,9 +314,8 @@ export function KyronAssistant() {
                                     {messages.map((msg, i) => (
                                         <motion.div
                                             key={i}
-                                            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-                                            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                                            transition={{ duration: 0.5, delay: i * 0.05 }}
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
                                             className={cn(
                                                 "flex gap-5",
                                                 msg.role === 'user' ? "flex-row-reverse" : ""
@@ -311,7 +330,6 @@ export function KyronAssistant() {
                                                 ) : (
                                                     <div className="relative">
                                                         <Bot className="h-6 w-6 text-primary" />
-                                                        <Sparkles className="absolute -top-1 -right-1 h-3 w-3 text-primary/50 animate-pulse" />
                                                     </div>
                                                 )}
                                             </div>
@@ -322,12 +340,6 @@ export function KyronAssistant() {
                                                     : "bg-white/[0.03] border border-white/5 text-zinc-300 rounded-tl-none font-medium backdrop-blur-xl"
                                             )}>
                                                 <MarkdownRenderer content={msg.content} />
-                                                {msg.role === 'assistant' && (
-                                                    <div className="absolute top-2 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                        <button className="p-1 hover:text-white"><Share2 className="h-3 w-3" /></button>
-                                                        <button className="p-1 hover:text-white"><Info className="h-3 w-3" /></button>
-                                                    </div>
-                                                )}
                                             </div>
                                         </motion.div>
                                     ))}
@@ -337,43 +349,17 @@ export function KyronAssistant() {
                                             <div className="flex items-center gap-3">
                                                 <RefreshCw className="h-4 w-4 text-primary animate-spin" />
                                                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/60 italic">
-                                                    Procesando Protocolo {selectedAgent.toUpperCase()}...
+                                                    Procesando Consulta...
                                                 </span>
-                                            </div>
-                                            <div className="flex gap-1.5">
-                                                {[...Array(4)].map((_, i) => (
-                                                    <motion.div 
-                                                        key={i}
-                                                        className="h-1.5 w-10 bg-primary/20 rounded-full overflow-hidden"
-                                                    >
-                                                        <motion.div 
-                                                            className="h-full bg-primary shadow-[0_0_10px_rgba(59,130,246,1)]"
-                                                            animate={{ x: [-40, 40] }}
-                                                            transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.15 }}
-                                                        />
-                                                    </motion.div>
-                                                ))}
                                             </div>
                                         </div>
                                     )}
                                 </div>
 
-                                {/* Input Area (Console Style) */}
+                                {/* Input Area */}
                                 <div className="p-8 border-t border-white/[0.08] bg-black/80 backdrop-blur-3xl relative z-20">
                                     <div className="relative group/input">
-                                        <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-violet-500/20 to-primary/20 rounded-[2rem] blur-xl opacity-0 group-focus-within/input:opacity-100 transition duration-1000"></div>
                                         <div className="relative bg-black/40 border border-white/10 rounded-[2rem] overflow-hidden group-focus-within/input:border-primary/40 group-focus-within/input:bg-black/60 transition-all shadow-inner">
-                                            <div className="flex items-center justify-between px-6 py-3 border-b border-white/[0.04] bg-white/[0.01]">
-                                                <div className="flex items-center gap-3">
-                                                    <Terminal className="h-3.5 w-3.5 text-white/10" />
-                                                    <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20">Interconexión Ejecutiva SK-X</span>
-                                                </div>
-                                                <div className="flex gap-2">
-                                                    <div className="w-2 h-2 rounded-full bg-rose-500/20" />
-                                                    <div className="w-2 h-2 rounded-full bg-amber-500/20" />
-                                                    <div className="w-2 h-2 rounded-full bg-emerald-500/20" />
-                                                </div>
-                                            </div>
                                             <textarea
                                                 value={input}
                                                 onChange={(e) => setInput(e.target.value)}
@@ -383,38 +369,32 @@ export function KyronAssistant() {
                                                         handleSend();
                                                     }
                                                 }}
-                                                placeholder="Escriba instrucción para el ecosistema..."
+                                                placeholder={isGuest ? "Pregunta sobre planes o servicios..." : "Escriba instrucción ejecutiva..."}
                                                 className="w-full bg-transparent p-6 text-[13px] text-white placeholder:text-zinc-800 focus:outline-none resize-none min-h-[80px] max-h-[160px] font-tech font-bold uppercase tracking-widest leading-relaxed"
                                                 rows={1}
                                             />
                                             <div className="flex items-center justify-between p-4 bg-white/[0.01] border-t border-white/[0.04]">
                                                 <div className="flex gap-5 px-2">
-                                                    <button className="text-zinc-700 hover:text-primary transition-all hover:scale-110 active:scale-90"><Mic className="h-5 w-5" /></button>
-                                                    <button className="text-zinc-700 hover:text-primary transition-all hover:scale-110 active:scale-90"><Paperclip className="h-5 w-5" /></button>
-                                                    <button className="text-zinc-700 hover:text-primary transition-all hover:scale-110 active:scale-90"><Palette className="h-5 w-5" /></button>
+                                                    <button className="text-zinc-700 hover:text-primary transition-all active:scale-90"><Mic className="h-5 w-5" /></button>
+                                                    <button className="text-zinc-700 hover:text-primary transition-all active:scale-90"><Paperclip className="h-5 w-5" /></button>
                                                 </div>
                                                 <button
                                                     onClick={handleSend}
                                                     disabled={!input.trim() || isLoading}
                                                     className="group relative bg-primary text-white px-8 py-3 rounded-[1.5rem] disabled:bg-zinc-900 disabled:text-zinc-800 transition-all active:scale-95 shadow-2xl overflow-hidden"
                                                 >
-                                                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                                                     <div className="flex items-center gap-3 relative z-10">
-                                                        <span className="text-[11px] font-black uppercase tracking-[0.25em]">Ejecutar</span>
-                                                        <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                                                        <span className="text-[11px] font-black uppercase tracking-[0.25em]">Enviar</span>
+                                                        <ChevronRight className="h-4 w-4" />
                                                     </div>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-between mt-6 px-2">
-                                        <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-white/10 group cursor-help">
-                                            <Fingerprint className="h-4 w-4 group-hover:text-cyan-500 transition-colors" /> 
-                                            ID de Sesión: <span className="text-white/20">SK-ALPHA-99</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,1)]" />
-                                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">Servidor Caracas-HQ Activo</span>
+                                        <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-white/10">
+                                            <Fingerprint className="h-4 w-4" /> 
+                                            {isGuest ? 'Canal Público Seguro' : 'Sesión Cifrada SK-AES256'}
                                         </div>
                                     </div>
                                 </div>
