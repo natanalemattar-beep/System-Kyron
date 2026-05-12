@@ -1,0 +1,37 @@
+
+> nextn@0.1.0 build
+> node --max-old-space-size=4096 node_modules/next/dist/bin/next build
+
+   ▲ Next.js 15.5.14
+   - Environments: .env
+   - Experiments (use with caution):
+     · serverActions
+     · optimizePackageImports
+
+   Creating an optimized production build ...
+ ✓ (pwa) Compiling for server...
+ ✓ (pwa) Compiling for server...
+ ✓ (pwa) Compiling for client (static)...
+ ○ (pwa) Service worker: C:\Users\Carlos\.gemini\antigravity\scratch\System-Kyron-Git\public\sw.js
+ ○ (pwa)   URL: /sw.js
+ ○ (pwa)   Scope: /
+Failed to compile.
+
+./src/components/ai/kyron-assistant.tsx
+Module parse failed: Identifier 'MarkdownRenderer' has already been declared (9:9)
+File was processed with these loaders:
+ * ./node_modules/next/dist/build/webpack/loaders/next-flight-client-module-loader.js
+ * ./node_modules/next/dist/build/webpack/loaders/next-swc-loader.js
+You may need an additional loader to handle the result of these loaders.
+| import { MarkdownRenderer } from '@/components/markdown-renderer';
+| import { useAuth } from '@/lib/auth/context';
+> import { MarkdownRenderer } from '@/components/markdown-renderer';
+| export function KyronAssistant() {
+|     const { user, isLoading: isAuthLoading } = useAuth();
+
+Import trace for requested module:
+./src/components/ai/kyron-assistant.tsx
+./src/components/ai/kyron-assistant-wrapper.tsx
+
+
+> Build failed because of webpack errors

@@ -173,14 +173,32 @@ export function LandingHeader() {
                         
                         <div className="hidden lg:flex items-center gap-3">
                             <Link href="/login">
-                                <Button variant="ghost" className="text-[10px] font-black uppercase tracking-[0.2em] text-white/70 hover:text-white hover:bg-white/5 rounded-xl px-6 h-10 border border-white/5">
-                                    {t('login')}
+                                <Button 
+                                    variant="ghost" 
+                                    className="group relative h-11 px-10 rounded-2xl overflow-hidden border border-white/10 bg-white/5 transition-all duration-500 hover:border-cyan-500/40 hover:bg-cyan-500/10 active:scale-95 shadow-[0_0_25px_rgba(0,0,0,0.5)]"
+                                >
+                                    {/* Liquid Glow Background */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/20 via-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    
+                                    {/* Animated Top Shine */}
+                                    <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-30 group-hover:opacity-100 group-hover:via-cyan-400 transition-all duration-500" />
+                                    
+                                    <span className="relative z-10 flex items-center gap-4 text-[11px] font-black uppercase tracking-[0.25em] text-white/60 group-hover:text-white transition-all duration-500">
+                                        <div className="relative">
+                                            <KeyRound className="h-4 w-4 text-cyan-500/50 group-hover:text-cyan-400 transition-all duration-500 group-hover:scale-110" />
+                                            <div className="absolute inset-0 bg-cyan-400 blur-sm opacity-0 group-hover:opacity-40 transition-opacity" />
+                                        </div>
+                                        {t('login')}
+                                    </span>
+
+                                    {/* Subtle Interactive Orb */}
+                                    <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-blue-500/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                                 </Button>
                             </Link>
                             <Link href="/register">
-                                <Button className="text-[10px] font-black uppercase tracking-[0.2em] bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl px-8 h-10 shadow-[0_0_20px_rgba(8,145,178,0.3)] transition-all active:scale-95 group">
+                                <Button className="text-[11px] font-black uppercase tracking-[0.25em] bg-white hover:bg-zinc-200 text-black rounded-2xl px-10 h-11 shadow-[0_15px_30px_rgba(255,255,255,0.15)] transition-all active:scale-95 group">
                                     {t('register')}
-                                    <ArrowRight className="h-3.5 w-3.5 ml-2 group-hover:translate-x-1 transition-transform" />
+                                    <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
                                 </Button>
                             </Link>
                         </div>
@@ -243,9 +261,14 @@ export function LandingHeader() {
                                     <div className="space-y-3">
                                         <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-4 px-4">Portal de Acceso</p>
                                         <Link href="/login" className="block">
-                                            <Button variant="ghost" className="w-full justify-start gap-4 h-14 rounded-2xl bg-white/[0.03] border border-white/5 text-white/60 hover:text-white hover:bg-white/10 px-6">
-                                                <KeyRound className="h-5 w-5" />
-                                                <span className="text-xs font-black uppercase tracking-widest">{t('login')}</span>
+                                            <Button variant="ghost" className="w-full justify-start gap-4 h-16 rounded-[2rem] bg-cyan-500/5 border border-cyan-500/20 text-white/70 hover:text-white hover:bg-cyan-500/10 px-8 group transition-all">
+                                                <div className="h-10 w-10 rounded-xl bg-cyan-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                    <KeyRound className="h-5 w-5 text-cyan-400" />
+                                                </div>
+                                                <div className="flex flex-col items-start">
+                                                    <span className="text-xs font-black uppercase tracking-widest">{t('login')}</span>
+                                                    <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-cyan-500/50">Portal Seguro</span>
+                                                </div>
                                             </Button>
                                         </Link>
                                         <Link href="/register" className="block">

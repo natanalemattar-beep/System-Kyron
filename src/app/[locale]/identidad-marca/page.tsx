@@ -13,8 +13,11 @@ import {
   Box,
   Monitor,
   Printer,
-  Sparkles
+  Sparkles,
+  FileImage,
+  FileText
 } from "lucide-react";
+import html2canvas from "html2canvas";
 import { useRef, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -33,59 +36,68 @@ export default function IdentidadMarcaPage() {
     setIsMounted(true);
   }, []);
 
-  const handleDownloadSVG = () => {
+  const handleDownloadImage = async (format: 'png' | 'jpeg') => {
     if (!logoRef.current) return;
-    const svgElement = logoRef.current.querySelector("svg");
-    if (!svgElement) return;
-
-    const svgData = new XMLSerializer().serializeToString(svgElement);
-    const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
-    const svgUrl = URL.createObjectURL(svgBlob);
-    const downloadLink = document.createElement("a");
-    downloadLink.href = svgUrl;
-    downloadLink.download = "logo_system_kyron_master.svg";
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-
+    
+    const canvas = await html2canvas(logoRef.current, {
+      scale: 3, 
+      backgroundColor: '#020617', 
+      useCORS: true,
+      logging: false,
+    });
+    
+    const image = canvas.toDataURL(`image/${format}`, 1.0);
+    const link = document.createElement('a');
+    link.href = image;
+    link.download = `System_Kyron_Logo.${format}`;
+    link.click();
+    
     toast({
-      title: "EXPORTACIÓN VECTORIAL",
-      description: "Logo SVG descargado correctamente.",
+      title: "DESCARGA EXITOSA",
+      description: `Logo descargado en formato ${format.toUpperCase()}`,
     });
   };
 
-  const handleDownloadPNG = (size: number, label: string) => {
+  const handleDownloadPDF = async () => {
     if (!logoRef.current) return;
-    const svgElement = logoRef.current.querySelector("svg");
-    if (!svgElement) return;
-
-    const svgData = new XMLSerializer().serializeToString(svgElement);
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    const img = new Image();
     
-    img.onload = () => {
-      canvas.width = size;
-      canvas.height = size;
-      if (ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, size, size);
-      }
-      const pngUrl = canvas.toDataURL("image/png");
-      const downloadLink = document.createElement("a");
-      downloadLink.href = pngUrl;
-      downloadLink.download = `logo_kyron_${label}.png`;
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-      
-      toast({
-        title: `ASSET ${label.toUpperCase()} GENERADO`,
-        description: `Resolución: ${size}x${size} px.`,
-      });
-    };
+    const canvas = await html2canvas(logoRef.current, {
+      scale: 3,
+      backgroundColor: '#020617',
+      useCORS: true,
+      logging: false,
+    });
     
-    img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
+    const image = canvas.toDataURL('image/png');
+    const jsPDF = (await import("jspdf")).default;
+    const pdf = new jsPDF('l', 'mm', 'a4');
+    
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    
+    const imgProps = pdf.getImageProperties(image);
+    const ratio = imgProps.width / imgProps.height;
+    
+    let renderWidth = pdfWidth;
+    let renderHeight = renderWidth / ratio;
+    
+    if (renderHeight > pdfHeight) {
+      renderHeight = pdfHeight;
+      renderWidth = renderHeight * ratio;
+    }
+    
+    const x = (pdfWidth - renderWidth) / 2;
+    const y = (pdfHeight - renderHeight) / 2;
+    
+    pdf.setFillColor(2, 6, 23);
+    pdf.rect(0, 0, pdfWidth, pdfHeight, 'F');
+    pdf.addImage(image, 'PNG', x, y, renderWidth, renderHeight);
+    pdf.save('System_Kyron_Logo.pdf');
+    
+    toast({
+      title: "DESCARGA EXITOSA",
+      description: "Logo descargado en formato PDF",
+    });
   };
 
   if (!isMounted) return null;
@@ -110,23 +122,28 @@ export default function IdentidadMarcaPage() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="relative" ref={logoRef}>
-            <div className="absolute inset-0 bg-primary/5 blur-[150px] rounded-full scale-150" />
-            <div className="relative p-12 bg-card/40 border border-border rounded-2xl backdrop-blur-sm shadow-lg">
-              <Logo className="h-64 w-64 md:h-[480px] md:w-[480px] drop-shadow-glow" />
+          <div ref={logoRef} className="flex flex-col items-center gap-12 p-16 bg-[#020617] rounded-[3rem] border border-white/5 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--primary),0.05)_0,transparent_60%)] pointer-events-none" />
+            <div className="relative">
+              <div className="absolute inset-0 bg-primary/5 blur-[150px] rounded-full scale-150" />
+              <div className="relative p-12 bg-card/40 border border-border rounded-2xl backdrop-blur-sm shadow-lg">
+                <Logo className="h-64 w-64 md:h-[480px] md:w-[480px] drop-shadow-glow" />
+              </div>
             </div>
-          </div>
 
-          <div className="text-center space-y-6">
-            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary shadow-glow">
-              <ShieldCheck className="h-4 w-4" /> IDENTIDAD CORPORATIVA PROTEGIDA
-            </div>
-            
-            <div className="space-y-2">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight uppercase italic leading-none">
-                SYSTEM <span className="text-primary">KYRON</span>
-              </h1>
-              <p className="text-[10px] font-bold text-foreground/20 uppercase tracking-[1em] mt-4">Corporate Intelligence</p>
+            <div className="text-center space-y-6 relative z-10">
+              <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary shadow-glow">
+                <ShieldCheck className="h-4 w-4" /> IDENTIDAD CORPORATIVA PROTEGIDA
+              </div>
+              
+              <div className="space-y-4 max-w-3xl mx-auto">
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight uppercase italic leading-none">
+                  SYSTEM <span className="text-primary">KYRON</span>
+                </h1>
+                <p className="text-sm md:text-lg font-medium text-zinc-400 tracking-wider">
+                  Tu ecosistema operativo: tus líneas, tu contabilidad y cero complicaciones.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -138,33 +155,25 @@ export default function IdentidadMarcaPage() {
             <Button 
               variant="outline" 
               className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 shadow-glow"
-              onClick={handleDownloadSVG}
+              onClick={() => handleDownloadImage('png')}
             >
-              <FileCode className="mr-3 h-4 w-4" /> VECTOR MASTER (SVG)
+              <FileImage className="mr-3 h-4 w-4" /> DESCARGAR PNG
             </Button>
 
             <Button 
               variant="outline" 
               className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-secondary/30 bg-secondary/5 text-secondary hover:bg-secondary/10 shadow-glow-secondary"
-              onClick={() => handleDownloadPNG(591, '5x5cm_print')}
+              onClick={() => handleDownloadImage('jpeg')}
             >
-              <Printer className="mr-3 h-4 w-4" /> 5x5 CM [PRINT]
+              <FileImage className="mr-3 h-4 w-4" /> DESCARGAR JPG
             </Button>
 
             <Button 
               variant="outline" 
               className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-border bg-card/50 text-foreground hover:bg-card"
-              onClick={() => handleDownloadPNG(512, 'icon_512px')}
+              onClick={handleDownloadPDF}
             >
-              <Box className="mr-3 h-4 w-4" /> ICONO [512px]
-            </Button>
-
-            <Button 
-              variant="outline" 
-              className="rounded-2xl h-14 px-10 text-[10px] font-semibold uppercase tracking-widest border-primary/20 bg-primary/10 text-foreground hover:bg-primary/20"
-              onClick={() => handleDownloadPNG(4096, '4k_uhd')}
-            >
-              <Monitor className="mr-3 h-4 w-4" /> DIGITAL [4K]
+              <FileText className="mr-3 h-4 w-4" /> DESCARGAR PDF
             </Button>
 
             <Button 

@@ -22,9 +22,11 @@ import {
     Cloud,
     Globe,
     Package,
-    Instagram
+    Instagram,
+    Sparkles
 } from 'lucide-react';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
+import { Link } from '@/navigation';
 import dynamic from 'next/dynamic';
 import { KyronDocumentAi } from '@/components/ai/document-ai';
 

@@ -20,13 +20,13 @@ const slides = [
         id: "cover",
         tag: "INTRODUCCIÓN",
         title: "SYSTEM\nKYRON",
-        subtitle: "Hacemos que tu negocio funcione mejor, sin complicaciones.",
-        body: "Equipo: Carlos Mattar (Líder / Fundador). Líneas corporativas, páginas web increíbles y soluciones tecnológicas para escalar tu empresa de forma sostenible.",
+        subtitle: "Hacemos que tu negocio sea eficiente, sin complicaciones.",
+        body: "Equipo: Carlos Mattar (Líder / Fundador). Líneas corporativas, automatización operativa y soluciones tecnológicas para escalar tu empresa de forma sostenible.",
         icon: Rocket,
         accent: "#3b82f6",
         bg: "from-blue-600/30 via-indigo-900/20 to-transparent",
         image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
-        script: "Hola. Soy Carlos Mattar. No venimos a venderte tecnología complicada. Venimos a presentarte System Kyron: la forma más fácil y directa de conectar a tu equipo, armar tu página web y hacer que tu negocio crezca.",
+        script: "Hola. Soy Carlos Mattar. No venimos a venderte tecnología complicada. Venimos a presentarte System Kyron: la forma más fácil y directa de conectar a tu equipo, automatizar tus procesos y hacer que tu negocio crezca.",
         stats: null,
     },
     {
@@ -34,15 +34,15 @@ const slides = [
         tag: "EL DESAFÍO",
         title: "EL DOLOR\nDE CABEZA",
         subtitle: "Pelear con la tecnología no debería ser tu trabajo.",
-        body: "Los emprendedores pierden tiempo y dinero contratando entre 3 y 5 proveedores distintos para sus líneas, su web y sus sistemas. Más del 60% de los negocios venezolanos no tiene presencia digital activa.",
+        body: "Los emprendedores pierden tiempo y dinero contratando entre 3 y 5 proveedores distintos para sus líneas, su contabilidad y sus sistemas legales. Más del 60% de los negocios venezolanos no tiene una infraestructura digital profesional.",
         icon: TriangleAlert,
         accent: "#f43f5e",
         bg: "from-rose-900/30 via-slate-900/20 to-transparent",
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
-        script: "El problema real es que los emprendedores gastan horas peleando con la tecnología en lugar de atender a sus clientes. Tienen proveedores separados para internet, para la web, para todo. Es un caos que cuesta tiempo y frena el crecimiento.",
+        script: "El problema real es que los emprendedores gastan horas peleando con la tecnología en lugar de atender a sus clientes. Tienen proveedores separados para internet, para los sistemas, para todo. Es un caos que cuesta tiempo y frena el crecimiento.",
         stats: [
             { label: "Tiempo Perdido", value: "40", suffix: "%" },
-            { label: "Sin Web", value: "60", suffix: "%" },
+            { label: "Caos Legal", value: "70", suffix: "%" },
             { label: "Proveedores", value: "4", suffix: "+" },
         ],
     },
@@ -51,16 +51,16 @@ const slides = [
         tag: "PROPUESTA DE VALOR",
         title: "TODO EN UN\nSOLO LUGAR",
         subtitle: "La única empresa que te da todo lo que necesita tu negocio.",
-        body: "Líneas corporativas activas al instante, plataformas web hermosas que venden 24/7 y soluciones operativas sostenibles. Todo bajo un mismo proveedor.",
+        body: "Líneas corporativas activas al instante, contabilidad VEN-NIF automatizada y soluciones legales integrales. Todo bajo un mismo proveedor.",
         icon: Zap,
         accent: "#06b6d4",
         bg: "from-cyan-900/30 via-blue-900/20 to-transparent",
         image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1000&auto=format&fit=crop",
-        script: "La solución es System Kyron. Somos el ecosistema integral. Entregamos líneas corporativas, creamos webs que venden y organizamos los procesos para que la empresa escale. Todo con soporte humano y un solo pago.",
+        script: "La solución es System Kyron. Somos el ecosistema integral. Entregamos líneas corporativas, automatizamos tu contabilidad bajo normas VEN-NIF y blindamos legalmente tu empresa. Todo con soporte humano y un solo pago.",
         stats: [
             { label: "Comunicación", value: "Líneas" },
-            { label: "Presencia", value: "Páginas Web" },
-            { label: "Organización", value: "Sistemas" },
+            { label: "Legal", value: "Asesoría" },
+            { label: "Fiscal", value: "Contabilidad" },
         ],
         isMobileMockup: true
     },
@@ -91,10 +91,10 @@ const slides = [
         accent: "#f59e0b",
         bg: "from-amber-900/30 via-blue-900/20 to-transparent",
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
-        script: "Ganamos dinero de forma recurrente y escalable. Suscripciones por líneas, proyectos web con mantenimiento mensual, y planes todo-en-uno. A mayor volumen de clientes, nuestro costo operativo por usuario se reduce drásticamente.",
+        script: "Ganamos dinero de forma recurrente y escalable. Suscripciones por líneas, licencias de módulos SaaS contables y legales, y planes todo-en-uno. A mayor volumen de clientes, nuestro costo operativo por usuario se reduce drásticamente.",
         stats: [
             { label: "Líneas", value: "Mensual" },
-            { label: "Web", value: "Proyecto" },
+            { label: "SaaS", value: "Licencia" },
             { label: "Paquetes", value: "Integral" },
         ],
     },
@@ -537,6 +537,91 @@ export default function PitchPage() {
         document.body.removeChild(link);
     };
 
+    const [isExporting, setIsExporting] = useState(false);
+
+    const handleExportPPTX = async () => {
+        setIsExporting(true);
+        try {
+            const PptxGenJS = (await import("pptxgenjs")).default;
+            const pptx = new PptxGenJS();
+            
+            pptx.layout = 'LAYOUT_16x9';
+            pptx.defineSlideMaster({
+                title: 'KYRON_MASTER',
+                background: { color: '020617' },
+                objects: [
+                    { rect: { x: 0, y: 0, w: '100%', h: 0.1, fill: { color: '3b82f6' } } },
+                    { text: { text: 'SYSTEM KYRON // RETO INSPIRA 2026', options: { x: 0.5, y: 5.1, w: 9, color: '334155', fontSize: 8, fontFace: 'Arial' } } }
+                ]
+            });
+
+            slides.forEach((s) => {
+                let slide = pptx.addSlide({ masterName: 'KYRON_MASTER' });
+                slide.addText(s.tag, { x: 0.5, y: 0.5, color: '3b82f6', fontSize: 14, fontFace: 'Arial', bold: true, charSpacing: 4 });
+                slide.addText(s.title.replace('\n', ' '), { x: 0.5, y: 1.2, color: 'FFFFFF', fontSize: 44, fontFace: 'Arial', bold: true });
+                slide.addText(s.subtitle, { x: 0.5, y: 2.2, color: '94a3b8', fontSize: 20, fontFace: 'Arial', italic: true });
+                slide.addText(s.body, { x: 0.5, y: 3.2, w: 5.5, color: 'cbd5e1', fontSize: 14, fontFace: 'Arial', lineSpacing: 22 });
+                if (s.stats) {
+                    s.stats.forEach((st, idx) => {
+                        slide.addText(`${st.label}: ${st.value}${st.suffix || ""}`, { 
+                            x: 6.5, y: 1.5 + (idx * 0.8), w: 3, 
+                            color: '3b82f6', fontSize: 18, fontFace: 'Arial', bold: true,
+                            align: 'right'
+                        });
+                    });
+                }
+            });
+
+            await pptx.writeFile({ fileName: 'Presentacion_System_Kyron_Reto_Inspira_2026.pptx' });
+        } catch (err) {
+            console.error("PPTX Error:", err);
+        } finally {
+            setIsExporting(false);
+        }
+    };
+
+    const handleExportPDF = async () => {
+        setIsExporting(true);
+        try {
+            const jsPDF = (await import("jspdf")).default;
+            const doc = new jsPDF('l', 'mm', 'a4');
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+
+            for (let i = 0; i < slides.length; i++) {
+                if (i > 0) doc.addPage();
+                const s = slides[i];
+                doc.setFillColor(2, 6, 23);
+                doc.rect(0, 0, pageWidth, pageHeight, 'F');
+                doc.setDrawColor(59, 130, 246);
+                doc.setLineWidth(2);
+                doc.line(10, 10, pageWidth - 10, 10);
+                doc.setTextColor(59, 130, 246);
+                doc.setFontSize(10);
+                doc.text(s.tag, 20, 25);
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(36);
+                doc.text(s.title.replace('\n', ' '), 20, 45);
+                doc.setTextColor(148, 163, 184);
+                doc.setFontSize(18);
+                doc.text(s.subtitle, 20, 60);
+                doc.setTextColor(203, 213, 225);
+                doc.setFontSize(12);
+                const splitBody = doc.splitTextToSize(s.body, 120);
+                doc.text(splitBody, 20, 75);
+                doc.setTextColor(51, 65, 85);
+                doc.setFontSize(8);
+                doc.text('SYSTEM KYRON // RETO INSPIRA 2026 // CONFIDENCIAL', pageWidth / 2, pageHeight - 10, { align: 'center' });
+            }
+            doc.save('Presentacion_System_Kyron_Reto_Inspira_2026.pdf');
+        } catch (err) {
+            console.error("PDF Error:", err);
+        } finally {
+            setIsExporting(false);
+        }
+    };
+
+
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
             if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); next(); }
@@ -682,16 +767,22 @@ export default function PitchPage() {
                             <span className="text-[10px] font-black uppercase tracking-widest text-white/60 group-hover:text-white">Script (.doc)</span>
                         </button>
                         <button
-                            onClick={() => {
-                                const link = document.createElement('a');
-                                link.href = '/docs/Presentacion_Kyron_Reto_Inspira_2026.pptx';
-                                link.download = 'Presentacion_Kyron_Reto_Inspira_2026.pptx';
-                                link.click();
-                            }}
-                            className="group flex items-center gap-3 px-8 py-3 rounded-2xl bg-blue-600 border border-blue-500 hover:bg-blue-500 transition-all active:scale-95 shadow-[0_0_40px_rgba(37,99,235,0.3)]"
+                            onClick={handleExportPPTX}
+                            disabled={isExporting}
+                            className="group flex items-center gap-3 px-8 py-3 rounded-2xl bg-blue-600 border border-blue-500 hover:bg-blue-500 transition-all active:scale-95 shadow-[0_0_40px_rgba(37,99,235,0.3)] disabled:opacity-50"
                         >
-                            <Download className="h-4 w-4 text-white group-hover:animate-bounce" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-white">Exportar PPTX Elite</span>
+                            <Download className={cn("h-4 w-4 text-white group-hover:animate-bounce", isExporting && "animate-spin")} />
+                            <span className="text-[10px] font-black uppercase tracking-widest text-white">
+                                {isExporting ? "Generando..." : "PPTX Elite"}
+                            </span>
+                        </button>
+                        <button
+                            onClick={handleExportPDF}
+                            disabled={isExporting}
+                            className="group flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95 disabled:opacity-50"
+                        >
+                            <Monitor className="h-4 w-4 text-white/40 group-hover:text-white transition-colors" />
+                            <span className="text-[10px] font-black uppercase tracking-widest text-white/60 group-hover:text-white">PDF Elite</span>
                         </button>
                     </div>
 

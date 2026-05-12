@@ -12,10 +12,11 @@ import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import { MarkdownRenderer } from '@/components/markdown-renderer';
 
+import { useAuth } from '@/lib/auth/context';
+
 export function KyronAssistant() {
-    const pathname = usePathname();
-    // Determinamos si es un usuario invitado (Guest) basándonos en la ruta
-    const isGuest = pathname === '/' || pathname === '/es' || pathname === '/en' || pathname === '/es/' || pathname === '/en/';
+    const { user, isLoading: isAuthLoading } = useAuth();
+    const isGuest = !user;
     
     const [isOpen, setIsOpen] = useState(false);
     const [isMinimized, setIsMinimized] = useState(false);
@@ -27,14 +28,26 @@ export function KyronAssistant() {
         { 
             role: 'assistant', 
             content: isGuest 
-                ? 'Hola, soy el asistente de **Atención al Cliente Kyron**. ¿En qué puedo ayudarte hoy con respecto a nuestros planes o servicios?' 
-                : 'Bienvenido al **Centro de Inteligencia Kyron**. Estoy sincronizado con tu infraestructura. ¿Qué área del ecosistema deseas optimizar hoy?' 
+                ? 'Hola, soy el asistente de **Atención al Cliente Kyron**. ¿En qué puedo ayudarte hoy con respecto a nuestros servicios de Telecomunicaciones, Contabilidad o Legal?' 
+                : `Bienvenido de nuevo, **${user?.nombre}**. El Centro de Inteligencia Kyron está sincronizado. ¿Qué área del ecosistema deseas optimizar hoy?` 
         }
     ]);
 
     const [isLoading, setIsLoading] = useState(false);
     const [isStreaming, setIsStreaming] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
+
+    // Efecto para actualizar el mensaje inicial cuando cambia el estado de autenticación
+    useEffect(() => {
+        if (!isAuthLoading) {
+            setMessages([{ 
+                role: 'assistant', 
+                content: isGuest 
+                    ? 'Hola, soy el asistente de **Atención al Cliente Kyron**. ¿En qué puedo ayudarte hoy con respecto a nuestros servicios de Telecomunicaciones, Contabilidad o Legal?' 
+                    : `Bienvenido de nuevo, **${user?.nombre}**. El Centro de Inteligencia Kyron está sincronizado. ¿Qué área del ecosistema deseas optimizar hoy?` 
+            }]);
+        }
+    }, [isGuest, isAuthLoading, user?.nombre]);
 
     const agentConfigs = {
         general: { name: isGuest ? 'Atención al Cliente' : 'Asistente Central', color: 'text-cyan-400', icon: isGuest ? Headphones : Cpu, bg: 'bg-cyan-500/10 border-cyan-500/20' },

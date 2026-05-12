@@ -21,13 +21,14 @@ import {
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
 import { Link } from '@/navigation';
 import { PasswordGate } from '@/components/auth/password-gate';
+import { cn } from '@/lib/utils';
 
 const sections = [
     {
         id: "general",
         icon: Info,
         title: "1. Información General",
-        content: "Nombre del Proyecto: System Kyron. Eslogan: Tu ecosistema digital: tus líneas, tu web y cero complicaciones. Equipo: Carlos Mattar (Líder / Fundador).",
+        content: "Nombre del Proyecto: System Kyron. Eslogan: Tu ecosistema operativo: tus líneas, tu contabilidad y cero complicaciones. Equipo: Carlos Mattar (Líder / Fundador).",
         color: "blue"
     },
     {
@@ -41,7 +42,7 @@ const sections = [
         id: "solution",
         icon: Zap,
         title: "3. Propuesta de Valor (La Solución)",
-        content: "Ecosistema integral que unifica Telecomunicaciones (eSIM/Líneas), Presencia Web y Automatización Fiscal. Resolvemos la complejidad tecnológica para que el cliente se enfoque solo en vender.",
+        content: "Ecosistema integral que unifica Telecomunicaciones (eSIM/Líneas), Automatización Fiscal y Gestión Legal. Resolvemos la complejidad tecnológica para que el cliente se enfoque solo en vender.",
         color: "cyan"
     },
     {
@@ -55,7 +56,7 @@ const sections = [
         id: "model",
         icon: TrendingUp,
         title: "5. Modelo de Negocio",
-        content: "Generación de ingresos por suscripción mensual de líneas corporativas, desarrollo de proyectos web con mantenimiento recurrente y consultoría de seguridad premium.",
+        content: "Generación de ingresos por suscripción mensual de líneas corporativas, licencias de módulos SaaS para gestión fiscal y consultoría de seguridad premium.",
         color: "blue"
     },
     {
@@ -77,6 +78,59 @@ const sections = [
 export default function ResumenEjecutivoPage() {
     const [isDownloading, setIsDownloading] = React.useState(false);
 
+    const handleDownloadPDF = async () => {
+        setIsDownloading(true);
+        try {
+            const jsPDF = (await import("jspdf")).default;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+
+            // Background
+            doc.setFillColor(2, 6, 23);
+            doc.rect(0, 0, pageWidth, pageHeight, 'F');
+
+            // Header
+            doc.setTextColor(59, 130, 246);
+            doc.setFontSize(22);
+            doc.text('SYSTEM KYRON', 20, 25);
+            doc.setFontSize(10);
+            doc.text('RESUMEN EJECUTIVO // RETO INSPIRA 2026', 20, 32);
+
+            let cursorY = 50;
+            sections.forEach(s => {
+                doc.setTextColor(59, 130, 246);
+                doc.setFontSize(14);
+                doc.text(s.title, 20, cursorY);
+                cursorY += 10;
+                
+                doc.setTextColor(203, 213, 225);
+                doc.setFontSize(10);
+                const splitContent = doc.splitTextToSize(s.content, 170);
+                doc.text(splitContent, 20, cursorY);
+                cursorY += (splitContent.length * 5) + 15;
+                
+                if (cursorY > pageHeight - 40) {
+                    doc.addPage();
+                    doc.setFillColor(2, 6, 23);
+                    doc.rect(0, 0, pageWidth, pageHeight, 'F');
+                    cursorY = 25;
+                }
+            });
+
+            // Footer
+            doc.setTextColor(51, 65, 85);
+            doc.setFontSize(8);
+            doc.text('© 2026 EMPRENDIMIENTO CARLOS MATTAR // J-50832149-9', pageWidth / 2, pageHeight - 10, { align: 'center' });
+
+            doc.save('Resumen_Ejecutivo_System_Kyron_Reto_Inspira.pdf');
+        } catch (err) {
+            console.error("PDF Error:", err);
+        } finally {
+            setIsDownloading(false);
+        }
+    };
+
     const handleDownloadDoc = () => {
         setIsDownloading(true);
         const content = `
@@ -93,24 +147,24 @@ export default function ResumenEjecutivoPage() {
             </head>
             <body>
                 <h1>SYSTEM KYRON</h1>
-                <div class="slogan">"Tu ecosistema digital: tus líneas, tu web y cero complicaciones."</div>
+                <div class="slogan">"Tu ecosistema operativo: tus líneas, tu contabilidad y cero complicaciones."</div>
                 
                 <h2>1. Información General</h2>
                 <p><b>Nombre del Proyecto:</b> System Kyron</p>
-                <p><b>Eslogan:</b> Tu ecosistema digital: tus líneas, tu web y cero complicaciones.</p>
+                <p><b>Eslogan:</b> Tu ecosistema operativo: tus líneas, tu contabilidad y cero complicaciones.</p>
                 <p><b>Equipo:</b> Carlos Mattar</p>
 
                 <h2>2. Definición del Problema</h2>
-                <p>Los emprendedores venezolanos enfrentan un caos operativo al digitalizarse, perdiendo tiempo y dinero con proveedores fragmentados. El 85% de los negocios no tiene presencia digital profesional, lo que frena su crecimiento y competitividad en un mercado globalizado.</p>
+                <p>Los emprendedores venezolanos enfrentan un caos operativo al digitalizarse, perdiendo tiempo y dinero con proveedores fragmentados. El 85% de los negocios no tiene una infraestructura administrativa profesional, lo que frena su crecimiento y competitividad en un mercado globalizado.</p>
 
                 <h2>3. Propuesta de Valor (La Solución)</h2>
-                <p>Ecosistema integral que unifica Telecomunicaciones (eSIM/Líneas), Presencia Web y Automatización Fiscal. Resolvemos la complejidad tecnológica para que el cliente se enfoque solo en vender, garantizando cumplimiento legal y ahorro operativo.</p>
+                <p>Ecosistema integral que unifica Telecomunicaciones (eSIM/Líneas), Automatización Fiscal y Gestión Legal. Resolvemos la complejidad tecnológica para que el cliente se enfoque solo en vender, garantizando cumplimiento legal y ahorro operativo.</p>
 
                 <h2>4. Mercado Objetivo</h2>
                 <p>Emprendedores y PYMES (25-50 años) en Venezuela que buscan profesionalizar su imagen. Mercado potencial de +500,000 unidades de negocio que necesitan migrar del papel a la nube de forma segura.</p>
 
                 <h2>5. Modelo de Negocio</h2>
-                <p>Generación de ingresos por suscripción mensual de líneas corporativas, desarrollo de proyectos web con mantenimiento recurrente y consultoría de seguridad premium para sector privado.</p>
+                <p>Generación de ingresos por suscripción mensual de líneas corporativas, licencias de módulos SaaS contables/legales y consultoría de seguridad premium para sector privado.</p>
 
                 <h2>6. Estrategia de Marketing y Ventas</h2>
                 <p>Marketing educativo en redes sociales, alianzas estratégicas con cámaras de comercio e incubadoras, y un sólido programa de referidos empresariales.</p>
@@ -158,13 +212,24 @@ export default function ResumenEjecutivoPage() {
                         <Link href="/sector-privado-system-kyron" className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors text-xs font-black uppercase tracking-widest">
                             <ArrowLeft className="h-4 w-4" /> Volver
                         </Link>
-                        <button 
-                            onClick={handleDownloadDoc}
-                            className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest border border-blue-500 transition-all active:scale-95 shadow-[0_0_30px_rgba(37,99,235,0.2)]"
-                        >
-                            <DownloadIcon className="h-3 w-3" />
-                            Descargar Resumen (DOC)
-                        </button>
+                        <div className="flex gap-3">
+                            <button 
+                                onClick={handleDownloadPDF}
+                                disabled={isDownloading}
+                                className="flex items-center gap-2 px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest border border-cyan-500 transition-all active:scale-95 shadow-[0_0_30px_rgba(8,145,178,0.2)] disabled:opacity-50"
+                            >
+                                <Rocket className={cn("h-3 w-3", isDownloading && "animate-spin")} />
+                                {isDownloading ? 'Generando...' : 'PDF Elite'}
+                            </button>
+                            <button 
+                                onClick={handleDownloadDoc}
+                                disabled={isDownloading}
+                                className="flex items-center gap-2 px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/10 transition-all active:scale-95 disabled:opacity-50"
+                            >
+                                <DownloadIcon className="h-3 w-3 text-zinc-400" />
+                                Descargar DOC
+                            </button>
+                        </div>
                     </div>
                 </nav>
 
