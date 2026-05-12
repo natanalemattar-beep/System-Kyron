@@ -124,20 +124,20 @@ export default function StickersPage() {
             <div className="pb-20 px-4 print:p-0 flex justify-center">
                 <div 
                     id="stickers-sheet"
-                    className="bg-white shadow-[0_0_80px_rgba(0,0,0,0.5)] print:shadow-none w-[8.5in] min-h-[11in] p-[0.6in] origin-top transform transition-transform duration-500"
+                    className="bg-white shadow-[0_0_80px_rgba(0,0,0,0.5)] print:shadow-none w-[8.5in] min-h-[11in] p-[0.75in] origin-top transform transition-transform duration-500"
                 >
-                    <div className="grid grid-cols-3 gap-y-16 gap-x-12">
+                    <div className="grid grid-cols-3 gap-y-12 gap-x-12">
                         {stickersArray.map((_, index) => (
                             <div 
                                 key={index} 
-                                className="aspect-square bg-white border border-zinc-200 rounded-full flex flex-col items-center justify-center p-6 relative overflow-hidden break-inside-avoid shadow-[0_4px_15px_rgba(0,0,0,0.05)]"
+                                className="aspect-square bg-white border border-zinc-200 rounded-full flex flex-col items-center justify-center p-12 relative overflow-hidden break-inside-avoid shadow-[0_4px_15px_rgba(0,0,0,0.05)]"
                             >
                                 {/* Borde de corte sutil */}
                                 <div className="absolute inset-0 rounded-full border border-zinc-100 pointer-events-none" />
                                 
-                                <div className="flex flex-col items-center w-full">
-                                    {/* Logo Principal - Aumentado y Centrado */}
-                                    <div className="relative w-24 h-14 mb-1">
+                                <div className="flex flex-col items-center w-full relative z-10 translate-y-2">
+                                    {/* Logo Principal - Ajustado para que no se corte */}
+                                    <div className="relative w-20 h-10 mb-1 flex items-center justify-center">
                                         <img 
                                             src="/images/logo-black.png" 
                                             alt="Kyron Logo" 
@@ -146,23 +146,23 @@ export default function StickersPage() {
                                     </div>
                                     
                                     <div className="flex flex-col items-center mb-3">
-                                        <h2 className="text-black font-black uppercase tracking-[-0.05em] text-[18px] leading-none text-center">
+                                        <h2 className="text-black font-black uppercase tracking-[-0.05em] text-[16px] leading-none text-center">
                                             System
                                         </h2>
-                                        <span className="text-cyan-600 font-black uppercase text-[15px] tracking-[0.15em] leading-none mt-1">Kyron</span>
+                                        <span className="text-cyan-600 font-black uppercase text-[14px] tracking-[0.12em] leading-none mt-1">Kyron</span>
                                     </div>
 
-                                    {/* QR Code - Enmarcado */}
-                                    <div className="p-2.5 bg-white border border-zinc-100 rounded-[1.5rem] shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
+                                    {/* QR Code */}
+                                    <div className="p-2 bg-white border border-zinc-100 rounded-2xl shadow-[0_4px_10px_rgba(0,0,0,0.05)] mb-3">
                                         <img 
                                             src={qrCodeImage} 
                                             alt="QR" 
-                                            className="w-20 h-20"
+                                            className="w-16 h-16"
                                             crossOrigin="anonymous"
                                         />
                                     </div>
                                     
-                                    <p className="text-[9px] font-black text-zinc-400 tracking-[0.25em] mt-4 uppercase">
+                                    <p className="text-[8px] font-black text-zinc-400 tracking-[0.2em] uppercase">
                                         system-kyron.vercel.app
                                     </p>
                                 </div>
@@ -192,7 +192,7 @@ export default function StickersPage() {
                     #stickers-sheet {
                         box-shadow: none !important;
                         margin: 0 !important;
-                        padding: 0.6in !important;
+                        padding: 0.75in !important;
                         width: 8.5in !important;
                         min-height: 11in !important;
                     }
