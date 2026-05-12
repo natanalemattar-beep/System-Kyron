@@ -285,8 +285,8 @@ function BookmarkItem({ qrCodeImage }: { qrCodeImage: string }) {
                     />
                 </div>
                 <div className="text-center">
-                    <h2 className="text-black font-black uppercase tracking-tighter text-2xl leading-none">KYRON</h2>
-                    <p className="text-[7px] font-black uppercase tracking-[0.4em] text-zinc-400 mt-1.5">Elite System</p>
+                    <h2 className="text-black font-black uppercase tracking-tight text-[10px] leading-none mb-1 opacity-40">System</h2>
+                    <h2 className="text-black font-black uppercase tracking-tighter text-3xl leading-none">Kyron</h2>
                 </div>
             </div>
 
