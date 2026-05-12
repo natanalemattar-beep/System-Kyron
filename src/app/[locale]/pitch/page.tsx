@@ -1,14 +1,15 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useSpring, useTransform } from "framer-motion";
 import {
     ChevronLeft, ChevronRight, Rocket, Leaf,
     Shield, BrainCircuit, TrendingUp,
     Users, Globe, Zap, CircleCheck, QrCode,
     TriangleAlert, Banknote, X, ArrowRight,
     Network, DollarSign, Download, Monitor, Smartphone,
-    Activity, Lock, Cpu, MessageSquare, Instagram
+    Activity, Lock, Cpu, MessageSquare, Instagram,
+    Radar, Terminal, Command
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
@@ -40,9 +41,9 @@ const slides = [
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
         script: "El problema real es que los emprendedores gastan horas peleando con la tecnología en lugar de atender a sus clientes. Tienen proveedores separados para internet, para la web, para todo. Es un caos que cuesta tiempo y frena el crecimiento.",
         stats: [
-            { label: "Tiempo Perdido", value: "40%" },
-            { label: "Sin Web", value: "60%" },
-            { label: "Proveedores", value: "+4" },
+            { label: "Tiempo Perdido", value: "40", suffix: "%" },
+            { label: "Sin Web", value: "60", suffix: "%" },
+            { label: "Proveedores", value: "4", suffix: "+" },
         ],
     },
     {
@@ -75,8 +76,8 @@ const slides = [
         image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1000&auto=format&fit=crop",
         script: "Nuestro mercado está claro: más de 500.000 micro y PyMEs en el país. Si captamos solo el 1%, estamos hablando de 5.000 clientes buscando formalizarse y vender más en un entorno cada vez más digital.",
         stats: [
-            { label: "Mercado Total", value: "500K+" },
-            { label: "Meta Inicial (1%)", value: "5,000" },
+            { label: "Mercado Total", value: "500", suffix: "K+" },
+            { label: "Meta Inicial (1%)", value: "5000", suffix: "" },
             { label: "Expansión", value: "Regional" },
         ],
     },
@@ -177,78 +178,131 @@ const slides = [
     },
 ];
 
+function CountUpNumber({ value, suffix = "" }: { value: string, suffix?: string }) {
+    const numericValue = parseInt(value.replace(/[^0-9]/g, ''));
+    if (isNaN(numericValue)) return <span>{value} {suffix}</span>;
+
+    const [count, setCount] = useState(0);
+    
+    useEffect(() => {
+        let startTime: number | null = null;
+        const duration = 1500;
+        
+        const animate = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            setCount(Math.floor(progress * numericValue));
+            if (progress < 1) requestAnimationFrame(animate);
+        };
+        
+        requestAnimationFrame(animate);
+    }, [numericValue]);
+
+    return <span>{count}{suffix}</span>;
+}
+
 function KyronMockup() {
     return (
-        <div className="w-full aspect-video rounded-3xl bg-black/40 border border-white/10 overflow-hidden relative shadow-2xl backdrop-blur-sm group">
+        <div className="w-full aspect-video rounded-[2.5rem] bg-black/40 border border-white/10 overflow-hidden relative shadow-2xl backdrop-blur-md group">
+            {/* HUD Overlay */}
+            <div className="absolute inset-0 pointer-events-none z-20">
+                <div className="absolute top-4 left-4 flex gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500/40 animate-pulse delay-75" />
+                </div>
+                <div className="absolute top-4 right-4 text-[8px] font-black text-white/20 uppercase tracking-[0.3em]">System.OS Alpha 4.0</div>
+                <div className="absolute bottom-4 left-4 right-4 flex justify-between">
+                    <div className="text-[7px] font-black text-blue-500/40 uppercase tracking-widest">Protocolo: SK-CORE-V2</div>
+                    <div className="text-[7px] font-black text-blue-500/40 uppercase tracking-widest text-right">Coord: 10.4806° N, 66.9036° W</div>
+                </div>
+            </div>
+
             {/* Top Bar */}
-            <div className="h-10 bg-white/5 border-b border-white/10 flex items-center px-4 justify-between">
+            <div className="h-12 bg-white/5 border-b border-white/10 flex items-center px-6 justify-between relative z-10">
                 <div className="flex gap-1.5">
                     <div className="w-2.5 h-2.5 rounded-full bg-rose-500/30" />
                     <div className="w-2.5 h-2.5 rounded-full bg-amber-500/30" />
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/30" />
                 </div>
-                <div className="text-[10px] text-white/20 font-bold uppercase tracking-widest flex items-center gap-2">
-                    <Lock className="h-3 w-3" /> system-kyron.secure
+                <div className="text-[10px] text-white/40 font-black uppercase tracking-widest flex items-center gap-2">
+                    <Lock className="h-3 w-3 text-emerald-500" /> system-kyron.secure
                 </div>
                 <div className="flex gap-3">
-                    <div className="w-8 h-1 bg-white/10 rounded-full" />
+                    <div className="w-12 h-1 bg-white/10 rounded-full" />
                 </div>
             </div>
 
             {/* Content area */}
             <div className="flex h-full">
                 {/* Sidebar */}
-                <div className="w-16 md:w-20 border-r border-white/5 flex flex-col items-center py-6 gap-6">
-                    <div className="h-8 w-8 rounded-lg bg-blue-500/20 border border-blue-500/40" />
+                <div className="w-20 border-r border-white/5 flex flex-col items-center py-8 gap-8 bg-black/20">
+                    <div className="h-10 w-10 rounded-xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center">
+                        <Rocket className="h-5 w-5 text-blue-400" />
+                    </div>
                     {[Shield, BrainCircuit, Network, Globe, Activity].map((Icon, i) => (
-                        <Icon key={i} className={cn("h-4 w-4", i === 0 ? "text-blue-400" : "text-white/20")} />
+                        <motion.div
+                            key={i}
+                            whileHover={{ scale: 1.2, color: "#60a5fa" }}
+                            className="cursor-pointer"
+                        >
+                            <Icon className={cn("h-4 w-4", i === 0 ? "text-blue-400" : "text-white/20")} />
+                        </motion.div>
                     ))}
                 </div>
 
                 {/* Main Dashboard */}
-                <div className="flex-1 p-4 md:p-8 space-y-6">
+                <div className="flex-1 p-8 space-y-8 bg-gradient-to-br from-blue-900/5 to-transparent">
                     <div className="flex items-center justify-between">
-                        <div>
-                            <h4 className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1">Global Dashboard</h4>
-                            <h3 className="text-xl md:text-2xl font-black italic uppercase">Resumen de Operación</h3>
-                        </div>
-                        <div className="flex gap-2">
-                            <div className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black text-emerald-400 uppercase tracking-widest animate-pulse">
-                                Live
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                        >
+                            <h4 className="text-[9px] font-black text-blue-500 uppercase tracking-[0.3em] mb-1">Global Neural Dashboard</h4>
+                            <h3 className="text-2xl font-black italic uppercase tracking-tighter text-white">Resumen de Operación</h3>
+                        </motion.div>
+                        <div className="flex gap-3">
+                            <div className="px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black text-emerald-400 uppercase tracking-widest animate-pulse flex items-center gap-2">
+                                <span className="h-1 w-1 rounded-full bg-emerald-500" /> Link Live
                             </div>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-6">
                         {[
                             { label: "Sincronización BCV", value: "Sincronizado", color: "text-blue-400", icon: Activity },
                             { label: "Carga Impositiva Q3", value: "12.4%", color: "text-emerald-400", icon: Banknote },
                             { label: "Flota 5G Activa", value: "98.2%", color: "text-purple-400", icon: Zap },
                         ].map((item, i) => (
-                            <div key={i} className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-                                <item.icon className={cn("h-4 w-4 mb-3", item.color)} />
-                                <p className="text-[9px] font-bold text-white/30 uppercase mb-1">{item.label}</p>
-                                <p className="text-sm md:text-lg font-black tracking-tight">{item.value}</p>
-                            </div>
+                            <motion.div 
+                                key={i} 
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 + i * 0.1 }}
+                                className="p-5 rounded-3xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.05] transition-all"
+                            >
+                                <item.icon className={cn("h-5 w-5 mb-4", item.color)} />
+                                <p className="text-[8px] font-black text-white/30 uppercase tracking-[0.2em] mb-1">{item.label}</p>
+                                <p className="text-lg font-black tracking-tight text-white">{item.value}</p>
+                            </motion.div>
                         ))}
                     </div>
 
                     {/* Chart Mockup */}
-                    <div className="h-32 md:h-48 rounded-2xl bg-white/[0.01] border border-white/5 p-4 relative overflow-hidden">
-                        <div className="absolute inset-0 opacity-10">
+                    <div className="h-40 rounded-3xl bg-white/[0.01] border border-white/5 p-6 relative overflow-hidden">
+                        <div className="absolute inset-0 opacity-[0.03]">
                             <div className="h-full w-full" style={{
-                                backgroundImage: "linear-gradient(90deg, #3b82f6 2px, transparent 2px), linear-gradient(#3b82f6 2px, transparent 2px)",
+                                backgroundImage: "linear-gradient(90deg, #3b82f6 1px, transparent 1px), linear-gradient(#3b82f6 1px, transparent 1px)",
                                 backgroundSize: "20px 20px"
                             }} />
                         </div>
                         <div className="flex items-end justify-between h-full gap-2 relative z-10">
-                            {[40, 70, 45, 90, 65, 80, 50, 100, 60, 85].map((h, i) => (
+                            {[40, 70, 45, 90, 65, 80, 50, 100, 60, 85, 45, 75, 55, 95].map((h, i) => (
                                 <motion.div
                                     key={i}
                                     initial={{ height: 0 }}
                                     animate={{ height: `${h}%` }}
-                                    transition={{ delay: 1 + i * 0.05, duration: 0.8 }}
-                                    className="flex-1 bg-gradient-to-t from-blue-600/40 to-blue-400/10 rounded-t-sm"
+                                    transition={{ delay: 0.8 + i * 0.04, duration: 1, ease: "easeOut" }}
+                                    className="flex-1 bg-gradient-to-t from-blue-600/60 to-blue-400/10 rounded-full"
                                 />
                             ))}
                         </div>
@@ -257,83 +311,105 @@ function KyronMockup() {
             </div>
 
             {/* Glowing effect */}
-            <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-blue-600/20 blur-[100px] rounded-full" />
-            <div className="absolute -top-20 -left-20 w-64 h-64 bg-purple-600/10 blur-[100px] rounded-full" />
+            <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-blue-600/20 blur-[120px] rounded-full" />
+            <div className="absolute -top-20 -left-20 w-80 h-80 bg-purple-600/10 blur-[120px] rounded-full" />
         </div>
     );
 }
 
 function SmartphoneMockup() {
     return (
-        <div className="w-[280px] h-[580px] bg-[#0c0c0c] rounded-[3rem] border-[8px] border-[#1a1a1a] relative overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] mx-auto group">
+        <div className="w-[300px] h-[620px] bg-[#0c0c0c] rounded-[3.5rem] border-[10px] border-[#1a1a1a] relative overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.6)] mx-auto group">
             {/* Notch */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-[#1a1a1a] rounded-b-2xl z-30 flex items-center justify-center gap-2">
-                <div className="w-10 h-1 bg-white/5 rounded-full" />
-                <div className="w-2 h-2 rounded-full bg-blue-500/20" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-8 bg-[#1a1a1a] rounded-b-3xl z-30 flex items-center justify-center gap-3">
+                <div className="w-12 h-1.5 bg-white/5 rounded-full" />
+                <div className="w-2.5 h-2.5 rounded-full bg-blue-500/20" />
             </div>
 
             {/* Screen Content */}
-            <div className="h-full w-full bg-[#04060f] relative p-6 flex flex-col pt-12">
+            <div className="h-full w-full bg-[#04060f] relative p-8 flex flex-col pt-16">
                 {/* Status Bar */}
-                <div className="flex justify-between items-center mb-8 px-2">
-                    <span className="text-[10px] font-bold">9:41</span>
-                    <div className="flex gap-1.5 items-center">
-                        <Network className="h-3 w-3 text-emerald-500" />
-                        <Zap className="h-3 w-3 text-blue-500" />
-                        <div className="w-5 h-2.5 border border-white/20 rounded-[2px] relative">
-                            <div className="absolute inset-[1px] bg-white rounded-[1px]" style={{ width: '80%' }} />
+                <div className="flex justify-between items-center mb-10 px-2">
+                    <span className="text-[11px] font-black tracking-tighter">9:41 AM</span>
+                    <div className="flex gap-2 items-center">
+                        <Network className="h-3.5 w-3.5 text-emerald-500" />
+                        <Zap className="h-3.5 w-3.5 text-blue-500" />
+                        <div className="w-6 h-3 border border-white/20 rounded-[3px] relative flex items-center px-[1px]">
+                            <div className="h-full bg-white rounded-[1px] w-[85%]" />
                         </div>
                     </div>
                 </div>
 
                 {/* App Content */}
-                <div className="space-y-6">
-                    <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center">
-                            <Smartphone className="h-5 w-5 text-emerald-400" />
+                <div className="space-y-8">
+                    <div className="flex items-center gap-4">
+                        <div className="h-12 w-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shadow-lg shadow-emerald-500/10">
+                            <Smartphone className="h-6 w-6 text-emerald-400" />
                         </div>
                         <div>
-                            <h4 className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Kyron Mobile</h4>
-                            <p className="text-[9px] text-white/30 font-bold uppercase">Alfa Protocol</p>
+                            <h4 className="text-[11px] font-black text-emerald-500 uppercase tracking-[0.3em]">Kyron Mobile</h4>
+                            <p className="text-[9px] text-white/30 font-black uppercase tracking-widest mt-0.5">Alfa Protocol v4.0</p>
                         </div>
                     </div>
 
-                    <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-4">
+                    <div className="p-6 rounded-3xl bg-white/[0.04] border border-white/10 space-y-5">
                         <div className="flex justify-between items-center">
-                            <span className="text-[9px] font-black text-white/40 uppercase">eSIM Status</span>
-                            <span className="text-[9px] font-black text-emerald-400 uppercase">Activo 5G</span>
+                            <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">eSIM Status</span>
+                            <div className="flex items-center gap-2">
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                                <span className="text-[10px] font-black text-emerald-400 uppercase">Activo 5G</span>
+                            </div>
                         </div>
-                        <div className="h-1 bg-white/5 rounded-full overflow-hidden">
-                            <div className="h-full bg-emerald-500 w-[75%]" />
+                        <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                            <motion.div 
+                                initial={{ width: 0 }}
+                                animate={{ width: "85%" }}
+                                transition={{ duration: 2, ease: "easeInOut" }}
+                                className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400" 
+                            />
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-4">
                         {[
-                            { label: 'Facturas', icon: Banknote, color: 'text-blue-400' },
-                            { label: 'Seguridad', icon: Shield, color: 'text-rose-400' },
-                            { label: 'Red', icon: Globe, color: 'text-cyan-400' },
-                            { label: 'AI Sync', icon: BrainCircuit, color: 'text-purple-400' },
+                            { label: 'Facturas', icon: Banknote, color: 'text-blue-400', bg: 'bg-blue-500/10' },
+                            { label: 'Seguridad', icon: Shield, color: 'text-rose-400', bg: 'bg-rose-500/10' },
+                            { label: 'Red', icon: Globe, color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
+                            { label: 'AI Sync', icon: BrainCircuit, color: 'text-purple-400', bg: 'bg-purple-500/10' },
                         ].map((item, i) => (
-                            <div key={i} className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col items-center gap-2">
-                                <item.icon className={cn("h-4 w-4", item.color)} />
-                                <span className="text-[8px] font-black uppercase text-white/30">{item.label}</span>
-                            </div>
+                            <motion.div 
+                                key={i} 
+                                whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.08)" }}
+                                className="p-5 rounded-[2rem] bg-white/[0.02] border border-white/5 flex flex-col items-center gap-3 transition-all cursor-pointer"
+                            >
+                                <div className={cn("p-2.5 rounded-xl", item.bg)}>
+                                    <item.icon className={cn("h-5 w-5", item.color)} />
+                                </div>
+                                <span className="text-[9px] font-black uppercase text-white/40 tracking-[0.2em]">{item.label}</span>
+                            </motion.div>
                         ))}
                     </div>
 
-                    <div className="mt-8 p-4 rounded-2xl bg-gradient-to-br from-blue-600/20 to-transparent border border-blue-500/20">
-                        <p className="text-[8px] font-black text-blue-400 uppercase mb-2">Notificación Crítica</p>
-                        <p className="text-[10px] font-medium text-white/60 leading-tight">Cambio detectado en tasa BCV. Ajustando proyecciones...</p>
-                    </div>
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1 }}
+                        className="mt-8 p-5 rounded-3xl bg-gradient-to-br from-blue-600/20 to-transparent border border-blue-500/20 backdrop-blur-md"
+                    >
+                        <div className="flex items-center gap-2 mb-3">
+                            <TriangleAlert className="h-3 w-3 text-blue-400" />
+                            <p className="text-[9px] font-black text-blue-400 uppercase tracking-widest">IA Predictiva</p>
+                        </div>
+                        <p className="text-[11px] font-bold text-white/80 leading-relaxed uppercase tracking-tight">Cambio detectado en tasa BCV. Ajustando proyecciones de flujo de caja para el cierre de hoy...</p>
+                    </motion.div>
                 </div>
 
                 {/* Home Indicator */}
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full" />
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-white/20 rounded-full" />
             </div>
 
             {/* Reflection */}
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/5 to-transparent opacity-50" />
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 to-transparent opacity-30" />
         </div>
     );
 }
@@ -351,14 +427,18 @@ export default function PitchPage() {
     }, []);
 
     const next = useCallback(() => {
-        setDirection(1);
-        setCurrent((p) => (p + 1) % slides.length);
-    }, []);
+        if (current < slides.length - 1) {
+            setDirection(1);
+            setCurrent((p) => p + 1);
+        }
+    }, [current]);
 
     const prev = useCallback(() => {
-        setDirection(-1);
-        setCurrent((p) => (p - 1 + slides.length) % slides.length);
-    }, []);
+        if (current > 0) {
+            setDirection(-1);
+            setCurrent((p) => p - 1);
+        }
+    }, [current]);
 
     const handleDownload = () => {
         setIsPrinting(true);
@@ -396,7 +476,7 @@ export default function PitchPage() {
                             ${s.stats.map(st => `
                                 <div style="display: table-cell; width: 33%;">
                                     <div style="font-size: 9px; color: #94a3b8; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">${st.label}</div>
-                                    <div style="font-size: 18px; color: #0f172a; font-weight: 900;">${st.value}</div>
+                                    <div style="font-size: 18px; color: #0f172a; font-weight: 900;">${st.value}${st.suffix || ""}</div>
                                 </div>
                             `).join('')}
                         </div>
@@ -471,9 +551,9 @@ export default function PitchPage() {
     const progress = ((current + 1) / slides.length) * 100;
 
     const variants = {
-        enter: (d: number) => ({ opacity: 0, x: d * 60, filter: "blur(12px)" }),
-        center: { opacity: 1, x: 0, filter: "blur(0px)" },
-        exit: (d: number) => ({ opacity: 0, x: d * -60, filter: "blur(12px)" }),
+        enter: (d: number) => ({ opacity: 0, x: d * 100, rotateY: d * 10, filter: "blur(20px)", scale: 0.95 }),
+        center: { opacity: 1, x: 0, rotateY: 0, filter: "blur(0px)", scale: 1 },
+        exit: (d: number) => ({ opacity: 0, x: d * -100, rotateY: d * -10, filter: "blur(20px)", scale: 0.95 }),
     };
 
     return (
@@ -482,12 +562,12 @@ export default function PitchPage() {
             description="Documentación confidencial para inversores y competencia. Ingresa la clave Carlos123."
         >
             <div className={cn(
-                "fixed inset-0 bg-[#04060f] text-white flex flex-col overflow-hidden transition-all duration-700",
+                "fixed inset-0 bg-[#02040a] text-white flex flex-col overflow-hidden transition-all duration-700 font-[family-name:var(--font-outfit)]",
                 isPrinting ? "print-mode" : ""
             )}>
             <style jsx global>{`
                 @media print {
-                    body { background: #04060f !important; color: white !important; -webkit-print-color-adjust: exact; }
+                    body { background: #02040a !important; color: white !important; -webkit-print-color-adjust: exact; }
                     .no-print { display: none !important; }
                     main { 
                         display: block !important; 
@@ -495,29 +575,25 @@ export default function PitchPage() {
                     }
                     .fixed { position: relative !important; }
                     section { page-break-after: always; height: 100vh; display: flex; align-items: center; justify-content: center; }
-                    .grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
-                    .bg-gradient-to-br { display: block !important; }
                 }
 
-                @keyframes float {
-                    0%, 100% { transform: translateY(0px) rotate(0deg); }
-                    50% { transform: translateY(-20px) rotate(1deg); }
+                @keyframes bounce-x {
+                    0%, 100% { transform: translateX(0); }
+                    50% { transform: translateX(5px); }
                 }
-                
-                @keyframes pulse-ring {
-                    0% { transform: scale(0.33); opacity: 0; }
-                    80%, 100% { opacity: 0; }
-                }
+                .animate-bounce-x { animation: bounce-x 1s infinite; }
 
                 .neural-grid {
                     background-image: 
-                        radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
-                    background-size: 40px 40px;
+                        linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+                    background-size: 50px 50px;
                 }
-
-                .grain {
-                    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-                    opacity: 0.05;
+                
+                .glass-pill {
+                    background: rgba(255, 255, 255, 0.03);
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.05);
                 }
             `}</style>
 
@@ -529,98 +605,93 @@ export default function PitchPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 1.2 }}
+                        transition={{ duration: 1.5 }}
                         className={cn("absolute inset-0 bg-gradient-to-br", slide.bg)}
                     />
                 </AnimatePresence>
 
-                {/* Visual Layers */}
-                <div className="absolute inset-0 grain" />
+                {/* Grid Overlay */}
                 <div className="absolute inset-0 neural-grid opacity-20" />
+                
+                {/* HUD Scanline */}
+                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] via-transparent to-transparent h-[50vh] animate-scanline pointer-events-none" />
 
-                {/* Dynamic Orbs */}
-                <motion.div
-                    animate={{
-                        x: [0, 100, 0],
-                        y: [0, 50, 0],
-                        opacity: [0.1, 0.2, 0.1]
-                    }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full blur-[120px]"
-                    style={{ backgroundColor: slide.accent + "15" }}
-                />
+                {/* Floating Particles/Orbs */}
+                {[...Array(4)].map((_, i) => (
+                    <motion.div
+                        key={i}
+                        animate={{
+                            x: [Math.random() * 100, Math.random() * -100, Math.random() * 100],
+                            y: [Math.random() * 100, Math.random() * -100, Math.random() * 100],
+                            opacity: [0.1, 0.3, 0.1]
+                        }}
+                        transition={{ duration: 15 + i * 5, repeat: Infinity, ease: "linear" }}
+                        className="absolute w-[400px] h-[400px] rounded-full blur-[120px]"
+                        style={{ 
+                            backgroundColor: slide.accent + (i % 2 === 0 ? "10" : "05"),
+                            left: `${Math.random() * 100}%`,
+                            top: `${Math.random() * 100}%`
+                        }}
+                    />
+                ))}
             </div>
 
             {/* Header */}
-            <header className="relative z-30 flex items-center justify-between px-10 py-6 border-b border-white/[0.05] backdrop-blur-xl bg-black/20 no-print">
-                <div className="flex items-center gap-4">
+            <header className="relative z-30 flex items-center justify-between px-10 py-8 border-b border-white/[0.03] backdrop-blur-3xl bg-black/40 no-print">
+                <div className="flex items-center gap-6">
                     <motion.div
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                        className="h-10 w-10 rounded-xl flex items-center justify-center shadow-lg"
+                        whileHover={{ scale: 1.1, rotate: 15 }}
+                        className="h-12 w-12 rounded-2xl flex items-center justify-center shadow-2xl relative group"
                         style={{
                             background: `linear-gradient(135deg, ${slide.accent}44, ${slide.accent}11)`,
                             border: `1px solid ${slide.accent}44`
                         }}
                     >
-                        <Rocket className="h-5 w-5" style={{ color: slide.accent }} />
+                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
+                        <Rocket className="h-6 w-6 relative z-10" style={{ color: slide.accent }} />
                     </motion.div>
                     <div>
-                        <div className="flex items-center gap-2">
-                            <p className="text-[10px] font-black tracking-[0.4em] uppercase text-white/40">Kyron 2026</p>
-                            <span className="h-1 w-1 rounded-full bg-white/20" />
-                            <span className="text-[10px] font-black text-emerald-500 tracking-widest uppercase">Listo para despegar</span>
+                        <div className="flex items-center gap-3">
+                            <p className="text-[10px] font-black tracking-[0.5em] uppercase text-white/30">System Kyron // 2026</p>
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+                            <span className="text-[10px] font-black text-emerald-400 tracking-widest uppercase">Protocolo Activo</span>
                         </div>
-                        <p className="text-[12px] font-bold tracking-widest text-white/80 uppercase">Nuestra visión para el futuro</p>
+                        <p className="text-[13px] font-black tracking-widest text-white/90 uppercase mt-1 italic">Visionary Intelligence Ecosystem</p>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-6">
-                    {/* Export Buttons */}
-                    <div className="flex items-center gap-3">
+                <div className="flex items-center gap-8">
+                    {/* Mode Indicators */}
+                    <div className="hidden lg:flex items-center gap-6 pr-8 border-r border-white/5">
+                        <div className="flex flex-col items-end">
+                            <span className="text-[8px] font-black text-white/20 uppercase tracking-widest">Estado</span>
+                            <span className="text-[10px] font-black text-cyan-400 uppercase tracking-widest">Sincronizado</span>
+                        </div>
+                        <div className="flex flex-col items-end">
+                            <span className="text-[8px] font-black text-white/20 uppercase tracking-widest">Latencia</span>
+                            <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">12ms</span>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center gap-4">
                         <button
                             onClick={handleExportWord}
-                            className="group flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95 hover:border-white/30"
+                            className="group flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95"
                         >
-                            <span className="text-xs font-black uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">Guion de Pitch (.doc)</span>
+                            <Terminal className="h-4 w-4 text-white/40 group-hover:text-white transition-colors" />
+                            <span className="text-[10px] font-black uppercase tracking-widest text-white/60 group-hover:text-white">Script (.doc)</span>
                         </button>
                         <button
                             onClick={handleDownload}
-                            className="group flex items-center gap-3 px-8 py-2.5 rounded-full bg-blue-600 border border-blue-500 hover:bg-blue-500 transition-all active:scale-95 shadow-[0_0_30px_rgba(37,99,235,0.4)]"
+                            className="group flex items-center gap-3 px-8 py-3 rounded-2xl bg-blue-600 border border-blue-500 hover:bg-blue-500 transition-all active:scale-95 shadow-[0_0_40px_rgba(37,99,235,0.3)]"
                         >
-                            <Download className="h-4 w-4 text-white animate-bounce-subtle" />
-                            <span className="text-xs font-black uppercase tracking-widest text-white">Presentación 4K (.pdf)</span>
+                            <Download className="h-4 w-4 text-white group-hover:animate-bounce" />
+                            <span className="text-[10px] font-black uppercase tracking-widest text-white">Exportar PDF 4K</span>
                         </button>
                     </div>
 
-                    {/* Progress bar */}
-                    <div className="hidden md:flex items-center gap-3">
-                        <span className="text-[10px] font-bold text-white/30 tabular-nums">{String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
-                        <div className="h-0.5 w-32 bg-white/10 rounded-full overflow-hidden">
-                            <motion.div
-                                className="h-full rounded-full"
-                                style={{ backgroundColor: slide.accent }}
-                                animate={{ width: `${progress}%` }}
-                                transition={{ duration: 0.4 }}
-                            />
-                        </div>
-                    </div>
-                    {/* Dot nav */}
-                    <div className="hidden md:flex items-center gap-1.5">
-                        {slides.map((s, i) => (
-                            <button
-                                key={s.id}
-                                onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i); }}
-                                className="rounded-full transition-all"
-                                style={{
-                                    width: i === current ? "20px" : "6px",
-                                    height: "6px",
-                                    backgroundColor: i === current ? slide.accent : "rgba(255,255,255,0.15)",
-                                }}
-                            />
-                        ))}
-                    </div>
-                    <Link href="/" className="h-8 w-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center transition-colors">
-                        <X className="h-4 w-4 text-white/40" />
+                    <Link href="/brand-kit" className="h-10 w-10 rounded-2xl glass-pill flex items-center justify-center hover:bg-white/10 transition-all group">
+                        <X className="h-5 w-5 text-white/20 group-hover:text-white" />
                     </Link>
                 </div>
             </header>
@@ -632,20 +703,18 @@ export default function PitchPage() {
             )}>
                 {isPrinting ? (
                     <div className="w-full">
-                        {slides.map((s, i) => (
-                            <section key={s.id} className="print-slide w-full min-h-screen flex items-center px-16 border-b border-white/5">
-                                <div className="max-w-7xl mx-auto grid grid-cols-2 gap-20 items-center">
-                                    {/* Aquí va una versión simplificada del slide para impresión */}
-                                    <div className="space-y-8">
-                                        <span className="text-sm font-black tracking-[0.3em] text-blue-500 uppercase">{s.tag}</span>
-                                        <h2 className="text-6xl font-black leading-tight uppercase whitespace-pre-line">{s.title}</h2>
-                                        <p className="text-2xl text-white/60 font-medium">{s.subtitle}</p>
-                                        <p className="text-lg text-white/30 leading-relaxed border-l-2 border-white/10 pl-6">{s.body}</p>
+                        {slides.map((s) => (
+                            <section key={s.id} className="print-slide w-full min-h-screen flex items-center px-20">
+                                <div className="max-w-7xl mx-auto grid grid-cols-2 gap-24 items-center">
+                                    <div className="space-y-10">
+                                        <span className="text-xl font-black tracking-[0.5em] text-blue-500 uppercase">{s.tag}</span>
+                                        <h2 className="text-8xl font-black leading-[0.85] uppercase tracking-tighter italic whitespace-pre-line">{s.title}</h2>
+                                        <p className="text-3xl text-white/80 font-bold tracking-tight">{s.subtitle}</p>
+                                        <p className="text-xl text-white/40 leading-relaxed border-l-4 border-white/10 pl-10 italic">{s.body}</p>
                                     </div>
                                     <div className="relative">
-                                        {/* Mockups o Stats simplificados para PDF */}
-                                        <div className="aspect-video rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
-                                            {s.image ? <img src={s.image} className="w-full h-full object-cover opacity-40" /> : <Rocket className="h-20 w-20 text-white/10" />}
+                                        <div className="aspect-video rounded-[3rem] bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
+                                            {s.image && <img src={s.image} className="w-full h-full object-cover opacity-50" />}
                                         </div>
                                     </div>
                                 </div>
@@ -661,109 +730,99 @@ export default function PitchPage() {
                         initial="enter"
                         animate="center"
                         exit="exit"
-                        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                        className="absolute inset-0 flex items-center px-8 md:px-16 lg:px-24"
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute inset-0 flex items-center px-12 md:px-24 lg:px-32"
                     >
-                        <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-                            {/* Left */}
-                            <div className="space-y-10">
+                        <div className="w-full max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-24 items-center">
+                            {/* Left Content */}
+                            <div className="space-y-12">
                                 <motion.div
-                                    initial={{ opacity: 0, x: -20 }}
+                                    initial={{ opacity: 0, x: -30 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.1 }}
-                                    className="flex items-center gap-4"
+                                    transition={{ delay: 0.2 }}
+                                    className="flex items-center gap-6"
                                 >
-                                    <div className="h-px w-12" style={{ backgroundColor: slide.accent }} />
-                                    <span className="text-[11px] font-black tracking-[0.3em] uppercase" style={{ color: slide.accent }}>
+                                    <div className="h-px w-20" style={{ backgroundColor: slide.accent }} />
+                                    <span className="text-xs font-black tracking-[0.5em] uppercase italic" style={{ color: slide.accent }}>
                                         {slide.tag}
                                     </span>
                                 </motion.div>
 
-                                <motion.h2
-                                    initial={{ opacity: 0, y: 40 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                                    className="text-6xl md:text-7xl xl:text-8xl font-black leading-[0.9] tracking-tighter"
-                                >
-                                    {slide.title.split("\n").map((line, i) => (
-                                        <span key={i} className="block relative">
-                                            <span className={cn("relative z-10", i === 0 ? "text-white" : "text-white/10")}>
-                                                {line}
+                                <div className="space-y-6">
+                                    <motion.h2
+                                        initial={{ opacity: 0, y: 50, rotateX: 20 }}
+                                        animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                                        transition={{ delay: 0.3, duration: 0.8 }}
+                                        className="text-7xl md:text-8xl xl:text-9xl font-black leading-[0.85] tracking-tighter uppercase italic"
+                                    >
+                                        {slide.title.split("\n").map((line, i) => (
+                                            <span key={i} className="block relative overflow-hidden">
+                                                <span className={cn("block", i === 0 ? "text-white" : "text-white/10")}>
+                                                    {line}
+                                                </span>
+                                                {i === 0 && (
+                                                    <motion.span
+                                                        initial={{ width: 0 }}
+                                                        animate={{ width: "100%" }}
+                                                        transition={{ delay: 0.8, duration: 1 }}
+                                                        className="absolute bottom-0 left-0 h-1"
+                                                        style={{ backgroundColor: slide.accent }}
+                                                    />
+                                                )}
                                             </span>
-                                            {i === 0 && (
-                                                <span
-                                                    className="absolute -inset-x-4 inset-y-2 blur-3xl opacity-10 -z-10"
-                                                    style={{ backgroundColor: slide.accent }}
-                                                />
-                                            )}
-                                        </span>
-                                    ))}
-                                </motion.h2>
+                                        ))}
+                                    </motion.h2>
+
+                                    <motion.p
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.4 }}
+                                        className="text-3xl md:text-4xl text-white/80 font-bold tracking-tight leading-tight max-w-2xl italic"
+                                    >
+                                        {slide.subtitle}
+                                    </motion.p>
+                                </div>
 
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.3 }}
-                                    className="space-y-6"
+                                    transition={{ delay: 0.5 }}
+                                    className="space-y-8"
                                 >
-                                    {slide.id === 'cover' && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.2 }}
-                                            className="mb-8"
-                                        >
-                                            <div className="flex items-center gap-4">
-                                                <div className="h-16 w-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl">
-                                                    <Rocket className="h-10 w-10 text-blue-500" />
-                                                </div>
-                                                <div>
-                                                    <h1 className="text-2xl font-black tracking-tighter">SYSTEM KYRON</h1>
-                                                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400">Identidad Digital para Empresas Elite</p>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    )}
-
-                                    <p className="text-2xl md:text-3xl text-white/60 font-medium leading-tight max-w-xl">
-                                        {slide.subtitle}
+                                    <p className="text-xl text-white/40 leading-relaxed max-w-xl border-l-2 border-white/5 pl-10 font-medium italic">
+                                        {slide.body}
                                     </p>
 
-                                    {slide.body && (
-                                        <p className="text-lg text-white/30 leading-relaxed max-w-lg border-l-2 border-white/5 pl-6">
-                                            {slide.body}
-                                        </p>
-                                    )}
-
                                     {slide.promise && (
-                                        <motion.div 
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.4 }}
-                                            className="p-8 rounded-3xl border border-cyan-500/10 bg-cyan-500/[0.02] backdrop-blur-md max-w-lg space-y-6"
-                                        >
-                                            <h4 className="text-[10px] font-black tracking-[0.3em] text-cyan-400 uppercase">{slide.promise.title}</h4>
-                                            <div className="space-y-4">
-                                                {slide.promise.items.map((item, i) => (
-                                                    <div key={i} className="flex items-start gap-4">
-                                                        <div className="h-5 w-5 rounded-full border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-center shrink-0 mt-0.5">
-                                                            <CircleCheck className="h-3 w-3 text-emerald-400" />
-                                                        </div>
-                                                        <p className="text-sm font-bold text-white/80 leading-snug">{item}</p>
+                                        <div className="grid gap-4 max-w-xl">
+                                            {slide.promise.items.map((item, i) => (
+                                                <motion.div 
+                                                    key={i}
+                                                    initial={{ opacity: 0, x: -20 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: 0.6 + i * 0.1 }}
+                                                    className="flex items-center gap-5 p-5 rounded-3xl glass-pill group hover:bg-white/[0.05] transition-all"
+                                                >
+                                                    <div className="h-8 w-8 rounded-full border-2 border-emerald-500/30 flex items-center justify-center shrink-0">
+                                                        <CircleCheck className="h-4 w-4 text-emerald-400" />
                                                     </div>
-                                                ))}
-                                            </div>
-                                        </motion.div>
+                                                    <p className="text-base font-black uppercase tracking-wide text-white/80">{item}</p>
+                                                </motion.div>
+                                            ))}
+                                        </div>
                                     )}
-
+                                    
                                     {slide.contact && (
-                                        <div className="pt-8 space-y-4 border-t border-white/5 max-w-lg">
-                                            <p className="text-[10px] font-black tracking-[0.3em] text-white/20 uppercase">Contacto Directo</p>
-                                            <div className="flex flex-col gap-2">
-                                                <p className="text-4xl font-black italic tracking-tighter">{slide.contact.phone}</p>
-                                                <div className="flex items-center gap-2 text-cyan-400">
-                                                    <Instagram className="h-4 w-4" />
-                                                    <span className="text-sm font-bold tracking-widest">{slide.contact.instagram}</span>
+                                        <div className="pt-10 flex gap-12 border-t border-white/5">
+                                            <div className="space-y-2">
+                                                <p className="text-[8px] font-black uppercase tracking-[0.4em] text-white/20">Protocolo Voz</p>
+                                                <p className="text-4xl font-black italic tracking-tighter text-white">{slide.contact.phone}</p>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <p className="text-[8px] font-black uppercase tracking-[0.4em] text-white/20">Protocolo Social</p>
+                                                <div className="flex items-center gap-3 text-cyan-400">
+                                                    <Instagram className="h-5 w-5" />
+                                                    <p className="text-lg font-black uppercase tracking-widest">{slide.contact.instagram}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -771,199 +830,181 @@ export default function PitchPage() {
                                 </motion.div>
                             </div>
 
-                            {/* Right — Stats or Icon or Mockup */}
+                            {/* Right Content — Visuals */}
                             <div className="hidden lg:block relative">
                                 {slide.isQRSlide ? (
-                                    <motion.div
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: 0.3 }}
-                                        className="grid grid-cols-2 gap-8"
-                                    >
+                                    <div className="grid grid-cols-2 gap-10">
                                         {[
-                                            { label: "Ver Plataforma", sub: baseUrl.replace('https://', ''), data: baseUrl, color: "text-cyan-400" },
-                                            { label: "Instagram", sub: "@systemkyron", data: "https://instagram.com/systemkyron", color: "text-pink-500" },
-                                            { label: "Tu Feedback", sub: "Encuesta de Calidad", data: `${baseUrl}/feedback`, color: "text-amber-400" },
+                                            { label: "Ver Plataforma", sub: baseUrl.replace('https://', ''), data: baseUrl, color: "text-cyan-400", delay: 0.3 },
+                                            { label: "Instagram", sub: "@systemkyron", data: "https://instagram.com/systemkyron", color: "text-pink-500", delay: 0.4 },
+                                            { label: "Tu Feedback", sub: "Encuesta Calidad", data: `${baseUrl}/feedback`, color: "text-amber-400", delay: 0.5 },
+                                            { label: "Documentación", sub: "Manual Pro", data: `${baseUrl}/manual-usuario`, color: "text-emerald-400", delay: 0.6 },
                                         ].map((qr, i) => (
-                                            <div key={i} className={cn(
-                                                "p-6 rounded-[2.5rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl flex flex-col items-center text-center group hover:bg-white/[0.06] transition-all",
-                                                i === 2 ? "col-span-2 mt-8 max-w-xs mx-auto" : ""
-                                            )}>
-                                                <div className="w-40 h-40 bg-white rounded-3xl mb-4 flex items-center justify-center relative overflow-hidden p-3 shadow-2xl">
+                                            <motion.div
+                                                key={i}
+                                                initial={{ opacity: 0, scale: 0.8 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                transition={{ delay: qr.delay, type: "spring" }}
+                                                className="p-8 rounded-[3rem] bg-white/[0.02] border border-white/10 backdrop-blur-3xl flex flex-col items-center text-center group hover:bg-white/[0.05] hover:border-white/20 transition-all shadow-2xl"
+                                            >
+                                                <div className="w-48 h-48 bg-white rounded-[2.5rem] mb-6 flex items-center justify-center p-4 relative overflow-hidden group-hover:scale-105 transition-transform">
                                                     <img 
-                                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qr.data)}&bgcolor=ffffff&color=000000`} 
+                                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qr.data)}&bgcolor=ffffff&color=000000`} 
                                                         alt={qr.label}
                                                         className="w-full h-full relative z-10"
                                                     />
                                                 </div>
-                                                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 mb-1">{qr.label}</span>
-                                                <p className={cn("text-[11px] font-bold", qr.color)}>{qr.sub}</p>
-                                            </div>
+                                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 mb-2">{qr.label}</span>
+                                                <p className={cn("text-[13px] font-black uppercase italic tracking-tighter", qr.color)}>{qr.sub}</p>
+                                            </motion.div>
                                         ))}
-                                    </motion.div>
+                                    </div>
                                 ) : slide.isMockup ? (
                                     <motion.div
-                                        initial={{ opacity: 0, scale: 0.9, rotateY: 10 }}
-                                        animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                                        transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                                        initial={{ opacity: 0, rotateY: 25, scale: 0.9 }}
+                                        animate={{ opacity: 1, rotateY: 0, scale: 1 }}
+                                        transition={{ delay: 0.4, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                                         style={{ perspective: "2000px" }}
-                                        className="relative"
                                     >
-                                        <div className="absolute inset-0 bg-blue-500/20 blur-[100px] rounded-full animate-pulse" />
-                                        <div className="relative z-10">
-                                            <KyronMockup />
-                                        </div>
+                                        <KyronMockup />
                                     </motion.div>
                                 ) : slide.isMobileMockup ? (
                                     <motion.div
-                                        initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
-                                        animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                                        transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                                        style={{ perspective: "2000px" }}
+                                        initial={{ opacity: 0, y: 100, rotateZ: -5 }}
+                                        animate={{ opacity: 1, y: 0, rotateZ: 0 }}
+                                        transition={{ delay: 0.4, duration: 1, type: "spring" }}
                                     >
                                         <SmartphoneMockup />
                                     </motion.div>
-                                ) : slide.image && !slide.isMockup && !slide.isMobileMockup && !slide.stats ? (
-                                    <motion.div
-                                        initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
-                                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                                        transition={{ delay: 0.4, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                                        className="relative group"
-                                    >
-                                        <div
-                                            className="absolute -inset-4 rounded-[4rem] blur-2xl opacity-20 animate-pulse"
-                                            style={{ backgroundColor: slide.accent }}
-                                        />
-                                        <div className="relative h-[450px] w-[550px] rounded-[3rem] border border-white/10 overflow-hidden shadow-2xl backdrop-blur-sm bg-white/5">
-                                            <img
-                                                src={slide.image}
-                                                alt={slide.title}
-                                                className="h-full w-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700 group-hover:scale-110"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                                            <div className="absolute bottom-8 left-8">
-                                                <slide.icon className="h-12 w-12 mb-4" style={{ color: slide.accent }} />
-                                                <p className="text-xs font-black uppercase tracking-[0.4em] text-white/40">Contexto Visual</p>
-                                            </div>
-                                        </div>
-                                    </motion.div>
                                 ) : slide.stats ? (
-                                    <motion.div
-                                        initial={{ opacity: 0, x: 40 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.3, duration: 0.6 }}
-                                        className="grid gap-6"
-                                    >
+                                    <div className="grid gap-8">
                                         {slide.stats.map((stat, i) => (
                                             <motion.div
                                                 key={i}
-                                                whileHover={{ x: 10, backgroundColor: slide.accent + "15" }}
-                                                className="group p-8 rounded-3xl border backdrop-blur-md transition-all flex items-center justify-between"
-                                                style={{
-                                                    backgroundColor: slide.accent + "05",
-                                                    borderColor: slide.accent + "15"
-                                                }}
+                                                initial={{ opacity: 0, x: 50 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 0.4 + i * 0.15 }}
+                                                whileHover={{ x: -20, backgroundColor: slide.accent + "15" }}
+                                                className="group p-10 rounded-[3rem] border border-white/5 backdrop-blur-3xl transition-all flex items-center justify-between shadow-2xl"
+                                                style={{ backgroundColor: slide.accent + "05" }}
                                             >
-                                                <div className="space-y-1">
-                                                    <span className="text-xs text-white/30 font-black uppercase tracking-[0.2em]">{stat.label}</span>
-                                                    <div className="h-1 w-8 rounded-full bg-white/5 group-hover:w-full transition-all duration-500" style={{ backgroundColor: slide.accent + "44" }} />
+                                                <div className="space-y-2">
+                                                    <span className="text-[10px] text-white/30 font-black uppercase tracking-[0.4em]">{stat.label}</span>
+                                                    <div className="h-1 w-12 rounded-full bg-white/10 group-hover:w-full transition-all duration-700" style={{ backgroundColor: slide.accent + "44" }} />
                                                 </div>
-                                                <span className="text-5xl font-black tabular-nums tracking-tighter" style={{ color: slide.accent }}>
-                                                    {stat.value}
-                                                </span>
+                                                <div className="text-7xl font-black italic tracking-tighter tabular-nums" style={{ color: slide.accent }}>
+                                                    <CountUpNumber value={stat.value} suffix={stat.suffix} />
+                                                </div>
                                             </motion.div>
                                         ))}
-                                    </motion.div>
+                                    </div>
                                 ) : (
                                     <motion.div
-                                        initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
-                                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                                        transition={{ delay: 0.3, duration: 1, type: "spring", bounce: 0.4 }}
-                                        className="flex items-center justify-center"
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.5, duration: 1.5 }}
+                                        className="flex items-center justify-center relative"
                                     >
+                                        <div className="absolute inset-0 bg-blue-500/20 blur-[150px] animate-pulse rounded-full" />
                                         <div
-                                            className="h-80 w-80 rounded-[4rem] flex items-center justify-center relative group"
-                                            style={{ backgroundColor: slide.accent + "08", border: `2px solid ${slide.accent}15` }}
+                                            className="h-96 w-96 rounded-[5rem] flex items-center justify-center relative group backdrop-blur-3xl"
+                                            style={{ backgroundColor: slide.accent + "05", border: `1px solid ${slide.accent}22` }}
                                         >
-                                            <div className="absolute inset-0 bg-white/5 blur-3xl rounded-full group-hover:bg-white/10 transition-all" />
-                                            <Icon className="h-40 w-40 relative z-10" style={{ color: slide.accent }} />
+                                            <Icon className="h-48 w-48 relative z-10 group-hover:scale-110 transition-transform duration-1000" style={{ color: slide.accent }} />
+                                            <Radar className="absolute inset-0 h-full w-full text-white/5 animate-spin-slow" />
                                         </div>
                                     </motion.div>
                                 )}
                             </div>
                         </div>
                     </motion.div>
-                </AnimatePresence>
-            )}
-        </main>
+                    </AnimatePresence>
+                )}
+            </main>
 
-            {/* Footer / Teleprompter + Controls */}
-            <footer className="relative z-30 border-t border-white/[0.05] px-10 py-8 backdrop-blur-2xl bg-black/40 no-print">
-                <div className="max-w-7xl mx-auto flex items-center gap-12">
-                    {/* Script / Teleprompter */}
-                    <div className="flex-1 relative group">
-                        <div className="flex items-center gap-3 mb-3">
-                            <div className="flex gap-1">
-                                <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
-                                <div className="w-1 h-1 rounded-full bg-emerald-500/50 animate-pulse delay-75" />
-                                <div className="w-1 h-1 rounded-full bg-emerald-500/20 animate-pulse delay-150" />
+            {/* Footer / Teleprompter HUD */}
+            <footer className="relative z-30 border-t border-white/[0.03] px-12 py-10 backdrop-blur-3xl bg-black/60 no-print">
+                <div className="max-w-[1600px] mx-auto flex items-center gap-20">
+                    {/* Script Section */}
+                    <div className="flex-1 relative">
+                        <div className="flex items-center gap-4 mb-5">
+                            <div className="flex gap-1.5">
+                                <motion.div animate={{ opacity: [1, 0.2, 1] }} transition={{ duration: 1, repeat: Infinity }} className="w-2 h-2 rounded-full bg-blue-500" />
+                                <motion.div animate={{ opacity: [1, 0.2, 1] }} transition={{ duration: 1, repeat: Infinity, delay: 0.2 }} className="w-2 h-2 rounded-full bg-blue-500/60" />
                             </div>
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em]" style={{ color: slide.accent }}>Teleprompter Ejecutivo</span>
-                            <span className="h-px flex-1 bg-white/5 group-hover:bg-white/10 transition-all" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-blue-400">Canal de Teleprompter Activo</span>
+                            <div className="h-px flex-1 bg-white/[0.05]" />
                         </div>
+                        
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={current + "-script"}
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.4 }}
-                                className="relative"
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.5 }}
+                                className="relative pr-20"
                             >
-                                <p className="text-lg md:text-xl text-white/50 font-medium italic leading-relaxed line-clamp-2 pr-12">
+                                <p className="text-2xl text-white/50 font-medium italic leading-relaxed line-clamp-2 uppercase tracking-tight">
                                     "{slide.script}"
                                 </p>
-                                <div className="absolute right-0 top-0 text-white/5">
-                                    <BrainCircuit className="h-12 w-12" />
+                                <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-10">
+                                    <BrainCircuit className="h-16 w-16" />
                                 </div>
                             </motion.div>
                         </AnimatePresence>
                     </div>
 
-                    {/* Controls */}
-                    <div className="flex items-center gap-4 shrink-0">
-                        <button
-                            onClick={prev}
-                            disabled={current === 0}
-                            className="h-16 w-16 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center transition-all hover:scale-110 active:scale-90 group"
-                        >
-                            <ChevronLeft className="h-6 w-6 text-white/40 group-hover:text-white transition-colors" />
-                        </button>
-                        <button
-                            onClick={next}
-                            disabled={current === slides.length - 1}
-                            className="h-16 px-10 rounded-2xl flex items-center gap-4 font-black text-sm text-white transition-all hover:scale-105 active:scale-95 disabled:opacity-20 disabled:cursor-not-allowed shadow-2xl overflow-hidden relative group"
-                            style={{ backgroundColor: slide.accent }}
-                        >
-                            <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                            <span className="relative z-10 uppercase tracking-[0.2em]">
-                                {current === slides.length - 1 ? "Protocolo Finalizado" : "Siguiente Módulo"}
-                            </span>
-                            <ArrowRight className="h-5 w-5 relative z-10 animate-bounce-x" />
-                        </button>
-                    </div>
-                </div>
+                    {/* Progress & Controls */}
+                    <div className="flex items-center gap-10 shrink-0">
+                        <div className="flex flex-col items-end gap-3">
+                            <div className="flex items-center gap-3">
+                                <span className="text-[11px] font-black text-white/20 tabular-nums tracking-widest">{String(current + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}</span>
+                                <div className="h-1 w-40 bg-white/5 rounded-full overflow-hidden">
+                                    <motion.div
+                                        className="h-full rounded-full"
+                                        style={{ backgroundColor: slide.accent }}
+                                        animate={{ width: `${progress}%` }}
+                                        transition={{ duration: 0.6 }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex gap-2">
+                                {slides.map((s, i) => (
+                                    <motion.div
+                                        key={s.id}
+                                        animate={{ 
+                                            width: i === current ? 24 : 6,
+                                            backgroundColor: i === current ? slide.accent : "rgba(255,255,255,0.1)"
+                                        }}
+                                        className="h-1.5 rounded-full"
+                                    />
+                                ))}
+                            </div>
+                        </div>
 
-                {/* Mobile progress */}
-                <div className="md:hidden mt-6 flex items-center gap-4">
-                    <div className="flex-1 h-1 bg-white/5 rounded-full overflow-hidden">
-                        <motion.div
-                            className="h-full rounded-full"
-                            style={{ backgroundColor: slide.accent }}
-                            animate={{ width: `${progress}%` }}
-                        />
+                        <div className="flex items-center gap-4">
+                            <button
+                                onClick={prev}
+                                disabled={current === 0}
+                                className="h-20 w-20 rounded-3xl glass-pill flex items-center justify-center disabled:opacity-20 transition-all hover:bg-white/10 group"
+                            >
+                                <ChevronLeft className="h-8 w-8 text-white/30 group-hover:text-white" />
+                            </button>
+                            <button
+                                onClick={next}
+                                disabled={current === slides.length - 1}
+                                className="h-20 px-12 rounded-3xl flex items-center gap-6 font-black text-xs text-white transition-all hover:scale-105 active:scale-95 disabled:opacity-20 shadow-2xl relative overflow-hidden group"
+                                style={{ backgroundColor: slide.accent }}
+                            >
+                                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                                <span className="relative z-10 uppercase tracking-[0.4em]">
+                                    {current === slides.length - 1 ? "Fin de Protocolo" : "Siguiente Módulo"}
+                                </span>
+                                <ArrowRight className="h-6 w-6 relative z-10 group-hover:translate-x-2 transition-transform" />
+                            </button>
+                        </div>
                     </div>
-                    <span className="text-[10px] font-black text-white/20 tabular-nums tracking-widest">{current + 1} / {slides.length}</span>
                 </div>
             </footer>
         </div>
