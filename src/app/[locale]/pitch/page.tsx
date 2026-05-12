@@ -21,12 +21,12 @@ const slides = [
         tag: "INTRODUCCIÓN",
         title: "SYSTEM\nKYRON",
         subtitle: "Hacemos que tu negocio funcione mejor, sin complicaciones.",
-        body: "Líneas corporativas, páginas web increíbles y soluciones tecnológicas para escalar tu empresa de forma sostenible.",
+        body: "Equipo: Carlos Mattar (Líder / Fundador). Líneas corporativas, páginas web increíbles y soluciones tecnológicas para escalar tu empresa de forma sostenible.",
         icon: Rocket,
         accent: "#3b82f6",
         bg: "from-blue-600/30 via-indigo-900/20 to-transparent",
         image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
-        script: "Hola. No venimos a venderte tecnología complicada. Venimos a presentarte System Kyron: la forma más fácil y directa de conectar a tu equipo, armar tu página web y hacer que tu negocio crezca.",
+        script: "Hola. Soy Carlos Mattar. No venimos a venderte tecnología complicada. Venimos a presentarte System Kyron: la forma más fácil y directa de conectar a tu equipo, armar tu página web y hacer que tu negocio crezca.",
         stats: null,
     },
     {
@@ -682,11 +682,16 @@ export default function PitchPage() {
                             <span className="text-[10px] font-black uppercase tracking-widest text-white/60 group-hover:text-white">Script (.doc)</span>
                         </button>
                         <button
-                            onClick={handleDownload}
+                            onClick={() => {
+                                const link = document.createElement('a');
+                                link.href = '/docs/Presentacion_Kyron_Reto_Inspira_2026.pptx';
+                                link.download = 'Presentacion_Kyron_Reto_Inspira_2026.pptx';
+                                link.click();
+                            }}
                             className="group flex items-center gap-3 px-8 py-3 rounded-2xl bg-blue-600 border border-blue-500 hover:bg-blue-500 transition-all active:scale-95 shadow-[0_0_40px_rgba(37,99,235,0.3)]"
                         >
                             <Download className="h-4 w-4 text-white group-hover:animate-bounce" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-white">Exportar PDF 4K</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest text-white">Exportar PPTX Elite</span>
                         </button>
                     </div>
 
