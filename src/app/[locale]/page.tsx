@@ -1,15 +1,18 @@
 import dynamic from 'next/dynamic';
 import { LandingClientWrapper } from '@/components/landing/landing-client-wrapper';
+import { LazySection } from '@/components/landing/lazy-section';
 
-// Secciones principales — optimizadas para máximo impacto, mínimo scroll
-const HeroSection      = dynamic(() => import('@/components/landing/hero-section').then(m => ({ default: m.HeroSection })), { ssr: true });
+// Above-the-fold — SSR for SEO & LCP
+const HeroSection      = dynamic(() => import('@/components/landing/hero-section-optimized').then(m => ({ default: m.HeroSection })), { ssr: true });
 const FeaturesSection  = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: true });
-const PricingSection   = dynamic(() => import('@/components/landing/pricing-section').then(m => ({ default: m.PricingSection })), { ssr: true });
-const ComplianceSection = dynamic(() => import('@/components/landing/compliance-section').then(m => ({ default: m.ComplianceSection })), { ssr: true });
-const CommentsSection  = dynamic(() => import('@/components/landing/comments-section').then(m => ({ default: m.CommentsSection })), { ssr: true });
-const FaqSection       = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: true });
-const CtaSection       = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })), { ssr: true });
-const Footer           = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: true });
+
+// Below-the-fold — client-side only, loaded lazily via IntersectionObserver
+const PricingSection    = dynamic(() => import('@/components/landing/pricing-section').then(m => ({ default: m.PricingSection })), { ssr: false });
+const ComplianceSection = dynamic(() => import('@/components/landing/compliance-section').then(m => ({ default: m.ComplianceSection })), { ssr: false });
+const CommentsSection   = dynamic(() => import('@/components/landing/comments-section').then(m => ({ default: m.CommentsSection })), { ssr: false });
+const FaqSection        = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: false });
+const CtaSection        = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })), { ssr: false });
+const Footer            = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: false });
 
 export default function LandingPage() {
   return (
@@ -17,42 +20,54 @@ export default function LandingPage() {
       <LandingClientWrapper>
         <main className="w-full bg-[#03050a]">
 
-          {/* 1. Hero — El gancho principal */}
+          {/* 1. Hero — El gancho principal (SSR) */}
           <div id="inicio">
             <HeroSection />
           </div>
 
-          {/* 2. Features — Qué hace la plataforma */}
+          {/* 2. Features — Qué hace la plataforma (SSR) */}
           <section id="caracteristicas">
             <FeaturesSection />
           </section>
 
-          {/* 3. Planes — Cuánto cuesta */}
-          <section id="planes">
-            <PricingSection />
-          </section>
+          {/* 3. Planes — lazy (client-side) */}
+          <LazySection fallbackHeight="600px">
+            <section id="planes">
+              <PricingSection />
+            </section>
+          </LazySection>
 
-          {/* 4. Cumplimiento — Por qué confiar */}
-          <section id="cumplimiento">
-            <ComplianceSection />
-          </section>
+          {/* 4. Cumplimiento — lazy */}
+          <LazySection fallbackHeight="400px">
+            <section id="cumplimiento">
+              <ComplianceSection />
+            </section>
+          </LazySection>
 
-          {/* 5. Testimonios — Prueba social */}
-          <CommentsSection />
+          {/* 5. Testimonios — lazy */}
+          <LazySection fallbackHeight="400px">
+            <CommentsSection />
+          </LazySection>
 
-          {/* 6. FAQ — Dudas frecuentes */}
-          <section id="preguntas">
-            <FaqSection />
-          </section>
+          {/* 6. FAQ — lazy */}
+          <LazySection fallbackHeight="300px">
+            <section id="preguntas">
+              <FaqSection />
+            </section>
+          </LazySection>
 
-          {/* 7. CTA — Llamado a la acción */}
-          <CtaSection />
+          {/* 7. CTA — lazy */}
+          <LazySection fallbackHeight="200px">
+            <CtaSection />
+          </LazySection>
 
         </main>
 
-        <div id="contacto">
-          <Footer />
-        </div>
+        <LazySection fallbackHeight="200px">
+          <div id="contacto">
+            <Footer />
+          </div>
+        </LazySection>
       </LandingClientWrapper>
     </div>
   );
