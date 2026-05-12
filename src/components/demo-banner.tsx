@@ -71,7 +71,7 @@ export function DemoBannerProvider({ children }: { children: ReactNode }) {
               </div>
 
               <Link 
-                href="/pitch" 
+                href="/login" 
                 className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 hover:bg-amber-500/30 transition-all group"
               >
                 <span className="text-[9px] font-black uppercase tracking-widest text-amber-400">{t('cta')}</span>

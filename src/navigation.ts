@@ -189,8 +189,8 @@ export const pathnames = {
   '/acta-asamblea': '/acta-asamblea',
   '/poderes-representacion': '/contabilidad/tributos/poderes-representacion',
   '/activos-inmobiliarios': '/activos-inmobiliarios',
+  '/stickers': '/stickers',
 } as const;
-
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({
   locales,
   localePrefix,

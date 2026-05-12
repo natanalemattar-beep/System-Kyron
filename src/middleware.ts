@@ -87,6 +87,7 @@ const PUBLIC_SEGMENTS = new Set([
   'aliados',
   'blog',
   'documentacion',
+  'stickers',
 ]);
 
 // Public API routes — explicit whitelist (fail-closed)

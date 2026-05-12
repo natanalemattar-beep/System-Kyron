@@ -2,7 +2,6 @@
     "LandingHeader": {
         "home": "Home",
         "platform": "Platform",
-        "pitch": "Pitch",
         "plans": "Plans",
         "services": "Services",
         "about": "About Us",
@@ -19,8 +18,8 @@
         "mobile_portal": "Kyron Portal"
     },
     "DemoBanner": {
-        "message": "PLATFORM UNDER DEVELOPMENT — EXCLUSIVE ACCESS TO RETO INSPIRAVE 2026 PITCH",
-        "cta": "VIEW PITCH",
+        "message": "CORPORATE INTELLIGENCE PLATFORM — EXCLUSIVE ACCESS FOR REGISTERED USERS",
+        "cta": "SIGN IN",
         "dismiss": "Dismiss"
     },
     "HeroSection": {
@@ -33,7 +32,7 @@
         "badge_text": "Lines · eSIM · Elite Management",
         "cta_main": "Register now",
         "cta_secondary": "View plans",
-        "pitch_button": "PITCH & PRESENTATION",
+        "pitch_button": "EXPLORE PORTAL",
         "subtitle_hero": "Enterprise-grade mobile infrastructure, automated tax management, and AI-powered consultancy. Everything in a unified ecosystem for the Venezuelan private sector.",
         "security_label": "ENCRYPTION",
         "live_users_label": "ELITE USERS",

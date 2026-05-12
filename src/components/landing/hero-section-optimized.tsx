@@ -51,7 +51,7 @@ export function HeroSectionOptimized() {
             {/* Text column */}
             <div className="lg:col-span-7 text-center lg:text-left space-y-6">
               <Link 
-                href="/pitch"
+                href="/login"
                 className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md hover:bg-amber-500/20 transition-all hover:scale-105 group"
               >
                 <Sparkles className="h-4 w-4 text-amber-400 group-hover:animate-pulse" />

@@ -56,7 +56,6 @@ export function LandingHeader() {
     const navItems = [
         { labelKey: 'home' as const, href: '/' },
         { labelKey: 'platform' as const, href: '#caracteristicas' },
-        { labelKey: 'pitch' as const, href: '/pitch' },
         { labelKey: 'plans' as const, href: '#planes' },
     ];
 
@@ -282,7 +281,6 @@ export function LandingHeader() {
                                         {[
                                             { label: t('home'), href: '/' },
                                             { label: t('platform'), href: '#caracteristicas' },
-                                            { label: t('pitch'), href: '/pitch' },
                                             { label: t('plans'), href: '#planes' },
                                             { label: t('support'), href: '/soporte' },
                                         ].map((item) => (

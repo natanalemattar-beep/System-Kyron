@@ -2,7 +2,6 @@
     "LandingHeader": {
         "home": "Inicio",
         "platform": "Plataforma",
-        "pitch": "Pitch",
         "plans": "Planes",
         "services": "Servicios",
         "about": "Nosotros",
@@ -19,8 +18,8 @@
         "mobile_portal": "Portal Kyron"
     },
     "DemoBanner": {
-        "message": "PLATAFORMA EN DESARROLLO — ACCESO EXCLUSIVO AL PITCH RETO INSPIRAVE 2026",
-        "cta": "VER PITCH",
+        "message": "PLATAFORMA DE INTELIGENCIA CORPORATIVA — ACCESO EXCLUSIVO PARA USUARIOS REGISTRADOS",
+        "cta": "ACCEDER",
         "dismiss": "Cerrar"
     },
     "HeroSection": {
@@ -33,7 +32,7 @@
         "badge_text": "Líneas · eSIM · Gestión Elite",
         "cta_main": "Empieza ahora",
         "cta_secondary": "Ver cómo funciona",
-        "pitch_button": "PITCH & PRESENTACIÓN",
+        "pitch_button": "EXPLORAR PORTAL",
         "subtitle_hero": "Infraestructura móvil de grado empresarial, gestión fiscal automatizada y consultoría con IA. Todo en un ecosistema unificado para el sector privado venezolano.",
         "security_label": "ENCRIPTACIÓN",
         "live_users_label": "USUARIOS ELITE",
