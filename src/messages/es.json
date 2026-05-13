@@ -33,6 +33,7 @@
         "badge": "Plataforma Empresarial Integral",
         "cta_main": "Comenzar Ahora",
         "cta_secondary": "Ver Capacidades",
+        "cta_brochure": "Descargar Folleto",
         "tutorial_link": "¿Cómo registrarse? — Ver tutorial paso a paso",
         "features": [
             "VEN-NIF Certificado",
@@ -41,6 +42,10 @@
             "Cumplimiento Total"
         ],
         "compliance": "Cumplimiento",
+        "support": "Soporte",
+        "network": "Red",
+        "portals": "Portales",
+        "legal": "Legal",
         "modules_label": "Módulos",
         "modules_value": "7 Integrados",
         "stats": [
@@ -605,6 +610,7 @@
         "status_online": "Plataforma Operativa",
         "copyright": "EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9 · RNE: CRNE2026/46455). Todos los derechos reservados.",
         "user_manual": "Manual de Usuario",
+        "download_brochure": "Descargar Folleto PDF",
         "terms": "Términos",
         "privacy": "Privacidad",
         "location": "La Guaira, Venezuela · Estado La Guaira"

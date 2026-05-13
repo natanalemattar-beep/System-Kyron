@@ -6,3 +6,4 @@ export * from './footer';
 export * from './landing-client-wrapper';
 export * from './lazy-section';
 export * from './scroll-reveal';
+export * from './faq-section';

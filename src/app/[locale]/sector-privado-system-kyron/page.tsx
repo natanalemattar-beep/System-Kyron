@@ -47,6 +47,15 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
             // Permitir scroll horizontal en esta página específica para el folleto de 11in
             document.documentElement.classList.remove('overflow-x-hidden');
             document.body.classList.remove('overflow-x-hidden');
+
+            // Trigger auto-download if requested
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('download') === 'true') {
+                setTimeout(() => {
+                    const btn = document.querySelector('#folleto-toolbar button') as HTMLButtonElement;
+                    if (btn) btn.click();
+                }, 1500);
+            }
         }
         return () => {
             if (typeof window !== 'undefined') {

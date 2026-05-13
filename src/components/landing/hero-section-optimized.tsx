@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useRef, useEffect, useState } from 'react';
-import { Rocket, ArrowRight, Play } from 'lucide-react';
+import { Rocket, ArrowRight, Play, FileText } from 'lucide-react';
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -66,6 +66,12 @@ export function HeroSectionOptimized() {
               <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
                 <Button asChild size="lg" className="h-16 px-12 text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl bg-gradient-to-r from-cyan-600 via-blue-500 to-emerald-600 text-white hover:shadow-lg transition-all">
                   <Link href="/login" className="flex items-center gap-2">{t('cta_main')} <ArrowRight className="h-5 w-5" /></Link>
+                </Button>
+                <Button variant="ghost" size="lg" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl border-white/5 bg-white/[0.02] text-white/40 hover:bg-white/[0.05] hover:text-white" asChild>
+                  <Link href="/sector-privado-system-kyron?download=true" target="_blank" className="flex items-center gap-3">
+                    <FileText className="h-3.5 w-3.5 text-red-500" />
+                    {t('cta_brochure')}
+                  </Link>
                 </Button>
                 <Button variant="ghost" size="lg" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl border-white/5 bg-white/[0.02] text-white/40 hover:bg-white/[0.05] hover:text-white">
                   <span className="flex items-center gap-3"><Play className="h-3 w-3" />{t('cta_secondary')}</span>

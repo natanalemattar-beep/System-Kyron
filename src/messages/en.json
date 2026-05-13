@@ -31,6 +31,7 @@
         "badge": "Advanced Business Platform",
         "cta_main": "Access",
         "cta_secondary": "User Guide",
+        "cta_brochure": "Download Brochure",
         "tutorial_link": "How to register? — View step-by-step tutorial",
         "features": [
             "VEN-NIF Certified",
@@ -39,6 +40,10 @@
             "Management Core"
         ],
         "compliance": "Compliance",
+        "support": "Support",
+        "network": "Network",
+        "portals": "Portals",
+        "legal": "Legal",
         "modules_label": "Modules",
         "modules_value": "7 Integrated",
         "stats": [
@@ -624,6 +629,7 @@
         "status_online": "Platform Online",
         "copyright": "EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9). All rights reserved.",
         "user_manual": "User Manual",
+        "download_brochure": "Download Brochure PDF",
         "terms": "Terms",
         "privacy": "Privacy",
         "location": "La Guaira, Venezuela · La Guaira State"
