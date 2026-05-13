@@ -8,7 +8,8 @@ import {
     FileText, 
     Presentation, 
     Sparkles, 
-    Home
+    Home,
+    Mail
 } from 'lucide-react';
 import { Link, usePathname } from '@/navigation';
 import { cn } from '@/lib/utils';
