@@ -380,7 +380,10 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
                         <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center group-hover:bg-cyan-50 transition-colors">
                             <Phone className="h-2.5 w-2.5 text-cyan-600" />
                         </div>
-                        <span className="text-[7.5px] font-bold text-zinc-600 uppercase tracking-widest">+58 424-1846016</span>
+                        <div className="flex flex-col">
+                            <span className="text-[7px] font-bold text-zinc-600 uppercase tracking-widest">+58 424-1846016</span>
+                            <span className="text-[7px] font-bold text-zinc-400 uppercase tracking-widest mt-0.5">0212-3510609</span>
+                        </div>
                     </div>
                     <div className="flex items-center gap-3 group">
                         <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center group-hover:bg-cyan-50 transition-colors">
