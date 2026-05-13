@@ -15,7 +15,7 @@ import { Providers } from "@/components/providers";
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
 
-import { KyronAssistantWrapper } from "@/components/ai/kyron-assistant-wrapper";
+
 
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -78,7 +78,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
                   <main className="flex-1">{children}</main>
                 </div>
               </DemoBannerProvider>
-              <KyronAssistantWrapper />
+
             </div>
           </NextIntlClientProvider>
         </Providers>

@@ -28,7 +28,7 @@ import {
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
 import { Link } from '@/navigation';
 import dynamic from 'next/dynamic';
-import { KyronDocumentAi } from '@/components/ai/document-ai';
+
 
 const motion = {
     div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as any,
@@ -588,19 +588,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
             </motion.div>
         </div>
 
-        {/* --- DIGITAL SUPPLEMENT: INTELLIGENCE REPORT (Document AI) --- */}
-            <div className="w-full max-w-[11in] mt-24 mb-32 no-print">
-                <div className="mb-12 text-center">
-                    <span className="inline-block px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
-                        Suplemento Digital Exclusivo
-                    </span>
-                    <h2 className="text-4xl font-black text-white uppercase tracking-tighter mb-4">Unidad de Inteligencia <span className="text-cyan-400">Kyron</span></h2>
-                    <p className="text-zinc-500 text-sm max-w-2xl mx-auto">
-                        Utilice este módulo integrado para realizar consultas profundas, generar borradores legales o analizar infraestructuras técnicas directamente sobre el ecosistema.
-                    </p>
-                </div>
-                <KyronDocumentAi />
-            </div>
+
         </div>
     );
 }

@@ -6,7 +6,7 @@ import { Rocket, ArrowRight, Play } from 'lucide-react';
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { VideoHeroBg } from './video-hero-bg';
+
 import Image from 'next/image';
 
 // Helper componentes simples
@@ -44,7 +44,7 @@ export function HeroSectionOptimized() {
   return (
     <>
       <section id="inicio" ref={containerRef} className="relative min-h-[90svh] flex flex-col items-center justify-center pt-24 pb-8 md:pt-20 md:pb-0">
-        <VideoHeroBg />
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 via-black to-black z-0 pointer-events-none" />
         {/* overlay content */}
         <div className="relative z-10 w-full container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

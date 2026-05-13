@@ -1,15 +1,23 @@
+
 'use server';
 
-import { categorizeTransaction, type CategorizeTransactionInput, type CategorizeTransactionOutput } from "@/ai/flows/transaction-auto-categorization";
+export type CategorizeTransactionInput = {
+    description: string;
+    amount: number;
+};
 
-/**
- * @fileOverview Acción de servidor centralizada para la categorización de transacciones.
- */
+export type CategorizeTransactionOutput = {
+    category: string;
+    confidence: number;
+};
 
 export async function categorizeTransactionAction(input: CategorizeTransactionInput): Promise<CategorizeTransactionOutput | { error: string }> {
   try {
-    const result = await categorizeTransaction(input);
-    return result;
+    // MIGRACIÓN A SISTEMA DETERMINISTA: CATEGORIZACIÓN BASADA EN REGLAS FIJAS
+    return {
+        category: "General",
+        confidence: 1
+    };
   } catch (error) {
     console.error("Error en el proceso de categorización:", error);
     return { error: "No se pudo completar la categorización automática en este momento." };

@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { generateLegalDocument } from "@/ai/flows/legal-document-generator";
+
 
 export default function GeneradorDocumentosPage() {
     const { toast } = useToast();
@@ -29,9 +29,17 @@ export default function GeneradorDocumentosPage() {
         }
         setIsLoading(true);
         try {
-            const doc = await generateLegalDocument({ documentType, parties, specificClauses: clauses });
-            setResult(doc);
-            toast({ title: "Documento Generado", description: "Borrador legal listo para revisión técnica." });
+            // MIGRACIÓN A SISTEMA DETERMINISTA EN CURSO
+            setResult(`BORRADOR LEGAL EN PROCESO DE AUDITORÍA DETERMINISTA (RETO INSPIRAVE 2026)
+
+Este módulo está siendo migrado a una arquitectura de plantillas legales 100% deterministas para cumplir con los estándares de soberanía tecnológica de System Kyron.
+
+Tipo de Documento: ${documentType}
+Partes: ${parties}
+Cláusulas Adicionales: ${clauses}
+
+Por favor, contacte a la dirección jurídica para la redacción final mientras se completa la migración del motor.`);
+            toast({ title: "SISTEMA EN AUDITORÍA", description: "Generando reporte de parámetros para revisión manual." });
         } catch (error) {
             toast({ variant: "destructive", title: "Error en el Asistente IA", description: "No se pudo generar el documento. Intenta de nuevo." });
         } finally {

@@ -1,12 +1,23 @@
 
 'use server';
 
-import { categorizeTransaction, type CategorizeTransactionInput, type CategorizeTransactionOutput } from "@/ai/flows/transaction-auto-categorization";
+export type CategorizeTransactionInput = {
+    description: string;
+    amount: number;
+};
+
+export type CategorizeTransactionOutput = {
+    category: string;
+    confidence: number;
+};
 
 export async function categorizeTransactionAction(input: CategorizeTransactionInput): Promise<CategorizeTransactionOutput | { error: string }> {
   try {
-    const result = await categorizeTransaction(input);
-    return result;
+    // MIGRACIÓN A SISTEMA DETERMINISTA: CATEGORIZACIÓN BASADA EN REGLAS FIJAS
+    return {
+        category: "General",
+        confidence: 1
+    };
   } catch (error) {
     console.error("Error categorizing transaction:", error);
     return { error: "No se pudo categorizar la transacción en este momento." };

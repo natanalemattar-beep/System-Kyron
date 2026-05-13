@@ -6,9 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, TriangleAlert, UploadCloud, Download } from "lucide-react";
-import { processDocumentAction } from "@/app/[locale]/(main)/data-entry/actions";
-import type { AutomatedDataEntryOutput } from "@/ai/flows/automated-data-entry-from-image";
+import { Loader2, TriangleAlert, UploadCloud, Download, ShieldCheck } from "lucide-react";
+import { processDocumentAction, type AutomatedDataEntryOutput } from "@/app/[locale]/(main)/data-entry/actions";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { FileInputTrigger } from "../file-input-trigger";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
@@ -41,8 +40,8 @@ export function DataEntryForm() {
     setStatus("uploading");
     
     const response = await processDocumentAction({
-      photoDataUri: filePreview,
-      description: "Extract financial data from this document image.",
+      imageUrl: filePreview,
+      targetModule: "General",
     });
 
     if ("error" in response) {
@@ -56,153 +55,73 @@ export function DataEntryForm() {
     }
   };
 
-  const handleDownload = () => {
-    if (!result) return;
-
-    let content = `
-RECAUDO - DATOS EXTRAÍDOS
-==================================
-
-PROVEEDOR: ${result.vendorName}
-FECHA: ${formatDate(result.date)}
-
-----------------------------------
-DETALLES
-----------------------------------
-`;
-    result.items.forEach(item => {
-      content += `
-Descripción: ${item.description}
-Cantidad:    ${item.quantity || 'N/A'}
-Precio Unit.: ${formatCurrency(item.unitPrice, "Bs.")}
-`;
-    });
-    content += `
-----------------------------------
-TOTAL: ${formatCurrency(result.totalAmount, "Bs.")}
-MÉTODO DE PAGO: ${result.paymentMethod || 'N/A'}
-----------------------------------
-`;
-    
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-    const link = document.createElement('a');
-    document.body.appendChild(link);
-    link.href = URL.createObjectURL(blob);
-    link.download = `Recaudo_${result.vendorName.replace(/ /g, '_')}.txt`;
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-      <Card>
+      <Card className="glass-card border-none bg-white/[0.02]">
         <CardHeader>
-          <CardTitle>Cargar Documento</CardTitle>
-          <CardDescription>Sube la imagen de la factura o recibo.</CardDescription>
+          <CardTitle className="uppercase tracking-widest text-xs font-black">Cargar Documento</CardTitle>
+          <CardDescription className="text-[10px] font-bold uppercase opacity-50">Sube la imagen para auditoría determinista.</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
             <CardContent>
                 <FileInputTrigger onFileSelect={handleFileChange}>
-                     <div className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer bg-card hover:bg-secondary transition-all">
+                     <div className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-[2rem] border-white/10 cursor-pointer bg-white/[0.02] hover:bg-white/[0.05] transition-all overflow-hidden">
                         {filePreview ? (
-                            <Image src={filePreview} alt="Vista previa" width={250} height={250} className="object-contain h-full w-full"/>
+                            <Image src={filePreview} alt="Vista previa" width={250} height={250} className="object-contain h-full w-full p-4"/>
                         ) : (
                              <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                <UploadCloud className="w-10 h-10 mb-3 text-muted-foreground" />
-                                <p className="mb-2 text-sm text-muted-foreground">
-                                <span className="font-semibold">Haz clic para subir</span> o arrastra y suelta
-                                </p>
-                                <p className="text-xs text-muted-foreground">
-                                PNG, JPG, o PDF
+                                <UploadCloud className="w-10 h-10 mb-3 text-white/20" />
+                                <p className="mb-2 text-[10px] font-black uppercase tracking-widest text-white/40">
+                                <span className="text-white">Haz clic para subir</span>
                                 </p>
                             </div>
                         )}
                     </div>
                 </FileInputTrigger>
-                {file && (
-                    <p className="mt-4 text-sm font-medium text-primary text-center">
-                        {file.name}
-                    </p>
-                )}
             </CardContent>
             <CardFooter>
-                 <Button type="submit" disabled={!file || status === "uploading"} className="w-full">
+                 <Button type="submit" disabled={!file || status === "uploading"} className="w-full h-14 rounded-2xl font-black uppercase tracking-widest text-[10px]">
                     {status === "uploading" ? (
-                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Extrayendo datos...</>
+                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Auditando...</>
                     ) : (
-                        "Procesar Documento"
+                        "Iniciar Auditoría"
                     )}
                 </Button>
             </CardFooter>
         </form>
       </Card>
 
-      <Card>
+      <Card className="glass-card border-none bg-white/[0.02]">
         <CardHeader>
-          <CardTitle>Datos Extraídos por IA</CardTitle>
+          <CardTitle className="uppercase tracking-widest text-xs font-black flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 text-cyan-500" /> Resultado de Auditoría
+          </CardTitle>
         </CardHeader>
-        <CardContent className="min-h-[300px]">
+        <CardContent className="min-h-[300px] flex flex-col items-center justify-center">
           {status === "idle" && (
-            <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground">
-              <p>Sube un documento para ver los datos extraídos aquí.</p>
+            <div className="flex flex-col items-center justify-center h-full text-center text-white/20">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em]">Esperando documento...</p>
             </div>
           )}
           {status === "uploading" && (
             <div className="flex flex-col items-center justify-center h-full text-center">
-              <Loader2 className="w-12 h-12 animate-spin text-primary" />
-              <p className="mt-4">Extrayendo datos, por favor espera...</p>
+              <Loader2 className="w-12 h-12 animate-spin text-cyan-500" />
+              <p className="mt-4 text-[10px] font-black uppercase tracking-widest text-white/40">Analizando estructura...</p>
             </div>
           )}
-          {status === "error" && (
-             <div className="flex flex-col items-center justify-center h-full text-center text-destructive">
-                <TriangleAlert className="w-12 h-12" />
-                <p className="mt-4 font-semibold">Error al Procesar</p>
-                <p className="text-sm">{error}</p>
-             </div>
-          )}
           {status === "success" && result && (
-            <div className="space-y-4">
-                <div className="p-4 rounded-lg bg-secondary/50">
-                    <h3 className="text-lg font-semibold">{result.vendorName}</h3>
-                    <p className="text-sm text-muted-foreground">{formatDate(result.date)}</p>
+            <div className="space-y-6 w-full">
+                <div className="p-6 rounded-[1.5rem] bg-cyan-500/5 border border-cyan-500/20 text-center">
+                    <h3 className="text-sm font-black text-white uppercase tracking-widest mb-2">{result.extractedData.mensaje}</h3>
+                    <p className="text-[11px] text-zinc-400 font-bold leading-relaxed">{result.extractedData.instruccion}</p>
                 </div>
-                <div className="space-y-2">
-                    <Table>
-                        <TableHeader><TableRow><TableHead>Descripción</TableHead><TableHead className="text-right">Precio</TableHead></TableRow></TableHeader>
-                        <TableBody>
-                        {result.items.map((item, index) => (
-                            <TableRow key={index}>
-                                <TableCell>{item.description} {item.quantity && item.quantity > 1 && `(x${item.quantity})`}</TableCell>
-                                <TableCell className="text-right font-mono">{formatCurrency(item.unitPrice, "Bs.")}</TableCell>
-                            </TableRow>
-                        ))}
-                        </TableBody>
-                    </Table>
-                </div>
-                <div className="pt-4 mt-4 border-t">
-                    <div className="flex justify-between font-bold text-lg">
-                        <p>Total</p>
-                        <p>{formatCurrency(result.totalAmount, "Bs.")}</p>
-                    </div>
-                     {result.paymentMethod && (
-                        <div className="flex justify-between text-sm text-muted-foreground mt-1">
-                            <p>Método de Pago</p>
-                            <p>{result.paymentMethod}</p>
-                        </div>
-                    )}
+                <div className="flex items-center justify-center gap-4 py-4 opacity-50">
+                    <ShieldCheck className="h-10 w-10 text-cyan-500/20" />
+                    <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20">System Kyron Security Protocol</p>
                 </div>
             </div>
           )}
         </CardContent>
-        {status === "success" && result && (
-            <CardFooter className="flex-col gap-2">
-                <Button className="w-full">Guardar Transacción</Button>
-                <Button variant="outline" className="w-full" onClick={handleDownload}>
-                    <Download className="mr-2 h-4 w-4"/>
-                    Descargar Recaudo (.txt)
-                </Button>
-            </CardFooter>
-        )}
       </Card>
     </div>
   );
