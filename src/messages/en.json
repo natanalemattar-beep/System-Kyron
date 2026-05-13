@@ -477,8 +477,8 @@
         "title_highlight": "Frequently",
         "title_rest": "Asked Questions",
         "subtitle": "The most common questions about the System Kyron ecosystem.",
-        "view_more": "View more FAQs",
         "items": [
+            {
                 "question": "How do you guarantee tax compliance?",
                 "answer": "We monitor the Official Gazette with advanced algorithms. IVA 16%, IGTF 3% and ISLR are calculated automatically according to current VEN-NIF regulations.",
                 "category": "fiscal"
