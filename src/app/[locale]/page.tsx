@@ -7,10 +7,6 @@ const HeroSection      = dynamic(() => import('@/components/landing/hero-section
 const FeaturesSection  = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: true });
 
 // Below-the-fold — loaded dynamically
-const PricingSection    = dynamic(() => import('@/components/landing/pricing-section').then(m => ({ default: m.PricingSection })));
-const ComplianceSection = dynamic(() => import('@/components/landing/compliance-section').then(m => ({ default: m.ComplianceSection })));
-const CommentsSection   = dynamic(() => import('@/components/landing/comments-section').then(m => ({ default: m.CommentsSection })));
-const FaqSection        = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })));
 const CtaSection        = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })));
 const Footer            = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })));
 
@@ -34,14 +30,6 @@ export default function LandingPage() {
           <LazySection fallbackHeight="400px">
             <CtaSection />
           </LazySection>
-
-          {/* Secciones ocultas para acortar la landing page y dejar lo esencial:
-              - ComplianceSection
-              - CommentsSection
-              - FaqSection
-          */}
-
-          {/* Footer se encarga del cierre */}
 
         </main>
 

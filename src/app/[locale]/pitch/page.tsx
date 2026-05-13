@@ -827,9 +827,23 @@ export default function PitchPage() {
                         animate="center"
                         exit="exit"
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="absolute inset-0 flex items-center px-12 md:px-24 lg:px-32"
+                        className="absolute inset-0 flex items-center px-12 md:px-24 lg:px-32 overflow-hidden"
                     >
-                        <div className="w-full max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-24 items-center">
+                        {/* Cinematic Background Layer */}
+                        <div className="absolute inset-0 z-0">
+                            <div className="absolute inset-0 bg-[#020617] z-10 opacity-80" />
+                            <img 
+                                src={slide.image} 
+                                className="w-full h-full object-cover blur-[100px] opacity-30 scale-110"
+                                alt=""
+                            />
+                            <div 
+                                className="absolute inset-0 z-20 opacity-20"
+                                style={{ background: `radial-gradient(circle at 50% 50%, ${slide.accent}44, transparent 70%)` }}
+                            />
+                        </div>
+
+                        <div className="w-full max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-24 items-center relative z-10">
                             {/* Left Content */}
                             <div className="space-y-12">
                                 <motion.div
@@ -996,18 +1010,27 @@ export default function PitchPage() {
                                     </div>
                                 ) : (
                                     <motion.div
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: 0.5, duration: 1.5 }}
-                                        className="flex items-center justify-center relative"
+                                        initial={{ opacity: 0, scale: 0.9, rotateY: 10 }}
+                                        animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                                        transition={{ delay: 0.4, duration: 1.5 }}
+                                        className="relative w-full aspect-video rounded-[4rem] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.6)] group border border-white/10"
                                     >
-                                        <div className="absolute inset-0 bg-blue-500/20 blur-[150px] animate-pulse rounded-full" />
-                                        <div
-                                            className="h-96 w-96 rounded-[5rem] flex items-center justify-center relative group backdrop-blur-3xl"
-                                            style={{ backgroundColor: slide.accent + "05", border: `1px solid ${slide.accent}22` }}
-                                        >
-                                            <Icon className="h-48 w-48 relative z-10 group-hover:scale-110 transition-transform duration-1000" style={{ color: slide.accent }} />
-                                            <Radar className="absolute inset-0 h-full w-full text-white/5 animate-spin-slow" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
+                                        <img 
+                                            src={slide.image} 
+                                            alt={slide.title} 
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2000ms]" 
+                                        />
+                                        <div className="absolute bottom-10 left-10 z-20">
+                                            <div className="flex items-center gap-4">
+                                                <div className="h-12 w-12 rounded-2xl glass-pill flex items-center justify-center">
+                                                    <Icon className="h-6 w-6" style={{ color: slide.accent }} />
+                                                </div>
+                                                <div className="h-1 w-20 rounded-full bg-white/20" />
+                                            </div>
+                                        </div>
+                                        <div className="absolute top-10 right-10 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+                                            <Radar className="h-10 w-10 text-white/20 animate-spin-slow" />
                                         </div>
                                     </motion.div>
                                 )}

@@ -90,6 +90,16 @@ export default function BrandKitPage() {
             type: 'internal'
         },
         {
+            id: 'paisaje',
+            title: 'Paisaje Venezuela 4K',
+            description: 'Toma cinematográfica del Salto Ángel para fondos de presentación.',
+            icon: Globe,
+            href: 'https://images.unsplash.com/photo-1626014303757-646c2d399b4d?q=80&w=2000&auto=format&fit=crop',
+            color: 'from-cyan-400 to-blue-500',
+            tag: '4K WALLPAPER',
+            type: 'external'
+        },
+        {
             id: 'instagram',
             title: 'Instagram Oficial',
             description: 'Presencia en redes sociales y catálogo visual de servicios.',
@@ -237,16 +247,24 @@ function ResourceCard({ resource: res }: { resource: any }) {
                     {/* Icon with Glass Sphere effect */}
                     <div className={cn(
                         "h-16 w-16 rounded-[1.5rem] flex items-center justify-center mb-8 relative",
-                        "bg-zinc-950 border border-white/10 group-hover:border-cyan-500/50 transition-colors shadow-2xl"
+                        "bg-zinc-950 border border-white/10 group-hover:border-cyan-500/50 transition-colors shadow-2xl overflow-hidden"
                     )}>
-                        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent rounded-[1.5rem]" />
-                        <Icon className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform duration-500" />
+                        {res.id === 'paisaje' ? (
+                            <img src={res.href} alt="Preview" className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
+                        ) : (
+                            <>
+                                <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent rounded-[1.5rem]" />
+                                <Icon className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform duration-500" />
+                            </>
+                        )}
                     </div>
                     
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
                             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400/80">{res.tag}</span>
-                            {res.type === 'external' ? <ExternalLink className="h-3.5 w-3.5 text-zinc-600" /> : <Layers className="h-3.5 w-3.5 text-zinc-600" />}
+                            {res.type === 'external' ? (
+                                res.id === 'paisaje' ? <Download className="h-3.5 w-3.5 text-zinc-600" /> : <ExternalLink className="h-3.5 w-3.5 text-zinc-600" />
+                            ) : <Layers className="h-3.5 w-3.5 text-zinc-600" />}
                         </div>
                         <h3 className="text-3xl font-black uppercase tracking-tighter italic text-white group-hover:text-cyan-400 transition-colors duration-500">
                             {res.title}
@@ -271,6 +289,22 @@ function ResourceCard({ resource: res }: { resource: any }) {
                                 <ArrowRight className="h-5 w-5" />
                             </motion.div>
                         </Link>
+                    ) : res.id === 'paisaje' ? (
+                        <a 
+                            href={res.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            download="System-Kyron-Salto-Angel-4K.jpg"
+                            className="flex items-center justify-between group/link"
+                        >
+                            <span className="text-[11px] font-black uppercase tracking-[0.2em] text-zinc-500 group-hover/link:text-white transition-colors">Descargar 4K</span>
+                            <motion.div 
+                                whileHover={{ scale: 1.1, y: 2 }}
+                                className="h-10 w-10 rounded-full bg-cyan-600 flex items-center justify-center text-white transition-all shadow-xl"
+                            >
+                                <Download className="h-5 w-5" />
+                            </motion.div>
+                        </a>
                     ) : (
                         <a 
                             href={res.href}

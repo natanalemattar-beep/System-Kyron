@@ -196,7 +196,7 @@ export default function ResumenEjecutivoPage() {
 
     return (
         <PasswordGate 
-            title="Resumen Ejecutivo Elite" 
+            title="Resumen Ejecutivo System Kyron" 
             description="Información estratégica para el Reto InspiraVe 2026. Contenido confidencial."
         >
             <div className="min-h-screen bg-[#020617] text-white font-[family-name:var(--font-outfit)] selection:bg-cyan-500/30 overflow-x-hidden">
@@ -219,7 +219,7 @@ export default function ResumenEjecutivoPage() {
                                 className="flex items-center gap-2 px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest border border-cyan-500 transition-all active:scale-95 shadow-[0_0_30px_rgba(8,145,178,0.2)] disabled:opacity-50"
                             >
                                 <Rocket className={cn("h-3 w-3", isDownloading && "animate-spin")} />
-                                {isDownloading ? 'Generando...' : 'PDF Elite'}
+                                {isDownloading ? 'Generando...' : 'Descargar PDF'}
                             </button>
                             <button 
                                 onClick={handleDownloadDoc}

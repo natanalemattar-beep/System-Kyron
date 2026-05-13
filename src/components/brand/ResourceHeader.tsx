@@ -99,7 +99,7 @@ export function ResourceHeader() {
                         <div className="absolute inset-0 rounded-full bg-cyan-500 animate-ping opacity-40" />
                         <div className="relative h-2 w-2 rounded-full bg-cyan-500 shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
                     </div>
-                    <span className="text-[8px] font-black text-white/40 uppercase tracking-[0.2em] italic">Elite</span>
+                    <span className="text-[8px] font-black text-white/40 uppercase tracking-[0.2em] italic">System Kyron</span>
                 </div>
             </motion.header>
 

@@ -112,7 +112,7 @@ export default function IdentityAssetsPage() {
                         <Sparkles className="h-6 w-6 text-cyan-400" />
                     </div>
                     <div>
-                        <h1 className="text-xl md:text-2xl font-black uppercase tracking-tighter text-white">Generador de Identidad Elite</h1>
+                        <h1 className="text-xl md:text-2xl font-black uppercase tracking-tighter text-white">System Kyron | Asset Hub</h1>
                         <p className="text-zinc-500 text-[10px] mt-0.5 font-black uppercase tracking-[0.2em]">Asset Engineering System • v2.2 Ultra</p>
                     </div>
                 </div>
@@ -172,8 +172,8 @@ export default function IdentityAssetsPage() {
             </div>
 
             {/* Preview Banner Premium */}
-            <div className="max-w-4xl mx-auto px-6 py-8 print:hidden">
-                <div className="bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 border border-white/10 rounded-[2.5rem] p-8 flex items-start gap-6 backdrop-blur-xl">
+            <div className="max-w-6xl mx-auto px-6 py-8 print:hidden grid md:grid-cols-2 gap-8 items-center">
+                <div className="bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 border border-white/10 rounded-[2.5rem] p-8 flex items-start gap-6 backdrop-blur-xl h-full">
                     <div className="p-4 bg-white/5 rounded-3xl border border-white/10">
                         {assetType === 'stickers' && <Circle className="h-8 w-8 text-cyan-400" />}
                         {assetType === 'bookmarks' && <BookmarkIcon className="h-8 w-8 text-blue-400" />}
@@ -188,6 +188,27 @@ export default function IdentityAssetsPage() {
                         </p>
                     </div>
                 </div>
+
+                {/* Animated Glass Preview for Business Cards */}
+                {assetType === 'business-cards' && (
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="relative group cursor-pointer"
+                    >
+                        <div className="absolute inset-0 bg-cyan-500/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="relative bg-white/5 backdrop-blur-3xl border border-white/20 p-1 rounded-[2rem] overflow-hidden shadow-2xl">
+                             <div className="transform scale-75 origin-top-left -mb-[25%] -mr-[25%] pointer-events-none">
+                                <BusinessCard qrCodeImage={qrCodeImage} />
+                             </div>
+                             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-white/5" />
+                        </div>
+                        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md border border-white/10 px-4 py-1 rounded-full flex items-center gap-2">
+                             <Sparkles className="h-3 w-3 text-cyan-400" />
+                             <span className="text-[8px] font-black uppercase tracking-widest text-white">Live Preview</span>
+                        </div>
+                    </motion.div>
+                )}
             </div>
 
             {/* Hoja de Activos */}
@@ -321,60 +342,71 @@ function BookmarkItem({ qrCodeImage }: { qrCodeImage: string }) {
 
 function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
     return (
-        <div className="w-[3.5in] h-[2in] bg-white border-[0.5px] border-zinc-200 flex p-6 relative overflow-hidden break-inside-avoid shadow-sm">
-            {/* Background pattern */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-zinc-50 -mr-16 -mt-16 rounded-full opacity-50" />
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-cyan-50 -ml-12 -mb-12 rounded-full opacity-30" />
-
+        <div className="w-[3.5in] h-[2in] bg-white border border-zinc-100 flex p-8 relative overflow-hidden break-inside-avoid shadow-sm font-[family-name:var(--font-outfit)]">
+            {/* Left Content Area */}
             <div className="flex-1 flex flex-col justify-between relative z-10">
-                <div className="space-y-1">
-                    <div className="flex items-center gap-2 mb-2">
-                        <div className="h-8 w-8 flex items-center justify-center overflow-hidden">
-                            <img src="/images/logo-black.png" alt="Kyron" className="max-w-full max-h-full object-contain" />
+                <div className="space-y-4">
+                    {/* Header Branding */}
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="h-10 w-10 flex items-center justify-center p-1 bg-zinc-950 rounded-xl shadow-lg">
+                            <img src="/images/logo-white.png" alt="Kyron" className="max-w-full max-h-full object-contain" />
                         </div>
-                        <div className="h-4 w-[1px] bg-zinc-200" />
-                        <span className="text-[8px] font-black uppercase tracking-[0.3em] text-cyan-600">Elite</span>
+                        <div className="h-6 w-[1px] bg-zinc-100" />
+                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-600">System Kyron</span>
                     </div>
-                    <h2 className="text-black font-black uppercase tracking-tight text-xl leading-none">Carlos Mattar</h2>
-                    <p className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest">Founder & CEO · System Kyron</p>
+
+                    {/* Person Information */}
+                    <div>
+                        <h2 className="text-black font-black uppercase tracking-tighter text-3xl leading-none mb-1">Carlos Mattar</h2>
+                        <p className="text-[8px] font-black text-zinc-400 uppercase tracking-[0.2em] italic">Founder & CEO · System Kyron</p>
+                    </div>
                 </div>
 
-                <div className="space-y-1.5">
-                    <div className="flex items-center gap-2">
-                        <Mail className="h-2.5 w-2.5 text-cyan-600" />
-                        <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">systemkyronofficial@gmail.com</span>
+                {/* Contact Information List */}
+                <div className="space-y-2.5">
+                    <div className="flex items-center gap-3 group">
+                        <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center group-hover:bg-cyan-50 transition-colors">
+                            <Mail className="h-2.5 w-2.5 text-cyan-600" />
+                        </div>
+                        <span className="text-[7.5px] font-bold text-zinc-600 uppercase tracking-widest">systemkyronofficial@gmail.com</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <Globe className="h-2.5 w-2.5 text-cyan-600" />
-                        <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">www.system-kyron.app</span>
+                    <div className="flex items-center gap-3 group">
+                        <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center group-hover:bg-cyan-50 transition-colors">
+                            <Globe className="h-2.5 w-2.5 text-cyan-600" />
+                        </div>
+                        <span className="text-[7.5px] font-bold text-zinc-600 uppercase tracking-widest">www.system-kyron.app</span>
                     </div>
-                    <a
-                        href="https://wa.me/584241846016"
-                        target="_blank"
-                        className="flex items-center gap-2 group/wa hover:text-cyan-600 transition-colors"
-                    >
-                        <Phone className="h-2.5 w-2.5 text-cyan-600" />
-                        <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider group-hover/wa:text-cyan-600">+58 424-1846016</span>
-                    </a>
-                    <div className="flex items-center gap-2">
-                        <MapPin className="h-2.5 w-2.5 text-cyan-600" />
-                        <span className="text-[7px] font-bold text-zinc-500 uppercase tracking-wider">La Guaira, Venezuela</span>
+                    <div className="flex items-center gap-3 group">
+                        <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center group-hover:bg-cyan-50 transition-colors">
+                            <Phone className="h-2.5 w-2.5 text-cyan-600" />
+                        </div>
+                        <span className="text-[7.5px] font-bold text-zinc-600 uppercase tracking-widest">+58 424-1846016</span>
+                    </div>
+                    <div className="flex items-center gap-3 group">
+                        <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center group-hover:bg-cyan-50 transition-colors">
+                            <MapPin className="h-2.5 w-2.5 text-cyan-600" />
+                        </div>
+                        <span className="text-[7.5px] font-bold text-zinc-600 uppercase tracking-widest">La Guaira, Venezuela</span>
                     </div>
                 </div>
             </div>
 
-            <div className="flex flex-col items-center justify-center gap-3 pl-6 border-l border-zinc-100 relative z-10">
-                <div className="p-2 bg-white border border-zinc-100 rounded-xl shadow-md">
-                    <img src={qrCodeImage} alt="QR" className="w-16 h-16" crossOrigin="anonymous" />
+            {/* Right Side - QR Code and ID */}
+            <div className="w-1/3 flex flex-col items-center justify-center border-l border-zinc-50/50 pl-6">
+                <div className="relative mb-4">
+                    <div className="absolute -inset-4 bg-zinc-400/5 blur-2xl rounded-full" />
+                    <div className="p-4 bg-white border border-zinc-100 rounded-[2.5rem] shadow-[0_15px_40px_rgba(0,0,0,0.08)] relative z-10 hover:scale-105 transition-transform duration-500">
+                        <img src={qrCodeImage} alt="QR" className="w-20 h-20" crossOrigin="anonymous" />
+                    </div>
                 </div>
-                <div className="flex items-center gap-1 opacity-40">
-                    <ShieldCheck className="h-2 w-2 text-zinc-900" />
-                    <span className="text-[5px] font-black uppercase tracking-widest text-black">Secure ID</span>
+                <div className="flex items-center gap-1.5 opacity-40">
+                    <ShieldCheck className="h-3 w-3 text-zinc-900" />
+                    <span className="text-[6px] font-black uppercase tracking-[0.3em] text-black">Secure ID</span>
                 </div>
             </div>
 
-            {/* Identity line */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-600" />
+            {/* Subtle background texture */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/[0.02] -mr-16 -mt-16 rounded-full blur-3xl" />
         </div>
     );
 }
