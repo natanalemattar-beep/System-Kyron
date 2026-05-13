@@ -53,42 +53,41 @@ export default function IdentityAssetsPage() {
             const element = document.getElementById('assets-sheet');
             if (!element) return;
 
-            // Desactivar efectos para captura ultra-limpia
-            const originalStyle = element.getAttribute('style');
-            element.style.transform = 'none';
-            element.style.transition = 'none';
-
+            // Renderizar el PDF con un factor de escala alto para nitidez extrema
             const canvas = await html2canvas(element, {
-                scale: 4, // Calidad Ultra-HD
+                scale: 3, // Balance entre calidad y tamaño de archivo
                 useCORS: true,
+                allowTaint: true,
                 backgroundColor: '#ffffff',
                 logging: false,
-                width: element.offsetWidth,
-                height: element.offsetHeight,
-                imageTimeout: 0,
+                imageTimeout: 15000, // Dar tiempo a que carguen los assets externos
                 onclone: (clonedDoc) => {
-                    const clonedElement = clonedDoc.getElementById('assets-sheet');
-                    if (clonedElement) {
-                        clonedElement.style.transform = 'none';
+                    const clonedSheet = clonedDoc.getElementById('assets-sheet');
+                    if (clonedSheet) {
+                        // Forzar estilos ultra-limpios para la captura
+                        clonedSheet.style.transform = 'none';
+                        clonedSheet.style.margin = '0';
+                        clonedSheet.style.padding = '0.5in';
+                        
+                        // Asegurar que las imágenes tengan crossOrigin si es necesario
+                        const imgs = clonedSheet.getElementsByTagName('img');
+                        for (let i = 0; i < imgs.length; i++) {
+                            imgs[i].style.display = 'block';
+                            imgs[i].style.maxWidth = '100%';
+                        }
                     }
                 }
             });
 
-            if (originalStyle) element.setAttribute('style', originalStyle);
-
-            const imgData = canvas.toDataURL('image/png', 1.0);
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
             const pdf = new jsPDF({
                 orientation: 'portrait',
                 unit: 'in',
-                format: 'letter',
-                compress: true
+                format: 'letter'
             });
 
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
-
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'SLOW');
-            pdf.save(`System-Kyron-${assetType.charAt(0).toUpperCase() + assetType.slice(1)}-Elite.pdf`);
+            pdf.addImage(imgData, 'JPEG', 0, 0, 8.5, 11, undefined, 'FAST');
+            pdf.save(`System-Kyron-${assetType.charAt(0).toUpperCase() + assetType.slice(1)}.pdf`);
 
         } catch (error) {
             console.error('Error generating PDF:', error);
@@ -344,62 +343,57 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
     return (
         <div className="w-[3.5in] h-[2in] bg-white border border-zinc-100 flex p-8 relative overflow-hidden break-inside-avoid shadow-sm font-[family-name:var(--font-outfit)]">
             {/* Left Content Area */}
-            <div className="flex-1 flex flex-col justify-between relative z-10">
+            <div className="flex-[1.5] flex flex-col justify-between relative z-10">
                 <div className="space-y-4">
                     {/* Header Branding */}
-                    <div className="flex items-center gap-3 mb-6">
+                    <div className="flex items-center gap-3 mb-4">
                         <div className="h-10 w-10 flex items-center justify-center p-1 bg-zinc-950 rounded-xl shadow-lg">
-                            <img src="/images/logo-white.png" alt="Kyron" className="max-w-full max-h-full object-contain" />
+                            <img src="/images/logo-transparent.png" alt="Kyron" className="max-w-[80%] max-h-[80%] object-contain" />
                         </div>
-                        <div className="h-6 w-[1px] bg-zinc-100" />
+                        <div className="h-6 w-[1.5px] bg-zinc-100" />
                         <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-600">System Kyron</span>
                     </div>
 
                     {/* Person Information */}
                     <div>
-                        <h2 className="text-black font-black uppercase tracking-tighter text-3xl leading-none mb-1">Carlos Mattar</h2>
+                        <h2 className="text-black font-black uppercase tracking-tighter text-3xl leading-[0.9] mb-1">Carlos Mattar</h2>
                         <p className="text-[8px] font-black text-zinc-400 uppercase tracking-[0.2em] italic">Founder & CEO · System Kyron</p>
                     </div>
                 </div>
 
                 {/* Contact Information List */}
-                <div className="space-y-2.5">
-                    <div className="flex items-center gap-3 group">
-                        <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center group-hover:bg-cyan-50 transition-colors">
+                <div className="space-y-2">
+                    <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center">
                             <Mail className="h-2.5 w-2.5 text-cyan-600" />
                         </div>
                         <span className="text-[7.5px] font-bold text-zinc-600 uppercase tracking-widest">systemkyronofficial@gmail.com</span>
                     </div>
-                    <div className="flex items-center gap-3 group">
-                        <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center group-hover:bg-cyan-50 transition-colors">
+                    <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center">
                             <Globe className="h-2.5 w-2.5 text-cyan-600" />
                         </div>
                         <span className="text-[7.5px] font-bold text-zinc-600 uppercase tracking-widest">www.system-kyron.app</span>
                     </div>
-                    <div className="flex items-center gap-3 group">
-                        <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center group-hover:bg-cyan-50 transition-colors">
+                    <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center">
                             <Phone className="h-2.5 w-2.5 text-cyan-600" />
                         </div>
-                        <div className="flex flex-col">
-                            <span className="text-[7px] font-bold text-zinc-600 uppercase tracking-widest">+58 424-1846016</span>
-                            <span className="text-[7px] font-bold text-zinc-400 uppercase tracking-widest mt-0.5">0212-3510609</span>
+                        <div className="flex gap-3">
+                            <span className="text-[7.5px] font-bold text-zinc-600 uppercase tracking-widest">+58 424-1846016</span>
+                            <div className="w-[1px] h-3 bg-zinc-100" />
+                            <span className="text-[7.5px] font-bold text-zinc-400 uppercase tracking-widest">0212-3510609</span>
                         </div>
-                    </div>
-                    <div className="flex items-center gap-3 group">
-                        <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center group-hover:bg-cyan-50 transition-colors">
-                            <MapPin className="h-2.5 w-2.5 text-cyan-600" />
-                        </div>
-                        <span className="text-[7.5px] font-bold text-zinc-600 uppercase tracking-widest">La Guaira, Venezuela</span>
                     </div>
                 </div>
             </div>
 
             {/* Right Side - QR Code and ID */}
-            <div className="w-1/3 flex flex-col items-center justify-center border-l border-zinc-50/50 pl-6">
+            <div className="flex-1 flex flex-col items-center justify-center border-l border-zinc-50/50 pl-8">
                 <div className="relative mb-4">
-                    <div className="absolute -inset-4 bg-zinc-400/5 blur-2xl rounded-full" />
-                    <div className="p-4 bg-white border border-zinc-100 rounded-[2.5rem] shadow-[0_15px_40px_rgba(0,0,0,0.08)] relative z-10 hover:scale-105 transition-transform duration-500">
-                        <img src={qrCodeImage} alt="QR" className="w-20 h-20" crossOrigin="anonymous" />
+                    <div className="absolute -inset-6 bg-zinc-400/5 blur-3xl rounded-full" />
+                    <div className="p-4 bg-white border border-zinc-100 rounded-[2.5rem] shadow-[0_15px_40px_rgba(0,0,0,0.08)] relative z-10 flex items-center justify-center aspect-square w-28 h-28">
+                        <img src={qrCodeImage} alt="QR" className="w-full h-full object-contain" crossOrigin="anonymous" />
                     </div>
                 </div>
                 <div className="flex items-center gap-1.5 opacity-40">
