@@ -104,7 +104,7 @@ export default function IdentityAssetsPage() {
         <div className="min-h-screen bg-[#030711] text-white font-[family-name:var(--font-outfit)] print:bg-white print:text-black">
             <ResourceHeader />
 
-            {/* Toolbar Elite */}
+            {/* Toolbar System Kyron */}
             <div className="p-6 flex flex-col lg:flex-row justify-between items-center bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10 print:hidden sticky top-0 z-50 gap-6">
                 <div className="flex items-center gap-4">
                     <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 flex items-center justify-center">
@@ -343,20 +343,20 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
     return (
         <div className="w-[3.5in] h-[2in] bg-white border border-zinc-100 flex p-8 relative overflow-hidden break-inside-avoid shadow-sm font-[family-name:var(--font-outfit)]">
             {/* Left Content Area */}
-            <div className="flex-[1.5] flex flex-col justify-between relative z-10">
+            <div className="flex-1 flex flex-col justify-between relative z-10">
                 <div className="space-y-4">
                     {/* Header Branding */}
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-center gap-3 mb-6">
                         <div className="h-10 w-10 flex items-center justify-center p-1 bg-zinc-950 rounded-xl shadow-lg">
-                            <img src="/images/logo-transparent.png" alt="Kyron" className="max-w-[80%] max-h-[80%] object-contain" />
+                            <img src="/images/logo-transparent.png" alt="Kyron" className="max-w-full max-h-full object-contain" />
                         </div>
-                        <div className="h-6 w-[1.5px] bg-zinc-100" />
+                        <div className="h-6 w-[1px] bg-zinc-100" />
                         <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-600">System Kyron</span>
                     </div>
 
                     {/* Person Information */}
                     <div>
-                        <h2 className="text-black font-black uppercase tracking-tighter text-3xl leading-[0.9] mb-1">Carlos Mattar</h2>
+                        <h2 className="text-black font-black uppercase tracking-tighter text-3xl leading-none mb-1">Carlos Mattar</h2>
                         <p className="text-[8px] font-black text-zinc-400 uppercase tracking-[0.2em] italic">Founder & CEO · System Kyron</p>
                     </div>
                 </div>
@@ -368,12 +368,6 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
                             <Mail className="h-2.5 w-2.5 text-cyan-600" />
                         </div>
                         <span className="text-[7.5px] font-bold text-zinc-600 uppercase tracking-widest">systemkyronofficial@gmail.com</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center">
-                            <Globe className="h-2.5 w-2.5 text-cyan-600" />
-                        </div>
-                        <span className="text-[7.5px] font-bold text-zinc-600 uppercase tracking-widest">www.system-kyron.app</span>
                     </div>
                     <div className="flex items-center gap-3">
                         <div className="w-5 h-5 rounded-lg bg-zinc-50 flex items-center justify-center">
@@ -389,11 +383,11 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
             </div>
 
             {/* Right Side - QR Code and ID */}
-            <div className="flex-1 flex flex-col items-center justify-center border-l border-zinc-50/50 pl-8">
+            <div className="w-1/3 flex flex-col items-center justify-center border-l border-zinc-50/50 pl-6">
                 <div className="relative mb-4">
-                    <div className="absolute -inset-6 bg-zinc-400/5 blur-3xl rounded-full" />
-                    <div className="p-4 bg-white border border-zinc-100 rounded-[2.5rem] shadow-[0_15px_40px_rgba(0,0,0,0.08)] relative z-10 flex items-center justify-center aspect-square w-28 h-28">
-                        <img src={qrCodeImage} alt="QR" className="w-full h-full object-contain" crossOrigin="anonymous" />
+                    <div className="absolute -inset-4 bg-zinc-400/5 blur-2xl rounded-full" />
+                    <div className="p-4 bg-white border border-zinc-100 rounded-[2.5rem] shadow-[0_15px_40px_rgba(0,0,0,0.08)] relative z-10">
+                        <img src={qrCodeImage} alt="QR" className="w-20 h-20 object-contain" crossOrigin="anonymous" />
                     </div>
                 </div>
                 <div className="flex items-center gap-1.5 opacity-40">

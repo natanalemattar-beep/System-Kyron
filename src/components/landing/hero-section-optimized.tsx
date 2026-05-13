@@ -29,7 +29,7 @@ export function HeroSectionOptimized() {
   const t = useTranslations('HeroSection');
   const containerRef = useRef<HTMLElement>(null);
   const [liveStats, setLiveStats] = useState({ totalUsuarios: 0 });
-  const rotatingTexts = t.raw('rotating_words') as string[] || ['Corporativo', 'Empresarial', 'Autónomo', 'Elite'];
+  const rotatingTexts = t.raw('rotating_words') as string[] || ['Corporativo', 'Empresarial', 'Autónomo', 'System Kyron'];
 
   useEffect(() => {
     fetch('/api/stats')

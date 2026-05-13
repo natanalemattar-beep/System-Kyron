@@ -97,7 +97,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
             pdf.addPage();
             pdf.addImage(canvas2.toDataURL('image/jpeg', 0.98), 'JPEG', 0, 0, 11, 8.5);
 
-            pdf.save('System-Kyron-Folleto-Elite.pdf');
+            pdf.save('System-Kyron-Folleto-System Kyron.pdf');
         } catch (error) {
             console.error('Error generando PDF:', error);
             alert('Error en la generación del PDF. Intente en un navegador de escritorio.');
@@ -254,7 +254,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                     href="/brand-kit"
                     className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all shadow-[0_10px_30px_rgba(37,99,235,0.3)] hover:scale-105 active:scale-95"
                 >
-                    <Sparkles className="h-4 w-4" /> RECURSOS ELITE
+                    <Sparkles className="h-4 w-4" /> RECURSOS System Kyron
                 </Link>
             </div>
 

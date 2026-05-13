@@ -73,7 +73,7 @@ export default function VerifyLinkPage() {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-md w-full glass-elite p-10 rounded-[2.5rem] border-white/10 shadow-2xl text-center relative z-10"
+        className="max-w-md w-full glass-System Kyron p-10 rounded-[2.5rem] border-white/10 shadow-2xl text-center relative z-10"
       >
         <div className="mb-8 relative mx-auto w-20 h-20 flex items-center justify-center">
           {status === 'loading' && (

@@ -141,7 +141,7 @@ export default function DashboardPersonalPage() {
       <ModuleTutorial config={moduleTutorials["ciudadano"]} />
       <ProfileCompletionNotice />
       
-      {/* Header Elite con Efecto de Cristal Sagrado */}
+      {/* Header System Kyron con Efecto de Cristal Sagrado */}
       <motion.header
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -351,7 +351,7 @@ export default function DashboardPersonalPage() {
               <Button 
                 onClick={() => openAgentChat({
                   id: 'legal',
-                  name: 'Consultor Legal Elite',
+                  name: 'Consultor Legal System Kyron',
                   description: 'Experto en Derecho Mercantil, Civil y Laboral venezolano.',
                   icon: <Scale className="h-6 w-6" />
                 })}

@@ -503,7 +503,7 @@ export default function PitchPage() {
                         <tr>
                             <td>
                                 <h1 style="font-size: 28px; font-weight: 900; color: #0f172a; letter-spacing: -1px;">SYSTEM KYRON</h1>
-                                <p style="font-size: 10px; color: #3b82f6; font-weight: 800; text-transform: uppercase; letter-spacing: 4px; margin-top: 5px;">Identidad Digital para Empresas Elite</p>
+                                <p style="font-size: 10px; color: #3b82f6; font-weight: 800; text-transform: uppercase; letter-spacing: 4px; margin-top: 5px;">Identidad Digital para Empresas System Kyron</p>
                                 <p style="font-size: 9px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-top: 2px;">Executive Pitch Script — Competition Edition v2.5</p>
                             </td>
                             <td align="right">
@@ -773,7 +773,7 @@ export default function PitchPage() {
                         >
                             <Download className={cn("h-4 w-4 text-white group-hover:animate-bounce", isExporting && "animate-spin")} />
                             <span className="text-[10px] font-black uppercase tracking-widest text-white">
-                                {isExporting ? "Generando..." : "PPTX Elite"}
+                                {isExporting ? "Generando..." : "PPTX System Kyron"}
                             </span>
                         </button>
                         <button
@@ -782,7 +782,7 @@ export default function PitchPage() {
                             className="group flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95 disabled:opacity-50"
                         >
                             <Monitor className="h-4 w-4 text-white/40 group-hover:text-white transition-colors" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-white/60 group-hover:text-white">PDF Elite</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest text-white/60 group-hover:text-white">PDF System Kyron</span>
                         </button>
                     </div>
 

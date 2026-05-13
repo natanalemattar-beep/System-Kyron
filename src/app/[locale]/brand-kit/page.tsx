@@ -139,7 +139,7 @@ export default function BrandKitPage() {
                             className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic leading-[0.9]"
                         >
                             Vault de <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500">Recursos Elite.</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500">Recursos System Kyron.</span>
                         </motion.h1>
                         <motion.p 
                             initial={{ opacity: 0, y: 20 }}

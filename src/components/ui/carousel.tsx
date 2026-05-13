@@ -173,7 +173,7 @@ const CarouselContent = React.forwardRef<
 })
 CarouselContent.displayName = "CarouselContent"
 
-const CarouselItem = React.forwardRef<
+const CarousSystem Kyronm = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
@@ -193,7 +193,7 @@ const CarouselItem = React.forwardRef<
     />
   )
 })
-CarouselItem.displayName = "CarouselItem"
+CarousSystem Kyronm.displayName = "CarousSystem Kyronm"
 
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
@@ -257,7 +257,7 @@ export {
   type CarouselApi,
   Carousel,
   CarouselContent,
-  CarouselItem,
+  CarousSystem Kyronm,
   CarouselPrevious,
   CarouselNext,
 }

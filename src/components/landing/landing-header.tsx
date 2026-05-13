@@ -144,7 +144,7 @@ export function LandingHeader() {
                                         </div>
                                         <div>
                                             <p className="text-sm font-black uppercase tracking-tight text-white">Kyron 5G Alpha</p>
-                                            <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Connectividad Elite</p>
+                                            <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Connectividad System Kyron</p>
                                         </div>
                                         <ArrowRight className="h-4 w-4 ml-auto text-zinc-800 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
                                     </DropdownMenuItem>
