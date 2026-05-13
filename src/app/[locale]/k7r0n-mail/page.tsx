@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Mail, Send, Shield, CircleCheck, XCircle, Loader2, Lock, Plus, Trash2, Sparkles, Eye, Pencil, ArrowRight, FileEdit } from 'lucide-react';
+import { Mail, Send, Shield, CircleCheck, XCircle, Loader2, Lock, Plus, Trash2, Eye, Pencil, ArrowRight, FileEdit } from 'lucide-react';
 
 const TEMPLATES = [
   { id: 'personalizado', label: 'Personalizado' },
@@ -42,8 +42,6 @@ type HistoryItem = {
   time: string;
 };
 
-type Mode = 'ai' | 'manual';
-
 const EMPTY_DRAFT: Draft = {
   to: [''],
   nombre: null,
@@ -59,15 +57,11 @@ export default function KyronMailPage() {
   const [masterKey, setMasterKey] = useState('');
   const [failCount, setFailCount] = useState(0);
 
-  const [mode, setMode] = useState<Mode>('ai');
-  const [prompt, setPrompt] = useState('');
-  const [generating, setGenerating] = useState(false);
   const [draft, setDraft] = useState<Draft | null>(null);
   const [editing, setEditing] = useState(false);
 
   const [sending, setSending] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([]);
-  const promptRef = useRef<HTMLTextAreaElement>(null);
 
   const handleAuth = () => {
     if (masterKey === 'Carlos123') {
@@ -82,41 +76,6 @@ export default function KyronMailPage() {
       } else {
         toast({ variant: 'destructive', title: 'Clave incorrecta' });
       }
-    }
-  };
-
-  const switchMode = (m: Mode) => {
-    setMode(m);
-    setDraft(null);
-    setEditing(false);
-    setPrompt('');
-  };
-
-  const handleGenerate = async () => {
-    if (!prompt.trim() || prompt.trim().length < 5) {
-      toast({ variant: 'destructive', title: 'Escribe algo', description: 'Dime qué quieres enviar.' });
-      return;
-    }
-    setGenerating(true);
-    setDraft(null);
-    try {
-      const res = await fetch('/api/admin/kyron-mail-ai', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key: masterKey, prompt: prompt.trim() }),
-      });
-      const data = await res.json();
-      if (data.success && data.draft) {
-        setDraft(data.draft);
-        setEditing(false);
-        toast({ title: 'Borrador listo', description: 'Revisa y envía cuando quieras.' });
-      } else {
-        toast({ variant: 'destructive', title: 'Error', description: data.error || 'No se pudo generar el correo.' });
-      }
-    } catch {
-      toast({ variant: 'destructive', title: 'Error de conexión' });
-    } finally {
-      setGenerating(false);
     }
   };
 
@@ -170,9 +129,7 @@ export default function KyronMailPage() {
       if (data.success) {
         toast({ title: 'Enviado', description: `Correo enviado via ${data.provider}` });
         setDraft(null);
-        setPrompt('');
         setEditing(false);
-        promptRef.current?.focus();
       } else {
         toast({ variant: 'destructive', title: 'Error al enviar', description: data.error });
       }
@@ -290,127 +247,40 @@ export default function KyronMailPage() {
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-5">
-          <div className="flex gap-2">
-            <Button
-              variant={mode === 'ai' ? 'default' : 'outline'}
-              onClick={() => switchMode('ai')}
-              className="flex-1 h-11 rounded-xl font-bold text-xs uppercase tracking-widest"
-            >
-              <Sparkles className="mr-2 h-4 w-4" /> IA
-            </Button>
-            <Button
-              variant={mode === 'manual' ? 'default' : 'outline'}
-              onClick={() => switchMode('manual')}
-              className="flex-1 h-11 rounded-xl font-bold text-xs uppercase tracking-widest"
-            >
-              <FileEdit className="mr-2 h-4 w-4" /> Manual
-            </Button>
-          </div>
+          <Card className="p-6 bg-card/50 border-none rounded-2xl shadow-xl space-y-4">
+            <div className="flex items-center gap-2 mb-2">
+              <FileEdit className="h-4 w-4 text-primary" />
+              <span className="text-xs font-semibold uppercase tracking-widest text-foreground">Redactar correo</span>
+            </div>
 
-          {mode === 'ai' && (
-            <>
-              <Card className="p-6 bg-card/50 border-none rounded-2xl shadow-xl">
-                <div className="flex items-center gap-2 mb-4">
-                  <Sparkles className="h-4 w-4 text-amber-500" />
-                  <span className="text-xs font-semibold uppercase tracking-widest text-foreground">Dime qué enviar</span>
+            {!draft ? (
+              <div className="py-8 text-center">
+                <div className="mx-auto w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
+                  <Mail className="h-6 w-6 text-primary" />
                 </div>
-                <Textarea
-                  ref={promptRef}
-                  placeholder={`Ejemplos:\n• "Mándale un correo a juan@gmail.com diciéndole que su factura está lista"\n• "Envía una bienvenida a maria@empresa.com desde outlook"\n• "Avísale a soporte@cliente.com que su ticket fue resuelto"`}
-                  value={prompt}
-                  onChange={e => setPrompt(e.target.value)}
-                  rows={4}
-                  className="rounded-xl resize-none text-sm"
-                  onKeyDown={e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) handleGenerate(); }}
-                />
-                <div className="flex items-center justify-between mt-3">
-                  <span className="text-[10px] text-muted-foreground">Ctrl+Enter para generar</span>
-                  <Button onClick={handleGenerate} disabled={generating || !prompt.trim()} className="rounded-xl font-bold text-xs uppercase tracking-widest h-10 px-6">
-                    {generating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
-                    {generating ? 'Generando...' : 'Generar Correo'}
+                <p className="text-sm text-muted-foreground mb-4">Escribe tu correo manualmente con control total.</p>
+                <Button onClick={handleManualCreate} className="rounded-xl font-bold text-xs uppercase tracking-widest h-10 px-8">
+                  <Plus className="mr-2 h-4 w-4" /> Nuevo correo
+                </Button>
+              </div>
+            ) : (
+              <>
+                {draftEditor}
+                <div className="flex gap-3 pt-2">
+                  <Button variant="outline" onClick={() => { setDraft(null); setEditing(false); }} className="flex-1 h-12 rounded-xl font-bold text-xs uppercase tracking-widest">
+                    Descartar
                   </Button>
-                </div>
-              </Card>
-
-              {draft && (
-                <Card className="p-6 bg-card/50 border-none rounded-2xl shadow-xl space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Eye className="h-4 w-4 text-primary" />
-                      <span className="text-xs font-semibold uppercase tracking-widest text-foreground">Borrador</span>
-                    </div>
-                    <Button variant="ghost" size="sm" onClick={() => setEditing(!editing)} className="text-xs rounded-lg">
-                      <Pencil className="mr-1 h-3 w-3" /> {editing ? 'Vista previa' : 'Editar'}
-                    </Button>
-                  </div>
-
-                  {editing ? draftEditor : (
-                    <div className="space-y-3">
-                      <div className="flex flex-wrap gap-2">
-                        {draft.to.map((r, i) => (
-                          <span key={i} className="px-2.5 py-1 rounded-lg bg-primary/10 text-primary text-xs font-semibold">{r}</span>
-                        ))}
-                        {draft.nombre && <span className="px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-700 text-xs font-semibold">{draft.nombre}</span>}
-                      </div>
-                      <div className="p-4 rounded-xl bg-muted/30 border border-border/50">
-                        <p className="text-xs font-bold text-foreground mb-1">{draft.subject}</p>
-                        <p className="text-xs text-muted-foreground whitespace-pre-line leading-relaxed">{draft.message}</p>
-                      </div>
-                      <div className="flex gap-2 text-[10px] text-muted-foreground">
-                        <span className="px-2 py-0.5 rounded bg-muted/50">{SENDERS.find(s => s.id === draft.sender)?.label || draft.sender}</span>
-                        <span className="px-2 py-0.5 rounded bg-muted/50">{TEMPLATES.find(t => t.id === draft.template)?.label || draft.template}</span>
-                      </div>
-                    </div>
-                  )}
-
-                  <Button onClick={handleSend} disabled={sending} className="w-full h-12 rounded-xl font-semibold text-sm uppercase tracking-widest" size="lg">
+                  <Button onClick={handleSend} disabled={sending} className="flex-[2] h-12 rounded-xl font-semibold text-sm uppercase tracking-widest" size="lg">
                     {sending ? (
                       <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Enviando...</>
                     ) : (
                       <><Send className="mr-2 h-4 w-4" /> Enviar<ArrowRight className="ml-2 h-4 w-4" /></>
                     )}
                   </Button>
-                </Card>
-              )}
-            </>
-          )}
-
-          {mode === 'manual' && (
-            <Card className="p-6 bg-card/50 border-none rounded-2xl shadow-xl space-y-4">
-              <div className="flex items-center gap-2 mb-2">
-                <FileEdit className="h-4 w-4 text-primary" />
-                <span className="text-xs font-semibold uppercase tracking-widest text-foreground">Redactar correo</span>
-              </div>
-
-              {!draft ? (
-                <div className="py-8 text-center">
-                  <div className="mx-auto w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
-                    <Mail className="h-6 w-6 text-primary" />
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-4">Escribe tu correo manualmente con control total.</p>
-                  <Button onClick={handleManualCreate} className="rounded-xl font-bold text-xs uppercase tracking-widest h-10 px-8">
-                    <Plus className="mr-2 h-4 w-4" /> Nuevo correo
-                  </Button>
                 </div>
-              ) : (
-                <>
-                  {draftEditor}
-                  <div className="flex gap-3 pt-2">
-                    <Button variant="outline" onClick={() => { setDraft(null); setEditing(false); }} className="flex-1 h-12 rounded-xl font-bold text-xs uppercase tracking-widest">
-                      Descartar
-                    </Button>
-                    <Button onClick={handleSend} disabled={sending} className="flex-[2] h-12 rounded-xl font-semibold text-sm uppercase tracking-widest" size="lg">
-                      {sending ? (
-                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Enviando...</>
-                      ) : (
-                        <><Send className="mr-2 h-4 w-4" /> Enviar<ArrowRight className="ml-2 h-4 w-4" /></>
-                      )}
-                    </Button>
-                  </div>
-                </>
-              )}
-            </Card>
-          )}
+              </>
+            )}
+          </Card>
         </div>
 
         <div className="space-y-5">

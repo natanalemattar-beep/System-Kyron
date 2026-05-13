@@ -27,12 +27,12 @@ const IDENTITIES = [
 ];
 
 const CONTEXTS: Record<string, string> = {
-  master: "El usuario está en el Chat IA de página completa (/kyron-chat) y ha seleccionado la identidad Kyron Master. Está DENTRO de la plataforma autenticado. No le digas que vaya a otra página ni que está fuera de ningún módulo — puede hacerte cualquier pregunta sobre cualquier módulo desde aquí. Domina todos los módulos: Contabilidad VEN-NIF, RRHH LOTTT, Telecom 5G, Sostenibilidad, Legal, Portal Ciudadano.",
-  fiscal: "El usuario está en el Chat IA de página completa (/kyron-chat) y ha seleccionado la identidad Kyron Fiscal. Está DENTRO de la plataforma autenticado. No le digas que vaya a otra página ni que está fuera del módulo contable — puede hacerte cualquier consulta fiscal desde aquí. Prioriza respuestas sobre IVA 16%, ISLR, IGTF 3%, retenciones, libros fiscales, SENIAT, tasa BCV y normativa VEN-NIF. Tienes acceso completo a todo el conocimiento contable/fiscal.",
-  legal: "El usuario está en el Chat IA de página completa (/kyron-chat) y ha seleccionado la identidad Kyron Legal. Está DENTRO de la plataforma autenticado. No le digas que vaya a otra página — puede hacerte cualquier consulta legal desde aquí. Prioriza respuestas sobre contratos, SAREN, SAPI, registros mercantiles y normativa venezolana.",
-  telecom: "El usuario está en el Chat IA de página completa (/kyron-chat) y ha seleccionado la identidad Kyron Telecom. Está DENTRO de la plataforma autenticado. No le digas que vaya a otra página — puede hacerte cualquier consulta telecom desde aquí. Prioriza respuestas sobre líneas 5G, eSIM, flota empresarial, planes y facturación telecom.",
-  verde: "El usuario está en el Chat IA de página completa (/kyron-chat) y ha seleccionado la identidad Kyron Verde. Está DENTRO de la plataforma autenticado. No le digas que vaya a otra página — puede hacerte cualquier consulta de sostenibilidad desde aquí. Prioriza respuestas sobre Eco-Créditos, reciclaje tecnológico, economía circular y activos verdes.",
-  rrhh: "El usuario está en el Chat IA de página completa (/kyron-chat) y ha seleccionado la identidad Kyron RRHH. Está DENTRO de la plataforma autenticado. No le digas que vaya a otra página — puede hacerte cualquier consulta de RRHH desde aquí. Prioriza respuestas sobre nómina LOTTT, prestaciones, vacaciones, liquidaciones, IVSS, INCES, BANAVIH.",
+  master: "El usuario está en el Centro de Control Kyron Core. Está DENTRO de la plataforma autenticado. Domina todos los módulos: Contabilidad VEN-NIF, RRHH LOTTT, Telecom 5G, Sostenibilidad, Legal, Portal Ciudadano.",
+  fiscal: "El usuario está en el Módulo de Auditoría Fiscal. Está DENTRO de la plataforma autenticado. Prioriza respuestas sobre IVA 16%, ISLR, IGTF 3%, retenciones, libros fiscales, SENIAT, tasa BCV y normativa VEN-NIF.",
+  legal: "El usuario está en el Centro de Asistencia Legal. Está DENTRO de la plataforma autenticado. Prioriza respuestas sobre contratos, SAREN, SAPI, registros mercantiles y normativa venezolana.",
+  telecom: "El usuario está en la Central de Gestión Telecom. Está DENTRO de la plataforma autenticado. Prioriza respuestas sobre líneas 5G, eSIM, flota empresarial, planes y facturación telecom.",
+  verde: "El usuario está en el Panel de Sostenibilidad. Está DENTRO de la plataforma autenticado. Prioriza respuestas sobre Eco-Créditos, reciclaje tecnológico, economía circular y activos verdes.",
+  rrhh: "El usuario está en el Centro de Gestión de Nómina. Está DENTRO de la plataforma autenticado. Prioriza respuestas sobre nómina LOTTT, prestaciones, vacaciones, liquidaciones, IVSS, INCES, BANAVIH.",
 };
 
 const GREETINGS: Record<string, string> = {
@@ -273,7 +273,7 @@ export default function KyronChatPage() {
     abortControllerRef.current = controller;
 
     try {
-      const res = await fetch('/api/ai/kyron-chat', {
+      const res = await fetch('/api/core/engine-query', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -364,7 +364,7 @@ export default function KyronChatPage() {
 
   return (
     <PageTransition>
-      <ModuleTutorial config={moduleTutorials["kyron-ia"]} />
+      <ModuleTutorial config={moduleTutorials["kyron-core"]} />
       <div className="flex flex-col h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)]">
         <div className="shrink-0 border-b border-border/40 bg-card/50 backdrop-blur-sm px-4 sm:px-6 py-3">
           <div className="flex items-center justify-between mb-3">
@@ -377,7 +377,7 @@ export default function KyronChatPage() {
               </div>
               <div>
                 <h1 className="text-lg font-bold text-foreground">{identity.role}</h1>
-                <p className="text-sm font-semibold text-muted-foreground">Asistente IA · Claude Sonnet · En línea</p>
+                <p className="text-sm font-semibold text-muted-foreground">Kyron Core · Motor Determinista · Operativo</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -488,7 +488,7 @@ export default function KyronChatPage() {
                           <span className="w-2 h-2 bg-primary/40 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                           <span className="w-2 h-2 bg-primary/40 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                         </div>
-                        <span className="text-sm text-muted-foreground/60 ml-1">{identity.role} está pensando...</span>
+                        <span className="text-sm text-muted-foreground/60 ml-1">{identity.role} está analizando la consulta...</span>
                       </div>
                     )}
                   </div>
@@ -540,7 +540,7 @@ export default function KyronChatPage() {
             </Button>
           </form>
           <p className="text-sm text-muted-foreground/40 text-center mt-2 font-medium">
-            Kyron puede cometer errores. Verifica la información importante.
+            System Kyron Core utiliza lógica algorítmica para asistir en su gestión.
           </p>
         </div>
       </div>

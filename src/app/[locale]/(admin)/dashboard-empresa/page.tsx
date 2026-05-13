@@ -93,7 +93,7 @@ function getHealthScore(data: DashboardData): { score: number; label: string; co
 const CAT_COLOR: Record<string, string> = {
   contabilidad: "text-blue-400", rrhh: "text-emerald-400", legal: "text-purple-400",
   banco: "text-amber-400", auth: "text-rose-400", sistema: "text-slate-400",
-  clientes: "text-cyan-400", ia: "text-primary", nomina: "text-orange-400",
+  clientes: "text-cyan-400", core: "text-primary", nomina: "text-orange-400",
   telecom: "text-teal-400", eco: "text-green-400", documentos: "text-indigo-400",
 };
 
@@ -140,11 +140,11 @@ export default function DashboardEmpresaPage() {
   const [auditLogs, setAuditLogs] = useState<ActivityLog[]>([]);
   const [auditLoading, setAuditLoading] = useState(false);
   const [auditSearch, setAuditSearch] = useState("");
-  const [showAI, setShowAI] = useState(false);
-  const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
-  const [aiLoading, setAiLoading] = useState(false);
-  const [aiStreaming, setAiStreaming] = useState(false);
-  const aiAbortRef = useMemo(() => ({ current: null as AbortController | null }), []);
+  const [showAnalysis, setShowAnalysis] = useState(false);
+  const [coreAnalysis, setCoreAnalysis] = useState<string | null>(null);
+  const [analysisLoading, setAnalysisLoading] = useState(false);
+  const [analysisStreaming, setAnalysisStreaming] = useState(false);
+  const analysisAbortRef = useMemo(() => ({ current: null as AbortController | null }), []);
   const [clientDateStr, setClientDateStr] = useState<string | null>(null);
   const [clientTimeStr, setClientTimeStr] = useState<string | null>(null);
   const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
@@ -250,16 +250,16 @@ export default function DashboardEmpresaPage() {
 
   const filteredLogs = auditLogs.filter(l => !auditSearch || l.evento.toLowerCase().includes(auditSearch.toLowerCase()) || (l.descripcion ?? "").toLowerCase().includes(auditSearch.toLowerCase()) || l.categoria.toLowerCase().includes(auditSearch.toLowerCase()));
 
-  const handleAIAnalysis = async () => {
-    if (aiAbortRef.current) aiAbortRef.current.abort();
+  const handleCoreAnalysis = async () => {
+    if (analysisAbortRef.current) analysisAbortRef.current.abort();
     const abort = new AbortController();
-    aiAbortRef.current = abort;
+    analysisAbortRef.current = abort;
 
-    setShowAI(true);
+    setShowAnalysis(true);
     if (!data) { toast({ title: "Sin datos", description: "Carga el dashboard primero.", variant: "destructive" }); return; }
-    setAiLoading(true); setAiStreaming(false); setAiAnalysis("");
+    setAnalysisLoading(true); setAnalysisStreaming(false); setCoreAnalysis("");
     try {
-      const res = await fetch("/api/ai/analyze-dashboard", {
+      const res = await fetch("/api/core/analyze-dashboard", {
         method: "POST",
         signal: abort.signal,
         headers: { "Content-Type": "application/json" },
@@ -299,14 +299,15 @@ export default function DashboardEmpresaPage() {
         const json = await res.json().catch(() => ({ error: "Error del servidor" }));
         toast({ title: "Error", description: json.error, variant: "destructive" });
         setShowAI(false);
-        setAiLoading(false);
+        setShowAnalysis(false);
+        setAnalysisLoading(false);
         return;
       }
 
       const reader = res.body?.getReader();
-      if (!reader) { setAiLoading(false); return; }
+      if (!reader) { setAnalysisLoading(false); return; }
 
-      setAiStreaming(true); setAiLoading(false);
+      setAnalysisStreaming(true); setAnalysisLoading(false);
 
       const decoder = new TextDecoder();
       let buffer = "";
@@ -325,22 +326,22 @@ export default function DashboardEmpresaPage() {
                 const parsed = JSON.parse(line.slice(6));
                 if (parsed.text) {
                   fullText += parsed.text;
-                  setAiAnalysis(fullText);
+                  setCoreAnalysis(fullText);
                 }
               } catch {}
             }
           }
         }
       } finally {
-        setAiStreaming(false);
+        setAnalysisStreaming(false);
       }
-      if (!fullText) setAiAnalysis("No se pudo generar el análisis. Intente nuevamente.");
+      if (!fullText) setCoreAnalysis("No se pudo generar el análisis. Intente nuevamente.");
     } catch (err) {
       if ((err as Error)?.name !== "AbortError") {
         toast({ title: "Error de conexión", variant: "destructive" });
-        setShowAI(false);
+        setShowAnalysis(false);
       }
-    } finally { setAiLoading(false); setAiStreaming(false); }
+    } finally { setAnalysisLoading(false); setAnalysisStreaming(false); }
   };
 
   const variacionIcon = (v: number) => v > 0 ? <ArrowUpRight className="h-3 w-3" /> : v < 0 ? <ArrowDownRight className="h-3 w-3" /> : null;
@@ -454,8 +455,8 @@ export default function DashboardEmpresaPage() {
                 </div>
 
                 <div className="flex gap-3 w-full sm:w-auto">
-                  <Button onClick={handleAIAnalysis} disabled={aiLoading || aiStreaming || loading} className="flex-1 sm:flex-none h-14 px-8 rounded-2xl bg-primary text-primary-foreground font-black text-[11px] uppercase tracking-[0.2em] shadow-[0_20px_40px_-10px_rgba(59,130,246,0.5)] hover:shadow-[0_25px_50px_-10px_rgba(59,130,246,0.6)] transition-all hover:scale-[1.03] active:scale-[0.97] font-tech group">
-                    <BrainCircuit className="h-5 w-5 mr-3 group-hover:rotate-12 transition-transform" /> Kyron Nexus AI
+                  <Button onClick={handleCoreAnalysis} disabled={analysisLoading || analysisStreaming || loading} className="flex-1 sm:flex-none h-14 px-8 rounded-2xl bg-primary text-primary-foreground font-black text-[11px] uppercase tracking-[0.2em] shadow-[0_20px_40px_-10px_rgba(59,130,246,0.5)] hover:shadow-[0_25px_50px_-10px_rgba(59,130,246,0.6)] transition-all hover:scale-[1.03] active:scale-[0.97] font-tech group">
+                    <BrainCircuit className="h-5 w-5 mr-3 group-hover:rotate-12 transition-transform" /> Kyron Nexus Core
                   </Button>
                   <Button onClick={() => { setClosingData(null); setShowCierre(true); }} className="flex-1 sm:flex-none h-14 px-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] text-white font-black text-[11px] uppercase tracking-[0.2em] transition-all font-tech">
                     <Lock className="h-4 w-4 mr-3 text-white/40" /> Cierre Fiscal
@@ -797,13 +798,13 @@ export default function DashboardEmpresaPage() {
             <div className="relative z-10 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
-                  <h3 className="text-sm font-black tracking-tight text-white/90 uppercase font-tech">Escenarios IA</h3>
+                  <h3 className="text-sm font-black tracking-tight text-white/90 uppercase font-tech">Escenarios Algorítmicos</h3>
                   <div className="flex items-center gap-1.5">
                     <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_8px_rgba(6,182,212,1)]" />
                     <span className="text-[9px] font-black tracking-[0.2em] text-cyan-400/60 font-tech">NEXUS CORE ACTIVE</span>
                   </div>
                 </div>
-                <Badge className="bg-primary/20 text-primary border-primary/30 text-[9px] font-black italic px-2 py-0.5 rounded-md">NEURAL PRO</Badge>
+                <Badge className="bg-primary/20 text-primary border-primary/30 text-[9px] font-black italic px-2 py-0.5 rounded-md">CORE PRO</Badge>
               </div>
               
               <div className="space-y-2">
@@ -819,7 +820,7 @@ export default function DashboardEmpresaPage() {
 
               <div className="pt-2">
                 <div className="flex items-center justify-between text-[8px] font-black tracking-[0.3em] text-white/20 uppercase mb-2">
-                  <span>Procesamiento Neural</span>
+                  <span>Procesamiento Algorítmico</span>
                   <span>98.2% Accuracy</span>
                 </div>
                 <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
@@ -849,7 +850,7 @@ export default function DashboardEmpresaPage() {
             <div className="space-y-5">
               {[
                 { label: "Empleados", current: data?.empleados ?? 0, total: 15, color: "bg-primary" },
-                { label: "Consultas IA", current: 124, total: 250, color: "bg-kyron-cyan" },
+                { label: "Consultas Core", current: 124, total: 250, color: "bg-kyron-cyan" },
                 { label: "Almacenamiento", current: 4.2, total: 25, color: "bg-emerald-500", suffix: " GB" }
               ].map((stat, idx) => (
                 <div key={idx} className="space-y-2">
@@ -1192,7 +1193,7 @@ export default function DashboardEmpresaPage() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={showAI} onOpenChange={setShowAI}>
+      <Dialog open={showAnalysis} onOpenChange={setShowAnalysis}>
         <DialogContent className="max-w-3xl max-h-[85vh] flex flex-col rounded-2xl">
           <DialogHeader>
             <DialogTitle className="text-sm font-bold flex items-center gap-2">
@@ -1201,12 +1202,12 @@ export default function DashboardEmpresaPage() {
               </div>
               <div>
                 <span>KYRON Analytics</span>
-                <p className="text-[11px] font-normal text-muted-foreground/50 mt-0.5">Inteligencia financiera en tiempo real</p>
+                <p className="text-[11px] font-normal text-muted-foreground/50 mt-0.5">Auditoría financiera en tiempo real</p>
               </div>
             </DialogTitle>
           </DialogHeader>
           <div className="flex-1 overflow-y-auto py-2 min-h-0">
-            {aiLoading && !aiAnalysis ? (
+            {analysisLoading && !coreAnalysis ? (
               <div className="space-y-5 py-10 text-center">
                 <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-cyan-500/15 to-blue-500/15 flex items-center justify-center mx-auto shadow-lg shadow-cyan-500/5">
                   <Sparkles className="h-7 w-7 text-cyan-400 animate-pulse" />
@@ -1226,36 +1227,36 @@ export default function DashboardEmpresaPage() {
                   ))}
                 </div>
               </div>
-            ) : aiAnalysis ? (
+            ) : coreAnalysis ? (
               <div className="space-y-3">
                 <div className="p-5 bg-gradient-to-br from-cyan-500/[0.02] to-blue-500/[0.02] rounded-xl border border-cyan-500/8">
                   <div className="flex items-center gap-2 mb-3">
                     <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-cyan-400">Análisis Ejecutivo</span>
-                    {aiStreaming && <span className="text-[11px] text-muted-foreground/40 animate-pulse ml-auto">● Generando...</span>}
+                    {analysisStreaming && <span className="text-[11px] text-muted-foreground/40 animate-pulse ml-auto">● Generando...</span>}
                   </div>
                   <div className="prose prose-sm dark:prose-invert max-w-none prose-headings:text-sm prose-headings:font-bold prose-p:text-xs prose-p:leading-relaxed prose-li:text-xs prose-li:leading-relaxed prose-strong:text-foreground">
-                    <MarkdownRenderer content={aiAnalysis} />
+                    <MarkdownRenderer content={coreAnalysis} />
                   </div>
                 </div>
-                {!aiLoading && !aiStreaming && (
+                {!analysisLoading && !analysisStreaming && (
                   <div className="flex items-center justify-between px-1">
                     <p className="text-[11px] text-muted-foreground/30 flex items-center gap-1.5">
                       <CircleCheck className="h-3 w-3" /> Análisis completado · {clientDateStr ?? ""}
                     </p>
-                    <p className="text-[11px] text-muted-foreground/20">Powered by KYRON AI</p>
+                    <p className="text-[11px] text-muted-foreground/20">Powered by KYRON CORE</p>
                   </div>
                 )}
               </div>
             ) : null}
           </div>
           <DialogFooter className="flex-row gap-2">
-            {(aiAnalysis && !aiLoading && !aiStreaming) && (
-              <Button variant="outline" onClick={handleAIAnalysis} disabled={aiLoading || aiStreaming} className="rounded-xl text-xs h-8 mr-auto">
+            {(coreAnalysis && !analysisLoading && !analysisStreaming) && (
+              <Button variant="outline" onClick={handleCoreAnalysis} disabled={analysisLoading || analysisStreaming} className="rounded-xl text-xs h-8 mr-auto">
                 <RefreshCw className="mr-1.5 h-3 w-3" /> Regenerar análisis
               </Button>
             )}
-            <Button variant="outline" onClick={() => setShowAI(false)} className="rounded-xl text-xs h-8">Cerrar</Button>
+            <Button variant="outline" onClick={() => setShowAnalysis(false)} className="rounded-xl text-xs h-8">Cerrar</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

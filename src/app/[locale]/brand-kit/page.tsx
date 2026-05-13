@@ -21,7 +21,8 @@ import {
     Instagram,
     ChevronLeft,
     Layers,
-    Layout
+    Layout,
+    Building2
 } from 'lucide-react';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
@@ -108,6 +109,16 @@ export default function BrandKitPage() {
             color: 'from-purple-600 to-fuchsia-600',
             tag: '@SYSTEMKYRON',
             type: 'external'
+        },
+        {
+            id: 'cartas',
+            title: 'Cartas de Agradecimiento',
+            description: 'Correspondencia oficial para aliados (Coca-Cola, Inter, Chévere Salud).',
+            icon: Building2,
+            href: '/cartas',
+            color: 'from-emerald-500 to-teal-600',
+            tag: 'OFFICIAL LETTERS',
+            type: 'internal'
         }
     ];
 

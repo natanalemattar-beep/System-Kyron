@@ -19,6 +19,7 @@ const navItems = [
     { name: 'Folleto', href: '/sector-privado-system-kyron', icon: Layout },
     { name: 'Stickers', href: '/stickers', icon: Circle },
     { name: 'Resumen', href: '/resumen-ejecutivo', icon: FileText },
+    { name: 'Cartas', href: '/cartas', icon: Mail },
 ];
 
 export function ResourceHeader() {

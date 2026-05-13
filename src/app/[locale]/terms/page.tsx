@@ -11,7 +11,7 @@ const sections = [
   },
   {
     title: "2. Descripcion del Servicio",
-    body: "System Kyron es una plataforma de inteligencia corporativa disenada para el mercado venezolano. Integra los siguientes modulos y servicios: (a) Contabilidad VEN-NIF con cumplimiento SENIAT, incluyendo 10 sub-modulos de analisis financiero; (b) Gestion de recursos humanos y nomina bajo normativa LOTTT, con modulos de prestaciones sociales, reclutamiento, bienestar laboral, clima organizacional, salud y seguridad ocupacional; (c) Telecomunicaciones (lineas 5G/eSIM) bajo regulaciones CONATEL; (d) Servicios legales, permisos y escritorio juridico; (e) Facturacion electronica homologada segun Providencia SNAT/2011/0071, incluyendo facturas, proformas, notas de debito y credito, facturacion a credito; (f) Sistema multimoneda con visualizacion en VES, USD y EUR; (g) Sostenibilidad ambiental con Eco-Creditos Ameru; (h) Inteligencia artificial Kyron AI potenciada por Claude de Anthropic, Gemini y OpenAI; (i) Gestion de tributos (IVA 16%, ISLR, IGTF 3%, parafiscales IVSS/FAOV/LPH/INCES); (j) Analitica corporativa con KPIs en tiempo real; (k) Sellado criptografico SHA-256 y anclaje blockchain para auditoria inmutable; (l) Modulo de Informatica/IT con helpdesk, infraestructura y respaldos; (m) Portal de Socios y Directivos; (n) Cuenta Personal del Ciudadano con documentos civiles; (o) Fidelizacion de clientes y estrategias de ventas; (p) Billetera digital y 26+ pasarelas de pago con 29 bancos venezolanos; (q) Motor de automatizacion para tareas programadas."
+    body: "System Kyron es un ecosistema de gestión corporativa diseñado para el mercado venezolano. Integra los siguientes módulos y servicios: (a) Contabilidad VEN-NIF con cumplimiento SENIAT, incluyendo 10 sub-módulos de análisis financiero; (b) Gestión de recursos humanos y nómina bajo normativa LOTTT, con módulos de prestaciones sociales, reclutamiento, bienestar laboral, clima organizacional, salud y seguridad ocupacional; (c) Telecomunicaciones (líneas 5G/eSIM) bajo regulaciones CONATEL; (d) Servicios legales, permisos y escritorio jurídico; (e) Facturación electrónica homologada según Providencia SNAT/2011/0071, incluyendo facturas, proformas, notas de débito y crédito, facturación a crédito; (f) Sistema multimoneda con visualización en VES, USD y EUR; (g) Sostenibilidad ambiental con Eco-Créditos Ameru; (h) Motores de auditoría y procesamiento de datos avanzados; (i) Gestión de tributos (IVA 16%, ISLR, IGTF 3%, parafiscales IVSS/FAOV/LPH/INCES); (j) Analítica corporativa con KPIs en tiempo real; (k) Sellado criptográfico SHA-256 y anclaje blockchain para auditoría inmutable; (l) Módulo de Informática/IT con helpdesk, infraestructura y respaldos; (m) Portal de Socios y Directivos; (n) Cuenta Personal del Ciudadano con documentos civiles; (o) Fidelización de clientes y estrategias de ventas; (p) Billetera digital y 26+ pasarelas de pago con 29 bancos venezolanos; (q) Motor de automatización para tareas programadas."
   },
   {
     title: "3. Registro y Cuentas de Usuario",
@@ -38,8 +38,8 @@ const sections = [
     body: "Los documentos fiscales generados por la Plataforma (facturas, proformas, notas de debito, notas de credito, facturacion a credito) incluyen sellado criptografico SHA-256 para garantizar inmutabilidad. Sin embargo, la validez legal de estos documentos ante el SENIAT depende del cumplimiento de requisitos adicionales que pueden requerir homologacion de equipos fiscales y autorizacion del ente regulador. Los correlativos, formatos y contenido de los documentos se generan conforme a la Providencia 0071, pero el usuario es responsable de verificar su conformidad con los requisitos especificos de su actividad economica."
   },
   {
-    title: "9. Inteligencia Artificial",
-    body: "La Plataforma integra servicios de inteligencia artificial (Kyron AI) potenciados por Claude de Anthropic, Google Gemini y OpenAI para: generacion de contratos y documentos legales, analisis fiscal predictivo, asistencia contable, clasificacion de residuos, atencion automatizada al usuario con 10+ identidades contextuales, y generacion de reportes. Los resultados generados por IA son orientativos y no constituyen asesoramiento legal, fiscal o contable certificado. El usuario debe validar y revisar toda salida de IA antes de su uso formal, especialmente documentos legales, calculos fiscales y recomendaciones financieras. System Kyron no garantiza la exactitud absoluta de los resultados generados por inteligencia artificial ni se responsabiliza por decisiones tomadas con base en dichos resultados."
+    title: "9. Motores de Auditoría y Verificación",
+    body: "La Plataforma utiliza motores avanzados de procesamiento de datos para: generación de borradores de contratos y documentos legales, análisis fiscal, asistencia contable, clasificación de recursos, atención al usuario con perfiles especializados, y generación de reportes analíticos. Los resultados generados son orientativos y no constituyen asesoramiento legal, fiscal o contable certificado. El usuario debe validar y revisar toda salida del sistema antes de su uso formal, especialmente documentos legales, cálculos fiscales y recomendaciones financieras. System Kyron no garantiza la exactitud absoluta de los resultados generados por sus motores ni se responsabiliza por decisiones tomadas con base en dichos resultados."
   },
   {
     title: "10. Telecomunicaciones",
@@ -63,11 +63,11 @@ const sections = [
   },
   {
     title: "15. Disponibilidad del Servicio",
-    body: "System Kyron se esfuerza por mantener la Plataforma disponible las 24 horas del dia, los 7 dias de la semana. Sin embargo, no garantiza disponibilidad ininterrumpida. Pueden producirse interrupciones por mantenimiento programado, actualizaciones del sistema, fuerza mayor, fallas de infraestructura de terceros (incluyendo proveedores de IA, blockchain y telecomunicaciones), situaciones de fuerza mayor o circunstancias fuera de nuestro control. Se realizaran esfuerzos razonables para notificar interrupciones programadas con antelacion mediante el sistema de notificaciones de la Plataforma y correo electronico."
+    body: "System Kyron se esfuerza por mantener la Plataforma disponible las 24 horas del dia, los 7 dias de la semana. Sin embargo, no garantiza disponibilidad ininterrumpida. Pueden producirse interrupciones por mantenimiento programado, actualizaciones del sistema, fuerza mayor, fallas de infraestructura de terceros (incluyendo proveedores de red, blockchain y telecomunicaciones), situaciones de fuerza mayor o circunstancias fuera de nuestro control. Se realizaran esfuerzos razonables para notificar interrupciones programadas con antelacion mediante el sistema de notificaciones de la Plataforma y correo electronico."
   },
   {
     title: "16. Limitacion de Responsabilidad",
-    body: "System Kyron no sera responsable por: (a) danos indirectos, incidentales, especiales, consecuentes o punitivos; (b) perdida de datos, beneficios o reputacion comercial; (c) errores en calculos fiscales, contables o laborales no verificados por un profesional; (d) resultados incorrectos de la inteligencia artificial; (e) interrupciones de servicio por causas de fuerza mayor; (f) acciones de terceros que comprometan la seguridad de su cuenta; (g) variaciones en tasas de cambio entre la visualizacion multimoneda y las tasas reales; (h) fallas en servicios de terceros (blockchain, telecomunicaciones, IA, email, SMS); (i) perdida de Eco-Creditos por mal uso o incumplimiento de terminos. La responsabilidad total acumulada no excedera el monto pagado por usted en los ultimos doce (12) meses."
+    body: "System Kyron no sera responsable por: (a) danos indirectos, incidentales, especiales, consecuentes o punitivos; (b) perdida de datos, beneficios o reputacion comercial; (c) errores en calculos fiscales, contables o laborales no verificados por un profesional; (d) interrupciones de servicio por causas de fuerza mayor; (e) acciones de terceros que comprometan la seguridad de su cuenta; (f) variaciones en tasas de cambio entre la visualizacion multimoneda y las tasas reales; (g) fallas en servicios de terceros (blockchain, telecomunicaciones, email, SMS); (h) perdida de Eco-Creditos por mal uso o incumplimiento de terminos. La responsabilidad total acumulada no excedera el monto pagado por usted en los ultimos doce (12) meses."
   },
   {
     title: "17. Planes, Pagos y Facturacion",
@@ -75,7 +75,7 @@ const sections = [
   },
   {
     title: "18. Sostenibilidad y Eco-Creditos Ameru",
-    body: "El programa Ameru de Eco-Creditos permite a los usuarios acumular creditos mediante actividades de reciclaje verificadas por IA. Estos creditos son intercambiables dentro del ecosistema System Kyron y no tienen valor monetario fuera de la Plataforma. System Kyron se reserva el derecho de modificar las tasas de acumulacion y canje de Eco-Creditos. Los Eco-Creditos no son transferibles a terceros fuera de la Plataforma, no generan intereses y pueden expirar segun las politicas vigentes. La clasificacion de materiales por IA es orientativa y puede contener errores."
+    body: "El programa Ameru de Eco-Creditos permite a los usuarios acumular creditos mediante actividades de reciclaje verificadas por el sistema. Estos creditos son intercambiables dentro del ecosistema System Kyron y no tienen valor monetario fuera de la Plataforma. System Kyron se reserva el derecho de modificar las tasas de acumulacion y canje de Eco-Creditos. Los Eco-Creditos no son transferibles a terceros fuera de la Plataforma, no generan intereses y pueden expirar segun las politicas vigentes. La clasificacion de materiales automatizada es orientativa y puede contener errores."
   },
   {
     title: "19. Cuenta Personal del Ciudadano",
@@ -103,7 +103,7 @@ const sections = [
   },
   {
     title: "25. Contacto",
-    body: "Para consultas, reclamaciones, ejercicio de derechos o notificaciones relacionadas con estos Terminos de Servicio: Correo electronico: infosystemkyron@gmail.com — Responsable: EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9) — Direccion: La Guaira, Venezuela. Horario de atencion: Lunes a Viernes, 8:00 AM - 6:00 PM (hora de Venezuela, UTC-4). Asistencia automatizada 24/7 mediante Kyron AI."
+    body: "Para consultas, reclamaciones, ejercicio de derechos o notificaciones relacionadas con estos Terminos de Servicio: Correo electronico: infosystemkyron@gmail.com — Responsable: EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9) — Direccion: La Guaira, Venezuela. Horario de atencion: Lunes a Viernes, 8:00 AM - 6:00 PM (hora de Venezuela, UTC-4). Asistencia Tecnica 24/7."
   }
 ];
 
@@ -133,7 +133,7 @@ export default function TermsPage() {
             <div>
               <p className="text-sm font-bold text-foreground mb-1">Documento Legal Vigente</p>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Estos terminos regulan el uso de la plataforma System Kyron, incluyendo todos sus modulos: contabilidad VEN-NIF, facturacion SENIAT, recursos humanos LOTTT, telecomunicaciones CONATEL, inteligencia artificial, blockchain, sistema multimoneda, sostenibilidad Ameru, modulo IT, portal de socios, cuenta personal del ciudadano y todos los demas servicios integrados. Al utilizar la plataforma, usted acepta estos terminos en su totalidad. {sections.length} clausulas vigentes.
+                Estos terminos regulan el uso de la plataforma System Kyron, incluyendo todos sus modulos: contabilidad VEN-NIF, facturacion SENIAT, recursos humanos LOTTT, telecomunicaciones CONATEL, blockchain, sistema multimoneda, sostenibilidad Ameru, modulo IT, portal de socios, cuenta personal del ciudadano y todos los demas servicios integrados. Al utilizar la plataforma, usted acepta estos terminos en su totalidad. {sections.length} clausulas vigentes.
               </p>
             </div>
           </div>

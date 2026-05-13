@@ -123,11 +123,11 @@ interface TutorialStep {
 const steps: TutorialStep[] = [
   {
     title: "Bienvenido a System Kyron",
-    description: "La plataforma de gestión empresarial más completa de Venezuela. Asesoría contable, facturación, asesoría legal, socios y directivos, Mi Línea e IA — todo en un solo ecosistema.",
-    icon: Sparkles,
-    color: "text-yellow-400",
-    bg: "bg-yellow-400/15",
-    border: "border-yellow-400/20",
+    description: "La plataforma de gestión empresarial más completa de Venezuela. Asesoría contable, facturación, asesoría legal, socios y directivos, Mi Línea — todo en un solo ecosistema.",
+    icon: Rocket,
+    color: "text-blue-400",
+    bg: "bg-blue-400/15",
+    border: "border-blue-400/20",
     tag: "BIENVENIDA",
     screenshot: "/images/tutorial/step-1-ecosistema.jpg",
     screenshotAlt: "Ecosistema Kyron - Plataforma integral de gestión empresarial venezolana",

@@ -30,18 +30,7 @@ export const PLANES_MI_LINEA: PlanMiLinea[] = [
 ];
 
 export interface PlanLimites {
-  consultasAI: number;
-  alertasFiscales: number;
   alertasRegulatorias: number;
-  facturasMensuales: number;
-  empleadosNomina: number;
-  clientesCRM: number;
-  documentosLegales: number;
-  lineasTelecom: number;
-  reportesMensuales: number;
-  usuariosConcurrentes: number;
-  almacenamientoGB: number;
-  chatAIMensajes: number;
   simuladorMultas: number;
   exportacionesExcel: number;
   consultasRIF: number;
@@ -75,8 +64,8 @@ export const PLANES: PlanKyron[] = [
     ahorroAnualUSD: 0, ahorroAnualPorcentaje: 0, color: '#22C55E',
     descripcion: 'Cuenta personal con herramientas básicas. Totalmente gratis, para siempre.',
     destacado: false, etiqueta: 'GRATIS',
-    limites: { consultasAI: 30, alertasFiscales: 10, alertasRegulatorias: 5, facturasMensuales: 20, empleadosNomina: 0, clientesCRM: 25, documentosLegales: 5, lineasTelecom: 3, reportesMensuales: 3, usuariosConcurrentes: 1, almacenamientoGB: 3, chatAIMensajes: 50, simuladorMultas: 5, exportacionesExcel: 5, consultasRIF: 15, declaracionesAsistidas: 0, blockchainProofs: 10 },
-    modulosIncluidos: ['Cuenta Personal completa', 'Tasa BCV en vivo', 'Chat AI (50 msgs/mes)', 'Alertas SENIAT (10/mes)', 'Consulta RIF/Cédula (15/mes)', 'Documentos personales', 'Dashboard personal', '1 usuario'],
+    limites: { alertasFiscales: 10, alertasRegulatorias: 5, facturasMensuales: 20, empleadosNomina: 0, clientesCRM: 25, documentosLegales: 5, lineasTelecom: 3, reportesMensuales: 3, usuariosConcurrentes: 1, almacenamientoGB: 3, simuladorMultas: 5, exportacionesExcel: 5, consultasRIF: 15, declaracionesAsistidas: 0, blockchainProofs: 10 },
+    modulosIncluidos: ['Cuenta Personal completa', 'Tasa BCV en vivo', 'Soporte Técnico Especializado', 'Alertas SENIAT (10/mes)', 'Consulta RIF/Cédula (15/mes)', 'Documentos personales', 'Dashboard personal', '1 usuario'],
   },
   {
     id: 'profesional', nombre: 'Profesional', nombreCompleto: 'Kyron Profesional',
@@ -84,8 +73,8 @@ export const PLANES: PlanKyron[] = [
     ahorroAnualUSD: 70, ahorroAnualPorcentaje: 20, color: '#0EA5E9',
     descripcion: 'Paquete completo: Contabilidad + Facturación + Mi Línea.',
     destacado: false, etiqueta: 'AHORRA 30%',
-    limites: { consultasAI: 250, alertasFiscales: 50, alertasRegulatorias: 30, facturasMensuales: 500, empleadosNomina: 15, clientesCRM: 500, documentosLegales: 50, lineasTelecom: 10, reportesMensuales: 20, usuariosConcurrentes: 5, almacenamientoGB: 25, chatAIMensajes: 500, simuladorMultas: 50, exportacionesExcel: 50, consultasRIF: 100, declaracionesAsistidas: 12, blockchainProofs: 100 },
-    modulosIncluidos: ['Todo en Personal +', 'Asesoría Contable VEN-NIF Pro', 'Facturación SENIAT (500/mes)', 'Mi Línea (10 líneas)', 'IA Avanzada (250 consultas)', 'Bóveda Digital (25GB)', 'Auditoría Fiscal en Tiempo Real', 'Simulador de multas COT Pro', 'Declaraciones asistidas (12/año)', '5 usuarios'],
+    limites: { alertasFiscales: 50, alertasRegulatorias: 30, facturasMensuales: 500, empleadosNomina: 15, clientesCRM: 500, documentosLegales: 50, lineasTelecom: 10, reportesMensuales: 20, usuariosConcurrentes: 5, almacenamientoGB: 25, simuladorMultas: 50, exportacionesExcel: 50, consultasRIF: 100, declaracionesAsistidas: 12, blockchainProofs: 100 },
+    modulosIncluidos: ['Todo en Personal +', 'Asesoría Contable VEN-NIF Pro', 'Facturación SENIAT (500/mes)', 'Mi Línea (10 líneas)', 'Infraestructura Avanzada', 'Bóveda Digital (25GB)', 'Auditoría Fiscal en Tiempo Real', 'Simulador de multas COT Pro', 'Declaraciones asistidas (12/año)', '5 usuarios'],
   },
   {
     id: 'empresarial', nombre: 'Empresarial', nombreCompleto: 'Kyron Empresarial',
@@ -93,17 +82,17 @@ export const PLANES: PlanKyron[] = [
     ahorroAnualUSD: 142, ahorroAnualPorcentaje: 20, color: '#A78BFA',
     descripcion: 'Todo incluido para empresas en crecimiento.',
     destacado: true, etiqueta: 'MÁS POPULAR',
-    limites: { consultasAI: 500, alertasFiscales: 100, alertasRegulatorias: 50, facturasMensuales: 1000, empleadosNomina: 50, clientesCRM: 1000, documentosLegales: 100, lineasTelecom: 20, reportesMensuales: 50, usuariosConcurrentes: 10, almacenamientoGB: 50, chatAIMensajes: 500, simuladorMultas: 100, exportacionesExcel: 100, consultasRIF: 200, declaracionesAsistidas: 24, blockchainProofs: 200 },
-    modulosIncluidos: ['TODOS los módulos incluidos', 'Asesoría Contable avanzada', 'Asesoría Legal completa', 'Facturación ilimitada', 'Socios y Directivos', 'Mi Línea Jurídica (20 líneas)', 'IA avanzada (500 msgs/mes)', 'Alertas multicanal', 'Scoring de riesgo fiscal', '10 usuarios'],
+    limites: { alertasFiscales: 100, alertasRegulatorias: 50, facturasMensuales: 1000, empleadosNomina: 50, clientesCRM: 1000, documentosLegales: 100, lineasTelecom: 20, reportesMensuales: 50, usuariosConcurrentes: 10, almacenamientoGB: 50, simuladorMultas: 100, exportacionesExcel: 100, consultasRIF: 200, declaracionesAsistidas: 24, blockchainProofs: 200 },
+    modulosIncluidos: ['TODOS los módulos incluidos', 'Asesoría Contable avanzada', 'Asesoría Legal completa', 'Facturación ilimitada', 'Socios y Directivos', 'Mi Línea Jurídica (20 líneas)', 'Vigilancia Normativa', 'Alertas multicanal', 'Scoring de riesgo fiscal', '10 usuarios'],
   },
   {
     id: 'kyron_max', nombre: 'Kyron MAX', nombreCompleto: 'Kyron MAX — Sin Límites',
     precioMensualUSD: 149, precioAnualUSD: 1430, precioAnualMensualizado: 119,
     ahorroAnualUSD: 358, ahorroAnualPorcentaje: 20, color: '#F59E0B',
-    descripcion: 'Todo ilimitado. IA sin restricciones, API dedicada, white-label y soporte VIP.',
+    descripcion: 'Todo ilimitado. Automatización total de misión crítica, API dedicada, white-label y soporte VIP.',
     destacado: false, etiqueta: 'SIN LÍMITES',
-    limites: { consultasAI: ILIMITADO, alertasFiscales: ILIMITADO, alertasRegulatorias: ILIMITADO, facturasMensuales: ILIMITADO, empleadosNomina: ILIMITADO, clientesCRM: ILIMITADO, documentosLegales: ILIMITADO, lineasTelecom: ILIMITADO, reportesMensuales: ILIMITADO, usuariosConcurrentes: ILIMITADO, almacenamientoGB: ILIMITADO, chatAIMensajes: ILIMITADO, simuladorMultas: ILIMITADO, exportacionesExcel: ILIMITADO, consultasRIF: ILIMITADO, declaracionesAsistidas: ILIMITADO, blockchainProofs: ILIMITADO },
-    modulosIncluidos: ['TODOS los módulos sin restricción', 'IA Claude ilimitado 24/7', 'Facturación ilimitada', 'Mi Línea Jurídica ilimitada', 'Asesoría Contable MAX', 'Asesoría Legal MAX', 'API dedicada + White-label', 'Soporte prioritario VIP', 'Usuarios ilimitados', 'Almacenamiento ilimitado'],
+    limites: { alertasFiscales: ILIMITADO, alertasRegulatorias: ILIMITADO, facturasMensuales: ILIMITADO, empleadosNomina: ILIMITADO, clientesCRM: ILIMITADO, documentosLegales: ILIMITADO, lineasTelecom: ILIMITADO, reportesMensuales: ILIMITADO, usuariosConcurrentes: ILIMITADO, almacenamientoGB: ILIMITADO, simuladorMultas: ILIMITADO, exportacionesExcel: ILIMITADO, consultasRIF: ILIMITADO, declaracionesAsistidas: ILIMITADO, blockchainProofs: ILIMITADO },
+    modulosIncluidos: ['TODOS los módulos sin restricción', 'Infraestructura de Misión Crítica 24/7', 'Facturación ilimitada', 'Mi Línea Jurídica ilimitada', 'Asesoría Contable MAX', 'Asesoría Legal MAX', 'API dedicada + White-label', 'Soporte prioritario VIP', 'Usuarios ilimitados', 'Almacenamiento ilimitado'],
   },
 ];
 

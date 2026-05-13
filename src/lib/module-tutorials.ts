@@ -58,15 +58,15 @@ export const moduleTutorials: Record<string, ModuleTutorialConfig> = {
       },
       {
         title: "Herramientas Rápidas",
-        description: "Desde el dashboard puedes acceder a cierre de período fiscal, registro de auditoría y análisis con inteligencia artificial en un solo clic.",
-        icon: BrainCircuit,
+        description: "Desde el dashboard puedes acceder a cierre de período fiscal, registro de auditoría y analítica avanzada en un solo clic.",
+        icon: LayoutDashboard,
         color: "text-violet-400",
         bg: "bg-violet-400/15",
         border: "border-violet-400/20",
         bullets: [
           "Cerrar período fiscal con vista previa automática",
           "Registro de auditoría con búsqueda y filtros",
-          "Análisis IA de tu situación financiera actual",
+          "Analítica avanzada de tu situación financiera actual",
         ],
       },
     ],
@@ -125,7 +125,7 @@ export const moduleTutorials: Record<string, ModuleTutorialConfig> = {
         border: "border-indigo-400/20",
         bullets: [
           "Conciliación bancaria automática y exportación SENIAT",
-          "Indicadores financieros y análisis con IA",
+          "Indicadores financieros y analítica avanzada",
           "Cierre contable por período con dictamen del contador",
         ],
       },
@@ -233,13 +233,13 @@ export const moduleTutorials: Record<string, ModuleTutorialConfig> = {
     steps: [
       {
         title: "Generador de Documentos",
-        description: "Crea contratos, acuerdos y documentos legales con asistencia de inteligencia artificial. Plantillas prediseñadas para las necesidades más comunes.",
+        description: "Crea contratos, acuerdos y documentos legales con asistencia sistémica avanzada. Plantillas prediseñadas para las necesidades más comunes.",
         icon: Gavel,
         color: "text-purple-400",
         bg: "bg-purple-400/15",
         border: "border-purple-400/20",
         bullets: [
-          "Generación de contratos con IA integrada",
+          "Generación de contratos con automatización integrada",
           "Archivo digital de todos tus contratos",
           "Plantillas personalizables por tipo de documento",
         ],
@@ -409,28 +409,28 @@ export const moduleTutorials: Record<string, ModuleTutorialConfig> = {
     ],
   },
 
-  "kyron-ia": {
-    moduleId: "kyron-ia",
-    moduleName: "Kyron IA",
-    moduleTag: "IA",
+  "kyron-core": {
+    moduleId: "kyron-core",
+    moduleName: "Kyron Core",
+    moduleTag: "SISTEMA",
     steps: [
       {
-        title: "Tu Asistente Inteligente",
-        description: "Kyron IA es tu asistente empresarial impulsado por inteligencia artificial. Consulta sobre contabilidad, fiscal, legal y cualquier tema de tu empresa.",
+        title: "Tu Centro de Automatización",
+        description: "Kyron Core es tu centro de gestión empresarial impulsado por automatización avanzada. Consulta sobre contabilidad, fiscal, legal y cualquier tema de tu empresa.",
         icon: Sparkles,
         color: "text-violet-400",
         bg: "bg-violet-400/15",
         border: "border-violet-400/20",
         bullets: [
-          "Consultas en lenguaje natural sobre tu empresa",
-          "Análisis fiscal con Gaceta Oficial integrada",
+          "Consultas deterministas sobre tu empresa",
+          "Analítica fiscal con Gaceta Oficial integrada",
           "Generación automática de documentos y reportes",
         ],
       },
       {
-        title: "Asistente Fiscal IA",
+        title: "Motor Fiscal Avanzado",
         description: "El motor fiscal audita tus operaciones contra la normativa vigente en tiempo real. Detecta errores y sugiere correcciones antes de que sean un problema.",
-        icon: Bot,
+        icon: Gauge,
         color: "text-cyan-400",
         bg: "bg-cyan-400/15",
         border: "border-cyan-400/20",

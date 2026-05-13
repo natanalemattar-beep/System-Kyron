@@ -373,7 +373,7 @@ export default function PruebaVelocidadPage() {
                   </div>
                   <div>
                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">Respuesta de Kyron</p>
-                    <p className="text-[9px] text-emerald-400 font-semibold">{result.kyronTime}ms · Gemini 2.5 Flash</p>
+                    <p className="text-[9px] text-emerald-400 font-semibold">{result.kyronTime}ms · Kyron Core v3.0</p>
                   </div>
                 </div>
                 <p className="text-sm text-foreground/80 leading-relaxed whitespace-pre-wrap">
@@ -420,7 +420,7 @@ export default function PruebaVelocidadPage() {
         >
           <span className="flex items-center gap-1.5">
             <Shield className="h-3 w-3 text-emerald-400/40" />
-            Respuesta real de IA, no simulada
+            Procesamiento real Kyron Core, no simulado
           </span>
           <span className="flex items-center gap-1.5">
             <Clock className="h-3 w-3 text-cyan-400/40" />

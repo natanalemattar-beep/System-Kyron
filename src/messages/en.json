@@ -26,9 +26,9 @@
         "title_line1": "Your entire",
         "title_line2": "business in",
         "title_line3": "one place",
-        "slogan": "Corporate Intelligence · Zero Risk",
+        "slogan": "Corporate Infrastructure · Zero Risk",
         "subtitle": "Accounting, invoicing, payroll and connectivity. 100% adapted to Venezuelan regulations.",
-        "badge": "Intelligent Business Platform",
+        "badge": "Advanced Business Platform",
         "cta_main": "Access",
         "cta_secondary": "User Guide",
         "tutorial_link": "How to register? — View step-by-step tutorial",
@@ -36,7 +36,7 @@
             "VEN-NIF Certified",
             "IVA & IGTF Auto",
             "BCV Real-Time",
-            "AI Integrated"
+            "Management Core"
         ],
         "compliance": "Compliance",
         "modules_label": "Modules",
@@ -59,7 +59,7 @@
                 "label": "Certified"
             }
         ],
-        "rotating_2": "AI Integrated",
+        "rotating_2": "Business Intel",
         "rotating_3": "Zero Risk",
         "live_users_label": "users",
         "live_companies_label": "companies",
@@ -69,8 +69,8 @@
         "encryption_label": "AES-256",
         "encryption_active": "Encryption active",
         "rotating_words": [
-            "Total Intelligence",
-            "AI Integrated",
+            "Total Automation",
+            "Business Core",
             "Zero Risk"
         ]
     },
@@ -79,7 +79,7 @@
         "title_highlight": "Everything your",
         "title_rest": "business needs",
         "subtitle": "Nine integrated modules within a single digital ecosystem built for the Venezuelan market.",
-        "ai_native_badge": "AI-Powered",
+        "ai_native_badge": "Cloud Core",
         "features": [
             {
                 "title": "VEN-NIF Accounting",
@@ -94,16 +94,16 @@
                 "description": "Physical and eSIM line provisioning, corporate fleet management, usage monitoring, and real-time telemetry."
             },
             {
-                "title": "Artificial Intelligence",
-                "description": "Kyron AI built in (powered by Claude from Anthropic). Contract drafting, tax analysis, AI-powered pitches, waste classification, and more."
+                "title": "Algorithmic Engine",
+                "description": "Advanced processing engine. Automated reports, document generation, business strategy analysis, and technical predictions."
             },
             {
-                "title": "Legal AI & Permits",
+                "title": "Legal Management & Permits",
                 "description": "Automated contracts, notarial powers, CONATEL and SENIAT permits, and auto-updated Official Gazette."
             },
             {
                 "title": "Ameru — Eco-Credits",
-                "description": "AI-driven waste classification, certified eco-credit issuance, and a sustainability marketplace."
+                "description": "Automated waste classification, certified eco-credit issuance, and a sustainability marketplace."
             },
             {
                 "title": "Dashboard & Analytics",
@@ -132,8 +132,8 @@
                 "detail": "Spanish & English"
             },
             {
-                "val": "Kyron AI",
-                "detail": "Powered by Claude (Anthropic)"
+                "val": "Management",
+                "detail": "Advanced Core"
             }
         ],
         "speed_title": "Response Speed",
@@ -213,14 +213,14 @@
                 ]
             },
             {
-                "title": "Artificial Intelligence",
-                "subtitle": "Kyron AI · Claude (Anthropic)",
-                "description": "AI powered by Claude from Anthropic. Tax monitoring of the Official Gazette, smart accounting assistant, predictive cash-flow analysis, and automatic executive report generation.",
+                "title": "Advanced Management",
+                "subtitle": "Algorithms · Processing · Automation",
+                "description": "Management engine specialized in corporate strategy and business projections, ensuring that every data point is processed with maximum precision.",
                 "badges": [
-                    "Kyron AI",
-                    "Claude",
-                    "AI Chat",
-                    "Reports"
+                    "Algorithms",
+                    "Management",
+                    "Precision",
+                    "Automation"
                 ]
             }
         ],
@@ -240,7 +240,7 @@
         "stat_modules": "Integrated Modules",
         "stat_encryption": "Enterprise Encryption",
         "stat_compliance": "Tax Compliance",
-        "stat_support": "Active AI Support",
+        "stat_support": "24/7 Technical Support",
         "start_now": "Get Started",
         "monthly": "Monthly",
         "annual": "Annual",
@@ -279,13 +279,13 @@
             },
             {
                 "name": "Accounting Advisory",
-                "description": "VEN-NIF accounting with AI",
-                "features": ["From $8/mo", "Legal books", "Tax Center", "Fiscal AI"]
+                "description": "VEN-NIF accounting engine",
+                "features": ["From $8/mo", "Legal books", "Tax Center", "Fiscal Engine"]
             },
             {
                 "name": "Legal Advisory",
-                "description": "AI-powered documents & contracts",
-                "features": ["From $5/mo", "AI document generator", "Contract archive", "Litigation tracking"]
+                "description": "Algorithmic documents & contracts",
+                "features": ["From $5/mo", "Document generator", "Contract archive", "Litigation tracking"]
             },
             {
                 "name": "Invoicing",
@@ -305,7 +305,7 @@
                 "features": [
                     "Full Personal Account",
                     "Live BCV exchange rate",
-                    "AI Chat (50 msgs/mo)",
+                    "Technical Assistance (50 msgs/mo)",
                     "SENIAT alerts (10/mo)",
                     "RIF/ID lookup",
                     "Personal documents",
@@ -340,7 +340,7 @@
                     "Partners & Board",
                     "My Line Corporate (20 lines)",
                     "Multichannel alerts",
-                    "Advanced AI (500 msgs/mo)",
+                    "Advanced Support (500 msgs/mo)",
                     "10 users"
                 ],
                 "cta": "Choose Enterprise"
@@ -350,7 +350,7 @@
                 "description": "Everything unlimited, no restrictions",
                 "features": [
                     "ALL modules without limits",
-                    "Unlimited AI Claude 24/7",
+                    "Unlimited VIP Support 24/7",
                     "Unlimited invoicing",
                     "Unlimited My Line Corporate",
                     "Accounting Advisory MAX",
@@ -451,11 +451,11 @@
         "badge": "Connected Ecosystem",
         "title_highlight": "Integrated with",
         "title_rest": "all of Venezuela",
-        "subtitle": "We connect your company with national banks, telecom operators, payment gateways, and the most advanced artificial intelligence.",
+        "subtitle": "We connect your company with national banks, telecom operators, payment gateways, and advanced management engines.",
         "cat_banking": "Venezuelan Banking",
         "cat_payments": "Payments & Fintech",
         "cat_telecom": "Telecom & Connectivity",
-        "cat_tech": "Technology & AI",
+        "cat_tech": "Technology & Systems",
         "cta": "View all integrations"
     },
     "AboutUsSection": {
@@ -479,9 +479,8 @@
         "subtitle": "The most common questions about the System Kyron ecosystem.",
         "view_more": "View more FAQs",
         "items": [
-            {
                 "question": "How do you guarantee tax compliance?",
-                "answer": "We monitor the Official Gazette with AI. IVA 16%, IGTF 3% and ISLR are calculated automatically according to current VEN-NIF regulations.",
+                "answer": "We monitor the Official Gazette with advanced algorithms. IVA 16%, IGTF 3% and ISLR are calculated automatically according to current VEN-NIF regulations.",
                 "category": "fiscal"
             },
             {
@@ -615,7 +614,7 @@
             "VEN-NIF Accounting",
             "HR & Payroll",
             "My Line 5G / eSIM",
-            "Legal AI & Permits",
+            "Legal Consultation & Permits",
             "Ameru Eco-Credits",
             "Advanced Analytics",
             "SENIAT Invoicing",
@@ -630,11 +629,11 @@
         "location": "La Guaira, Venezuela · La Guaira State"
     },
     "ScrollCinematic": {
-        "tagline": "System Kyron — Corporate Intelligence",
+        "tagline": "System Kyron — Corporate Infrastructure",
         "line1": "Your business.",
         "line2": "All of it.",
         "line3": "In one place.",
-        "subtitle": "Accounting, payroll, invoicing, 5G and much more — built for Venezuela, with integrated AI and automated tax compliance.",
+        "subtitle": "Accounting, payroll, invoicing, 5G and much more — built for Venezuela, with integrated management and automated tax compliance.",
         "highlights_subtitle": "Everything your business needs",
         "highlights_title": "7 integrated modules.",
         "power_subtitle": "Unprecedented power",
@@ -655,10 +654,10 @@
                 "statLabel": "Network speed"
             },
             {
-                "label": "Integrated AI",
-                "desc": "Kyron AI powered by Claude from Anthropic. Automates reports, documents and analysis.",
-                "stat": "AI",
-                "statLabel": "Claude · Anthropic"
+                "label": "Integrated Core",
+                "desc": "Mission-critical data processing. Automates reports, documents and analysis.",
+                "stat": "SK",
+                "statLabel": "System Kyron Core"
             },
             {
                 "label": "AES-256 Security",
@@ -699,7 +698,7 @@
         ]
     },
     "LoadingScreen": {
-        "subtitle": "Corporate Intelligence"
+        "subtitle": "Corporate Infrastructure"
     },
     "LoginPage": {
         "back": "Home",
@@ -888,7 +887,7 @@
         "igtf": "IGTF 3 % Integrated",
         "lottt": "LOTTT Automated",
         "lopcymat": "LOPCYMAT Included",
-        "gazette": "Official Gazette AI"
+        "gazette": "Official Gazette Digital"
     },
     "CommentsSection": {
         "badge": "Real Reviews",
@@ -922,28 +921,28 @@
         "toast_publish_error": "Could not publish"
     },
     "HowItWorksSection": {
-        "badge": "Artificial Intelligence",
+        "badge": "Advanced Systems",
         "title_highlight": "Triple",
-        "title_rest": "AI Engine",
-        "subtitle": "Three artificial intelligence engines working in parallel to deliver more precise analysis, more secure verifications and smarter recommendations.",
+        "title_rest": "Processing Engine",
+        "subtitle": "Three processing engines working in parallel to deliver more precise analysis, more secure verifications and technical recommendations.",
         "demo_label": "Live demo",
-        "cta": "Try AI Free",
+        "cta": "Try Ecosystem Free",
         "capabilities": [
             {
-                "title": "AI Tax Assistant",
-                "description": "Ask any Venezuelan tax question. The assistant knows SENIAT, LOTTT, BCV and all current regulations. Precise answers in seconds.",
+                "title": "Tax Processing Assistant",
+                "description": "Ask any Venezuelan tax question. The system knows SENIAT, LOTTT, BCV and all current regulations. Precise answers in seconds.",
                 "demo_user": "How much VAT should I withhold from a special taxpayer?",
                 "demo_ai": "According to SNAT/2015/0049, VAT withholding for special taxpayers is 75% of the invoiced tax. If the supplier is ordinary, withholding is 100%."
             },
             {
                 "title": "Document Forensic Analysis",
-                "description": "Triple AI engine analyzing document authenticity in parallel. Detects manipulations, validates metadata and verifies visual integrity.",
+                "description": "Triple processing engine analyzing document authenticity in parallel. Detects manipulations, validates metadata and verifies visual integrity.",
                 "demo_system": "Analyzing invoice #2847...",
                 "demo_ai": "✓ Visual integrity: 98% · ✓ Valid metadata · ✓ Fiscal hash verified · ⚠ Low resolution on tax stamp — high-quality scanner recommended."
             },
             {
                 "title": "Predictive Analytics",
-                "description": "AI analyzing spending patterns, cash flow and team sentiment. Generates strategic recommendations based on your company's real data.",
+                "description": "Engine analyzing spending patterns, cash flow and team sentiment. Generates strategic recommendations based on your company's real data.",
                 "demo_system": "Q1 2026 analysis complete",
                 "demo_ai": "📈 Cash flow +23% vs Q4 · 📊 3 suppliers with recurring invoices identified for negotiation · 🎯 Recommendation: renegotiate contracts before 04/15"
             }
@@ -965,8 +964,8 @@
                 "description": "Built from scratch for Venezuelan regulations. SENIAT, BCV, LOTTT, VEN-NIF — not a generic ERP adapted, it's your local ecosystem."
             },
             {
-                "title": "Triple Integrated AI",
-                "description": "Claude, OpenAI and Gemini working in parallel. Document forensic analysis, accounting assistant, and smart automations."
+                "title": "Triple Integrated Core",
+                "description": "High-fidelity engines working in parallel. Document forensic analysis, accounting assistant, and technical automations."
             },
             {
                 "title": "Real AES-256 Encryption",
@@ -988,7 +987,7 @@
         "comparison_rows": [
             "Native Venezuelan Regulations",
             "Verifiable AES-256 Encryption",
-            "Triple AI (Claude + OpenAI + Gemini)",
+            "Triple Processing Core",
             "Automatic BCV Synchronization",
             "SENIAT / VEN-NIF / LOTTT",
             "19 Pre-configured Automations",
@@ -1100,8 +1099,8 @@
                 "desc": "Help desk, IT inventory and asset management"
             },
             {
-                "name": "Triple AI Engine",
-                "desc": "Claude + OpenAI + Gemini for intelligent analysis"
+                "name": "Advanced Management Engine",
+                "desc": "Proprietary algorithms for mission-critical analysis"
             },
             {
                 "name": "AES-256 Security",
@@ -1170,7 +1169,7 @@
             "VEN-NIF Accounting",
             "HR & Payroll",
             "My Line 5G / eSIM",
-            "Legal AI & Permits",
+            "Legal Management & Permits",
             "Ameru Eco-Credits",
             "Advanced Analytics"
         ]

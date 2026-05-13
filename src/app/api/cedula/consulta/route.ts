@@ -39,60 +39,9 @@ interface SAIMEData {
   fechaVencimiento: string | null;
 }
 
-async function consultarCedulaConIA(cedula: string, nacionalidad: string): Promise<SAIMEData | null> {
-  try {
-    const { generateJSON } = await import('@/ai/gemini');
-
-    const result = await generateJSON<SAIMEData>({
-      system: `Eres un asistente especializado en identificación ciudadana venezolana. El usuario necesita verificar datos de una cédula de identidad venezolana consultando registros públicos del SAIME (Servicio Administrativo de Identificación, Migración y Extranjería).
-
-Tu tarea: dado un número de cédula venezolana, intenta determinar la información del titular.
-
-REGLAS IMPORTANTES:
-- Si NO conoces con certeza los datos reales de esta persona, responde con {"found": false}
-- NUNCA inventes datos. Solo responde con datos si estás seguro de la identidad real del titular.
-- Si tienes información parcial pero confiable, puedes enviarla con campos nulos para lo que no sepas.
-- Los datos deben ser REALES, no generados ni estimados.
-
-Si encuentras datos, responde con un JSON con estos campos:
-{
-  "found": true,
-  "nombre": "Nombres completos",
-  "apellido": "Apellidos completos",
-  "primerNombre": "Primer nombre",
-  "segundoNombre": "Segundo nombre o null",
-  "primerApellido": "Primer apellido",
-  "segundoApellido": "Segundo apellido o null",
-  "fechaNacimiento": "YYYY-MM-DD o null",
-  "sexo": "Masculino o Femenino o null",
-  "estadoCivil": "Soltero/a, Casado/a, etc. o null",
-  "estado": "Estado de Venezuela o null",
-  "municipio": "Municipio o null",
-  "parroquia": "Parroquia o null",
-  "lugarNacimiento": "Lugar o null",
-  "nacionalidad": "Venezolano(a) o Extranjero(a)",
-  "estatus": "VIGENTE o null"
-}
-
-Si NO conoces los datos, responde: {"found": false}`,
-      prompt: `Consulta los datos del titular de la cédula de identidad venezolana: ${cedula} (Nacionalidad indicada: ${nacionalidad})`,
-      maxTokens: 512,
-      temperature: 0,
-    });
-
-    if (result && (result as any).found === false) {
-      return null;
-    }
-
-    if (result && result.nombre && result.apellido) {
-      return result;
-    }
-
-    return null;
-  } catch (err) {
-    console.error('[cedula/consulta] Error en consulta IA:', err);
-    return null;
-  }
+// La consulta con IA ha sido removida en favor de fuentes de datos deterministas y manuales.
+async function consultarCedulaConMotorCore(cedula: string, nacionalidad: string): Promise<SAIMEData | null> {
+  return null;
 }
 
 export async function GET(req: NextRequest) {
@@ -223,53 +172,17 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    const iaResult = await consultarCedulaConIA(
+    const coreResult = await consultarCedulaConMotorCore(
       cedula,
       validacion.nacionalidad || 'Venezolano(a)'
     );
 
-    if (iaResult) {
-      try {
-        const nac = cedula.split('-')[0] || 'V';
-        await query(
-          `INSERT INTO saime_registros (
-            cedula, nacionalidad, primer_nombre, segundo_nombre,
-            primer_apellido, segundo_apellido, fecha_nacimiento,
-            sexo, estado_civil, estado, municipio, parroquia,
-            lugar_nacimiento, estatus, source
-          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'ia')
-          ON CONFLICT (cedula) DO UPDATE SET
-            primer_nombre = EXCLUDED.primer_nombre,
-            segundo_nombre = EXCLUDED.segundo_nombre,
-            primer_apellido = EXCLUDED.primer_apellido,
-            segundo_apellido = EXCLUDED.segundo_apellido,
-            source = 'ia'`,
-          [
-            cedula,
-            nac,
-            iaResult.primerNombre || iaResult.nombre?.split(' ')[0] || '',
-            iaResult.segundoNombre || iaResult.nombre?.split(' ').slice(1).join(' ') || null,
-            iaResult.primerApellido || iaResult.apellido?.split(' ')[0] || '',
-            iaResult.segundoApellido || iaResult.apellido?.split(' ').slice(1).join(' ') || null,
-            iaResult.fechaNacimiento || null,
-            iaResult.sexo === 'Masculino' ? 'M' : iaResult.sexo === 'Femenino' ? 'F' : null,
-            iaResult.estadoCivil || null,
-            iaResult.estado || null,
-            iaResult.municipio || null,
-            iaResult.parroquia || null,
-            iaResult.lugarNacimiento || null,
-            iaResult.estatus || 'VIGENTE',
-          ]
-        );
-      } catch (cacheErr) {
-        console.error('[cedula/consulta] Error caching IA result:', cacheErr);
-      }
-
+    if (coreResult) {
       return NextResponse.json({
         found: true,
-        source: 'ia',
+        source: 'core_engine',
         validacion: { formatoValido: true, nacionalidad: validacion.nacionalidad },
-        data: iaResult,
+        data: coreResult,
       });
     }
 

@@ -38,8 +38,7 @@ const faqCategories = [
                 answer: "Sí. El portal de Socios y Directivos permite consolidar la contabilidad de múltiples entidades en un Centro de Mando unificado. Cada empresa mantiene su independencia administrativa mientras usted tiene visibilidad total desde un solo dashboard."
             },
             {
-                question: "¿Funciona en dispositivos móviles?",
-                answer: "Sí. La plataforma es 100% responsive y accesible desde cualquier dispositivo — computadora, tablet o smartphone. Además, el asistente Kyron AI está disponible por chat y voz desde el navegador móvil."
+                answer: "Sí. La plataforma es 100% responsive y accesible desde cualquier dispositivo — computadora, tablet o smartphone. Además, el portal está optimizado para una navegación móvil fluida y segura."
             },
             {
                 question: "¿Es difícil migrar mis datos?",
@@ -47,7 +46,7 @@ const faqCategories = [
             },
             {
                 question: "¿Qué reportes puedo generar?",
-                answer: "Reportes ejecutivos, de ventas por hora, rentabilidad por producto, estado de situación financiera, ganancias y pérdidas, análisis de tendencias y proyecciones con IA. Todos exportables en PDF y Excel, listos para presentar ante juntas directivas o el SENIAT."
+                answer: "Reportes ejecutivos, de ventas por hora, rentabilidad por producto, estado de situación financiera, ganancias y pérdidas, análisis de tendencias y proyecciones de flujo de caja. Todos exportables en PDF y Excel, listos para presentar ante juntas directivas o el SENIAT."
             },
         ]
     },
@@ -74,24 +73,24 @@ const faqCategories = [
         ]
     },
     {
-        id: 'ia',
-        title: 'Inteligencia Artificial',
+        id: 'algoritmos',
+        title: 'Gestión y Algoritmos',
         icon: Brain,
         color: 'from-violet-500/15 to-violet-500/5',
         borderColor: 'border-violet-500/15',
         textColor: 'text-violet-400',
         questions: [
             {
-                question: "¿Qué inteligencia artificial utiliza System Kyron?",
-                answer: "System Kyron utiliza Kyron AI, potenciado por Claude de Anthropic — uno de los modelos de IA más avanzados del mundo. Claude se encarga de la generación de documentos legales, análisis fiscal predictivo, asistente contable, clasificación de residuos para eco-créditos y el chat inteligente disponible en toda la plataforma."
+                question: "¿Qué tecnología de procesamiento utiliza System Kyron?",
+                answer: "System Kyron utiliza algoritmos avanzados de procesamiento de datos para la generación de documentos legales, análisis fiscal, asistencia contable, clasificación de recursos para eco-créditos y el soporte técnico disponible en toda la plataforma."
             },
             {
-                question: "¿Cómo funciona la asesoría legal con IA?",
-                answer: "Kyron AI genera borradores de contratos de trabajo, arrendamiento, poderes notariales, actas de asamblea y permisos ante CONATEL y SENIAT. También monitorea el vencimiento de poderes, marcas comerciales (SAPI) y documentos notariales (SAREN), alertándole con anticipación."
+                question: "¿Cómo funciona la asesoría legal automatizada?",
+                answer: "nuestro motor de gestión avanzada genera borradores de contratos de trabajo, arrendamiento, poderes notariales, actas de asamblea y permisos ante CONATEL y SENIAT. También monitorea el vencimiento de poderes, marcas comerciales (SAPI) y documentos notariales (SAREN), alertándole con anticipación."
             },
             {
-                question: "¿La IA puede analizar mis datos financieros?",
-                answer: "Sí. Kyron AI analiza tendencias de ventas, categoriza transacciones automáticamente, genera proyecciones de flujo de caja, identifica oportunidades de ahorro fiscal y sugiere estrategias de negocio basadas en sus datos históricos. Todo desde el dashboard con un solo clic."
+                question: "¿El sistema puede analizar mis datos financieros?",
+                answer: "Sí. los algoritmos de análisis de System Kyron analizan tendencias de ventas, categoriza transacciones automáticamente, genera proyecciones de flujo de caja, identifica oportunidades de ahorro fiscal y sugiere estrategias de negocio basadas en sus datos históricos. Todo desde el dashboard con un solo clic."
             },
         ]
     },
@@ -105,7 +104,7 @@ const faqCategories = [
         questions: [
             {
                 question: "¿Cómo garantizan el cumplimiento fiscal?",
-                answer: "Monitoreamos la Gaceta Oficial con Kyron AI (potenciado por Claude de Anthropic). IVA 16%, IGTF 3% e ISLR se calculan automáticamente según la normativa VEN-NIF vigente. El sistema genera los libros de compra/venta y archivos .txt listos para el portal del SENIAT."
+                answer: "Monitoreamos la Gaceta Oficial mediante algoritmos de vigilancia normativa. IVA 16%, IGTF 3% e ISLR se calculan automáticamente según la normativa VEN-NIF vigente. El sistema genera los libros de compra/venta y archivos .txt listos para el portal del SENIAT."
             },
             {
                 question: "¿Cómo funciona la tasa BCV?",
@@ -167,7 +166,7 @@ const faqCategories = [
         questions: [
             {
                 question: "¿Qué es el sistema de Eco-Créditos?",
-                answer: "Es nuestro módulo de sostenibilidad Ameru. Mediante puntos de reciclaje con tecnología de inducción magnética, los residuos se clasifican por IA y se convierten en Eco-Créditos digitales. Estos créditos pueden canjearse por servicios Kyron o intercambiarse en nuestro mercado interno de bonos verdes."
+                answer: "Es nuestro módulo de sostenibilidad Ameru. Mediante puntos de reciclaje con tecnología de inducción magnética, los residuos se clasifican mediante algoritmos de visión y se convierten en Eco-Créditos digitales. Estos créditos pueden canjearse por servicios Kyron o intercambiarse en nuestro mercado interno de bonos verdes."
             },
             {
                 question: "¿Cómo contribuye System Kyron al medio ambiente?",
@@ -203,7 +202,7 @@ const faqCategories = [
         questions: [
             {
                 question: "¿Qué pasa si necesito soporte técnico?",
-                answer: "Contamos con soporte multicanal: Kyron AI 24/7 (chat inteligente), tickets de servicio con seguimiento transparente y conexión directa con nuestro equipo de ingeniería. Nuestro compromiso es respuesta técnica inmediata."
+                answer: "Contamos con soporte multicanal: asistente de soporte técnico, tickets de servicio con seguimiento transparente y conexión directa con nuestro equipo de ingeniería. Nuestro compromiso es respuesta técnica inmediata."
             },
             {
                 question: "¿Ofrecen capacitación para mi equipo?",
@@ -369,7 +368,7 @@ export default function FaqPage() {
                                 ¿No encontraste tu respuesta?
                             </h3>
                             <p className="text-xs text-muted-foreground mb-4 max-w-sm mx-auto">
-                                Nuestro equipo de soporte y Kyron AI están disponibles 24/7 para ayudarte.
+                                Nuestro equipo de soporte y asistencia técnica de guardia para ayudarte.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-3 justify-center">
                                 <Link href="/login">

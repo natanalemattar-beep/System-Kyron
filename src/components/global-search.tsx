@@ -34,8 +34,6 @@ const SEARCH_ITEMS: SearchItem[] = [
   { title: 'Perfil de Empresa', description: 'Datos corporativos', href: '/perfil-empresa', icon: Building2, category: 'General', keywords: ['empresa', 'rif', 'datos'] },
   { title: 'Directorio Corporativo', description: 'Contactos de la empresa', href: '/directorio-corporativo', icon: Users, category: 'General', keywords: ['contactos', 'directorio', 'empleados'] },
 
-  { title: 'Kyron Chat IA', description: 'Asistente inteligente', href: '/kyron-chat', icon: Bot, category: 'Inteligencia Artificial', keywords: ['ia', 'chat', 'asistente', 'claude', 'ai'] },
-  { title: 'Análisis Dashboard IA', description: 'Análisis inteligente de métricas', href: '/contabilidad/analisis', icon: Activity, category: 'Inteligencia Artificial', keywords: ['metricas', 'analisis', 'openai', 'dashboard'] },
 
   { title: 'Tributos', description: 'Gestión tributaria y fiscal', href: '/contabilidad/tributos', icon: Calculator, category: 'Contabilidad', keywords: ['impuestos', 'iva', 'islr', 'fiscal', 'seniat'] },
   { title: 'IVA', description: 'Impuesto al Valor Agregado', href: '/contabilidad/tributos/iva', icon: Percent, category: 'Contabilidad', keywords: ['impuesto', 'valor', 'agregado', 'seniat'] },
@@ -157,7 +155,6 @@ const SEARCH_ITEMS: SearchItem[] = [
 
 const CATEGORY_GRADIENTS: Record<string, string> = {
   'General': 'from-slate-500/[0.03] to-transparent',
-  'Inteligencia Artificial': 'from-violet-500/[0.04] to-transparent',
   'Contabilidad': 'from-emerald-500/[0.03] to-transparent',
   'Ventas y Facturación': 'from-blue-500/[0.03] to-transparent',
   'Recursos Humanos': 'from-orange-500/[0.03] to-transparent',

@@ -66,10 +66,10 @@ export async function GET(req: NextRequest) {
       const comparacion = {
         categorias: [
           {
-            nombre: 'Inteligencia Artificial',
+            nombre: 'Kyron Core',
             recursos: [
-              { key: 'consultasAI', label: 'Consultas AI', icon: 'brain' },
-              { key: 'chatAIMensajes', label: 'Chat AI Mensajes', icon: 'message-circle' },
+              { key: 'consultasAI', label: 'Consultas Core', icon: 'zap' },
+              { key: 'chatAIMensajes', label: 'Consultas Sistémicas', icon: 'search' },
               { key: 'simuladorMultas', label: 'Simulador de Multas', icon: 'calculator' },
               { key: 'declaracionesAsistidas', label: 'Declaraciones Asistidas', icon: 'file-check' },
             ],

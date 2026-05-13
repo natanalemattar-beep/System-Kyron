@@ -309,7 +309,7 @@ export default function DashboardSociosPage() {
             </Button>
           </Card>
 
-          {/* Radar Ameru.AI - Sostenibilidad para Socios */}
+          {/* Radar Kyron Core - Sostenibilidad para Socios */}
           <Card className="bg-black/40 border border-emerald-500/20 rounded-2xl p-6 relative overflow-hidden group">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.1),transparent_70%)]" />
             <div className="relative z-10">
@@ -319,8 +319,8 @@ export default function DashboardSociosPage() {
                 </div>
                 <Badge className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 text-[8px] font-black tracking-widest uppercase font-tech">Impacto ESG</Badge>
               </div>
-              <h3 className="text-sm font-black uppercase tracking-widest text-white mb-2 font-tech">Radar <span className="text-emerald-500">Ameru.AI</span></h3>
-              <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-6 font-tech">Generación de Eco-créditos por Infraestructura 5G.</p>
+              <h3 className="text-sm font-black uppercase tracking-widest text-white mb-2 font-tech">Radar <span className="text-emerald-500">Kyron Core</span></h3>
+              <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-6 font-tech">Monitoreo Algorítmico de Sostenibilidad.</p>
               
               <div className="space-y-3">
                 <div className="flex justify-between items-center p-3 rounded-xl bg-white/[0.02] border border-white/5">

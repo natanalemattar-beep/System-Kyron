@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { AppHeader } from "@/components/app-header";
-import { LazyChatDialog } from "@/components/chat-dialog-lazy";
+
 import { PageTransition } from "@/components/ui/motion";
 import { PageTracker } from "@/components/page-tracker";
 import { FinancialToolkit } from "@/components/financial-toolkit";
@@ -52,7 +52,7 @@ export default function MainLayout({
           <ScrollToTop />
           <FinancialToolkit />
           <WelcomeTutorial />
-          <LazyChatDialog />
+
       </div>
     );
 }

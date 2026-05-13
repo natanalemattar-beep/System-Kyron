@@ -1,7 +1,7 @@
 'use client';
 
 import { AppHeader } from "@/components/app-header";
-import { LazyChatDialog } from "@/components/chat-dialog-lazy";
+
 import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { PageTransition } from "@/components/ui/motion";
@@ -52,7 +52,7 @@ export default function SociosLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
-          <LazyChatDialog />
+
       </div>
       </ModuleGuard>
     );

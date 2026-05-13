@@ -155,29 +155,29 @@ export const MODULOS_INDIVIDUALES: ModuloIndividual[] = [
   {
     id: 'asesoria_contable',
     nombre: 'Asesoría Contable',
-    descripcion: 'Contabilidad VEN-NIF con libros, tributos e IA fiscal.',
+    descripcion: 'Contabilidad VEN-NIF con libros, tributos y analítica fiscal.',
     precioDesdeUSD: 8,
     color: '#3B82F6',
     icono: 'calculator',
     subPlanes: [
       { id: 'contable_esencial', nombre: 'Esencial', precioMensualUSD: 8, caracteristicas: ['Libros legales básicos (Diario, Mayor)', 'Calendario fiscal con alertas', 'Consulta RIF/Cédula (20/mes)', 'Tasa BCV en vivo', '1 usuario'] },
       { id: 'contable_profesional', nombre: 'Profesional', precioMensualUSD: 18, popular: true, caracteristicas: ['Todo en Esencial +', 'Libro de Inventario', 'Centro Tributario (IVA, ISLR, IGTF)', 'Retenciones automáticas', 'Simulador de multas COT', 'Exportación Excel', '3 usuarios'] },
-      { id: 'contable_avanzado', nombre: 'Avanzado', precioMensualUSD: 35, caracteristicas: ['Todo en Profesional +', 'IA Fiscal para consultas', 'Declaraciones asistidas (12/año)', 'Conciliación bancaria', 'Asientos automáticos', 'Auditoría forense', '5 usuarios'] },
+      { id: 'contable_avanzado', nombre: 'Avanzado', precioMensualUSD: 35, caracteristicas: ['Todo en Profesional +', 'Vigilancia Normativa Automatizada', 'Declaraciones asistidas (12/año)', 'Conciliación bancaria', 'Asientos automáticos', 'Auditoría forense', '5 usuarios'] },
       { id: 'contable_max', nombre: 'MAX', precioMensualUSD: 60, caracteristicas: ['Todo en Avanzado +', 'Dictamen de Contador Público', 'Blockchain audit trail', 'Multi-empresa', 'Usuarios ilimitados', 'Soporte VIP 24/7', 'API de integración'] },
     ],
   },
   {
     id: 'asesoria_legal',
     nombre: 'Asesoría Legal',
-    descripcion: 'Documentos con IA, contratos, permisos y litigios.',
+    descripcion: 'Documentos sistémicos, contratos, permisos y litigios.',
     precioDesdeUSD: 5,
     color: '#F59E0B',
     icono: 'scale',
     subPlanes: [
       { id: 'legal_basico', nombre: 'Básico', precioMensualUSD: 5, caracteristicas: ['Generador de documentos básico', 'Archivo de hasta 20 contratos', 'Alertas de vencimiento', '1 usuario'] },
-      { id: 'legal_profesional', nombre: 'Profesional', precioMensualUSD: 15, popular: true, caracteristicas: ['Todo en Básico +', 'Generador con IA avanzada', 'Contratos ilimitados', 'Gestión de permisos vigentes', 'Poderes de representación', '3 usuarios'] },
+      { id: 'legal_profesional', nombre: 'Profesional', precioMensualUSD: 15, popular: true, caracteristicas: ['Todo en Básico +', 'Generador de Documentos Avanzado', 'Contratos ilimitados', 'Gestión de permisos vigentes', 'Poderes de representación', '3 usuarios'] },
       { id: 'legal_escritorio', nombre: 'Escritorio Jurídico', precioMensualUSD: 30, caracteristicas: ['Todo en Profesional +', 'Control de litigios', 'Cumplimiento normativo', 'Marco Legal Venezuela', 'Calendario de audiencias', '5 usuarios'] },
-      { id: 'legal_max', nombre: 'MAX', precioMensualUSD: 50, caracteristicas: ['Todo en Escritorio +', 'IA Legal avanzada', 'Multi-empresa', 'Usuarios ilimitados', 'Due diligence automatizado', 'Soporte legal prioritario'] },
+      { id: 'legal_max', nombre: 'MAX', precioMensualUSD: 50, caracteristicas: ['Todo en Escritorio +', 'Gestión Legal Sistematizada', 'Multi-empresa', 'Usuarios ilimitados', 'Due diligence automatizado', 'Soporte legal prioritario'] },
     ],
   },
   {
@@ -227,18 +227,8 @@ export interface PlanKyron {
 }
 
 export interface PlanLimites {
-  consultasAI: number;
   alertasFiscales: number;
   alertasRegulatorias: number;
-  facturasMensuales: number;
-  empleadosNomina: number;
-  clientesCRM: number;
-  documentosLegales: number;
-  lineasTelecom: number;
-  reportesMensuales: number;
-  usuariosConcurrentes: number;
-  almacenamientoGB: number;
-  chatAIMensajes: number;
   simuladorMultas: number;
   exportacionesExcel: number;
   consultasRIF: number;
@@ -263,7 +253,6 @@ export const PLANES: PlanKyron[] = [
     destacado: false,
     etiqueta: 'GRATIS',
     limites: {
-      consultasAI: 30,
       alertasFiscales: 10,
       alertasRegulatorias: 5,
       facturasMensuales: 20,
@@ -274,7 +263,6 @@ export const PLANES: PlanKyron[] = [
       reportesMensuales: 3,
       usuariosConcurrentes: 1,
       almacenamientoGB: 3,
-      chatAIMensajes: 50,
       simuladorMultas: 5,
       exportacionesExcel: 5,
       consultasRIF: 15,
@@ -284,7 +272,7 @@ export const PLANES: PlanKyron[] = [
     modulosIncluidos: [
       'Cuenta Personal completa',
       'Tasa BCV en vivo',
-      'Chat AI (50 msgs/mes)',
+      'Soporte Técnico Especializado',
       'Alertas SENIAT (10/mes)',
       'Consulta RIF/Cédula (15/mes)',
       'Documentos personales',
@@ -306,7 +294,6 @@ export const PLANES: PlanKyron[] = [
     destacado: false,
     etiqueta: 'AHORRA 30%',
     limites: {
-      consultasAI: 250,
       alertasFiscales: 50,
       alertasRegulatorias: 30,
       facturasMensuales: 500,
@@ -317,7 +304,6 @@ export const PLANES: PlanKyron[] = [
       reportesMensuales: 20,
       usuariosConcurrentes: 5,
       almacenamientoGB: 25,
-      chatAIMensajes: 500,
       simuladorMultas: 50,
       exportacionesExcel: 50,
       consultasRIF: 100,
@@ -329,7 +315,6 @@ export const PLANES: PlanKyron[] = [
       'Asesoría Contable VEN-NIF Pro',
       'Facturación SENIAT (500/mes)',
       'Mi Línea (10 líneas)',
-      'IA Avanzada (250 consultas)',
       'Bóveda Digital (25GB)',
       'Auditoría Fiscal en Tiempo Real',
       'Simulador de multas COT Pro',
@@ -351,7 +336,6 @@ export const PLANES: PlanKyron[] = [
     destacado: true,
     etiqueta: 'MÁS POPULAR',
     limites: {
-      consultasAI: 500,
       alertasFiscales: 100,
       alertasRegulatorias: 50,
       facturasMensuales: 1000,
@@ -362,7 +346,6 @@ export const PLANES: PlanKyron[] = [
       reportesMensuales: 50,
       usuariosConcurrentes: 10,
       almacenamientoGB: 50,
-      chatAIMensajes: 500,
       simuladorMultas: 100,
       exportacionesExcel: 100,
       consultasRIF: 200,
@@ -376,7 +359,6 @@ export const PLANES: PlanKyron[] = [
       'Facturación ilimitada',
       'Socios y Directivos',
       'Mi Línea Jurídica (20 líneas)',
-      'IA avanzada (500 msgs/mes)',
       'Alertas multicanal (Email, WhatsApp, SMS)',
       'Scoring de riesgo fiscal',
       '10 usuarios',
@@ -392,11 +374,10 @@ export const PLANES: PlanKyron[] = [
     ahorroAnualUSD: 358,
     ahorroAnualPorcentaje: 20,
     color: '#F59E0B',
-    descripcion: 'Todo ilimitado. IA sin restricciones, API dedicada, white-label y soporte VIP.',
+    descripcion: 'Todo ilimitado. Automatización total de misión crítica, API dedicada, white-label y soporte VIP.',
     destacado: false,
     etiqueta: 'SIN LÍMITES',
     limites: {
-      consultasAI: ILIMITADO,
       alertasFiscales: ILIMITADO,
       alertasRegulatorias: ILIMITADO,
       facturasMensuales: ILIMITADO,
@@ -407,7 +388,6 @@ export const PLANES: PlanKyron[] = [
       reportesMensuales: ILIMITADO,
       usuariosConcurrentes: ILIMITADO,
       almacenamientoGB: ILIMITADO,
-      chatAIMensajes: ILIMITADO,
       simuladorMultas: ILIMITADO,
       exportacionesExcel: ILIMITADO,
       consultasRIF: ILIMITADO,
@@ -416,7 +396,7 @@ export const PLANES: PlanKyron[] = [
     },
     modulosIncluidos: [
       'TODOS los módulos sin restricción',
-      'IA Claude ilimitado 24/7',
+      'Infraestructura de Misión Crítica 24/7',
       'Facturación ilimitada',
       'Mi Línea Jurídica ilimitada',
       'Asesoría Contable MAX',
@@ -467,11 +447,8 @@ export interface UsoPlan {
   plan: PlanTier;
   ciclo: CicloFacturacion;
   periodo: string;
-  consultas_ai: number;
-  alertas_fiscales: number;
   alertas_regulatorias: number;
   facturas: number;
-  chat_mensajes: number;
   simulador_multas: number;
   exportaciones: number;
   consultas_rif: number;
@@ -501,11 +478,9 @@ export async function obtenerUsoPlan(userId: number): Promise<UsoPlan> {
     plan: 'personal',
     ciclo: 'mensual' as CicloFacturacion,
     periodo,
-    consultas_ai: 0,
     alertas_fiscales: 0,
     alertas_regulatorias: 0,
     facturas: 0,
-    chat_mensajes: 0,
     simulador_multas: 0,
     exportaciones: 0,
     consultas_rif: 0,
@@ -522,11 +497,8 @@ export function esRecursoValido(recurso: string): recurso is RecursoLimite {
 }
 
 const CAMPO_USO_MAP: Partial<Record<RecursoLimite, string>> = {
-  consultasAI: 'consultas_ai',
-  alertasFiscales: 'alertas_fiscales',
   alertasRegulatorias: 'alertas_regulatorias',
   facturasMensuales: 'facturas',
-  chatAIMensajes: 'chat_mensajes',
   simuladorMultas: 'simulador_multas',
   exportacionesExcel: 'exportaciones',
   consultasRIF: 'consultas_rif',
@@ -601,9 +573,7 @@ export async function obtenerResumenUso(userId: number) {
   const plan = obtenerPlan(uso.plan);
 
   const recursos = [
-    { key: 'consultasAI' as RecursoLimite, label: 'Consultas AI', icon: 'brain', usado: uso.consultas_ai },
-    { key: 'chatAIMensajes' as RecursoLimite, label: 'Chat AI', icon: 'message', usado: uso.chat_mensajes },
-    { key: 'alertasFiscales' as RecursoLimite, label: 'Alertas Fiscales', icon: 'bell', usado: uso.alertas_fiscales },
+    { key: 'alertasFiscales' as RecursoLimite, label: 'Alertas Fiscales', icon: 'bell', usado: (uso as any).alertas_fiscales || 0 },
     { key: 'alertasRegulatorias' as RecursoLimite, label: 'Alertas Regulatorias', icon: 'gavel', usado: uso.alertas_regulatorias },
     { key: 'facturasMensuales' as RecursoLimite, label: 'Facturas', icon: 'file', usado: uso.facturas },
     { key: 'simuladorMultas' as RecursoLimite, label: 'Simulador Multas', icon: 'calculator', usado: uso.simulador_multas },

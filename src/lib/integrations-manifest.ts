@@ -1,6 +1,6 @@
 /**
  * ╔══════════════════════════════════════════════════════════════════╗
- * ║           SYSTEM KYRON — INTEGRATIONS MANIFEST v1.0            ║
+ * ║           SYSTEM KYRON — INTEGRATIONS MANIFEST v2.0            ║
  * ║                                                                ║
  * ║  This file is the single source of truth for ALL external      ║
  * ║  integrations required by the platform.                        ║
@@ -13,7 +13,7 @@
 export interface IntegrationDef {
   id: string;
   name: string;
-  category: 'ai' | 'email' | 'sms' | 'calendar' | 'database';
+  category: 'core' | 'email' | 'sms' | 'calendar' | 'database';
   required: boolean;
   clientFile: string;
   envVars: string[];
@@ -23,48 +23,19 @@ export interface IntegrationDef {
 }
 
 export const INTEGRATIONS: IntegrationDef[] = [
-  // ── AI PROVIDERS ──────────────────────────────────────────────
+  // ── CORE ENGINE ──────────────────────────────────────────────
   {
-    id: 'anthropic',
-    name: 'Anthropic (Claude)',
-    category: 'ai',
+    id: 'kyron_core',
+    name: 'Kyron Core Engine',
+    category: 'core',
     required: true,
-    clientFile: 'src/ai/anthropic.ts',
-    envVars: ['ANTHROPIC_API_KEY'],
+    clientFile: 'src/lib/document-verifier.ts',
+    envVars: [],
     usedBy: [
-      'src/app/api/ai/kyron-chat/route.ts',
-      'src/app/api/ai/analyze-dashboard/route.ts',
-      'src/app/api/ai/fiscal-chat/route.ts',
+      'src/app/api/core/engine-query/route.ts',
+      'src/lib/document-verifier.ts',
     ],
-    models: ['claude-3-5-sonnet-latest'],
-    notes: 'Primary AI for chat and document analysis.',
-  },
-  {
-    id: 'openai',
-    name: 'OpenAI',
-    category: 'ai',
-    required: true,
-    clientFile: 'src/ai/openai.ts',
-    envVars: ['OPENAI_API_KEY'],
-    usedBy: [
-      'src/app/api/ai/kyron-chat/route.ts',
-      'src/app/api/ai/analyze-dashboard/route.ts',
-    ],
-    models: ['gpt-4o', 'gpt-4o-mini'],
-    notes: 'Used for strategic insights and DALL-E image generation.',
-  },
-  {
-    id: 'gemini',
-    name: 'Google Gemini',
-    category: 'ai',
-    required: true,
-    clientFile: 'src/ai/gemini.ts',
-    envVars: ['GEMINI_API_KEY'],
-    usedBy: [
-      'src/app/api/ai/kyron-chat/route.ts',
-    ],
-    models: ['gemini-1.5-flash', 'gemini-1.5-pro'],
-    notes: 'Fast model for document processing.',
+    notes: 'Primary deterministic engine for audit and verification.',
   },
 
   // ── EMAIL ─────────────────────────────────────────────────────

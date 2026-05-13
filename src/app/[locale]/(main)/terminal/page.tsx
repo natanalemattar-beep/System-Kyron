@@ -20,20 +20,20 @@ const budgetData = [
   { item: "Lote SIM Cards Físicas Kyron (1.000 uds)", cost: 1000 },
   { item: "Gestión eSIM y Centro de Datos", cost: 2500 },
   { item: "Ecosistema Web & Cloud Ledger", cost: 4500 },
-  { item: "Módulo Inteligencia Artificial Fiscal", cost: 1000 },
+  { item: "Módulo Auditoría Kyron Core", cost: 1000 },
   { item: "Alquiler Local Comercial (12 meses)", cost: 4800 },
   { item: "Permisología (SENIAT / CONATEL / Municipal / Bomberos)", cost: 850 },
   { item: "Acondicionamiento Inmobiliario del Local", cost: 2200 },
   { item: "Moto Bera Carguera DT-200 (Logística)", cost: 2800 },
   { item: "Motocicleta de Despacho (Entrega a Domicilio)", cost: 1650 },
   { item: "Inventario Inicial de Teléfonos (30 equipos)", cost: 4500 },
-  { item: "Hardware Papeleras Inteligentes Ameru.AI (10 uds)", cost: 683 },
+  { item: "Hardware Papeleras Inteligentes Ameru Core (10 uds)", cost: 683 },
   { item: "Equipos Fiscales Homologados SENIAT", cost: 1350 },
   { item: "Despliegue Operativo La Guaira", cost: 3250 },
 ];
 
 const zeduModules = [
-    { id: "M1", title: "IA FISCAL", desc: "Inferencia predictiva para cumplimiento 100%.", icon: BrainCircuit, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Óptimo" },
+    { id: "M1", title: "AUDITORÍA FISCAL", desc: "Validación algorítmica para cumplimiento 100%.", icon: ShieldCheck, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Óptimo" },
     { id: "M2", title: "TELEFONÍA PERSONAL", desc: "Línea personal y línea infantil CONATEL certificada.", icon: Smartphone, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Activo" },
     { id: "M3", title: "CONECTIVIDAD 5G", desc: "Centro redundante de baja latencia.", icon: Network, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Activo" },
     { id: "M4", title: "MAG-SENSOR", desc: "Papeleras inteligentes con inducción magnética.", icon: Zap, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Operacional" },
@@ -198,7 +198,7 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
             <div className="mt-20 flex justify-center pb-10">
                 <div className="flex items-center gap-10 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground italic">
                     <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> Encrypt: AES-256</span>
-                    <span className="flex items-center gap-2"><Sparkles className="h-3 w-3" /> AI Engine: Active</span>
+                    <span className="flex items-center gap-2"><Zap className="h-3 w-3" /> Core Engine: Active</span>
                     <span className="flex items-center gap-2"><Database className="h-3 w-3" /> Ledger: Verified</span>
                 </div>
             </div>

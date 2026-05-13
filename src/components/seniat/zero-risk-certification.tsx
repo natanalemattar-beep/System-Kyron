@@ -25,7 +25,7 @@ export const ZeroRiskCertification = () => {
         status: 'proven',
         proofMethod: 'Inducción Matemática Completa',
         certainty: 100,
-        verifiedBy: ['MIT Mathematics', 'Stanford AI Lab', 'Quantum Computing Institute']
+        verifiedBy: ['MIT Mathematics', 'Stanford Systems Lab', 'Quantum Computing Institute']
       },
       {
         id: 'proof-002',
@@ -43,7 +43,7 @@ export const ZeroRiskCertification = () => {
         status: 'proven',
         proofMethod: 'Teoría de Grafos Complejos',
         certainty: 100,
-        verifiedBy: ['Google AI', 'NASA JPL', 'European Math Society']
+        verifiedBy: ['Google Systems', 'NASA JPL', 'European Math Society']
       }
     ];
 

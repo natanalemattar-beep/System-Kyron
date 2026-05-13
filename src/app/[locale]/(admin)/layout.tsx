@@ -10,7 +10,7 @@ import { useSetModuleContext } from "@/lib/module-context";
 import { PreferencesProvider, usePreferences } from "@/lib/preferences-context";
 import { CurrencyProvider } from "@/lib/currency-context";
 import { PageTracker } from "@/components/page-tracker";
-import { LazyChatDialog } from "@/components/chat-dialog-lazy";
+
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ModuleGuard } from "@/components/module-guard";
@@ -71,7 +71,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
           <ScrollToTop />
           <FinancialToolkit />
           <WelcomeTutorial />
-          <LazyChatDialog />
+
       </div>
     );
 }

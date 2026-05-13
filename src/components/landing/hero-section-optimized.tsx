@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useRef, useEffect, useState } from 'react';
-import { Sparkles, ArrowRight, Play } from 'lucide-react';
+import { Rocket, ArrowRight, Play } from 'lucide-react';
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -54,7 +54,7 @@ export function HeroSectionOptimized() {
                 href="/login"
                 className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md hover:bg-amber-500/20 transition-all hover:scale-105 group"
               >
-                <Sparkles className="h-4 w-4 text-amber-400 group-hover:animate-pulse" />
+                <Rocket className="h-4 w-4 text-amber-400 group-hover:animate-bounce" />
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-200/80 group-hover:text-amber-100 transition-colors">{t('badge')}</span>
               </Link>
               <h1 className="text-[clamp(2.2rem,7vw,5rem)] font-black leading-tight text-white">

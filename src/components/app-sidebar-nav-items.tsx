@@ -64,13 +64,6 @@ export const naturalNavGroups = [
         ],
     },
     {
-        title: "Kyron IA",
-        icon: Sparkles,
-        items: [
-            { href: "/chat-personal", label: "Chat Kyron", icon: Sparkles },
-        ],
-    },
-    {
         title: "Ayuda",
         icon: LifeBuoy,
         items: [
@@ -97,13 +90,13 @@ export const asesoriaContableNavGroups = [
         { href: "/contabilidad/exportacion-seniat", label: "Exportación SENIAT", icon: Landmark, section: "Contabilidad" },
         { href: "/contabilidad/dictamen-contador", label: "Dictamen del Contador", icon: Star, section: "Contabilidad" },
         { href: "/contabilidad/cuentas", label: "Gestión de Cuentas", icon: Wallet, section: "Contabilidad" },
-        { href: "/contabilidad/analisis", label: "Análisis e IA", icon: PieChart, section: "Contabilidad" },
+        { href: "/contabilidad/analisis", label: "Análisis Financiero", icon: PieChart, section: "Contabilidad" },
         { href: "/contabilidad/entidades-sin-fines-lucro", label: "ESFL y Condominios", icon: Handshake, section: "Contabilidad" },
         { href: "/contabilidad/certificaciones/contables", label: "Cert. Contables", icon: FileSignature, section: "Contabilidad" },
         { href: "/contabilidad/certificaciones/financiera", label: "Dictamen Financiero", icon: Calculator, section: "Contabilidad" },
         { href: "/contabilidad/certificaciones/empresa", label: "Dossier Empresa", icon: Building2, section: "Contabilidad" },
         { href: "/contabilidad/tributos", label: "Centro Tributario", icon: Landmark, section: "Fiscal" },
-        { href: "/gaceta-6952", label: "Asistente Fiscal IA", icon: Bot, section: "Fiscal" },
+        { href: "/gaceta-6952", label: "Consultor Fiscal", icon: FileText, section: "Fiscal" },
         { href: "/contabilidad/tributos/retenciones-iva", label: "Retenciones IVA", icon: Percent, section: "Fiscal" },
         { href: "/contabilidad/tributos/retenciones-islr", label: "Retenciones ISLR", icon: Banknote, section: "Fiscal" },
         { href: "/contabilidad/tributos/igtf", label: "IGTF 3%", icon: CreditCard, section: "Fiscal" },
@@ -160,14 +153,13 @@ export const asesoriaContableNavGroups = [
         { href: "/contabilidad/calidad/iso-9001", label: "Manuales ISO 9001", icon: FileText, section: "Planificación" },
         { href: "/contabilidad/proyectos/anteproyecto", label: "Anteproyecto", icon: FileText, section: "Planificación" },
         { href: "/contabilidad/proyectos/proyecto-maestro", label: "Gestión de Proyectos", icon: ClipboardList, section: "Planificación" },
-        { href: "/ingenieria-ia", label: "Ingeniería e IA", icon: Cpu, section: "Planificación" },
+        { href: "/ingenieria-ia", label: "Ingeniería de Sistemas", icon: Cpu, section: "Planificación" },
     ],
   },
   {
     title: "Sistema",
     icon: Settings2,
     items: [
-        { href: "/kyron-chat", label: "Chat Kyron", icon: Sparkles, section: "Kyron IA" },
         { href: "/seguridad-empresarial", label: "Centro de Seguridad", icon: Shield, badge: "NUEVO", section: "Seguridad" },
         { href: "/seguridad-empresarial/auditoria", label: "Auditoría de Accesos", icon: Eye, badge: "NUEVO", section: "Seguridad" },
         { href: "/seguridad-empresarial/dispositivos", label: "Dispositivos", icon: MonitorSmartphone, badge: "NUEVO", section: "Seguridad" },
@@ -195,7 +187,7 @@ export const ventasNavGroups = [
     icon: TrendingUp,
     items: [
         { href: "/analisis-ventas", label: "Análisis Comercial", icon: ChartColumn },
-        { href: "/analisis-ventas", label: "Estrategias IA", icon: Zap },
+        { href: "/analisis-ventas", label: "Estrategias Comerciales", icon: Zap },
     ]
   }
 ];
@@ -290,7 +282,7 @@ export const telecomNavGroups = [
       { href: "/plan-familiar", label: "Plan Familiar", icon: Users, badge: "NUEVO" },
       { href: "/soporte-tecnico", label: "Soporte Técnico", icon: Headphones },
       { href: "/mapa-cobertura", label: "Mapa Cobertura", icon: MapPin },
-      { href: "/analitica-consumo", label: "Analítica IA", icon: BrainCircuit, badge: "NUEVO" },
+      { href: "/analitica-consumo", label: "Analítica de Datos", icon: ChartLine, badge: "NUEVO" },
     ], 
   },
   {

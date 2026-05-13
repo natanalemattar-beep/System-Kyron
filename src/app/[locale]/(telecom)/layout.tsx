@@ -1,7 +1,7 @@
 'use client';
 
 import { AppHeader } from "@/components/app-header";
-import { LazyChatDialog } from "@/components/chat-dialog-lazy";
+
 import { PageTransition } from "@/components/ui/motion";
 import { telecomNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTracker } from "@/components/page-tracker";
@@ -54,7 +54,7 @@ export default function TelecomLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
-          <LazyChatDialog />
+
       </div>
       </ModuleGuard>
     );

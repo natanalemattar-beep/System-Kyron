@@ -37,7 +37,7 @@ export default function PrivacyPage() {
               },
               {
                 title: "3. Finalidad del Tratamiento",
-                body: "Utilizamos sus datos para: (a) proveer, mantener y mejorar los servicios de la Plataforma; (b) procesar transacciones y generar documentos fiscales; (c) enviar notificaciones de seguridad, alertas fiscales y comunicaciones operativas; (d) cumplir con obligaciones legales ante el SENIAT, CONATEL y demás organismos reguladores; (e) generar análisis internos anonimizados para mejorar el servicio; (f) prevenir fraude y actividad no autorizada; (g) alimentar los modelos de inteligencia artificial para ofrecer recomendaciones personalizadas (sin compartir datos individuales con terceros)."
+                body: "Utilizamos sus datos para: (a) proveer, mantener y mejorar los servicios de la Plataforma; (b) procesar transacciones y generar documentos fiscales; (c) enviar notificaciones de seguridad, alertas fiscales y comunicaciones operativas; (d) cumplir con obligaciones legales ante el SENIAT, CONATEL y demás organismos reguladores; (e) generar análisis internos anonimizados para mejorar el servicio; (f) prevenir fraude y actividad no autorizada."
               },
               {
                 title: "4. Base Legal del Tratamiento",
@@ -49,7 +49,7 @@ export default function PrivacyPage() {
               },
               {
                 title: "6. Compartición de Datos con Terceros",
-                body: "No vendemos, alquilamos ni intercambiamos sus datos personales con terceros para fines comerciales. Solo compartimos información en los siguientes casos: (a) con proveedores de servicios esenciales (infraestructura cloud, servicios de correo electrónico, SMS) bajo acuerdos de confidencialidad estrictos; (b) con operadores de telecomunicaciones autorizados para la provisión de líneas y servicios contratados; (c) con proveedores de inteligencia artificial (Anthropic/Claude) en formato anonimizado para procesamiento de consultas; (d) cuando sea requerido por ley, orden judicial o solicitud formal de autoridades venezolanas competentes (SENIAT, CONATEL, Ministerio Público)."
+                body: "No vendemos, alquilamos ni intercambiamos sus datos personales con terceros para fines comerciales. Solo compartimos información en los siguientes casos: (a) con proveedores de servicios esenciales (infraestructura cloud, servicios de correo electrónico, SMS) bajo acuerdos de confidencialidad estrictos; (b) con operadores de telecomunicaciones autorizados para la provisión de líneas y servicios contratados; (c) cuando sea requerido por ley, orden judicial o solicitud formal de autoridades venezolanas competentes (SENIAT, CONATEL, Ministerio Público)."
               },
               {
                 title: "7. Cookies y Tecnologías de Seguimiento",
@@ -69,7 +69,7 @@ export default function PrivacyPage() {
               },
               {
                 title: "11. Transferencias Internacionales",
-                body: "Algunos de nuestros servicios de infraestructura (servidores, procesamiento de IA) pueden estar alojados fuera de Venezuela. En estos casos, garantizamos que los proveedores cumplen estándares de protección de datos equivalentes o superiores a los exigidos por la legislación venezolana, mediante cláusulas contractuales tipo y certificaciones de seguridad reconocidas internacionalmente."
+                body: "Algunos de nuestros servicios de infraestructura (servidores cloud) pueden estar alojados fuera de Venezuela. En estos casos, garantizamos que los proveedores cumplen estándares de protección de datos equivalentes o superiores a los exigidos por la legislación venezolana, mediante cláusulas contractuales tipo y certificaciones de seguridad reconocidas internacionalmente."
               },
               {
                 title: "12. Notificación de Brechas de Seguridad",

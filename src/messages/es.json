@@ -28,9 +28,9 @@
         "title_line2": "tus líneas o",
         "title_line3": "tu empresa?",
         "slogan": "Deja de tener todo regado y separado",
-        "subtitle": "¿Cansado de perder tiempo con mil programas que no se hablan entre sí? Automatiza tu contabilidad, nómina y facturación en un solo sitio. IA que de verdad resuelve, 100% venezolana.",
+        "subtitle": "¿Cansado de perder tiempo con mil programas que no se hablan entre sí? Automatiza tu contabilidad, nómina y facturación en un solo sitio. Ingeniería de software que de verdad resuelve, 100% venezolana.",
 
-        "badge": "Plataforma Empresarial con IA",
+        "badge": "Plataforma Empresarial Integral",
         "cta_main": "Comenzar Ahora",
         "cta_secondary": "Ver Capacidades",
         "tutorial_link": "¿Cómo registrarse? — Ver tutorial paso a paso",
@@ -38,7 +38,7 @@
             "VEN-NIF Certificado",
             "IVA & IGTF Automático",
             "Tasa BCV en Vivo",
-            "IA Multimodelo"
+            "Cumplimiento Total"
         ],
         "compliance": "Cumplimiento",
         "modules_label": "Módulos",
@@ -61,7 +61,7 @@
                 "label": "Certificado"
             }
         ],
-        "rotating_2": "IA Integrada",
+        "rotating_2": "Gestión Avanzada",
         "rotating_3": "Riesgo Cero",
         "live_users_label": "usuarios",
         "live_companies_label": "empresas",
@@ -71,8 +71,8 @@
         "encryption_label": "AES-256",
         "encryption_active": "Cifrado activo",
         "rotating_words": [
-            "Inteligencia Total",
-            "IA Integrada",
+            "Automatización Total",
+            "Gestión de Negocio",
             "Riesgo Cero"
         ]
     },
@@ -80,8 +80,8 @@
         "badge": "Infraestructura de Élite",
         "title_highlight": "Ecosistema de",
         "title_rest": "Misión Crítica",
-        "subtitle": "Unificamos contabilidad, telecomunicaciones e inteligencia artificial en una sola plataforma blindada para el sector privado venezolano.",
-        "ai_native_badge": "IA Nativa",
+        "subtitle": "Unificamos contabilidad, telecomunicaciones y analítica avanzada en una sola plataforma blindada para el sector privado venezolano.",
+        "ai_native_badge": "Infraestructura Nativa",
         "features": [
             {
                 "title": "Fiscalidad VEN-NIF",
@@ -92,8 +92,8 @@
                 "description": "Gestión directa de flotas móviles, eSIMs y conectividad empresarial de alta disponibilidad integrada al panel."
             },
             {
-                "title": "IA Legal & Ejecutiva",
-                "description": "Asistentes especializados en normativa LOTTT y VEN-NIF para redacción de contratos y blindaje operativo."
+                "title": "Gestión Legal Sistematizada",
+                "description": "Protocolos especializados en normativa LOTTT y VEN-NIF para redacción de contratos y blindaje operativo."
             },
             {
                 "title": "RRHH & Nómina",
@@ -105,7 +105,7 @@
             },
             {
                 "title": "Sostenibilidad",
-                "description": "Certificación de huella verde y gestión de eco-créditos corporativos integrados con tecnología Ameru.ai."
+                "description": "Certificación de huella verde y gestión de eco-créditos corporativos integrados con tecnología Ameru."
             }
         ],
         "stats": [
@@ -122,8 +122,8 @@
                 "detail": "Español & English"
             },
             {
-                "val": "3 IAs",
-                "detail": "Claude · Gemini · OpenAI"
+                "val": "Algoritmos",
+                "detail": "Procesamiento Avanzado"
             }
         ],
         "speed_title": "Velocidad de Respuesta",
@@ -203,14 +203,14 @@
                 ]
             },
             {
-                "title": "Triple IA Integrada",
-                "subtitle": "Claude · Gemini · OpenAI",
-                "description": "Tres motores de inteligencia artificial especializados: Claude para chat y visión, Gemini para documentos legales, OpenAI para análisis estratégico y predicciones de negocio.",
+                "title": "Procesamiento Avanzado",
+                "subtitle": "Algoritmos · Gestión · Automatización",
+                "description": "Motores de gestión especializados para análisis estratégico y predicciones de negocio, garantizando que cada dato sea procesado con la máxima precisión.",
                 "badges": [
-                    "Claude",
-                    "Gemini",
-                    "OpenAI",
-                    "Chat IA"
+                    "Algoritmos",
+                    "Gestión",
+                    "Precisión",
+                    "Asistencia"
                 ]
             }
         ],
@@ -225,11 +225,11 @@
         "platform_badge": "Impacto Medible",
         "platform_title": "Resultados que",
         "platform_highlight": "transforman",
-        "platform_subtitle": "La infraestructura corporativa más avanzada de Venezuela. Cada métrica, verificable.",
+        "platform_subtitle": "La infraestructura corporativa más avanzada de Venezuela. Sistema centralizado, verificable.",
         "stat_modules": "Módulos Integrados",
         "stat_encryption": "Cifrado Empresarial",
         "stat_compliance": "Cumplimiento Fiscal",
-        "stat_support": "Soporte IA Activo",
+        "stat_support": "Soporte Técnico 24/7",
         "start_now": "Comenzar Ahora",
         "monthly": "Mensual",
         "annual": "Anual",
@@ -268,13 +268,13 @@
             },
             {
                 "name": "Asesoría Contable",
-                "description": "Contabilidad VEN-NIF con IA",
-                "features": ["Desde $8/mes", "Libros legales", "Centro Tributario", "IA Fiscal"]
+                "description": "Contabilidad VEN-NIF automatizada",
+                "features": ["Desde $8/mes", "Libros legales", "Centro Tributario", "Gestión Fiscal"]
             },
             {
                 "name": "Asesoría Legal",
-                "description": "Documentos y contratos con IA",
-                "features": ["Desde $5/mes", "Generador con IA", "Archivo contratos", "Control de litigios"]
+                "description": "Documentos y contratos sistematizados",
+                "features": ["Desde $5/mes", "Generador Legal", "Archivo contratos", "Control de litigios"]
             },
             {
                 "name": "Facturación",
@@ -294,7 +294,7 @@
                 "features": [
                     "Cuenta Personal completa",
                     "Tasa BCV en vivo",
-                    "Chat AI (50 msgs/mes)",
+                    "Asistencia Técnica (50 msgs/mes)",
                     "Alertas SENIAT (10/mes)",
                     "Consulta RIF/Cédula",
                     "Documentos personales",
@@ -311,7 +311,7 @@
                     "Asesoría Contable VEN-NIF Pro",
                     "Facturación SENIAT (500/mes)",
                     "Mi Línea (10 líneas)",
-                    "IA Avanzada (250 consultas)",
+                    "Soporte Avanzado (250 consultas)",
                     "Bóveda Digital (25GB)",
                     "Auditoría Fiscal en Tiempo Real",
                     "5 usuarios"
@@ -329,7 +329,7 @@
                     "Socios y Directivos",
                     "Mi Línea Jurídica (20 líneas)",
                     "Alertas multicanal",
-                    "IA avanzada (500 msgs/mes)",
+                    "Soporte Avanzado (500 msgs/mes)",
                     "10 usuarios"
                 ],
                 "cta": "Elegir Empresarial"
@@ -339,7 +339,7 @@
                 "description": "Todo ilimitado, sin restricciones",
                 "features": [
                     "TODOS los módulos sin límites",
-                    "IA Claude ilimitado 24/7",
+                    "Soporte VIP ilimitado 24/7",
                     "Facturación ilimitada",
                     "Mi Línea Jurídica ilimitada",
                     "Asesoría Contable MAX",
@@ -356,7 +356,7 @@
         "badge": "Cumplimiento Total",
         "title_highlight": "Regulado,",
         "title_rest": "blindado",
-        "subtitle": "Ecosistema de Inteligencia Corporativa: Contabilidad (VEN-NIF), RRHH (LOTTT), Legal, Facturación (SENIAT), Telecom (5G/eSIM), IT y Marketing. Cumplimiento total.",
+        "subtitle": "Ecosistema de Gestión Corporativa: Contabilidad (VEN-NIF), RRHH (LOTTT), Legal, Facturación (SENIAT), Telecom (5G/eSIM), IT y Marketing. Cumplimiento total.",
         "regulations": {
             "seniat": {
                 "full": "Servicio Nacional Integrado de Administración Aduanera y Tributaria",
@@ -440,18 +440,18 @@
         "badge": "Ecosistema Conectado",
         "title_highlight": "Conectado con",
         "title_rest": "toda Venezuela",
-        "subtitle": "Banca nacional, operadoras telecom, pasarelas de pago y 3 motores de IA. Todo fluye en un solo lugar.",
+        "subtitle": "Banca nacional, operadoras telecom, pasarelas de pago y motores de gestión. Todo fluye en un solo lugar.",
         "cat_banking": "Banca Venezolana",
         "cat_payments": "Pagos & Fintech",
         "cat_telecom": "Telecom & Conectividad",
-        "cat_tech": "Tecnología & IA",
+        "cat_tech": "Tecnología & Integraciones",
         "cta": "Ver todas las integraciones"
     },
     "AboutUsSection": {
         "badge": "Hecho en Venezuela",
         "title_highlight": "Cómo nació",
         "title_rest": "System Kyron",
-        "subtitle": "Nacimos para unificar la gestión empresarial en un solo ecosistema. System Kyron integra Contabilidad, Legal, RRHH, Facturación, Telecomunicaciones e Inteligencia Artificial en una plataforma única, eliminando la fragmentación y automatizando la complejidad operativa de Venezuela.",
+        "subtitle": "Nacimos para unificar la gestión empresarial en un solo ecosistema. System Kyron integra Contabilidad, Legal, RRHH, Facturación, Telecomunicaciones e Gestión Corporativa Unificada en una plataforma única, eliminando la fragmentación y automatizando la complejidad operativa de Venezuela.",
         "vision_2026_title": "Ecosistema Integral 2026",
         "vision_2026_desc": "Nuestra misión es centralizar cada aspecto de la operación corporativa —desde el cumplimiento fiscal hasta la conectividad 5G— bajo un estándar de seguridad de grado bancario y automatización total.",
         "stat_users": "Usuarios Registrados",
@@ -472,7 +472,7 @@
         "items": [
             {
                 "question": "¿Cómo garantizan el cumplimiento fiscal?",
-                "answer": "Monitoreamos la Gaceta Oficial con IA. IVA 16%, IGTF 3% e ISLR se calculan automáticamente según la normativa VEN-NIF vigente.",
+                "answer": "Monitoreamos la Gaceta Oficial con algoritmos avanzados. IVA 16%, IGTF 3% e ISLR se calculan automáticamente según la normativa VEN-NIF vigente.",
                 "category": "fiscal"
             },
             {
@@ -509,7 +509,7 @@
         "badge": "Acceso Inmediato",
         "title_highlight": "¿Listo para",
         "title_rest": "transformarte",
-        "subtitle": "Solicita tu auditoría técnica gratuita y descubre cómo Kyron puede automatizar tu operación.",
+        "subtitle": "Solicita tu auditoría técnica gratuita y descubre cómo Advanced System Core optimiza tu operación.",
         "check_1": "Registro 2 min",
         "check_2": "Sin compromisos",
         "check_3": "Soporte 24/7",
@@ -582,7 +582,7 @@
     },
 
     "Footer": {
-        "description": "System Kyron es el ecosistema empresarial definitivo para Venezuela. Ingeniería de software de grado corporativo que unifica Contabilidad VEN-NIF, Gestión Legal & SAPI, RRHH, Facturación SENIAT, Telecomunicaciones 5G e Inteligencia Artificial en una sola plataforma de misión crítica.",
+        "description": "System Kyron es el ecosistema empresarial definitivo para Venezuela. Ingeniería de software de grado corporativo que unifica Contabilidad VEN-NIF, Gestión Legal & SAPI, RRHH, Facturación SENIAT, Telecomunicaciones 5G e Gestión Corporativa Unificada en una sola plataforma de misión crítica.",
         "platform": "Plataforma",
         "modules": "Módulos",
         "contact": "Contacto",
@@ -595,7 +595,7 @@
             "Contabilidad VEN-NIF",
             "RRHH & Nómina",
             "Mi Línea 5G / eSIM",
-            "IA Legal & Permisos",
+            "Consultoría Legal & Permisos",
             "Ameru Eco-Créditos",
             "Analítica Avanzada",
             "Facturación SENIAT",
@@ -610,11 +610,11 @@
         "location": "La Guaira, Venezuela · Estado La Guaira"
     },
     "ScrollCinematic": {
-        "tagline": "System Kyron — Inteligencia Corporativa",
+        "tagline": "System Kyron — Infraestructura Corporativa",
         "line1": "Tu empresa.",
         "line2": "Automatizada.",
         "line3": "Sin límites.",
-        "subtitle": "Contabilidad, nóminas, facturación, 5G y triple IA — diseñado para Venezuela, con cumplimiento fiscal que nunca falla.",
+        "subtitle": "Contabilidad, nóminas, facturación, 5G y gestión avanzada — diseñado para Venezuela, con cumplimiento fiscal que nunca falla.",
         "highlights_subtitle": "Todo lo que tu empresa necesita",
         "highlights_title": "Un ecosistema completo.",
         "power_subtitle": "Poder sin precedentes",
@@ -635,10 +635,10 @@
                 "statLabel": "Velocidad de red"
             },
             {
-                "label": "IA Integrada",
-                "desc": "Kyron AI potenciado por Claude de Anthropic. Automatiza reportes, documentos y análisis.",
-                "stat": "IA",
-                "statLabel": "Claude · Anthropic"
+                "label": "Gestión Avanzada",
+                "desc": "Procesamiento de datos de misión crítica. Automatiza reportes, documentos y análisis.",
+                "stat": "SK",
+                "statLabel": "System Kyron Core"
             },
             {
                 "label": "Seguridad AES-256",
@@ -679,7 +679,7 @@
         ]
     },
     "LoadingScreen": {
-        "subtitle": "Inteligencia Corporativa"
+        "subtitle": "Infraestructura Corporativa"
     },
     "LoginPage": {
         "back": "Inicio",
@@ -868,7 +868,7 @@
         "igtf": "IGTF 3% Integrado",
         "lottt": "LOTTT Automatizado",
         "lopcymat": "LOPCYMAT Incluido",
-        "gazette": "Gaceta Oficial IA"
+        "gazette": "Gaceta Oficial Digital"
     },
     "CommentsSection": {
         "badge": "Voces Reales",
@@ -902,28 +902,28 @@
         "toast_publish_error": "No se pudo publicar"
     },
     "HowItWorksSection": {
-        "badge": "Inteligencia Artificial",
+        "badge": "Gestión Corporativa Unificada",
         "title_highlight": "Triple Motor de",
-        "title_rest": "IA",
-        "subtitle": "Tres motores de inteligencia artificial trabajando en paralelo para darte análisis más precisos, verificaciones más seguras y recomendaciones más inteligentes.",
-        "cta": "Probar IA Gratis",
+        "title_rest": "Procesamiento",
+        "subtitle": "Tres motores de procesamiento algorítmico trabajando en paralelo para darte análisis más precisos, verificaciones más seguras y recomendaciones técnicas.",
+        "cta": "Probar Ecosistema Gratis",
         "demo_label": "Demo en vivo",
         "capabilities": [
             {
-                "title": "Asistente Fiscal IA",
-                "description": "Consulta cualquier duda fiscal venezolana. El asistente conoce SENIAT, LOTTT, BCV y todas las regulaciones vigentes. Respuestas precisas en segundos.",
+                "title": "Centro Fiscal Especializado",
+                "description": "Consulta cualquier duda fiscal venezolana. El sistema conoce SENIAT, LOTTT, BCV y todas las regulaciones vigentes. Respuestas precisas en segundos.",
                 "demo_user": "¿Cuánto debo retener de IVA a un contribuyente especial?",
                 "demo_ai": "Según la Providencia SNAT/2015/0049, la retención de IVA a contribuyentes especiales es del 75% del impuesto facturado. Si el proveedor es ordinario, la retención es del 100%."
             },
             {
                 "title": "Análisis Forense de Documentos",
-                "description": "Triple motor de IA que analiza la autenticidad de documentos en paralelo. Detecta manipulaciones, valida metadatos y verifica integridad visual.",
+                "description": "Triple motor algorítmico que analiza la autenticidad de documentos en paralelo. Detecta manipulaciones, valida metadatos y verifica integridad visual.",
                 "demo_system": "Analizando factura #2847...",
                 "demo_ai": "✓ Integridad visual: 98% · ✓ Metadatos válidos · ✓ Hash fiscal verificado · ⚠ Resolución baja en sello fiscal — se recomienda escáner de alta calidad."
             },
             {
                 "title": "Análisis Predictivo",
-                "description": "IA que analiza patrones de gasto, flujo de caja y sentimiento del equipo. Genera recomendaciones estratégicas basadas en datos reales de tu empresa.",
+                "description": "Motor de análisis que procesa patrones de gasto, flujo de caja y sentimiento del equipo. Genera recomendaciones estratégicas basadas en datos reales de tu empresa.",
                 "demo_system": "Análisis Q1 2026 completado",
                 "demo_ai": "📈 Flujo de caja +23% vs Q4 · 📊 3 proveedores con facturas recurrentes identificados para negociación · 🎯 Recomendación: renegociar contratos antes del 15/04"
             }
@@ -945,8 +945,8 @@
                 "description": "Diseñado desde cero para la normativa venezolana. SENIAT, BCV, LOTTT, VEN-NIF — no es un ERP genérico adaptado, es tu ecosistema local."
             },
             {
-                "title": "IA Integrada Triple",
-                "description": "Claude, OpenAI y Gemini trabajando en paralelo. Análisis forense de documentos, asistente contable, y automatizaciones inteligentes."
+                "title": "Procesamiento Triple",
+                "description": "Motores de alta fidelidad trabajando en paralelo. Análisis forense de documentos, asistente contable, y automatizaciones técnicas."
             },
             {
                 "title": "Cifrado AES-256 Real",
@@ -968,7 +968,7 @@
         "comparison_rows": [
             "Normativa Venezolana Nativa",
             "Cifrado AES-256 Verificable",
-            "IA Triple (Claude + OpenAI + Gemini)",
+            "Triple Motor de Procesamiento",
             "Sincronización BCV Automática",
             "SENIAT / VEN-NIF / LOTTT",
             "19 Automatizaciones Pre-configuradas",
@@ -1080,8 +1080,8 @@
                 "desc": "Help desk, inventario TI y gestión de activos"
             },
             {
-                "name": "IA Triple Motor",
-                "desc": "Claude + OpenAI + Gemini para análisis inteligente"
+                "name": "Motor de Procesamiento Triple",
+                "desc": "Sistemas de alta fidelidad para análisis técnico avanzado"
             },
             {
                 "name": "Seguridad AES-256",
@@ -1149,7 +1149,7 @@
             "Contabilidad VEN-NIF",
             "RRHH & Nómina",
             "Mi Línea 5G / eSIM",
-            "IA Legal & Permisos",
+            "Asistencia Legal & Permisos",
             "Eco-Créditos Ameru",
             "Analítica Avanzada"
         ]
@@ -1197,7 +1197,7 @@
             "eco": {
                 "title": "Sostenibilidad",
                 "highlight": "Impacto Certificado",
-                "desc": "Compense su huella de carbono con tecnología Ameru.ai y acceda al mercado global de eco-créditos."
+                "desc": "Compense su huella de carbono con tecnología Ameru y acceda al mercado global de eco-créditos."
             },
             "telecom": {
                 "title": "Conectividad",

@@ -1,6 +1,6 @@
 'use client';
 
-import { Zap, Clock, Gauge, ChartColumn, ArrowRight, TrendingUp, Timer, Sparkles } from "lucide-react";
+import { Zap, Clock, Gauge, ChartColumn, ArrowRight, TrendingUp, Timer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
 import { motion, useInView } from 'framer-motion';
@@ -139,7 +139,7 @@ export function FeaturesSection() {
                         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                         <div className="flex items-center gap-4 relative z-10">
                             <div className="h-10 w-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 border border-cyan-500/30">
-                                <Sparkles className="h-5 w-5" />
+                                <Gauge className="h-5 w-5" />
                             </div>
                             <span className="text-xs font-black uppercase tracking-[0.3em] text-white">
                                 EXPLORAR EL ECOSISTEMA KYRON

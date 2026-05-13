@@ -37,7 +37,7 @@ export const planes = [
         features: [
             "Todo lo del Plan Profesional",
             "Integraciones personalizadas (API)",
-            "Análisis con IA y Reportes Avanzados",
+            "Analítica y Reportes Avanzados",
             "Oficial de Cumplimiento dedicado",
             "Soporte 24/7 y SLA garantizado",
         ],
@@ -111,24 +111,24 @@ export const zeroRiskGuarantees = [
     },
 ];
 
-export const iaSolutions = [
+export const algorithmicSolutions = [
     {
         title: "Extracción Automática de Datos",
-        description: "Sube facturas, recibos o cualquier documento y nuestra IA extraerá la información clave por ti.",
+        description: "Sube facturas, recibos o cualquier documento y nuestro sistema extraerá la información clave por ti.",
         icon: FileScan,
         href: "/data-entry"
     },
     {
         title: "Categorización de Transacciones",
-        description: "La IA categorizará automáticamente tus ingresos y gastos para un análisis financiero claro.",
+        description: "El sistema categorizará automáticamente tus ingresos y gastos para un análisis financiero claro.",
         icon: ListTree,
         href: "/transactions"
     },
      {
-        title: "Análisis de Sentimiento",
-        description: "Pega una reseña de un cliente y la IA te dirá si la opinión es positiva, negativa o neutral.",
+        title: "Analítica de Percepción",
+        description: "Procesa la retroalimentación de clientes y obtenga métricas de satisfacción en tiempo real.",
         icon: BrainCircuit,
-        href: "/soluciones-ia"
+        href: "/analitica-avanzada"
     },
 ];
 
@@ -142,7 +142,7 @@ export const businessFraudStrategies = {
     ],
     "Prevención de Fraude con Clientes": [
         "Autenticación Fuerte (MFA): Implementar autenticación multifactor para el acceso de clientes a sus cuentas.",
-        "Análisis Transaccional con IA: Utilizar herramientas para detectar patrones de compra inusuales, cambios de dirección o uso de múltiples tarjetas desde la misma IP.",
+        "Analítica Transaccional Avanzada: Utilizar herramientas para detectar patrones de compra inusuales, cambios de dirección o uso de múltiples tarjetas desde la misma IP.",
         "Verificación de Identidad (KYC): Exigir y validar documentos de identidad para la aprobación de créditos.",
         "Capacitación en Punto de Venta: Entrenar al personal para reconocer tarjetas alteradas y seguir protocolos de verificación.",
         "Cámaras de Seguridad: Instalar cámaras de alta resolución en cajas y áreas de inventario."

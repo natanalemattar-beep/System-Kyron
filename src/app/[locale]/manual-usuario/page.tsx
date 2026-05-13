@@ -44,7 +44,7 @@ const chapters = [
     details: [
       "Registro de RIF, Razón Social y datos de contacto oficiales.",
       "Activación bajo demanda de las 10+ secciones principales.",
-      "Guía asistida por Kyron AI (potenciado por Claude de Anthropic) para la carga inicial de datos.",
+      "Guía asistida por Asistencia Técnica Directa (algoritmos de procesamiento avanzado) para la carga inicial de datos.",
       "Soporte bilingüe completo (Español e Inglés) con next-intl.",
       "Tutorial de bienvenida interactivo y tutoriales por módulo.",
       "Guía de registro paso a paso disponible en /guia-registro."
@@ -130,7 +130,7 @@ const chapters = [
   },
   {
     id: "impuestos",
-    title: "Impuestos & Pre-Alerta IA",
+    title: "Impuestos & Pre-Alerta Core",
     icon: Landmark,
     color: "from-red-500 to-rose-500",
     content: `El cumplimiento ante el SENIAT es de misión crítica. System Kyron incorpora un motor de Pre-Alerta que notifica con 15, 7 y 3 días de antelación sobre cada vencimiento fiscal. El sistema calcula automáticamente el IVA (16%), las retenciones de ISLR y el IGTF (3%) según el método de pago. El módulo de Alertas Fiscales Expandidas monitorea más de 30 obligaciones fiscales venezolanas. El módulo de Alertas Regulatorias vigila cambios legislativos desde Gacetas Oficiales y la Asamblea Nacional. Al automatizar estos procesos según la Providencia SNAT/2011/0071, se evitan multas por declaraciones extemporáneas.`,
@@ -179,12 +179,12 @@ const chapters = [
   },
   {
     id: "legal",
-    title: "Asesoría Legal con Kyron AI",
+    title: "Asesoría Legal con Asistencia Técnica Directa",
     icon: Gavel,
     color: "from-indigo-500 to-violet-500",
-    content: `El módulo jurídico actúa como un Oficial de Cumplimiento virtual. Kyron AI — potenciado por Claude de Anthropic — está entrenado en legislación venezolana para redactar borradores de contratos, acuerdos de confidencialidad y actas de asamblea. El Escritorio Jurídico centraliza la gestión de todos los documentos legales. El módulo de Permisología gestiona permisos, licencias y certificaciones ante SENIAT, SAREN, SAPI y otras instituciones. Monitorea registros y emite alertas sobre vencimiento de poderes o necesidad de renovar marcas comerciales.`,
+    content: `El módulo jurídico actúa como un Oficial de Cumplimiento virtual. Asistencia Técnica Directa — algoritmos de procesamiento avanzado — está entrenado en legislación venezolana para redactar borradores de contratos, acuerdos de confidencialidad y actas de asamblea. El Escritorio Jurídico centraliza la gestión de todos los documentos legales. El módulo de Permisología gestiona permisos, licencias y certificaciones ante SENIAT, SAREN, SAPI y otras instituciones. Monitorea registros y emite alertas sobre vencimiento de poderes o necesidad de renovar marcas comerciales.`,
     details: [
-      "Generación automática de documentos legales por Kyron AI.",
+      "Generación automática de documentos legales por Asistencia Técnica Directa.",
       "Escritorio Jurídico: gestión centralizada de casos legales.",
       "Gestión de contratos con seguimiento de vigencia.",
       "Permisología: licencias, permisos y certificaciones.",
@@ -264,9 +264,9 @@ const chapters = [
     title: "Sostenibilidad & Eco-Créditos Ameru",
     icon: Recycle,
     color: "from-green-500 to-emerald-500",
-    content: `Este módulo introduce la economía circular al ecosistema mediante el programa Ameru. Mediante puntos de reciclaje con tecnología de inducción magnética, los usuarios transforman residuos en activos digitales. Kyron AI valida el pesaje y acredita Eco-Créditos en su cuenta. Estos créditos se intercambian en el Mercado de Eco-Créditos interno, permitiendo a las empresas comprar o vender bonos verdes. Los usuarios pueden consultar su tarjeta de reciclaje desde la cuenta personal.`,
+    content: `Este módulo introduce la economía circular al ecosistema mediante el programa Ameru. Mediante puntos de reciclaje con tecnología de inducción magnética, los usuarios transforman residuos en activos digitales. Asistencia Técnica Directa valida el pesaje y acredita Eco-Créditos en su cuenta. Estos créditos se intercambian en el Mercado de Eco-Créditos interno, permitiendo a las empresas comprar o vender bonos verdes. Los usuarios pueden consultar su tarjeta de reciclaje desde la cuenta personal.`,
     details: [
-      "Clasificación precisa de metales y plásticos por IA.",
+      "Clasificación precisa de metales y plásticos por el sistema.",
       "Exchange de activos ambientales certificados.",
       "Acumulación de puntos canjeables por servicios Kyron.",
       "Reportes de impacto ambiental para balance social (CO₂).",
@@ -310,7 +310,7 @@ const chapters = [
     title: "Auditoría, Blockchain & Automatizaciones",
     icon: Activity,
     color: "from-rose-500 to-red-500",
-    content: `Para garantizar el 'Cero Riesgo Fiscal', System Kyron cuenta con un Supervisor Kyron AI que audita transacciones las 24 horas. Detecta inconsistencias antes de que se conviertan en multas. La auditoría incluye sellado criptográfico SHA-256 y anclaje blockchain mediante raíz de Merkle en redes Polygon, Ethereum y BSC para registros inmutables. El Motor de Automatización ejecuta reglas programadas como sincronización BCV, anclaje blockchain por lotes, alertas fiscales y más, con dashboard de ejecución en tiempo real.`,
+    content: `Para garantizar el 'Cero Riesgo Fiscal', System Kyron cuenta con un Supervisor Asistencia Técnica Directa que audita transacciones las 24 horas. Detecta inconsistencias antes de que se conviertan en multas. La auditoría incluye sellado criptográfico SHA-256 y anclaje blockchain mediante raíz de Merkle en redes Polygon, Ethereum y BSC para registros inmutables. El Motor de Automatización ejecuta reglas programadas como sincronización BCV, anclaje blockchain por lotes, alertas fiscales y más, con dashboard de ejecución en tiempo real.`,
     details: [
       "Detección temprana de errores en base imponible o IGTF.",
       "Sellado SHA-256 inmutable en cada operación fiscal.",
@@ -326,10 +326,10 @@ const chapters = [
     title: "Reportes & Analítica Avanzada",
     icon: ChartColumn,
     color: "from-pink-500 to-rose-500",
-    content: `System Kyron transforma los datos en decisiones. El generador de reportes extrae información analítica de cualquier módulo del sistema. Desde reportes de ventas por hora hasta análisis de rentabilidad por producto. Incluye resumen de negocio ejecutivo, análisis de riesgo financiero, proyecciones con IA y documentos listos para auditorías del SENIAT. Todos los reportes son exportables en PDF y Excel, diseñados para juntas directivas o entes gubernamentales con total transparencia.`,
+    content: `System Kyron transforma los datos en decisiones. El generador de reportes extrae información analítica de cualquier módulo del sistema. Desde reportes de ventas por hora hasta análisis de rentabilidad por producto. Incluye resumen de negocio ejecutivo, análisis de riesgo financiero, proyecciones algorítmicas y documentos listos para auditorías del SENIAT. Todos los reportes son exportables en PDF y Excel, diseñados para juntas directivas o entes gubernamentales con total transparencia.`,
     details: [
       "Resúmenes ejecutivos para socios y directores.",
-      "Proyecciones de ventas y tendencias por Kyron AI.",
+      "Proyecciones de ventas y tendencias por Asistencia Técnica Directa.",
       "Documentos listos para auditorías del SENIAT.",
       "Exportación a PDF y Excel (ExcelJS) en un clic.",
       "Análisis de riesgo financiero y alertas.",
@@ -339,17 +339,17 @@ const chapters = [
   },
   {
     id: "chat-ia",
-    title: "Kyron AI — Asistente Inteligente",
+    title: "Asistencia Técnica Directa — Asistencia Especializada",
     icon: BrainCircuit,
     color: "from-violet-500 to-fuchsia-500",
-    content: `Kyron AI es el asistente inteligente del ecosistema, potenciado por Claude de Anthropic. Ofrece 10+ identidades contextuales que se adaptan automáticamente según la sección donde se encuentre el usuario: Contador Kyron en contabilidad, Abogado Kyron en el módulo legal, Ingeniero Kyron en IT, Telecom Kyron en telecomunicaciones, y más. El chat es accesible desde cualquier página del sistema y puede responder preguntas, generar documentos, analizar datos y asistir en la toma de decisiones.`,
+    content: `Asistencia Técnica Directa es el asistente inteligente del ecosistema, algoritmos de procesamiento avanzado. Ofrece 10+ identidades contextuales que se adaptan automáticamente según la sección donde se encuentre el usuario: Contador Kyron en contabilidad, Abogado Kyron en el módulo legal, Ingeniero Kyron en IT, Telecom Kyron en telecomunicaciones, y más. El chat es accesible desde cualquier página del sistema y puede responder preguntas, generar documentos, analizar datos y asistir en la toma de decisiones.`,
     details: [
       "10+ identidades contextuales según módulo activo.",
       "Generación de documentos legales y contables.",
       "Análisis fiscal predictivo y alertas proactivas.",
       "Asistencia en la clasificación de residuos Ameru.",
-      "Chat accesible desde cualquier página del sistema.",
-      "Potenciado por Claude de Anthropic y modelos Gemini/OpenAI."
+      "Centro de consultas accesible desde cualquier página del sistema.",
+      "Motor determinista de alta velocidad Kyron Engine v3.0."
     ]
   },
   {
@@ -402,25 +402,25 @@ const chapters = [
     title: "Planes de Suscripción",
     icon: CreditCard,
     color: "from-purple-500 to-indigo-500",
-    content: `System Kyron ofrece 4 planes de suscripción progresivos diseñados para adaptarse a empresas de cualquier tamaño. Cada plan incluye límites específicos de recursos (usuarios, facturas, almacenamiento, módulos) que escalan con las necesidades de la organización. Los precios se expresan en USD con conversión automática a bolívares según la tasa BCV vigente. Todos los planes incluyen acceso a Kyron AI y soporte técnico, diferenciándose en volumen de operaciones y funcionalidades avanzadas.`,
+    content: `System Kyron ofrece 4 planes de suscripción progresivos diseñados para adaptarse a empresas de cualquier tamaño. Cada plan incluye límites específicos de recursos (usuarios, facturas, almacenamiento, módulos) que escalan con las necesidades de la organización. Los precios se expresan en USD con conversión automática a bolívares según la tasa BCV vigente. Todos los planes incluyen acceso a Asistencia Técnica Directa y soporte técnico, diferenciándose en volumen de operaciones y funcionalidades avanzadas.`,
     details: [
       "4 planes progresivos: desde emprendedores hasta corporaciones.",
       "Límites de recursos que escalan con la empresa.",
       "Facturación mensual o anual con descuento.",
       "Precios en USD con conversión BCV automática.",
-      "Acceso a Kyron AI incluido en todos los planes.",
+      "Acceso a Asistencia Técnica Directa incluido en todos los planes.",
       "Módulos premium desbloqueables según plan."
     ]
   },
   {
     id: "modelo-zedu",
-    title: "Modelo ZEDU — AutoMind AI",
+    title: "Modelo ZEDU — AutoMind Core",
     icon: School,
     color: "from-violet-500 to-fuchsia-500",
-    content: `El Modelo Zedu corresponde al proyecto educativo AutoMind AI, desarrollado en el Colegio Santa Rosa de Lima, Caracas. Transforma el sistema de archivado tradicional de instituciones educativas en un entorno digital eficiente, integrando digitalización de expedientes estudiantiles, chatbot de atención automatizada para representantes y herramientas de Kyron AI de apoyo administrativo. AutoMind AI aplica inteligencia artificial para optimizar la gestión escolar, desde matrículas hasta comunicaciones con padres y representantes.`,
+    content: `El Modelo Zedu corresponde al proyecto educativo AutoMind Core, desarrollado en el Colegio Santa Rosa de Lima, Caracas. Transforma el sistema de archivado tradicional de instituciones educativas en un entorno digital eficiente, integrando digitalización de expedientes estudiantiles y herramientas de Asistencia Técnica Directa de apoyo administrativo. AutoMind Core aplica analítica avanzada para optimizar la gestión escolar, desde matrículas hasta comunicaciones con padres y representantes.`,
     details: [
       "Digitalización y búsqueda instantánea de expedientes con OCR.",
-      "Chatbot Kyron AI: atención 24/7 vía WhatsApp y portal web.",
+      "Asistencia Técnica Directa: atención 24/7 vía WhatsApp y portal web.",
       "Generación de reportes, circulares y análisis estratégico.",
       "Gestión de matrículas y inscripciones digitales.",
       "Comunicación automatizada con representantes.",
@@ -432,9 +432,9 @@ const chapters = [
     title: "Soporte Técnico & Comunidad",
     icon: Headphones,
     color: "from-sky-500 to-cyan-500",
-    content: `El soporte técnico de System Kyron es de grado corporativo. Incluye asistencia multicanal mediante Kyron AI (potenciado por Claude de Anthropic), chat en vivo y conexión directa con el equipo de ingeniería. El sistema de notificaciones internas mantiene al usuario informado sobre actualizaciones, cambios de normativa y alertas del sistema. Estamos comprometidos con una experiencia de misión crítica: sin caídas, sin errores y con respuesta técnica inmediata.`,
+    content: `El soporte técnico de System Kyron es de grado corporativo. Incluye asistencia multicanal mediante Asistencia Técnica Directa (algoritmos de procesamiento avanzado), chat en vivo y conexión directa con el equipo de ingeniería. El sistema de notificaciones internas mantiene al usuario informado sobre actualizaciones, cambios de normativa y alertas del sistema. Estamos comprometidos con una experiencia de misión crítica: sin caídas, sin errores y con respuesta técnica inmediata.`,
     details: [
-      "Resolución de dudas 24/7 mediante Kyron AI.",
+      "Resolución de dudas 24/7 mediante Asistencia Técnica Directa.",
       "Seguimiento transparente de tickets de servicio.",
       "Sistema de notificaciones internas del sistema.",
       "Actualizaciones de sistema sin interrupciones.",
@@ -455,7 +455,7 @@ const chapters = [
       "Webinars sobre cambios en Gacetas Oficiales.",
       "Biblioteca técnica con manuales, guías y casos de éxito.",
       "Guía de registro interactiva para nuevos usuarios.",
-      "Tutoriales por módulo con asistente Kyron AI."
+      "Tutoriales por módulo con asistente Asistencia Técnica Directa."
     ]
   }
 ];
@@ -769,9 +769,9 @@ export default function ManualUsuarioPage() {
                 <span className="text-xl font-bold text-foreground">3.0</span>
               </div>
               <div className="px-4 py-2 rounded-xl bg-card/60 border border-border">
-                <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground block">Motor IA</span>
-                <span className="text-xl font-bold text-primary">Claude</span>
-                <span className="text-[10px] font-bold text-muted-foreground/60 block">by Anthropic</span>
+                <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground block">Motor Core</span>
+                <span className="text-xl font-bold text-primary">Kyron Engine</span>
+                <span className="text-[10px] font-bold text-muted-foreground/60 block">v3.0 Determinista</span>
               </div>
               <div className="px-4 py-2 rounded-xl bg-card/60 border border-border">
                 <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground block">Actualizado</span>

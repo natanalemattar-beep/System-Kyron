@@ -90,6 +90,7 @@ const PUBLIC_SEGMENTS = new Set([
   'stickers',
   'brand-kit',
   'resumen-ejecutivo',
+  'cartas',
 ]);
 
 // Public API routes — explicit whitelist (fail-closed)
@@ -112,8 +113,8 @@ const PUBLIC_API_SET = new Set([
   '/api/auth/debug-db',
   '/api/plan-popularity',
   '/api/security-status',
-  '/api/ai/kyron-chat-trial',
-  '/api/ai/speed-test',
+  '/api/core/engine-query-trial',
+  '/api/core/speed-test',
   '/api/auth/access-key',
   '/api/cedula/consulta',
   '/api/rif/consulta',

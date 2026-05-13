@@ -21,16 +21,6 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { ActivityTimeline } from "@/components/activity-timeline";
 import { ProfileCompletionNotice } from "@/components/dashboard/profile-completion-notice";
-import { AgentChatModal } from "@/components/chat/agent-chat-modal";
-
-interface AgentConfig {
-  id: string;
-  name: string;
-  description: string;
-  icon: React.ReactNode;
-}
-
-
 interface NaturalDashboardData {
   solicitudes: { total: number; pendientes: number; aprobadas: number };
   documentos: number;
@@ -60,13 +50,6 @@ export default function DashboardPersonalPage() {
   const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
   const [clientTimeStr, setClientTimeStr] = useState<string | null>(null);
   const [clientDateStr, setClientDateStr] = useState<string | null>(null);
-  const [isAgentChatOpen, setIsAgentChatOpen] = useState(false);
-  const [selectedAgent, setSelectedAgent] = useState<AgentConfig | null>(null);
-
-  const openAgentChat = (config: AgentConfig) => {
-    setSelectedAgent(config);
-    setIsAgentChatOpen(true);
-  };
 
   useEffect(() => {
 
@@ -341,26 +324,20 @@ export default function DashboardPersonalPage() {
             <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-blue-500/[0.06] blur-[50px]" />
             <div className="relative z-10">
               <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="h-3.5 w-3.5 text-blue-500" />
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-500/60">IA Jurídica</span>
+                <Scale className="h-3.5 w-3.5 text-blue-500" />
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-500/60">Escritorio Jurídico</span>
               </div>
               <h3 className="text-sm font-bold text-foreground/90 mb-1">Asistencia Legal</h3>
               <p className="text-[10px] text-muted-foreground/60 mb-4 leading-relaxed">
-                ¿Dudas sobre ISLR o trámites sucesorales? Solicita orientación.
+                Gestión de trámites sucesorales, mercantiles y civiles ante entes públicos.
               </p>
               <Button 
-                onClick={() => openAgentChat({
-                  id: 'legal',
-                  name: 'Consultor Legal System Kyron',
-                  description: 'Experto en Derecho Mercantil, Civil y Laboral venezolano.',
-                  icon: <Scale className="h-6 w-6" />
-                })}
+                asChild
                 size="sm" 
                 className="w-full h-8 text-[10px] font-semibold rounded-lg bg-primary/10 border border-primary/20 text-primary hover:bg-primary/15"
               >
-                Pedir ayuda IA
+                <Link href="/documentos">Gestionar Documentos</Link>
               </Button>
-
             </div>
           </Card>
 
@@ -523,17 +500,12 @@ export default function DashboardPersonalPage() {
               </div>
             </div>
             <Button 
-              onClick={() => openAgentChat({
-                id: 'saime',
-                name: 'Agente SAIME',
-                description: 'Consultoría en pasaportes, cédulas y trámites de identidad.',
-                icon: <Fingerprint className="h-6 w-6" />
-              })}
+              asChild
               variant="outline" 
               size="sm" 
               className="w-full h-8 text-[10px] bg-background/50 border-border/40 shadow-none hover:bg-blue-500/5 hover:text-blue-500 relative z-10"
             >
-              Ver datos biométricos
+              <Link href="/tarjeta-digital">Ver datos biométricos</Link>
             </Button>
 
           </Card>
@@ -562,17 +534,12 @@ export default function DashboardPersonalPage() {
               </div>
             </div>
             <Button 
-              onClick={() => openAgentChat({
-                id: 'seniat',
-                name: 'Agente SENIAT',
-                description: 'Especialista en Tributación, RIF, IVA e ISLR.',
-                icon: <FileText className="h-6 w-6" />
-              })}
+              asChild
               variant="outline" 
               size="sm" 
               className="w-full h-8 text-[10px] bg-background/50 border-border/40 shadow-none hover:bg-amber-500/5 hover:text-amber-500 relative z-10"
             >
-              Consultar RIF Digital
+              <Link href="/registro-rif">Consultar RIF Digital</Link>
             </Button>
 
           </Card>
@@ -601,17 +568,12 @@ export default function DashboardPersonalPage() {
               </div>
             </div>
              <Button 
-              onClick={() => openAgentChat({
-                id: 'ivss',
-                name: 'Agente IVSS & FAOV',
-                description: 'Gestión de pensiones, cotizaciones y seguridad social.',
-                icon: <Heart className="h-6 w-6" />
-              })}
+              asChild
               variant="outline" 
               size="sm" 
               className="w-full h-8 text-[10px] bg-background/50 border-border/40 shadow-none hover:bg-rose-500/5 hover:text-rose-500 relative z-10"
              >
-              Descargar Solvencias
+              <Link href="/documentos">Descargar Solvencias</Link>
             </Button>
 
           </Card>
@@ -626,16 +588,6 @@ export default function DashboardPersonalPage() {
         <ActivityTimeline limit={8} />
       </motion.div>
 
-      {selectedAgent && (
-        <AgentChatModal
-          isOpen={isAgentChatOpen}
-          onClose={() => setIsAgentChatOpen(false)}
-          agentId={selectedAgent.id}
-          agentName={selectedAgent.name}
-          agentDescription={selectedAgent.description}
-          agentIcon={selectedAgent.icon}
-        />
-      )}
     </div>
   );
 }

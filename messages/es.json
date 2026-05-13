@@ -33,7 +33,7 @@
         "cta_main": "Empieza ahora",
         "cta_secondary": "Ver cómo funciona",
         "pitch_button": "EXPLORAR PORTAL",
-        "subtitle_hero": "Infraestructura móvil de grado empresarial, gestión fiscal automatizada y consultoría con IA. Todo en un ecosistema unificado para el sector privado venezolano.",
+        "subtitle_hero": "Infraestructura móvil de grado empresarial, gestión fiscal automatizada y consultoría avanzada. Todo en un ecosistema unificado para el sector privado venezolano.",
         "security_label": "ENCRIPTACIÓN",
         "live_users_label": "USUARIOS ELITE",
         "features": ["Contabilidad Fácil", "Internet 5G", "Tasa BCV Real", "Soporte 24/7"],
@@ -46,7 +46,7 @@
             { "val": "BCV", "label": "Sincronizado" },
             { "val": "VEN-NIF", "label": "Sin errores" }
         ],
-        "rotating_words": ["Inteligencia Total", "Precisión Fiscal", "Automatización IA", "Riesgo Cero"]
+        "rotating_words": ["Inteligencia Total", "Precisión Fiscal", "Automatización Líder", "Riesgo Cero"]
     },
     "FeaturesSection": {
         "badge": "Rendimiento Superior",
@@ -56,10 +56,10 @@
         "features": [
             { "title": "Fiscalidad VEN-NIF", "description": "Automatización total de libros de compra/venta, IGTF y declaraciones SENIAT con tasa BCV en tiempo real." },
             { "title": "Telecom 5G Nativo", "description": "Única plataforma que gestiona tu flota de eSIMs y líneas corporativas directamente desde el panel administrativo." },
-            { "title": "IA Legal Elite", "description": "Asistente jurídico basado en Claude 3.5 para redacción de contratos y blindaje ante auditorías laborales LOTTT." },
+            { "title": "Gestión Legal Elite", "description": "Protocolos jurídicos avanzados para redacción de contratos y blindaje ante auditorías laborales LOTTT." },
             { "title": "RRHH & Nómina", "description": "Cálculos exactos de prestaciones, utilidades y bono de alimentación bajo la normativa venezolana vigente." },
             { "title": "Kyron Shield", "description": "Protocolo de contingencia extrema: reposición de hardware en 1h y defensa pericial ante fiscalizaciones." },
-            { "title": "Sostenibilidad", "description": "Certificación de huella verde y gestión de eco-créditos corporativos integrados con Ameru.AI." }
+            { "title": "Sostenibilidad", "description": "Certificación de huella verde y gestión de eco-créditos corporativos integrados con Ameru." }
         ],
         "speed_title": "Tiempo de Respuesta",
         "speed_subtitle": "Milisegundos promedio por operación",
@@ -94,10 +94,10 @@
         "per_year": "/año",
         "tab_combo": "Combo Todo Incluido",
         "tab_individual": "Módulos Individuales",
-        "tab_budget": "IA Presupuesto",
+        "tab_budget": "Presupuesto",
         "tab_combo_desc": "Ahorra hasta un 40% contratando todos los módulos en un solo plan.",
         "tab_individual_desc": "Contrata solo los módulos que necesitas, cada uno con sus propios planes.",
-        "tab_budget_desc": "Dinos qué necesitas y nuestra IA te arma el presupuesto ideal al instante.",
+        "tab_budget_desc": "Dinos qué necesitas y nuestro sistema te arma el presupuesto ideal al instante.",
         "select_module": "Ver Planes",
         "price_from": "desde",
         "see_all_plans": "Ver todos los planes",
@@ -108,11 +108,11 @@
                 "name": "Personal",
                 "description": "Cuenta personal con herramientas básicas",
                 "cta": "Comenzar Gratis",
-                "features": ["Cuenta Personal completa", "Tasa BCV en vivo", "Chat AI (50 msgs/mes)", "Alertas SENIAT (10/mes)", "Consulta RIF/Cédula"],
+                "features": ["Cuenta Personal completa", "Tasa BCV en vivo", "Soporte Especializado", "Alertas SENIAT (10/mes)", "Consulta RIF/Cédula"],
                 "details": {
                     "sections": [
                         { "title": "Cuenta Personal", "items": ["Panel personal completo", "Documentos de identidad", "Directorio fiscal", "Tasa BCV en vivo"] },
-                        { "title": "IA Kyron", "items": ["Chat AI — 50 mensajes/mes", "Consulta básica de normativas"] },
+                        { "title": "Infraestructura Kyron", "items": ["Soporte Especializado — 24/7", "Consulta de normativas vigentes"] },
                         { "title": "Herramientas", "items": ["Consulta RIF/Cédula", "Alertas SENIAT (10/mes)", "Calculadora fiscal básica"] }
                     ]
                 }
@@ -127,7 +127,7 @@
                         { "title": "Asesoría Contable — Profesional", "items": ["Libros legales (Diario, Mayor, Inventario)", "Centro Tributario (IVA, ISLR, IGTF)", "Retenciones automáticas", "Simulador de multas COT", "Exportación Excel", "3 usuarios"] },
                         { "title": "Facturación — Comercial", "items": ["300 facturas/mes", "Punto de Venta (POS)", "Notas débito/crédito", "Análisis comercial"] },
                         { "title": "Mi Línea — Conecta 5 GB", "items": ["5 GB datos 4G LTE", "150 min nacionales", "Redes sociales ilimitadas"] },
-                        { "title": "IA Kyron", "items": ["Chat AI — 200 mensajes/mes", "Asistente contable inteligente"] }
+                        { "title": "Soporte Kyron", "items": ["Soporte Técnico de Guardia", "Asistente contable especializado"] }
                     ]
                 }
             },
@@ -138,12 +138,12 @@
                 "features": ["TODOS los módulos incluidos", "Asesoría Contable avanzada", "Asesoría Legal completa", "Facturación ilimitada", "Socios y Directivos"],
                 "details": {
                     "sections": [
-                        { "title": "Asesoría Contable — Avanzado", "items": ["IA Fiscal para consultas", "Declaraciones asistidas (12/año)", "Conciliación bancaria", "Asientos automáticos", "Auditoría forense", "5 usuarios"] },
+                        { "title": "Asesoría Contable — Avanzado", "items": ["Centro Fiscal para consultas", "Declaraciones asistidas (12/año)", "Conciliación bancaria", "Asientos automáticos", "Auditoría forense", "5 usuarios"] },
                         { "title": "Asesoría Legal — Escritorio Jurídico", "items": ["Control de litigios", "Marco Legal VE completo", "Contratos ilimitados", "Calendario de audiencias"] },
                         { "title": "Facturación — Enterprise", "items": ["Facturas ilimitadas", "Multi-sucursal", "Pasarelas de pago", "Facturación electrónica"] },
                         { "title": "Mi Línea — Global 25 GB", "items": ["25 GB datos 5G", "Llamadas nacionales ilimitadas", "60 min internacionales", "Hotspot 10 GB"] },
                         { "title": "Socios y Directivos — Profesional", "items": ["Socios ilimitados", "Gobierno corporativo", "Reportes para accionistas"] },
-                        { "title": "IA Kyron", "items": ["Chat AI — 500 mensajes/mes", "IA Fiscal avanzada", "Generación de reportes"] }
+                        { "title": "Gestión Kyron", "items": ["Soporte Prioritario", "Gestión Fiscal avanzada", "Generación de reportes"] }
                     ]
                 }
             },
@@ -151,16 +151,16 @@
                 "name": "Kyron MAX",
                 "description": "Todo ilimitado, sin restricciones",
                 "cta": "Escríbenos",
-                "features": ["TODOS los módulos sin límites", "IA Claude ilimitado 24/7", "Facturación ilimitada", "Mi Línea Jurídica ilimitada", "Asesoría Contable MAX"],
+                "features": ["TODOS los módulos sin límites", "Soporte VIP 24/7", "Facturación ilimitada", "Mi Línea Jurídica ilimitada", "Asesoría Contable MAX"],
                 "details": {
                     "sections": [
                         { "title": "Asesoría Contable — MAX", "items": ["Dictamen de Contador Público", "Blockchain audit trail", "Multi-empresa", "Usuarios ilimitados", "Soporte VIP 24/7", "API de integración"] },
-                        { "title": "Asesoría Legal — MAX", "items": ["IA Legal avanzada", "Due diligence completo", "Multi-empresa", "Contratos ilimitados"] },
+                        { "title": "Asesoría Legal — MAX", "items": ["Gestión Legal avanzada", "Due diligence completo", "Multi-empresa", "Contratos ilimitados"] },
                         { "title": "Facturación — MAX", "items": ["Facturación electrónica ilimitada", "Multi-empresa", "Automatización total", "Integraciones API"] },
                         { "title": "Mi Línea Jurídica — Enterprise", "items": ["Líneas ilimitadas", "Datos ilimitados 5G", "VPN corporativa", "MDM completo"] },
                         { "title": "Mi Línea Personal — Infinite", "items": ["Datos ilimitados 5G Ultra", "Llamadas internacionales ilimitadas", "eSIM múltiple"] },
                         { "title": "Socios y Directivos — Enterprise", "items": ["Multi-empresa", "Blockchain proof", "Soporte dedicado 24/7"] },
-                        { "title": "IA Kyron", "items": ["IA Claude ilimitada 24/7", "Reportes ejecutivos automáticos", "Análisis predictivo", "Prioridad máxima"] }
+                        { "title": "Soporte Kyron", "items": ["Soporte VIP ilimitado 24/7", "Reportes ejecutivos automáticos", "Análisis estratégico", "Prioridad máxima"] }
                     ]
                 }
             }
@@ -197,23 +197,23 @@
             {
                 "name": "Asesoría Contable",
                 "description": "Contabilidad VEN-NIF completa",
-                "features": ["Libros legales", "Centro Tributario", "Retenciones automáticas", "IA Fiscal"],
+                "features": ["Libros legales", "Centro Tributario", "Retenciones automáticas", "Gestión Fiscal"],
                 "tiers": [
                     { "name": "Esencial", "price": 8, "highlight": "Libros legales · IVA · 1 usuario" },
                     { "name": "Profesional", "price": 18, "highlight": "Centro Tributario · Retenciones · 3 usuarios" },
-                    { "name": "Avanzado", "price": 35, "highlight": "IA Fiscal · Conciliación · Auditoría · 5 usuarios" },
+                    { "name": "Avanzado", "price": 35, "highlight": "Gestión Fiscal · Conciliación · Auditoría · 5 usuarios" },
                     { "name": "MAX", "price": 60, "highlight": "Dictamen CP · Blockchain · Multi-empresa · Ilimitados" }
                 ]
             },
             {
                 "name": "Asesoría Legal",
-                "description": "Documentos e IA legal",
-                "features": ["Generador con IA", "Contratos ilimitados", "Control de litigios", "Marco Legal VE"],
+                "description": "Documentos y gestión legal",
+                "features": ["Generador Sistematizado", "Contratos ilimitados", "Control de litigios", "Marco Legal VE"],
                 "tiers": [
-                    { "name": "Documentos", "price": 5, "highlight": "Generador IA · 10 docs/mes · Plantillas" },
+                    { "name": "Documentos", "price": 5, "highlight": "Generador de Docs · 10 docs/mes · Plantillas" },
                     { "name": "Profesional", "price": 15, "highlight": "Contratos ilimitados · Marco Legal VE" },
-                    { "name": "Escritorio Jurídico", "price": 30, "highlight": "Litigios · Audiencias · Contratos · IA Legal" },
-                    { "name": "MAX", "price": 50, "highlight": "Due Diligence · Multi-empresa · IA avanzada" }
+                    { "name": "Escritorio Jurídico", "price": 30, "highlight": "Litigios · Audiencias · Contratos · Gestión Legal" },
+                    { "name": "MAX", "price": 50, "highlight": "Due Diligence · Multi-empresa · Gestión avanzada" }
                 ]
             },
             {
@@ -253,10 +253,10 @@
                 "badges": ["AES-256", "JWT", "HTTPS", "Auditoría"]
             },
             {
-                "title": "Inteligencia Artificial",
-                "subtitle": "Kyron AI · Claude (Anthropic)",
-                "description": "IA fiscal potenciada por Claude de Anthropic. Monitorea la Gaceta Oficial, asistente contable inteligente, análisis predictivo de flujo de caja, y generación automática de reportes ejecutivos.",
-                "badges": ["Kyron AI", "Claude", "Chat IA", "Reportes"]
+                "title": "Automatización Fiscal",
+                "subtitle": "Gestión Avanzada · Análisis · Reportes",
+                "description": "Sistema de gestión fiscal optimizado. Monitorea la Gaceta Oficial, asistente contable especializado, análisis de flujo de caja, y generación automática de reportes ejecutivos.",
+                "badges": ["Automatización", "Precisión", "Reportes"]
             }
         ],
         "modules": [
@@ -275,7 +275,7 @@
         "stat_modules": "Módulos Integrados",
         "stat_encryption": "Cifrado Empresarial",
         "stat_compliance": "Cumplimiento Fiscal",
-        "stat_support": "Soporte IA Activo",
+        "stat_support": "Soporte Técnico Activo",
         "start_now": "Comenzar Ahora"
     },
     "BudgetConfigurator": {
@@ -293,8 +293,8 @@
         "budget_low": "Económico",
         "budget_medium": "Equilibrado",
         "budget_high": "Premium",
-        "generate_button": "Generar Presupuesto con IA",
-        "generating": "Analizando...",
+        "generate_button": "Generar Presupuesto",
+        "generating": "Calculando...",
         "result_title": "Tu Presupuesto Personalizado",
         "plan_label": "Plan",
         "total_individual": "Total Módulos Individuales",
@@ -335,7 +335,7 @@
         "items": [
             {
                 "question": "¿Cómo garantizan el cumplimiento fiscal?",
-                "answer": "Monitoreamos la Gaceta Oficial con IA. IVA 16%, IGTF 3% e ISLR se calculan automáticamente según la normativa VEN-NIF vigente.",
+                "answer": "Monitoreamos la Gaceta Oficial mediante algoritmos de vigilancia normativa. IVA 16%, IGTF 3% e ISLR se calculan automáticamente según la normativa VEN-NIF vigente.",
                 "category": "fiscal"
             },
             {
@@ -425,7 +425,7 @@
         "nav_contact": "Contacto",
         "module_list": [
             "Contabilidad VEN-NIF", "RRHH & Nómina", "Mi Línea 5G / eSIM",
-            "IA Legal & Permisos", "Ameru Eco-Créditos", "Analítica Avanzada",
+            "Gestión Legal & Permisos", "Ameru Eco-Créditos", "Analítica Avanzada",
             "Facturación SENIAT", "Tributos & Retenciones", "Dashboard Ejecutivo"
         ],
         "version_stable": "v2.8.5 — Estable",
@@ -440,7 +440,7 @@
         "line1": "Tu empresa.",
         "line2": "Toda.",
         "line3": "En un solo lugar.",
-        "subtitle": "Contabilidad, nóminas, facturación, 5G y mucho más — diseñado para Venezuela, con IA integrada y cumplimiento fiscal automatizado.",
+        "subtitle": "Contabilidad, nóminas, facturación, 5G y mucho más — diseñado para Venezuela, con automatización integrada y cumplimiento fiscal automatizado.",
         "highlights_subtitle": "Todo lo que tu empresa necesita",
         "highlights_title": "Un ecosistema completo.",
         "power_subtitle": "Poder sin precedentes",
@@ -450,7 +450,7 @@
         "highlights": [
             { "label": "Contabilidad & Fiscal", "desc": "IVA, IGTF e ISLR automáticos. Libros VEN-NIF y cumplimiento SENIAT en tiempo real.", "stat": "VEN-NIF", "statLabel": "Cumplimiento fiscal" },
             { "label": "Mi Línea 5G", "desc": "Provisión de eSIM 5G, gestión de flota móvil empresarial y conectividad de alto rendimiento.", "stat": "5G", "statLabel": "Velocidad de red" },
-            { "label": "IA Integrada", "desc": "Kyron AI potenciado por Claude de Anthropic. Automatiza reportes, documentos y análisis.", "stat": "IA", "statLabel": "Claude · Anthropic" },
+            { "label": "Automatización", "desc": "Motores de gestión avanzada. Automatiza reportes, documentos y análisis de datos.", "stat": "Elite", "statLabel": "Gestión Sistematizada" },
             { "label": "Seguridad AES-256", "desc": "Cifrado de grado bancario, JWT HTTP-only y auditoría inmutable de cada operación.", "stat": "256", "statLabel": "Bits de cifrado" },
             { "label": "RR.HH & Nómina", "desc": "Gestión LOTTT completa: nóminas, beneficios, vacaciones y liquidaciones en un clic.", "stat": "LOTTT", "statLabel": "Marco legal" },
             { "label": "Facturación Fiscal", "desc": "Facturas y notas crédito/débito con validación IGTF y tasa BCV automática.", "stat": "3%", "statLabel": "IGTF automático" }
@@ -466,16 +466,16 @@
         "subtitle": "Inteligencia Corporativa"
     },
     "HowItWorksSection": {
-        "badge": "IA de Vanguardia",
+        "badge": "Gestión de Vanguardia",
         "title_highlight": "Potenciado por",
-        "title_rest": "Motores de IA",
-        "subtitle": "Interconectamos los modelos de lenguaje más avanzados del mundo para ofrecerte precisión absoluta en contabilidad, legal y análisis.",
+        "title_rest": "Motores de Datos",
+        "subtitle": "Interconectamos infraestructuras tecnológicas avanzadas para ofrecerte precisión absoluta en contabilidad, legal y análisis.",
         "demo_label": "INTERACCIÓN EN TIEMPO REAL",
         "cta": "Explorar Capacidades",
         "capabilities": [
             {
-                "title": "Asistente Fiscal Inteligente",
-                "description": "Análisis profundo de la Gaceta Oficial, leyes tributarias y cumplimiento SENIAT. Consultas complejas resueltas en segundos.",
+                "title": "Centro Fiscal Especializado",
+                "description": "Análisis profundo de la Gaceta Oficial, leyes tributarias y cumplimiento SENIAT. Consultas técnicas resueltas con precisión.",
                 "demo_user": "¿Cuál es el límite de retención de ISLR para servicios profesionales según el Decreto 1.808?",
                 "demo_system": "Consultando Gaceta Oficial y Base Legal VEN-NIF...",
                 "demo_ai": "Para servicios profesionales pagados a personas naturales residentes, la retención es del 3% sobre el excedente de 83.33 UT. Si es persona jurídica domiciliada, es el 5% sobre el total abonado."
@@ -488,7 +488,7 @@
             },
             {
                 "title": "Análisis de Datos & Flujo",
-                "description": "Proyecciones financieras, detección de anomalías en transacciones y optimización de flujo de caja mediante redes neuronales.",
+                "description": "Proyecciones financieras, detección de anomalías en transacciones y optimización de flujo de caja mediante algoritmos de análisis.",
                 "demo_ai": "He detectado una anomalía en la partida de 'Gastos Operativos'. Los pagos de servicios eléctricos han aumentado un 45% respecto al trimestre anterior sin un aumento correlativo en la producción. Recomiendo auditoría de consumo."
             }
         ]
@@ -625,7 +625,7 @@
         "igtf": "IGTF 3% Integrado",
         "lottt": "LOTTT Automatizado",
         "lopcymat": "LOPCYMAT Incluido",
-        "gazette": "Gaceta Oficial IA"
+        "gazette": "Gaceta Oficial Al día"
     },
     "CommentsSection": {
         "badge": "Comentarios Reales",
@@ -664,10 +664,10 @@
         "cta": "Comenzar Ahora",
         "differentiators": [
             { "title": "100% Venezolano", "description": "Diseñado para la normativa VEN-NIF, SENIAT, LOTTT y BCV. No es una adaptación genérica." },
-            { "title": "IA Integrada", "description": "Claude de Anthropic potencia análisis fiscal, generación de documentos y asistencia contable." },
+            { "title": "Gestión de Datos", "description": "Algoritmos avanzados potencian análisis fiscal, generación de documentos y asistencia contable." },
             { "title": "Seguridad AES-256", "description": "Cifrado de grado bancario, JWT HTTP-only y registro de auditoría inmutable." },
             { "title": "Velocidad Superior", "description": "120ms de respuesta promedio. 3x más rápido que Odoo y 7x más que SAP." },
-            { "title": "Todo en Uno", "description": "Contabilidad, nómina, facturación, telecom, legal e IA en una sola plataforma." },
+            { "title": "Todo en Uno", "description": "Contabilidad, nómina, facturación, telecom, legal y gestión en una sola plataforma." },
             { "title": "Soporte 24/7", "description": "Equipo técnico local con conocimiento profundo del ecosistema fiscal venezolano." }
         ],
         "comparison_title_kyron": "System Kyron",
@@ -680,7 +680,7 @@
             "Tasa BCV en Tiempo Real",
             "IGTF 3% Automático",
             "Nómina LOTTT Completa",
-            "IA Fiscal Integrada",
+            "Gestión Fiscal Integrada",
             "eSIM / 5G Corporativo",
             "Eco-Créditos Certificados",
             "Cifrado AES-256"
@@ -736,7 +736,7 @@
             { "name": "RRHH & Nómina", "desc": "Nómina LOTTT, prestaciones, vacaciones y utilidades." },
             { "name": "Gestión Legal", "desc": "Contratos, poderes, permisos y documentos legales." },
             { "name": "Mi Línea 5G", "desc": "eSIM, flota corporativa, consumo y telemetría." },
-            { "name": "Kyron AI", "desc": "IA fiscal potenciada por Claude de Anthropic." },
+            { "name": "Asistencia Especializada", "desc": "Soporte técnico y fiscal de guardia 24/7." },
             { "name": "Dashboard & Analítica", "desc": "KPIs en tiempo real y reportes ejecutivos." },
             { "name": "Tributos", "desc": "IVA, ISLR, IGTF, parafiscales y calendario fiscal." },
             { "name": "Seguridad", "desc": "AES-256, JWT, auditoría inmutable." },

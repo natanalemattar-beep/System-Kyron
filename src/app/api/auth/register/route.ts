@@ -362,7 +362,7 @@ async function sendWelcomeEmail(email: string, nombre: string) {
                 <ul style="margin: 0 0 16px 0; padding-left: 20px;">
                     <li style="margin-bottom: 6px;">Configurar tu perfil y datos fiscales</li>
                     <li style="margin-bottom: 6px;">Explorar los 7+ módulos integrados</li>
-                    <li style="margin-bottom: 6px;">Activar Kyron AI para asistencia inteligente</li>
+                    <li style="margin-bottom: 6px;">Consultar la guía de usuario paso a paso</li>
                     <li style="margin-bottom: 6px;">Generar tu primera factura con IVA y tasa BCV automática</li>
                 </ul>
                 <p style="margin: 0;">Tu cuenta incluye cifrado AES-256 y auditoría inmutable desde el primer momento.</p>

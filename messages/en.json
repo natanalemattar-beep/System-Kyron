@@ -27,16 +27,16 @@
         "title_line2": "in a Single",
         "title_line3": "Ecosystem",
         "slogan": "Corporate Intelligence · Mission-Critical Ecosystem",
-        "subtitle": "5G connectivity, automated tax management, and AI-powered consultancy. Everything interconnected in an indomitable infrastructure designed for the future.",
+        "subtitle": "5G connectivity, automated tax management, and advanced consultancy. Everything interconnected in an indomitable infrastructure designed for the future.",
         "badge": "Elite Digital Ecosystem",
         "badge_text": "Lines · eSIM · Elite Management",
         "cta_main": "Register now",
         "cta_secondary": "View plans",
         "pitch_button": "EXPLORE PORTAL",
-        "subtitle_hero": "Enterprise-grade mobile infrastructure, automated tax management, and AI-powered consultancy. Everything in a unified ecosystem for the Venezuelan private sector.",
+        "subtitle_hero": "Enterprise-grade mobile infrastructure, automated tax management, and advanced consultancy. Everything in a unified ecosystem for the Venezuelan private sector.",
         "security_label": "ENCRYPTION",
         "live_users_label": "ELITE USERS",
-        "features": ["VEN-NIF Certified", "IVA & IGTF Auto", "BCV Real-Time", "AI Integrated"],
+        "features": ["VEN-NIF Certified", "IVA & IGTF Auto", "BCV Real-Time", "Advanced Support"],
         "compliance": "Compliance",
         "modules_label": "Modules",
         "modules_value": "7 Integrated",
@@ -46,7 +46,7 @@
             { "val": "BCV", "label": "Real-Time" },
             { "val": "VEN-NIF", "label": "Certified" }
         ],
-        "rotating_words": ["Total Intelligence", "Tax Precision", "AI Automation", "Zero Risk"]
+        "rotating_words": ["Total Intelligence", "Tax Precision", "System Automation", "Zero Risk"]
     },
     "FeaturesSection": {
         "badge": "Superior Performance",
@@ -86,10 +86,10 @@
         "per_year": "/yr",
         "tab_combo": "All-In-One Combo",
         "tab_individual": "Individual Modules",
-        "tab_budget": "AI Budget",
+        "tab_budget": "Budget",
         "tab_combo_desc": "Save up to 40% by bundling all modules into a single plan.",
         "tab_individual_desc": "Choose only the modules you need, each with its own pricing tiers.",
-        "tab_budget_desc": "Tell us what you need and our AI builds the ideal budget for you instantly.",
+        "tab_budget_desc": "Tell us what you need and our system builds the ideal budget for you instantly.",
         "select_module": "View Plans",
         "price_from": "from",
         "see_all_plans": "See all plans",
@@ -100,11 +100,11 @@
                 "name": "Personal",
                 "description": "Personal account with basic tools",
                 "cta": "Start Free",
-                "features": ["Complete Personal Account", "Live BCV rate", "AI Chat (50 msgs/mo)", "SENIAT Alerts (10/mo)", "RIF/ID Lookup"],
+                "features": ["Complete Personal Account", "Live BCV rate", "Specialized Support", "SENIAT Alerts (10/mo)", "RIF/ID Lookup"],
                 "details": {
                     "sections": [
                         { "title": "Personal Account", "items": ["Complete personal panel", "Identity documents", "Tax directory", "Live BCV rate"] },
-                        { "title": "Kyron AI", "items": ["AI Chat — 50 messages/mo", "Basic regulation queries"] },
+                        { "title": "Kyron Infrastructure", "items": ["Specialized Support — 24/7", "Basic regulation queries"] },
                         { "title": "Tools", "items": ["RIF/ID Lookup", "SENIAT Alerts (10/mo)", "Basic tax calculator"] }
                     ]
                 }
@@ -119,7 +119,7 @@
                         { "title": "Accounting — Professional", "items": ["Legal books (Journal, Ledger, Inventory)", "Tax Center (IVA, ISLR, IGTF)", "Automatic withholdings", "COT penalty simulator", "Excel export", "3 users"] },
                         { "title": "Invoicing — Commercial", "items": ["300 invoices/mo", "Point of Sale (POS)", "Debit/credit notes", "Sales analytics"] },
                         { "title": "My Line — Conecta 5 GB", "items": ["5 GB 4G LTE data", "150 min national calls", "Unlimited social media"] },
-                        { "title": "Kyron AI", "items": ["AI Chat — 200 messages/mo", "Smart accounting assistant"] }
+                        { "title": "Kyron Support", "items": ["Support Desk — 24/7", "Smart accounting assistant"] }
                     ]
                 }
             },
@@ -130,12 +130,12 @@
                 "features": ["ALL modules included", "Advanced Accounting", "Full Legal Advisory", "Unlimited Invoicing", "Partners & Directors"],
                 "details": {
                     "sections": [
-                        { "title": "Accounting — Advanced", "items": ["Tax AI for queries", "Assisted filings (12/yr)", "Bank reconciliation", "Auto journal entries", "Forensic audit", "5 users"] },
+                        { "title": "Accounting — Advanced", "items": ["Tax Center for queries", "Assisted filings (12/yr)", "Bank reconciliation", "Auto journal entries", "Forensic audit", "5 users"] },
                         { "title": "Legal Advisory — Law Office", "items": ["Litigation tracking", "Full VE Legal Framework", "Unlimited contracts", "Hearing calendar"] },
                         { "title": "Invoicing — Enterprise", "items": ["Unlimited invoices", "Multi-branch", "Payment gateways", "Electronic invoicing"] },
                         { "title": "My Line — Global 25 GB", "items": ["25 GB 5G data", "Unlimited national calls", "60 min international", "10 GB Hotspot"] },
                         { "title": "Partners & Directors — Professional", "items": ["Unlimited partners", "Corporate governance", "Shareholder reports"] },
-                        { "title": "Kyron AI", "items": ["AI Chat — 500 messages/mo", "Advanced Tax AI", "Report generation"] }
+                        { "title": "Kyron Management", "items": ["Priority Support", "Advanced Tax Management", "Report generation"] }
                     ]
                 }
             },
@@ -143,16 +143,16 @@
                 "name": "Kyron MAX",
                 "description": "Everything unlimited, no restrictions",
                 "cta": "Contact Us",
-                "features": ["ALL modules, no limits", "Unlimited Claude AI 24/7", "Unlimited Invoicing", "Unlimited Corporate Lines", "MAX Accounting"],
+                "features": ["ALL modules included", "Priority Support 24/7", "Unlimited Invoicing", "Unlimited Corporate Lines", "MAX Accounting"],
                 "details": {
                     "sections": [
                         { "title": "Accounting — MAX", "items": ["CPA Opinion Letter", "Blockchain audit trail", "Multi-company", "Unlimited users", "VIP Support 24/7", "API integration"] },
-                        { "title": "Legal Advisory — MAX", "items": ["Advanced Legal AI", "Full due diligence", "Multi-company", "Unlimited contracts"] },
+                        { "title": "Legal Advisory — MAX", "items": ["Advanced Legal Management", "Full due diligence", "Multi-company", "Unlimited contracts"] },
                         { "title": "Invoicing — MAX", "items": ["Unlimited electronic invoicing", "Multi-company", "Full automation", "API integrations"] },
                         { "title": "Corporate Lines — Enterprise", "items": ["Unlimited lines", "Unlimited 5G data", "Corporate VPN", "Full MDM"] },
                         { "title": "Personal Line — Infinite", "items": ["Unlimited 5G Ultra data", "Unlimited international calls", "Multiple eSIM"] },
                         { "title": "Partners & Directors — Enterprise", "items": ["Multi-company", "Blockchain proof", "Dedicated support 24/7"] },
-                        { "title": "Kyron AI", "items": ["Unlimited Claude AI 24/7", "Auto executive reports", "Predictive analytics", "Top priority"] }
+                        { "title": "Kyron Support", "items": ["Unlimited VIP Support 24/7", "Auto executive reports", "Strategic analytics", "Top priority"] }
                     ]
                 }
             }
@@ -189,23 +189,23 @@
             {
                 "name": "Accounting Advisory",
                 "description": "Full VEN-NIF accounting",
-                "features": ["Legal books", "Tax Center", "Auto withholdings", "Tax AI"],
+                "features": ["Legal books", "Tax Center", "Auto withholdings", "Tax Management"],
                 "tiers": [
                     { "name": "Essential", "price": 8, "highlight": "Legal books · VAT · 1 user" },
                     { "name": "Professional", "price": 18, "highlight": "Tax Center · Withholdings · 3 users" },
-                    { "name": "Advanced", "price": 35, "highlight": "Fiscal AI · Reconciliation · Audit · 5 users" },
+                    { "name": "Advanced", "price": 35, "highlight": "Fiscal Management · Reconciliation · Audit · 5 users" },
                     { "name": "MAX", "price": 60, "highlight": "CPA Report · Blockchain · Multi-company · Unlimited" }
                 ]
             },
             {
                 "name": "Legal Advisory",
-                "description": "AI-powered legal docs",
-                "features": ["AI document generator", "Unlimited contracts", "Litigation tracking", "VE Legal Framework"],
+                "description": "Sistematized legal docs",
+                "features": ["Sistematized doc generator", "Unlimited contracts", "Litigation tracking", "VE Legal Framework"],
                 "tiers": [
-                    { "name": "Documents", "price": 5, "highlight": "AI Generator · 10 docs/mo · Templates" },
+                    { "name": "Documents", "price": 5, "highlight": "Doc Generator · 10 docs/mo · Templates" },
                     { "name": "Professional", "price": 15, "highlight": "Unlimited contracts · VE Legal Framework" },
-                    { "name": "Law Office", "price": 30, "highlight": "Litigation · Hearings · Contracts · Legal AI" },
-                    { "name": "MAX", "price": 50, "highlight": "Due Diligence · Multi-company · Advanced AI" }
+                    { "name": "Law Office", "price": 30, "highlight": "Litigation · Hearings · Contracts · Legal Management" },
+                    { "name": "MAX", "price": 50, "highlight": "Due Diligence · Multi-company · Advanced Management" }
                 ]
             },
             {
@@ -245,10 +245,10 @@
                 "badges": ["AES-256", "JWT", "HTTPS", "Audit"]
             },
             {
-                "title": "Artificial Intelligence",
-                "subtitle": "Kyron AI · Claude (Anthropic)",
-                "description": "AI powered by Claude from Anthropic. Tax monitoring of the Official Gazette, smart accounting assistant, predictive cash-flow analysis, and automatic executive report generation.",
-                "badges": ["Kyron AI", "Claude", "AI Chat", "Reports"]
+                "title": "Tax Automation",
+                "subtitle": "Advanced Management · Analytics · Reports",
+                "description": "Optimized tax management system. Monitoring of the Official Gazette, specialized accounting assistance, cash-flow analysis, and automatic executive report generation.",
+                "badges": ["Automation", "Precision", "Reports"]
             }
         ],
         "modules": [
@@ -267,7 +267,7 @@
         "stat_modules": "Integrated Modules",
         "stat_encryption": "Enterprise Encryption",
         "stat_compliance": "Tax Compliance",
-        "stat_support": "Active AI Support",
+        "stat_support": "Active Tech Support",
         "start_now": "Get Started"
     },
     "BudgetConfigurator": {
@@ -285,7 +285,7 @@
         "budget_low": "Budget",
         "budget_medium": "Balanced",
         "budget_high": "Premium",
-        "generate_button": "Generate AI Budget",
+        "generate_button": "Generate Budget",
         "generating": "Analyzing...",
         "result_title": "Your Custom Budget",
         "plan_label": "Plan",
@@ -327,7 +327,7 @@
         "items": [
             {
                 "question": "How do you guarantee tax compliance?",
-                "answer": "We monitor the Official Gazette with AI. IVA 16%, IGTF 3% and ISLR are calculated automatically according to current VEN-NIF regulations.",
+                "answer": "We monitor the Official Gazette with automated regulation engines. IVA 16%, IGTF 3% and ISLR are calculated automatically according to current VEN-NIF regulations.",
                 "category": "fiscal"
             },
             {
@@ -430,7 +430,7 @@
         "nav_contact": "Contact",
         "module_list": [
             "VEN-NIF Accounting", "HR & Payroll", "My Line 5G / eSIM",
-            "Legal AI & Permits", "Ameru Eco-Credits", "Advanced Analytics",
+            "Legal Management & Permits", "Ameru Eco-Credits", "Advanced Analytics",
             "SENIAT Invoicing", "Taxes & Withholdings", "Executive Dashboard"
         ],
         "version_stable": "v2.8.5 — Stable",
@@ -445,7 +445,7 @@
         "line1": "Your business.",
         "line2": "All of it.",
         "line3": "In one place.",
-        "subtitle": "Accounting, payroll, invoicing, 5G and much more — built for Venezuela, with integrated AI and automated tax compliance.",
+        "subtitle": "Accounting, payroll, invoicing, 5G and much more — built for Venezuela, with integrated automation and automated tax compliance.",
         "highlights_subtitle": "Everything your business needs",
         "highlights_title": "7 integrated modules.",
         "power_subtitle": "Unprecedented power",
@@ -455,7 +455,7 @@
         "highlights": [
             { "label": "Accounting & Tax", "desc": "Automatic IVA, IGTF & ISLR. VEN-NIF ledgers and real-time SENIAT compliance.", "stat": "VEN-NIF", "statLabel": "Tax compliance" },
             { "label": "My Line 5G", "desc": "5G eSIM provisioning, corporate mobile fleet management and high-performance connectivity.", "stat": "5G", "statLabel": "Network speed" },
-            { "label": "Integrated AI", "desc": "Kyron AI powered by Claude from Anthropic. Automates reports, documents and analysis.", "stat": "AI", "statLabel": "Claude · Anthropic" },
+            { "label": "Automation", "desc": "Advanced management engines. Automates reports, documents and data analysis.", "stat": "Elite", "statLabel": "Sistematized Management" },
             { "label": "AES-256 Security", "desc": "Bank-grade encryption, HTTP-only JWT and immutable audit of every operation.", "stat": "256", "statLabel": "Encryption bits" },
             { "label": "HR & Payroll", "desc": "Full LOTTT management: payroll, benefits, vacations and severance in one click.", "stat": "LOTTT", "statLabel": "Legal framework" },
             { "label": "Fiscal Invoicing", "desc": "Invoices and credit/debit notes with IGTF validation and automatic BCV rate.", "stat": "3%", "statLabel": "Automatic IGTF" }
@@ -471,16 +471,16 @@
         "subtitle": "Corporate Intelligence"
     },
     "HowItWorksSection": {
-        "badge": "Cutting-edge AI",
+        "badge": "Cutting-edge Management",
         "title_highlight": "Powered by",
-        "title_rest": "AI Engines",
-        "subtitle": "We interconnect the world's most advanced language models to offer you absolute precision in accounting, legal, and analysis.",
+        "title_rest": "Data Engines",
+        "subtitle": "We interconnect advanced technological infrastructures to offer you absolute precision in accounting, legal, and analysis.",
         "demo_label": "REAL-TIME INTERACTION",
         "cta": "Explore Capabilities",
         "capabilities": [
             {
-                "title": "Smart Fiscal Assistant",
-                "description": "Deep analysis of the Official Gazette, tax laws, and SENIAT compliance. Complex queries resolved in seconds.",
+                "title": "Specialized Tax Center",
+                "description": "Deep analysis of the Official Gazette, tax laws, and SENIAT compliance. Technical queries resolved with precision.",
                 "demo_user": "What is the ISLR withholding limit for professional services according to Decree 1.808?",
                 "demo_system": "Consulting Official Gazette and VEN-NIF Legal Base...",
                 "demo_ai": "For professional services paid to resident natural persons, the withholding is 3% on the excess of 83.33 UT. If it is a domiciled legal entity, it is 5% on the total amount paid."
@@ -493,7 +493,7 @@
             },
             {
                 "title": "Data & Flow Analysis",
-                "description": "Financial projections, anomaly detection in transactions, and cash flow optimization using neural networks.",
+                "description": "Financial projections, anomaly detection in transactions, and cash flow optimization using specialized algorithms.",
                 "demo_ai": "I have detected an anomaly in the 'Operating Expenses' item. Electric service payments have increased by 45% compared to the previous quarter without a correlative increase in production. I recommend a consumption audit."
             }
         ]
@@ -630,7 +630,7 @@
         "igtf": "IGTF 3 % Integrated",
         "lottt": "LOTTT Automated",
         "lopcymat": "LOPCYMAT Included",
-        "gazette": "Official Gazette AI"
+        "gazette": "Official Gazette Updated"
     },
     "CommentsSection": {
         "badge": "Real Reviews",
@@ -669,10 +669,10 @@
         "cta": "Get Started",
         "differentiators": [
             { "title": "100% Venezuelan", "description": "Designed for VEN-NIF, SENIAT, LOTTT, and BCV regulations. Not a generic adaptation." },
-            { "title": "Integrated AI", "description": "Claude from Anthropic powers tax analysis, document generation, and accounting assistance." },
+            { "title": "Data Management", "description": "Advanced algorithms power tax analysis, document generation, and accounting assistance." },
             { "title": "AES-256 Security", "description": "Bank-grade encryption, HTTP-only JWT, and an immutable audit trail." },
             { "title": "Superior Speed", "description": "120ms average response. 3x faster than Odoo and 7x faster than SAP." },
-            { "title": "All-in-One", "description": "Accounting, payroll, invoicing, telecom, legal, and AI in one platform." },
+            { "title": "All-in-One", "description": "Accounting, payroll, invoicing, telecom, legal, and management in one platform." },
             { "title": "24/7 Support", "description": "Local technical team with deep knowledge of Venezuela's fiscal ecosystem." }
         ],
         "comparison_title_kyron": "System Kyron",
@@ -685,7 +685,7 @@
             "Real-Time BCV Rate",
             "Automatic IGTF 3%",
             "Full LOTTT Payroll",
-            "Integrated Fiscal AI",
+            "Integrated Fiscal Management",
             "Corporate eSIM / 5G",
             "Certified Eco-Credits",
             "AES-256 Encryption"
@@ -742,7 +742,7 @@
             { "name": "HR & Payroll", "desc": "LOTTT payroll, benefits, vacations and bonuses." },
             { "name": "Legal Management", "desc": "Contracts, powers, permits and legal documents." },
             { "name": "My Line 5G", "desc": "eSIM, corporate fleet, usage and telemetry." },
-            { "name": "Kyron AI", "desc": "Fiscal AI powered by Claude from Anthropic." },
+            { "name": "Specialized Assistance", "desc": "Technical and fiscal support desk 24/7." },
             { "name": "Dashboard & Analytics", "desc": "Real-time KPIs and executive reports." },
             { "name": "Taxes", "desc": "IVA, ISLR, IGTF, parafiscal and tax calendar." },
             { "name": "Security", "desc": "AES-256, JWT, immutable audit." },

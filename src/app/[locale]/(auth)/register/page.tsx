@@ -145,7 +145,7 @@ const MODULES: ModuleOption[] = [
 const BRANDING_FEATURES = [
     { icon: Calculator, label: "Contabilidad VEN-NIF", color: "text-sky-400", bg: "bg-sky-500/10", desc: "Cumplimiento fiscal total" },
     { icon: Shield, label: "Cifrado AES-256", color: "text-emerald-400", bg: "bg-emerald-500/10", desc: "Seguridad bancaria" },
-    { icon: Brain, label: "Inteligencia Artificial", color: "text-violet-400", bg: "bg-violet-500/10", desc: "Automatización inteligente" },
+    { icon: Zap, label: "Kyron Core", color: "text-violet-400", bg: "bg-violet-500/10", desc: "Automatización sistémica" },
     { icon: Smartphone, label: "Mi Línea 5G", color: "text-cyan-400", bg: "bg-cyan-500/10", desc: "Conectividad premium" },
     { icon: ChartColumn, label: "Reportes SENIAT", color: "text-amber-400", bg: "bg-amber-500/10", desc: "Declaraciones al día" },
     { icon: Zap, label: "Automatización", color: "text-rose-400", bg: "bg-rose-500/10", desc: "Procesos en piloto automático" },

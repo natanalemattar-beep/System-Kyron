@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { AppHeader } from "@/components/app-header";
-import { LazyChatDialog } from "@/components/chat-dialog-lazy";
+
 import { PageTransition } from "@/components/ui/motion";
 import { 
     naturalNavGroups, 
@@ -96,7 +96,7 @@ export default function NaturalLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
-          <LazyChatDialog />
+
       </div>
     );
 }

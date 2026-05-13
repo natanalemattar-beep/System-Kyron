@@ -22,7 +22,7 @@ interface CalidadImagenSection extends AnalysisSection {
 }
 
 interface AIProviderResult {
-  provider: 'claude' | 'openai' | 'gemini';
+  provider: 'core';
   disponible: boolean;
   visual_puntaje: number;
   calidad_puntaje: number;
@@ -40,9 +40,9 @@ export interface VerificationResult {
   veredicto: 'autentico' | 'sospechoso' | 'fraudulento' | 'no_determinado';
   confianza: number;
   puntaje_total: number;
-  consenso_ia: {
-    total_ias: number;
-    ias_coinciden: number;
+  consenso_algoritmico: {
+    total_motores: number;
+    motores_coinciden: number;
     nivel: 'unanime' | 'mayoria' | 'dividido' | 'unico';
     proveedores: AIProviderResult[];
   };
@@ -117,16 +117,14 @@ const CONSENSO_CONFIG = {
   unico: { label: 'Análisis único', color: 'text-slate-400', bg: 'bg-slate-500/8', border: 'border-slate-500/20' },
 };
 
-const AI_ICONS: Record<string, { icon: typeof Brain; name: string }> = {
-  claude: { icon: Brain, name: 'Claude' },
-  openai: { icon: Zap, name: 'OpenAI' },
-  gemini: { icon: Cpu, name: 'Gemini' },
+const CORE_ICONS: Record<string, { icon: typeof Brain; name: string }> = {
+  core: { icon: Cpu, name: 'Kyron Core' },
 };
 
 const SCAN_STAGES = [
   { label: 'Verificando integridad del archivo...', icon: Lock },
   { label: 'Análisis forense de estructura...', icon: FileSearch },
-  { label: 'Verificación visual con 3 IAs...', icon: Brain },
+  { label: 'Verificación visual Kyron Core...', icon: ShieldCheck },
   { label: 'Validación cruzada y consenso...', icon: Search },
 ];
 
@@ -209,7 +207,7 @@ function ScanningAnimation({ stage }: { stage: number }) {
   );
 }
 
-function AIConsensusPanel({ consenso }: { consenso: VerificationResult['consenso_ia'] }) {
+function AIConsensusPanel({ consenso }: { consenso: VerificationResult['consenso_algoritmico'] }) {
   const cfg = CONSENSO_CONFIG[consenso.nivel];
   const activos = consenso.proveedores.filter(p => p.disponible);
 
@@ -223,22 +221,22 @@ function AIConsensusPanel({ consenso }: { consenso: VerificationResult['consenso
           <span className={cn('text-[10px] font-semibold uppercase tracking-widest', cfg.color)}>{cfg.label}</span>
         </div>
         <span className={cn('text-[10px] font-bold tabular-nums', cfg.color)}>
-          {consenso.ias_coinciden}/{consenso.total_ias} IAs
+          {consenso.motores_coinciden}/{consenso.total_motores} Motores
         </span>
       </div>
 
       <div className="grid gap-1.5">
         {consenso.proveedores.map((p) => {
-          const ai = AI_ICONS[p.provider] || AI_ICONS.claude;
-          const AIIcon = ai.icon;
+          const core = CORE_ICONS[p.provider] || CORE_ICONS.core;
+          const CoreIcon = core.icon;
           const vCfg = VERDICT_CONFIG[p.veredicto_individual as keyof typeof VERDICT_CONFIG] || VERDICT_CONFIG.no_determinado;
           return (
             <div key={p.provider} className={cn(
               'flex items-center gap-2 px-2.5 py-1.5 rounded-lg border transition-all',
               p.disponible ? 'border-border/15 bg-card/30' : 'border-red-500/10 bg-red-500/5 opacity-50'
             )}>
-              <AIIcon className={cn('h-3 w-3 shrink-0', p.disponible ? 'text-primary/60' : 'text-red-400/50')} />
-              <span className="text-[10px] font-bold text-foreground/70 w-12">{ai.name}</span>
+              <CoreIcon className={cn('h-3 w-3 shrink-0', p.disponible ? 'text-primary/60' : 'text-red-400/50')} />
+              <span className="text-[10px] font-bold text-foreground/70 w-12">{core.name}</span>
               {p.disponible ? (
                 <>
                   <div className={cn('flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-semibold uppercase', vCfg.bg, vCfg.color)}>
@@ -347,11 +345,11 @@ export function DocumentVerification({
             {nitidezCfg.label}
           </div>
         )}
-        {result.consenso_ia.total_ias > 0 && (
+        {result.consenso_algoritmico.total_motores > 0 && (
           <div className={cn('flex items-center gap-1 px-2 py-1.5 rounded-xl border text-[10px] font-bold',
-            CONSENSO_CONFIG[result.consenso_ia.nivel].bg, CONSENSO_CONFIG[result.consenso_ia.nivel].border, CONSENSO_CONFIG[result.consenso_ia.nivel].color)}>
-            <Brain className="h-3 w-3" />
-            {result.consenso_ia.ias_coinciden}/{result.consenso_ia.total_ias}
+            CONSENSO_CONFIG[result.consenso_algoritmico.nivel].bg, CONSENSO_CONFIG[result.consenso_algoritmico.nivel].border, CONSENSO_CONFIG[result.consenso_algoritmico.nivel].color)}>
+            <ShieldCheck className="h-3 w-3" />
+            {result.consenso_algoritmico.motores_coinciden}/{result.consenso_algoritmico.total_motores}
           </div>
         )}
       </div>
@@ -388,13 +386,13 @@ export function DocumentVerification({
               <span className={cn('text-[10px] font-bold tabular-nums', nitidezCfg.color)}>{calidad.puntaje}%</span>
             </div>
           )}
-          {result.consenso_ia.total_ias > 0 && (() => {
-            const cCfg = CONSENSO_CONFIG[result.consenso_ia.nivel];
+          {result.consenso_algoritmico.total_motores > 0 && (() => {
+            const cCfg = CONSENSO_CONFIG[result.consenso_algoritmico.nivel];
             return (
               <div className={cn('flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border', cCfg.bg, cCfg.border)}>
-                <Brain className={cn('h-3.5 w-3.5', cCfg.color)} />
+                <ShieldCheck className={cn('h-3.5 w-3.5', cCfg.color)} />
                 <span className={cn('text-[10px] font-bold', cCfg.color)}>
-                  {result.consenso_ia.ias_coinciden}/{result.consenso_ia.total_ias} IAs
+                  {result.consenso_algoritmico.motores_coinciden}/{result.consenso_algoritmico.total_motores} Motores
                 </span>
               </div>
             );
@@ -426,7 +424,7 @@ export function DocumentVerification({
               </div>
             )}
 
-            <AIConsensusPanel consenso={result.consenso_ia} />
+            <AIConsensusPanel consenso={result.consenso_algoritmico} />
 
             <div className="space-y-1.5">
               <DetailsList section={result.analisis.integridad_archivo} label="Integridad del Archivo" />
@@ -456,10 +454,10 @@ export function DocumentVerification({
                 </p>
               </div>
               <div className="flex items-center gap-1">
-                {result.consenso_ia.proveedores.filter(p => p.disponible).map(p => {
-                  const ai = AI_ICONS[p.provider];
-                  const AIIcon = ai?.icon || Brain;
-                  return <AIIcon key={p.provider} className="h-2.5 w-2.5 text-muted-foreground/20" />;
+                {result.consenso_algoritmico.proveedores.filter(p => p.disponible).map(p => {
+                  const core = CORE_ICONS[p.provider];
+                  const CoreIcon = core?.icon || Cpu;
+                  return <CoreIcon key={p.provider} className="h-2.5 w-2.5 text-muted-foreground/20" />;
                 })}
               </div>
             </div>

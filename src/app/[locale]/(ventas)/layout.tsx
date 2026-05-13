@@ -1,7 +1,7 @@
 "use client";
 
 import { AppHeader } from "@/components/app-header";
-import { LazyChatDialog } from "@/components/chat-dialog-lazy";
+
 import { PageTransition } from "@/components/ui/motion";
 import { ventasNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTracker } from "@/components/page-tracker";
@@ -52,7 +52,7 @@ export default function VentasLayout({ children }: { children: React.ReactNode }
             </div>
             <ScrollToTop />
           <FinancialToolkit />
-            <LazyChatDialog />
+
         </div>
       </CurrencyProvider>
       </ModuleGuard>

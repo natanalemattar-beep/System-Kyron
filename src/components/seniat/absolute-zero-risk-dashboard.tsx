@@ -20,7 +20,7 @@ export const AbsoluteZeroRiskDashboard = () => {
             🛡️ Sistema Ultimate de Protección Fiscal
           </h1>
           <p className="text-xl text-muted-foreground">
-            Defensa integral contra fiscalizaciones con Inteligencia Artificial
+            Defensa integral contra fiscalizaciones con Analítica Avanzada
           </p>
         </div>
 

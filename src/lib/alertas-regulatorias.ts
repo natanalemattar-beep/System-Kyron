@@ -104,7 +104,7 @@ const GACETAS_RECIENTES: GacetaOficial[] = [
       }
     ],
     vigenciaDesde: '2026-05-01',
-    tags: ['Esequibo', 'soberanía', 'fiscal', 'IA'],
+    tags: ['Esequibo', 'soberanía', 'fiscal', 'Tecnología'],
   },
   {
     id: 'GO-6960',
@@ -129,7 +129,7 @@ const GACETAS_RECIENTES: GacetaOficial[] = [
       }
     ],
     vigenciaDesde: '2026-05-01',
-    tags: ['cripto', 'fiscal', 'SUNACRIP', 'IA'],
+    tags: ['cripto', 'fiscal', 'SUNACRIP', 'Finanzas'],
   },
   {
     id: 'GO-6952',
@@ -297,9 +297,9 @@ const CAMBIOS_ASAMBLEA: CambioAsamblea[] = [
     tipo: 'ley_aprobada',
     titulo: 'Ley de Fomento a la Exportación de Servicios Tecnológicos',
     fecha: '2026-04-15',
-    resumen: 'Incentivos fiscales para empresas que exporten software y servicios de IA desde Venezuela. Exoneración del 100% de IGTF para cobros internacionales.',
+    resumen: 'Incentivos fiscales para empresas que exporten software y servicios de alta tecnología desde Venezuela. Exoneración del 100% de IGTF para cobros internacionales.',
     impactoEmpresarial: 'Las empresas registradas en el nuevo Registro de Exportadores de Tecnología (RET) podrán facturar sin IGTF a clientes extranjeros.',
-    sectoresAfectados: ['tecnología', 'software', 'IA'],
+    sectoresAfectados: ['tecnología', 'software', 'Sistemas'],
     urgencia: 'alta',
     accionRequerida: 'Inscribirse en el portal del RET ante el Ministerio de Ciencia y Tecnología para optar por los beneficios.',
     plazoAdaptacion: '60 días para inscripción inicial',

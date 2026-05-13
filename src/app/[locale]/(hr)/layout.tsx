@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { AppHeader } from "@/components/app-header";
-import { LazyChatDialog } from "@/components/chat-dialog-lazy";
+
 import { PageTransition } from "@/components/ui/motion";
 import { rrhhNavGroups, asesoriaContableNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTracker } from "@/components/page-tracker";
@@ -70,7 +70,7 @@ export default function HRLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
-          <LazyChatDialog />
+
       </div>
       </ModuleGuard>
     );
