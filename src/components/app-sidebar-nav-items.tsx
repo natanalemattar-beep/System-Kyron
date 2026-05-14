@@ -162,6 +162,7 @@ export const asesoriaContableNavGroups = [
       items: [
           { href: "/kyron-chat", label: "Kyron Chat", icon: MessageSquare },
           { href: "/resumen-ejecutivo", label: "Resumen Ejecutivo", icon: FileText, badge: "OFICIAL" },
+          { href: "/presentacion-final", label: "Presentación Final", icon: Rocket, badge: "LIVE" },
           { href: "/pitch-deck-ai", label: "Pitch Deck AI", icon: Wand2, badge: "RETO" },
           { href: "/automatizaciones", label: "Automatizaciones", icon: Zap },
       ],
