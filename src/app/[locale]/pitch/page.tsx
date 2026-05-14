@@ -476,7 +476,7 @@ export default function PitchPage() {
                             ${s.stats.map(st => `
                                 <div style="display: table-cell; width: 33%;">
                                     <div style="font-size: 9px; color: #94a3b8; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">${st.label}</div>
-                                    <div style="font-size: 18px; color: #0f172a; font-weight: 900;">${st.value}${st.suffix || ""}</div>
+                                    <div style="font-size: 18px; color: #0f172a; font-weight: 900;">${st.value}${(st as any).suffix || ""}</div>
                                 </div>
                             `).join('')}
                         </div>
@@ -542,7 +542,8 @@ export default function PitchPage() {
     const handleExportPPTX = async () => {
         setIsExporting(true);
         try {
-            const PptxGenJS = (await import("pptxgenjs/dist/pptxgen.bundle.js")).default;
+            // @ts-ignore
+            const PptxGenJS = (await import("pptxgenjs")).default;
             const pptx = new PptxGenJS();
             
             pptx.layout = 'LAYOUT_16x9';
@@ -563,7 +564,7 @@ export default function PitchPage() {
                 slide.addText(s.body, { x: 0.5, y: 3.2, w: 5.5, color: 'cbd5e1', fontSize: 14, fontFace: 'Arial', lineSpacing: 22 });
                 if (s.stats) {
                     s.stats.forEach((st, idx) => {
-                        slide.addText(`${st.label}: ${st.value}${st.suffix || ""}`, { 
+                        slide.addText(`${st.label}: ${st.value}${(st as any).suffix || ""}`, { 
                             x: 6.5, y: 1.5 + (idx * 0.8), w: 3, 
                             color: '3b82f6', fontSize: 18, fontFace: 'Arial', bold: true,
                             align: 'right'

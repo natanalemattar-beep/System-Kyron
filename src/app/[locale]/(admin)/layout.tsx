@@ -14,6 +14,7 @@ import { PageTracker } from "@/components/page-tracker";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ModuleGuard } from "@/components/module-guard";
+import { LazyVoiceAssistant } from "@/components/voice-assistant-lazy";
 
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
 
@@ -71,6 +72,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
           <ScrollToTop />
           <FinancialToolkit />
           <WelcomeTutorial />
+          <LazyVoiceAssistant />
 
       </div>
     );

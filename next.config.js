@@ -55,6 +55,7 @@ const nextConfig = {
   allowedDevOrigins: ['*.replit.dev', '*.picard.replit.dev', '*.kirk.replit.dev', '*.spock.replit.dev', '*.riker.replit.dev', '*.janeway.replit.dev'],
   webpack: (config, { isServer }) => {
     if (!isServer) {
+      // Existing fallbacks for Node built‑ins
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -69,6 +70,9 @@ const nextConfig = {
         "node:stream": false,
         "node:url": false,
       };
+      // Explicitly treat Node protocol imports as externals for the client bundle
+      if (!config.externals) config.externals = [];
+      config.externals.push(/^node:/);
     }
     return config;
   },

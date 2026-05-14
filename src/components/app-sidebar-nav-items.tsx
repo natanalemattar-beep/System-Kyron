@@ -156,16 +156,26 @@ export const asesoriaContableNavGroups = [
         { href: "/ingenieria-ia", label: "Ingeniería de Sistemas", icon: Cpu, section: "Planificación" },
     ],
   },
-  {
-    title: "Sistema",
-    icon: Settings2,
-    items: [
-        { href: "/seguridad-empresarial", label: "Centro de Seguridad", icon: Shield, badge: "NUEVO", section: "Seguridad" },
-        { href: "/seguridad-empresarial/auditoria", label: "Auditoría de Accesos", icon: Eye, badge: "NUEVO", section: "Seguridad" },
-        { href: "/seguridad-empresarial/dispositivos", label: "Dispositivos", icon: MonitorSmartphone, badge: "NUEVO", section: "Seguridad" },
-        { href: "/actividad", label: "Registro de Actividad", icon: Activity, section: "Actividad" },
-    ],
-  }
+    {
+      title: "IA Core",
+      icon: Sparkles,
+      items: [
+          { href: "/kyron-chat", label: "Kyron Chat", icon: MessageSquare },
+          { href: "/resumen-ejecutivo", label: "Resumen Ejecutivo", icon: FileText, badge: "OFICIAL" },
+          { href: "/pitch-deck-ai", label: "Pitch Deck AI", icon: Wand2, badge: "RETO" },
+          { href: "/automatizaciones", label: "Automatizaciones", icon: Zap },
+      ],
+    },
+    {
+      title: "Sistema",
+      icon: Settings2,
+      items: [
+          { href: "/seguridad-empresarial", label: "Centro de Seguridad", icon: Shield, badge: "NUEVO", section: "Seguridad" },
+          { href: "/seguridad-empresarial/auditoria", label: "Auditoría de Accesos", icon: Eye, badge: "NUEVO", section: "Seguridad" },
+          { href: "/seguridad-empresarial/dispositivos", label: "Dispositivos", icon: MonitorSmartphone, badge: "NUEVO", section: "Seguridad" },
+          { href: "/actividad", label: "Registro de Actividad", icon: Activity, section: "Actividad" },
+      ],
+    }
 ];
 
 export const adminNavGroups = asesoriaContableNavGroups;
@@ -275,7 +285,7 @@ export const telecomNavGroups = [
     items: [ 
       { href: "/mi-linea", label: "Mis Líneas", icon: Smartphone },
       { href: "/venta-linea", label: "Nueva Línea", icon: Smartphone },
-      { href: "/recargas", label: "Recargas", icon: CreditCardIcon },
+      { href: "/recargas", label: "Recargas", icon: CreditCard },
       { href: "/consumo-5g", label: "Consumo 5G", icon: Gauge },
       { href: "/esim", label: "eSIM Digital", icon: ScanLine },
       { href: "/facturas-linea", label: "Mis Facturas", icon: Receipt },

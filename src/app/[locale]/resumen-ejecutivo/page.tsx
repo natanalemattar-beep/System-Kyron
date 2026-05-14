@@ -210,45 +210,6 @@ export default function ResumenEjecutivoPage() {
         }
     };
 
-    // --- Exportación a PPTX (Presentación) ---
-    const handleExportPPTX = async () => {
-        setIsExporting(true);
-        toast({ title: "Generando Presentación", description: "Creando slides profesionales..." });
-
-        try {
-            const PptxGenJS = (await import('pptxgenjs')).default;
-            const pptx = new PptxGenJS();
-
-            // Slide de Portada
-            const titleSlide = pptx.addSlide();
-            titleSlide.background = { color: '020617' };
-            titleSlide.addText('SYSTEM KYRON', { x: 0.5, y: 1.5, w: '90%', fontSize: 44, color: '06B6D4', bold: true, align: 'center' });
-            titleSlide.addText('RESUMEN EJECUTIVO 2026', { x: 0.5, y: 2.2, w: '90%', fontSize: 18, color: 'FFFFFF', align: 'center' });
-            titleSlide.addText('RETO INSPIRAVE', { x: 0.5, y: 3.5, w: '90%', fontSize: 12, color: '3B82F6', align: 'center', bold: true });
-
-            // Slides de Contenido
-            SECTIONS.forEach(s => {
-                const slide = pptx.addSlide();
-                slide.background = { color: '020617' };
-                slide.addText(s.title.toUpperCase(), { x: 0.5, y: 0.5, fontSize: 24, color: '06B6D4', bold: true });
-                slide.addText(s.subtitle, { x: 0.5, y: 1.0, fontSize: 14, color: '3B82F6', italic: true });
-                slide.addText(s.content, { x: 0.5, y: 2.0, w: '90%', fontSize: 14, color: 'CBD5E1' });
-                
-                s.points.forEach((p, i) => {
-                    slide.addText(`• ${p}`, { x: 0.8, y: 3.5 + (i * 0.4), w: '80%', fontSize: 12, color: 'FFFFFF' });
-                });
-            });
-
-            await pptx.writeFile({ fileName: `Kyron_Pitch_Deck_${new Date().getFullYear()}.pptx` });
-            toast({ title: "Deck Generado", description: "Archivo PowerPoint listo para presentar." });
-        } catch (err) {
-            console.error("PPTX Error:", err);
-            toast({ variant: "destructive", title: "Error", description: "No se pudo generar el PowerPoint." });
-        } finally {
-            setIsExporting(false);
-        }
-    };
-
     // --- Exportación a Imagen (PNG) ---
     const handleExportImage = async () => {
         if (!slideRef.current) return;
@@ -339,13 +300,7 @@ export default function ResumenEjecutivoPage() {
                     >
                         <Maximize2 className="h-3.5 w-3.5" /> PNG
                     </button>
-                    <button 
-                        onClick={handleExportPPTX}
-                        disabled={isExporting}
-                        className="flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white transition-all disabled:opacity-50"
-                    >
-                        <Share2 className="h-3.5 w-3.5" /> PPTX
-                    </button>
+                    {/* PPTX export button removed */}
                 </div>
 
                 <main className="relative z-10 pt-44 pb-32 max-w-7xl mx-auto px-6">

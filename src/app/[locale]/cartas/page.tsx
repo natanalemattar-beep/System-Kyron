@@ -5,33 +5,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
     FileText, 
     Download, 
-    ChevronLeft, 
-    ChevronRight, 
     Mail, 
     Printer,
-    ArrowLeft,
     Building2,
     Heart,
     Zap,
     Trophy,
     CreditCard,
     Smartphone,
-    Globe,
     Sparkles,
-    CheckCircle2,
     QrCode,
-    Maximize2,
+    Image,
     FileDown,
-    Lock,
-    Unlock,
-    Users,
-    Layout,
-    Presentation,
-    ArrowRight,
-    Search,
     ShieldCheck,
-    Cpu,
-    ExternalLink,
     Box,
     Workflow
 } from "lucide-react";
@@ -106,11 +92,10 @@ const letters = [
 
 export default function CartasAgradecimientoPage() {
     const { toast } = useToast();
-    const [mode, setMode] = useState<'letter' | 'presentation' | 'card'>('letter');
+    const [mode, setMode] = useState<'letter' | 'foto' | 'card'>('letter');
     const [currentLetter, setCurrentLetter] = useState(0);
-    const [context, setContext] = useState<'public' | 'private'>('private');
     const [isExporting, setIsExporting] = useState(false);
-    const slideRef = useRef<HTMLDivElement>(null);
+    const exportRef = useRef<HTMLDivElement>(null);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
@@ -123,27 +108,35 @@ export default function CartasAgradecimientoPage() {
         window.print();
     };
 
-    const handleExportImage = async () => {
-        if (!slideRef.current) return;
+    const handleDownloadPDF = async () => {
+        if (!exportRef.current) return;
         setIsExporting(true);
-        toast({ title: "Generando Asset", description: "Procesando imagen en alta resolución..." });
-
+        toast({ title: "Generando PDF", description: "Procesando en alta resolución..." });
         try {
-            const { toPng } = await import('html-to-image');
-            const dataUrl = await toPng(slideRef.current, {
-                quality: 1,
-                pixelRatio: 2,
-                backgroundColor: '#020617',
+            const html2canvas = (await import('html2canvas')).default;
+            const jsPDF = (await import('jspdf')).default;
+            const canvas = await html2canvas(exportRef.current, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff',
             });
-            
-            const link = document.createElement('a');
-            link.download = `Kyron_${mode.toUpperCase()}_${letters[currentLetter].id}.png`;
-            link.href = dataUrl;
-            link.click();
-            toast({ title: "¡Listo!", description: "Asset descargado correctamente." });
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            const isLandscape = mode === 'foto';
+            const pdf = new jsPDF({ orientation: isLandscape ? 'landscape' : 'portrait', unit: 'mm', format: 'a4' });
+            const pdfW = pdf.internal.pageSize.getWidth();
+            const pdfH = pdf.internal.pageSize.getHeight();
+            const ratio = canvas.width / canvas.height;
+            const imgH = isLandscape ? pdfH : pdfW / ratio;
+            const imgW = isLandscape ? pdfH * ratio : pdfW;
+            const x = isLandscape ? (pdfW - imgW) / 2 : 0;
+            const y = isLandscape ? 0 : (pdfH - imgH) / 2;
+            pdf.addImage(imgData, 'JPEG', x, y, imgW, imgH);
+            pdf.save(`SystemKyron_${mode}_${letters[currentLetter].id}.pdf`);
+            toast({ title: "¡PDF listo!", description: "Descargado correctamente." });
         } catch (err) {
             console.error(err);
-            toast({ variant: "destructive", title: "Error", description: "No se pudo generar la imagen." });
+            toast({ variant: "destructive", title: "Error", description: "No se pudo generar el PDF." });
         } finally {
             setIsExporting(false);
         }
@@ -187,30 +180,29 @@ export default function CartasAgradecimientoPage() {
                         <button onClick={() => setMode('letter')} className={cn("px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2", mode === 'letter' ? "bg-white text-black shadow-lg shadow-white/10" : "text-white/40 hover:text-white")}>
                             <FileText className="h-3.5 w-3.5" /> Carta
                         </button>
-                        <button onClick={() => setMode('presentation')} className={cn("px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2", mode === 'presentation' ? "bg-white text-black shadow-lg shadow-white/10" : "text-white/40 hover:text-white")}>
-                            <Presentation className="h-3.5 w-3.5" /> Paisaje
+                        <button onClick={() => setMode('foto')} className={cn("px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2", mode === 'foto' ? "bg-white text-black shadow-lg shadow-white/10" : "text-white/40 hover:text-white")}>
+                            <Image className="h-3.5 w-3.5" /> Foto
                         </button>
                         <button onClick={() => setMode('card')} className={cn("px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2", mode === 'card' ? "bg-white text-black shadow-lg shadow-white/10" : "text-white/40 hover:text-white")}>
                             <CreditCard className="h-3.5 w-3.5" /> ID Card
                         </button>
                     </div>
 
-                    <div className="hidden lg:flex items-center gap-4 px-6">
-                        <div className="h-8 w-[1px] bg-white/10" />
-                        <div className="flex items-center gap-2">
-                            <Badge variant="outline" onClick={() => setContext('private')} className={cn("cursor-pointer border-none px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all", context === 'private' ? "bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.4)]" : "bg-white/5 text-white/40 hover:text-white")}>Privado</Badge>
-                            <Badge variant="outline" onClick={() => setContext('public')} className={cn("cursor-pointer border-none px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all", context === 'public' ? "bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.4)]" : "bg-white/5 text-white/40 hover:text-white")}>Público</Badge>
-                        </div>
-                        <div className="h-8 w-[1px] bg-white/10" />
-                    </div>
-
                     <div className="flex items-center gap-2">
                         <button 
-                            onClick={mode === 'presentation' ? handleExportImage : handlePrint}
-                            className="h-12 px-8 rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 shadow-lg shadow-cyan-600/20 active:scale-95"
+                            onClick={handlePrint}
+                            className="h-12 px-5 rounded-2xl bg-white/5 hover:bg-white/10 text-white/60 hover:text-white font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 border border-white/10 active:scale-95"
                         >
-                            {mode === 'presentation' ? <Download className="h-4 w-4" /> : <Printer className="h-4 w-4" />}
-                            <span className="hidden sm:inline">{mode === 'presentation' ? 'Descargar PNG' : 'Imprimir'}</span>
+                            <Printer className="h-4 w-4" />
+                            <span className="hidden sm:inline">Imprimir</span>
+                        </button>
+                        <button 
+                            onClick={handleDownloadPDF}
+                            disabled={isExporting}
+                            className="h-12 px-8 rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 shadow-lg shadow-cyan-600/20 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {isExporting ? <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }} className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full" /> : <FileDown className="h-4 w-4" />}
+                            <span className="hidden sm:inline">{isExporting ? 'Generando...' : 'Descargar PDF'}</span>
                         </button>
                     </div>
                 </div>
@@ -254,7 +246,7 @@ export default function CartasAgradecimientoPage() {
                             exit={{ opacity: 0, scale: 0.95 }}
                             className="w-full max-w-4xl"
                         >
-                            <div className="print-area bg-white text-zinc-900 rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] p-16 md:p-24 flex flex-col relative overflow-hidden min-h-[1056px]">
+                            <div ref={exportRef} className="print-area bg-white text-zinc-900 rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] p-16 md:p-24 flex flex-col relative overflow-hidden min-h-[1056px]">
                                 {/* Header Minimalista de Alta Gama */}
                                 <div className="flex justify-between items-start border-b-[4px] border-zinc-950 pb-12 mb-16">
                                     <div className="flex items-center gap-6">
@@ -323,89 +315,44 @@ export default function CartasAgradecimientoPage() {
                                 </div>
                             </div>
                         </motion.div>
-                    ) : mode === 'presentation' ? (
-                        // --- VISTA PAISAJE (TITANIUM SLIDE) ---
+                    ) : mode === 'foto' ? (
+                        // --- VISTA FOTO (SALTO ÁNGEL + LOGO KYRON) ---
                         <motion.div 
-                            key="presentation"
+                            key="foto"
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 1.1 }}
-                            className="w-full max-w-6xl aspect-[16/9] relative"
-                            ref={slideRef}
+                            className="w-full max-w-5xl"
                         >
-                            <div className="absolute inset-0 bg-[#020617] rounded-[4rem] border border-white/10 overflow-hidden shadow-[0_60px_120px_-30px_rgba(0,0,0,0.9)] flex flex-col">
-                                <div className="absolute inset-0 hud-grid opacity-[0.03]" />
-                                <div className={cn("absolute -top-1/4 -right-1/4 w-[900px] h-[900px] blur-[150px] rounded-full opacity-30 transition-all duration-1000", context === 'public' ? "bg-emerald-600" : "bg-cyan-600")} />
-                                
-                                <div className="relative z-10 h-full p-20 flex flex-col justify-between">
-                                    <div className="flex justify-between items-start">
-                                        <div className="space-y-8">
-                                            <div className="flex items-center gap-3">
-                                                <div className={cn("h-2 w-16 rounded-full", context === 'public' ? "bg-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.5)]" : "bg-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.5)]")} />
-                                                <p className="text-[12px] font-black uppercase tracking-[0.5em] text-white/40">v3.2 Ultra</p>
-                                            </div>
-                                            <div className="space-y-2">
-                                                <h3 className="text-2xl font-black uppercase tracking-[0.4em] text-white/30 italic">Propuesta {context === 'public' ? 'Pública' : 'Privada'}</h3>
-                                                <h2 className="text-8xl font-black uppercase tracking-tighter text-white leading-none tracking-[-0.04em]">{letter.company}</h2>
-                                            </div>
-                                        </div>
-                                        <div className="flex flex-col items-end gap-8">
-                                            <div className="h-28 w-28 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] flex items-center justify-center p-6 shadow-[0_30px_60px_rgba(0,0,0,0.5)] group hover:scale-105 transition-all">
-                                                <img src="/images/logo-transparent.png" alt="Kyron" className="w-full h-full object-contain" />
-                                            </div>
-                                            <Badge className={cn("px-8 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] border-none shadow-[0_10px_30px_rgba(0,0,0,0.3)]", context === 'public' ? "bg-emerald-600 text-white" : "bg-cyan-600 text-white")}>
-                                                Kyron Core Certified
-                                            </Badge>
-                                        </div>
+                            <div ref={exportRef} className="relative w-full aspect-[4/3] rounded-[3rem] overflow-hidden shadow-[0_60px_120px_-30px_rgba(0,0,0,0.9)] border border-white/10">
+                                {/* Foto del Salto Ángel */}
+                                <img
+                                    src="/images/salto-angel.jpg"
+                                    alt="Salto Ángel, Venezuela"
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
+                                {/* Overlay sutil en la parte inferior para el logo */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10" />
+                                {/* Badge Venezuela top-left */}
+                                <div className="absolute top-6 left-6 flex items-center gap-2 bg-black/30 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-2">
+                                    <div className="h-2 w-2 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(6,182,212,1)]" />
+                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/80">Venezuela · Tepui</span>
+                                </div>
+                                {/* Logo + nombre System Kyron en esquina inferior derecha */}
+                                <div className="absolute bottom-6 right-6 flex items-center gap-4 bg-black/40 backdrop-blur-xl border border-white/20 rounded-2xl px-5 py-3 shadow-2xl">
+                                    <div className="h-12 w-12 bg-white/10 border border-white/20 rounded-xl flex items-center justify-center p-2 shadow-inner">
+                                        <img src="/images/logo-transparent.png" alt="System Kyron" className="w-full h-full object-contain" />
                                     </div>
-
-                                    <div className="flex-1 flex items-center py-6">
-                                        <div className="max-w-5xl space-y-12">
-                                            <p className="text-6xl font-medium leading-[1.1] text-zinc-100 italic font-serif tracking-tight">
-                                                "{letter.content.split('\n')[2].trim()}"
-                                            </p>
-                                            <div className="flex gap-20">
-                                                <div className="flex items-center gap-6 group">
-                                                    <div className="h-20 w-20 rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl transition-all group-hover:bg-white/10">
-                                                        <letter.icon className={cn("h-10 w-10", context === 'public' ? "text-emerald-400" : "text-cyan-400")} />
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-[12px] font-black text-white/20 uppercase tracking-[0.3em]">Protocolo Operativo</p>
-                                                        <p className="text-2xl font-black text-white uppercase tracking-tight italic">{letter.id}</p>
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center gap-6 group">
-                                                    <div className="h-20 w-20 rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl transition-all group-hover:bg-white/10">
-                                                        <Workflow className={cn("h-10 w-10", context === 'public' ? "text-emerald-400" : "text-cyan-400")} />
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-[12px] font-black text-white/20 uppercase tracking-[0.3em]">Integración Core</p>
-                                                        <div className="flex items-center gap-3">
-                                                            <div className="h-3 w-3 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_15px_rgba(16,185,129,1)]" />
-                                                            <p className="text-2xl font-black text-white uppercase tracking-tight">Auditada</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex justify-between items-end border-t border-white/5 pt-12">
-                                        <div className="flex items-center gap-6">
-                                            <div className="h-16 w-16 rounded-[1.5rem] bg-white/5 flex items-center justify-center border border-white/10 shadow-inner">
-                                                <Box className="h-8 w-8 text-cyan-400" />
-                                            </div>
-                                            <div className="space-y-1.5">
-                                                <p className="text-lg font-black uppercase tracking-[0.1em] text-white">System Kyron Engine</p>
-                                                <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.5em]">Digital Sovereign Infrastructure</p>
-                                            </div>
-                                        </div>
-                                        <div className="text-[14px] font-black uppercase tracking-[1em] text-white/5 italic">
-                                            RETO INSPIRAVE // VENEZUELA // 2026
-                                        </div>
+                                    <div>
+                                        <p className="text-base font-black uppercase tracking-[0.15em] text-white leading-none">System Kyron</p>
+                                        <p className="text-[9px] font-bold text-cyan-400 uppercase tracking-[0.4em] mt-1">Venezuela · 2026</p>
                                     </div>
                                 </div>
-                                <div className="absolute top-0 left-0 w-full h-[4px] bg-cyan-500/40 blur-md animate-scanner opacity-60" />
+                                {/* Título carta bottom-left */}
+                                <div className="absolute bottom-6 left-6">
+                                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 mb-1">Carta para</p>
+                                    <h3 className="text-2xl font-black uppercase tracking-tight text-white leading-none">{letter.company}</h3>
+                                </div>
                             </div>
                         </motion.div>
                     ) : (
