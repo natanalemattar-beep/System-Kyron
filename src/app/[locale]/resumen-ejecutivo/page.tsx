@@ -107,46 +107,51 @@ export default function ResumenEjecutivoPage() {
                     <div className="space-y-12">
                         <section className="space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <Globe className="h-3 w-3" /> 1. Visión Estratégica
+                                <Globe className="h-3 w-3" /> 1. Visión Estratégica y El Problema
                             </h2>
                             <div className="grid md:grid-cols-2 gap-6 pl-4 border-l-2 border-primary/10 print:border-black/10">
                                 <div>
-                                    <label className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1 block">Misión Crítica</label>
-                                    <p className="text-sm font-bold">Unificar la conectividad, fiscalidad y legalidad en una sola infraestructura blindada para el sector privado.</p>
+                                    <label className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1 block">El Caos Operativo</label>
+                                    <p className="text-sm font-bold">Los empresarios pierden el 40% de su tiempo gestionando entre 5 y 8 proveedores distintos para telefonía, contabilidad y legalidad.</p>
                                 </div>
                                 <div>
-                                    <label className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1 block">Recuperación de Eficiencia</label>
-                                    <p className="text-sm font-bold">Eliminación del 40% de tiempo perdido en la gestión de múltiples proveedores y procesos manuales.</p>
+                                    <label className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1 block">La Solución Kyron</label>
+                                    <p className="text-sm font-bold">Unificar la conectividad, fiscalidad y legalidad en una sola fibra operativa blindada para recuperar la productividad.</p>
                                 </div>
                             </div>
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black">2. El Ecosistema Kyron</h2>
-                            <p className="text-sm leading-relaxed text-foreground/80 pl-4 border-l-2 border-primary/10 print:text-black print:border-black/10">
-                                System Kyron es un <strong>Ecosistema de Inteligencia Corporativa</strong> que rompe la dependencia de proveedores aislados. Unificamos la Contabilidad VEN-NIF, la Gestión Legal Automatizada (SAPI/SENIAT), y la <strong>Conectividad 5G de Flotas</strong> en una única interfaz de comando centralizada.
-                            </p>
-                        </section>
-
-                        <section className="space-y-4">
-                            <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400 print:text-black flex items-center gap-2">
-                                <Globe className="h-4 w-4" /> 3. Conectividad e Integración 5G
-                            </h2>
-                            <div className="pl-4 border-l-2 border-cyan-500/30 space-y-3 print:border-black/10">
-                                <p className="text-sm text-foreground/80 print:text-black leading-relaxed">
-                                    Somos el primer ERP en integrar la <strong>Gestión de Líneas Corporativas</strong> y flotas móviles. Kyron elimina el conflicto entre proveedores de telefonía y sistemas internos, permitiendo una trazabilidad total de costos y una activación inmediata de conectividad empresarial.
+                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black">2. Pilares del Ecosistema (SaaS & Telecom)</h2>
+                            <div className="pl-4 border-l-2 border-primary/10 space-y-4 print:text-black print:border-black/10">
+                                <p className="text-sm leading-relaxed text-foreground/80">
+                                    System Kyron rompe la fragmentación mediante una integración nativa de servicios esenciales:
                                 </p>
+                                <ul className="grid md:grid-cols-2 gap-4">
+                                    <li className="text-[12px] bg-white/5 p-3 rounded-xl border border-white/5 print:border-black/10">
+                                        <strong className="text-primary block mb-1">Fiscal Automatizado:</strong> Contabilidad VEN-NIF, IVA, ISLR e IGTF sincronizados en tiempo real.
+                                    </li>
+                                    <li className="text-[12px] bg-white/5 p-3 rounded-xl border border-white/5 print:border-black/10">
+                                        <strong className="text-cyan-400 block mb-1">Conectividad 5G:</strong> Gestión de líneas corporativas y flotas móviles integradas al ERP.
+                                    </li>
+                                    <li className="text-[12px] bg-white/5 p-3 rounded-xl border border-white/5 print:border-black/10">
+                                        <strong className="text-emerald-400 block mb-1">Legal Tech:</strong> Automatización de contratos y permisología (SAPI/SENIAT) con Kyron Voice.
+                                    </li>
+                                    <li className="text-[12px] bg-white/5 p-3 rounded-xl border border-white/5 print:border-black/10">
+                                        <strong className="text-purple-400 block mb-1">Operaciones TPV:</strong> Facturación multimoneda e inventarios inteligentes con predicción de stock.
+                                    </li>
+                                </ul>
                             </div>
                         </section>
 
                         <section className="space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-500 print:text-black flex items-center gap-2">
-                                <Leaf className="h-4 w-4" /> 4. Compromiso Sostenible (Smart Bins & Zero Paper)
+                                <Leaf className="h-4 w-4" /> 3. Sostenibilidad y Alianza Ameru
                             </h2>
                             <div className="pl-4 border-l-2 border-emerald-500/30 space-y-4 print:border-black/10">
                                 <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
                                     <p className="text-sm text-foreground/80 print:text-black leading-relaxed">
-                                        <strong className="text-emerald-500 uppercase tracking-tighter">Alianza Ameru:</strong> Mediante contenedores inteligentes de inducción magnética, incentivamos el reciclaje corporativo. El modelo <strong>Cero Papel</strong> de Kyron digitaliza el 100% de la documentación, ahorrando más de 12,000 hojas anuales por empresa.
+                                        <strong className="text-emerald-500 uppercase tracking-tighter">Iniciativa Smart Bins:</strong> En alianza con Ameru, implementamos contenedores de inducción magnética para reciclaje. El modelo <strong>Cero Papel</strong> de Kyron digitaliza el 100% de la oficina, ahorrando 12,000 hojas anuales por empresa y generando <strong>Eco-Créditos</strong> canjeables.
                                     </p>
                                 </div>
                             </div>
@@ -154,19 +159,30 @@ export default function ResumenEjecutivoPage() {
 
                         <section className="space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <ShieldCheck className="h-4 w-4" /> 5. Blindaje Legal y Seguridad
+                                <BrainCircuit className="h-4 w-4" /> 4. Capa Tecnológica (AI & Blockchain)
                             </h2>
                             <div className="pl-4 border-l-2 border-primary/10 space-y-3 print:border-black/10">
                                 <p className="text-sm text-foreground/80 print:text-black">
-                                    Protegemos la propiedad intelectual y la integridad operativa mediante <strong>Kyron Shield</strong>, con cifrado AES-256 y sellado Blockchain que garantiza la inmutabilidad de cada documento y transacción.
+                                    Utilizamos <strong>Kyron Shield</strong> para cifrado bancario y <strong>Blockchain</strong> para garantizar la inmutabilidad de los registros fiscales. Nuestra <strong>IA Predictiva</strong> analiza tendencias de mercado y tasa BCV para sugerir ajustes de precios y flujo de caja en tiempo real.
                                 </p>
                             </div>
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black">5. Roadmap 2026</h2>
+                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-amber-500 print:text-black flex items-center gap-2">
+                                <Banknote className="h-4 w-4" /> 5. Modelo de Negocio y Mercado
+                            </h2>
+                            <div className="pl-4 border-l-2 border-amber-500/10 space-y-3 print:border-black/10">
+                                <p className="text-sm text-foreground/80 print:text-black">
+                                    Operamos bajo un modelo <strong>SaaS Recurrente</strong> con planes escalables. Apuntamos a un mercado de <strong>500,000 PyMEs</strong> en Venezuela, con una estrategia de marketing educativa en TikTok e Instagram enfocada en la formalización empresarial y el crecimiento digital.
+                                </p>
+                            </div>
+                        </section>
+
+                        <section className="space-y-4">
+                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black">6. Roadmap y Formalización</h2>
                             <p className="text-sm text-foreground/80 pl-4 border-l-2 border-primary/10 print:text-black print:border-black/10">
-                                Expansión del ecosistema hacia la tokenización de activos inmobiliarios y la integración nativa con la Red de Pagos Interbancarios de Venezuela, consolidando a System Kyron como la columna vertebral digital del sector privado.
+                                Actualmente en fase de <strong>Prototipo Funcional</strong>. Contamos con estructura legal completa (RIF J-50832149-9). Nuestra hoja de ruta 2026 contempla la captación de los primeros 1,000 clientes corporativos y la integración con la red de pagos interbancarios.
                             </p>
                         </section>
 
@@ -174,7 +190,7 @@ export default function ResumenEjecutivoPage() {
                         <div className="mt-20 pt-10 flex flex-col items-center justify-center text-center space-y-4 border-t border-white/5">
                             <div className="h-[1px] w-48 bg-border print:bg-black" />
                             <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em] print:text-black">
-                                Kyron Nexus AI • Certificación de Validez • 2026
+                                Kyron Nexus AI • Certificación de Validez • Reto Inspira 2026
                             </p>
                             <p className="text-[8px] text-white/20 font-black">EMPRENDIMIENTO CARLOS MATTAR · RIF: J-50832149-9</p>
                         </div>
