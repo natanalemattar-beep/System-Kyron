@@ -22,7 +22,8 @@
         "summary": "Executive Summary"
     },
     "DemoBanner": {
-        "message": "Platform under construction — Temporary changes and outages may occur.",
+        "message": "⚠️ Platform in development · Prices shown are for testing and are NOT final prices · Changes may occur without notice.",
+        "cta": "Access System",
         "dismiss": "Dismiss banner"
     },
     "HeroSection": {

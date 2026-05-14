@@ -145,7 +145,7 @@ export default function BrandKitPage() {
                     <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 blur-[180px] rounded-full animate-pulse" />
                     <div className="absolute bottom-[10%] right-[-5%] w-[500px] h-[500px] bg-cyan-500/5 blur-[150px] rounded-full" />
                 </div>
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] mix-blend-overlay" />
             </div>
 
             <main className="relative z-10 max-w-7xl mx-auto px-6 py-24 lg:py-32">

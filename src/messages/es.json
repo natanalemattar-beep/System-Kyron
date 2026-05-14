@@ -23,6 +23,7 @@
     },
     "DemoBanner": {
         "message": "⚠️ Plataforma en desarrollo · Precios mostrados son de prueba y NO son los precios finales · Pueden ocurrir cambios sin previo aviso.",
+        "cta": "Acceder Sistema",
         "dismiss": "Cerrar banner"
     },
 
