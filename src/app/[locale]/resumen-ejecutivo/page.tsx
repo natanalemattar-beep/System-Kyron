@@ -122,25 +122,29 @@ export default function ResumenEjecutivoPage() {
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black">2. Pilares del Ecosistema (SaaS & Telecom)</h2>
+                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black">2. Arquitectura de Portales Inteligentes</h2>
                             <div className="pl-4 border-l-2 border-primary/10 space-y-4 print:text-black print:border-black/10">
                                 <p className="text-sm leading-relaxed text-foreground/80">
-                                    System Kyron rompe la fragmentación mediante una integración nativa de servicios esenciales:
+                                    Kyron se despliega a través de dos interfaces críticas que centralizan la identidad y la operación:
                                 </p>
-                                <ul className="grid md:grid-cols-2 gap-4">
-                                    <li className="text-[12px] bg-white/5 p-3 rounded-xl border border-white/5 print:border-black/10">
-                                        <strong className="text-primary block mb-1">Fiscal Automatizado:</strong> Contabilidad VEN-NIF, IVA, ISLR e IGTF sincronizados en tiempo real.
-                                    </li>
-                                    <li className="text-[12px] bg-white/5 p-3 rounded-xl border border-white/5 print:border-black/10">
-                                        <strong className="text-cyan-400 block mb-1">Conectividad 5G:</strong> Gestión de líneas corporativas y flotas móviles integradas al ERP.
-                                    </li>
-                                    <li className="text-[12px] bg-white/5 p-3 rounded-xl border border-white/5 print:border-black/10">
-                                        <strong className="text-emerald-400 block mb-1">Legal Tech:</strong> Automatización de contratos y permisología (SAPI/SENIAT) con Kyron Voice.
-                                    </li>
-                                    <li className="text-[12px] bg-white/5 p-3 rounded-xl border border-white/5 print:border-black/10">
-                                        <strong className="text-purple-400 block mb-1">Operaciones TPV:</strong> Facturación multimoneda e inventarios inteligentes con predicción de stock.
-                                    </li>
-                                </ul>
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    <div className="space-y-3">
+                                        <h4 className="text-[10px] font-black text-cyan-400 uppercase tracking-widest">Portal Ciudadano (Identidad Personal)</h4>
+                                        <ul className="text-[11px] space-y-2 text-white/60">
+                                            <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-cyan-500" /> Cuenta Personal: Documentación de identidad avanzada.</li>
+                                            <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-cyan-500" /> Mi Línea Personal: Gestión de consumo y recargas.</li>
+                                            <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-cyan-500" /> Mi Línea Empresa: Control total de flotas corporativas.</li>
+                                        </ul>
+                                    </div>
+                                    <div className="space-y-3">
+                                        <h4 className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">Portales Corporativos (Infraestructura)</h4>
+                                        <ul className="text-[11px] space-y-2 text-white/60">
+                                            <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-emerald-500" /> Asesoría Contable y Legal: Automatización total VEN-NIF.</li>
+                                            <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-emerald-500" /> Facturación (TPV): Punto de venta inteligente multimoneda.</li>
+                                            <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-emerald-500" /> Socios y Sostenibilidad: Supervisión estratégica y eco-gestión.</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
