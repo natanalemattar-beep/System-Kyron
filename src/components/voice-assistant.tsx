@@ -95,10 +95,10 @@ export function VoiceAssistant() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20, x: -20 }}
-            animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20, x: -20 }}
-            className="absolute bottom-20 left-0 w-[350px] sm:w-[400px] h-[500px] bg-[#0c1120]/95 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="absolute bottom-20 left-0 w-[calc(100vw-3rem)] sm:w-[400px] max-w-[400px] h-[500px] max-h-[calc(100vh-120px)] bg-[#0c1120]/95 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="p-6 border-b border-white/5 bg-gradient-to-r from-primary/10 to-transparent flex items-center justify-between">
