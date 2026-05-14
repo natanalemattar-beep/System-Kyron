@@ -116,4 +116,5 @@ const nextConfig = {
   },
 };
 
-module.exports = withPWA(withNextIntl(nextConfig));
+// Temporarily disabling PWA to resolve Webpack minification error in Next.js 15
+module.exports = withNextIntl(nextConfig);
