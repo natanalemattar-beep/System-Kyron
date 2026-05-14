@@ -35,7 +35,7 @@ const nextConfig = {
     },
   },
   allowedDevOrigins: ['*.replit.dev', '*.picard.replit.dev', '*.kirk.replit.dev', '*.spock.replit.dev', '*.riker.replit.dev', '*.janeway.replit.dev'],
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, webpack }) => {
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -51,6 +51,13 @@ const nextConfig = {
         url: false,
         os: false,
       };
+      
+      // Manejar el esquema "node:" que usan librerías como pptxgenjs
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
+          resource.request = resource.request.replace(/^node:/, "");
+        })
+      );
     }
     return config;
   },
