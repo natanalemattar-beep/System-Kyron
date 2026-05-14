@@ -532,8 +532,8 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                             {I:FileText, t:"Facturación", d:"Manejo de IGTF."},
                             {I:ChartColumn, t:"Reportes", d:"Métricas precisas."},
                             {I:Lock, t:"Seguridad", d:"Permisos y roles."},
-                            {I:Leaf, t:"Sostenibilidad", d:"Modelo Cero Papel."},
-                            {I:Smartphone, t:"Líneas Telefónicas", d:"Comunicación segura."}
+                            {I:Leaf, t:"Cero Papel", d:"Impacto Ambiental."},
+                            {I:Recycle, t:"Smart Bins", d:"Alianza Ameru."}
                         ].map(({I,t,d},i)=>(
                             <motion.div 
                                 key={i} 

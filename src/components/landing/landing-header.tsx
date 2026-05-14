@@ -58,6 +58,9 @@ export function LandingHeader() {
     const navItems = [
         { labelKey: 'home' as const, href: '/' },
         { labelKey: 'platform' as const, href: '/#caracteristicas' },
+        { labelKey: 'pricing' as const, href: '/precios' },
+        { labelKey: 'presentation' as const, href: '/presentacion-final' },
+        { labelKey: 'summary' as const, href: '/resumen-ejecutivo' },
     ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -235,6 +238,9 @@ export function LandingHeader() {
                                         {[
                                             { label: t('home'), href: '/', icon: Globe },
                                             { label: t('platform'), href: '/#caracteristicas', icon: Cpu },
+                                            { label: t('pricing'), href: '/precios', icon: Zap },
+                                            { label: t('presentation'), href: '/presentacion-final', icon: Rocket },
+                                            { label: t('summary'), href: '/resumen-ejecutivo', icon: FileText },
                                         ].map((item) => (
                                             <SheetClose key={item.href} asChild>
                                                 <a 

@@ -30,15 +30,15 @@ export function SustainabilitySection() {
                         </p>
 
                         <div className="grid sm:grid-cols-2 gap-6 pt-4">
-                            <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl">
+                            <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl hover:border-emerald-500/30 transition-colors">
                                 <Recycle className="w-8 h-8 text-emerald-500 mb-4" />
-                                <h4 className="text-white font-bold mb-2">Eliminación de Residuos</h4>
-                                <p className="text-sm text-zinc-500 font-medium">Digitalización total de facturas, reportes y expedientes legales.</p>
+                                <h4 className="text-white font-bold mb-2">Smart Bins (Ameru)</h4>
+                                <p className="text-sm text-zinc-500 font-medium">Alianza estratégica para el reciclaje inteligente mediante inducción magnética.</p>
                             </div>
-                            <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl">
+                            <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl hover:border-emerald-500/30 transition-colors">
                                 <Wind className="w-8 h-8 text-emerald-500 mb-4" />
-                                <h4 className="text-white font-bold mb-2">Huella de Carbono</h4>
-                                <p className="text-sm text-zinc-500 font-medium">Reducción drástica del impacto logístico y de almacenamiento físico.</p>
+                                <h4 className="text-white font-bold mb-2">Eco-Créditos</h4>
+                                <p className="text-sm text-zinc-500 font-medium">Recompensas digitales por cada kilogramo de residuo procesado correctamente.</p>
                             </div>
                         </div>
                     </motion.div>

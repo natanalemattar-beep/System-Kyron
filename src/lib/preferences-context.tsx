@@ -15,7 +15,7 @@ interface PreferencesContextValue {
 
 const defaultPrefs: Preferences = {
   reducir_animaciones: false,
-  nav_lateral: false,
+  nav_lateral: true,
 };
 
 const LOCAL_KEY = 'kyron-ui-prefs';

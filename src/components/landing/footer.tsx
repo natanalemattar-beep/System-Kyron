@@ -19,9 +19,9 @@ export function Footer() {
     const navItems = [
         { label: t('nav_home'), href: "/#inicio" },
         { label: t('nav_platform'), href: "/#caracteristicas" },
-        { label: t('nav_services'), href: "/#servicios" },
-        { label: t('nav_about'), href: "/#nosotros" },
-        { label: t('nav_contact'), href: "/#contacto" },
+        { label: "Planes & Precios", href: "/precios" },
+        { label: "Resumen Ejecutivo", href: "/resumen-ejecutivo" },
+        { label: "Presentación Final", href: "/presentacion-final" },
     ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {

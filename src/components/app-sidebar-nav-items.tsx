@@ -18,6 +18,19 @@ import {
     MessageSquare 
 } from "lucide-react";
 
+export const globalNavGroups = [
+    {
+        title: "Ecosistema",
+        icon: LayoutGrid,
+        items: [
+            { href: "/precios", label: "Planes y Precios", icon: Banknote },
+            { href: "/presentacion-final", label: "Presentación Final", icon: Rocket, badge: "LIVE" },
+            { href: "/resumen-ejecutivo", label: "Resumen Ejecutivo", icon: FileText, badge: "PDF" },
+            { href: "/brand-kit", label: "Brand Kit", icon: Wand2 },
+        ]
+    }
+];
+
 export const naturalNavGroups = [
     {
         title: "Identidad",

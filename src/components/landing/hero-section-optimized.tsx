@@ -65,7 +65,7 @@ export function HeroSectionOptimized() {
               <p className="text-lg text-slate-100/65 max-w-2xl mx-auto lg:ml-0 font-medium">{t('subtitle')}</p>
               <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
                 <Button asChild size="lg" className="h-16 px-12 text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl bg-gradient-to-r from-cyan-600 via-blue-500 to-emerald-600 text-white hover:shadow-lg transition-all">
-                  <Link href="/login" className="flex items-center gap-2">{t('cta_main')} <ArrowRight className="h-5 w-5" /></Link>
+                  <Link href="/precios" className="flex items-center gap-2">{t('cta_main')} <ArrowRight className="h-5 w-5" /></Link>
                 </Button>
                 <Button variant="ghost" size="lg" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl border-white/5 bg-white/[0.02] text-white/40 hover:bg-white/[0.05] hover:text-white" asChild>
                   <Link href="/sector-privado-system-kyron?download=true" target="_blank" className="flex items-center gap-3">

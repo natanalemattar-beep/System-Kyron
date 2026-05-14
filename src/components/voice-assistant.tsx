@@ -12,32 +12,48 @@ interface Message {
   content: string;
 }
 
+import { useAuth } from '@/lib/auth/context';
+
 export function VoiceAssistant() {
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: '¡Hola! Soy el asistente virtual de System Kyron. ¿En qué puedo ayudarte hoy?' }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const pathname = usePathname();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Determinar si estamos en el sector público o privado
-  const isPrivate = pathname.includes('/resumen-negocio') || pathname.includes('/dashboard') || pathname.includes('/(admin)');
+  const isPrivate = !!user;
   const assistantName = isPrivate ? 'Kyron Core AI' : 'Atención al Cliente';
-  const assistantBadge = isPrivate ? 'Socio Premium' : 'Soporte Kyron';
+  const assistantBadge = isPrivate ? (user?.tipo === 'juridico' ? 'Socio Premium' : 'Usuario Certificado') : 'Soporte Kyron';
 
+  useEffect(() => {
+    if (messages.length === 0) {
+      const initialGreeting = isPrivate 
+        ? `¡Hola ${user?.nombre || 'Socio'}! Bienvenido de nuevo a Kyron Core. Detecto que estás en la sección de ${pathname.split('/').pop() || 'Dashboard'}. ¿En qué puedo asistirte hoy?`
+        : '¡Hola! Soy el asistente de Atención al Cliente de System Kyron. Para brindarte una asesoría detallada y personalizada, por favor indícame tu Cédula o RIF para analizar tu expediente.';
+      setMessages([{ role: 'assistant', content: initialGreeting }]);
+    }
+  }, [isPrivate, user, pathname]);
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isTyping]);
 
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
   const handleSend = async () => {
     if (!input.trim() || isTyping) return;
 
     const userMsg: Message = { role: 'user', content: input };
     setMessages(prev => [...prev, userMsg]);
+    
+    // Si detectamos un RIF o Cédula en modo público, mostramos feedback de análisis
+    const isIdInput = !isPrivate && (input.toUpperCase().startsWith('V-') || input.toUpperCase().startsWith('J-') || input.length > 6);
+    if (isIdInput) setIsAnalyzing(true);
+    
     setInput('');
     setIsTyping(true);
 
@@ -48,7 +64,8 @@ export function VoiceAssistant() {
         body: JSON.stringify({
           messages: [...messages, userMsg],
           identity: isPrivate ? 'plan' : 'support',
-          path: pathname
+          path: pathname,
+          isDetailed: isIdInput
         })
       });
 
@@ -69,6 +86,7 @@ export function VoiceAssistant() {
       }]);
     } finally {
       setIsTyping(false);
+      setIsAnalyzing(false);
     }
   };
 
@@ -133,7 +151,19 @@ export function VoiceAssistant() {
                   </div>
                 </motion.div>
               ))}
-              {isTyping && (
+              {isAnalyzing && (
+                <div className="flex gap-3">
+                  <div className="h-8 w-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                    <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                  </div>
+                  <div className="bg-emerald-500/5 p-4 rounded-2xl rounded-tl-none border border-emerald-500/10">
+                    <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest animate-pulse">
+                      Verificando expediente corporativo...
+                    </p>
+                  </div>
+                </div>
+              )}
+              {isTyping && !isAnalyzing && (
                 <div className="flex gap-3">
                   <div className="h-8 w-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                     <Bot className="h-4 w-4 text-primary" />

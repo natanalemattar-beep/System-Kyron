@@ -93,12 +93,13 @@ const slides = [
     },
     {
         id: 'impacto',
-        title: 'Impacto Ambiental',
-        subtitle: 'Modelo Revolucionario "Cero Papel"',
+        title: 'Sostenibilidad Real',
+        subtitle: 'Iniciativa "Zero Paper" & Ameru',
         points: [
-            'Digitalización total: Eliminación de archivos físicos en PYMES.',
-            'Ahorro masivo de recursos y protección de bosques.',
-            'Reducción drástica de la huella de carbono administrativa.'
+            'Cero Papel: Digitalización total de archivos físicos mediante System Kyron.',
+            'Smart Bins (Ameru): Contenedores inteligentes integrados al sistema.',
+            'Eco-Créditos: Recompensas por reciclaje verificadas en tiempo real.',
+            'Alianza Estratégica con Ameru para economía circular.'
         ],
         badge: '20% de Puntuación - CRÍTICO',
         icon: <Leaf className="w-12 h-12 text-emerald-400 animate-pulse" />,

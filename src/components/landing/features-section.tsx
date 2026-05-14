@@ -135,7 +135,7 @@ export function FeaturesSection() {
                     className="flex justify-center mt-32"
                     delay={0.5}
                 >
-                    <Link href="/manual-usuario" className="group relative glass-System Kyron px-12 py-6 rounded-2xl overflow-hidden hover:scale-105 transition-all duration-500 shine-effect block">
+                    <Link href="/precios" className="group relative glass-System Kyron px-12 py-6 rounded-2xl overflow-hidden hover:scale-105 transition-all duration-500 shine-effect block">
                         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                         <div className="flex items-center gap-4 relative z-10">
                             <div className="h-10 w-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 border border-cyan-500/30">
