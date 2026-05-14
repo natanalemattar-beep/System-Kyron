@@ -145,10 +145,14 @@ export default function ResumenEjecutivoPage() {
                     </section>
 
                     <section className="space-y-4">
-                        <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black">5. Impacto Social y Ambiental</h2>
-                        <div className="pl-4 border-l-2 border-primary/10 space-y-2 print:border-black/10">
-                            <p className="text-sm text-foreground/80 print:text-black"><strong>Ambiental:</strong> Eliminación del uso de papel mediante digitalización total.</p>
-                            <p className="text-sm text-foreground/80 print:text-black"><strong>Social:</strong> Democratización de tecnología de élite para el pequeño comerciante.</p>
+                        <h2 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-500 print:text-black">5. Sostenibilidad e Impacto Social</h2>
+                        <div className="pl-4 border-l-2 border-emerald-500/30 space-y-3 print:border-black/10">
+                            <p className="text-sm text-foreground/80 print:text-black leading-relaxed">
+                                <strong className="text-emerald-500">Modelo "Cero Papel":</strong> Somos pioneros en la eliminación de la huella de carbono administrativa en Venezuela. Digitalizamos el 100% de la gestión documental, eliminando el uso de archivos físicos y optimizando recursos naturales.
+                            </p>
+                            <p className="text-sm text-foreground/80 print:text-black leading-relaxed">
+                                <strong className="text-primary">Impacto Social:</strong> Democratizamos el acceso a herramientas de gestión y blindaje legal de élite para el emprendedor, fortaleciendo el tejido económico nacional de forma ética y transparente.
+                            </p>
                         </div>
                     </section>
 

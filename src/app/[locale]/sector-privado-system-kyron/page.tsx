@@ -366,6 +366,9 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                                     <CircleCheck className="h-5 w-5 text-cyan-400 shrink-0" /> Capacitación total para ti y todo tu equipo.
                                 </li>
                                 <li className="flex items-start gap-3 text-[12px] text-white font-bold leading-tight">
+                                    <CircleCheck className="h-5 w-5 text-cyan-400 shrink-0" /> Compromiso Sostenible: Modelo 'Cero Papel' que elimina desperdicios físicos y protege el medio ambiente.
+                                </li>
+                                <li className="flex items-start gap-3 text-[12px] text-white font-bold leading-tight">
                                     <CircleCheck className="h-5 w-5 text-cyan-400 shrink-0" /> Migración de datos sin perder tu información actual.
                                 </li>
                             </ul>
@@ -529,6 +532,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                             {I:FileText, t:"Facturación", d:"Manejo de IGTF."},
                             {I:ChartColumn, t:"Reportes", d:"Métricas precisas."},
                             {I:Lock, t:"Seguridad", d:"Permisos y roles."},
+                            {I:Leaf, t:"Sostenibilidad", d:"Modelo Cero Papel."},
                             {I:Smartphone, t:"Líneas Telefónicas", d:"Comunicación segura."}
                         ].map(({I,t,d},i)=>(
                             <motion.div 
@@ -585,11 +589,20 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                             </p>
                         </div>
 
+                        <div className="relative pl-5 border-l-[2px] border-emerald-500 pb-2">
+                            <div className="absolute left-[-9px] top-0 h-4 w-4 rounded-full bg-emerald-500 border-2 border-emerald-500 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.5)]">
+                                <div className="h-1.5 w-1.5 bg-white rounded-full" />
+                            </div>
+                            <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1">Impacto Ambiental</h4>
+                            <p className="text-[11px] text-emerald-400 font-bold leading-snug text-justify">
+                                Digitalización total: eliminamos la huella de carbono administrativa con nuestro modelo "Cero Papel".
+                            </p>
+                        </div>
                         <div className="relative pl-5 border-l-[2px] border-transparent">
                             <div className="absolute left-[-9px] top-0 h-4 w-4 rounded-full bg-[#09090b] border-2 border-zinc-700" />
                             <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1">Escalabilidad Total</h4>
                             <p className="text-[11px] text-zinc-300 font-bold leading-snug text-justify">
-                                Crece de una a cien sucursales. Gestiona inventarios centrales y sedes desde un único panel administrativo.
+                                Crece de una a cien sucursales. Gestiona inventarios centrales desde un único panel.
                             </p>
                         </div>
                     </div>

@@ -5,6 +5,7 @@ import { LazySection } from '@/components/landing/lazy-section';
 // Above-the-fold — SSR for SEO & LCP
 const HeroSection      = dynamic(() => import('@/components/landing/hero-section-optimized').then(m => ({ default: m.HeroSectionOptimized })), { ssr: true });
 const FeaturesSection  = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: true });
+const SustainabilitySection = dynamic(() => import('@/components/landing/SustainabilitySection').then(m => ({ default: m.SustainabilitySection })), { ssr: true });
 
 // Below-the-fold — loaded dynamically
 const PricingSection    = dynamic(() => import('@/components/landing/pricing-section').then(m => ({ default: m.PricingSection })));
@@ -27,6 +28,9 @@ export default function LandingPage() {
           <section id="caracteristicas">
             <FeaturesSection />
           </section>
+
+          {/* 2.5 Sustainability — Impacto Ambiental (SSR) */}
+          <SustainabilitySection />
 
           {/* 3. Pricing — Planes y precios */}
           <LazySection fallbackHeight="800px">

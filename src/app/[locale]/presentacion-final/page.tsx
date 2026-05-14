@@ -76,16 +76,16 @@ const slides = [
     },
     {
         id: 'impacto',
-        title: 'Impacto Triple Bottom Line',
-        subtitle: 'Compromiso Cero Papel y Democratización',
+        title: 'Impacto Ambiental',
+        subtitle: 'Modelo Revolucionario "Cero Papel"',
         points: [
-            'Ambiental: Eliminación de la huella de carbono administrativa.',
-            'Social: Formalización de la economía venezolana.',
-            'Ético: Transparencia auditada por algoritmos.'
+            'Digitalización total: Eliminación de archivos físicos en PYMES.',
+            'Ahorro masivo de recursos y protección de bosques.',
+            'Reducción drástica de la huella de carbono administrativa.'
         ],
-        badge: '20% de Puntuación',
-        icon: <Leaf className="w-12 h-12 text-green-500" />,
-        bg: 'bg-gradient-to-br from-[#030711] to-green-500/10'
+        badge: '20% de Puntuación - CRÍTICO',
+        icon: <Leaf className="w-12 h-12 text-emerald-400 animate-pulse" />,
+        bg: 'bg-gradient-to-br from-[#030711] to-emerald-500/20'
     },
     {
         id: 'equipo',
