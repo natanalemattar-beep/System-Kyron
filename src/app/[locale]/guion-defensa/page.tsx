@@ -21,8 +21,8 @@ const SCRIPT_SECTIONS = [
         title: 'El Gancho y La Misión',
         speaker: 'Carlos',
         content: [
-            "Buenos días. Somos System Kyron. En Venezuela, el empresario no solo compite contra el mercado, compite contra el tiempo y la burocracia. Pierde el 40% de su productividad en tareas manuales.",
-            "System Kyron no es solo un software; es un Ecosistema de Inteligencia Corporativa que automatiza la complejidad para que el empresario pueda enfocarse en lo que importa: crecer."
+            "Buenos días. Somos System Kyron. En Venezuela, el empresario no solo compite contra el mercado; compite contra un caos de proveedores. Pierde el 40% de su tiempo saltando entre sistemas contables, gestores legales y una telefonía que nunca está integrada.",
+            "System Kyron nace para detener esta sangría de tiempo. No somos un software más; somos el primer Ecosistema de Inteligencia Corporativa que unifica conectividad, automatización fiscal y sostenibilidad en una sola fibra operativa."
         ]
     },
     {
@@ -30,12 +30,12 @@ const SCRIPT_SECTIONS = [
         title: 'El Blitz de Módulos',
         speaker: 'Carlos',
         content: [
-            "Nuestro ecosistema está blindado por Kyron Shield y se divide en 5 pilares de automatización absoluta:",
-            "1. Finanzas Periciales: Automatizamos contabilidad bajo VEN-NIF, gestionando IVA, ISLR e IGTF al 100% sin errores humanos.",
-            "2. Legal & Compliance: Blindaje total con Kyron Voice para contratos automáticos y gestión de permisología ante SAPI y SENIAT.",
-            "3. Operaciones TPV: Facturación multimoneda e inventarios inteligentes que se sincronizan en milisegundos.",
-            "4. Talento Humano: Nómina automatizada y reclutamiento con IA que analiza el clima organizacional.",
-            "5. Conectividad 5G: Somos el primer ERP que integra gestión de líneas móviles para flotas empresariales."
+            "Nuestro ecosistema elimina la fricción mediante 5 pilares de automatización absoluta:",
+            "1. Conectividad 5G & VoIP: Somos el único ERP que gestiona tus líneas corporativas y flotas móviles desde el mismo panel que tu nómina.",
+            "2. Finanzas Periciales: Automatizamos contabilidad bajo VEN-NIF, eliminando el error humano en IVA, ISLR e IGTF.",
+            "3. Legal & Compliance: Blindaje total con Kyron Voice para contratos automáticos y gestión de permisología digital.",
+            "4. Operaciones TPV: Facturación multimoneda sincronizada en tiempo real con inventarios inteligentes.",
+            "5. Modelo Cero Papel: Una oficina digitalizada es una oficina eficiente y responsable."
         ]
     },
     {
