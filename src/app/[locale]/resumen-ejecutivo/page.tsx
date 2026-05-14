@@ -112,11 +112,11 @@ export default function ResumenEjecutivoPage() {
                             <div className="grid md:grid-cols-2 gap-6 pl-4 border-l-2 border-primary/10 print:border-black/10">
                                 <div>
                                     <label className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1 block">Misión Crítica</label>
-                                    <p className="text-sm font-bold">Digitalizar el 100% de la operación empresarial venezolana en una sola infraestructura blindada.</p>
+                                    <p className="text-sm font-bold">Unificar la conectividad, fiscalidad y legalidad en una sola infraestructura blindada para el sector privado.</p>
                                 </div>
                                 <div>
-                                    <label className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1 block">Impacto Directo</label>
-                                    <p className="text-sm font-bold">Reducción del 40% en costos operativos y 90% en tiempos de procesamiento fiscal.</p>
+                                    <label className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1 block">Recuperación de Eficiencia</label>
+                                    <p className="text-sm font-bold">Eliminación del 40% de tiempo perdido en la gestión de múltiples proveedores y procesos manuales.</p>
                                 </div>
                             </div>
                         </section>
@@ -124,39 +124,41 @@ export default function ResumenEjecutivoPage() {
                         <section className="space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black">2. El Ecosistema Kyron</h2>
                             <p className="text-sm leading-relaxed text-foreground/80 pl-4 border-l-2 border-primary/10 print:text-black print:border-black/10">
-                                System Kyron no es solo un software; es un <strong>Ecosistema de Inteligencia Corporativa</strong> que unifica Contabilidad VEN-NIF, Gestión Legal Automatizada (SAPI/SENIAT), Recursos Humanos (LOTTT) y Conectividad 5G en una única interfaz de comando.
+                                System Kyron es un <strong>Ecosistema de Inteligencia Corporativa</strong> que rompe la dependencia de proveedores aislados. Unificamos la Contabilidad VEN-NIF, la Gestión Legal Automatizada (SAPI/SENIAT), y la <strong>Conectividad 5G de Flotas</strong> en una única interfaz de comando centralizada.
                             </p>
                         </section>
 
                         <section className="space-y-4">
+                            <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400 print:text-black flex items-center gap-2">
+                                <Globe className="h-4 w-4" /> 3. Conectividad e Integración 5G
+                            </h2>
+                            <div className="pl-4 border-l-2 border-cyan-500/30 space-y-3 print:border-black/10">
+                                <p className="text-sm text-foreground/80 print:text-black leading-relaxed">
+                                    Somos el primer ERP en integrar la <strong>Gestión de Líneas Corporativas</strong> y flotas móviles. Kyron elimina el conflicto entre proveedores de telefonía y sistemas internos, permitiendo una trazabilidad total de costos y una activación inmediata de conectividad empresarial.
+                                </p>
+                            </div>
+                        </section>
+
+                        <section className="space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-500 print:text-black flex items-center gap-2">
-                                <Leaf className="h-4 w-4" /> 3. Compromiso Sostenible (Zero Paper)
+                                <Leaf className="h-4 w-4" /> 4. Compromiso Sostenible (Smart Bins & Zero Paper)
                             </h2>
                             <div className="pl-4 border-l-2 border-emerald-500/30 space-y-4 print:border-black/10">
                                 <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
                                     <p className="text-sm text-foreground/80 print:text-black leading-relaxed">
-                                        <strong className="text-emerald-500 uppercase tracking-tighter">Iniciativa Cero Papel:</strong> A través de la alianza estratégica con <strong>Ameru</strong>, hemos implementado el modelo de gestión documental 100% digital. Eliminamos la necesidad de archivos físicos, facturas impresas y reportes manuales, ahorrando más de 12,000 hojas anuales por cada empresa mediana.
+                                        <strong className="text-emerald-500 uppercase tracking-tighter">Alianza Ameru:</strong> Mediante contenedores inteligentes de inducción magnética, incentivamos el reciclaje corporativo. El modelo <strong>Cero Papel</strong> de Kyron digitaliza el 100% de la documentación, ahorrando más de 12,000 hojas anuales por empresa.
                                     </p>
-                                </div>
-                                <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 flex items-start gap-4">
-                                    <Recycle className="h-6 w-6 text-emerald-400 shrink-0" />
-                                    <div>
-                                        <p className="text-sm text-foreground/80 print:text-black leading-relaxed font-bold">Reciclaje Inteligente (Smart Bins):</p>
-                                        <p className="text-[12px] text-white/60 print:text-black/60 leading-tight">
-                                            Integración con contenedores inteligentes Ameru que utilizan inducción magnética para clasificar residuos. Cada acción de reciclaje genera <strong>Eco-Créditos Kyron</strong>, canjeables por servicios dentro del ecosistema.
-                                        </p>
-                                    </div>
                                 </div>
                             </div>
                         </section>
 
                         <section className="space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <ShieldCheck className="h-4 w-4" /> 4. Blindaje Legal y Seguridad
+                                <ShieldCheck className="h-4 w-4" /> 5. Blindaje Legal y Seguridad
                             </h2>
                             <div className="pl-4 border-l-2 border-primary/10 space-y-3 print:border-black/10">
                                 <p className="text-sm text-foreground/80 print:text-black">
-                                    Protegemos la propiedad intelectual y la integridad operativa mediante <strong>Kyron Shield</strong>, un protocolo de cifrado AES-256 y sellado Blockchain que garantiza la inmutabilidad de cada documento y transacción fiscal.
+                                    Protegemos la propiedad intelectual y la integridad operativa mediante <strong>Kyron Shield</strong>, con cifrado AES-256 y sellado Blockchain que garantiza la inmutabilidad de cada documento y transacción.
                                 </p>
                             </div>
                         </section>
