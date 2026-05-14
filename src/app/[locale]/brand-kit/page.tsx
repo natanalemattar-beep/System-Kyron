@@ -41,11 +41,11 @@ export default function BrandKitPage() {
 
     const resources = [
         {
-            id: 'pitch',
-            title: 'Pitch Ejecutivo',
-            description: 'Presentación cinematográfica 4K para inversionistas y jurado.',
+            id: 'presentation',
+            title: 'Presentación Final',
+            description: 'Pitch Deck interactivo optimizado para la defensa ante el jurado.',
             icon: Presentation,
-            href: '/pitch',
+            href: '/presentacion-final',
             color: 'from-blue-600 to-indigo-600',
             tag: 'LIVE PITCH',
             type: 'internal'
@@ -53,7 +53,7 @@ export default function BrandKitPage() {
         {
             id: 'resumen',
             title: 'Resumen Ejecutivo',
-            description: 'Documento síntesis de 2 páginas con la propuesta de valor.',
+            description: 'Documento técnico de 2 páginas con la síntesis del ecosistema Kyron.',
             icon: FileText,
             href: '/resumen-ejecutivo',
             color: 'from-cyan-600 to-blue-600',
@@ -62,17 +62,17 @@ export default function BrandKitPage() {
         },
         {
             id: 'guion',
-            title: 'Guion de Locución',
-            description: 'Script oficial palabra por palabra para la defensa del pitch.',
+            title: 'Guion de Defensa',
+            description: 'Script oficial de 4:30 minutos para una locución de alto impacto.',
             icon: Mic,
-            href: '/pitch', // Script is exported from pitch page
+            href: '/guion-defensa',
             color: 'from-emerald-600 to-teal-600',
-            tag: 'VOICE OVER',
+            tag: 'SPEECH SCRIPT',
             type: 'internal'
         },
         {
             id: 'identidad',
-            title: 'Activos de Marca',
+            title: 'Kit de Identidad',
             description: 'Stickers, Marca Libros y Tarjetas de Presentación en alta fidelidad.',
             icon: ImageIcon,
             href: '/stickers',
@@ -91,14 +91,14 @@ export default function BrandKitPage() {
             type: 'internal'
         },
         {
-            id: 'paisaje',
-            title: 'Paisaje Venezuela 4K',
-            description: 'Toma cinematográfica del Salto Ángel para fondos de presentación.',
-            icon: Globe,
-            href: 'https://images.unsplash.com/photo-1626014303757-646c2d399b4d?q=80&w=2000&auto=format&fit=crop',
-            color: 'from-cyan-400 to-blue-500',
-            tag: '4K WALLPAPER',
-            type: 'external'
+            id: 'cartas',
+            title: 'Cartas de Agradecimiento',
+            description: 'Correspondencia oficial para aliados (Coca-Cola, Inter, Chévere Salud).',
+            icon: Building2,
+            href: '/cartas',
+            color: 'from-emerald-500 to-teal-600',
+            tag: 'OFFICIAL LETTERS',
+            type: 'internal'
         },
         {
             id: 'instagram',
@@ -111,14 +111,14 @@ export default function BrandKitPage() {
             type: 'external'
         },
         {
-            id: 'cartas',
-            title: 'Cartas de Agradecimiento',
-            description: 'Correspondencia oficial para aliados (Coca-Cola, Inter, Chévere Salud).',
-            icon: Building2,
-            href: '/cartas',
-            color: 'from-emerald-500 to-teal-600',
-            tag: 'OFFICIAL LETTERS',
-            type: 'internal'
+            id: 'paisaje',
+            title: 'Paisaje Venezuela 4K',
+            description: 'Toma cinematográfica del Salto Ángel para fondos de presentación.',
+            icon: Globe,
+            href: 'https://images.unsplash.com/photo-1626014303757-646c2d399b4d?q=80&w=2000&auto=format&fit=crop',
+            color: 'from-cyan-400 to-blue-500',
+            tag: '4K WALLPAPER',
+            type: 'external'
         }
     ];
 
