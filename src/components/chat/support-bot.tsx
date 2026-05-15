@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils";
 
 export function SupportBot() {
     const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState<{ role: "user" | "ai"; content: string }[]>([
-        { role: "ai", content: "Bienvenido al Centro de Mando Kyron. Soy Kyron Core, tu asistente de inteligencia estratégica. ¿En qué puedo optimizar tu operación hoy?" }
+    const [messages, setMessages] = useState<{ role: "user" | "model"; content: string }[]>([
+        { role: "model", content: "Bienvenido al Centro de Mando Kyron. Soy Kyron Core, la inteligencia oficial de tu ecosistema estratégico. ¿En qué puedo optimizar tu operación hoy?" }
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +45,7 @@ export function SupportBot() {
 
         try {
             const history = messages.map(m => ({ 
-                role: m.role === "user" ? "user" : "assistant", 
+                role: m.role, 
                 content: m.content 
             }));
             
@@ -56,12 +56,12 @@ export function SupportBot() {
             const response = await chatWithKyron(history);
             
             if (response.error) {
-                setMessages(prev => [...prev, { role: "ai", content: response.error! }]);
+                setMessages(prev => [...prev, { role: "model", content: response.error! }]);
             } else {
-                setMessages(prev => [...prev, { role: "ai", content: response.content || "Entendido. Procesando solicitud..." }]);
+                setMessages(prev => [...prev, { role: "model", content: response.content || "Entendido. Procesando solicitud..." }]);
             }
         } catch (error) {
-            setMessages(prev => [...prev, { role: "ai", content: "Error de conexión con el núcleo Kyron." }]);
+            setMessages(prev => [...prev, { role: "model", content: "Error de conexión con el núcleo Kyron." }]);
         } finally {
             setIsLoading(false);
         }
