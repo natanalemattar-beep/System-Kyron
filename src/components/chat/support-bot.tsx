@@ -1,40 +1,38 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, Send, X, Bot, User, Sparkles, Loader2 } from "lucide-react";
+import { MessageCircle, Send, X, Sparkles, Loader2, Brain, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { chatWithKyron } from "@/app/actions/ai-chat";
 import { cn } from "@/lib/utils";
-
 import { usePathname } from "next/navigation";
+
+interface Message {
+    role: "user" | "model";
+    content: string;
+    timestamp: Date;
+}
 
 export function SupportBot() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     
-    // Ocultar en la página de presentación final para que no estorbe
     if (pathname.includes('presentacion-final')) return null;
 
-    const [messages, setMessages] = useState<{ role: "user" | "model"; content: string }[]>([
-        { role: "model", content: "Bienvenido al Centro de Mando Kyron. Soy Kyron Core, la inteligencia oficial de tu ecosistema estratégico. ¿En qué puedo optimizar tu operación hoy?" }
+    const [messages, setMessages] = useState<Message[]>([
+        { 
+            role: "model", 
+            content: "Hola, soy Kyron Core. Pregúntame lo que necesites sobre System Kyron: precios, funcionalidades, registro o cualquier duda técnica.", 
+            timestamp: new Date() 
+        }
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [pageContext, setPageContext] = useState("");
     const scrollRef = useRef<HTMLDivElement>(null);
-
-    // Dynamic Page Analysis
-    useEffect(() => {
-        const analyzePage = () => {
-            const title = document.title;
-            const mainContent = document.querySelector('main')?.innerText?.slice(0, 1000) || "";
-            setPageContext(`[ESTÁS EN LA PÁGINA: ${title}]\n[CONTENIDO DETECTADO: ${mainContent}]`);
-        };
-        analyzePage();
-    }, [isOpen]);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         if (scrollRef.current) {
@@ -42,36 +40,48 @@ export function SupportBot() {
         }
     }, [messages]);
 
-    const handleSend = async () => {
+    useEffect(() => {
+        if (isOpen && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isOpen]);
+
+    const handleSend = useCallback(async () => {
         if (!input.trim() || isLoading) return;
 
         const userMessage = input.trim();
         setInput("");
-        setMessages(prev => [...prev, { role: "user", content: userMessage }]);
+        
+        const newUserMsg: Message = { role: "user", content: userMessage, timestamp: new Date() };
+        setMessages(prev => [...prev, newUserMsg]);
         setIsLoading(true);
 
         try {
-            const history = messages.map(m => ({ 
-                role: m.role, 
-                content: m.content 
-            }));
-            
-            // Inyectar contexto de la página en el último mensaje para que la IA sepa qué hay en pantalla
-            const messageWithContext = `[CONTEXTO VISUAL ACTUAL: ${pageContext}]\n\nUsuario: ${userMessage}`;
-            history.push({ role: "user", content: messageWithContext });
+            const history = messages.map(m => ({ role: m.role, content: m.content }));
+            history.push({ role: "user", content: userMessage });
 
             const response = await chatWithKyron(history);
             
-            if (response.error) {
-                setMessages(prev => [...prev, { role: "model", content: response.error! }]);
-            } else {
-                setMessages(prev => [...prev, { role: "model", content: response.content || "Entendido. Procesando solicitud..." }]);
-            }
-        } catch (error) {
-            setMessages(prev => [...prev, { role: "model", content: "Error de conexión con el núcleo Kyron." }]);
+            const aiMsg: Message = { 
+                role: "model", 
+                content: response.error || response.content || "No pude procesar tu consulta. Intenta de nuevo.", 
+                timestamp: new Date() 
+            };
+            setMessages(prev => [...prev, aiMsg]);
+        } catch {
+            const errorMsg: Message = { 
+                role: "model", 
+                content: "Error de conexión. Verifica tu conexión a internet.", 
+                timestamp: new Date() 
+            };
+            setMessages(prev => [...prev, errorMsg]);
         } finally {
             setIsLoading(false);
         }
+    }, [input, isLoading, messages]);
+
+    const formatTime = (date: Date) => {
+        return date.toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit' });
     };
 
     return (
@@ -79,102 +89,131 @@ export function SupportBot() {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: 20, scale: 0.9, transformOrigin: "bottom right" }}
+                        initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: "bottom right" }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 20, scale: 0.9 }}
+                        exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                        transition={{ type: "spring", damping: 25, stiffness: 300 }}
                         className="mb-4"
                     >
-                        <Card className="w-[350px] md:w-[400px] h-[500px] flex flex-col bg-white dark:bg-[#0a1020] border-black/5 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] rounded-[2rem] overflow-hidden">
+                        <Card className="w-[340px] sm:w-[380px] md:w-[420px] h-[520px] flex flex-col bg-[#0a0f1e] border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.5)] rounded-3xl overflow-hidden">
                             {/* Header */}
-                            <div className="p-6 bg-primary text-white flex items-center justify-between">
+                            <div className="px-5 py-4 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 border-b border-white/5 flex items-center justify-between">
                                 <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-white/20 rounded-xl relative">
-                                        <Bot className="h-5 w-5" />
+                                    <div className="relative p-2 bg-cyan-500/10 rounded-xl border border-cyan-500/20">
+                                        <Brain className="h-5 w-5 text-cyan-400" />
                                         <motion.div 
-                                            animate={{ scale: [1, 1.2, 1] }}
+                                            animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
                                             transition={{ repeat: Infinity, duration: 2 }}
-                                            className="absolute -top-1 -right-1 h-2 w-2 bg-emerald-400 rounded-full border border-primary" 
+                                            className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 bg-emerald-400 rounded-full border-2 border-[#0a0f1e]" 
                                         />
                                     </div>
                                     <div>
-                                        <h4 className="text-sm font-black uppercase tracking-widest">Kyron Core</h4>
-                                        <div className="flex items-center gap-1.5">
-                                            <span className="text-[10px] font-bold opacity-70">ANALIZANDO PANTALLA...</span>
-                                        </div>
+                                        <h4 className="text-sm font-bold text-white">Kyron Core AI</h4>
+                                        <p className="text-[10px] text-cyan-400/60 font-medium">Inteligencia activa</p>
                                     </div>
                                 </div>
-                                <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="text-white hover:bg-white/10 rounded-full">
-                                    <X className="h-5 w-5" />
+                                <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="text-white/50 hover:text-white hover:bg-white/5 rounded-lg h-8 w-8">
+                                    <X className="h-4 w-4" />
                                 </Button>
                             </div>
 
                             {/* Chat Area */}
                             <div 
                                 ref={scrollRef}
-                                className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-hide"
+                                className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-hide"
                             >
                                 {messages.map((m, i) => (
                                     <motion.div
                                         key={i}
-                                        initial={{ opacity: 0, x: m.role === "user" ? 20 : -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.3 }}
                                         className={cn(
-                                            "flex items-start gap-3 max-w-[85%]",
+                                            "flex gap-2.5 max-w-[88%]",
                                             m.role === "user" ? "ml-auto flex-row-reverse" : ""
                                         )}
                                     >
                                         <div className={cn(
-                                            "p-2 rounded-xl shrink-0",
-                                            m.role === "user" ? "bg-primary/10" : "bg-slate-100 dark:bg-white/5"
+                                            "mt-1 p-1.5 rounded-lg shrink-0",
+                                            m.role === "user" ? "bg-cyan-500/10" : "bg-white/5"
                                         )}>
-                                            {m.role === "user" ? <User className="h-4 w-4 text-primary" /> : <Sparkles className="h-4 w-4 text-primary" />}
+                                            {m.role === "user" 
+                                                ? <Sparkles className="h-3.5 w-3.5 text-cyan-400" /> 
+                                                : <Brain className="h-3.5 w-3.5 text-white/40" />
+                                            }
                                         </div>
-                                        <div className={cn(
-                                            "p-4 rounded-2xl text-xs leading-relaxed font-medium",
-                                            m.role === "user" 
-                                                ? "bg-primary text-white rounded-tr-none" 
-                                                : "bg-slate-100 dark:bg-white/5 dark:text-white/90 rounded-tl-none border border-black/5 dark:border-white/5"
-                                        )}>
-                                            {m.content}
+                                        <div className="space-y-1">
+                                            <div className={cn(
+                                                "px-4 py-3 rounded-2xl text-[13px] leading-relaxed",
+                                                m.role === "user" 
+                                                    ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-tr-md" 
+                                                    : "bg-white/5 text-white/80 rounded-tl-md border border-white/5"
+                                            )}>
+                                                {m.content}
+                                            </div>
+                                            <p className={cn(
+                                                "text-[9px] font-medium",
+                                                m.role === "user" ? "text-right text-cyan-400/40" : "text-white/20"
+                                            )}>
+                                                {formatTime(m.timestamp)}
+                                            </p>
                                         </div>
                                     </motion.div>
                                 ))}
                                 {isLoading && (
-                                    <div className="flex items-center gap-2 text-[10px] font-bold text-primary/50 uppercase tracking-widest ml-12">
-                                        <Loader2 className="h-3 w-3 animate-spin" /> Procesando...
-                                    </div>
+                                    <motion.div 
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        className="flex items-center gap-2 px-4 py-3 bg-white/5 rounded-2xl rounded-tl-md border border-white/5 w-fit"
+                                    >
+                                        <div className="flex gap-1">
+                                            <motion.div 
+                                                animate={{ y: [0, -4, 0] }}
+                                                transition={{ repeat: Infinity, duration: 0.6, delay: 0 }}
+                                                className="w-1.5 h-1.5 bg-cyan-400/60 rounded-full"
+                                            />
+                                            <motion.div 
+                                                animate={{ y: [0, -4, 0] }}
+                                                transition={{ repeat: Infinity, duration: 0.6, delay: 0.2 }}
+                                                className="w-1.5 h-1.5 bg-cyan-400/60 rounded-full"
+                                            />
+                                            <motion.div 
+                                                animate={{ y: [0, -4, 0] }}
+                                                transition={{ repeat: Infinity, duration: 0.6, delay: 0.4 }}
+                                                className="w-1.5 h-1.5 bg-cyan-400/60 rounded-full"
+                                            />
+                                        </div>
+                                        <span className="text-[10px] text-white/30 font-medium">Pensando...</span>
+                                    </motion.div>
                                 )}
                             </div>
 
                             {/* Input Area */}
-                            <div className="p-4 bg-slate-50 dark:bg-white/[0.02] border-t border-black/5 dark:border-white/5">
+                            <div className="p-3 bg-white/[0.02] border-t border-white/5">
                                 <div className="flex gap-2">
                                     <Input 
-                                        placeholder="Escribe tu consulta estratégica..."
+                                        ref={inputRef}
+                                        placeholder="Pregunta algo..."
                                         value={input}
                                         onChange={(e) => setInput(e.target.value)}
-                                        onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                                        className="h-12 rounded-xl bg-white dark:bg-black/20 border-black/5 dark:border-white/10 text-xs focus-visible:ring-primary"
+                                        onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
+                                        className="h-11 rounded-xl bg-white/5 border-white/10 text-[13px] text-white placeholder:text-white/20 focus-visible:ring-cyan-500/30 focus-visible:border-cyan-500/30"
                                     />
-                                    <Button 
-                                        onClick={() => {
-                                            setInput("Haz un análisis estratégico de lo que ves en esta página ahora mismo.");
-                                            setTimeout(handleSend, 100);
-                                        }}
-                                        variant="outline"
-                                        size="sm"
-                                        className="h-12 px-4 rounded-xl border-dashed border-primary/30 text-primary font-bold text-[10px] uppercase tracking-widest hover:bg-primary/5"
-                                    >
-                                        <Sparkles className="h-3 w-3 mr-2" /> Analizar Página
-                                    </Button>
                                     <Button 
                                         onClick={handleSend}
                                         disabled={isLoading || !input.trim()}
-                                        className="h-12 w-12 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 p-0"
+                                        className="h-11 w-11 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white shadow-lg shadow-cyan-600/20 p-0 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                                     >
-                                        <Send className="h-4 w-4" />
+                                        {isLoading ? (
+                                            <Loader2 className="h-4 w-4 animate-spin" />
+                                        ) : (
+                                            <Send className="h-4 w-4" />
+                                        )}
                                     </Button>
                                 </div>
+                                <p className="text-[9px] text-white/15 text-center mt-2">
+                                    Kyron Core AI · Respuestas basadas en datos reales de System Kyron
+                                </p>
                             </div>
                         </Card>
                     </motion.div>
@@ -182,19 +221,30 @@ export function SupportBot() {
             </AnimatePresence>
 
             <motion.div
-                whileHover={{ scale: 1.05, y: -5 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
             >
                 <Button 
                     onClick={() => setIsOpen(!isOpen)}
                     className={cn(
-                        "h-16 w-16 md:h-20 md:w-20 rounded-[1.5rem] md:rounded-[2rem] shadow-[0_20px_40px_rgba(0,0,0,0.2)] border p-0 overflow-hidden transition-all duration-500",
+                        "h-14 w-14 md:h-16 md:w-16 rounded-2xl shadow-[0_15px_35px_rgba(0,0,0,0.3)] border p-0 overflow-hidden transition-all duration-300",
                         isOpen 
-                            ? "bg-primary border-none text-white" 
-                            : "bg-white dark:bg-[#0a1020] border-black/5 dark:border-white/10 text-slate-600 dark:text-white"
+                            ? "bg-gradient-to-r from-cyan-600 to-blue-600 border-none text-white" 
+                            : "bg-[#0a0f1e] border-white/10 text-white hover:bg-white/5"
                     )}
                 >
-                    {isOpen ? <X className="h-6 w-6 md:h-8 md:w-8" /> : <MessageCircle className="h-6 w-6 md:h-8 md:w-8" />}
+                    {isOpen ? (
+                        <X className="h-5 w-5 md:h-6 md:w-6" />
+                    ) : (
+                        <div className="relative">
+                            <MessageCircle className="h-5 w-5 md:h-6 md:w-6" />
+                            <motion.div 
+                                animate={{ scale: [1, 1.2, 1] }}
+                                transition={{ repeat: Infinity, duration: 2 }}
+                                className="absolute -top-1 -right-1 h-2 w-2 bg-cyan-400 rounded-full"
+                            />
+                        </div>
+                    )}
                 </Button>
             </motion.div>
         </div>
