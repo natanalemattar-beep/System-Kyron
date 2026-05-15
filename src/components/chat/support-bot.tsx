@@ -16,7 +16,18 @@ export function SupportBot() {
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [pageContext, setPageContext] = useState("");
     const scrollRef = useRef<HTMLDivElement>(null);
+
+    // Dynamic Page Analysis
+    useEffect(() => {
+        const analyzePage = () => {
+            const title = document.title;
+            const mainContent = document.querySelector('main')?.innerText?.slice(0, 1000) || "";
+            setPageContext(`[ESTÁS EN LA PÁGINA: ${title}]\n[CONTENIDO DETECTADO: ${mainContent}]`);
+        };
+        analyzePage();
+    }, [isOpen]);
 
     useEffect(() => {
         if (scrollRef.current) {
@@ -37,7 +48,10 @@ export function SupportBot() {
                 role: m.role === "user" ? "user" : "assistant", 
                 content: m.content 
             }));
-            history.push({ role: "user", content: userMessage });
+            
+            // Inyectar contexto de la página en el último mensaje para que la IA sepa qué hay en pantalla
+            const messageWithContext = `[CONTEXTO VISUAL ACTUAL: ${pageContext}]\n\nUsuario: ${userMessage}`;
+            history.push({ role: "user", content: messageWithContext });
 
             const response = await chatWithKyron(history);
             
@@ -67,14 +81,18 @@ export function SupportBot() {
                             {/* Header */}
                             <div className="p-6 bg-primary text-white flex items-center justify-between">
                                 <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-white/20 rounded-xl">
+                                    <div className="p-2 bg-white/20 rounded-xl relative">
                                         <Bot className="h-5 w-5" />
+                                        <motion.div 
+                                            animate={{ scale: [1, 1.2, 1] }}
+                                            transition={{ repeat: Infinity, duration: 2 }}
+                                            className="absolute -top-1 -right-1 h-2 w-2 bg-emerald-400 rounded-full border border-primary" 
+                                        />
                                     </div>
                                     <div>
                                         <h4 className="text-sm font-black uppercase tracking-widest">Kyron Core</h4>
                                         <div className="flex items-center gap-1.5">
-                                            <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                                            <span className="text-[10px] font-bold opacity-70">SISTEMA ACTIVO</span>
+                                            <span className="text-[10px] font-bold opacity-70">ANALIZANDO PANTALLA...</span>
                                         </div>
                                     </div>
                                 </div>
@@ -131,6 +149,17 @@ export function SupportBot() {
                                         onKeyDown={(e) => e.key === "Enter" && handleSend()}
                                         className="h-12 rounded-xl bg-white dark:bg-black/20 border-black/5 dark:border-white/10 text-xs focus-visible:ring-primary"
                                     />
+                                    <Button 
+                                        onClick={() => {
+                                            setInput("Haz un análisis estratégico de lo que ves en esta página ahora mismo.");
+                                            setTimeout(handleSend, 100);
+                                        }}
+                                        variant="outline"
+                                        size="sm"
+                                        className="h-12 px-4 rounded-xl border-dashed border-primary/30 text-primary font-bold text-[10px] uppercase tracking-widest hover:bg-primary/5"
+                                    >
+                                        <Sparkles className="h-3 w-3 mr-2" /> Analizar Página
+                                    </Button>
                                     <Button 
                                         onClick={handleSend}
                                         disabled={isLoading || !input.trim()}
