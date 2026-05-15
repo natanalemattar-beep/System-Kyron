@@ -24,8 +24,8 @@ const slides = [
     {
         id: 'portada',
         title: 'System Kyron',
-        subtitle: 'El Futuro de la Inteligencia Corporativa en Venezuela',
-        content: 'Ecosistema Unificado: Conectividad, Automatización y Sostenibilidad.',
+        subtitle: 'La Evolución del Mando Único Empresarial',
+        content: 'Sincronizando el Futuro de tu Negocio: Conectividad, Automatización y Sostenibilidad.',
         team: 'Carlos Mattar • Sebastian Garrido • Marcos Sousa',
         icon: <Rocket className="w-12 h-12 text-primary" />,
         image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800',

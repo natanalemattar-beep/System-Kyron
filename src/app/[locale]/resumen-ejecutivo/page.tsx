@@ -119,12 +119,12 @@ export default function ResumenEjecutivoPage() {
                                 <div>
                                     <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">Nombre y Eslogan</p>
                                     <p className="text-sm font-bold text-white print:text-black">System Kyron: Intelligence Hub 4.0</p>
-                                    <p className="text-xs text-white/60 print:text-black/60 italic">"El Futuro de la Inteligencia Corporativa en Venezuela"</p>
+                                    <p className="text-xs text-white/60 print:text-black/60 italic">"La Evolución del Mando Único: Sincronizando el Futuro de tu Negocio"</p>
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">Equipo Directivo</p>
-                                    <p className="text-sm font-bold text-white print:text-black">C. Mattar (Tech) · S. Garrido (Ops) · M. Sousa (Legal)</p>
-                                    <p className="text-xs text-white/60 print:text-black/60">RIF Jurídico: J-50832149-9</p>
+                                    <p className="text-sm font-bold text-white print:text-black">Carlos Mattar (Tech) · Sebastian Garrido (Ops) · Marcos Sousa (Legal)</p>
+                                    <p className="text-xs text-white/60 print:text-black/60">Emprendimiento Carlos Mattar · RIF: J-50832149-9</p>
                                 </div>
                             </div>
                         </section>
