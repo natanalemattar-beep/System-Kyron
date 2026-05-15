@@ -100,7 +100,7 @@ export function HeroSectionOptimized() {
                     <div className="h-8 w-8 rounded-lg bg-cyan-500/20 flex items-center justify-center">
                       <Zap className="h-4 w-4 text-cyan-400" />
                     </div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-white">Live Metrics</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-white">Panel Inteligente</p>
                   </div>
                   <div className="space-y-2">
                     <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
@@ -116,7 +116,7 @@ export function HeroSectionOptimized() {
                 <div className="absolute top-10 -right-6 p-4 rounded-2xl glass-system-kyron border border-white/10 shadow-xl animate-float-slow">
                   <div className="flex items-center gap-2">
                     <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <p className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">Global 5G Node</p>
+                    <p className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">Red Ultra-Rápida</p>
                   </div>
                 </div>
               </div>

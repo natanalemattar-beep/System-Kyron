@@ -136,7 +136,7 @@ export function FeaturesSection() {
                         <div className="grid lg:grid-cols-2 gap-8 items-center">
                             <div className="p-10 space-y-6">
                                 <div className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
-                                    Kyron Hub 5G
+                                    Centro de Control
                                 </div>
                                 <h3 className="text-4xl font-black text-white uppercase tracking-tighter leading-none">
                                     El Cerebro de tu <span className="text-cyan-400">Infraestructura</span>
