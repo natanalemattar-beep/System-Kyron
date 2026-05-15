@@ -25,7 +25,7 @@ const slides = [
         id: 'portada',
         title: 'System Kyron',
         subtitle: 'El Futuro de la Inteligencia Corporativa en Venezuela',
-        content: 'Ecosistema SaaS/ERP Pericial para el Reto Inspira 2026',
+        content: 'Ecosistema Unificado: Conectividad, Automatización y Sostenibilidad.',
         team: 'Carlos Mattar • Sebastian Garrido • Marcos Sousa',
         icon: <Rocket className="w-12 h-12 text-primary" />,
         image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600',
@@ -33,87 +33,77 @@ const slides = [
     },
     {
         id: 'problema',
-        title: 'El Dolor del Mercado',
-        subtitle: 'Caos Administrativo y Vulnerabilidad Legal',
+        title: 'El Caos Operativo',
+        subtitle: 'La Pesadilla del Multi-Proveedor',
         points: [
-            '40% de pérdida de productividad en procesos manuales.',
-            '70% de informalidad técnica en PYMES venezolanas.',
-            'Altos riesgos legales por desconocimiento normativo.'
+            '40% de pérdida de productividad en saltos entre sistemas.',
+            'Fragmentación: Telefonía, Contabilidad y Legal desconectados.',
+            'Desperdicio Masivo: 12,000 hojas de papel al año por PyME.'
         ],
-        badge: '20% de Puntuación',
+        badge: 'EL DOLOR',
         icon: <BarChart3 className="w-12 h-12 text-rose-500" />,
         image: 'https://images.unsplash.com/photo-1590247813693-5541d1c609fd?q=80&w=1600',
         bg: 'bg-gradient-to-br from-[#030711] to-rose-500/10'
     },
     {
         id: 'solucion',
-        title: 'La Solución Kyron',
-        subtitle: 'Un Ecosistema, Infinitas Posibilidades',
-        content: 'Un SaaS/ERP que une contabilidad automatizada VEN-NIF, comunicaciones corporativas y blindaje legal en una sola interfaz.',
+        title: 'Ecosistema Unificado',
+        subtitle: 'Un Puente hacia la Eficiencia Total',
+        content: 'Kyron integra la Conectividad 5G, la Automatización Fiscal VEN-NIF y el Blindaje Legal en una sola interfaz de comando.',
         icon: <Zap className="w-12 h-12 text-amber-500" />,
         image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600',
         bg: 'bg-gradient-to-br from-[#030711] to-amber-500/10'
     },
     {
-        id: 'tecnologia',
-        title: 'Innovación Tecnológica',
-        subtitle: 'IA Pericial y Blockchain Layer',
+        id: 'telecom',
+        title: 'Conectividad 5G',
+        subtitle: 'Líneas Corporativas Integradas',
         points: [
-            'Kyron Shield: Motor de auditoría legal con IA.',
-            'Capa de Inmutabilidad en Blockchain para estados financieros.',
-            'Arquitectura de Cero Latencia optimizada para Venezuela.'
+            'Primer ERP con gestión de flotas móviles nativa.',
+            'Activación inmediata y trazabilidad de costos en tiempo real.',
+            'Conectividad blindada con Kyron Shield.'
         ],
-        badge: '15% de Puntuación',
-        icon: <Cpu className="w-12 h-12 text-cyan-500" />,
-        image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600',
+        badge: 'DIFERENCIADOR',
+        icon: <Globe2 className="w-12 h-12 text-cyan-400" />,
+        image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600',
         bg: 'bg-gradient-to-br from-[#030711] to-cyan-500/10'
     },
     {
-        id: 'viabilidad',
-        title: 'Viabilidad Económica',
-        subtitle: 'Modelo SaaS Recurrente',
+        id: 'sostenibilidad',
+        title: 'Sostenibilidad Ameru',
+        subtitle: 'Cero Papel & Reciclaje Inteligente',
         points: [
-            'Suscripciones escalables: Starter, Growth, Enterprise.',
-            'Estructura de costos optimizada (Cloud-Native).',
-            'Punto de equilibrio proyectado a 12 meses.'
+            'Smart Bins: Contenedores con inducción magnética.',
+            'Eco-Créditos: Incentivos por reciclaje verificado.',
+            'Alianza Estratégica con Ameru para economía circular.'
         ],
-        badge: '25% de Puntuación',
+        badge: 'IMPACTO AMBIENTAL',
+        icon: <Leaf className="w-12 h-12 text-emerald-400" />,
+        image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600',
+        bg: 'bg-gradient-to-br from-[#030711] to-emerald-500/20'
+    },
+    {
+        id: 'viabilidad',
+        title: 'Escalabilidad SaaS',
+        subtitle: 'Modelo Recurrente y Rentable',
+        points: [
+            'Suscripciones flexibles para 500,000 PyMEs.',
+            'Marketing educativo en TikTok e Instagram.',
+            'Costo operativo marginal decreciente.'
+        ],
+        badge: 'NEGOCIO',
         icon: <ShieldCheck className="w-12 h-12 text-emerald-500" />,
         image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1600',
         bg: 'bg-gradient-to-br from-[#030711] to-emerald-500/10'
     },
     {
-        id: 'escalabilidad',
-        title: 'Escalabilidad Masiva',
-        subtitle: 'Expansión de Red y Servicios',
-        content: 'Capacidad de integrar miles de empresas con costos marginales decrecientes. Expansión regional mediante alianzas contables y legales.',
-        icon: <Globe2 className="w-12 h-12 text-indigo-500" />,
-        image: 'https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=1600',
-        bg: 'bg-gradient-to-br from-[#030711] to-indigo-500/10'
-    },
-    {
-        id: 'impacto',
-        title: 'Sostenibilidad Real',
-        subtitle: 'Iniciativa "Zero Paper" & Ameru',
-        points: [
-            'Cero Papel: Digitalización total de archivos físicos mediante System Kyron.',
-            'Smart Bins (Ameru): Contenedores inteligentes integrados al sistema.',
-            'Eco-Créditos: Recompensas por reciclaje verificadas en tiempo real.',
-            'Alianza Estratégica con Ameru para economía circular.'
-        ],
-        badge: '20% de Puntuación - CRÍTICO',
-        icon: <Leaf className="w-12 h-12 text-emerald-400 animate-pulse" />,
-        image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600',
-        bg: 'bg-gradient-to-br from-[#030711] to-emerald-500/20'
-    },
-    {
         id: 'equipo',
-        title: 'El Equipo Kyron',
-        subtitle: 'Pasión por la Transformación Digital',
+        title: 'Equipo Kyron',
+        subtitle: 'RIF: J-50832149-9',
         teamMembers: [
-            { name: 'Carlos Mattar', role: 'CEO & Tech Lead' },
-            { name: 'Sebastian Garrido', role: 'Operations Lead' },
-            { name: 'Marcos Sousa', role: 'Legal Compliance' }
+            { name: 'Carlos Mattar', role: 'Founder & Tech Lead' },
+            { name: 'Sebastian Garrido', role: 'Operations' },
+            { name: 'Marcos Sousa', role: 'Legal' }
         ],
         icon: <Users className="w-12 h-12 text-primary" />,
         image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600',
@@ -139,61 +129,68 @@ export default function PresentacionFinalPage() {
                 title: 'KYRON_MASTER',
                 background: { color: '030711' },
                 objects: [
-                    { rect: { x: 0, y: 0, w: '100%', h: 0.1, fill: { color: '00E5FF' } } }
+                    { rect: { x: 0, y: 0, w: '100%', h: 0.1, fill: { color: '00E5FF' } } },
+                    { text: { text: 'SYSTEM KYRON | RETO INSPIRA 2026', options: { x: 0.5, y: 7, w: '90%', fontSize: 8, color: '333333', align: 'right' } } }
                 ]
             });
 
             slides.forEach((slideData) => {
                 const slide = pptx.addSlide({ masterName: 'KYRON_MASTER' });
                 
-                // Fondo (Imagen si existe)
+                // Overlay sutil de imagen
                 if (slideData.image) {
-                    slide.addImage({ path: slideData.image, x: 0, y: 0, w: '100%', h: '100%', opacity: 20 });
+                    slide.addImage({ path: slideData.image, x: 0, y: 0, w: '100%', h: '100%', opacity: 15 });
                 }
 
-                // Título
+                // Titular Principal (Cyan)
                 slide.addText(slideData.title.toUpperCase(), {
-                    x: 0.5, y: 0.5, w: '90%', h: 1,
-                    fontSize: 44, fontFace: 'Arial Black', color: 'FFFFFF',
+                    x: 0.5, y: 0.8, w: '90%', h: 1,
+                    fontSize: 48, fontFace: 'Arial Black', color: '00E5FF',
                     bold: true, margin: 0
                 });
 
-                // Subtítulo
+                // Subtítulo (Blanco)
                 slide.addText(slideData.subtitle, {
-                    x: 0.5, y: 1.5, w: '90%', h: 0.5,
-                    fontSize: 24, fontFace: 'Arial', color: '00E5FF',
+                    x: 0.5, y: 1.8, w: '90%', h: 0.5,
+                    fontSize: 26, fontFace: 'Arial', color: 'FFFFFF',
                     bold: true
                 });
 
-                // Contenido o Puntos
+                // Línea divisora
+                slide.addShape(pptx.shapes.LINE, { x: 0.5, y: 2.5, w: 2, h: 0, line: { color: '00E5FF', width: 2 } });
+
+                // Contenido
                 if (slideData.content) {
                     slide.addText(slideData.content, {
-                        x: 0.5, y: 2.5, w: '80%', h: 2,
-                        fontSize: 20, fontFace: 'Arial', color: 'CCCCCC',
-                        lineSpacing: 28
+                        x: 0.5, y: 3, w: '85%', h: 2.5,
+                        fontSize: 22, fontFace: 'Arial', color: 'CCCCCC',
+                        lineSpacing: 35
                     });
                 }
 
                 if (slideData.points) {
                     slide.addText(slideData.points.map(p => `• ${p}`).join('\n'), {
-                        x: 0.5, y: 2.5, w: '80%', h: 3,
-                        fontSize: 18, fontFace: 'Arial', color: 'E0E0E0',
-                        lineSpacing: 32
+                        x: 0.5, y: 3, w: '85%', h: 3.5,
+                        fontSize: 20, fontFace: 'Arial', color: 'E0E0E0',
+                        lineSpacing: 40
                     });
                 }
 
-                // Branding inferior
-                slide.addText('SYSTEM KYRON • RETO INSPIRA 2026', {
-                    x: 0.5, y: 6.8, w: '90%', h: 0.3,
-                    fontSize: 10, fontFace: 'Arial', color: '666666',
-                    bold: true, align: 'right'
-                });
+                if (slideData.teamMembers) {
+                    slideData.teamMembers.forEach((m, idx) => {
+                        slide.addText(`${m.name}\n${m.role}`, {
+                            x: 0.5 + (idx * 3.5), y: 3.5, w: 3, h: 1,
+                            fontSize: 18, fontFace: 'Arial Black', color: 'FFFFFF',
+                            align: 'center', fill: { color: '111827' }
+                        });
+                    });
+                }
             });
 
-            await pptx.writeFile({ fileName: `Presentacion_Final_Kyron_${new Date().getTime()}.pptx` });
+            await pptx.writeFile({ fileName: `Kyron_Pitch_2026_${new Date().getTime()}.pptx` });
         } catch (error) {
             console.error('Error exportando PPTX:', error);
-            alert('Error al generar el PowerPoint. Intenta de nuevo.');
+            alert('Error al generar el PowerPoint.');
         } finally {
             setIsExporting(false);
         }
@@ -209,18 +206,41 @@ export default function PresentacionFinalPage() {
     }, []);
 
     return (
-        <div className="fixed inset-0 bg-[#030711] overflow-hidden flex flex-col font-outfit">
+        <div className="fixed inset-0 bg-[#030711] overflow-hidden flex flex-col font-outfit print:static print:bg-white">
+            <style jsx global>{`
+                @media print {
+                    .no-print { display: none !important; }
+                    .print-page { 
+                        position: static !important; 
+                        height: 100vh !important; 
+                        page-break-after: always !important; 
+                        display: flex !important;
+                        background: white !important;
+                        color: black !important;
+                    }
+                    * { color: black !important; background: white !important; }
+                }
+            `}</style>
+
             {/* Progress Bar */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-white/5 z-50">
+            <div className="absolute top-0 left-0 w-full h-1 bg-white/5 z-50 no-print">
                 <motion.div 
                     className="h-full bg-primary"
                     initial={{ width: 0 }}
                     animate={{ width: `${((current + 1) / slides.length) * 100}%` }}
+                    transition={{ duration: 0.3 }}
                 />
             </div>
 
             {/* Header Toolbar */}
-            <div className="absolute top-8 right-8 flex gap-4 z-50">
+            <div className="absolute top-8 right-8 flex gap-4 z-50 no-print">
+                <Button 
+                    variant="outline" 
+                    onClick={() => window.print()}
+                    className="rounded-full bg-white/5 border-white/10 hover:bg-white/10 text-white font-bold uppercase text-[10px] tracking-widest px-6 h-12"
+                >
+                    <FileText className="w-4 h-4 mr-2" /> PDF Imprimible
+                </Button>
                 <Button 
                     variant="outline" 
                     onClick={handleExportPPTX}
@@ -228,7 +248,7 @@ export default function PresentacionFinalPage() {
                     className="rounded-full bg-white/5 border-white/10 hover:bg-white/10 text-white font-bold uppercase text-[10px] tracking-widest px-6 h-12"
                 >
                     {isExporting ? <Zap className="w-4 h-4 mr-2 animate-spin" /> : <FileDown className="w-4 h-4 mr-2" />}
-                    {isExporting ? 'Generando...' : 'Descargar PPTX Editable'}
+                    {isExporting ? 'Generando...' : 'Descargar PPTX'}
                 </Button>
             </div>
 
