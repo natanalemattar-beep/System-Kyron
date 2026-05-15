@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import {
     User, Building2, ArrowRight, ChevronLeft, ShieldCheck,
     Search, CircleCheck as CircleCheck, TriangleAlert as TriangleAlert, Fingerprint, Loader2,
-    Signal, Gavel, ArrowLeft,
+    Signal, Gavel, ArrowLeft, Scan,
     ChevronDown, Globe, Landmark, FileSignature, Building, UserCircle,
     ShoppingCart, Lock, Recycle,
     Calculator, Brain, Smartphone, Cpu, Shield, ChartBar as ChartColumn, Zap,
@@ -17,6 +17,7 @@ import {
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Logo } from "@/components/logo";
+import { DocumentScanner } from "@/components/document-scanner";
 
 type DetectedType = null | "natural" | "juridico";
 
@@ -429,6 +430,7 @@ export default function RegisterSelectionPage() {
     const [cedulaValidInfo, setCedulaValidInfo] = useState<{
         nacionalidad?: string; edadEstimada?: { rangoEdad: string; generacion: string }; info?: string;
     } | null>(null);
+    const [showScanner, setShowScanner] = useState(false);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const fullDocument = `${prefix}-${docNumber}`;
@@ -554,6 +556,16 @@ export default function RegisterSelectionPage() {
             setDocNumber(cleaned);
         }
     };
+
+    const handleScanComplete = useCallback((number: string, prefix: string) => {
+        setPrefix(prefix);
+        setShowScanner(false);
+        if (["J", "G", "C", "F"].includes(prefix) && number.length >= 8) {
+            setDocNumber(`${number.slice(0, 8)}-${number.slice(8, 9)}`);
+        } else {
+            setDocNumber(number);
+        }
+    }, []);
 
     const handleRifSearch = useCallback(async () => {
         if (!detected.valid || detected.type !== "juridico") return;
@@ -872,6 +884,19 @@ export default function RegisterSelectionPage() {
                                                         )}
                                                     </div>
 
+                                                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2 }}>
+                                                        <Button
+                                                            type="button"
+                                                            variant="outline"
+                                                            onClick={() => setShowScanner(v => !v)}
+                                                            className={cn(
+                                                                "h-12 px-4 rounded-xl font-semibold text-xs tracking-wider shrink-0 transition-all duration-300 border",
+                                                                "bg-white/70 dark:bg-slate-800/70 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
+                                                            )}
+                                                        >
+                                                            <Scan className="h-4 w-4 mr-1.5" /> Escanear
+                                                        </Button>
+                                                    </motion.div>
                                                     {isJuridico && detected.valid && (
                                                         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2 }}>
                                                             <Button
@@ -1223,6 +1248,28 @@ export default function RegisterSelectionPage() {
                     </div>
                 </div>
             </div>
+
+            {showScanner && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+                    onClick={() => setShowScanner(false)}
+                >
+                    <motion.div
+                        initial={{ scale: 0.95 }}
+                        animate={{ scale: 1 }}
+                        className="w-full max-w-md"
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <DocumentScanner
+                            onScanComplete={handleScanComplete}
+                            onClose={() => setShowScanner(false)}
+                            type={["J", "G", "C", "F"].includes(prefix) ? "rif" : "cedula"}
+                        />
+                    </motion.div>
+                </motion.div>
+            )}
 
             <style jsx global>{`
                 @keyframes shimmer {
