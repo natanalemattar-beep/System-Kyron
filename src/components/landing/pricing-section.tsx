@@ -61,7 +61,7 @@ const SAAS_MODULES: SaasModule[] = [
     icon: Tablet,
     nombre: 'Mi Línea 5G',
     descripcion: 'Gestión de tu línea telefónica dentro de la plataforma. No incluye plan de datos — solo la administración inteligente.',
-    precio: 3,
+    precio: 5,
     color: 'from-cyan-500/15 to-blue-500/10',
     acento: 'text-cyan-400',
   },
@@ -70,7 +70,7 @@ const SAAS_MODULES: SaasModule[] = [
     icon: Calculator,
     nombre: 'Asesoría Contable',
     descripcion: 'Contabilidad completa (IVA, ISLR, IGTF, libros SENIAT) + RRHH (nómina, prestaciones) + Marketing con Analítica avanzada.',
-    precio: 60,
+    precio: 45,
     color: 'from-blue-500/15 to-indigo-500/10',
     acento: 'text-blue-400',
     popular: true,
@@ -80,7 +80,7 @@ const SAAS_MODULES: SaasModule[] = [
     icon: Shield,
     nombre: 'Asesoría Legal',
     descripcion: 'Kyron Voice (Asistencia legal), contratos, permisología integral (483+ trámites) y directorio de 58 organismos venezolanos.',
-    precio: 25,
+    precio: 30,
     color: 'from-amber-500/15 to-orange-500/10',
     acento: 'text-amber-400',
   },
@@ -89,7 +89,7 @@ const SAAS_MODULES: SaasModule[] = [
     icon: Receipt,
     nombre: 'Facturación TPV',
     descripcion: 'Punto de venta multimoneda (VES/USD/EUR), inventario, notas de crédito/débito e integración con hardware fiscal homologado.',
-    precio: 15,
+    precio: 20,
     color: 'from-violet-500/15 to-purple-500/10',
     acento: 'text-violet-400',
   },
@@ -98,7 +98,7 @@ const SAAS_MODULES: SaasModule[] = [
     icon: Users,
     nombre: 'Socios y Directivos',
     descripcion: 'Consolidación financiera, BI predictivo, dashboard para holdings y reparto automatizado de utilidades.',
-    precio: 40,
+    precio: 50,
     color: 'from-rose-500/15 to-pink-500/10',
     acento: 'text-rose-400',
   },
@@ -126,11 +126,11 @@ interface Plan5G {
 }
 
 const PLANES_5G: Plan5G[] = [
-  { nombre: 'Básico',      datos: '4 GB',       minutos: '200',        sms: '400',        precio: 11.25, color: 'text-slate-300' },
-  { nombre: 'Plus',        datos: '10 GB',      minutos: '400',        sms: '800',        precio: 17.99, color: 'text-cyan-300' },
-  { nombre: 'Pro',         datos: '25 GB',      minutos: '600',        sms: '1200',       precio: 24.49, popular: true, color: 'text-blue-300' },
-  { nombre: 'Empresarial', datos: '30 GB',      minutos: '500',        sms: '500',        precio: 25.00, color: 'text-violet-300' },
-  { nombre: 'Ilimitado',   datos: 'Ilimitado',  minutos: 'Ilimitado',  sms: 'Ilimitado',  precio: 30.00, color: 'text-amber-300' },
+  { nombre: 'Básico',      datos: '4 GB',       minutos: '200',        sms: '400',        precio: 12.00, color: 'text-slate-300' },
+  { nombre: 'Plus',        datos: '10 GB',      minutos: '400',        sms: '800',        precio: 20.00, color: 'text-cyan-300' },
+  { nombre: 'Pro',         datos: '25 GB',      minutos: '600',        sms: '1200',       precio: 30.00, popular: true, color: 'text-blue-300' },
+  { nombre: 'Empresarial', datos: '30 GB',      minutos: '1000',       sms: '1000',       precio: 45.00, color: 'text-violet-300' },
+  { nombre: 'Ilimitado',   datos: 'Ilimitado',  minutos: 'Ilimitado',  sms: 'Ilimitado',  precio: 60.00, color: 'text-amber-300' },
 ];
 
 // ─── 3. HARDWARE FISCAL ───────────────────────────
@@ -162,8 +162,8 @@ const COMBOS = [
   {
     perfil: 'Profesional que factura',
     icon: Receipt,
-    items: ['Cuenta Personal', 'Facturación TPV ($15)'],
-    total: 15,
+    items: ['Cuenta Personal', 'Facturación TPV ($20)'],
+    total: 20,
     color: 'border-violet-500/25 bg-violet-500/[0.04]',
     badge: null,
     badgeColor: '',
@@ -171,8 +171,8 @@ const COMBOS = [
   {
     perfil: 'Comerciante con línea',
     icon: Smartphone,
-    items: ['Cuenta Personal', 'Mi Línea 5G ($5)', 'Plan Básico 5G ($11.25)'],
-    total: 16.25,
+    items: ['Cuenta Personal', 'Mi Línea 5G ($5)', 'Plan Básico 5G ($12)'],
+    total: 17,
     color: 'border-cyan-500/25 bg-cyan-500/[0.04]',
     badge: null,
     badgeColor: '',
@@ -180,8 +180,8 @@ const COMBOS = [
   {
     perfil: 'Negocio completo',
     icon: Calculator,
-    items: ['Cuenta Personal', 'Asesoría Contable ($60)', 'Facturación TPV ($15)', 'Mi Línea 5G ($5)', 'Plan Pro 5G ($24.49)'],
-    total: 104.49,
+    items: ['Cuenta Personal', 'Asesoría Contable ($45)', 'Facturación TPV ($20)', 'Mi Línea 5G ($5)', 'Plan Pro 5G ($30)'],
+    total: 100,
     color: 'border-blue-500/25 bg-blue-500/[0.04]',
     badge: 'Más popular',
     badgeColor: 'bg-blue-500 text-white',
@@ -189,8 +189,8 @@ const COMBOS = [
   {
     perfil: 'Empresa con socios y legal',
     icon: Users,
-    items: ['Todo lo anterior', '+ Socios y Directivos ($40)', '+ Asesoría Legal ($25)', '+ Plan Empresarial ($25)'],
-    total: 194.49,
+    items: ['Todo lo anterior', '+ Socios y Directivos ($50)', '+ Asesoría Legal ($30)', '+ Plan Empresarial ($45)'],
+    total: 225,
     color: 'border-rose-500/25 bg-rose-500/[0.04]',
     badge: 'Paquete total',
     badgeColor: 'bg-rose-500 text-white',
@@ -219,6 +219,60 @@ function SectionTitle({ badge, title, highlight, subtitle }: {
         )}
       </h3>
       <p className="text-base text-white/30 font-medium max-w-xl mx-auto leading-relaxed">{subtitle}</p>
+    </div>
+  );
+}
+
+function PricingGraphs() {
+  const chartData = [
+    { label: 'Eficiencia Op.', val: 94, color: 'bg-cyan-500' },
+    { label: 'Ahorro Fiscal', val: 78, color: 'bg-emerald-500' },
+    { label: 'Retención Talento', val: 82, color: 'bg-blue-500' },
+    { label: 'Conectividad', val: 99, color: 'bg-violet-500' },
+  ];
+
+  return (
+    <div className="grid md:grid-cols-2 gap-12 items-center mb-32 md:mb-48">
+      <div className="space-y-6">
+        <h3 className="text-3xl font-black text-white uppercase italic font-impact italic tracking-tighter">Impacto del Ecosistema <span className="text-cyan-400">Kyron Analytics</span></h3>
+        <p className="text-sm text-white/40 leading-relaxed font-medium">Visualiza el retorno de inversión proyectado al unificar tu infraestructura bajo el Kyron Shield. Optimizamos cada proceso para que tu empresa rinda al máximo potencial.</p>
+        <div className="space-y-4 pt-4">
+          {chartData.map((d) => (
+            <div key={d.label} className="space-y-2">
+              <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-white/60">
+                <span>{d.label}</span>
+                <span>{d.val}%</span>
+              </div>
+              <div className="h-3 w-full bg-white/5 rounded-full overflow-hidden border border-white/10">
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${d.val}%` }}
+                  transition={{ duration: 1.5, ease: "easeOut" }}
+                  className={cn("h-full rounded-full", d.color)}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="relative aspect-square md:aspect-video rounded-[3rem] overflow-hidden border border-white/10 glass-system-kyron-interactive p-8 flex items-center justify-center">
+          <div className="absolute inset-0 bg-grid-white/[0.02]" />
+          <div className="relative z-10 w-full h-full flex items-end justify-between gap-4">
+              {[60, 45, 90, 65, 80, 55, 100].map((h, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ height: 0 }}
+                    whileInView={{ height: `${h}%` }}
+                    transition={{ duration: 1, delay: i * 0.1 }}
+                    className="flex-1 bg-gradient-to-t from-cyan-600/40 to-cyan-400 rounded-t-xl relative group"
+                  >
+                      <div className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-white text-black text-[9px] font-black px-2 py-1 rounded-md">
+                        Q{i+1}
+                      </div>
+                  </motion.div>
+              ))}
+          </div>
+      </div>
     </div>
   );
 }
@@ -330,6 +384,9 @@ export function PricingSection() {
             </span>
           </div>
         </motion.div>
+
+        {/* ──── KYRON ANALYTICS SECTION ──── */}
+        <PricingGraphs />
 
         {/* ══════════════════════════════════════════
             BLOQUE 1 — MÓDULOS SAAS

@@ -19,7 +19,9 @@ import {
     Zap,
     Cpu,
     Lock,
-    ExternalLink
+    ExternalLink,
+    Rocket,
+    FileText
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import {

@@ -15,7 +15,7 @@ import {
     Gauge, ScanLine, Wifi, SlidersHorizontal, ChartLine, Fingerprint, 
     FileSpreadsheet, Eye, KeyRound, ShieldAlert, MonitorSmartphone, Scan, 
     Plane, Headphones, Navigation, AppWindow, Monitor as MonitorIcon, 
-    MessageSquare 
+    MessageSquare, Rocket
 } from "lucide-react";
 
 export const globalNavGroups = [
