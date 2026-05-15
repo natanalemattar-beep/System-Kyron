@@ -99,7 +99,7 @@ export function OfficialSeal({ className }: { className?: string }) {
         <div className="flex flex-col items-center gap-8">
             <div ref={sealRef}
                 className={cn(
-                    "relative w-64 h-64 lg:w-72 lg:h-72",
+                    "relative w-80 h-80 lg:w-96 lg:h-96",
                     "bg-white",
                     "shadow-[0_20px_60px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.04)]",
                     className
