@@ -40,8 +40,7 @@ export function getSmtpTransporter(): nodemailer.Transporter {
     greetingTimeout: 5000,
     socketTimeout: 8000,
     tls: {
-      // Permitir certificados autofirmados de Google en entornos restrictivos
-      rejectUnauthorized: false,
+      rejectUnauthorized: process.env.NODE_ENV !== 'development',
     },
   });
 }

@@ -130,7 +130,10 @@ export function generateSearchHash(value: string | null | undefined): string {
     // Normalizar: quitar espacios y símbolos para consistencia en búsquedas
     const normalized = String(value).trim().toLowerCase().replace(/[\s\-\(\)\.\+]/g, '');
     const salt = process.env.ENCRYPTION_KEY;
-    if (!salt) throw new Error('[encryption] ENCRYPTION_KEY is required for blind index');
+    if (!salt) {
+        console.warn('[encryption] ENCRYPTION_KEY missing — blind index lookups will fail');
+        return createHash('sha256').update(normalized).digest('hex');
+    }
     return createHash('sha256')
         .update(normalized + salt)
         .digest('hex');
