@@ -113,6 +113,13 @@ export default function PresentacionFinalPage() {
     const next = () => setCurrent((prev) => (prev + 1) % slides.length);
     const prev = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
+    // Preload de imágenes para evitar lag en transiciones
+    useEffect(() => {
+        const nextSlide = (current + 1) % slides.length;
+        const img = new Image();
+        img.src = slides[nextSlide].image;
+    }, [current]);
+
     const handleExportPPTX = async () => {
         setIsExporting(true);
         try {
@@ -273,9 +280,11 @@ export default function PresentacionFinalPage() {
                             <img 
                                 src={slides[current].image} 
                                 alt="Slide Background" 
+                                loading="eager"
+                                decoding="async"
                                 className="w-full h-full object-cover opacity-20"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#030711] via-[#030711]/80 to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-[#030711] via-[#030711]/80 to-transparent backdrop-blur-[2px]" />
                         </div>
 
                         {/* Decorative Background Elements */}
