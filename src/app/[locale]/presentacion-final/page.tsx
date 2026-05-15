@@ -9,27 +9,9 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import Script from 'next/script';
 
-// Dinámicamente cargamos pptxgenjs desde CDN para evitar problemas de instalación
-const loadPptxGen = () => {
-    return new Promise((resolve) => {
-        if ((window as any).PptxGenJS) return resolve((window as any).PptxGenJS);
-        const script = document.createElement('script');
-        script.src = "https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.bundle.js";
-        script.onload = () => resolve((window as any).PptxGenJS);
-        document.head.appendChild(script);
-    });
-};
-
-const loadHtml2Pdf = () => {
-    return new Promise((resolve) => {
-        if ((window as any).html2pdf) return resolve((window as any).html2pdf);
-        const script = document.createElement('script');
-        script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
-        script.onload = () => resolve((window as any).html2pdf);
-        document.head.appendChild(script);
-    });
-};
+// No necesitamos los cargadores manuales, usaremos Next Script y verificaciones directas
 
 const slides = [
     {
@@ -186,17 +168,17 @@ export default function PresentacionFinalPage() {
             await Promise.all(promises);
             console.log("Kyron Core: Assets Cached for Turbo Download");
         };
-        preloadAssets();
-        loadPptxGen(); 
-        loadHtml2Pdf(); // Preload PDF engine
-    }, []);
-
     const [isExportingPDF, setIsExportingPDF] = useState(false);
 
     const handleExportPDF = async () => {
+        const html2pdf = (window as any).html2pdf;
+        if (!html2pdf) {
+            alert('El motor de PDF aún se está calentando. Por favor, espera 2 segundos y reintenta.');
+            return;
+        }
+
         setIsExportingPDF(true);
         try {
-            const html2pdf: any = await loadHtml2Pdf();
             const element = document.getElementById('presentation-container');
             const opt = {
                 margin: 0,
@@ -208,16 +190,21 @@ export default function PresentacionFinalPage() {
             await html2pdf().from(element).set(opt).save();
         } catch (error) {
             console.error('PDF_ERROR:', error);
-            alert('Falla en el motor de PDF. Reintentando...');
+            alert('Error en generación de PDF. Reintentando...');
         } finally {
             setIsExportingPDF(false);
         }
     };
 
     const handleExportPPTX = async () => {
+        const PptxGenJS = (window as any).PptxGenJS;
+        if (!PptxGenJS) {
+            alert('El motor de PowerPoint aún se está calentando. Por favor, espera 2 segundos y reintenta.');
+            return;
+        }
+
         setIsExporting(true);
         try {
-            const PptxGenJS: any = await loadPptxGen();
             const pptx = new PptxGenJS();
             
             // 1. Definición de Master y Layout
@@ -337,6 +324,14 @@ export default function PresentacionFinalPage() {
 
     return (
         <div className="fixed inset-0 bg-[#030711] overflow-hidden flex flex-col font-outfit print:static print:bg-white">
+            <Script 
+                src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.bundle.js" 
+                strategy="afterInteractive"
+            />
+            <Script 
+                src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" 
+                strategy="afterInteractive"
+            />
             <style jsx global>{`
                 @media print {
                     .no-print { display: none !important; }
