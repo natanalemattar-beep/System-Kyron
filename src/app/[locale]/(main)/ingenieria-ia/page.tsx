@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { formatCurrency, cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { generateEngineeringInsights } from "@/app/actions/ai-chat";
 
 export default function IngenieriaTecnicaPage() {
     const { toast } = useToast();
@@ -31,7 +32,8 @@ export default function IngenieriaTecnicaPage() {
             });
             if (res.ok) {
                 setPlanoGenerado("https://picsum.photos/seed/blueprint/1200/800");
-                setAiInsights("Análisis Kyron AI: Estructura validada bajo norma COVENIN 2026. Se detecta una optimización del 18% en el uso de materiales estructurales. Cómputos métricos proyectados con precisión neural del 99.8%.");
+                const insights = await generateEngineeringInsights({ categoria: "ingenieria", subcategoria: "generacion_plano" });
+                setAiInsights(insights);
                 toast({ title: "PROCESAMIENTO EXITOSO", description: "Protocolo de IA completado. Datos técnicos inyectados." });
             } else {
                 toast({ variant: "destructive", title: "FALLA DE SISTEMA", description: "No se pudo sincronizar con el motor de renderizado." });
@@ -167,13 +169,7 @@ export default function IngenieriaTecnicaPage() {
                 </div>
             </div>
 
-            {/* Floating Support Nexus (Headphones Widget) */}
-            <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50">
-                <Button className="h-16 w-16 md:h-20 md:w-20 rounded-[1.5rem] md:rounded-[2rem] bg-white dark:bg-[#0a1020] shadow-[0_20px_40px_rgba(0,0,0,0.2)] border border-black/5 dark:border-white/10 p-0 group overflow-hidden hover:-translate-y-2 transition-all duration-500">
-                    <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <Headphones className="h-6 w-6 md:h-8 md:w-8 text-slate-600 dark:text-white group-hover:text-white relative z-10" />
-                </Button>
-            </div>
+            {/* Floating Support Nexus removed - Now handled globally by SupportBot */}
         </div>
     );
 }

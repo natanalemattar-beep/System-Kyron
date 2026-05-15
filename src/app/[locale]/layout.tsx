@@ -10,6 +10,7 @@ import { Inter, Outfit } from 'next/font/google';
 
 import { Metadata } from 'next';
 import { Providers } from "@/components/providers";
+import { SupportBot } from "@/components/chat/support-bot";
 
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -76,6 +77,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
                 <DemoBannerSpacer />
                 <div className="relative flex min-h-screen flex-col">
                   <main className="flex-1">{children}</main>
+                  <SupportBot />
                 </div>
               </DemoBannerProvider>
 
