@@ -12,12 +12,18 @@ import Image from 'next/image';
 // Helper componentes simples
 function RotatingWords({ words, interval = 3000 }: { words: string[], interval?: number }) {
   const [index, setIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    setMounted(true);
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
     }, interval);
     return () => clearInterval(timer);
   }, [words.length, interval]);
+
+  if (!mounted) return <div className="relative h-[1.3em]" />;
+
   return (
     <div className="relative h-[1.3em] overflow-hidden">
       <div className="absolute inset-0 block text-glow-gold transition-opacity duration-500" style={{ opacity: 1 }}>{words[index]}</div>

@@ -231,7 +231,7 @@ function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
     <ScrollReveal
       delay={index * 0.08}
       className={cn(
-        'relative group p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 h-full rounded-3xl glass-System Kyron-interactive',
+        'relative group p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 h-full rounded-3xl glass-system-kyron-interactive',
         mod.popular ? 'border-primary/40' : 'border-white/5',
         `bg-gradient-to-br ${mod.color}`
       )}
@@ -382,7 +382,7 @@ export function PricingSection() {
                 viewport={{ once: true }}
                 custom={i * 0.08}
                 className={cn(
-                  'relative p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 rounded-3xl glass-System Kyron-interactive',
+                  'relative p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 rounded-3xl glass-system-kyron-interactive',
                   plan.popular
                     ? 'border-blue-500/40 bg-blue-500/5'
                     : 'border-white/5 bg-white/[0.02]'
@@ -477,7 +477,7 @@ export function PricingSection() {
                   whileInView="visible"
                   viewport={{ once: true }}
                   custom={i * 0.1}
-                  className="rounded-3xl p-10 flex flex-col transition-all duration-500 hover:-translate-y-2 glass-System Kyron-interactive border-white/5"
+                  className="rounded-3xl p-10 flex flex-col transition-all duration-500 hover:-translate-y-2 glass-system-kyron-interactive border-white/5"
                 >
                   <div className="flex items-center gap-5 mb-8">
                     <div className="h-16 w-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
@@ -533,7 +533,7 @@ export function PricingSection() {
                   whileInView="visible"
                   viewport={{ once: true }}
                   custom={i * 0.08}
-                  className={cn('rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1 glass-System Kyron-interactive border-white/5', combo.color.replace('border-', 'border-opacity-0 border-'))}
+                  className={cn('rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1 glass-system-kyron-interactive border-white/5', combo.color.replace('border-', 'border-opacity-0 border-'))}
                 >
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center gap-4">
