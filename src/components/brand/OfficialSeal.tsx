@@ -48,7 +48,7 @@ export function OfficialSeal({ className }: { className?: string }) {
             pdf.text('System Kyron — Sello Oficial', pageWidth / 2, 115, { align: 'center' });
             pdf.setFont('helvetica', 'normal');
             pdf.setFontSize(9);
-            pdf.text('RIF J-50832149-9 | Emprendimiento Carlos Mattar', pageWidth / 2, 130, { align: 'center' });
+            pdf.text('RIF J-50832149-9', pageWidth / 2, 130, { align: 'center' });
             pdf.text('Documento verificado electrónicamente con el sello oficial de System Kyron.', pageWidth / 2, 145, { align: 'center' });
             pdf.save('sello-system-kyron.pdf');
         } catch { setError('Error al descargar PDF'); } finally { setDownloading(null); }
@@ -74,7 +74,7 @@ export function OfficialSeal({ className }: { className?: string }) {
 <body>
     <div class="seal-container"><img src="${dataUrl}" alt="Sello System Kyron" /></div>
     <h1>System Kyron</h1>
-    <p class="meta">RIF J-50832149-9 · Emprendimiento Carlos Mattar</p>
+    <p class="meta">RIF J-50832149-9</p>
     <p style="text-align:center;font-size:9pt;color:#64748b;margin-top:24px;">Documento verificado electrónicamente</p>
     <div class="footer">System Kyron — Ecosistema de Inteligencia Corporativa — ${new Date().toLocaleDateString('es-VE')}</div>
 </body></html>`;
@@ -102,12 +102,11 @@ export function OfficialSeal({ className }: { className?: string }) {
                     <circle cx="200" cy="200" r="190" fill="none" stroke="#0f172a" strokeWidth="2" />
                     <circle cx="200" cy="200" r="185" fill="none" stroke="#0f172a" strokeWidth="0.5" />
                     <path id="arc" d="M 60 200 A 140 140 0 0 1 340 200" fill="none" />
-                    <text fontSize="11" fontWeight="800" fontFamily="'Inter','Segoe UI',sans-serif" fill="#0f172a" letterSpacing="4">
+                    <text fontSize="13" fontWeight="800" fontFamily="'Inter','Segoe UI',sans-serif" fill="#0f172a" letterSpacing="6">
                         <textPath href="#arc" startOffset="50%" textAnchor="middle">SYSTEM KYRON</textPath>
                     </text>
                     <image href="/images/logo-black.png" x="155" y="155" width="90" height="90" opacity="0.9" />
-                    <text x="200" y="292" textAnchor="middle" fontSize="8" fontWeight="600" fontFamily="'Inter',sans-serif" fill="#64748b" letterSpacing="2.5">RIF J-50832149-9</text>
-                    <text x="200" y="306" textAnchor="middle" fontSize="7" fontWeight="500" fontFamily="'Inter',sans-serif" fill="#94a3b8" letterSpacing="2">CARLOS MATTAR</text>
+                    <text x="200" y="290" textAnchor="middle" fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif" fill="#1e293b" letterSpacing="3">RIF J-50832149-9</text>
                 </svg>
             </div>
 

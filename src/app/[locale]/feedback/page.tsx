@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CircleCheck, ChevronRight, Loader2, MessageSquareHeart, Star, ArrowLeft } from "lucide-react";
+import { CircleCheck, Loader2, ArrowLeft, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import Link from "next/link";
@@ -49,55 +49,55 @@ export default function FeedbackPage() {
     const [answers, setAnswers] = useState<Record<string, string | number>>({});
     const [submitted, setSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const [rating, setRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
+    const answersRef = useRef(answers);
+    answersRef.current = answers;
 
     const current = QUESTIONS[step];
     const isLast = step === QUESTIONS.length - 1;
 
-    const handleAnswer = (value: string | number) => {
-        setAnswers(prev => ({ ...prev, [current.id]: value }));
-        if (current.type === "choice") {
-            setTimeout(() => {
-                if (isLast) handleSubmit({ ...answers, [current.id]: value });
-                else setStep(s => s + 1);
-            }, 300);
-        }
-    };
-
-    const handleNext = () => {
-        if (current.type === "rating") {
-            setAnswers(prev => ({ ...prev, [current.id]: rating }));
-        }
-        if (isLast) {
-            const final = { ...answers };
-            if (current.type === "rating") final[current.id] = rating;
-            handleSubmit(final);
-        } else {
-            setStep(s => s + 1);
-        }
-    };
-
-    const handleSubmit = async (finalAnswers: Record<string, string | number>) => {
+    const handleSubmit = useCallback(async (finalAnswers: Record<string, string | number>) => {
         setSubmitting(true);
+        setError(null);
         try {
             const response = await fetch('/api/feedback', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ answers: finalAnswers }),
             });
-            
-            if (response.ok) {
-                setSubmitted(true);
-            } else {
-                setSubmitted(true);
+            if (!response.ok) {
+                const data = await response.json().catch(() => ({}));
+                throw new Error(data.error || 'Error al enviar feedback');
             }
-        } catch (error) {
             setSubmitted(true);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Error de conexión');
         } finally {
             setSubmitting(false);
         }
-    };
+    }, []);
+
+    const handleAnswer = useCallback((value: string | number) => {
+        const next = { ...answersRef.current, [current.id]: value };
+        setAnswers(next);
+        if (current.type === "choice") {
+            setTimeout(() => {
+                if (isLast) handleSubmit(next);
+                else setStep(s => s + 1);
+            }, 300);
+        }
+    }, [current.id, current.type, isLast, handleSubmit]);
+
+    const handleNext = useCallback(() => {
+        const next = current.type === "rating"
+            ? { ...answersRef.current, [current.id]: rating }
+            : answersRef.current;
+        setAnswers(next);
+        if (isLast) handleSubmit(next);
+        else setStep(s => s + 1);
+    }, [current.id, current.type, isLast, rating, handleSubmit]);
 
     if (submitted) {
         return (
@@ -107,14 +107,29 @@ export default function FeedbackPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center max-w-lg"
                 >
-                    <div className="h-16 w-16 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto mb-8">
-                        <CircleCheck className="h-8 w-8 text-slate-400" />
-                    </div>
-                    <h1 className="text-2xl font-bold text-white tracking-tight mb-4">Registro Completado</h1>
-                    <p className="text-slate-400 font-medium mb-10 leading-relaxed text-sm">Agradecemos su participación en esta consulta corporativa. La información suministrada será procesada de manera confidencial por nuestro equipo técnico.</p>
-                    <Button asChild variant="outline" className="h-12 px-8 rounded-lg border-slate-800 bg-slate-900/50 hover:bg-slate-800 text-white font-semibold text-xs tracking-wider uppercase">
-                        <Link href="/">Finalizar Sesión</Link>
-                    </Button>
+                    {error ? (
+                        <>
+                            <div className="h-16 w-16 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mx-auto mb-8">
+                                <AlertCircle className="h-8 w-8 text-rose-400" />
+                            </div>
+                            <h1 className="text-2xl font-bold text-white tracking-tight mb-4">Error al enviar</h1>
+                            <p className="text-rose-300 font-medium mb-6 leading-relaxed text-sm">{error}</p>
+                            <Button onClick={() => { setSubmitted(false); setError(null); }} className="h-12 px-8 rounded-lg bg-white text-black hover:bg-slate-200 font-semibold text-xs tracking-wider uppercase">
+                                Reintentar
+                            </Button>
+                        </>
+                    ) : (
+                        <>
+                            <div className="h-16 w-16 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto mb-8">
+                                <CircleCheck className="h-8 w-8 text-slate-400" />
+                            </div>
+                            <h1 className="text-2xl font-bold text-white tracking-tight mb-4">Registro Completado</h1>
+                            <p className="text-slate-400 font-medium mb-10 leading-relaxed text-sm">Agradecemos su participación en esta consulta corporativa. La información suministrada será procesada de manera confidencial por nuestro equipo técnico.</p>
+                            <Button asChild variant="outline" className="h-12 px-8 rounded-lg border-slate-800 bg-slate-900/50 hover:bg-slate-800 text-white font-semibold text-xs tracking-wider uppercase">
+                                <Link href="/">Finalizar Sesión</Link>
+                            </Button>
+                        </>
+                    )}
                 </motion.div>
             </div>
         );

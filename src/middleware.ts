@@ -30,9 +30,12 @@ const SECURITY_HEADERS: Record<string, string> = {
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'SAMEORIGIN',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), accelerometer=(), gyroscope=(), magnetometer=(), usb=(), publickey-credentials-get=()',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
   'X-DNS-Prefetch-Control': 'on',
+  'Cross-Origin-Opener-Policy': 'same-origin',
+  'Cross-Origin-Resource-Policy': 'same-origin',
+  'X-XSS-Protection': '1; mode=block',
   ...(IS_PRODUCTION ? { 'Content-Security-Policy': CSP_DIRECTIVES } : {}),
 };
 
@@ -109,7 +112,6 @@ const PUBLIC_API_SET = new Set([
   '/api/auth/verify-link',
   '/api/auth/check-document',
   '/api/auth/check-verified',
-  '/api/auth/debug-db',
   '/api/plan-popularity',
   '/api/security-status',
   '/api/core/engine-query',
