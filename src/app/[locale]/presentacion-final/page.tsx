@@ -33,12 +33,13 @@ const slides = [
     },
     {
         id: 'problema',
-        title: 'El Caos Operativo',
-        subtitle: 'La Pesadilla del Multi-Proveedor',
+        title: 'La Crisis Operativa',
+        subtitle: 'Fragmentación y Desperdicio Ambiental',
         points: [
-            '40% de pérdida de productividad en saltos entre sistemas.',
-            'Fragmentación: Telefonía, Contabilidad y Legal desconectados.',
-            'Desperdicio Masivo: 12,000 hojas de papel al año por PyME.'
+            '40% de pérdida de productividad por sistemas desconectados.',
+            'Impacto Ecológico: 12,000 hojas de papel desperdiciadas al año por PyME.',
+            'Residuos Urbanos: Papeleras desbordadas y falta de cultura de reciclaje.',
+            'Riesgo Legal: Incumplimiento involuntario de normativas SENIAT/VEN-NIF.'
         ],
         badge: 'EL DOLOR',
         icon: <BarChart3 className="w-12 h-12 text-rose-500" />,
@@ -46,54 +47,48 @@ const slides = [
         bg: 'bg-gradient-to-br from-[#030711] to-rose-500/10'
     },
     {
+        id: 'mercado',
+        title: 'Nuestro Mercado',
+        subtitle: '¿A quién le vendemos?',
+        points: [
+            'B2B: 500,000+ PyMEs venezolanas sedientas de automatización legal/fiscal.',
+            'B2C: Profesionales independientes que buscan identidad digital blindada.',
+            'B2G: Gobiernos locales interesados en ciudades inteligentes y sostenibilidad.',
+            'Sectores: Retail, Manufactura, Consultoría y Servicios Contables.'
+        ],
+        badge: 'TARGET',
+        icon: <Users className="w-12 h-12 text-blue-400" />,
+        image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1600',
+        bg: 'bg-gradient-to-br from-[#030711] to-blue-500/10'
+    },
+    {
         id: 'solucion',
-        title: 'Ecosistema Unificado',
-        subtitle: 'Un Puente hacia la Eficiencia Total',
-        content: 'Kyron integra la Conectividad 5G, la Automatización Fiscal VEN-NIF y el Blindaje Legal en una sola interfaz de comando.',
+        title: 'Ecosistema Kyron',
+        subtitle: 'La Solución de Mando Único',
+        points: [
+            'Kyron 5G: Integración nativa de telefonía y ERP.',
+            'Cero Papel: Digitalización absoluta de libros contables y legales.',
+            'Papeleras Inteligentes (Ameru): Gestión de residuos por inducción magnética.',
+            'Kyron Shield: Blindaje jurídico automático para cada transacción.'
+        ],
+        badge: 'LA SOLUCIÓN',
         icon: <Zap className="w-12 h-12 text-amber-500" />,
         image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600',
         bg: 'bg-gradient-to-br from-[#030711] to-amber-500/10'
     },
     {
-        id: 'telecom',
-        title: 'Conectividad 5G',
-        subtitle: 'Líneas Corporativas Integradas',
+        id: 'finanzas',
+        title: 'Inversión & Ganancia',
+        subtitle: 'Proyección de Crecimiento 2026-2028',
         points: [
-            'Primer ERP con gestión de flotas móviles nativa.',
-            'Activación inmediata y trazabilidad de costos en tiempo real.',
-            'Conectividad blindada con Kyron Shield.'
+            'Modelo SaaS: Ingresos recurrentes con márgenes del 65%.',
+            'Hardware Fiscal: Venta directa de equipos homologados SENIAT.',
+            'Inversión: Infraestructura Cloud, Nodos 5G y Alianza Ameru.',
+            'Retorno (ROI): Punto de equilibrio proyectado en el mes 14.'
         ],
-        badge: 'DIFERENCIADOR',
-        icon: <Globe2 className="w-12 h-12 text-cyan-400" />,
-        image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600',
-        bg: 'bg-gradient-to-br from-[#030711] to-cyan-500/10'
-    },
-    {
-        id: 'sostenibilidad',
-        title: 'Sostenibilidad Ameru',
-        subtitle: 'Cero Papel & Reciclaje Inteligente',
-        points: [
-            'Smart Bins: Contenedores con inducción magnética.',
-            'Eco-Créditos: Incentivos por reciclaje verificado.',
-            'Alianza Estratégica con Ameru para economía circular.'
-        ],
-        badge: 'IMPACTO AMBIENTAL',
-        icon: <Leaf className="w-12 h-12 text-emerald-400" />,
-        image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600',
-        bg: 'bg-gradient-to-br from-[#030711] to-emerald-500/20'
-    },
-    {
-        id: 'viabilidad',
-        title: 'Escalabilidad SaaS',
-        subtitle: 'Modelo Recurrente y Rentable',
-        points: [
-            'Suscripciones flexibles para 500,000 PyMEs.',
-            'Marketing educativo en TikTok e Instagram.',
-            'Costo operativo marginal decreciente.'
-        ],
-        badge: 'NEGOCIO',
-        icon: <ShieldCheck className="w-12 h-12 text-emerald-500" />,
-        image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1600',
+        badge: 'VIABILIDAD',
+        icon: <ShieldCheck className="w-12 h-12 text-emerald-400" />,
+        image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1600',
         bg: 'bg-gradient-to-br from-[#030711] to-emerald-500/10'
     },
     {
