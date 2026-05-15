@@ -40,16 +40,20 @@ export function OfficialSeal({ className }: { className?: string }) {
             const { default: jsPDF } = await import('jspdf');
             const pdf = new jsPDF('p', 'mm', 'a4');
             const pageWidth = pdf.internal.pageSize.getWidth();
-            const imgSize = 80;
+            const imgSize = 90;
             const x = (pageWidth - imgSize) / 2;
             pdf.addImage(dataUrl, 'PNG', x, 20, imgSize, imgSize);
             pdf.setFont('helvetica', 'bold');
-            pdf.setFontSize(14);
-            pdf.text('System Kyron — Sello Oficial', pageWidth / 2, 115, { align: 'center' });
+            pdf.setFontSize(16);
+            pdf.text('SYSTEM KYRON', pageWidth / 2, 130, { align: 'center' });
             pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(10);
+            pdf.text('Sello Oficial — Inteligencia Corporativa', pageWidth / 2, 140, { align: 'center' });
             pdf.setFontSize(9);
-            pdf.text('RIF J-50832149-9', pageWidth / 2, 130, { align: 'center' });
-            pdf.text('Documento verificado electrónicamente con el sello oficial de System Kyron.', pageWidth / 2, 145, { align: 'center' });
+            pdf.text('RIF J-50832149-9', pageWidth / 2, 150, { align: 'center' });
+            pdf.setFontSize(8);
+            pdf.text('Documento verificado electrónicamente con el sello oficial de System Kyron.', pageWidth / 2, 165, { align: 'center' });
+            pdf.text(`Emitido: ${new Date().toLocaleDateString('es-VE', { year: 'numeric', month: 'long', day: 'numeric' })}`, pageWidth / 2, 175, { align: 'center' });
             pdf.save('sello-system-kyron.pdf');
         } catch { setError('Error al descargar PDF'); } finally { setDownloading(null); }
     }, [getPngData]);
@@ -65,18 +69,22 @@ export function OfficialSeal({ className }: { className?: string }) {
 <head><meta charset="UTF-8"><title>System Kyron — Sello Oficial</title>
 <style>
     body { font-family: 'Inter', 'Segoe UI', sans-serif; padding: 48px; color: #0f172a; background: #fafafa; }
-    .seal-container { text-align: center; margin: 20px 0; }
-    .seal-container img { width: 200px; height: 200px; }
-    h1 { text-align: center; font-size: 20pt; font-weight: 800; letter-spacing: -0.5px; margin-top: 20px; }
-    .meta { text-align: center; font-size: 10pt; color: #64748b; margin: 4px 0; }
-    .footer { text-align: center; font-size: 8pt; color: #94a3b8; margin-top: 48px; border-top: 1px solid #e2e8f0; padding-top: 16px; }
+    .seal-container { text-align: center; margin: 30px 0; }
+    .seal-container img { width: 240px; height: 240px; }
+    h1 { text-align: center; font-size: 24pt; font-weight: 900; letter-spacing: 2px; margin-top: 20px; color: #0f172a; }
+    .sub { text-align: center; font-size: 11pt; font-weight: 700; color: #475569; letter-spacing: 1px; margin: 4px 0; text-transform: uppercase; }
+    .meta { text-align: center; font-size: 10pt; color: #64748b; margin: 16px 0 0; }
+    .line { width: 60%; margin: 24px auto; border: none; border-top: 1px solid #cbd5e1; }
+    .footer { text-align: center; font-size: 8pt; color: #94a3b8; margin-top: 32px; }
 </style></head>
 <body>
     <div class="seal-container"><img src="${dataUrl}" alt="Sello System Kyron" /></div>
-    <h1>System Kyron</h1>
+    <h1>SYSTEM KYRON</h1>
+    <p class="sub">Sello Oficial — Inteligencia Corporativa</p>
+    <hr class="line" />
     <p class="meta">RIF J-50832149-9</p>
-    <p style="text-align:center;font-size:9pt;color:#64748b;margin-top:24px;">Documento verificado electrónicamente</p>
-    <div class="footer">System Kyron — Ecosistema de Inteligencia Corporativa — ${new Date().toLocaleDateString('es-VE')}</div>
+    <p style="text-align:center;font-size:9pt;color:#64748b;margin-top:20px;">Documento verificado electrónicamente</p>
+    <div class="footer">System Kyron — Ecosistema de Inteligencia Corporativa — ${new Date().toLocaleDateString('es-VE', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
 </body></html>`;
             const blob = new Blob([html], { type: 'application/msword' });
             const link = document.createElement('a');
@@ -98,15 +106,30 @@ export function OfficialSeal({ className }: { className?: string }) {
                 )}
             >
                 <svg viewBox="0 0 400 400" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <clipPath id="circleClip"><circle cx="200" cy="200" r="195" /></clipPath>
+                    </defs>
                     <circle cx="200" cy="200" r="195" fill="#f8fafc" />
-                    <circle cx="200" cy="200" r="190" fill="none" stroke="#0f172a" strokeWidth="2" />
-                    <circle cx="200" cy="200" r="185" fill="none" stroke="#0f172a" strokeWidth="0.5" />
-                    <path id="arc" d="M 60 200 A 140 140 0 0 1 340 200" fill="none" />
-                    <text fontSize="13" fontWeight="800" fontFamily="'Inter','Segoe UI',sans-serif" fill="#0f172a" letterSpacing="6">
-                        <textPath href="#arc" startOffset="50%" textAnchor="middle">SYSTEM KYRON</textPath>
+                    <circle cx="200" cy="200" r="192" fill="none" stroke="#0f172a" strokeWidth="3" />
+                    <circle cx="200" cy="200" r="185" fill="none" stroke="#0f172a" strokeWidth="1" />
+                    <circle cx="200" cy="200" r="178" fill="none" stroke="#0f172a" strokeWidth="0.5" />
+                    {Array.from({ length: 24 }).map((_, i) => {
+                        const angle = (i * 360) / 24;
+                        const rad = (angle * Math.PI) / 180;
+                        const x = 200 + 187 * Math.cos(rad);
+                        const y = 200 + 187 * Math.sin(rad);
+                        return <circle key={i} cx={x} cy={y} r="2.5" fill="#0f172a" />;
+                    })}
+                    <path id="arcTop" d="M 65 200 A 135 135 0 0 1 335 200" fill="none" />
+                    <path id="arcBottom" d="M 75 210 A 125 125 0 0 0 325 210" fill="none" />
+                    <text fontSize="12" fontWeight="900" fontFamily="'Inter','Segoe UI',sans-serif" fill="#0f172a" letterSpacing="5">
+                        <textPath href="#arcTop" startOffset="50%" textAnchor="middle">SYSTEM KYRON</textPath>
                     </text>
-                    <image href="/images/logo-black.png" x="155" y="155" width="90" height="90" opacity="0.9" />
-                    <text x="200" y="290" textAnchor="middle" fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif" fill="#1e293b" letterSpacing="3">RIF J-50832149-9</text>
+                    <text fontSize="8" fontWeight="700" fontFamily="'Inter','Segoe UI',sans-serif" fill="#475569" letterSpacing="2">
+                        <textPath href="#arcBottom" startOffset="50%" textAnchor="middle">INTELIGENCIA CORPORATIVA</textPath>
+                    </text>
+                    <image href="/images/logo-black.png" x="160" y="160" width="80" height="80" opacity="0.95" />
+                    <text x="200" y="295" textAnchor="middle" fontSize="10" fontWeight="800" fontFamily="'Inter',sans-serif" fill="#0f172a" letterSpacing="3">RIF J-50832149-9</text>
                 </svg>
             </div>
 
@@ -118,21 +141,21 @@ export function OfficialSeal({ className }: { className?: string }) {
             )}
             <div className="flex flex-wrap items-center justify-center gap-3">
                 <button onClick={downloadPng} disabled={!!downloading}
-                    className={cn("flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all shadow-sm hover:shadow-md",
+                    className={cn("flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-widest transition-all shadow-lg hover:shadow-xl",
                         "bg-[#0f172a] hover:bg-[#1e293b] text-white", downloading === 'png' && "opacity-50 cursor-not-allowed")}>
-                    <FileImage className="h-4 w-4" />
+                    <FileImage className="h-5 w-5" />
                     {downloading === 'png' ? '...' : 'PNG'}
                 </button>
                 <button onClick={downloadPdf} disabled={!!downloading}
-                    className={cn("flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all shadow-sm hover:shadow-md",
+                    className={cn("flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-widest transition-all shadow-lg hover:shadow-xl",
                         "bg-[#dc2626] hover:bg-[#b91c1c] text-white", downloading === 'pdf' && "opacity-50 cursor-not-allowed")}>
-                    <FileText className="h-4 w-4" />
+                    <FileText className="h-5 w-5" />
                     {downloading === 'pdf' ? '...' : 'PDF'}
                 </button>
                 <button onClick={downloadWord} disabled={!!downloading}
-                    className={cn("flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all shadow-sm hover:shadow-md",
+                    className={cn("flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-widest transition-all shadow-lg hover:shadow-xl",
                         "bg-[#2563eb] hover:bg-[#1d4ed8] text-white", downloading === 'docx' && "opacity-50 cursor-not-allowed")}>
-                    <FileText className="h-4 w-4" />
+                    <Download className="h-5 w-5" />
                     {downloading === 'docx' ? '...' : 'WORD'}
                 </button>
             </div>
