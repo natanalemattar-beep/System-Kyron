@@ -6,28 +6,7 @@ import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { verifyLoginChallenge } from '@/lib/login-challenge';
 import { generateCode, generateMagicToken, storeMagicToken, storeCode, normalizePhone, maskPhone } from '@/lib/verification-codes';
 
-
 export const dynamic = 'force-dynamic';
-
-
-
-
-
-async function trySendViaTwilio(tipo: 'sms' | 'whatsapp', phone: string, codigo: string): Promise<{ sent: boolean; error?: string }> {
-  try {
-    if (tipo === 'sms') {
-      const { sendSms } = await import('@/lib/twilio-client');
-      const smsBody = `System Kyron - Codigo de verificacion: ${codigo} - Valido por 10 minutos.`;
-      const result = await sendSms(phone, smsBody);
-      if (result.success) return { sent: true };
-      return { sent: false, error: result.error };
-    } else {
-      const { sendWhatsAppMessage } = await import('@/lib/whatsapp-service');
-      const waBody = `*System Kyron*\n\n_Codigo de Verificacion_\n\n*${codigo}*\n\nValido por 10 minutos.`;
-      const result = await sendWhatsAppMessage(phone, waBody);
-      if (result.success) return { sent: true };
-      return { sent: false, error: result.error };
-    }
   } catch (err) {
     return { sent: false, error: err instanceof Error ? err.message : String(err) };
   }
@@ -179,44 +158,12 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // FLUJO TELÉFONO (SMS / WhatsApp)
-    try {
-      let phoneNumber = destino;
-      // Si el destino parece un correo pero el tipo es teléfono, buscar el teléfono del usuario
-      if (destino.includes('@')) {
-        const userPhone = await queryOne<{ telefono: string | null }>(
-          `SELECT telefono FROM users WHERE email = $1`, [destino]
-        );
-        if (!userPhone?.telefono) {
-          return NextResponse.json({ error: 'No existe un teléfono vinculado a esta cuenta.' }, { status: 400 });
-        }
-        phoneNumber = normalizePhone(userPhone.telefono);
-      }
-
-      await storeCode(destino, codigo, proposito, tipo);
-      const twilioResult = await trySendViaTwilio(tipo, phoneNumber, codigo);
-
-
-      if (!twilioResult.sent) {
-        throw new Error(twilioResult.error);
-      }
-
-      const masked = maskPhone(phoneNumber);
-      return NextResponse.json({
-        success: true,
-        message: `Código enviado vía ${tipo.toUpperCase()}`,
-        channel: tipo,
-        destination: masked,
-        expiresIn: 600,
-      });
-
-    } catch (err: any) {
-      console.error('[send-code] Fallo en flujo móvil:', err);
-      return NextResponse.json(
-        { error: `Error al enviar por ${tipo}. Por favor, use la verificación por correo.` },
-        { status: 502 }
-      );
-    }
+    // FLUJO TELÉFONO (SMS / WhatsApp) — EN CONSTRUCCIÓN
+    const channelName = tipo === 'sms' ? 'SMS' : 'WhatsApp';
+    return NextResponse.json(
+      { error: `La verificación por ${channelName} está en construcción. Usa el correo electrónico.`, enConstruccion: true },
+      { status: 503 }
+    );
 
 
   } catch (err: any) {
