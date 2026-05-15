@@ -4,10 +4,10 @@ import { cookies } from 'next/headers';
 const jwtSecret = process.env.JWT_SECRET;
 
 if (!jwtSecret) {
-  console.error('[auth] CRITICAL: JWT_SECRET is not set. Authentication will fail.');
+  throw new Error('[auth] CRITICAL: JWT_SECRET environment variable is not set. Authentication cannot proceed.');
 }
 
-const SECRET = new TextEncoder().encode(jwtSecret || 'fallback_only_dev');
+const SECRET = new TextEncoder().encode(jwtSecret);
 const COOKIE_NAME = 'sk_session';
 const EXPIRES_IN = 60 * 60 * 24 * 7; // 7 days in seconds
 

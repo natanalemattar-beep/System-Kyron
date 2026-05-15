@@ -15,7 +15,8 @@ function getEncryptionKey(): Buffer {
     const secret = process.env.ENCRYPTION_KEY;
     if (!secret) {
         // Fallback robusto por si en Vercel no está ni ENCRYPTION_KEY ni JWT_SECRET
-        const jwtSecret = process.env.JWT_SECRET || 'kyron_secret_key_fixed_2026_fallback_xyz123';
+        const jwtSecret = process.env.JWT_SECRET;
+        if (!jwtSecret) throw new Error('[encryption] JWT_SECRET is required');
         console.warn('[encryption] ENCRYPTION_KEY no está definida. Usando fallback de seguridad.');
         cachedKey = scryptSync(jwtSecret + ':encryption-derived', 'kyron-aes256-derived-salt', KEY_LENGTH);
         return cachedKey;
@@ -128,7 +129,8 @@ export function generateSearchHash(value: string | null | undefined): string {
     if (!value) return '';
     // Normalizar: quitar espacios y símbolos para consistencia en búsquedas
     const normalized = String(value).trim().toLowerCase().replace(/[\s\-\(\)\.\+]/g, '');
-    const salt = process.env.ENCRYPTION_KEY || 'kyron-blind-index-salt-static';
+    const salt = process.env.ENCRYPTION_KEY;
+    if (!salt) throw new Error('[encryption] ENCRYPTION_KEY is required for blind index');
     return createHash('sha256')
         .update(normalized + salt)
         .digest('hex');

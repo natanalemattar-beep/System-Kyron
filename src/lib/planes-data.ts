@@ -30,7 +30,16 @@ export const PLANES_MI_LINEA: PlanMiLinea[] = [
 ];
 
 export interface PlanLimites {
+  alertasFiscales: number;
   alertasRegulatorias: number;
+  facturasMensuales: number;
+  empleadosNomina: number;
+  clientesCRM: number;
+  documentosLegales: number;
+  lineasTelecom: number;
+  reportesMensuales: number;
+  usuariosConcurrentes: number;
+  almacenamientoGB: number;
   simuladorMultas: number;
   exportacionesExcel: number;
   consultasRIF: number;

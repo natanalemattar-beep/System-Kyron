@@ -2,7 +2,8 @@ import crypto from 'crypto';
 
 const CHALLENGE_EXPIRY_MS = 15 * 60 * 1000;
 const resolvedSecret = process.env.JWT_SECRET || process.env.SESSION_SECRET;
-const SECRET: string = resolvedSecret || 'kyron_secret_key_fixed_2026';
+if (!resolvedSecret) throw new Error('[login-challenge] JWT_SECRET is required');
+const SECRET: string = resolvedSecret;
 
 export function createLoginChallenge(email: string, userId: number): string {
   const payload = {
