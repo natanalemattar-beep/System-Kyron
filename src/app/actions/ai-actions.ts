@@ -4,14 +4,18 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 import { KYRON_SYSTEM_PROMPT } from "@/lib/ai-context";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-const model = genAI.getGenerativeModel({ 
-    model: "gemini-2.0-flash",
-    systemInstruction: KYRON_SYSTEM_PROMPT
-});
+const apiKey = process.env.GEMINI_API_KEY || "";
+let model: ReturnType<GoogleGenerativeAI["getGenerativeModel"]> | null = null;
+if (apiKey) {
+    const genAI = new GoogleGenerativeAI(apiKey);
+    model = genAI.getGenerativeModel({ 
+        model: "gemini-2.0-flash",
+        systemInstruction: KYRON_SYSTEM_PROMPT
+    });
+}
 
 export async function getPitchAdvice(slideTitle: string, slideBody: string, slideContext: string) {
-    if (!process.env.GEMINI_API_KEY) {
+    if (!model || !apiKey) {
         return "Configura GEMINI_API_KEY en Vercel para activar el Coach de IA.";
     }
 

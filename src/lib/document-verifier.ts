@@ -599,7 +599,7 @@ export async function verifyDocument(
 
   if (isImage) {
     const base64 = buffer.toString('base64');
-    const timeoutFallback = (provider: 'gemini'): AIProviderResult => ({
+    const timeoutFallback = (provider: string): AIProviderResult => ({
       provider, disponible: false,
       visual_puntaje: 0, calidad_puntaje: 0, contenido_puntaje: 0,
       es_borrosa: false, nivel_nitidez: 'media', veredicto_individual: 'sospechoso',

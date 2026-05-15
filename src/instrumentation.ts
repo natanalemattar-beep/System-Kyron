@@ -7,9 +7,11 @@ export async function register() {
       console.error('[instrumentation] Database initialization failed — app will continue without DB:', err);
     }
 
+    const getBaseUrl = () => process.env.NEXT_PUBLIC_APP_URL || `http://localhost:${process.env.PORT || 5000}`;
+
     setTimeout(async () => {
       try {
-        const baseUrl = `http://localhost:${process.env.PORT || 5000}`;
+        const baseUrl = getBaseUrl();
         const res = await fetch(`${baseUrl}/api/tasas-bcv/auto-fetch`, {
           headers: { 'x-internal-fetch': 'true' },
           signal: AbortSignal.timeout(20000),
@@ -51,7 +53,7 @@ export async function register() {
 
     setInterval(async () => {
       try {
-        const baseUrl = `http://localhost:${process.env.PORT || 5000}`;
+        const baseUrl = getBaseUrl();
         const res = await fetch(`${baseUrl}/api/tasas-bcv/auto-fetch`, {
           headers: { 'x-internal-fetch': 'true' },
           signal: AbortSignal.timeout(20000),

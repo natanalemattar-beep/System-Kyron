@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
             SYSTEM_PROMPT + "\n\nUsuario: " + lastMessage
           );
           const response = await result.response;
-          return NextResponse.json({ content: response.text(), provider: 'gemini-pro', status: 'success' });
+          return NextResponse.json({ content: response.text(), provider: 'gemini-2.0-flash', status: 'success' });
         }
       } catch (aiError) {
         console.error('[AI-Engine-Warning] Failover to Deterministic:', aiError);
