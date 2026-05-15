@@ -21,11 +21,25 @@ import {
     Cpu,
     Zap
 } from 'lucide-react';
+import Image from 'next/image';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
+import { OfficialSeal } from '@/components/brand/OfficialSeal';
 
-const RESOURCES = [
+interface Resource {
+    id: string;
+    title: string;
+    description: string;
+    icon: React.ComponentType<{ className?: string }>;
+    href: string;
+    color: string;
+    tag: string;
+    type: 'internal' | 'external';
+    size: 'normal' | 'large';
+}
+
+const RESOURCES: Resource[] = [
     {
         id: 'presentation',
         title: 'Arquitectura de Valor',
@@ -123,7 +137,9 @@ export default function BrandKitPage() {
                     <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 blur-[180px] rounded-full animate-pulse" />
                     <div className="absolute bottom-[10%] right-[-5%] w-[500px] h-[500px] bg-cyan-500/5 blur-[150px] rounded-full" />
                 </div>
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] mix-blend-overlay" />
+                <div className="absolute inset-0 opacity-[0.015] mix-blend-overlay pointer-events-none"
+                     style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} 
+                />
             </div>
 
             <main className="relative z-10 max-w-7xl mx-auto px-6 py-24 lg:py-32">
@@ -185,10 +201,12 @@ export default function BrandKitPage() {
                         <div className="absolute -inset-4 bg-cyan-500/10 blur-3xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity" />
                         <div className="relative bg-white/5 backdrop-blur-3xl border border-white/10 p-10 rounded-[3rem] flex flex-col items-center gap-8 shadow-2xl">
                             <div className="p-4 bg-white rounded-3xl shadow-[0_20px_50px_rgba(255,255,255,0.1)] relative">
-                                <img 
+                                <Image 
                                     src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(baseUrl)}&color=000000&bgcolor=ffffff&margin=1`} 
                                     alt="Master QR" 
-                                    className="w-28 h-28 object-contain"
+                                    width={112}
+                                    height={112}
+                                    className="object-contain"
                                 />
                                 <div className="absolute top-0 left-0 right-0 h-1 bg-cyan-500/40 animate-scan pointer-events-none" />
                             </div>
@@ -222,6 +240,29 @@ export default function BrandKitPage() {
                         ))}
                     </AnimatePresence>
                 </div>
+
+                {/* Official Seal */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.6 }}
+                    className="flex flex-col items-center justify-center py-24"
+                >
+                    <OfficialSeal className="w-48 h-48 lg:w-56 lg:h-56 mb-8" />
+                    <div className="text-center space-y-3">
+                        <h2 className="text-2xl font-black uppercase tracking-widest text-white italic">
+                            Sello Oficial
+                        </h2>
+                        <p className="text-sm font-medium text-zinc-500 max-w-md mx-auto">
+                            Emprendimiento Carlos Mattar · RIF J-50832149-9 · República Bolivariana de Venezuela
+                        </p>
+                        <div className="flex items-center justify-center gap-4 pt-4">
+                            <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-500/30" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400">Verified</span>
+                            <div className="h-px w-12 bg-gradient-to-r from-cyan-500/30 to-transparent" />
+                        </div>
+                    </div>
+                </motion.div>
 
                 {/* Footer Insight */}
                 <motion.div 
@@ -269,7 +310,7 @@ export default function BrandKitPage() {
     );
 }
 
-function ResourceCard({ resource: res }: { resource: any }) {
+function ResourceCard({ resource: res }: { resource: Resource }) {
     const Icon = res.icon;
     
     return (
@@ -295,7 +336,7 @@ function ResourceCard({ resource: res }: { resource: any }) {
                         )}>
                             <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent rounded-2xl" />
                             {res.id === 'paisaje' ? (
-                                <img src={res.href} alt="BG" className="w-full h-full object-cover rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity" />
+                                <Image src={res.href} alt="BG" width={64} height={64} className="w-full h-full object-cover rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity" unoptimized />
                             ) : (
                                 <Icon className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform duration-500" />
                             )}
