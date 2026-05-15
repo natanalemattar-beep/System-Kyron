@@ -68,7 +68,7 @@ const slides = [
         points: [
             'Kyron 5G: Integración nativa de telefonía y ERP.',
             'Cero Papel: Digitalización absoluta de libros contables y legales.',
-            'Papeleras Inteligentes (Ameru): Gestión de residuos por inducción magnética.',
+            'Reserva de Emergencia: 500MB + 30 min activos tras agotar saldo.',
             'Kyron Shield: Blindaje jurídico automático para cada transacción.'
         ],
         badge: 'LA SOLUCIÓN',

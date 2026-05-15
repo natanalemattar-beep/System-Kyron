@@ -59,11 +59,20 @@ const SAAS_MODULES: SaasModule[] = [
   {
     id: 'milinea',
     icon: Tablet,
-    nombre: 'Mi Línea 5G',
-    descripcion: 'Gestión de tu línea telefónica dentro de la plataforma. No incluye plan de datos — solo la administración inteligente.',
-    precio: 5,
+    nombre: 'Línea Personal',
+    descripcion: 'Gestión inteligente de tu línea personal. Incluye Reserva de Emergencia activa.',
+    precio: 3,
     color: 'from-cyan-500/15 to-blue-500/10',
     acento: 'text-cyan-400',
+  },
+  {
+    id: 'milinea_corp',
+    icon: Smartphone,
+    nombre: 'Línea Empresarial',
+    descripcion: 'Gestión de flota corporativa, límites de consumo y Reserva de Emergencia compartida.',
+    precio: 10,
+    color: 'from-blue-600/15 to-indigo-600/10',
+    acento: 'text-blue-400',
   },
   {
     id: 'contable',
@@ -126,11 +135,11 @@ interface Plan5G {
 }
 
 const PLANES_5G: Plan5G[] = [
-  { nombre: 'Básico',      datos: '4 GB',       minutos: '200',        sms: '400',        precio: 12.00, color: 'text-slate-300' },
-  { nombre: 'Plus',        datos: '10 GB',      minutos: '400',        sms: '800',        precio: 20.00, color: 'text-cyan-300' },
-  { nombre: 'Pro',         datos: '25 GB',      minutos: '600',        sms: '1200',       precio: 30.00, popular: true, color: 'text-blue-300' },
-  { nombre: 'Empresarial', datos: '30 GB',      minutos: '1000',       sms: '1000',       precio: 45.00, color: 'text-violet-300' },
-  { nombre: 'Ilimitado',   datos: 'Ilimitado',  minutos: 'Ilimitado',  sms: 'Ilimitado',  precio: 60.00, color: 'text-amber-300' },
+  { nombre: 'Básico',      datos: '4 GB + Res.',  minutos: '200',        sms: '400',        precio: 12.00, color: 'text-slate-300' },
+  { nombre: 'Plus',        datos: '10 GB + Res.', minutos: '400',        sms: '800',        precio: 20.00, color: 'text-cyan-300' },
+  { nombre: 'Pro',         datos: '25 GB + Res.', minutos: '600',        sms: '1200',       precio: 30.00, popular: true, color: 'text-blue-300' },
+  { nombre: 'Empresarial', datos: '30 GB + Res.', minutos: '1000',       sms: '1000',       precio: 45.00, color: 'text-violet-300' },
+  { nombre: 'Ilimitado',   datos: 'Ilimitado',    minutos: 'Ilimitado',  sms: 'Ilimitado',  precio: 60.00, color: 'text-amber-300' },
 ];
 
 // ─── 3. HARDWARE FISCAL ───────────────────────────
@@ -414,7 +423,7 @@ export function PricingSection() {
             badge="Conectividad 5G"
             title="Planes de líneas"
             highlight="5G con Kyron Shield"
-            subtitle="Cada plan incluye 3 seguros: reposición de equipo, perito forense SENIAT y abogado en 1h."
+            subtitle="Cada plan incluye Reserva de Emergencia (500MB + 30 min) que se activa automáticamente al agotar tu saldo."
           />
 
           {/* Kyron Shield badge */}

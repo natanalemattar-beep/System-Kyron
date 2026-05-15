@@ -170,7 +170,7 @@ export default function ResumenEjecutivoPage() {
                                     <li className="space-y-2">
                                         <div className="h-8 w-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400 border border-cyan-500/20"><Cpu className="h-4 w-4" /></div>
                                         <p className="text-[11px] font-bold text-white">Conectividad 5G</p>
-                                        <p className="text-[10px] text-white/40">Gestión de flotas y activación instantánea de líneas corporativas.</p>
+                                        <p className="text-[10px] text-white/40">Gestión de flotas y **Reserva de Emergencia** (500MB + 30 min) para asegurar continuidad.</p>
                                     </li>
                                     <li className="space-y-2">
                                         <div className="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20"><ShieldCheck className="h-4 w-4" /></div>
@@ -212,12 +212,12 @@ export default function ResumenEjecutivoPage() {
                                 <p className="text-sm text-white/70 print:text-black/70">Estructura de ingresos diversificada basada en recurrencia y venta de activos:</p>
                                 <div className="grid grid-cols-3 gap-4">
                                     <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center">
-                                        <p className="text-[10px] text-white/40 font-black mb-1">SUSCRIPCIÓN</p>
-                                        <p className="text-sm font-black text-primary">$45 - $190/mes</p>
+                                        <p className="text-[10px] text-white/40 font-black mb-1">MANT. LÍNEA</p>
+                                        <p className="text-sm font-black text-primary">$3 - $10/mes</p>
                                     </div>
                                     <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center">
-                                        <p className="text-[10px] text-white/40 font-black mb-1">HARDWARE</p>
-                                        <p className="text-sm font-black text-white">$200 - $500</p>
+                                        <p className="text-[10px] text-white/40 font-black mb-1">SaaS SAAS</p>
+                                        <p className="text-sm font-black text-white">$45 - $190</p>
                                     </div>
                                     <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center">
                                         <p className="text-[10px] text-white/40 font-black mb-1">MÁRGEN NETO</p>
