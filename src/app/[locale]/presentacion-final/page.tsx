@@ -186,90 +186,107 @@ export default function PresentacionFinalPage() {
             const PptxGenJS: any = await loadPptxGen();
             const pptx = new PptxGenJS();
             
+            // 1. Definición de Master y Layout
             pptx.layout = 'LAYOUT_WIDE';
             pptx.defineSlideMaster({
-                title: 'KYRON_MASTER',
-                background: { color: '030711' },
+                title: 'KYRON_ELITE',
+                background: { color: '030712' }, // Negro Kyron profundo
                 objects: [
+                    // Barra de acento superior
                     { rect: { x: 0, y: 0, w: '100%', h: 0.1, fill: { color: '00E5FF' } } },
-                    { text: { text: 'SYSTEM KYRON | RETO INSPIRA 2026', options: { x: 0.5, y: 7, w: '90%', fontSize: 8, color: '333333', align: 'right' } } }
+                    // Marca de agua sutil
+                    { text: { 
+                        text: 'SYSTEM KYRON | PROTOCOLO DE DEFENSA 2026', 
+                        options: { x: 0.5, y: 7.1, w: '90%', fontSize: 7, color: '1A2B48', align: 'right', bold: true } 
+                    } }
                 ]
             });
 
-            slides.forEach((slideData, i) => {
-                const slide = pptx.addSlide({ masterName: 'KYRON_MASTER' });
-                
-                // Background Gradient Simulation (Solid Rect)
-                slide.addShape(pptx.shapes.RECTANGLE, { 
-                    x: 0, y: 0, w: '100%', h: '100%', 
-                    fill: { color: '030711' } 
+            // 2. Procesamiento de Slides
+            slides.forEach((data, index) => {
+                const slide = pptx.addSlide({ masterName: 'KYRON_ELITE' });
+
+                // Elementos Visuales de Fondo (Neural Glow)
+                slide.addShape(pptx.shapes.OVAL, { 
+                    x: 8, y: -2, w: 6, h: 6, 
+                    fill: { color: '00E5FF', transparency: 92 } 
                 });
 
-                // Badge (RETO INSPIRA / EL PROBLEMA / etc)
-                if (slideData.badge) {
-                    slide.addText(slideData.badge, {
-                        x: 0.5, y: 0.4, w: 4, h: 0.3,
-                        fontSize: 10, fontFace: 'Arial Black', color: '00E5FF',
-                        bold: true, characterSpacing: 2
+                // Badge de Sección
+                if (data.badge) {
+                    slide.addText(data.badge, {
+                        x: 0.5, y: 0.5, w: 4, h: 0.3,
+                        fontSize: 9, fontFace: 'Arial Black', color: '00E5FF',
+                        bold: true, characterSpacing: 3
                     });
                 }
 
-                // Titular Principal (Cyan)
-                slide.addText(slideData.title.toUpperCase(), {
-                    x: 0.5, y: 0.8, w: '90%', h: 1,
-                    fontSize: 44, fontFace: 'Arial Black', color: '00E5FF',
+                // Título con Acento
+                slide.addText(data.title.toUpperCase(), {
+                    x: 0.5, y: 0.9, w: '90%', h: 0.8,
+                    fontSize: 42, fontFace: 'Arial Black', color: 'FFFFFF',
                     bold: true, margin: 0
                 });
+                slide.addShape(pptx.shapes.LINE, { 
+                    x: 0.5, y: 1.7, w: 2.5, h: 0, 
+                    line: { color: '00E5FF', width: 4 } 
+                });
 
-                // Subtítulo (Blanco)
-                slide.addText(slideData.subtitle, {
-                    x: 0.5, y: 1.8, w: '90%', h: 0.5,
-                    fontSize: 24, fontFace: 'Arial', color: 'FFFFFF',
+                // Subtítulo Elegante
+                slide.addText(data.subtitle, {
+                    x: 0.5, y: 1.9, w: '90%', h: 0.5,
+                    fontSize: 22, fontFace: 'Arial', color: '00E5FF',
                     bold: true
                 });
 
-                // Línea divisora
-                slide.addShape(pptx.shapes.LINE, { x: 0.5, y: 2.4, w: 3, h: 0, line: { color: '00E5FF', width: 3 } });
-
-                // Contenido específico por tipo de slide
-                if (slideData.id === 'portada' && slideData.content) {
-                    slide.addText(slideData.content, {
-                        x: 0.5, y: 3, w: '90%', h: 1.5,
-                        fontSize: 22, fontFace: 'Arial', color: 'CCCCCC', italic: true
+                // Lógica de Contenido por Tipo
+                if (data.id === 'portada') {
+                    // Diseño Especial Portada
+                    slide.addText(data.content || "", {
+                        x: 0.5, y: 3.5, w: '70%', h: 1.5,
+                        fontSize: 20, fontFace: 'Arial', color: 'CCCCCC', italic: true
                     });
-                    if (slideData.team) {
-                        slide.addText(slideData.team, {
-                            x: 0.5, y: 5.5, w: '90%', h: 0.5,
-                            fontSize: 16, fontFace: 'Arial Black', color: 'FFFFFF', align: 'left'
+                    if (data.team) {
+                        slide.addText(data.team, {
+                            x: 0.5, y: 6.2, w: '90%', h: 0.5,
+                            fontSize: 16, fontFace: 'Arial Black', color: 'FFFFFF'
                         });
                     }
-                }
-
-                if (slideData.points) {
-                    slide.addText(slideData.points.map(p => `• ${p}`).join('\n'), {
-                        x: 0.5, y: 2.8, w: '90%', h: 3.5,
-                        fontSize: 18, fontFace: 'Arial', color: 'E0E0E0',
-                        lineSpacing: 38
-                    });
-                }
-
-                if (slideData.teamMembers) {
-                    slideData.teamMembers.forEach((m, idx) => {
-                        slide.addText(`${m.name.toUpperCase()}\n${m.role}`, {
-                            x: 0.5 + (idx * 3.1), y: 3.5, w: 2.8, h: 1.5,
-                            fontSize: 14, fontFace: 'Arial Black', color: 'FFFFFF',
-                            align: 'center', fill: { color: '111827' },
-                            valign: 'middle',
-                            line: { color: '00E5FF', width: 1 }
+                } else if (data.teamMembers) {
+                    // Diseño de Equipo
+                    data.teamMembers.forEach((member, i) => {
+                        const posX = 0.5 + (i * 3.1);
+                        slide.addShape(pptx.shapes.RECTANGLE, {
+                            x: posX, y: 3.2, w: 2.8, h: 2.5,
+                            fill: { color: '0A1020' },
+                            line: { color: '1A2B48', width: 1 }
                         });
+                        slide.addText(member.name.toUpperCase(), {
+                            x: posX, y: 3.8, w: 2.8, h: 0.5,
+                            fontSize: 14, fontFace: 'Arial Black', color: 'FFFFFF', align: 'center'
+                        });
+                        slide.addText(member.role, {
+                            x: posX, y: 4.3, w: 2.8, h: 0.5,
+                            fontSize: 10, fontFace: 'Arial', color: '00E5FF', align: 'center', bold: true
+                        });
+                    });
+                } else if (data.points) {
+                    // Diseño de Puntos
+                    slide.addText(data.points.map(p => `•  ${p}`).join('\n\n'), {
+                        x: 0.5, y: 2.8, w: '90%', h: 4,
+                        fontSize: 17, fontFace: 'Arial', color: 'E0E0E0',
+                        lineSpacing: 32
                     });
                 }
             });
 
-            await pptx.writeFile({ fileName: `Kyron_Pitch_2026_${new Date().getTime()}.pptx` });
+            // 3. Generación Final
+            const fileName = `Kyron_Elite_Pitch_2026_${new Date().getTime()}.pptx`;
+            await pptx.writeFile({ fileName });
+            
         } catch (error) {
-            console.error('Error exportando PPTX:', error);
-            alert('Error al generar el PowerPoint.');
+            console.error('CRITICAL_EXPORT_ERROR:', error);
+            alert('Falla en el motor de exportación neural. Reintentando...');
         } finally {
             setIsExporting(false);
         }
