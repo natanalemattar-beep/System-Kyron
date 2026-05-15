@@ -1,8 +1,10 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Download, Printer, ShieldCheck, FileText, CheckCircle2, FileDown, Leaf, Recycle, Globe } from 'lucide-react';
+import { 
+    Download, Printer, ShieldCheck, FileText, CheckCircle2, 
+    FileDown, Leaf, Recycle, Globe, BrainCircuit, Banknote, 
+    Target, Megaphone, Milestone, Users
+} from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 import { LandingHeader } from '@/components/landing/landing-header';
@@ -44,16 +46,16 @@ export default function ResumenEjecutivoPage() {
                     <div>
                         <div className="flex items-center gap-2 mb-2">
                             <FileText className="h-5 w-5 text-primary" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Generador de Documentación Oficial</span>
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Documentación Oficial Reto Inspira 2026</span>
                         </div>
-                        <h1 className="text-4xl font-black uppercase tracking-tighter text-foreground">
+                        <h1 className="text-4xl font-black uppercase tracking-tighter text-white">
                             Resumen <span className="text-primary italic">Ejecutivo</span>
                         </h1>
                     </div>
                     
                     <div className="flex flex-wrap gap-3 w-full md:w-auto">
                         <Button variant="outline" onClick={handlePrint} className="flex-1 md:flex-none rounded-xl border-primary/20 hover:bg-primary/5 h-12 px-6 font-bold uppercase text-[10px] tracking-widest text-white">
-                            <Printer className="h-4 w-4 mr-2" /> Imprimir / PDF
+                            <Printer className="h-4 w-4 mr-2" /> Descargar PDF
                         </Button>
                         <Button onClick={handleExportWord} variant="outline" className="flex-1 md:flex-none rounded-xl border-primary/20 hover:bg-primary/5 h-12 px-6 font-bold uppercase text-[10px] tracking-widest text-white">
                             <FileDown className="h-4 w-4 mr-2" /> Exportar Word
@@ -72,6 +74,7 @@ export default function ResumenEjecutivoPage() {
                             .text-primary { color: #000 !important; font-weight: bold !important; }
                             .bg-primary { background: #000 !important; }
                             .container { padding: 0 !important; margin: 0 !important; width: 100% !important; max-width: 100% !important; }
+                            section { break-inside: avoid; }
                         }
                     `}</style>
 
@@ -83,111 +86,150 @@ export default function ResumenEjecutivoPage() {
                                     <ShieldCheck className="h-6 w-6 text-white" />
                                 </div>
                                 <div>
-                                    <span className="text-2xl font-black tracking-tighter text-foreground print:text-black uppercase">SYSTEM KYRON</span>
+                                    <span className="text-2xl font-black tracking-tighter text-white print:text-black uppercase">SYSTEM KYRON</span>
                                     <div className="h-1 w-full bg-gradient-to-r from-primary to-transparent mt-1 print:bg-black" />
                                 </div>
                             </div>
                             <div className="space-y-1">
                                 <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest print:text-black/60">
-                                    PROYECTO: <span className="text-foreground print:text-black font-bold">RETO INSPIRA 2026</span>
+                                    ESLOGAN: <span className="text-white print:text-black font-bold italic">"EL FUTURO DE LA INTELIGENCIA CORPORATIVA"</span>
                                 </p>
                                 <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest print:text-black/60">
-                                    ESTADO: <span className="text-emerald-500 font-bold">PRODUCCIÓN · CERTIFICADO</span>
+                                    EQUIPO: <span className="text-white print:text-black font-bold">CARLOS MATTAR · SEBASTIAN GARRIDO · MARCOS SOUSA</span>
                                 </p>
                             </div>
                         </div>
                         <div className="flex flex-col items-end gap-2 print:hidden">
                             <Badge variant="outline" className="border-emerald-500/30 text-emerald-500 uppercase font-black text-[10px] py-1 px-3">
-                                Verificado por Kyron Shield v3
+                                RIF: J-50832149-9
                             </Badge>
                         </div>
                     </div>
 
                     {/* Secciones del Resumen Ejecutivo */}
                     <div className="space-y-12">
+                        {/* 1. Información General */}
                         <section className="space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <Globe className="h-3 w-3" /> 1. Visión Estratégica y El Problema
+                                <FileText className="h-4 w-4" /> 1. INFORMACIÓN GENERAL
                             </h2>
-                            <div className="grid md:grid-cols-2 gap-6 pl-4 border-l-2 border-primary/10 print:border-black/10">
-                                <div>
-                                    <label className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1 block">El Caos Operativo</label>
-                                    <p className="text-sm font-bold">Los empresarios pierden el 40% de su tiempo gestionando entre 5 y 8 proveedores distintos para telefonía, contabilidad y legalidad.</p>
-                                </div>
-                                <div>
-                                    <label className="text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1 block">La Solución Kyron</label>
-                                    <p className="text-sm font-bold">Unificar la conectividad, fiscalidad y legalidad en una sola fibra operativa blindada para recuperar la productividad.</p>
-                                </div>
+                            <div className="pl-4 border-l-2 border-primary/10 print:border-black/10">
+                                <p className="text-sm font-bold text-white print:text-black">Nombre: <span className="font-normal text-white/70 print:text-black/70">System Kyron (Nexus AI Ecosystem)</span></p>
+                                <p className="text-sm font-bold text-white print:text-black">Eslogan: <span className="font-normal text-white/70 print:text-black/70">Un solo ecosistema. Un solo mando. Cero fronteras operativas.</span></p>
+                                <p className="text-sm font-bold text-white print:text-black">Equipo: <span className="font-normal text-white/70 print:text-black/70">Liderado por Carlos Mattar (Tecnología), Sebastian Garrido (Operaciones) y Marcos Sousa (Legal).</span></p>
                             </div>
                         </section>
 
-                        <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black">2. Arquitectura de Portales Inteligentes</h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-4 print:text-black print:border-black/10">
-                                <p className="text-sm leading-relaxed text-foreground/80">
-                                    Kyron se despliega a través de dos interfaces críticas que centralizan la identidad y la operación:
-                                </p>
-                                <div className="grid md:grid-cols-2 gap-8">
-                                    <div className="space-y-3">
-                                        <h4 className="text-[10px] font-black text-cyan-400 uppercase tracking-widest">Portal Ciudadano (Identidad Personal)</h4>
-                                        <ul className="text-[11px] space-y-2 text-white/60">
-                                            <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-cyan-500" /> Cuenta Personal: Documentación de identidad avanzada.</li>
-                                            <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-cyan-500" /> Mi Línea Personal: Gestión de consumo y recargas.</li>
-                                            <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-cyan-500" /> Mi Línea Empresa: Control total de flotas corporativas.</li>
-                                        </ul>
-                                    </div>
-                                    <div className="space-y-3">
-                                        <h4 className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">Portales Corporativos (Infraestructura)</h4>
-                                        <ul className="text-[11px] space-y-2 text-white/60">
-                                            <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-emerald-500" /> Asesoría Contable y Legal: Automatización total VEN-NIF.</li>
-                                            <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-emerald-500" /> Facturación (TPV): Punto de venta inteligente multimoneda.</li>
-                                            <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-emerald-500" /> Socios y Sostenibilidad: Supervisión estratégica y eco-gestión.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-500 print:text-black flex items-center gap-2">
-                                <Leaf className="h-4 w-4" /> 3. Sostenibilidad y Alianza Ameru
-                            </h2>
-                            <div className="pl-4 border-l-2 border-emerald-500/30 space-y-4 print:border-black/10">
-                                <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
-                                    <p className="text-sm text-foreground/80 print:text-black leading-relaxed">
-                                        <strong className="text-emerald-500 uppercase tracking-tighter">Iniciativa Smart Bins:</strong> En alianza con Ameru, implementamos contenedores de inducción magnética para reciclaje. El modelo <strong>Cero Papel</strong> de Kyron digitaliza el 100% de la oficina, ahorrando 12,000 hojas anuales por empresa y generando <strong>Eco-Créditos</strong> canjeables.
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-
+                        {/* 2. Definición del Problema */}
                         <section className="space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <BrainCircuit className="h-4 w-4" /> 4. Capa Tecnológica (AI & Blockchain)
+                                <Globe className="h-4 w-4" /> 2. DEFINICIÓN DEL PROBLEMA
                             </h2>
                             <div className="pl-4 border-l-2 border-primary/10 space-y-3 print:border-black/10">
-                                <p className="text-sm text-foreground/80 print:text-black">
-                                    Utilizamos <strong>Kyron Shield</strong> para cifrado bancario y <strong>Blockchain</strong> para garantizar la inmutabilidad de los registros fiscales. Nuestra <strong>IA Predictiva</strong> analiza tendencias de mercado y tasa BCV para sugerir ajustes de precios y flujo de caja en tiempo real.
+                                <p className="text-sm text-white/70 print:text-black/70 leading-relaxed">
+                                    Las PyMEs venezolanas enfrentan una **crisis de fragmentación**. Un empresario promedio debe gestionar entre 5 y 8 proveedores distintos para telefonía, contabilidad, legalidad y sostenibilidad, lo que genera una **pérdida de productividad del 40%** en saltos operativos. 
+                                </p>
+                                <p className="text-sm text-white/70 print:text-black/70 leading-relaxed italic border-l border-white/10 pl-4">
+                                    "La burocracia digital y la desconexión entre el RIF, la telefonía corporativa y el cumplimiento fiscal SENIAT asfixian el crecimiento de los emprendimientos locales."
                                 </p>
                             </div>
                         </section>
 
+                        {/* 3. Propuesta de Valor */}
                         <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-amber-500 print:text-black flex items-center gap-2">
-                                <Banknote className="h-4 w-4" /> 5. Modelo de Negocio y Mercado
+                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
+                                <Zap className="h-4 w-4" /> 3. PROPUESTA DE VALOR (LA SOLUCIÓN)
                             </h2>
-                            <div className="pl-4 border-l-2 border-amber-500/10 space-y-3 print:border-black/10">
-                                <p className="text-sm text-foreground/80 print:text-black">
-                                    Operamos bajo un modelo <strong>SaaS Recurrente</strong> con planes escalables. Apuntamos a un mercado de <strong>500,000 PyMEs</strong> en Venezuela, con una estrategia de marketing educativa en TikTok e Instagram enfocada en la formalización empresarial y el crecimiento digital.
+                            <div className="pl-4 border-l-2 border-primary/10 space-y-3 print:border-black/10 text-sm text-white/70 print:text-black/70">
+                                <p>System Kyron es el primer **mando único operativo** de Venezuela. Integra:</p>
+                                <ul className="grid md:grid-cols-2 gap-4">
+                                    <li className="flex items-start gap-2 font-medium"><CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /> Automatización Fiscal VEN-NIF y SENIAT en tiempo real.</li>
+                                    <li className="flex items-start gap-2 font-medium"><CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /> Gestión nativa de líneas 5G y flotas móviles.</li>
+                                    <li className="flex items-start gap-2 font-medium"><CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /> Blindaje Legal Automático (Kyron Shield).</li>
+                                    <li className="flex items-start gap-2 font-medium"><CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /> Gestión de sostenibilidad con tecnología de inducción.</li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        {/* 4. Mercado Objetivo */}
+                        <section className="space-y-4">
+                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
+                                <Target className="h-4 w-4" /> 4. MERCADO OBJETIVO
+                            </h2>
+                            <div className="pl-4 border-l-2 border-primary/10 space-y-3 print:border-black/10 text-sm text-white/70 print:text-black/70">
+                                <p>Apuntamos a un mercado de **500,000+ PyMEs** y 2 millones de profesionales independientes en Venezuela.</p>
+                                <p className="bg-white/5 p-4 rounded-xl border border-white/10 print:bg-black/5">
+                                    <strong>Perfil del Cliente:</strong> Empresarios de 25-55 años que buscan formalizar su negocio, optimizar costos de telefonía y asegurar su cumplimiento legal sin contratar un ejército de consultores.
                                 </p>
                             </div>
                         </section>
 
+                        {/* 5. Modelo de Negocio */}
                         <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black">6. Roadmap y Formalización</h2>
-                            <p className="text-sm text-foreground/80 pl-4 border-l-2 border-primary/10 print:text-black print:border-black/10">
-                                Actualmente en fase de <strong>Prototipo Funcional</strong>. Contamos con estructura legal completa (RIF J-50832149-9). Nuestra hoja de ruta 2026 contempla la captación de los primeros 1,000 clientes corporativos y la integración con la red de pagos interbancarios.
-                            </p>
+                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
+                                <Banknote className="h-4 w-4" /> 5. MODELO DE NEGOCIO
+                            </h2>
+                            <div className="pl-4 border-l-2 border-primary/10 space-y-3 print:border-black/10 text-sm text-white/70 print:text-black/70">
+                                <p>Generamos ingresos a través de:</p>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                    <div className="p-3 bg-white/5 rounded-lg border border-white/5 text-center">
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-primary">SaaS Recurrente</p>
+                                        <p className="font-bold">$45-$190/mes</p>
+                                    </div>
+                                    <div className="p-3 bg-white/5 rounded-lg border border-white/5 text-center">
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-primary">Hardware Fiscal</p>
+                                        <p className="font-bold">Venta Directa</p>
+                                    </div>
+                                    <div className="p-3 bg-white/5 rounded-lg border border-white/5 text-center">
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-primary">Telefonía 5G</p>
+                                        <p className="font-bold">Planes Mensuales</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* 6. Estrategia de Marketing */}
+                        <section className="space-y-4">
+                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
+                                <Megaphone className="h-4 w-4" /> 6. ESTRATEGIA DE MARKETING Y VENTAS
+                            </h2>
+                            <div className="pl-4 border-l-2 border-primary/10 space-y-3 print:border-black/10 text-sm text-white/70 print:text-black/70">
+                                <p>Canales principales:</p>
+                                <ul className="list-disc pl-5 space-y-1">
+                                    <li><strong>Marketing Educativo:</strong> TikTok e Instagram para enseñar a formalizar empresas (Contenido viral).</li>
+                                    <li><strong>Alianzas Estratégicas:</strong> Con cámaras de comercio y gremios contables en Venezuela.</li>
+                                    <li><strong>Embajadores:</strong> Profesionales del derecho y contaduría que recomiendan la plataforma.</li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        {/* 7. Impacto Social o Ambiental */}
+                        <section className="space-y-4">
+                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-500 print:text-black flex items-center gap-2">
+                                <Leaf className="h-4 w-4" /> 7. IMPACTO SOCIAL O AMBIENTAL
+                            </h2>
+                            <div className="pl-4 border-l-2 border-emerald-500/30 space-y-3 print:border-black/10 text-sm text-white/70 print:text-black/70">
+                                <p><strong>Cero Papel:</strong> Digitalizamos la oficina venezolana, ahorrando 12,000 hojas de papel por empresa al año.</p>
+                                <p><strong>Iniciativa Ameru:</strong> Implementación de Smart Bins para reciclaje urbano inteligente, fomentando la economía circular mediante recompensas digitales.</p>
+                            </div>
+                        </section>
+
+                        {/* 8. Estado Actual y Hoja de Ruta */}
+                        <section className="space-y-4">
+                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
+                                <Milestone className="h-4 w-4" /> 8. ESTADO ACTUAL Y HOJA DE RUTA
+                            </h2>
+                            <div className="pl-4 border-l-2 border-primary/10 space-y-4 print:border-black/10 text-sm text-white/70 print:text-black/70">
+                                <p><strong>Etapa:</strong> Prototipo Funcional (MVP) y estructura legal completa con RIF J-50832149-9.</p>
+                                <div className="space-y-2">
+                                    <p className="font-bold text-white print:text-black uppercase text-[10px]">Objetivos 6 Meses:</p>
+                                    <ol className="list-decimal pl-5 space-y-1">
+                                        <li>Cerrar alianza con el primer operador 5G para integración de líneas.</li>
+                                        <li>Alcanzar los primeros 500 clientes pagos (Beta privada).</li>
+                                        <li>Lanzar el primer piloto de Smart Bins en un municipio del país.</li>
+                                    </ol>
+                                </div>
+                            </div>
                         </section>
 
                         {/* Firma Final */}
@@ -196,7 +238,7 @@ export default function ResumenEjecutivoPage() {
                             <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em] print:text-black">
                                 Kyron Nexus AI • Certificación de Validez • Reto Inspira 2026
                             </p>
-                            <p className="text-[8px] text-white/20 font-black">EMPRENDIMIENTO CARLOS MATTAR · RIF: J-50832149-9</p>
+                            <p className="text-[8px] text-white/20 font-black uppercase tracking-widest">Emprendimiento Carlos Mattar · RIF: J-50832149-9</p>
                         </div>
                     </div>
                 </Card>
