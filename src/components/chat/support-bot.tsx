@@ -9,8 +9,15 @@ import { Input } from "@/components/ui/input";
 import { chatWithKyron } from "@/app/actions/ai-chat";
 import { cn } from "@/lib/utils";
 
+import { usePathname } from "next/navigation";
+
 export function SupportBot() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+    
+    // Ocultar en la página de presentación final para que no estorbe
+    if (pathname.includes('presentacion-final')) return null;
+
     const [messages, setMessages] = useState<{ role: "user" | "model"; content: string }[]>([
         { role: "model", content: "Bienvenido al Centro de Mando Kyron. Soy Kyron Core, la inteligencia oficial de tu ecosistema estratégico. ¿En qué puedo optimizar tu operación hoy?" }
     ]);
