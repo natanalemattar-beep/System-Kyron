@@ -38,6 +38,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { useTheme } from "next-themes";
 import { useBannerVisible } from "@/components/demo-banner";
 import { motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
+import { WhatIsNewModal } from "./what-is-new-modal";
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -76,6 +77,8 @@ export function LandingHeader() {
     if (!mounted) return null;
 
     return (
+        <>
+        <WhatIsNewModal />
         <motion.header
             className="fixed left-0 right-0 z-[150]"
             initial={false}
