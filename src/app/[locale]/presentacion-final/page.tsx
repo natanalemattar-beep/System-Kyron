@@ -21,6 +21,16 @@ const loadPptxGen = () => {
     });
 };
 
+const loadHtml2Pdf = () => {
+    return new Promise((resolve) => {
+        if ((window as any).html2pdf) return resolve((window as any).html2pdf);
+        const script = document.createElement('script');
+        script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+        script.onload = () => resolve((window as any).html2pdf);
+        document.head.appendChild(script);
+    });
+};
+
 const slides = [
     {
         id: 'portada',
@@ -177,8 +187,32 @@ export default function PresentacionFinalPage() {
             console.log("Kyron Core: Assets Cached for Turbo Download");
         };
         preloadAssets();
-        loadPptxGen(); // Preload library immediately
+        loadPptxGen(); 
+        loadHtml2Pdf(); // Preload PDF engine
     }, []);
+
+    const [isExportingPDF, setIsExportingPDF] = useState(false);
+
+    const handleExportPDF = async () => {
+        setIsExportingPDF(true);
+        try {
+            const html2pdf: any = await loadHtml2Pdf();
+            const element = document.getElementById('presentation-container');
+            const opt = {
+                margin: 0,
+                filename: `Kyron_Elite_PDF_2026_${new Date().getTime()}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, backgroundColor: '#030712' },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+            };
+            await html2pdf().from(element).set(opt).save();
+        } catch (error) {
+            console.error('PDF_ERROR:', error);
+            alert('Falla en el motor de PDF. Reintentando...');
+        } finally {
+            setIsExportingPDF(false);
+        }
+    };
 
     const handleExportPPTX = async () => {
         setIsExporting(true);
@@ -332,10 +366,21 @@ export default function PresentacionFinalPage() {
             <div className="absolute top-8 right-8 flex gap-4 z-50 no-print">
                 <Button 
                     variant="outline" 
-                    onClick={() => window.print()}
-                    className="rounded-full bg-white/5 border-white/10 hover:bg-white/10 text-white font-bold uppercase text-[10px] tracking-widest px-6 h-12"
+                    onClick={handleExportPDF}
+                    disabled={isExportingPDF}
+                    className="rounded-full bg-white/5 border-white/10 hover:bg-white/10 text-white font-bold uppercase text-[10px] tracking-widest px-6 h-12 min-w-[160px]"
                 >
-                    <FileText className="w-4 h-4 mr-2" /> PDF Imprimible
+                    {isExportingPDF ? (
+                        <span className="flex items-center gap-2">
+                            <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                            Generando PDF...
+                        </span>
+                    ) : (
+                        <span className="flex items-center gap-2">
+                            <FileText className="w-4 h-4" />
+                            PDF DE VERDAD
+                        </span>
+                    )}
                 </Button>
                 <Button 
                     variant="outline" 
@@ -368,7 +413,7 @@ export default function PresentacionFinalPage() {
             </div>
 
             {/* Slide Content */}
-            <div className="flex-1 relative flex items-center justify-center p-4 sm:p-20 overflow-y-auto sm:overflow-hidden">
+            <div id="presentation-container" className="flex-1 relative flex items-center justify-center p-4 sm:p-20 overflow-y-auto sm:overflow-hidden">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={current}
