@@ -199,10 +199,11 @@ export default function PresentacionFinalPage() {
             slides.forEach((slideData, i) => {
                 const slide = pptx.addSlide({ masterName: 'KYRON_MASTER' });
                 
-                // Overlay sutil de imagen
-                if (slideData.image) {
-                    slide.addImage({ path: slideData.image, x: 0, y: 0, w: '100%', h: '100%', opacity: 20 });
-                }
+                // Background Gradient Simulation (Solid Rect)
+                slide.addShape(pptx.shapes.RECTANGLE, { 
+                    x: 0, y: 0, w: '100%', h: '100%', 
+                    fill: { color: '030711' } 
+                });
 
                 // Badge (RETO INSPIRA / EL PROBLEMA / etc)
                 if (slideData.badge) {
