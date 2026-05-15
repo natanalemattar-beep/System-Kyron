@@ -686,7 +686,7 @@ export default function ManualUsuarioPage() {
             />
           </div>
           <nav className="space-y-0.5">
-            {filteredChapters.map((ch, i) => {
+            {filteredChapters.map((ch, i) => (
               <button
                 key={ch.id}
                 onClick={() => scrollToChapter(ch.id)}
@@ -705,8 +705,7 @@ export default function ManualUsuarioPage() {
                 </span>
                 <span className="truncate">{ch.title}</span>
               </button>
-              );
-            })}
+            ))}
           </nav>
         </div>
       </div>
