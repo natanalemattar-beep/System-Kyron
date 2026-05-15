@@ -24,7 +24,7 @@ const ICONS: Record<string, any> = {
 };
 
 export function AIBudgetPlanner() {
-    const t = useTranslations('AIBudgetPlanner');
+    const t = useTranslations('BudgetConfigurator');
     const [budget, setBudget] = useState(50);
     const [needs, setNeeds] = useState<string[]>(['connectivity', 'accounting']);
     const [isGenerating, setIsGenerating] = useState(false);
@@ -54,32 +54,38 @@ export function AIBudgetPlanner() {
         }, 1200);
     };
 
-    // Lógica determinística de recomendación
+    // Lógica determinística de recomendación sincronizada con PricingSection
     const getRecommendation = () => {
-        let recommendedModules = [];
+        let planId = 'solo';
         let totalValue = 0;
+        let savings = 15;
         
-        if (budget >= 150) {
-            recommendedModules = ['connectivity', 'accounting', 'legal', 'invoicing', 'directors'];
-            totalValue = 225;
-        } else if (budget >= 80) {
-            recommendedModules = ['connectivity', 'accounting', 'invoicing'];
-            totalValue = 100;
-        } else if (budget >= 40) {
-            recommendedModules = ['connectivity', 'accounting'];
-            totalValue = 60;
+        if (budget >= 190 || needs.length >= 5) {
+            planId = 'total';
+            totalValue = 190;
+            savings = 65;
+        } else if (budget >= 80 || needs.includes('accounting') || needs.includes('legal')) {
+            planId = 'negocio';
+            totalValue = 80;
+            savings = 35;
+        } else if (budget >= 45 || needs.includes('invoicing')) {
+            planId = 'pro';
+            totalValue = 45;
+            savings = 20;
+        } else if (budget >= 15) {
+            planId = 'comerciante';
+            totalValue = 15;
+            savings = 5;
         } else {
-            recommendedModules = ['connectivity'];
-            totalValue = 25;
+            planId = 'solo';
+            totalValue = 0;
+            savings = 0;
         }
 
-        // Filtrar por necesidades del usuario si es posible
-        const finalModules = Array.from(new Set([...recommendedModules, ...needs.filter(n => budget >= 20)]));
-        
         return {
-            modules: finalModules,
+            planId,
             totalValue,
-            savings: totalValue - budget > 0 ? totalValue - budget : 15
+            savings
         };
     };
 
@@ -97,13 +103,13 @@ export function AIBudgetPlanner() {
                 <ScrollReveal className="text-center mb-16 space-y-6">
                     <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md mx-auto transition-colors">
                         <Brain className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-700 dark:text-cyan-200/80 transition-colors">{t('badge')}</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-700 dark:text-cyan-200/80 transition-colors">{t('budget_label')}</span>
                     </div>
                     <h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tighter leading-[0.95] uppercase italic transition-colors">
-                        {t('title')} <span className="text-cyan-500 dark:text-cyan-400">{t('highlight')}</span>
+                        Configurador <span className="text-cyan-500 dark:text-cyan-400">Inteligente</span>
                     </h2>
                     <p className="text-lg md:text-xl text-slate-500 dark:text-white/40 max-w-2xl mx-auto font-medium transition-colors">
-                        {t('subtitle')}
+                        Inyecte sus parámetros financieros para que nuestro núcleo neural diseñe su ecosistema Kyron ideal.
                     </p>
                 </ScrollReveal>
 
@@ -124,9 +130,9 @@ export function AIBudgetPlanner() {
                                         className="py-4"
                                     />
                                     <div className="flex justify-between items-center px-2">
-                                        <span className="text-sm font-black text-slate-300 dark:text-white/20 transition-colors">$5</span>
+                                        <span className="text-sm font-black text-slate-300 dark:text-white/20 transition-colors">$0</span>
                                         <span className="text-6xl font-black text-slate-900 dark:text-white tracking-tighter transition-colors">${budget}</span>
-                                        <span className="text-sm font-black text-slate-300 dark:text-white/20 transition-colors">$300</span>
+                                        <span className="text-sm font-black text-slate-300 dark:text-white/20 transition-colors">$250</span>
                                     </div>
                                 </div>
                             </div>
@@ -136,31 +142,34 @@ export function AIBudgetPlanner() {
                                     <Zap className="h-4 w-4" /> {t('needs_label')}
                                 </label>
                                 <div className="grid grid-cols-1 gap-4">
-                                    {Object.entries(t.raw('needs')).map(([key, label]: [string, any]) => (
+                                    {[
+                                        { id: 'mi_linea_personal', label: t('module_mi_linea_personal'), icon: Wifi },
+                                        { id: 'asesoria_contable', label: t('module_asesoria_contable'), icon: Calculator },
+                                        { id: 'asesoria_legal', label: t('module_asesoria_legal'), icon: Shield },
+                                        { id: 'facturacion', label: t('module_facturacion'), icon: Receipt },
+                                        { id: 'socios_directivos', label: t('module_socios_directivos'), icon: Users },
+                                    ].map((mod) => (
                                         <div 
-                                            key={key}
+                                            key={mod.id}
                                             onClick={() => {
-                                                if (needs.includes(key)) setNeeds(needs.filter(n => n !== key));
-                                                else setNeeds([...needs, key]);
+                                                if (needs.includes(mod.id)) setNeeds(needs.filter(n => n !== mod.id));
+                                                else setNeeds([...needs, mod.id]);
                                             }}
                                             className={cn(
                                                 "flex items-center gap-5 p-5 rounded-[1.5rem] border transition-all cursor-pointer group shadow-sm",
-                                                needs.includes(key) 
+                                                needs.includes(mod.id) 
                                                     ? "bg-cyan-500/10 border-cyan-500/40 text-slate-900 dark:text-white shadow-cyan-500/10" 
                                                     : "bg-white dark:bg-white/5 border-black/5 dark:border-white/5 text-slate-400 dark:text-white/40 hover:bg-black/[0.03] dark:hover:bg-white/10"
                                             )}
                                         >
                                             <div className={cn(
                                                 "h-12 w-12 rounded-xl flex items-center justify-center transition-all duration-500 shadow-sm",
-                                                needs.includes(key) ? "bg-cyan-500/20 text-cyan-600 dark:text-cyan-400" : "bg-black/[0.03] dark:bg-white/5 text-slate-300 dark:text-white/20"
+                                                needs.includes(mod.id) ? "bg-cyan-500/20 text-cyan-600 dark:text-cyan-400" : "bg-black/[0.03] dark:bg-white/5 text-slate-300 dark:text-white/20"
                                             )}>
-                                                {(() => {
-                                                    const Icon = ICONS[key] || Zap;
-                                                    return <Icon className="h-6 w-6" />;
-                                                })()}
+                                                <mod.icon className="h-6 w-6" />
                                             </div>
-                                            <span className="text-xs font-black uppercase tracking-widest transition-colors">{label}</span>
-                                            {needs.includes(key) && <Check className="h-5 w-5 ml-auto text-cyan-600 dark:text-cyan-400 transition-colors" />}
+                                            <span className="text-xs font-black uppercase tracking-widest transition-colors">{mod.label}</span>
+                                            {needs.includes(mod.id) && <Check className="h-5 w-5 ml-auto text-cyan-600 dark:text-cyan-400 transition-colors" />}
                                         </div>
                                     ))}
                                 </div>
@@ -198,10 +207,10 @@ export function AIBudgetPlanner() {
                                     </div>
                                     <div className="space-y-4 max-w-md">
                                         <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-[0.3em] leading-relaxed transition-colors">
-                                            {t('ai_thinking')}
+                                            {t('generating')}
                                         </p>
                                         <div className="space-y-3 pt-6">
-                                            {aiSteps.map((step: string, i: number) => (
+                                            {['Sincronizando Tasa BCV', 'Analizando IGTF', 'Validando VEN-NIF', 'Calculando ROI'].map((step: string, i: number) => (
                                                 <motion.div 
                                                     key={i}
                                                     initial={{ opacity: 0, x: -10 }}
@@ -237,33 +246,27 @@ export function AIBudgetPlanner() {
                                                 {t('result_title')}
                                             </h3>
                                             <p className="text-lg text-slate-500 dark:text-white/40 font-medium transition-colors">
-                                                {t('result_subtitle')} <span className="text-slate-900 dark:text-white font-black transition-colors">${budget}/mes</span>
+                                                Configuración recomendada para su presupuesto mensual.
                                             </p>
                                         </div>
 
                                         <div className="grid gap-5 mb-12">
-                                            {recommendation.modules.map((modId) => (
-                                                <motion.div 
-                                                    key={modId}
-                                                    initial={{ opacity: 0, x: -20 }}
-                                                    animate={{ opacity: 1, x: 0 }}
-                                                    className="flex items-center gap-6 p-6 rounded-[1.5rem] bg-white dark:bg-white/[0.03] border border-black/5 dark:border-white/5 hover:border-cyan-500/20 transition-all shadow-sm"
-                                                >
-                                                    <div className="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 transition-colors shadow-sm">
-                                                        {(() => {
-                                                            const Icon = ICONS[modId] || Check;
-                                                            return <Icon className="h-7 w-7" />;
-                                                        })()}
-                                                    </div>
-                                                    <div className="flex-1">
-                                                        <p className="text-[10px] font-black text-slate-400 dark:text-white/30 uppercase tracking-[0.3em] mb-1 transition-colors">Módulo Activo</p>
-                                                        <p className="text-base font-black text-slate-900 dark:text-white uppercase tracking-[0.1em] transition-colors">
-                                                            {t(`needs.${modId}`)}
-                                                        </p>
-                                                    </div>
-                                                    <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.6)]" />
-                                                </motion.div>
-                                            ))}
+                                            <motion.div 
+                                                initial={{ opacity: 0, x: -20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                className="flex items-center gap-6 p-6 rounded-[1.5rem] bg-white dark:bg-white/[0.03] border border-cyan-500/20 transition-all shadow-sm"
+                                            >
+                                                <div className="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 transition-colors shadow-sm">
+                                                    <Zap className="h-7 w-7" />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <p className="text-[10px] font-black text-slate-400 dark:text-white/30 uppercase tracking-[0.3em] mb-1 transition-colors">{t('plan_label')}</p>
+                                                    <p className="text-base font-black text-slate-900 dark:text-white uppercase tracking-[0.1em] transition-colors">
+                                                        COMBO {recommendation.planId.toUpperCase()}
+                                                    </p>
+                                                </div>
+                                                <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.6)]" />
+                                            </motion.div>
                                         </div>
 
                                         <div className="grid md:grid-cols-2 gap-8 pt-10 border-t border-black/5 dark:border-white/5 transition-colors">
@@ -277,9 +280,9 @@ export function AIBudgetPlanner() {
                                             </div>
                                         </div>
 
-                                        <Button asChild className="w-full h-16 mt-12 rounded-2xl bg-cyan-500 hover:bg-cyan-600 text-white font-black text-[11px] uppercase tracking-[0.3em] shadow-[0_20px_40px_rgba(6,182,212,0.2)] group">
+                                        <Button asChild className="w-full h-16 mt-12 rounded-2xl bg-cyan-500 hover:bg-cyan-600 text-white font-black text-[11px] uppercase tracking-[0.3em] shadow-[0_20px_40px_rgba(6,182,212,0.2)] group border-none">
                                             <Link href="/register">
-                                                {t('cta_activate')} <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-1.5 transition-transform" />
+                                                {t('start_combo')} <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-1.5 transition-transform" />
                                             </Link>
                                         </Button>
                                     </div>
