@@ -335,15 +335,15 @@ function BrandingPanel() {
                             <div className="h-px flex-1 max-w-[40px] bg-gradient-to-r from-sky-500/50 to-transparent" />
                             <span className="text-[10px] font-semibold text-sky-400/60 tracking-wide uppercase">Crear Cuenta</span>
                         </div>
-                        <h2 className="text-4xl xl:text-[3.5rem] font-black text-white leading-[0.85] mb-6 uppercase italic font-impact tracking-tighter">
+                        <h2 className="text-4xl xl:text-[3.5rem] font-black text-white leading-[0.9] mb-6 uppercase font-outfit tracking-tight">
                             Tu ecosistema{" "}
-                            <span className="bg-gradient-to-r from-sky-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent italic">
+                            <span className="bg-gradient-to-r from-sky-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">
                                 corporativo
                             </span>
                             <br />
                             <span className="text-white/90">integral.</span>
                         </h2>
-                        <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.2em] leading-relaxed max-w-sm font-tech italic">
+                        <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.4em] leading-relaxed max-w-sm font-outfit">
                             Identidad Digital • Infraestructura de Misión Crítica v2.8.5
                         </p>
                     </motion.div>
@@ -694,7 +694,7 @@ export default function RegisterSelectionPage() {
                                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                                 className="text-center mb-10"
                             >
-                                <h1 className="text-5xl sm:text-6xl font-black tracking-tighter leading-none uppercase font-impact italic">
+                                <h1 className="text-5xl sm:text-6xl font-black tracking-tight leading-none uppercase font-outfit">
                                     <span className="bg-gradient-to-b from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
                                         Crear Cuenta
                                     </span>

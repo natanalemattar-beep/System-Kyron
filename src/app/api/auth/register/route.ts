@@ -314,7 +314,7 @@ async function registerJuridico(body: Record<string, unknown>) {
                 await query(
                     `INSERT INTO user_modules (user_id, module_id, module_label)
                      VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`,
-                    [Number(user.id), parseInt(mod.id), mod.label]
+                    [Number(user.id), String(mod.id), mod.label]
                 );
             }
         } catch (modErr) {

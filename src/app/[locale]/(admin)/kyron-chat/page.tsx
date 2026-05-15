@@ -279,6 +279,7 @@ export default function KyronChatPage() {
         body: JSON.stringify({
           messages: newMessages.map(m => ({ role: m.role, content: m.content })),
           context: CONTEXTS[selectedIdentity] || CONTEXTS.master,
+          stream: true,
         }),
         signal: controller.signal,
       });

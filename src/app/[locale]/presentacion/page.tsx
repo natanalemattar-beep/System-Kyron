@@ -9,7 +9,8 @@ import {
     TriangleAlert, Banknote, X, ArrowRight,
     Network, DollarSign, Download, Monitor, Smartphone,
     Activity, Lock, Cpu, MessageSquare, Instagram,
-    Radar, Terminal, Command
+    Radar, Terminal, Command, Wifi, Calculator, FileText, Sparkles,
+    ShieldAlert, Target, Brain, Lightbulb, TrendingDown, Gauge
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
@@ -28,19 +29,30 @@ const slides = [
         bg: "from-blue-950/40 via-black to-black",
         image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
         script: "Buenos días. Soy Carlos Mattar. System Kyron es el ADN de la empresa moderna en Venezuela. Vamos a ver cómo unificamos el caos en un solo ecosistema de confianza.",
-        stats: null,
+    },
+    {
+        id: "vision_context",
+        tag: "LA VISIÓN",
+        title: "FUTURO\nSISTÉMICO",
+        subtitle: "Venezuela hacia la frontera digital.",
+        body: "No somos una agencia web. Somos el sistema operativo que las empresas necesitan para escalar sin fricción.",
+        icon: Globe,
+        accent: "#06b6d4",
+        bg: "from-cyan-950/40 via-black to-black",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
+        script: "Nuestra visión es clara: convertirnos en la infraestructura base de la economía digital en Venezuela para 2026.",
     },
     {
         id: "problem_1_fragmentation",
         tag: "EL PROBLEMA",
         title: "CAOS EN LA\nOPERACIÓN",
         subtitle: "Demasiados proveedores, poca comunicación.",
-        body: "Un empresario promedio lidia con 5 proveedores distintos. La información está regada y el tiempo se pierde en procesos manuales.",
+        body: "Un empresario promedio lidia con 5 proveedores distintos. La información está regada y el tiempo se pierde.",
         icon: X,
         accent: "#f43f5e",
         bg: "from-rose-950/40 via-black to-black",
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
-        script: "El primer problema es la fragmentación. Hoy un empresario venezolano tiene la contabilidad por un lado, el internet por otro y los pagos por otro. Todo está regado.",
+        script: "El primer problema es la fragmentación. Hoy un empresario tiene la contabilidad por un lado y el internet por otro. Todo está regado.",
         stats: [
             { label: "Proveedores", value: "5", suffix: "+" },
         ],
@@ -51,103 +63,212 @@ const slides = [
         tag: "EL RIESGO",
         title: "RIESGO FISCAL\nY LEGAL",
         subtitle: "La falta de integración cuesta dinero.",
-        body: "Errores en IGTF, IVA o normativa VEN-NIF pueden causar multas severas. La falta de blindaje legal es una bomba de tiempo.",
+        body: "Errores en IGTF o IVA pueden causar multas severas. La falta de blindaje es una bomba de tiempo.",
         icon: TriangleAlert,
         accent: "#f59e0b",
         bg: "from-amber-950/40 via-black to-black",
         image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1000&auto=format&fit=crop",
-        script: "Ese caos genera riesgo. Sin integración, los errores fiscales en el IGTF o el IVA son constantes. System Kyron llega para eliminar ese riesgo de raíz.",
+        script: "Ese caos genera riesgo. Sin integración, los errores fiscales son constantes y las multas pueden quebrar un negocio.",
         stats: [
             { label: "Riesgo de Multas", value: "90", suffix: "%" },
         ],
     },
     {
-        id: "solution_vision",
+        id: "problem_3_compliance",
+        tag: "EL DESAFÍO",
+        title: "MURO DE\nCUMPLIMIENTO",
+        subtitle: "SENIAT, IGTF y VEN-NIF.",
+        body: "Las normativas venezolanas son complejas. Mantenerse al día manualmente es casi imposible para una PyME.",
+        icon: ShieldAlert,
+        accent: "#e11d48",
+        bg: "from-red-950/40 via-black to-black",
+        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1000&auto=format&fit=crop",
+        script: "El cumplimiento normativo es un muro. SENIAT, IGTF, VEN-NIF... mantenerse al día manualmente es simplemente imposible.",
+    },
+    {
+        id: "solution_core",
         tag: "LA SOLUCIÓN",
-        title: "INTEGRACIÓN\nKYRON",
-        subtitle: "El centro de mando de tu negocio.",
+        title: "KYRON\nCORE OS",
+        subtitle: "El sistema operativo empresarial.",
         body: "Unificamos Telecom, Fiscal y Legal en una sola plataforma blindada con cifrado AES-256.",
         icon: Zap,
         accent: "#06b6d4",
         bg: "from-cyan-950/40 via-black to-black",
         image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
-        script: "System Kyron es la respuesta. No es solo un software, es una integración vertical. Un solo panel donde controlas toda la infraestructura de tu empresa con seguridad total.",
-        stats: [
-            { label: "Control", value: "100", suffix: "%" },
-        ],
+        script: "Kyron Core es la respuesta. No es solo un software, es una integración vertical total para controlar tu infraestructura.",
         visualType: "pillars"
     },
     {
         id: "saas_model",
         tag: "MODELO DE NEGOCIO",
-        title: "SUSCRIPCIÓN\nACCESIBLE",
+        title: "DEMOCRATIZACIÓN\nDIGITAL",
         subtitle: "SaaS desde $15 al mes.",
-        body: "Democratizamos la tecnología de élite. Sin grandes inversiones iniciales, solo pagas por lo que usas.",
+        body: "Tecnología de élite para cada PyME. Sin grandes inversiones iniciales, pagas solo por lo que usas.",
         icon: DollarSign,
         accent: "#10b981",
         bg: "from-emerald-950/40 via-black to-black",
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
-        script: "Lo más importante: es accesible. Vendemos suscripciones desde 15 dólares al mes. Queremos que cada PyME venezolana tenga herramientas de grado corporativo.",
-        stats: [
-            { label: "Desde", value: "15", suffix: "$/mo" },
-        ],
+        script: "Nuestro modelo SaaS democratiza la tecnología. Desde 15 dólares al mes, cualquier PyME tiene herramientas de grado corporativo.",
         visualType: "comparison"
     },
     {
+        id: "saas_value",
+        tag: "VALOR AGREGADO",
+        title: "ESCALABILIDAD\nTOTAL",
+        subtitle: "De PyME a gran corporación.",
+        body: "Nuestro sistema crece contigo. Módulos que se activan según tus necesidades operativas.",
+        icon: TrendingUp,
+        accent: "#3b82f6",
+        bg: "from-blue-950/40 via-black to-black",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
+        script: "Kyron es escalable. Empiezas con lo básico y activas módulos a medida que tu empresa crece. Sin límites.",
+    },
+    {
+        id: "security_pillar",
+        tag: "SEGURIDAD",
+        title: "BLINDAJE\nCIBERNÉTICO",
+        subtitle: "Cifrado AES-256 de punta a punta.",
+        body: "Tus datos son tu activo más valioso. Kyron asegura la soberanía de tu información empresarial.",
+        icon: Shield,
+        accent: "#3b82f6",
+        bg: "from-blue-950/40 via-black to-black",
+        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop",
+        script: "La seguridad es innegociable. Usamos cifrado AES-256 para asegurar que tus datos contables y legales estén siempre protegidos.",
+    },
+    {
         id: "telecom_pillar",
-        tag: "TELECOMUNICACIONES",
-        title: "CONECTIVIDAD\n5G NATIVA",
-        subtitle: "eSIM y flotas móviles integradas.",
-        body: "Gestiona las líneas de tu equipo directamente desde el panel contable. Conectividad de alta fidelidad garantizada.",
-        icon: Smartphone,
+        tag: "CONECTIVIDAD",
+        title: "TELECOM\nINTEGRADO",
+        subtitle: "Líneas 5G administradas.",
+        body: "Conectividad nativa. Si no hay conexión, no hay gestión. Nosotros aseguramos la base de tu operación.",
+        icon: Wifi,
         accent: "#3b82f6",
         bg: "from-blue-950/40 via-black to-black",
         image: "https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?q=80&w=1000&auto=format&fit=crop",
-        script: "Nuestra base es la conectividad. Ofrecemos líneas 5G y eSIMs integradas al sistema. Si no hay conexión, no hay gestión. Nosotros aseguramos ambas.",
+        script: "Somos el único sistema con telecomunicaciones integradas. Ofrecemos líneas 5G administradas directamente desde el panel.",
+    },
+    {
+        id: "esim_tech",
+        tag: "TECNOLOGÍA",
+        title: "FLOTAS\nVIRTUALES",
+        subtitle: "eSIM para cada empleado.",
+        body: "Gestiona las líneas móviles de tu equipo sin plásticos físicos. Activación inmediata y control de consumo.",
+        icon: Smartphone,
+        accent: "#10b981",
+        bg: "from-emerald-950/40 via-black to-black",
+        image: "https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?q=80&w=1000&auto=format&fit=crop",
+        script: "Con tecnología eSIM, eliminamos el plástico. Activamos flotas móviles en segundos y controlamos los límites de consumo en tiempo real.",
         isMobileMockup: true
     },
     {
-        id: "hardware_addon",
-        tag: "EL COMPLEMENTO",
-        title: "HARDWARE\nFISCAL",
-        subtitle: "Equipos certificados (Opcional).",
-        body: "Inversión única aproximada para puntos de venta físicos. Cajas e impresoras que se sincronizan con la nube Kyron.",
+        id: "fiscal_ledger",
+        tag: "FINANZAS",
+        title: "LIBRO FISCAL\nEN VIVO",
+        subtitle: "Contabilidad que no duerme.",
+        body: "Cada transacción se sincroniza automáticamente con las normativas vigentes. Sin cierres manuales de última hora.",
+        icon: Calculator,
+        accent: "#f59e0b",
+        bg: "from-amber-950/40 via-black to-black",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
+        script: "Nuestra contabilidad está viva. Cada venta se registra y calcula impuestos automáticamente. Olvídate de los cierres manuales eternos.",
+    },
+    {
+        id: "legal_vault",
+        tag: "LEGAL",
+        title: "BÓVEDA\nJURÍDICA",
+        subtitle: "Contratos inteligentes y seguros.",
+        body: "Almacenamiento blindado de documentos legales. Generación automática de contratos bajo normativa nacional.",
+        icon: Lock,
+        accent: "#3b82f6",
+        bg: "from-slate-900/40 via-black to-black",
+        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1000&auto=format&fit=crop",
+        script: "La bóveda jurídica protege tus documentos clave y genera contratos inteligentes que cumplen con toda la ley venezolana.",
+    },
+    {
+        id: "dashboard_exp",
+        tag: "EXPERIENCIA",
+        title: "CENTRO DE\nMANDO",
+        subtitle: "Control total desde un solo panel.",
+        body: "Diseñado para el ejecutivo moderno. Visualiza la salud de tu empresa en segundos.",
+        icon: Monitor,
+        accent: "#06b6d4",
+        bg: "from-cyan-950/40 via-black to-black",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
+        script: "El dashboard de Kyron es tu centro de mando. Controlas ventas, impuestos y conectividad desde un solo lugar, con un clic.",
+        isMockup: true
+    },
+    {
+        id: "predictive_ai",
+        tag: "INTELIGENCIA",
+        title: "IA\nPREDICTIVA",
+        subtitle: "Anticípate al mercado.",
+        body: "Análisis de flujo de caja y proyecciones fiscales inteligentes. Toma decisiones basadas en datos, no en instintos.",
+        icon: BrainCircuit,
+        accent: "#8b5cf6",
+        bg: "from-purple-950/40 via-black to-black",
+        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop",
+        script: "Nuestra IA analiza tus datos para predecir flujos de caja y avisarte de riesgos antes de que ocurran. Inteligencia real para tu negocio.",
+    },
+    {
+        id: "market_fit",
+        tag: "MERCADO",
+        title: "VENEZUELA\nESTÁ LISTA",
+        subtitle: "Oportunidad de transformación masiva.",
+        body: "Miles de empresas buscando eficiencia. Kyron es la herramienta adecuada en el momento exacto.",
+        icon: Target,
+        accent: "#10b981",
+        bg: "from-emerald-950/40 via-black to-black",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
+        script: "Venezuela está lista para esto. Hay miles de empresas buscando eficiencia y nosotros tenemos la herramienta perfecta en el momento justo.",
+    },
+    {
+        id: "hardware_fiscal",
+        tag: "HARDWARE",
+        title: "EXTENSIÓN\nFÍSICA",
+        subtitle: "Hardware fiscal certificado (Opcional).",
+        body: "Puntos de venta e impresoras que se sincronizan nativamente con la nube Kyron.",
         icon: Monitor,
         accent: "#3b82f6",
         bg: "from-slate-900/40 via-black to-black",
         image: "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?q=80&w=1000&auto=format&fit=crop",
-        script: "Y para el local físico, tenemos el hardware fiscal. Es un add-on opcional, una inversión aproximada para cumplir con el SENIAT en el mostrador.",
-        stats: [
-            { label: "Add-on", value: "Opcional" },
-        ],
+        script: "Y para el mostrador, ofrecemos el hardware fiscal opcional. Equipos certificados que se sincronizan con tu nube Kyron.",
     },
     {
         id: "team_reveal",
         tag: "EL EQUIPO",
-        title: "VISIÓN Y\nLIDERAZGO",
-        subtitle: "Carlos Mattar — Fundador.",
-        body: "Ingeniería 100% venezolana. Un equipo enfocado en resolver problemas reales con tecnología de punta.",
+        title: "INGENIERÍA Y\nPASIÓN",
+        subtitle: "Liderado por Carlos Mattar.",
+        body: "Un equipo multidisciplinario enfocado en resolver problemas reales con tecnología venezolana.",
         icon: Users,
         accent: "#f59e0b",
         bg: "from-amber-950/40 via-black to-black",
         image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop",
-        script: "Este proyecto es liderado por mí, Carlos Mattar. Junto a mi equipo, estamos construyendo no solo software, sino la confianza que las empresas necesitan hoy.",
-        stats: [
-            { label: "Founder", value: "Carlos Mattar" },
-        ],
+        script: "Detrás de Kyron hay ingeniería venezolana de clase mundial. Liderados por mí, estamos construyendo el futuro de la empresa digital.",
         visualType: "team"
+    },
+    {
+        id: "roadmap_2026",
+        tag: "EL FUTURO",
+        title: "HOJA DE\nRUTA 2026",
+        subtitle: "Expansión y consolidación total.",
+        body: "Fase 1: PyMEs. Fase 2: Sector Público. Fase 3: Estandarización nacional.",
+        icon: Activity,
+        accent: "#3b82f6",
+        bg: "from-blue-950/40 via-black to-black",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
+        script: "Nuestra hoja de ruta es ambiciosa. En 2026 queremos ser el estándar nacional de gestión empresarial integrada.",
     },
     {
         id: "closing_qr",
         tag: "EL SIGUIENTE PASO",
-        title: "HAGÁMOSLO\nREALIDAD",
-        subtitle: "Únete al Ecosistema Kyron.",
-        body: "Buscamos aliados para la fase 2026. Escanea el código y sé parte del cambio.",
+        title: "CONSTRUYAMOS\nEL MAÑANA",
+        subtitle: "Escanea y únete al ecosistema.",
+        body: "La transformación digital de Venezuela comienza aquí. ¿Estás listo?",
         icon: QrCode,
         accent: "#10b981",
         bg: "from-emerald-950/30 via-black to-black",
         image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
-        script: "Cerramos con una invitación: escaneen el código y vean la plataforma en vivo. System Kyron es el futuro digital de Venezuela. Muchas gracias.",
+        script: "Cerramos con una invitación: escaneen el código y vean la plataforma en vivo. System Kyron es el futuro digital de Venezuela. ¡Muchas gracias!",
         isQRSlide: true,
     },
 ];
@@ -384,6 +505,165 @@ function SmartphoneMockup() {
 
             {/* Reflection */}
             <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 to-transparent opacity-30" />
+        </div>
+    );
+}
+
+function PitchCoachAI({ currentSlide }: { currentSlide: any }) {
+    const [isOpen, setIsOpen] = useState(false);
+    const [analysis, setAnalysis] = useState<{
+        impact: number,
+        tips: string[],
+        remove: string[],
+        add: string[]
+    }>({ impact: 0, tips: [], remove: [], add: [] });
+
+    useEffect(() => {
+        // Simulación de Análisis de IA Kyron
+        const baseImpact = 85 + Math.floor(Math.random() * 10);
+        
+        const generateAnalysis = () => {
+            if (currentSlide.id.includes("cover")) {
+                return {
+                    impact: baseImpact,
+                    tips: ["Mantén contacto visual fuerte.", "Proyecta voz de liderazgo.", "No te detengas en detalles técnicos aún."],
+                    remove: ["Explicaciones largas del 'cómo'.", "Muletillas de nerviosismo."],
+                    add: ["Un saludo enérgico.", "Menciona que es ingeniería venezolana."]
+                };
+            }
+            if (currentSlide.id.includes("problem")) {
+                return {
+                    impact: baseImpact + 2,
+                    tips: ["Transmite la urgencia del dolor.", "Usa un tono serio y preocupado.", "Señala los gráficos de caos."],
+                    remove: ["Nombres de empresas específicas.", "Chistes o humor innecesario."],
+                    add: ["La palabra 'Pérdida de Dinero'.", "Menciona las multas del SENIAT."]
+                };
+            }
+            if (currentSlide.id.includes("solution") || currentSlide.id.includes("saas")) {
+                return {
+                    impact: baseImpact + 5,
+                    tips: ["Cambia a un tono optimista y brillante.", "Enfatiza el ahorro del 90% en costos.", "Menciona la palabra 'Democratización'."],
+                    remove: ["Jerga de programación compleja.", "Comparaciones con marcas locales."],
+                    add: ["El precio de $15 como un 'Game Changer'.", "La facilidad de uso ('One-Click')."]
+                };
+            }
+            return {
+                impact: baseImpact,
+                tips: ["Sigue el ritmo del teleprompter.", "Recuerda respirar entre puntos clave.", "Usa las manos para enfatizar escala."],
+                remove: ["Silencios de más de 3 segundos.", "Lectura plana del guion."],
+                add: ["Palabras clave: 'Soberanía', 'Eficiencia', '2026'."]
+            };
+        };
+
+        setAnalysis(generateAnalysis());
+    }, [currentSlide]);
+
+    return (
+        <div className="fixed top-32 right-10 z-[100] flex flex-col items-end gap-4 no-print">
+            <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsOpen(!isOpen)}
+                className={cn(
+                    "h-16 px-6 rounded-2xl flex items-center gap-4 border shadow-2xl transition-all duration-500",
+                    isOpen 
+                        ? "bg-white text-black border-white" 
+                        : "bg-blue-600/20 text-blue-400 border-blue-500/30 backdrop-blur-3xl hover:bg-blue-600/30"
+                )}
+            >
+                <div className="relative">
+                    <Brain className="h-6 w-6" />
+                    <motion.div 
+                        animate={{ scale: [1, 1.5, 1], opacity: [1, 0, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-blue-500" 
+                    />
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em]">Kyron AI Coach</span>
+                <ChevronRight className={cn("h-4 w-4 transition-transform duration-500", isOpen && "rotate-180")} />
+            </motion.button>
+
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, x: 50, scale: 0.9 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        exit={{ opacity: 0, x: 50, scale: 0.9 }}
+                        className="w-80 bg-black/80 backdrop-blur-[40px] border border-white/10 rounded-[2.5rem] p-8 shadow-[0_50px_100px_rgba(0,0,0,0.8)] overflow-hidden"
+                    >
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500" />
+                        
+                        <div className="space-y-8">
+                            {/* Impact Meter */}
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <h5 className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-1">Impacto Estimado</h5>
+                                    <p className="text-3xl font-black text-white">{analysis.impact}%</p>
+                                </div>
+                                <div className="h-14 w-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                                    <Gauge className="h-6 w-6 text-blue-400" />
+                                </div>
+                            </div>
+
+                            {/* Tips */}
+                            <div className="space-y-4">
+                                <div className="flex items-center gap-2">
+                                    <Lightbulb className="h-3 w-3 text-amber-400" />
+                                    <span className="text-[9px] font-black text-amber-400 uppercase tracking-widest">Consejos de Locución</span>
+                                </div>
+                                <ul className="space-y-3">
+                                    {analysis.tips.map((tip, i) => (
+                                        <motion.li 
+                                            key={i}
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: i * 0.1 }}
+                                            className="text-[11px] font-bold text-white/70 flex gap-3"
+                                        >
+                                            <span className="text-blue-500">•</span> {tip}
+                                        </motion.li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            <div className="h-px bg-white/5" />
+
+                            {/* What to Add/Remove */}
+                            <div className="grid grid-cols-1 gap-6">
+                                <div className="space-y-3">
+                                    <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest flex items-center gap-2">
+                                        <TrendingUp className="h-3 w-3" /> Potenciar (+ Puntos)
+                                    </span>
+                                    <div className="flex flex-wrap gap-2">
+                                        {analysis.add.map((item, i) => (
+                                            <span key={i} className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[8px] font-black text-emerald-400 uppercase">
+                                                {item}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="space-y-3">
+                                    <span className="text-[9px] font-black text-rose-400 uppercase tracking-widest flex items-center gap-2">
+                                        <TrendingDown className="h-3 w-3" /> Eliminar (Ahorrar Tiempo)
+                                    </span>
+                                    <div className="flex flex-wrap gap-2">
+                                        {analysis.remove.map((item, i) => (
+                                            <span key={i} className="px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-[8px] font-black text-rose-400 uppercase">
+                                                {item}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-4 p-4 rounded-2xl bg-white/5 border border-white/10 italic text-[10px] text-white/40 leading-relaxed">
+                                "El jurado valora la precisión. Si vas atrasado, sáltate los ejemplos y ve directo al dato del ROI."
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
@@ -657,47 +937,16 @@ export default function PitchPage() {
                 }
             `}</style>
 
-            {/* Ambient background */}
+            {/* Clean Professional Background */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden no-print">
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={slide.id + "-bg"}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 1.5 }}
-                        className={cn("absolute inset-0 bg-gradient-to-br", slide.bg)}
-                    />
-                </AnimatePresence>
-
-                {/* Grid Overlay */}
-                <div className="absolute inset-0 neural-grid opacity-20" />
+                <div className="absolute inset-0 bg-[#02040a]" />
                 
-                {/* HUD Scanline */}
-                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] via-transparent to-transparent h-[50vh] animate-scanline pointer-events-none" />
-
-                {/* Floating Particles/Orbs */}
-                {[...Array(4)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        animate={{
-                            x: [Math.random() * 100, Math.random() * -100, Math.random() * 100],
-                            y: [Math.random() * 100, Math.random() * -100, Math.random() * 100],
-                            opacity: [0.1, 0.3, 0.1]
-                        }}
-                        transition={{ duration: 15 + i * 5, repeat: Infinity, ease: "linear" }}
-                        className="absolute w-[400px] h-[400px] rounded-full blur-[120px]"
-                        style={{ 
-                            backgroundColor: slide.accent + (i % 2 === 0 ? "10" : "05"),
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`
-                        }}
-                    />
-                ))}
+                {/* Minimal Grid Overlay */}
+                <div className="absolute inset-0 neural-grid opacity-[0.03]" />
             </div>
 
             {/* Header */}
-            <header className="relative z-30 flex items-center justify-between px-10 py-8 border-b border-white/[0.03] backdrop-blur-3xl bg-black/40 no-print">
+            <header className="relative z-30 flex items-center justify-between px-10 py-6 border-b border-white/[0.05] bg-black/40 no-print">
                 <div className="flex items-center gap-6">
                     <motion.div
                         whileHover={{ scale: 1.1, rotate: 15 }}
@@ -716,7 +965,7 @@ export default function PitchPage() {
                             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
                             <span className="text-[10px] font-black text-emerald-400 tracking-widest uppercase">Protocolo Activo</span>
                         </div>
-                        <p className="text-[13px] font-black tracking-widest text-white/90 uppercase mt-1">Visionary Intelligence Ecosystem</p>
+                        <p className="text-[13px] font-black tracking-widest text-white/90 uppercase mt-1 italic">Visionary Intelligence Ecosystem</p>
                     </div>
                 </div>
 
@@ -820,78 +1069,61 @@ export default function PitchPage() {
 
                         <div className="w-full max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-24 items-center relative z-10">
                             {/* Left Content */}
-                            <div className="space-y-12">
+                            <div className="space-y-4">
                                 <motion.div
                                     initial={{ opacity: 0, x: -30 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.2 }}
-                                    className="flex items-center gap-6"
+                                    className="flex items-center gap-4"
                                 >
-                                    <div className="h-px w-20" style={{ backgroundColor: slide.accent }} />
-                                    <span className="text-xs font-black tracking-[0.5em] uppercase italic" style={{ color: slide.accent }}>
+                                    {slide.id === "cover_official" && (
+                                        <motion.div
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            className="h-8 w-8 mr-2"
+                                        >
+                                            <Logo className="w-full h-full" />
+                                        </motion.div>
+                                    )}
+                                    <span className="text-xs font-black tracking-[0.4em] uppercase" style={{ color: slide.accent }}>
                                         {slide.tag}
                                     </span>
                                 </motion.div>
 
-                                {slide.id === "cover_official" && (
-                                    <motion.div
-                                        initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
-                                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                                        transition={{ delay: 0.1, duration: 1, type: "spring" }}
-                                        className="w-48 h-48 mb-12"
-                                    >
-                                        <Logo className="w-full h-full" />
-                                    </motion.div>
-                                )}
-
-                                <div className="space-y-6">
+                                <div className="space-y-4">
                                     <motion.h2
-                                        initial={{ opacity: 0, y: 50, rotateX: 20 }}
-                                        animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                                        transition={{ delay: 0.3, duration: 0.8 }}
-                                        className="text-7xl md:text-8xl xl:text-9xl font-black leading-[0.85] tracking-tighter uppercase italic"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.3, duration: 0.6 }}
+                                        className="text-6xl md:text-7xl font-black leading-tight tracking-tight uppercase text-white"
                                     >
-                                        {slide.title.split("\n").map((line, i) => (
-                                            <span key={i} className="block relative overflow-hidden">
-                                                <span className={cn("block", i === 0 ? "text-white" : "text-white/10")}>
-                                                    {line}
-                                                </span>
-                                                {i === 0 && (
-                                                    <motion.span
-                                                        initial={{ width: 0 }}
-                                                        animate={{ width: "100%" }}
-                                                        transition={{ delay: 0.8, duration: 1 }}
-                                                        className="absolute bottom-0 left-0 h-1"
-                                                        style={{ backgroundColor: slide.accent }}
-                                                    />
-                                                )}
-                                            </span>
-                                        ))}
+                                        {slide.title.replace('\n', ' ')}
                                     </motion.h2>
 
                                     <motion.p
-                                        initial={{ opacity: 0, y: 20 }}
+                                        initial={{ opacity: 0, y: 15 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.4 }}
-                                        className="text-3xl md:text-4xl text-white/80 font-bold tracking-tight leading-tight max-w-2xl italic"
+                                        className="text-2xl text-white/50 italic font-medium tracking-tight leading-snug max-w-2xl"
                                     >
                                         {slide.subtitle}
                                     </motion.p>
                                 </div>
+                            </div>
 
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.5 }}
-                                    className="space-y-8"
-                                >
-                                    <p className="text-xl text-white/40 leading-relaxed max-w-xl border-l-2 border-white/5 pl-10 font-medium italic">
-                                        {slide.body}
-                                    </p>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                                className="space-y-8"
+                            >
+                                <p className="text-xl text-white/80 leading-relaxed max-w-xl font-medium">
+                                    {slide.body}
+                                </p>
 
-                                    {slide.promise && (
+                                    {slide.stats && (
                                         <div className="grid gap-4 max-w-xl">
-                                            {slide.promise.items.map((item, i) => (
+                                            {slide.stats.map((stat, i) => (
                                                 <motion.div 
                                                     key={i}
                                                     initial={{ opacity: 0, x: -20 }}
@@ -902,32 +1134,12 @@ export default function PitchPage() {
                                                     <div className="h-8 w-8 rounded-full border-2 border-emerald-500/30 flex items-center justify-center shrink-0">
                                                         <CircleCheck className="h-4 w-4 text-emerald-400" />
                                                     </div>
-                                                    <p className="text-base font-black uppercase tracking-wide text-white/80">{item}</p>
+                                                    <p className="text-base font-black uppercase tracking-wide text-white/80">{stat.label}: {stat.value}{stat.suffix || ""}</p>
                                                 </motion.div>
                                             ))}
                                         </div>
                                     )}
-                                    
-                                    {slide.contact && (
-                                        <div className="pt-10 flex gap-12 border-t border-white/5">
-                                            <div className="space-y-2">
-                                                <p className="text-[8px] font-black uppercase tracking-[0.4em] text-white/20">Protocolo Voz</p>
-                                                <p className="text-4xl font-black italic tracking-tighter text-white">{slide.contact.phone}</p>
-                                            </div>
-                                            <div className="space-y-2">
-                                                <p className="text-[8px] font-black uppercase tracking-[0.4em] text-white/20">Protocolo Social</p>
-                                                <div className="flex items-center gap-3 text-cyan-400">
-                                                    <Instagram className="h-5 w-5" />
-                                                    <p className="text-lg font-black uppercase tracking-widest">{slide.contact.instagram}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
                                 </motion.div>
-                            </div>
-
-                            {/* Right Content — Visuals */}
-                            <div className="hidden lg:block relative">
                             {/* Right Content — Visuals */}
                             <div className="hidden lg:block relative">
                                 {slide.isQRSlide ? (
@@ -957,7 +1169,7 @@ export default function PitchPage() {
                                             </motion.div>
                                         ))}
                                     </div>
-                                ) : (slide as any).visualType === "chaos_grid" ? (
+                                ) : slide.visualType === "chaos_grid" ? (
                                     <div className="grid grid-cols-2 gap-6">
                                         {[
                                             { label: "Servicios Fragmentados", icon: X, color: "text-rose-500", bg: "bg-rose-500/10" },
@@ -979,7 +1191,7 @@ export default function PitchPage() {
                                             </motion.div>
                                         ))}
                                     </div>
-                                ) : (slide as any).visualType === "pillars" ? (
+                                ) : slide.visualType === "pillars" ? (
                                     <div className="relative h-[600px] flex items-center justify-center">
                                         <div className="absolute inset-0 bg-cyan-500/10 blur-[150px] rounded-full animate-pulse" />
                                         <div className="grid grid-cols-1 gap-8 w-full max-w-md relative z-10">
@@ -1003,7 +1215,7 @@ export default function PitchPage() {
                                             ))}
                                         </div>
                                     </div>
-                                ) : (slide as any).visualType === "comparison" ? (
+                                ) : slide.visualType === "comparison" ? (
                                     <div className="space-y-8">
                                         <div className="grid grid-cols-2 gap-6">
                                             <div className="p-10 rounded-[3.5rem] bg-rose-500/10 border border-rose-500/20 text-center backdrop-blur-3xl">
@@ -1035,7 +1247,7 @@ export default function PitchPage() {
                                             </div>
                                         </div>
                                     </div>
-                                ) : (slide as any).visualType === "team" ? (
+                                ) : slide.visualType === "team" ? (
                                     <div className="relative h-[650px] flex items-center justify-center">
                                         <div className="absolute inset-0 bg-amber-500/10 blur-[150px] rounded-full" />
                                         <div className="relative w-full max-w-sm space-y-8">
@@ -1053,15 +1265,6 @@ export default function PitchPage() {
                                             </div>
                                         </div>
                                     </div>
-                                ) : slide.isMockup ? (
-                                    <motion.div
-                                        initial={{ opacity: 0, rotateY: 25, scale: 0.9 }}
-                                        animate={{ opacity: 1, rotateY: 0, scale: 1 }}
-                                        transition={{ delay: 0.4, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                                        style={{ perspective: "2000px" }}
-                                    >
-                                        <KyronMockup />
-                                    </motion.div>
                                 ) : slide.isMobileMockup ? (
                                     <motion.div
                                         initial={{ opacity: 0, y: 100, rotateZ: -5 }}
@@ -1070,28 +1273,6 @@ export default function PitchPage() {
                                     >
                                         <SmartphoneMockup />
                                     </motion.div>
-                                ) : slide.stats ? (
-                                    <div className="grid gap-8">
-                                        {slide.stats.map((stat, i) => (
-                                            <motion.div
-                                                key={i}
-                                                initial={{ opacity: 0, x: 50 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: 0.4 + i * 0.15 }}
-                                                whileHover={{ x: -20, backgroundColor: slide.accent + "15" }}
-                                                className="group p-10 rounded-[3rem] border border-white/5 backdrop-blur-3xl transition-all flex items-center justify-between shadow-2xl"
-                                                style={{ backgroundColor: slide.accent + "05" }}
-                                            >
-                                                <div className="space-y-2">
-                                                    <span className="text-[10px] text-white/30 font-black uppercase tracking-[0.4em]">{stat.label}</span>
-                                                    <div className="h-1 w-12 rounded-full bg-white/10 group-hover:w-full transition-all duration-700" style={{ backgroundColor: slide.accent + "44" }} />
-                                                </div>
-                                                <div className="text-7xl font-black italic tracking-tighter tabular-nums" style={{ color: slide.accent }}>
-                                                    <CountUpNumber value={stat.value} suffix={stat.suffix} />
-                                                </div>
-                                            </motion.div>
-                                        ))}
-                                    </div>
                                 ) : (
                                     <motion.div
                                         initial={{ opacity: 0, scale: 0.9, rotateY: 10 }}
@@ -1107,7 +1288,7 @@ export default function PitchPage() {
                                         />
                                         <div className="absolute bottom-10 left-10 z-20">
                                             <div className="flex items-center gap-4">
-                                                <div className="h-12 w-12 rounded-2xl glass-pill flex items-center justify-center">
+                                                <div className="h-12 w-12 glass-pill flex items-center justify-center rounded-2xl">
                                                     <Icon className="h-6 w-6" style={{ color: slide.accent }} />
                                                 </div>
                                                 <div className="h-1 w-20 rounded-full bg-white/20" />
@@ -1115,7 +1296,6 @@ export default function PitchPage() {
                                         </div>
                                     </motion.div>
                                 )}
-                            </div>
                             </div>
                         </div>
                     </motion.div>

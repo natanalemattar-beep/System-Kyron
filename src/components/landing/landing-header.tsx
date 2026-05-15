@@ -61,7 +61,7 @@ export function LandingHeader() {
     const navItems = [
         { labelKey: 'home' as const, href: '/' },
         { labelKey: 'platform' as const, href: '/#caracteristicas' },
-        { labelKey: 'pricing' as const, href: '/precios' },
+        { labelKey: 'plans' as const, href: '/precios' },
     ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -149,8 +149,8 @@ export function LandingHeader() {
                                             <Cpu className="h-5 w-5" />
                                         </div>
                                         <div>
-                                            <p className="text-sm font-black uppercase tracking-tight text-white">Kyron 5G Alpha</p>
-                                            <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Connectividad System Kyron</p>
+                                            <p className="text-sm font-black uppercase tracking-tight text-white">{t('connectivity_title')}</p>
+                                            <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">{t('connectivity_desc')}</p>
                                         </div>
                                         <ArrowRight className="h-4 w-4 ml-auto text-zinc-800 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
                                     </DropdownMenuItem>
@@ -159,8 +159,8 @@ export function LandingHeader() {
                                             <ShieldCheck className="h-5 w-5" />
                                         </div>
                                         <div>
-                                            <p className="text-sm font-black uppercase tracking-tight text-white">Blindaje Legal</p>
-                                            <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Compliance Automático</p>
+                                            <p className="text-sm font-black uppercase tracking-tight text-white">{t('legal_title')}</p>
+                                            <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">{t('legal_desc')}</p>
                                         </div>
                                         <ArrowRight className="h-4 w-4 ml-auto text-zinc-800 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
                                     </DropdownMenuItem>
@@ -230,7 +230,7 @@ export function LandingHeader() {
                                     <div>
                                         <SheetTitle className="text-[18px] font-black tracking-tight text-white leading-none uppercase italic">System Kyron</SheetTitle>
                                         <span className="text-[9px] font-black uppercase tracking-[0.3em] mt-2 bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 bg-clip-text text-transparent block">
-                                            Intelligence Hub 4.0
+                                            {t('mobile_portal_sub')}
                                         </span>
                                     </div>
                                 </SheetHeader>
@@ -241,11 +241,11 @@ export function LandingHeader() {
                                         {[
                                             { label: t('home'), href: '/', icon: Globe },
                                             { label: t('platform'), href: '/#caracteristicas', icon: Cpu },
-                                            { label: t('pricing'), href: '/precios', icon: Zap },
+                                            { label: t('plans'), href: '/precios', icon: Zap },
                                         ].map((item) => (
                                             <SheetClose key={item.href} asChild>
-                                                <a 
-                                                    href={item.href} 
+                                                <Link 
+                                                    href={item.href as any} 
                                                     onClick={(e) => handleAnchorClick(e as any, item.href)} 
                                                     className="flex items-center justify-between p-4 rounded-[1.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 transition-all group"
                                                 >
@@ -258,7 +258,7 @@ export function LandingHeader() {
                                                         </span>
                                                     </div>
                                                     <ChevronRight className="h-4 w-4 text-zinc-800 group-hover:text-cyan-400 transition-all" />
-                                                </a>
+                                                </Link>
                                             </SheetClose>
                                         ))}
                                     </nav>
@@ -272,7 +272,7 @@ export function LandingHeader() {
                                                 </div>
                                                 <div className="flex flex-col items-start">
                                                     <span className="text-xs font-black uppercase tracking-widest">{t('login')}</span>
-                                                    <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-cyan-500/50">Portal Seguro</span>
+                                                    <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-cyan-500/50">{t('secure_portal')}</span>
                                                 </div>
                                             </Button>
                                         </Link>
@@ -293,7 +293,7 @@ export function LandingHeader() {
                                     </div>
                                     <div className="flex items-center gap-3 p-4 bg-white/[0.02] border border-white/5 rounded-2xl">
                                         <Lock className="h-4 w-4 text-emerald-500/50" />
-                                        <span className="text-[9px] font-black uppercase tracking-widest text-white/20">Encriptación de sesión activa</span>
+                                        <span className="text-[9px] font-black uppercase tracking-widest text-white/20">{t('encryption_active')}</span>
                                     </div>
                                 </div>
                             </SheetContent>

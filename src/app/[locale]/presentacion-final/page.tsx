@@ -24,7 +24,7 @@ const slides = [
     {
         id: 'portada',
         title: 'System Kyron',
-        subtitle: 'La Evolución del Mando Único Empresarial',
+        subtitle: 'La Evolución del Mando Único',
         content: 'Sincronizando el Futuro de tu Negocio: Conectividad, Automatización y Sostenibilidad.',
         team: 'Carlos Mattar • Sebastian Garrido • Marcos Sousa',
         icon: <Rocket className="w-12 h-12 text-primary" />,
@@ -33,15 +33,15 @@ const slides = [
     },
     {
         id: 'problema',
-        title: 'La Crisis Operativa',
-        subtitle: 'Fragmentación y Desperdicio Ambiental',
+        title: 'Ineficiencia Sistémica',
+        subtitle: 'Fragmentación Operativa y Desperdicio de Capital',
         points: [
-            '40% de pérdida de productividad por sistemas desconectados.',
-            'Impacto Ecológico: 12,000 hojas de papel desperdiciadas al año por PyME.',
-            'Residuos Urbanos: Papeleras desbordadas y falta de cultura de reciclaje.',
-            'Riesgo Legal: Incumplimiento involuntario de normativas SENIAT/VEN-NIF.'
+            '40% de pérdida de productividad por ecosistemas desconectados.',
+            'Impacto Ecológico: 12,000 hojas de papel anuales por cada PyME.',
+            'Fuga de Capital: Costos ocultos en gestión multianimal de proveedores.',
+            'Riesgo Fiscal: Incumplimiento crítico de normativas SENIAT/VEN-NIF.'
         ],
-        badge: 'EL DOLOR',
+        badge: 'CRISIS ESTRUCTURAL',
         icon: <BarChart3 className="w-12 h-12 text-rose-500" />,
         image: 'https://images.unsplash.com/photo-1590247813693-5541d1c609fd?q=80&w=800',
         bg: 'bg-gradient-to-br from-[#030711] to-rose-500/10'
@@ -63,15 +63,15 @@ const slides = [
     },
     {
         id: 'solucion',
-        title: 'Ecosistema Kyron',
-        subtitle: 'La Solución de Mando Único',
+        title: 'Integración Vertical',
+        subtitle: 'Unificación Operativa de Alto Rendimiento',
         points: [
-            'Kyron 5G: Integración nativa de telefonía y ERP.',
-            'Cero Papel: Digitalización absoluta de libros contables y legales.',
-            'Reserva On-Demand: Integración SIM-App para recargas sin saldo.',
-            'Kyron Shield: Blindaje jurídico automático para cada transacción.'
+            'Kyron 5G: Convergencia nativa de telecomunicaciones y ERP.',
+            'Cero Papel: Digitalización pericial de libros contables y jurídicos.',
+            'Reserva Dinámica: Algoritmo SIM-App para continuidad de servicio.',
+            'Kyron Shield: Protocolo de seguridad inmutable para transacciones.'
         ],
-        badge: 'LA SOLUCIÓN',
+        badge: 'VENTAJA COMPETITIVA',
         icon: <Zap className="w-12 h-12 text-amber-500" />,
         image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800',
         bg: 'bg-gradient-to-br from-[#030711] to-amber-500/10'

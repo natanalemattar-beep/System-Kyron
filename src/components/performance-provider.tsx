@@ -4,7 +4,7 @@ import { LazyMotion, domMax, MotionConfig } from "framer-motion";
 
 export function PerformanceProvider({ children }: { children: React.ReactNode }) {
   return (
-    <LazyMotion features={domMax} strict>
+    <LazyMotion features={domMax}>
       <MotionConfig 
         reducedMotion="user" 
         transition={{ 

@@ -155,7 +155,6 @@ export function Footer() {
                             </a>
                         </div>
                         <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-[10px] font-semibold uppercase tracking-[0.15em] text-foreground/20">
-                            <Link href="/sector-privado-system-kyron?download=true" target="_blank" className="hover:text-red-400 transition-all flex items-center gap-1.5"><FileText className="h-3 w-3 text-red-500/50"/> {t('download_brochure')}</Link>
                             <Link href="/manual-usuario" className="hover:text-cyan-400 transition-all flex items-center gap-1.5"><FileText className="h-3 w-3"/> {t('user_manual')}</Link>
                             <Link href="/terms"                className="hover:text-cyan-400 transition-all flex items-center gap-1.5"><Gavel className="h-3 w-3"/> {t('terms')}</Link>
                             <Link href="/politica-privacidad" className="hover:text-cyan-400 transition-all flex items-center gap-1.5"><Shield className="h-3 w-3"/> {t('privacy')}</Link>

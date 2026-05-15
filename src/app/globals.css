@@ -102,7 +102,7 @@ body::after {
   /* Clases de Tipografía por Entorno */
   .font-tech { font-family: 'Outfit', sans-serif; }
   .font-legal { font-family: 'Lora', serif; }
-  .font-impact { font-family: 'Bebas Neue', cursive; }
+  .font-impact { font-family: 'Outfit', sans-serif; }
   .font-inter { font-family: 'Inter', sans-serif; }
 
   p, span, label, a, li, td, th, dt, dd, div {

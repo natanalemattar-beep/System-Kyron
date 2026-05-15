@@ -17,61 +17,67 @@ import { ResourceHeader } from '@/components/brand/ResourceHeader';
 
 const SCRIPT_SECTIONS = [
     {
+        id: 'introduccion',
         time: '0:00 - 0:40',
-        title: 'El Gancho y La Misión',
+        title: 'Tesis de Inversión y Visión',
         speaker: 'Carlos',
         content: [
-            "Buenos días. Somos System Kyron. En Venezuela, el empresario no solo compite contra el mercado; compite contra un caos de proveedores. Pierde el 40% de su tiempo saltando entre sistemas contables, gestores legales y una telefonía que nunca está integrada.",
-            "System Kyron nace para detener esta sangría de tiempo. No somos un software más; somos el primer Ecosistema de Inteligencia Corporativa que unifica conectividad, automatización fiscal y sostenibilidad en una sola fibra operativa."
+            "Buenos días. Somos System Kyron. En el actual mercado venezolano, la rentabilidad empresarial está bajo asedio, no por la competencia externa, sino por la ineficiencia interna. El empresario promedio sacrifica el 40% de su capacidad operativa gestionando una infraestructura fragmentada: telefonía aislada, contabilidad manual y sistemas legales sin sincronización.",
+            "System Kyron no es un software; es un Ecosistema de Inteligencia Corporativa. Nuestra tesis es simple: Integración Vertical. Unificamos conectividad de alta fidelidad, automatización fiscal VEN-NIF y sostenibilidad operativa en una sola infraestructura de mando único."
         ]
     },
     {
+        id: 'solucion',
         time: '0:40 - 2:00',
-        title: 'El Blitz de Módulos',
+        title: 'Arquitectura de Valor: Los 5 Pilares',
         speaker: 'Carlos',
         content: [
-            "Nuestro ecosistema elimina la fricción mediante 5 pilares de automatización absoluta:",
-            "1. Conectividad 5G & VoIP: Somos el único ERP que gestiona tus líneas corporativas y flotas móviles desde el mismo panel que tu nómina.",
-            "2. Finanzas Periciales: Automatizamos contabilidad bajo VEN-NIF, eliminando el error humano en IVA, ISLR e IGTF.",
-            "3. Legal & Compliance: Blindaje total con Kyron Voice para contratos automáticos y gestión de permisología digital.",
-            "4. Operaciones TPV: Facturación multimoneda sincronizada en tiempo real con inventarios inteligentes.",
-            "5. Modelo Cero Papel: Una oficina digitalizada es una oficina eficiente y responsable."
+            "Nuestra ventaja competitiva se sustenta en la eliminación total de la fricción mediante cinco ejes estratégicos:",
+            "1. Conectividad 5G Dinámica: Somos el primer motor de gestión que integra telecomunicaciones y ERP en un mismo panel de control.",
+            "2. Automatización Fiscal: Minimizamos el riesgo impositivo mediante algoritmos de cumplimiento VEN-NIF, eliminando el error humano en IVA e IGTF.",
+            "3. Blindaje Jurídico (Kyron Shield): Gestión de contratos y cumplimiento normativo automatizado con validez jurídica inmutable.",
+            "4. Operaciones Inteligentes: Punto de Venta (TPV) con sincronización en tiempo real y analítica predictiva de inventarios.",
+            "5. Modelo Cero Papel (ESG): Transformamos la responsabilidad ambiental en eficiencia operativa y reducción de costos fijos."
         ]
     },
     {
+        id: 'tecnologia',
         time: '2:00 - 2:45',
-        title: 'El Núcleo: IA y Blockchain',
+        title: 'Integridad de Datos y Análisis Predictivo',
         speaker: 'Sebastian',
         content: [
-            "¿Cómo garantizamos la confianza? Mediante una capa de Blockchain que hace que cada documento y transacción sea inmutable.",
-            "Nuestra IA Core no solo reporta; predice. Analiza la rentabilidad y sugiere estrategias de marketing basadas en datos reales, convirtiendo la información en dinero."
+            "La base de nuestra confianza es la inmutabilidad. Implementamos una capa de registro digital que garantiza la trazabilidad absoluta de cada documento.",
+            "Nuestra IA Core no se limita a reportar el pasado; optimiza el futuro. Analiza indicadores clave de rendimiento (KPIs) y sugiere ajustes estratégicos en tiempo real, convirtiendo datos brutos en liquidez financiera."
         ]
     },
     {
+        id: 'sostenibilidad',
         time: '2:45 - 3:30',
-        title: 'Sostenibilidad: Alianza Ameru',
+        title: 'Sostenibilidad como Activo Financiero',
         speaker: 'Marcos',
         content: [
-            "System Kyron es el estándar de 'Zero Paper'. Eliminamos el archivo físico, pero vamos más allá.",
-            "Gracias a nuestra alianza con Ameru, integramos los Smart Bins. Reciclar residuos ahora genera Eco-Créditos canjeables en el sistema. Estamos creando la primera red de economía circular corporativa verificada en Venezuela."
+            "La sostenibilidad en Kyron no es retórica; es métrica. Mediante nuestra alianza estratégica con Ameru, cerramos el ciclo de vida de los residuos corporativos.",
+            "La implementación de Smart Bins permite a las empresas gestionar sus residuos de forma física, mientras nuestro sistema digitaliza la oficina al 100%. Estamos estableciendo el estándar de economía circular para el tejido empresarial del país."
         ]
     },
     {
+        id: 'viabilidad',
         time: '3:30 - 4:15',
-        title: 'Viabilidad y Escalabilidad',
+        title: 'Escalabilidad y Proyección de Mercado',
         speaker: 'Sebastian',
         content: [
-            "Nuestro modelo SaaS es flexible y recurrente. Con costos Cloud-Native y una infraestructura escalable, somos una plataforma de alta rentabilidad lista para la expansión regional.",
-            "No somos una promesa; somos una herramienta en producción diseñada para reconstruir el tejido empresarial."
+            "Operamos bajo un modelo SaaS de alta recurrencia y baja tasa de cancelación. Nuestra arquitectura es nativa en la nube, lo que nos permite escalar horizontalmente con costos marginales controlados.",
+            "System Kyron es una plataforma robusta, validada y diseñada para reconstruir la infraestructura operativa de la región, partiendo de una base legal sólida (RIF Jurídico activo)."
         ]
     },
     {
+        id: 'cierre',
         time: '4:15 - 4:30',
-        title: 'Cierre Rotundo',
+        title: 'Conclusión y Llamado a la Acción',
         speaker: 'Carlos',
         content: [
-            "Carlos, Sebastian y Marcos. Tenemos la tecnología, las alianzas y el blindaje legal.",
-            "System Kyron: El control total de tu empresa ha llegado. Muchas gracias."
+            "Carlos Mattar, Sebastian Garrido y Marcos Sousa. Tenemos el ecosistema, la tecnología y el blindaje normativo necesarios para liderar esta transformación.",
+            "System Kyron: Sincronizando el futuro de su negocio. Estamos listos para las preguntas del jurado. Muchas gracias."
         ]
     }
 ];

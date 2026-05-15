@@ -157,7 +157,7 @@ export function FeaturesSection() {
                             </div>
                             <div className="relative aspect-video lg:aspect-square overflow-hidden rounded-[2rem] border border-white/10">
                                 <img 
-                                    src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop" 
+                                    src="/images/landing/features-analytics.webp" 
                                     alt="Platform Showcase" 
                                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                                 />

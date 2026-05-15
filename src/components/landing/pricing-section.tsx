@@ -1,14 +1,16 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ScrollReveal, ScrollRevealGroup } from "./scroll-reveal";
+import { ScrollReveal } from "./scroll-reveal";
+import { AIBudgetPlanner } from "./ai-budget-planner";
 import {
   Users, User, Tablet, Calculator, Shield, Receipt, Leaf,
   ShieldCheck, Wifi, Monitor, Printer, Package, ArrowRight,
-  Check, Sparkles, ChevronRight, Zap, Star, Smartphone
+  Check, Sparkles, Zap, Star, Smartphone
 } from 'lucide-react';
 
 // ─── Route mapping per module ───────────────────────
@@ -22,6 +24,26 @@ const MODULE_ROUTES: Record<string, string> = {
   sostenibilidad: '/register/sostenibilidad',
 };
 
+// ─── Icon mapping ──────────────────────────────────
+const ICONS: Record<string, any> = {
+  personal: Users,
+  milinea: Tablet,
+  milinea_corp: Smartphone,
+  contable: Calculator,
+  legal: Shield,
+  tpv: Receipt,
+  socios: Users,
+  sostenibilidad: Leaf,
+  caja: Monitor,
+  impresora: Printer,
+  kit: Package,
+  solo: User,
+  pro: Receipt,
+  comerciante: Smartphone,
+  negocio: Calculator,
+  total: Users,
+};
+
 // ─── Fade animation ────────────────────────────────
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -31,180 +53,6 @@ const fadeUp = {
     transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] },
   }),
 };
-
-// ─── 1. MÓDULOS SAAS ──────────────────────────────
-interface SaasModule {
-  id: string;
-  icon: React.ElementType;
-  nombre: string;
-  descripcion: string;
-  precio: number | null; // null = gratis
-  etiqueta?: string;
-  color: string;
-  acento: string;
-  popular?: boolean;
-}
-
-const SAAS_MODULES: SaasModule[] = [
-  {
-    id: 'personal',
-    icon: Users,
-    nombre: 'Cuenta Personal',
-    descripcion: 'Bóveda biométrica 3D, firma digital, certificados de ingreso y protección familiar LOPNNA.',
-    precio: null,
-    etiqueta: '100% Gratis · Para siempre',
-    color: 'from-emerald-500/15 to-teal-500/10',
-    acento: 'text-emerald-400',
-  },
-  {
-    id: 'milinea',
-    icon: Tablet,
-    nombre: 'Línea Personal',
-    descripcion: 'Gestión inteligente. Chip con detección nativa de App para recargas sin saldo.',
-    precio: 3,
-    color: 'from-cyan-500/15 to-blue-500/10',
-    acento: 'text-cyan-400',
-  },
-  {
-    id: 'milinea_corp',
-    icon: Smartphone,
-    nombre: 'Línea Empresarial',
-    descripcion: 'Gestión de flota corporativa. Detección automática de App Kyron para puentes de recarga.',
-    precio: 10,
-    color: 'from-blue-600/15 to-indigo-600/10',
-    acento: 'text-blue-400',
-  },
-  {
-    id: 'contable',
-    icon: Calculator,
-    nombre: 'Asesoría Contable',
-    descripcion: 'Contabilidad completa (IVA, ISLR, IGTF, libros SENIAT) + RRHH (nómina, prestaciones) + Marketing con Analítica avanzada.',
-    precio: 45,
-    color: 'from-blue-500/15 to-indigo-500/10',
-    acento: 'text-blue-400',
-    popular: true,
-  },
-  {
-    id: 'legal',
-    icon: Shield,
-    nombre: 'Asesoría Legal',
-    descripcion: 'Kyron Voice (Asistencia legal), contratos, permisología integral (483+ trámites) y directorio de 58 organismos venezolanos.',
-    precio: 30,
-    color: 'from-amber-500/15 to-orange-500/10',
-    acento: 'text-amber-400',
-  },
-  {
-    id: 'tpv',
-    icon: Receipt,
-    nombre: 'Facturación TPV',
-    descripcion: 'Punto de venta multimoneda (VES/USD/EUR), inventario, notas de crédito/débito e integración con hardware fiscal homologado.',
-    precio: 20,
-    color: 'from-violet-500/15 to-purple-500/10',
-    acento: 'text-violet-400',
-  },
-  {
-    id: 'socios',
-    icon: Users,
-    nombre: 'Socios y Directivos',
-    descripcion: 'Consolidación financiera, BI predictivo, dashboard para holdings y reparto automatizado de utilidades.',
-    precio: 50,
-    color: 'from-rose-500/15 to-pink-500/10',
-    acento: 'text-rose-400',
-  },
-  {
-    id: 'sostenibilidad',
-    icon: Leaf,
-    nombre: 'Sostenibilidad',
-    descripcion: 'Smart Bins con tecnología de inducción magnética (alianza Ameru) y Eco‑Créditos por reciclaje.',
-    precio: null,
-    etiqueta: 'Gratis · Con tu cuenta',
-    color: 'from-green-500/15 to-lime-500/10',
-    acento: 'text-green-400',
-  },
-];
-
-// ─── 2. PLANES 5G ─────────────────────────────────
-interface Plan5G {
-  nombre: string;
-  datos: string;
-  minutos: string;
-  sms: string;
-  precio: number;
-  popular?: boolean;
-  color: string;
-}
-
-const PLANES_5G: Plan5G[] = [
-  { nombre: 'Básico',      datos: '4 GB + Res.',  minutos: '200',        sms: '400',        precio: 12.00, color: 'text-slate-300' },
-  { nombre: 'Plus',        datos: '10 GB + Res.', minutos: '400',        sms: '800',        precio: 20.00, color: 'text-cyan-300' },
-  { nombre: 'Pro',         datos: '25 GB + Res.', minutos: '600',        sms: '1200',       precio: 30.00, popular: true, color: 'text-blue-300' },
-  { nombre: 'Empresarial', datos: '30 GB + Res.', minutos: '1000',       sms: '1000',       precio: 45.00, color: 'text-violet-300' },
-  { nombre: 'Ilimitado',   datos: 'Ilimitado',    minutos: 'Ilimitado',  sms: 'Ilimitado',  precio: 60.00, color: 'text-amber-300' },
-];
-
-// ─── 3. HARDWARE FISCAL ───────────────────────────
-interface Hardware {
-  icon: React.ElementType;
-  nombre: string;
-  descripcion: string;
-  precio: number;
-  homologacion: string;
-}
-
-const HARDWARE: Hardware[] = [
-  { icon: Monitor,  nombre: 'Caja Auto-pago',            descripcion: 'Terminal de autoservicio con pantalla táctil y lector integrado.',   precio: 350, homologacion: 'SENIAT ✅' },
-  { icon: Printer,  nombre: 'Impresora Fiscal',          descripcion: 'Impresora fiscal certificada para emisión de facturas homologadas.',  precio: 200, homologacion: 'SENIAT ✅' },
-  { icon: Package,  nombre: 'Kit TPV Completo',          descripcion: 'Caja + impresora + software preinstalado. Solución llave en mano.',    precio: 500, homologacion: 'SENIAT ✅' },
-];
-
-// ─── 4. COMBINACIONES ─────────────────────────────
-const COMBOS = [
-  {
-    perfil: 'Persona sola',
-    icon: User,
-    items: ['Cuenta Personal', 'Sostenibilidad'],
-    total: 0,
-    color: 'border-emerald-500/25 bg-emerald-500/[0.04]',
-    badge: 'Totalmente gratis',
-    badgeColor: 'bg-emerald-500 text-white',
-  },
-  {
-    perfil: 'Profesional que factura',
-    icon: Receipt,
-    items: ['Cuenta Personal', 'Facturación TPV ($20)'],
-    total: 20,
-    color: 'border-violet-500/25 bg-violet-500/[0.04]',
-    badge: null,
-    badgeColor: '',
-  },
-  {
-    perfil: 'Comerciante con línea',
-    icon: Smartphone,
-    items: ['Cuenta Personal', 'Mi Línea 5G ($5)', 'Plan Básico 5G ($12)'],
-    total: 17,
-    color: 'border-cyan-500/25 bg-cyan-500/[0.04]',
-    badge: null,
-    badgeColor: '',
-  },
-  {
-    perfil: 'Negocio completo',
-    icon: Calculator,
-    items: ['Cuenta Personal', 'Asesoría Contable ($45)', 'Facturación TPV ($20)', 'Mi Línea 5G ($5)', 'Plan Pro 5G ($30)'],
-    total: 100,
-    color: 'border-blue-500/25 bg-blue-500/[0.04]',
-    badge: 'Más popular',
-    badgeColor: 'bg-blue-500 text-white',
-  },
-  {
-    perfil: 'Empresa con socios y legal',
-    icon: Users,
-    items: ['Todo lo anterior', '+ Socios y Directivos ($50)', '+ Asesoría Legal ($30)', '+ Plan Empresarial ($45)'],
-    total: 225,
-    color: 'border-rose-500/25 bg-rose-500/[0.04]',
-    badge: 'Paquete total',
-    badgeColor: 'bg-rose-500 text-white',
-  },
-];
 
 // ═══════════════════════════════════════════════════
 // COMPONENTES INTERNOS
@@ -232,7 +80,7 @@ function SectionTitle({ badge, title, highlight, subtitle }: {
   );
 }
 
-function PricingGraphs() {
+function PricingGraphs({ t }: { t: any }) {
   const chartData = [
     { label: 'Eficiencia Op.', val: 94, color: 'bg-cyan-500' },
     { label: 'Ahorro Fiscal', val: 78, color: 'bg-emerald-500' },
@@ -243,8 +91,10 @@ function PricingGraphs() {
   return (
     <div className="grid md:grid-cols-2 gap-12 items-center mb-32 md:mb-48">
       <div className="space-y-6">
-        <h3 className="text-3xl font-black text-white uppercase italic font-impact italic tracking-tighter">Impacto del Ecosistema <span className="text-cyan-400">Kyron Analytics</span></h3>
-        <p className="text-sm text-white/40 leading-relaxed font-medium">Visualiza el retorno de inversión proyectado al unificar tu infraestructura bajo el Kyron Shield. Optimizamos cada proceso para que tu empresa rinda al máximo potencial.</p>
+        <h3 className="text-3xl font-black text-white uppercase tracking-tight font-outfit">
+          {t('analytics_title')} <span className="text-cyan-400">{t('analytics_highlight')}</span>
+        </h3>
+        <p className="text-sm text-white/40 leading-relaxed font-medium">{t('analytics_subtitle')}</p>
         <div className="space-y-4 pt-4">
           {chartData.map((d) => (
             <div key={d.label} className="space-y-2">
@@ -286,23 +136,47 @@ function PricingGraphs() {
   );
 }
 
-function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
-  const Icon = mod.icon;
-  const isFree = mod.precio === null;
+function ModuleCard({ id, mod, index, t }: { id: string; mod: any; index: number; t: any }) {
+  const Icon = ICONS[id] || Shield;
+  const precio = id === 'personal' || id === 'sostenibilidad' ? null : (id === 'contable' ? 45 : (id === 'legal' ? 30 : (id === 'tpv' ? 20 : (id === 'socios' ? 50 : (id === 'milinea' ? 3 : 10)))));
+  const isFree = precio === null;
+  const isPopular = id === 'contable';
+
+  const colorClasses: Record<string, string> = {
+    personal: 'from-emerald-500/15 to-teal-500/10',
+    milinea: 'from-cyan-500/15 to-blue-500/10',
+    milinea_corp: 'from-blue-600/15 to-indigo-600/10',
+    contable: 'from-blue-500/15 to-indigo-500/10',
+    legal: 'from-amber-500/15 to-orange-500/10',
+    tpv: 'from-violet-500/15 to-purple-500/10',
+    socios: 'from-rose-500/15 to-pink-500/10',
+    sostenibilidad: 'from-green-500/15 to-lime-500/10',
+  };
+
+  const acentoClasses: Record<string, string> = {
+    personal: 'text-emerald-400',
+    milinea: 'text-cyan-400',
+    milinea_corp: 'text-blue-400',
+    contable: 'text-blue-400',
+    legal: 'text-amber-400',
+    tpv: 'text-violet-400',
+    socios: 'text-rose-400',
+    sostenibilidad: 'text-green-400',
+  };
 
   return (
     <ScrollReveal
       delay={index * 0.08}
       className={cn(
         'relative group p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 h-full rounded-3xl glass-system-kyron-interactive',
-        mod.popular ? 'border-primary/40' : 'border-white/5',
-        `bg-gradient-to-br ${mod.color}`
+        isPopular ? 'border-primary/40' : 'border-white/5',
+        `bg-gradient-to-br ${colorClasses[id] || 'from-white/5 to-white/5'}`
       )}
     >
-      {mod.popular && (
+      {isPopular && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
           <span className="px-4 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] border border-white/20">
-            ⭐ MÁS COMPLETO
+            ⭐ {t('most_complete')}
           </span>
         </div>
       )}
@@ -311,25 +185,25 @@ function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
         <div className={cn('h-14 w-14 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3', 
           'bg-white/5 border border-white/10 group-hover:bg-white/10'
         )}>
-          <Icon className={cn('h-6 w-6', mod.acento)} />
+          <Icon className={cn('h-6 w-6', acentoClasses[id])} />
         </div>
         {isFree ? (
           <span className="px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full">
-            GRATIS
+            {t('free')}
           </span>
         ) : (
           <div className="text-right">
-            <span className="text-3xl font-black text-white leading-none">${mod.precio}</span>
-            <span className="text-[10px] text-white/30 font-black uppercase tracking-widest block mt-1">/mes</span>
+            <span className="text-3xl font-black text-white leading-none">${precio}</span>
+            <span className="text-[10px] text-white/30 font-black uppercase tracking-widest block mt-1">{t('per_month')}</span>
           </div>
         )}
       </div>
 
-      <h4 className="text-xl font-black text-white mb-3 tracking-tight">{mod.nombre}</h4>
-      <p className="text-sm text-white/40 font-medium leading-relaxed flex-1 mb-8">{mod.descripcion}</p>
+      <h4 className="text-xl font-black text-white mb-3 tracking-tight">{mod.name}</h4>
+      <p className="text-sm text-white/40 font-medium leading-relaxed flex-1 mb-8">{mod.desc}</p>
 
-      {mod.etiqueta && (
-        <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.1em] mb-4">{mod.etiqueta}</p>
+      {mod.tag && (
+        <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.1em] mb-4">{mod.tag}</p>
       )}
 
       <Button asChild className={cn(
@@ -338,8 +212,8 @@ function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
           ? 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.1)]'
           : 'glass-liquid-hud text-white border-white/20'
       )}>
-        <Link href={(MODULE_ROUTES[mod.id] ?? '/register') as any}>
-          {isFree ? 'Comenzar Ahora' : mod.id === 'milinea' ? 'Elegir el plan' : 'Comenzar Ahora'} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
+        <Link href={(MODULE_ROUTES[id] ?? '/register') as any}>
+          {isFree ? t('cta_start') : id === 'milinea' ? t('cta_select_plan') : t('cta_start')} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
         </Link>
       </Button>
     </ScrollReveal>
@@ -350,6 +224,17 @@ function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
 // MAIN COMPONENT
 // ═══════════════════════════════════════════════════
 export function PricingSection() {
+  const t = useTranslations('PricingSection');
+  
+  const saasModules = t.raw('saas_modules');
+  const planes5G = t.raw('planes_5g');
+  const hardware = t.raw('hardware');
+  const combos = t.raw('combos');
+
+  const hardwarePrices: Record<string, number> = { caja: 350, impresora: 200, kit: 500 };
+  const planes5GPrices: Record<string, number> = { basico: 12, plus: 20, pro: 30, empresarial: 45, ilimitado: 60 };
+  const combosTotals: Record<string, number> = { solo: 0, pro: 20, comerciante: 17, negocio: 100, total: 225 };
+
   return (
     <section
       id="pricing"
@@ -375,42 +260,47 @@ export function PricingSection() {
         >
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md mb-8 mx-auto">
             <Zap className="h-4 w-4 text-cyan-400" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-200/80">Planes y Precios</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-200/80">{t('badge')}</span>
           </div>
           <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-black tracking-[-0.04em] text-white leading-[0.95] mb-8">
-            Elige solo lo que<br />
-            <span className="block text-glow-cyan mt-2">realmente necesitas</span>
+            {t('title')}<br />
+            <span className="block text-glow-cyan mt-2">{t('highlight')}</span>
           </h2>
           <p className="text-lg text-white/40 max-w-2xl mx-auto font-medium leading-relaxed mb-10">
-            Módulos independientes + planes de líneas 5G + hardware fiscal certificado. Sin contratos anuales obligatorios.
+            {t('subtitle')}
           </p>
 
           {/* Free note */}
           <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 backdrop-blur-sm">
             <Check className="h-4 w-4 text-emerald-400" strokeWidth={3} />
             <span className="text-xs font-black text-emerald-200 uppercase tracking-widest">
-              La Cuenta Personal y Sostenibilidad son gratis para siempre
+              {t('free_note')}
             </span>
           </div>
         </motion.div>
 
         {/* ──── KYRON ANALYTICS SECTION ──── */}
-        <PricingGraphs />
+        <PricingGraphs t={t} />
+
+        {/* ──── AI BUDGET PLANNER ──── */}
+        <div className="mb-32 md:mb-48">
+            <AIBudgetPlanner />
+        </div>
 
         {/* ══════════════════════════════════════════
             BLOQUE 1 — MÓDULOS SAAS
         ══════════════════════════════════════════ */}
         <div className="mb-32 md:mb-48">
           <SectionTitle
-            badge="Módulos SaaS"
-            title="Activa solo los módulos"
-            highlight="que tu negocio necesita"
-            subtitle="Precio fijo mensual. Sin sorpresas. Cancela cuando quieras."
+            badge={t('modules_badge')}
+            title={t('modules_title')}
+            highlight={t('modules_highlight')}
+            subtitle={t('modules_subtitle')}
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-            {SAAS_MODULES.map((mod, i) => (
-              <ModuleCard key={mod.id} mod={mod} index={i} />
+            {Object.entries(saasModules).map(([id, mod], i) => (
+              <ModuleCard key={id} id={id} mod={mod} index={i} t={t} />
             ))}
           </div>
         </div>
@@ -420,10 +310,10 @@ export function PricingSection() {
         ══════════════════════════════════════════ */}
         <div className="mb-32 md:mb-48">
           <SectionTitle
-            badge="Conectividad 5G"
-            title="Planes de líneas"
-            highlight="5G con Kyron Shield"
-            subtitle="Reserva On-Demand: El chip Kyron detecta la apertura de la App para permitir recargas sin saldo, o habilita navegación general bajo tu control."
+            badge={t('connectivity_badge')}
+            title={t('connectivity_title')}
+            highlight={t('connectivity_highlight')}
+            subtitle={t('connectivity_subtitle')}
           />
 
           {/* Kyron Shield badge */}
@@ -431,17 +321,17 @@ export function PricingSection() {
             <div className="inline-flex items-center gap-4 px-8 py-5 rounded-3xl border border-blue-500/20 bg-blue-500/10 backdrop-blur-md">
               <Shield className="h-6 w-6 text-blue-400" />
               <div className="text-left">
-                <p className="text-xs font-black text-white uppercase tracking-widest">Kyron Shield incluido</p>
-                <p className="text-[10px] text-white/40 font-medium">Reposición de equipo · Perito forense SENIAT · Abogado en 1h</p>
+                <p className="text-xs font-black text-white uppercase tracking-widest">{t('shield_title')}</p>
+                <p className="text-[10px] text-white/40 font-medium">{t('shield_desc')}</p>
               </div>
             </div>
           </div>
 
           {/* Plans cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            {PLANES_5G.map((plan, i) => (
+            {Object.entries(planes5G).map(([id, plan]: [string, any], i) => (
               <motion.div
-                key={plan.nombre}
+                key={id}
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"
@@ -449,29 +339,34 @@ export function PricingSection() {
                 custom={i * 0.08}
                 className={cn(
                   'relative p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 rounded-3xl glass-system-kyron-interactive',
-                  plan.popular
+                  id === 'pro'
                     ? 'border-blue-500/40 bg-blue-500/5'
                     : 'border-white/5 bg-white/[0.02]'
                 )}
               >
-                {plan.popular && (
+                {id === 'pro' && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
                     <span className="px-4 py-1.5 bg-blue-500 text-white text-[9px] font-black uppercase tracking-[0.2em] rounded-full shadow-lg border border-white/20">
-                      MÁS ELEGIDO
+                      {t('most_chosen')}
                     </span>
                   </div>
                 )}
 
                 <div className="flex items-center gap-3 mb-6">
                   <Wifi className="h-5 w-5 text-cyan-400" />
-                  <h4 className={cn('text-sm font-black uppercase tracking-widest', plan.color)}>{plan.nombre}</h4>
+                  <h4 className={cn('text-sm font-black uppercase tracking-widest', 
+                    id === 'basico' ? 'text-slate-300' : 
+                    id === 'plus' ? 'text-cyan-300' : 
+                    id === 'pro' ? 'text-blue-300' : 
+                    id === 'empresarial' ? 'text-violet-300' : 'text-amber-300'
+                  )}>{plan.name}</h4>
                 </div>
 
                 {/* Price */}
                 <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-white tracking-tighter">${plan.precio.toFixed(2)}</span>
-                    <span className="text-[10px] text-white/30 font-black uppercase tracking-widest ml-1">/mes</span>
+                    <span className="text-4xl font-black text-white tracking-tighter">${planes5GPrices[id]?.toFixed(2)}</span>
+                    <span className="text-[10px] text-white/30 font-black uppercase tracking-widest ml-1">{t('per_month')}</span>
                   </div>
                 </div>
 
@@ -479,24 +374,29 @@ export function PricingSection() {
                 <div className="space-y-4 mb-10 flex-1">
                   {[
                     { label: 'Datos', value: plan.datos },
-                    { label: 'Minutos', value: plan.minutos },
+                    { label: 'Minutos', value: plan.min },
                     { label: 'SMS', value: plan.sms },
                   ].map(({ label, value }) => (
                     <div key={label} className="flex items-center justify-between text-xs py-1 border-b border-white/5">
                       <span className="text-white/40 font-medium">{label}</span>
-                      <span className={cn('font-black', plan.color)}>{value}</span>
+                      <span className={cn('font-black', 
+                         id === 'basico' ? 'text-slate-300' : 
+                         id === 'plus' ? 'text-cyan-300' : 
+                         id === 'pro' ? 'text-blue-300' : 
+                         id === 'empresarial' ? 'text-violet-300' : 'text-amber-300'
+                      )}>{value}</span>
                     </div>
                   ))}
                 </div>
 
                 <Button asChild className={cn(
                   'w-full h-12 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 hover:scale-[1.05]',
-                  plan.popular
+                  id === 'pro'
                     ? 'btn-3d-primary'
                     : 'glass-liquid-hud text-white'
                 )}>
                   <Link href="/register">
-                    Comenzar Ahora <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    {t('cta_start')} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
               </motion.div>
@@ -515,8 +415,7 @@ export function PricingSection() {
               <Smartphone className="h-6 w-6 text-cyan-400" />
             </div>
             <p className="text-sm text-white/50 font-medium leading-relaxed">
-              <span className="text-cyan-400 font-black uppercase tracking-widest block mb-1">¿Ya tienes línea con otro operador?</span>{' '}
-              Contrata solo el módulo "Mi Línea 5G" por <span className="text-white font-black">$3/mes</span> para gestionar tu línea existente dentro de System Kyron, con todas las herramientas de administración y seguridad empresarial.
+               {t('linea_note')}
             </p>
           </motion.div>
         </div>
@@ -526,18 +425,18 @@ export function PricingSection() {
         ══════════════════════════════════════════ */}
         <div className="mb-32 md:mb-48">
           <SectionTitle
-            badge="Hardware Fiscal"
-            title="Equipo certificado"
-            highlight="SENIAT"
-            subtitle="Pago único. Sin mensualidad. Entrega en todo Venezuela."
+            badge={t('hardware_badge')}
+            title={t('hardware_title')}
+            highlight={t('hardware_highlight')}
+            subtitle={t('hardware_subtitle')}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {HARDWARE.map((hw, i) => {
-              const Icon = hw.icon;
+            {Object.entries(hardware).map(([id, hw]: [string, any], i) => {
+              const Icon = ICONS[id] || Package;
               return (
                 <motion.div
-                  key={hw.nombre}
+                  key={id}
                   variants={fadeUp}
                   initial="hidden"
                   whileInView="visible"
@@ -550,24 +449,24 @@ export function PricingSection() {
                       <Icon className="h-8 w-8 text-amber-400" />
                     </div>
                     <div>
-                      <h4 className="text-lg font-black text-white tracking-tight">{hw.nombre}</h4>
+                      <h4 className="text-lg font-black text-white tracking-tight">{hw.name}</h4>
                       <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-500/30 mt-1">
                         <Check className="h-2.5 w-2.5 text-emerald-400" />
-                        <span className="text-[8px] text-emerald-400 font-black uppercase tracking-widest">SENIAT Certificado</span>
+                        <span className="text-[8px] text-emerald-400 font-black uppercase tracking-widest">{t('seniat_certified')}</span>
                       </div>
                     </div>
                   </div>
 
-                  <p className="text-sm text-white/40 font-medium leading-relaxed flex-1 mb-8">{hw.descripcion}</p>
+                  <p className="text-sm text-white/40 font-medium leading-relaxed flex-1 mb-8">{hw.desc}</p>
 
                   <div className="flex items-center justify-between pt-8 border-t border-white/5">
                     <div>
-                      <p className="text-[9px] text-white/20 font-black uppercase tracking-[0.2em] mb-1">Inversión única</p>
-                      <p className="text-3xl font-black text-white tracking-tighter">${hw.precio}</p>
+                      <p className="text-[9px] text-white/20 font-black uppercase tracking-[0.2em] mb-1">{t('one_time_payment')}</p>
+                      <p className="text-3xl font-black text-white tracking-tighter">${hardwarePrices[id]}</p>
                     </div>
                     <Button asChild className="h-14 px-10 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] bg-amber-500 hover:bg-amber-600 text-black shadow-lg transition-all hover:scale-[1.05]">
                       <Link href="/#contacto">
-                        Comenzar Ahora <ArrowRight className="w-4 h-4 ml-2" />
+                        {t('cta_start')} <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                     </Button>
                   </div>
@@ -582,41 +481,54 @@ export function PricingSection() {
         ══════════════════════════════════════════ */}
         <div>
           <SectionTitle
-            badge="Personalización"
-            title="Escalabilidad"
-            highlight="sin límites"
-            subtitle="Combina módulos según tu perfil. Crece con nosotros."
+            badge={t('combos_badge')}
+            title={t('combos_title')}
+            highlight={t('combos_highlight')}
+            subtitle={t('combos_subtitle')}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-            {COMBOS.map((combo, i) => {
-              const Icon = combo.icon;
+            {Object.entries(combos).map(([id, combo]: [string, any], i) => {
+              const Icon = ICONS[id] || Users;
+              const colorClasses: Record<string, string> = {
+                solo: 'border-emerald-500/25 bg-emerald-500/[0.04]',
+                pro: 'border-violet-500/25 bg-violet-500/[0.04]',
+                comerciante: 'border-cyan-500/25 bg-cyan-500/[0.04]',
+                negocio: 'border-blue-500/25 bg-blue-500/[0.04]',
+                total: 'border-rose-500/25 bg-rose-500/[0.04]',
+              };
+              const badgeColors: Record<string, string> = {
+                solo: 'bg-emerald-500 text-white',
+                negocio: 'bg-blue-500 text-white',
+                total: 'bg-rose-500 text-white',
+              };
+
               return (
                 <motion.div
-                  key={combo.perfil}
+                  key={id}
                   variants={fadeUp}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
                   custom={i * 0.08}
-                  className={cn('rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1 glass-system-kyron-interactive border-white/5', combo.color.replace('border-', 'border-opacity-0 border-'))}
+                  className={cn('rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1 glass-system-kyron-interactive border-white/5', colorClasses[id]?.replace('border-', 'border-opacity-0 border-'))}
                 >
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center gap-4">
                       <div className="h-12 w-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
                         <Icon className="h-5 w-5 text-white/60" />
                       </div>
-                      <h4 className="text-base font-black text-white tracking-tight">{combo.perfil}</h4>
+                      <h4 className="text-base font-black text-white tracking-tight">{combo.profile}</h4>
                     </div>
                     {combo.badge && (
-                      <span className={cn('text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest shrink-0 border border-white/20 shadow-lg', combo.badgeColor)}>
+                      <span className={cn('text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest shrink-0 border border-white/20 shadow-lg', badgeColors[id] || 'bg-white/10 text-white')}>
                         {combo.badge}
                       </span>
                     )}
                   </div>
 
                   <ul className="space-y-3 mb-8">
-                    {combo.items.map((item, j) => (
+                    {combo.items.map((item: string, j: number) => (
                       <li key={j} className="flex items-center gap-3 text-xs text-white/50 font-medium">
                         <div className="h-1.5 w-1.5 rounded-full bg-white/20" />
                         {item}
@@ -626,18 +538,18 @@ export function PricingSection() {
 
                   <div className="flex items-center justify-between pt-6 border-t border-white/5">
                     <div>
-                      <p className="text-[9px] text-white/20 font-black uppercase tracking-[0.2em] mb-1">Costo Estimado</p>
+                      <p className="text-[9px] text-white/20 font-black uppercase tracking-[0.2em] mb-1">{t('estimated_cost')}</p>
                       <p className="text-3xl font-black text-white tracking-tighter leading-none">
-                        {combo.total === 0 ? (
-                          <span className="text-emerald-400">Gratis</span>
+                        {combosTotals[id] === 0 ? (
+                          <span className="text-emerald-400">{t('free')}</span>
                         ) : (
-                          `$${combo.total.toFixed(2)}`
+                          `$${combosTotals[id]?.toFixed(2)}`
                         )}
                       </p>
                     </div>
                     <Button asChild className="h-11 px-6 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-all hover:scale-[1.03]">
                       <Link href="/register">
-                        Comenzar Ahora <ArrowRight className="w-4 h-4 ml-2" />
+                        {t('cta_start')} <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                     </Button>
                   </div>

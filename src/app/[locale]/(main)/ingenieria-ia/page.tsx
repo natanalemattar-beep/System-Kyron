@@ -47,8 +47,8 @@ export default function IngenieriaTecnicaPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
                     <Terminal className="h-3 w-3" /> CENTRO DE INGENIERÍA
                 </div>
-                <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Motor de <span className="text-primary italic">Ingeniería Técnica</span></h1>
-                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 italic">Procesamiento de Planos y Cómputos Métricos v2.8.5</p>
+                <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none font-outfit">Motor de Ingeniería Técnica</h1>
+                <p className="text-muted-foreground text-[10px] font-black uppercase tracking-[0.3em] opacity-40">Procesamiento de Planos y Cómputos Métricos v2.8.5</p>
             </header>
 
             <div className="grid lg:grid-cols-12 gap-10">

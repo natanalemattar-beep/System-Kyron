@@ -15,7 +15,14 @@
         "control_center": "Centro de Control",
         "security_protocol": "Cifrado AES-256",
         "see_all_services": "Ver Todos los Servicios",
-        "mobile_portal": "Portal Kyron"
+        "mobile_portal": "Portal Kyron",
+        "mobile_portal_sub": "Intelligence Hub 4.0",
+        "connectivity_title": "Kyron 5G Alpha",
+        "connectivity_desc": "Conectividad System Kyron",
+        "legal_title": "Blindaje Legal",
+        "legal_desc": "Compliance Automático",
+        "secure_portal": "Portal Seguro",
+        "encryption_active": "Encriptación de sesión activa"
     },
     "DemoBanner": {
         "message": "PLATAFORMA DE INTELIGENCIA CORPORATIVA — ACCESO EXCLUSIVO PARA USUARIOS REGISTRADOS",
@@ -32,7 +39,6 @@
         "badge_text": "Líneas · eSIM · Gestión Elite",
         "cta_main": "Empieza ahora",
         "cta_secondary": "Ver cómo funciona",
-        "cta_brochure": "Descargar Folleto",
         "pitch_button": "EXPLORAR PORTAL",
         "subtitle_hero": "Infraestructura móvil de grado empresarial, gestión fiscal automatizada y consultoría avanzada. Todo en un ecosistema unificado para el sector privado venezolano.",
         "security_label": "ENCRIPTACIÓN",
@@ -53,623 +59,116 @@
         ],
         "rotating_words": ["Inteligencia Total", "Precisión Fiscal", "Automatización Líder", "Riesgo Cero"]
     },
+    "AIBudgetPlanner": {
+        "badge": "Kyron AI",
+        "title": "Planificador de Presupuesto",
+        "highlight": "Inteligente",
+        "subtitle": "Dinos cuánto quieres invertir y nuestra IA diseñará la combinación de módulos y líneas 5G perfecta para tu rentabilidad.",
+        "input_label": "Tu presupuesto mensual (USD)",
+        "needs_label": "¿Qué es indispensable para ti?",
+        "btn_generate": "Generar Plan con IA",
+        "ai_thinking": "Kyron AI está analizando el mercado y optimizando tu presupuesto...",
+        "ai_steps": [
+            "Analizando matriz de rentabilidad...",
+            "Consultando tasas BCV y Gaceta Oficial...",
+            "Optimizando consumo de datos 5G...",
+            "Verificando compliance legal..."
+        ],
+        "result_title": "Tu Plan Optimizado",
+        "result_subtitle": "Este es el combo ideal basado en tu inversión de ",
+        "total_value": "Valor Total del Ecosistema: ",
+        "savings": "Ahorro proyectado: ",
+        "cta_activate": "Activar Plan IA",
+        "needs": {
+            "connectivity": "Conectividad (5G)",
+            "accounting": "Contabilidad & Fiscal",
+            "legal": "Legal & Contratos",
+            "invoicing": "Facturación TPV",
+            "directors": "Socios & Directivos"
+        }
+    },
+    "SustainabilitySection": {
+        "badge": "Impacto Ambiental - Reto Inspira 2026",
+        "title_main": "Compromiso",
+        "title_highlight": "Cero Papel",
+        "description": "En System Kyron no solo optimizamos negocios, protegemos el planeta. Nuestro ecosistema digital elimina la necesidad de archivos físicos, reduciendo la huella de carbono administrativa en un 100%.",
+        "smart_bins_title": "Smart Bins (Ameru)",
+        "smart_bins_desc": "Alianza estratégica para el reciclaje inteligente mediante inducción magnética.",
+        "eco_credits_title": "Eco-Créditos",
+        "eco_credits_desc": "Recompensas digitales por cada kilogramo de residuo procesado correctamente.",
+        "overlay_label": "Impacto Real",
+        "overlay_value": "-12,000",
+        "overlay_sublabel": "Hojas/Año por PyME",
+        "certification_label": "Certificación Kyron"
+    },
+    "PricingSection": {
+        "badge": "Planes & Precios",
+        "title": "El plan perfecto para",
+        "highlight": "tu empresa",
+        "subtitle": "Todos los planes incluyen cifrado AES-256, cumplimiento venezolano y actualizaciones automáticas.",
+        "connectivity_badge": "Conectividad 5G",
+        "connectivity_title": "Navegación",
+        "connectivity_highlight": "Ultra-Rápida",
+        "connectivity_subtitle": "Internet de grado empresarial con gestión de flota centralizada.",
+        "hardware_badge": "Hardware Fiscal",
+        "hardware_title": "Equipos",
+        "hardware_highlight": "Certificados",
+        "hardware_subtitle": "Hardware de alta gama para facturación masiva y control de inventario.",
+        "combos_badge": "Soluciones Kyron",
+        "combos_title": "Combos",
+        "combos_highlight": "Todo Incluido",
+        "combos_subtitle": "Ahorra hasta un 40% contratando el ecosistema completo para tu negocio.",
+        "shield_title": "Kyron Shield",
+        "shield_desc": "Protección perimetral y respaldo legal incluido en todos los planes corporativos.",
+        "linea_note": "Nota: Los planes de datos se renuevan mensualmente y son compatibles con eSIM y SIM física.",
+        "analytics_title": "Analítica",
+        "analytics_highlight": "Predictiva",
+        "analytics_subtitle": "Gráficas en tiempo real sobre tu eficiencia y cumplimiento fiscal.",
+        "most_chosen": "Más Elegido",
+        "most_complete": "Más Completo",
+        "per_month": "/mes",
+        "free": "Gratis",
+        "estimated_cost": "Costo Estimado",
+        "one_time_payment": "Pago Único",
+        "seniat_certified": "Certificado SENIAT",
+        "cta_start": "Comenzar Ahora",
+        "cta_select_plan": "Seleccionar Plan",
+        "free_note": "Tu cuenta personal y el módulo de Sostenibilidad son 100% gratuitos para siempre.",
+        "saas_modules": {
+            "personal": { "name": "Cuenta Personal", "desc": "Gestión de identidad y trámites básicos." },
+            "milinea": { "name": "Mi Línea 5G", "desc": "Conectividad individual de alto rendimiento." },
+            "contable": { "name": "Contable", "desc": "VEN-NIF, IVA, ISLR e IGTF automatizados." },
+            "legal": { "name": "Legal", "desc": "Contratos, litigios y marco legal venezolano." },
+            "tpv": { "name": "Facturación TPV", "desc": "Punto de venta y control de inventario fiscal." },
+            "socios": { "name": "Socios", "desc": "Gobierno corporativo y análisis de rentabilidad." },
+            "sostenibilidad": { "name": "Sostenibilidad", "desc": "Huella verde y gestión de eco-créditos." }
+        },
+        "planes_5g": {
+            "basico": { "name": "Básico", "datos": "2 GB", "min": "50 min", "sms": "100" },
+            "plus": { "name": "Plus", "datos": "10 GB", "min": "300 min", "sms": "Ilimitados" },
+            "pro": { "name": "Pro", "datos": "25 GB", "min": "Ilimitados", "sms": "Ilimitados" },
+            "empresarial": { "name": "Empresa", "datos": "50 GB", "min": "Ilimitados", "sms": "Ilimitados" },
+            "ilimitado": { "name": "Infinite", "datos": "Ilimitado", "min": "Ilimitados", "sms": "Ilimitados" }
+        },
+        "hardware": {
+            "caja": { "name": "Caja Registradora", "desc": "Sistema táctil de alta velocidad para alto tráfico." },
+            "impresora": { "name": "Impresora Fiscal", "desc": "Certificada por el SENIAT para reportes Z automáticos." },
+            "kit": { "name": "Kit Punto de Venta", "desc": "Combo completo: Lector, Impresora y Terminal Kyron." }
+        },
+        "combos": {
+            "solo": { "profile": "Emprendedor", "badge": "Popular", "items": ["Contabilidad Básica", "1 Línea 5G", "Soporte Digital"] },
+            "pro": { "profile": "Profesional", "badge": "Recomendado", "items": ["Contabilidad Avanzada", "3 Líneas 5G", "Facturación TPV", "Respaldo Kyron"] },
+            "comerciante": { "profile": "Comerciante", "badge": "Hardware Incl.", "items": ["Facturación Ilimitada", "Impresora Fiscal", "2 Líneas 5G", "Asistente Fiscal"] },
+            "negocio": { "profile": "Empresarial", "badge": "Elite", "items": ["Todo el Ecosistema", "10 Líneas 5G", "Blindaje Legal", "Auditoría VIP"] },
+            "total": { "profile": "Kyron Total", "badge": "Ilimitado", "items": ["Sin Restricciones", "Soporte 24/7 VIP", "Líneas Ilimitadas", "API Access"] }
+        }
+    },
     "FeaturesSection": {
         "badge": "Rendimiento Superior",
         "title_highlight": "Velocidad que",
         "title_rest": "marca la diferencia",
-        "subtitle": "Comparamos System Kyron contra las principales plataformas del mercado en tiempo de respuesta.",
+        "subtitle": "System Kyron es hasta 7 veces más rápido que los sistemas ERP tradicionales. Latencia cero, productividad máxima.",
         "features": [
-            { "title": "Fiscalidad VEN-NIF", "description": "Automatización total de libros de compra/venta, IGTF y declaraciones SENIAT con tasa BCV en tiempo real." },
-            { "title": "Telecom 5G Nativo", "description": "Única plataforma que gestiona tu flota de eSIMs y líneas corporativas directamente desde el panel administrativo." },
-            { "title": "Gestión Legal Elite", "description": "Protocolos jurídicos avanzados para redacción de contratos y blindaje ante auditorías laborales LOTTT." },
-            { "title": "RRHH & Nómina", "description": "Cálculos exactos de prestaciones, utilidades y bono de alimentación bajo la normativa venezolana vigente." },
-            { "title": "Kyron Shield", "description": "Protocolo de contingencia extrema: reposición de hardware en 1h y defensa pericial ante fiscalizaciones." },
-            { "title": "Sostenibilidad", "description": "Certificación de huella verde y gestión de eco-créditos corporativos integrados con Ameru." }
-        ],
-        "speed_title": "Tiempo de Respuesta",
-        "speed_subtitle": "Milisegundos promedio por operación",
-        "fastest": "Más Rápido",
-        "cta": "Probar Velocidad",
-        "competitors": [
-            { "name": "System Kyron", "speed": 120 },
-            { "name": "SAP", "speed": 850 },
-            { "name": "Odoo", "speed": 620 },
-            { "name": "QuickBooks", "speed": 480 }
-        ],
-        "metrics": [
-            { "value": 120, "suffix": "ms", "label": "Respuesta Promedio" },
-            { "value": 99, "suffix": "%", "label": "Disponibilidad" },
-            { "value": 48, "suffix": "h", "label": "Migración Completa" },
-            { "value": 3, "suffix": "x", "label": "Más Rápido que Odoo" }
-        ]
-    },
-    "ServicesSection": {
-        "badge": "Planes & Precios",
-        "title_highlight": "EL PLAN PERFECTO PARA",
-        "title_rest": "TU EMPRESA",
-        "subtitle": "Todos los planes incluyen cifrado AES-256, cumplimiento venezolano y actualizaciones automáticas.",
-        "monthly": "Mensual",
-        "annual": "Anual",
-        "discount": "-20%",
-        "most_popular": "Más Popular",
-        "per_month": "/mes",
-        "free_label": "Gratis",
-        "free_forever": "Para siempre · Sin tarjeta de crédito",
-        "billed_annually": "Facturado anualmente",
-        "per_year": "/año",
-        "tab_combo": "Combo Todo Incluido",
-        "tab_individual": "Módulos Individuales",
-        "tab_budget": "Presupuesto",
-        "tab_combo_desc": "Ahorra hasta un 40% contratando todos los módulos en un solo plan.",
-        "tab_individual_desc": "Contrata solo los módulos que necesitas, cada uno con sus propios planes.",
-        "tab_budget_desc": "Dinos qué necesitas y nuestro sistema te arma el presupuesto ideal al instante.",
-        "select_module": "Ver Planes",
-        "price_from": "desde",
-        "see_all_plans": "Ver todos los planes",
-        "show_details": "Ver detalle completo",
-        "hide_details": "Ocultar detalle",
-        "plans": [
-            {
-                "name": "Personal",
-                "description": "Cuenta personal con herramientas básicas",
-                "cta": "Comenzar Gratis",
-                "features": ["Cuenta Personal completa", "Tasa BCV en vivo", "Soporte Especializado", "Alertas SENIAT (10/mes)", "Consulta RIF/Cédula"],
-                "details": {
-                    "sections": [
-                        { "title": "Cuenta Personal", "items": ["Panel personal completo", "Documentos de identidad", "Directorio fiscal", "Tasa BCV en vivo"] },
-                        { "title": "Infraestructura Kyron", "items": ["Soporte Especializado — 24/7", "Consulta de normativas vigentes"] },
-                        { "title": "Herramientas", "items": ["Consulta RIF/Cédula", "Alertas SENIAT (10/mes)", "Calculadora fiscal básica"] }
-                    ]
-                }
-            },
-            {
-                "name": "Profesional",
-                "description": "Contabilidad + Facturación + Mi Línea en paquete",
-                "cta": "Comenzar Ahora",
-                "features": ["Todo en Personal +", "Asesoría Contable VEN-NIF", "Facturación SENIAT (200/mes)", "Mi Línea (5 líneas)", "Centro Tributario completo"],
-                "details": {
-                    "sections": [
-                        { "title": "Asesoría Contable — Profesional", "items": ["Libros legales (Diario, Mayor, Inventario)", "Centro Tributario (IVA, ISLR, IGTF)", "Retenciones automáticas", "Simulador de multas COT", "Exportación Excel", "3 usuarios"] },
-                        { "title": "Facturación — Comercial", "items": ["300 facturas/mes", "Punto de Venta (POS)", "Notas débito/crédito", "Análisis comercial"] },
-                        { "title": "Mi Línea — Conecta 5 GB", "items": ["5 GB datos 4G LTE", "150 min nacionales", "Redes sociales ilimitadas"] },
-                        { "title": "Soporte Kyron", "items": ["Soporte Técnico de Guardia", "Asistente contable especializado"] }
-                    ]
-                }
-            },
-            {
-                "name": "Empresarial",
-                "description": "Todo incluido para empresas en crecimiento",
-                "cta": "Comenzar Ahora",
-                "features": ["TODOS los módulos incluidos", "Asesoría Contable avanzada", "Asesoría Legal completa", "Facturación ilimitada", "Socios y Directivos"],
-                "details": {
-                    "sections": [
-                        { "title": "Asesoría Contable — Avanzado", "items": ["Centro Fiscal para consultas", "Declaraciones asistidas (12/año)", "Conciliación bancaria", "Asientos automáticos", "Auditoría forense", "5 usuarios"] },
-                        { "title": "Asesoría Legal — Escritorio Jurídico", "items": ["Control de litigios", "Marco Legal VE completo", "Contratos ilimitados", "Calendario de audiencias"] },
-                        { "title": "Facturación — Enterprise", "items": ["Facturas ilimitadas", "Multi-sucursal", "Pasarelas de pago", "Facturación electrónica"] },
-                        { "title": "Mi Línea — Global 25 GB", "items": ["25 GB datos 5G", "Llamadas nacionales ilimitadas", "60 min internacionales", "Hotspot 10 GB"] },
-                        { "title": "Socios y Directivos — Profesional", "items": ["Socios ilimitados", "Gobierno corporativo", "Reportes para accionistas"] },
-                        { "title": "Gestión Kyron", "items": ["Soporte Prioritario", "Gestión Fiscal avanzada", "Generación de reportes"] }
-                    ]
-                }
-            },
-            {
-                "name": "Kyron MAX",
-                "description": "Todo ilimitado, sin restricciones",
-                "cta": "Escríbenos",
-                "features": ["TODOS los módulos sin límites", "Soporte VIP 24/7", "Facturación ilimitada", "Mi Línea Jurídica ilimitada", "Asesoría Contable MAX"],
-                "details": {
-                    "sections": [
-                        { "title": "Asesoría Contable — MAX", "items": ["Dictamen de Contador Público", "Blockchain audit trail", "Multi-empresa", "Usuarios ilimitados", "Soporte VIP 24/7", "API de integración"] },
-                        { "title": "Asesoría Legal — MAX", "items": ["Gestión Legal avanzada", "Due diligence completo", "Multi-empresa", "Contratos ilimitados"] },
-                        { "title": "Facturación — MAX", "items": ["Facturación electrónica ilimitada", "Multi-empresa", "Automatización total", "Integraciones API"] },
-                        { "title": "Mi Línea Jurídica — Enterprise", "items": ["Líneas ilimitadas", "Datos ilimitados 5G", "VPN corporativa", "MDM completo"] },
-                        { "title": "Mi Línea Personal — Infinite", "items": ["Datos ilimitados 5G Ultra", "Llamadas internacionales ilimitadas", "eSIM múltiple"] },
-                        { "title": "Socios y Directivos — Enterprise", "items": ["Multi-empresa", "Blockchain proof", "Soporte dedicado 24/7"] },
-                        { "title": "Soporte Kyron", "items": ["Soporte VIP ilimitado 24/7", "Reportes ejecutivos automáticos", "Análisis estratégico", "Prioridad máxima"] }
-                    ]
-                }
-            }
-        ],
-        "modules_badge": "Módulos Individuales",
-        "modules_title": "Todo Integrado,",
-        "modules_highlight": "Un Ecosistema",
-        "modules_subtitle": "Contrata solo lo que necesitas. Cada módulo funciona de manera independiente con sus propios planes.",
-        "individual_modules": [
-            {
-                "name": "Mi Línea Personal",
-                "description": "Línea móvil 5G personal",
-                "features": ["WhatsApp incluido", "Redes sociales ilimitadas", "Streaming HD", "eSIM compatible"],
-                "tiers": [
-                    { "name": "Básico 2 GB", "price": 3, "highlight": "2 GB datos · 50 min · WhatsApp" },
-                    { "name": "Conecta 5 GB", "price": 5, "highlight": "5 GB datos · 150 min · Redes ilimitadas" },
-                    { "name": "Plus 10 GB", "price": 8, "highlight": "10 GB datos · 300 min · Streaming HD" },
-                    { "name": "Global 25 GB", "price": 14, "highlight": "25 GB datos · Min ilimitados · 60 min intl" },
-                    { "name": "Ultra 50 GB", "price": 22, "highlight": "50 GB 5G · Ilimitados · eSIM · Hotspot" },
-                    { "name": "Infinite", "price": 35, "highlight": "Datos ilimitados 5G Ultra · Todo ilimitado" }
-                ]
-            },
-            {
-                "name": "Mi Línea Jurídica",
-                "description": "Flota corporativa centralizada",
-                "features": ["Hasta 50 líneas", "MDM completo", "Reportes CONATEL", "VPN corporativa"],
-                "tiers": [
-                    { "name": "Emprendedor", "price": 15, "highlight": "5 líneas · 3 GB c/u · MDM básico" },
-                    { "name": "PyME", "price": 30, "highlight": "15 líneas · 10 GB c/u · VPN · Reportes" },
-                    { "name": "Corporativo", "price": 55, "highlight": "30 líneas · 25 GB c/u · MDM completo" },
-                    { "name": "Enterprise", "price": 120, "highlight": "50 líneas · Ilimitado · VPN · CONATEL" }
-                ]
-            },
-            {
-                "name": "Asesoría Contable",
-                "description": "Contabilidad VEN-NIF completa",
-                "features": ["Libros legales", "Centro Tributario", "Retenciones automáticas", "Gestión Fiscal"],
-                "tiers": [
-                    { "name": "Esencial", "price": 8, "highlight": "Libros legales · IVA · 1 usuario" },
-                    { "name": "Profesional", "price": 18, "highlight": "Centro Tributario · Retenciones · 3 usuarios" },
-                    { "name": "Avanzado", "price": 35, "highlight": "Gestión Fiscal · Conciliación · Auditoría · 5 usuarios" },
-                    { "name": "MAX", "price": 60, "highlight": "Dictamen CP · Blockchain · Multi-empresa · Ilimitados" }
-                ]
-            },
-            {
-                "name": "Asesoría Legal",
-                "description": "Documentos y gestión legal",
-                "features": ["Generador Sistematizado", "Contratos ilimitados", "Control de litigios", "Marco Legal VE"],
-                "tiers": [
-                    { "name": "Documentos", "price": 5, "highlight": "Generador de Docs · 10 docs/mes · Plantillas" },
-                    { "name": "Profesional", "price": 15, "highlight": "Contratos ilimitados · Marco Legal VE" },
-                    { "name": "Escritorio Jurídico", "price": 30, "highlight": "Litigios · Audiencias · Contratos · Gestión Legal" },
-                    { "name": "MAX", "price": 50, "highlight": "Due Diligence · Multi-empresa · Gestión avanzada" }
-                ]
-            },
-            {
-                "name": "Facturación",
-                "description": "Facturación fiscal SENIAT",
-                "features": ["Facturación SENIAT", "Punto de Venta POS", "Multi-sucursal", "Análisis comercial"],
-                "tiers": [
-                    { "name": "Inicio", "price": 6, "highlight": "50 facturas/mes · SENIAT · 1 sucursal" },
-                    { "name": "Comercial", "price": 15, "highlight": "300 facturas/mes · POS · Notas crédito/débito" },
-                    { "name": "Enterprise", "price": 30, "highlight": "Ilimitadas · Multi-sucursal · Pasarelas pago" },
-                    { "name": "MAX", "price": 50, "highlight": "Electrónica ilimitada · Multi-empresa · API" }
-                ]
-            },
-            {
-                "name": "Socios y Directivos",
-                "description": "Gobierno corporativo",
-                "features": ["Socios ilimitados", "Actas de asamblea", "Dividendos", "Reportes accionistas"],
-                "tiers": [
-                    { "name": "Básico", "price": 10, "highlight": "10 socios · Actas · Dividendos básico" },
-                    { "name": "Profesional", "price": 25, "highlight": "Socios ilimitados · Gobierno corporativo" },
-                    { "name": "Enterprise", "price": 45, "highlight": "Multi-empresa · Blockchain · Soporte dedicado" }
-                ]
-            }
-        ],
-        "explore": "Explorar Ecosistema",
-        "features": [
-            {
-                "title": "Contabilidad & Fiscal",
-                "subtitle": "VEN-NIF · SENIAT · ISLR",
-                "description": "Sistema contable completo con libros legales, plan de cuentas venezolano, cálculo automático de IVA 16%, IGTF 3% e ISLR. Compatible con Gaceta Oficial vigente.",
-                "badges": ["VEN-NIF", "SENIAT", "LOTTT", "BCV"]
-            },
-            {
-                "title": "Seguridad AES-256",
-                "subtitle": "Cifrado Militar · JWT · Auditoría",
-                "description": "Infraestructura de seguridad de grado bancario. Cifrado AES-256, autenticación JWT con cookies HTTP-only, y registro inmutable de cada acción.",
-                "badges": ["AES-256", "JWT", "HTTPS", "Auditoría"]
-            },
-            {
-                "title": "Automatización Fiscal",
-                "subtitle": "Gestión Avanzada · Análisis · Reportes",
-                "description": "Sistema de gestión fiscal optimizado. Monitorea la Gaceta Oficial, asistente contable especializado, análisis de flujo de caja, y generación automática de reportes ejecutivos.",
-                "badges": ["Automatización", "Precisión", "Reportes"]
-            }
-        ],
-        "modules": [
-            "Cuenta Personal",
-            "Mis Líneas",
-            "Asesoría Contable",
-            "Asesoría Legal",
-            "Facturación",
-            "Socios",
-            "Sostenibilidad"
-        ],
-        "platform_badge": "Plataforma en Cifras",
-        "platform_title": "Resultados que",
-        "platform_highlight": "hablan solos",
-        "platform_subtitle": "La infraestructura más robusta de Venezuela para gestión corporativa integral.",
-        "stat_modules": "Módulos Integrados",
-        "stat_encryption": "Cifrado Empresarial",
-        "stat_compliance": "Cumplimiento Fiscal",
-        "stat_support": "Soporte Técnico Activo",
-        "start_now": "Comenzar Ahora"
-    },
-    "BudgetConfigurator": {
-        "employees_label": "¿Cuántos empleados tiene tu empresa?",
-        "employees_unit": "empleados",
-        "modules_label": "¿Qué módulos necesitas?",
-        "module_mi_linea_personal": "Mi Línea Personal",
-        "module_mi_linea_juridica": "Mi Línea Jurídica",
-        "module_asesoria_contable": "Asesoría Contable",
-        "module_asesoria_legal": "Asesoría Legal",
-        "module_facturacion": "Facturación",
-        "module_socios_directivos": "Socios y Directivos",
-        "modules_selected": "módulos seleccionados",
-        "budget_label": "¿Cuál es tu presupuesto?",
-        "budget_low": "Económico",
-        "budget_medium": "Equilibrado",
-        "budget_high": "Premium",
-        "generate_button": "Generar Presupuesto",
-        "generating": "Calculando...",
-        "result_title": "Tu Presupuesto Personalizado",
-        "plan_label": "Plan",
-        "total_individual": "Total Módulos Individuales",
-        "combo_recommended": "Recomendación: Combo",
-        "combo_desc": "Todos los módulos incluidos con mejor precio",
-        "save": "Ahorras",
-        "start_combo": "Comenzar con Combo",
-        "start_individual": "Comenzar con Módulos"
-    },
-    "AboutUsSection": {
-        "badge": "Hecho en Venezuela",
-        "title_highlight": "Construido para",
-        "title_rest": "Venezuela",
-        "subtitle": "Ingeniería de software diseñada para la excelencia operativa y el cumplimiento normativo total.",
-        "stat_users": "Usuarios Registrados",
-        "stat_compliance": "Cumplimiento Fiscal",
-        "stat_companies": "Empresas Activas",
-        "feat_migration": "Migración en 48h",
-        "feat_bilingual": "Soporte Bilingüe",
-        "feat_multi": "Multi-empresa",
-        "feat_audit": "Auditoría Inmutable",
-        "join_cta": "Únete al Ecosistema"
-    },
-    "FaqSection": {
-        "badge": "Soporte",
-        "title_highlight": "Preguntas",
-        "title_rest": "Frecuentes",
-        "subtitle": "Las dudas más comunes sobre el ecosistema System Kyron.",
-        "view_more": "Ver más preguntas frecuentes",
-        "search_placeholder": "Buscar pregunta...",
-        "all_categories": "Todas",
-        "categories": {
-            "fiscal": "Fiscal",
-            "security": "Seguridad",
-            "general": "General",
-            "technical": "Técnico"
-        },
-        "items": [
-            {
-                "question": "¿Cómo garantizan el cumplimiento fiscal?",
-                "answer": "Monitoreamos la Gaceta Oficial mediante algoritmos de vigilancia normativa. IVA 16%, IGTF 3% e ISLR se calculan automáticamente según la normativa VEN-NIF vigente.",
-                "category": "fiscal"
-            },
-            {
-                "question": "¿Puedo gestionar varias empresas?",
-                "answer": "Sí. El portal de Socios permite consolidar la contabilidad de múltiples entidades en un Centro de Mando unificado.",
-                "category": "general"
-            },
-            {
-                "question": "¿Cómo funciona la tasa BCV?",
-                "answer": "Se actualiza automáticamente. Cada factura genera su equivalente en USD con la tasa BCV del momento.",
-                "category": "fiscal"
-            },
-            {
-                "question": "¿Es difícil migrar mis datos?",
-                "answer": "No. Para sistemas estándar (Excel, Profit, Mónica), la migración se completa en menos de 48 horas sin costo adicional.",
-                "category": "technical"
-            },
-            {
-                "question": "¿Qué nivel de seguridad tienen?",
-                "answer": "Cifrado AES-256, autenticación JWT con cookies HTTP-only, y registro de auditoría inmutable para cada acción.",
-                "category": "security"
-            }
-        ]
-    },
-    "CtaSection": {
-        "badge": "Acceso Prioritario",
-        "title_highlight": "¿Listo para",
-        "title_rest": "transformarte",
-        "subtitle": "Complete el formulario para solicitar su auditoría técnica personalizada.",
-        "check_1": "Registro 2 min",
-        "check_2": "Sin compromisos",
-        "check_3": "Soporte 24/7",
-        "form_title": "Solicitar Acceso",
-        "form_subtitle": "Registro de interés · System Kyron v2.8.5",
-        "field_name": "Nombre Completo",
-        "field_name_placeholder": "Tu nombre",
-        "field_role": "Cargo",
-        "field_role_placeholder": "Rol...",
-        "field_email": "Correo Electrónico",
-        "field_email_placeholder": "tu@correo.com",
-        "field_phone": "Teléfono",
-        "field_phone_placeholder": "0412...",
-        "field_company": "Empresa",
-        "field_company_placeholder": "Nombre de la empresa",
-        "field_size": "Tamaño",
-        "field_size_placeholder": "Empleados...",
-        "field_sector": "Sector",
-        "field_sector_placeholder": "Sector...",
-        "field_urgency": "Urgencia",
-        "field_urgency_placeholder": "Prioridad...",
-        "field_module": "Módulo de Interés",
-        "field_module_placeholder": "Seleccionar...",
-        "btn_submit": "SOLICITAR AUDITORÍA",
-        "btn_submitting": "TRANSMITIENDO...",
-        "guarantee_encryption": "Cifrado AES-256",
-        "guarantee_activation": "Activación Inmediata",
-        "guarantee_support": "Soporte 24/7",
-        "footer_text": "Cifrado AES-256 · 2026",
-        "toast_success_title": "TRANSMISIÓN COMPLETADA",
-        "toast_success_desc": "Expediente enviado a revisión. Un oficial de cuenta iniciará contacto.",
-        "toast_error_title": "FALLA DE PROTOCOLO",
-        "toast_error_desc": "No se pudo transmitir la solicitud.",
-        "roles": ["CEO / Dueño", "Gerente General", "Administrador", "Otros"],
-        "sectors": ["Comercio", "Servicios", "Manufactura", "Tecnología", "Construcción", "Salud", "Educación", "Transporte", "Agricultura", "Otro"],
-        "urgencies": ["Inmediata", "Esta semana", "Este mes", "Explorando opciones"],
-        "validation": {
-            "name_short": "El nombre es muy corto",
-            "role_required": "Especifica tu cargo",
-            "email_invalid": "Correo electrónico inválido",
-            "phone_invalid": "Número de teléfono inválido",
-            "company_short": "El nombre de la empresa es muy corto",
-            "size_required": "Selecciona el tamaño",
-            "sector_required": "Selecciona el sector",
-            "urgency_required": "Selecciona la urgencia",
-            "module_required": "Selecciona un módulo"
-        }
-    },
-    "Footer": {
-        "description": "Ingeniería de software de grado corporativo. Soluciones de misión crítica para el futuro de las finanzas y telecomunicaciones de Venezuela.",
-        "platform": "Plataforma",
-        "modules": "Módulos",
-        "contact": "Contacto",
-        "nav_home": "Inicio",
-        "nav_platform": "Plataforma",
-        "nav_services": "Servicios",
-        "nav_about": "Nosotros",
-        "nav_contact": "Contacto",
-        "module_list": [
-            "Contabilidad VEN-NIF", "RRHH & Nómina", "Mi Línea 5G / eSIM",
-            "Gestión Legal & Permisos", "Ameru Eco-Créditos", "Analítica Avanzada",
-            "Facturación SENIAT", "Tributos & Retenciones", "Dashboard Ejecutivo"
-        ],
-        "version_stable": "v2.8.5 — Estable",
-        "copyright": "System Kyron · EMPRENDIMIENTO CARLOS MATTAR · RIF: J-50832149-9",
-        "user_manual": "Manual de Usuario",
-        "download_brochure": "Descargar Folleto PDF",
-        "terms": "Términos",
-        "privacy": "Privacidad",
-        "location": "La Guaira, Venezuela"
-    },
-    "ScrollCinematic": {
-        "tagline": "System Kyron — Inteligencia Corporativa",
-        "line1": "Tu empresa.",
-        "line2": "Toda.",
-        "line3": "En un solo lugar.",
-        "subtitle": "Contabilidad, nóminas, facturación, 5G y mucho más — diseñado para Venezuela, con automatización integrada y cumplimiento fiscal automatizado.",
-        "highlights_subtitle": "Todo lo que tu empresa necesita",
-        "highlights_title": "Un ecosistema completo.",
-        "power_subtitle": "Poder sin precedentes",
-        "power_title": "Cifras que hablan por sí solas.",
-        "dashboard_subtitle": "Interfaz intuitiva",
-        "dashboard_title": "Un dashboard. Todo el control.",
-        "highlights": [
-            { "label": "Contabilidad & Fiscal", "desc": "IVA, IGTF e ISLR automáticos. Libros VEN-NIF y cumplimiento SENIAT en tiempo real.", "stat": "VEN-NIF", "statLabel": "Cumplimiento fiscal" },
-            { "label": "Mi Línea 5G", "desc": "Provisión de eSIM 5G, gestión de flota móvil empresarial y conectividad de alto rendimiento.", "stat": "5G", "statLabel": "Velocidad de red" },
-            { "label": "Automatización", "desc": "Motores de gestión avanzada. Automatiza reportes, documentos y análisis de datos.", "stat": "Elite", "statLabel": "Gestión Sistematizada" },
-            { "label": "Seguridad AES-256", "desc": "Cifrado de grado bancario, JWT HTTP-only y auditoría inmutable de cada operación.", "stat": "256", "statLabel": "Bits de cifrado" },
-            { "label": "RR.HH & Nómina", "desc": "Gestión LOTTT completa: nóminas, beneficios, vacaciones y liquidaciones en un clic.", "stat": "LOTTT", "statLabel": "Marco legal" },
-            { "label": "Facturación Fiscal", "desc": "Facturas y notas crédito/débito con validación IGTF y tasa BCV automática.", "stat": "3%", "statLabel": "IGTF automático" }
-        ],
-        "power_stats": [
-            { "value": "7", "label": "Módulos" },
-            { "value": "100%", "label": "Cumplimiento" },
-            { "value": "AES", "label": "256 bits" },
-            { "value": "VEN", "label": "Hecho aquí" }
-        ]
-    },
-    "LoadingScreen": {
-        "subtitle": "Inteligencia Corporativa"
-    },
-    "HowItWorksSection": {
-        "badge": "Gestión de Vanguardia",
-        "title_highlight": "Potenciado por",
-        "title_rest": "Motores de Datos",
-        "subtitle": "Interconectamos infraestructuras tecnológicas avanzadas para ofrecerte precisión absoluta en contabilidad, legal y análisis.",
-        "demo_label": "INTERACCIÓN EN TIEMPO REAL",
-        "cta": "Explorar Capacidades",
-        "capabilities": [
-            {
-                "title": "Centro Fiscal Especializado",
-                "description": "Análisis profundo de la Gaceta Oficial, leyes tributarias y cumplimiento SENIAT. Consultas técnicas resueltas con precisión.",
-                "demo_user": "¿Cuál es el límite de retención de ISLR para servicios profesionales según el Decreto 1.808?",
-                "demo_system": "Consultando Gaceta Oficial y Base Legal VEN-NIF...",
-                "demo_ai": "Para servicios profesionales pagados a personas naturales residentes, la retención es del 3% sobre el excedente de 83.33 UT. Si es persona jurídica domiciliada, es el 5% sobre el total abonado."
-            },
-            {
-                "title": "Generador de Documentos",
-                "description": "Crea contratos, actas de asamblea y poderes legales con validez jurídica. Redacción técnica impecable adaptada a la normativa civil.",
-                "demo_user": "Genera una cláusula de arbitraje para un contrato de servicios en Caracas.",
-                "demo_ai": "Cualquier controversia derivada de este contrato será resuelta mediante arbitraje de derecho, de conformidad con el Reglamento del Centro de Arbitraje de la Cámara de Caracas, por un (1) árbitro nombrado conforme a dicho Reglamento."
-            },
-            {
-                "title": "Análisis de Datos & Flujo",
-                "description": "Proyecciones financieras, detección de anomalías en transacciones y optimización de flujo de caja mediante algoritmos de análisis.",
-                "demo_ai": "He detectado una anomalía en la partida de 'Gastos Operativos'. Los pagos de servicios eléctricos han aumentado un 45% respecto al trimestre anterior sin un aumento correlativo en la producción. Recomiendo auditoría de consumo."
-            }
-        ]
-    },
-    "LoginPage": {
-        "back": "Inicio",
-        "badge": "Acceso Seguro · AES-256",
-        "title": "Selecciona tu",
-        "title_highlight": "Portal",
-        "subtitle": "Elige el módulo al que deseas acceder para gestionar tus operaciones.",
-        "e2e": "Cifrado E2E",
-        "biometrics": "Biometría",
-        "two_fa": "2FA Activo",
-        "uptime": "Alta Disponibilidad",
-        "citizen_portal": "Portal Ciudadano",
-        "corporate_portals": "Portales Corporativos",
-        "full_ecosystem": "Ecosistema Completo",
-        "ecosystem_desc": "Plataforma integral · Cumplimiento fiscal VEN-NIF",
-        "recover_account": "Recuperar cuenta",
-        "create_account": "Crear cuenta",
-        "footer": "System Kyron v2.8.5 · Infraestructura Segura · Venezuela",
-        "options": {
-            "personal": { "label": "Cuenta Personal", "description": "Acceso a sus documentos de identidad, trámites civiles y servicios de salud." },
-            "lines_personal": { "label": "Mi Línea Personal", "description": "Gestión de tu línea móvil, recargas, consumo 5G y eSIM individual." },
-            "lines_business": { "label": "Mi Línea Empresa", "description": "Control de flota corporativa, límites por empleado y facturación consolidada." },
-            "accounting": { "label": "Asesoría Contable", "description": "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo." },
-            "legal": { "label": "Asesoría Legal", "description": "Control de contratos, documentos legales y trámites ante registros." },
-            "invoicing": { "label": "Facturación", "description": "Punto de venta para cobros rápidos, control de inventario y ventas." },
-            "partners": { "label": "Socios y Directivos", "description": "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad." },
-            "sustainability": { "label": "Sostenibilidad", "description": "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente." },
-            "it": { "label": "Informática", "description": "Infraestructura, ciberseguridad, soporte técnico, licencias y respaldos." }
-        }
-    },
-    "RegisterPage": {
-        "options": {
-            "personal": { "label": "Cuenta Personal", "description": "Registro individual para ciudadanos. Accede al portal personal con tu cédula de identidad.", "badge": "Ciudadano" },
-            "telecom": { "label": "Mis Líneas", "description": "Registro para gestionar tus líneas telefónicas personales y flota empresarial.", "badge": "Telecom" },
-            "accounting": { "label": "Asesoría Contable", "description": "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo.", "badge": "Empresa" },
-            "legal": { "label": "Asesoría Legal", "description": "Registro para control de contratos, documentos legales y trámites ante registros.", "badge": "Legal" },
-            "invoicing": { "label": "Facturación", "description": "Acceso al punto de venta para cobros rápidos, control de inventario y ventas.", "badge": "Ventas" },
-            "partners": { "label": "Socios y Directivos", "description": "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad.", "badge": "Directivos" },
-            "sustainability": { "label": "Sostenibilidad", "description": "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente.", "badge": "Ambiental" }
-        }
-    },
-    "Auth": {
-        "login": "Iniciar Sesión",
-        "logout": "Cerrar Sesión",
-        "register": "Registrarse",
-        "email": "Correo Electrónico",
-        "password": "Contraseña",
-        "confirm_password": "Confirmar Contraseña",
-        "forgot_password": "¿Olvidaste tu clave?",
-        "no_account": "¿No tienes cuenta?",
-        "have_account": "¿Ya tienes cuenta?",
-        "access_portal": "Acceder al Portal",
-        "register_company": "Registrar Empresa",
-        "loading": "Cargando...",
-        "error_invalid": "Credenciales incorrectas. Verifica tu correo y contraseña.",
-        "error_connection": "Error de conexión. Por favor intenta de nuevo.",
-        "success_login": "Acceso concedido",
-        "success_register": "Cuenta creada exitosamente"
-    },
-    "Dashboard": {
-        "welcome": "Bienvenido",
-        "overview": "Resumen",
-        "notifications": "Notificaciones",
-        "settings": "Configuración",
-        "profile": "Perfil",
-        "help": "Ayuda",
-        "loading": "Cargando datos...",
-        "no_data": "Sin datos disponibles",
-        "update": "Actualizar",
-        "save": "Guardar",
-        "cancel": "Cancelar",
-        "confirm": "Confirmar",
-        "delete": "Eliminar",
-        "edit": "Editar",
-        "view": "Ver",
-        "export": "Exportar",
-        "import": "Importar",
-        "search": "Buscar",
-        "filter": "Filtrar",
-        "sort": "Ordenar",
-        "date": "Fecha",
-        "amount": "Monto",
-        "status": "Estatus",
-        "actions": "Acciones"
-    },
-    "Marketing": {
-        "title": "Dashboard de Inversión",
-        "subtitle": "Alertas en tiempo real • Análisis financiero",
-        "alerts_active": "Alertas Activas",
-        "buy_signals": "Señales de Compra",
-        "market_alerts": "Alertas de Mercado",
-        "company_analysis": "Análisis Financiero de la Empresa",
-        "payment_alternatives": "Alternativas de Pago y Crédito",
-        "monitor": "Monitorear",
-        "dismiss": "Descartar",
-        "request_financing": "Solicitar Financiamiento",
-        "update": "Actualizar",
-        "restore_alerts": "Restaurar Alertas",
-        "no_alerts": "No hay alertas activas",
-        "risk_notice": "Aviso de Riesgo",
-        "recommended": "Recomendado"
-    },
-    "LineaAccess": {
-        "title": "Selecciona tu Tipo de Acceso",
-        "subtitle": "Elige entre tu gestión de línea personal o la administración de flota corporativa.",
-        "personal_tag": "PERSONAL",
-        "corporate_tag": "CORPORATIVO",
-        "access": "Acceder",
-        "back": "Volver al Portal"
-    },
-    "LanguageSwitcher": {
-        "label": "Idioma",
-        "select": "Seleccionar idioma",
-        "current": "Idioma actual",
-        "available": "Idiomas disponibles"
-    },
-    "LiveStats": {
-        "topbar": "Impacto en Tiempo Real — System Kyron",
-        "live": "En Vivo",
-        "individuals": "Personas Registradas",
-        "companies": "Empresas Registradas",
-        "frameworks": "Marcos Legales Integrados",
-        "join": "Únete al Ecosistema",
-        "join_sub": "Registro gratuito · 2 minutos",
-        "modules": "Módulos Integrados",
-        "tables": "Tablas de Datos",
-        "compliance": "Cumplimiento Fiscal",
-        "bcv": "Tasa BCV en Vivo",
-        "ven_nif": "VEN-NIF Certificado",
-        "seniat": "Compatible SENIAT",
-        "igtf": "IGTF 3% Integrado",
-        "lottt": "LOTTT Automatizado",
-        "lopcymat": "LOPCYMAT Incluido",
-        "gazette": "Gaceta Oficial Al día"
-    },
-    "CommentsSection": {
-        "badge": "Comentarios Reales",
-        "title_prefix": "Lo que dicen",
-        "title_highlight": "nuestros usuarios",
-        "subtitle": "Opiniones verificadas de personas y empresas registradas",
-        "loading": "Cargando...",
-        "empty_title": "Sin comentarios aún",
-        "empty_subtitle": "Sé el primero en compartir tu experiencia con System Kyron.",
-        "leave_comment": "Dejar un Comentario",
-        "your_opinion": "Tu opinión",
-        "placeholder": "Comparte tu experiencia con System Kyron... (mínimo 10 caracteres)",
-        "cancel": "Cancelar",
-        "publishing": "Publicando...",
-        "publish": "Publicar",
-        "login_required": "Debes tener sesión iniciada para comentar",
-        "empresa": "Empresa",
-        "persona": "Persona",
-        "time_moment": "Hace un momento",
-        "time_min": "Hace {count} min",
-        "time_hours": "Hace {count}h",
-        "time_days": "Hace {count}d",
-        "toast_short_title": "Comentario muy corto",
-        "toast_short_desc": "Escribe al menos 10 caracteres.",
-        "toast_success_title": "Publicado",
-        "toast_success_desc": "Tu comentario ya es visible.",
-        "toast_error_title": "Error",
-        "toast_error_desc": "Error de conexión",
-        "toast_publish_error": "No se pudo publicar"
-    },
-    "WhyKyronSection": {
-        "badge": "Ventaja Competitiva",
-        "title_prefix": "¿Por qué elegir",
-        "title_highlight": "System Kyron",
-        "subtitle": "Diseñado desde cero para Venezuela. Sin adaptaciones genéricas, sin concesiones.",
-        "cta": "Comenzar Ahora",
-        "differentiators": [
-            { "title": "100% Venezolano", "description": "Diseñado para la normativa VEN-NIF, SENIAT, LOTTT y BCV. No es una adaptación genérica." },
             { "title": "Gestión de Datos", "description": "Algoritmos avanzados potencian análisis fiscal, generación de documentos y asistencia contable." },
             { "title": "Seguridad AES-256", "description": "Cifrado de grado bancario, JWT HTTP-only y registro de auditoría inmutable." },
             { "title": "Velocidad Superior", "description": "120ms de respuesta promedio. 3x más rápido que Odoo y 7x más que SAP." },
@@ -716,79 +215,104 @@
             "audit": { "label": "Auditoría", "desc": "Registro inmutable" }
         }
     },
-    "ModulesGridSection": {
-        "badge": "Módulos del Sistema",
-        "title_main": "Explora nuestros",
-        "title_highlight": "módulos",
-        "subtitle": "{count} módulos integrados bajo un solo ecosistema digital.",
-        "search_placeholder": "Buscar módulo...",
-        "explore_module": "Explorar módulo",
-        "modules_included": "{count} módulos incluidos",
-        "no_extra_costs": "Sin costos adicionales",
-        "show_more": "Ver {remaining} módulos más",
-        "show_less": "Ver menos",
-        "cta": "Comenzar Ahora",
+    "FaqSection": {
+        "badge": "Soporte",
+        "title_highlight": "Preguntas",
+        "title_rest": "Frecuentes",
+        "subtitle": "Las dudas más comunes sobre el ecosistema System Kyron.",
+        "view_more": "Ver más preguntas frecuentes",
+        "search_placeholder": "Buscar pregunta...",
+        "all_categories": "Todas",
         "categories": {
-            "all": "Todos",
-            "finance": "Finanzas",
-            "hr": "RRHH",
-            "legal": "Legal",
-            "ops": "Operaciones",
-            "tech": "Tecnología"
+            "fiscal": "Fiscal",
+            "security": "Seguridad",
+            "general": "General",
+            "technical": "Técnico"
         },
-        "modules": [
-            { "name": "Contabilidad VEN-NIF", "desc": "Libros digitales, IVA, ISLR e IGTF automatizados." },
-            { "name": "Facturación SENIAT", "desc": "Facturas, notas crédito/débito con sello fiscal." },
-            { "name": "RRHH & Nómina", "desc": "Nómina LOTTT, prestaciones, vacaciones y utilidades." },
-            { "name": "Gestión Legal", "desc": "Contratos, poderes, permisos y documentos legales." },
-            { "name": "Mi Línea 5G", "desc": "eSIM, flota corporativa, consumo y telemetría." },
-            { "name": "Asistencia Especializada", "desc": "Soporte técnico y fiscal de guardia 24/7." },
-            { "name": "Dashboard & Analítica", "desc": "KPIs en tiempo real y reportes ejecutivos." },
-            { "name": "Tributos", "desc": "IVA, ISLR, IGTF, parafiscales y calendario fiscal." },
-            { "name": "Seguridad", "desc": "AES-256, JWT, auditoría inmutable." },
-            { "name": "Eco-Créditos Ameru", "desc": "Clasificación de residuos y mercado de sostenibilidad." },
-            { "name": "Inventario", "desc": "Control de stock, entradas, salidas y alertas." },
-            { "name": "Punto de Venta", "desc": "Cobros rápidos, caja diaria y facturación directa." }
+        "items": [
+            {
+                "question": "¿Cómo garantizan el cumplimiento fiscal?",
+                "answer": "Monitoreamos la Gaceta Oficial mediante algoritmos de vigilancia normativa. IVA 16%, IGTF 3% e ISLR se calculan automáticamente según la normativa VEN-NIF vigente.",
+                "category": "fiscal"
+            },
+            {
+                "question": "¿Puedo gestionar varias empresas?",
+                "answer": "Sí. El portal de Socios permite consolidar la contabilidad de múltiples entidades en un Centro de Mando unificado.",
+                "category": "general"
+            },
+            {
+                "question": "¿Cómo funciona la tasa BCV?",
+                "answer": "El sistema se sincroniza cada hora con el API del Banco Central de Venezuela para asegurar que todas las facturas y presupuestos usen la tasa oficial.",
+                "category": "fiscal"
+            }
         ]
     },
-    "IntegrationsStrip": {
-        "badge": "Integraciones",
-        "title_highlight": "Conectado con",
-        "title_rest": "tu ecosistema",
-        "subtitle": "Bancos, pasarelas de pago, telecomunicaciones e IA — todo interconectado.",
-        "cat_banking": "Banca",
-        "cat_payments": "Pagos",
-        "cat_telecom": "Telecom",
-        "cat_tech": "Tecnología",
-        "cta": "Ver Todas las Integraciones"
+    "CTASection": {
+        "badge": "Empieza Hoy",
+        "title": "Lleva tu empresa al",
+        "highlight": "siguiente nivel",
+        "subtitle": "Únete a las empresas que ya están automatizando su futuro con System Kyron.",
+        "cta_primary": "Registrar mi Empresa",
+        "cta_secondary": "Hablar con un Especialista",
+        "guarantee_title": "Seguridad Garantizada",
+        "guarantee_desc": "Tus datos están protegidos por cifrado AES-256 y respaldos diarios inmutables.",
+        "guarantee_support": "Soporte 24/7",
+        "footer_text": "Cifrado AES-256 · 2026",
+        "toast_success_title": "TRANSMISIÓN COMPLETADA",
+        "toast_success_desc": "Expediente enviado a revisión. Un oficial de cuenta iniciará contacto.",
+        "toast_error_title": "FALLA DE PROTOCOLO",
+        "toast_error_desc": "No se pudo transmitir la solicitud.",
+        "roles": ["CEO / Dueño", "Gerente General", "Administrador", "Otros"],
+        "sectors": ["Comercio", "Servicios", "Manufactura", "Tecnología", "Construcción", "Salud", "Educación", "Transporte", "Agricultura", "Otro"],
+        "urgencies": ["Inmediata", "Esta semana", "Este mes", "Explorando opciones"],
+        "validation": {
+            "name_short": "El nombre es muy corto",
+            "role_required": "Especifica tu cargo",
+            "email_invalid": "Correo electrónico inválido",
+            "phone_invalid": "Número de teléfono inválido",
+            "company_short": "El nombre de la empresa es muy corto",
+            "size_required": "Selecciona el tamaño",
+            "sector_required": "Selecciona el sector",
+            "urgency_required": "Selecciona la urgencia",
+            "module_required": "Selecciona un módulo"
+        }
     },
-    "TrustNumbersBanner": {
-        "metrics": ["Automatizaciones", "Módulos Integrados", "Cifrado AES", "Cumplimiento Fiscal", "Marcos Legales"]
+    "AboutUsSection": {
+        "badge": "Hecho en Venezuela",
+        "title_highlight": "Construido para",
+        "title_rest": "Venezuela",
+        "subtitle": "Ingeniería de software diseñada para la excelencia operativa y el cumplimiento normativo total.",
+        "stat_users": "Usuarios Registrados",
+        "stat_compliance": "Cumplimiento Fiscal",
+        "stat_companies": "Empresas Activas",
+        "feat_migration": "Migración en 48h",
+        "feat_bilingual": "Soporte Bilingüe",
+        "feat_multi": "Multi-empresa",
+        "feat_audit": "Auditoría Inmutable",
+        "join_cta": "Únete al Ecosistema"
     },
-    "ShowcaseSection": {
-        "badge": "Interfaz en Acción",
-        "title_prefix": "Diseñado para",
-        "title_highlight": "impresionar",
-        "subtitle": "Cada pantalla está diseñada con precisión para ofrecer la mejor experiencia de usuario.",
-        "preview": "Vista previa",
-        "screenshots": [
-            { "title": "Portal de Acceso", "description": "Selección de módulos con seguridad AES-256 y autenticación biométrica." },
-            { "title": "Centro de Contabilidad", "description": "Dashboard contable con libros VEN-NIF, IVA e ISLR en tiempo real." },
-            { "title": "Registro Empresarial", "description": "Proceso de registro optimizado para empresas y personas naturales." },
-            { "title": "Guía de Usuario", "description": "Manual interactivo con tutoriales paso a paso para cada módulo." },
-            { "title": "Preguntas Frecuentes", "description": "Centro de ayuda inteligente con búsqueda por categorías." }
+    "Footer": {
+        "nav_home": "Inicio",
+        "nav_platform": "Plataforma",
+        "description": "El primer ecosistema de inteligencia corporativa diseñado para la realidad empresarial venezolana. Integración vertical de telecomunicaciones, gestión fiscal y blindaje legal.",
+        "status_online": "Sistemas Operativos",
+        "platform": "Ecosistema",
+        "modules": "Módulos",
+        "contact": "Contacto Directo",
+        "location": "Caracas, Venezuela",
+        "copyright": "System Kyron. Todos los derechos reservados.",
+        "user_manual": "Manual de Usuario",
+        "terms": "Términos de Servicio",
+        "privacy": "Privacidad",
+        "module_list": [
+            "Contabilidad VEN-NIF",
+            "Facturación SENIAT",
+            "Nómina LOTTT",
+            "Gestión Legal",
+            "Kyron 5G",
+            "Auditoría",
+            "Sostenibilidad",
+            "Analítica"
         ]
-    },
-    "PanelControlHero": {
-        "title": "Centro de Control",
-        "activate": "Acceder al Panel",
-        "activate_sub": "Módulos disponibles",
-        "tagline": "System Kyron v2.8.5 · Plataforma Inteligente",
-        "kpis": [
-            { "label": "Ingresos", "delta": "+0%" },
-            { "label": "Operaciones", "delta": "0 hoy" },
-            { "label": "Usuarios", "delta": "Activos" }
-        ],
-        "modules": ["Contabilidad", "RRHH", "Telecom", "Legal", "Sostenibilidad", "Analítica"]
     }
 }

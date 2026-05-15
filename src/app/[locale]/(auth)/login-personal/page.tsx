@@ -212,12 +212,13 @@ export default function LoginPersonalPage() {
             </div>
 
             <div className="relative z-10 space-y-12">
-                <div className="h-20 w-20 rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-3xl shadow-2xl group">
-                    <Fingerprint className="h-10 w-10 text-cyan-400 animate-kyron-breathe" />
+                <div className="h-20 w-20 rounded-[2.5rem] bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-3xl shadow-2xl group relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Logo className="h-12 w-12 relative z-10 drop-shadow-glow" />
                 </div>
                 <div className="space-y-4">
-                    <h1 className="text-5xl font-black tracking-tighter leading-[0.85] uppercase font-impact italic text-white">MI CUENTA<br/><span className="text-cyan-400">DIGITAL</span></h1>
-                    <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] font-tech">Identidad Blindada • Kyron Shield v2.8</p>
+                    <h1 className="text-5xl font-black tracking-tight leading-[0.9] uppercase font-outfit text-white">MI CUENTA<br/><span className="text-cyan-400">DIGITAL</span></h1>
+                    <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.4em] font-outfit">Identidad Blindada • Kyron Shield v2.8</p>
                 </div>
             </div>
 
@@ -248,7 +249,7 @@ export default function LoginPersonalPage() {
           {step === 'credentials' ? (
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <div className="mb-12">
-                <h2 className="text-4xl font-black tracking-tighter text-white uppercase italic font-impact leading-none mb-3 text-glow-cyan">Protocolo de Acceso</h2>
+                <h2 className="text-4xl font-black tracking-tight text-white uppercase font-outfit leading-none mb-3 text-glow-cyan">Protocolo de Acceso</h2>
                 <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">Autenticación de Ciudadanía Digital</p>
               </div>
 
@@ -398,8 +399,8 @@ export default function LoginPersonalPage() {
                     <div className="absolute inset-0 bg-blue-500/20 blur-xl animate-pulse" />
                     <KeyRound className="h-10 w-10 text-blue-400 relative z-10" />
                 </div>
-                <h2 className="text-4xl font-black tracking-tighter text-white uppercase italic font-impact mb-4">Verificación</h2>
-                <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] leading-relaxed">
+                <h2 className="text-4xl font-black tracking-tight text-white uppercase font-outfit mb-4">Verificación</h2>
+                <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] leading-relaxed">
                   {devCode ? 'Ingresa el código de desarrollo generado:' : <>Código enviado a <strong className="text-white">{maskedEmail || maskedPhone}</strong></>}
                 </p>
                 {countdown > 0 && (

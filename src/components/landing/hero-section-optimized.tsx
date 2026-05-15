@@ -2,12 +2,12 @@
 
 import { useTranslations } from 'next-intl';
 import { useRef, useEffect, useState } from 'react';
-import { Rocket, ArrowRight, Play, FileText } from 'lucide-react';
+import { Rocket, ArrowRight, Play, FileText, Zap } from 'lucide-react';
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-
 import Image from 'next/image';
+import { Logo } from '@/components/logo';
 
 // Helper componentes simples
 function RotatingWords({ words, interval = 3000 }: { words: string[], interval?: number }) {
@@ -56,17 +56,25 @@ export function HeroSectionOptimized() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Text column */}
             <div className="lg:col-span-7 text-center lg:text-left space-y-6">
-              <Link 
-                href="/login"
-                className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md hover:bg-amber-500/20 transition-all hover:scale-105 group"
-              >
-                <Rocket className="h-4 w-4 text-amber-400 group-hover:animate-bounce" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-200/80 group-hover:text-amber-100 transition-colors">{t('badge')}</span>
-              </Link>
+              <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 mb-8">
+                <div className="w-24 h-24 lg:w-32 lg:h-32 shrink-0 p-4 rounded-[2rem] bg-white/[0.03] border border-white/10 backdrop-blur-3xl shadow-2xl">
+                  <Logo className="w-full h-full" />
+                </div>
+                <div className="flex flex-col gap-3">
+                  <Link 
+                    href="/login"
+                    className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-md hover:bg-emerald-500/20 transition-all hover:scale-105 group"
+                  >
+                    <Zap className="h-4 w-4 text-emerald-400 group-hover:animate-pulse" />
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-200/80 group-hover:text-emerald-100 transition-colors">SaaS INTEGRADO V2.8</span>
+                  </Link>
+                  <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20 pl-1">Protocolo de Confianza</p>
+                </div>
+              </div>
               <h1 className="text-[clamp(2.2rem,7vw,5rem)] font-black leading-tight text-white">
                 <span className="block mb-2">{t('title_line1')}</span>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400">{t('title_line2')}</span>
-                <div className="text-slate-100/30 italic mt-2"><RotatingWords words={rotatingTexts} interval={3500} /></div>
+                <div className="text-slate-100/30 font-outfit mt-2 uppercase tracking-[0.2em]"><RotatingWords words={rotatingTexts} interval={3500} /></div>
               </h1>
               <p className="text-lg text-slate-100/65 max-w-2xl mx-auto lg:ml-0 font-medium">{t('subtitle')}</p>
               <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
@@ -83,7 +91,7 @@ export function HeroSectionOptimized() {
               <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl glass-system-kyron-interactive p-2 aspect-[4/3] lg:aspect-auto">
                 <Image 
-                  src="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1000&auto=format&fit=crop" 
+                  src="/images/landing/hero-dashboard-dark.jpg" 
                   alt="System Kyron Interface" 
                   fill
                   priority

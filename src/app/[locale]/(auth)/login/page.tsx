@@ -97,13 +97,13 @@ export default function LoginSelectionPage() {
             >
                 <Lock className="h-3 w-3" /> {t('badge')}
             </motion.div>
-            <h1 className="text-[clamp(2.5rem,8vw,6rem)] font-black tracking-[-0.05em] leading-[0.85] text-white uppercase italic font-impact">
+            <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] font-black tracking-tight leading-[0.9] text-white uppercase font-outfit">
                 {t('title')}<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-emerald-400 text-glow-cyan">
                     {t('title_highlight')}
                 </span>
             </h1>
-            <p className="text-xs font-bold text-white/30 max-w-xl mx-auto uppercase tracking-[0.3em] font-tech">
+            <p className="text-[10px] font-bold text-white/40 max-w-xl mx-auto uppercase tracking-[0.4em] font-outfit">
                 {t('subtitle')}
             </p>
           </div>
@@ -136,8 +136,8 @@ export default function LoginSelectionPage() {
                                         {navigatingTo === o.href ? <Loader2 className="h-7 w-7 animate-spin" /> : <o.icon className="h-7 w-7" />}
                                     </div>
                                     <div className="flex-1 space-y-1">
-                                        <h3 className="text-2xl font-black text-white tracking-tighter uppercase italic group-hover:text-cyan-400 transition-colors">{t(`options.${o.key}.label`)}</h3>
-                                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest leading-relaxed line-clamp-1">{t(`options.${o.key}.description`)}</p>
+                                        <h3 className="text-2xl font-black text-white tracking-tighter uppercase group-hover:text-cyan-400 transition-colors">{t(`options.${o.key}.label`)}</h3>
+                                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.4em] leading-relaxed line-clamp-1">{t(`options.${o.key}.description`)}</p>
                                     </div>
                                     <div className="h-12 w-12 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-cyan-500/30 group-hover:bg-cyan-500/10 transition-all">
                                         <ArrowRight className="h-5 w-5 text-white/20 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
@@ -198,11 +198,11 @@ export default function LoginSelectionPage() {
                                 <Sparkles className="h-8 w-8 text-primary animate-pulse" />
                             </div>
                             <div>
-                                <h4 className="text-xl font-black text-white uppercase tracking-tighter italic">{t('full_ecosystem')}</h4>
-                                <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] mt-1">{t('ecosystem_desc')}</p>
+                                <h4 className="text-xl font-black text-white uppercase tracking-tighter font-outfit">{t('full_ecosystem')}</h4>
+                                <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] mt-1">{t('ecosystem_desc')}</p>
                             </div>
                         </div>
-                        <Button asChild className="h-14 px-10 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] bg-white text-black hover:bg-cyan-400 transition-all hover:scale-105 active:scale-95 italic shadow-[0_20px_40px_rgba(255,255,255,0.1)]">
+                        <Button asChild className="h-14 px-10 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] bg-white text-black hover:bg-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-[0_20px_40px_rgba(255,255,255,0.1)]">
                             <Link href="/register">Crear Cuenta <ArrowRight className="ml-3 h-4 w-4" /></Link>
                         </Button>
                     </div>

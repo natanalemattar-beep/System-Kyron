@@ -28,11 +28,11 @@
     },
 
     "HeroSection": {
-        "title_line1": "¿Problemas con",
-        "title_line2": "tus líneas o",
-        "title_line3": "tu empresa?",
-        "slogan": "Deja de tener todo regado y separado",
-        "subtitle": "¿Cansado de perder tiempo con mil programas que no se hablan entre sí? Automatiza tu contabilidad, nómina y facturación en un solo sitio. Ingeniería de software que de verdad resuelve, 100% venezolana.",
+        "title_line1": "Tu Empresa,",
+        "title_line2": "Automatizada,",
+        "title_line3": "Sin Límites.",
+        "slogan": "System Kyron: El Ecosistema Definitivo para la Empresa Moderna.",
+        "subtitle": "Unificamos Contabilidad VEN-NIF, Nómina LOTTT, Facturación SENIAT y Conectividad 5G en una sola infraestructura blindada. Ingeniería de software 100% venezolana para el éxito global.",
 
         "badge": "Plataforma Empresarial Integral",
         "cta_main": "Comenzar Ahora",
@@ -294,6 +294,11 @@
                 "name": "Socios y Directivos",
                 "description": "Gobierno corporativo y accionistas",
                 "features": ["Desde $10/mes", "Actas de asambleas", "Dividendos", "Flujo de aprobaciones"]
+            },
+            {
+                "name": "Hardware Fiscal (Opcional)",
+                "description": "Equipos certificados para tu local físico",
+                "features": ["Desde $350 (Aproximado)", "Inversión única", "Cajas registradoras", "Impresoras SENIAT"]
             }
         ],
         "plans": [
@@ -591,7 +596,7 @@
     },
 
     "Footer": {
-        "description": "System Kyron es el ecosistema empresarial definitivo para Venezuela. Ingeniería de software de grado corporativo que unifica Contabilidad VEN-NIF, Gestión Legal & SAPI, RRHH, Facturación SENIAT, Telecomunicaciones 5G e Gestión Corporativa Unificada en una sola plataforma de misión crítica.",
+        "description": "System Kyron: El Ecosistema Definitivo para la Empresa Moderna. Unificamos Contabilidad VEN-NIF, Nómina LOTTT, Facturación SENIAT, Conectividad 5G y Gestión Legal en una sola infraestructura de misión crítica. El ADN de la Empresa Digital.",
         "platform": "Plataforma",
         "modules": "Módulos",
         "contact": "Contacto",
