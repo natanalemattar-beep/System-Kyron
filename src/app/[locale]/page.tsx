@@ -15,9 +15,9 @@ const Footer            = dynamic(() => import('@/components/landing/footer').th
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-screen selection:bg-primary/20 w-full bg-transparent">
+    <div className="relative min-h-screen selection:bg-cyan-500/30 w-full bg-[#030712] text-white font-outfit">
       <LandingClientWrapper>
-        <main className="w-full bg-[#03050a]">
+        <main className="w-full">
 
           {/* 1. Hero — El gancho principal (SSR) */}
           <div id="inicio">

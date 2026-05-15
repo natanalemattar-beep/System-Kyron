@@ -5,8 +5,9 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { KYRON_SYSTEM_PROMPT } from "@/lib/ai-context";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+const modelName = "gemini-2.0-flash-exp";
 const model = genAI.getGenerativeModel({ 
-    model: "gemini-1.5-flash",
+    model: modelName,
     systemInstruction: KYRON_SYSTEM_PROMPT
 });
 

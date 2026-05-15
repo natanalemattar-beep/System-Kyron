@@ -18,7 +18,6 @@
         "mobile_portal": "Portal Kyron",
         "contact": "Contacto",
         "pricing": "Planes",
-        "presentation": "Presentación Final",
         "summary": "Resumen Ejecutivo",
         "pitch": "Pitch",
         "connectivity_title": "Conectividad",
@@ -30,9 +29,9 @@
         "encryption_active": "Cifrado AES-256 Activo"
     },
     "DemoBanner": {
-        "message": "⚠️ Plataforma en desarrollo · Precios mostrados son de prueba y NO son los precios finales · Pueden ocurrir cambios sin previo aviso.",
+        "message": "🚀 Ecosistema Digital Kyron · Candidato Finalista Reto Inspira 2026 · Protocolos de misión crítica activos.",
         "cta": "Acceder Sistema",
-        "dismiss": "Cerrar banner"
+        "dismiss": "Cerrar"
     },
 
     "HeroSection": {
@@ -202,7 +201,10 @@
         "free": "Gratis",
         "per_month": "/mes",
         "cta_start": "Comenzar",
+        "cta_register_free": "Registrarse gratis",
+        "cta_activate_free": "Activar gratis",
         "cta_select_plan": "Elegir Plan",
+        "cta_try_free": "Probar gratis",
         "linea_note": "Las líneas se activan en un plazo de 24-48 horas hábiles tras la verificación de documentos.",
         "seniat_certified": "Certificado SENIAT",
         "one_time_payment": "Pago Único",
@@ -244,6 +246,11 @@
                 "name": "Mi Línea 5G",
                 "desc": "Gestión de líneas móviles, recargas y eSIM."
             },
+            "milinea_corp": {
+                "name": "Mi Línea Empresa",
+                "desc": "Control de flota corporativa, límites por empleado y facturación consolidada 5G.",
+                "tag": "EMPRESRIAL"
+            },
             "tpv": {
                 "name": "Facturación",
                 "desc": "Punto de venta fiscal, inventario y presupuestos."
@@ -259,16 +266,22 @@
             }
         },
         "planes_5g": {
-            "basico": { "name": "Básico", "datos": "2 GB", "min": "100", "sms": "50" },
-            "plus": { "name": "Plus", "datos": "10 GB", "min": "500", "sms": "200" },
-            "pro": { "name": "Pro", "datos": "25 GB", "min": "1000", "sms": "500" },
-            "empresarial": { "name": "Empresarial", "datos": "50 GB", "min": "3000", "sms": "1000" },
-            "ilimitado": { "name": "Ilimitado", "datos": "Unlim.", "min": "Unlim.", "sms": "Unlim." }
+            "basico": { "name": "Básico", "datos": "4 GB", "min": "Ilimitado", "sms": "Ilimitado" },
+            "estandar": { "name": "Estándar", "datos": "6 GB", "min": "Ilimitado", "sms": "Ilimitado" },
+            "plus": { "name": "Plus", "datos": "10 GB", "min": "Ilimitado", "sms": "Ilimitado" },
+            "pro": { "name": "Pro", "datos": "25 GB", "min": "Ilimitado", "sms": "Ilimitado" },
+            "ilimitado": { "name": "Ilimitado", "datos": "Ilimitado", "min": "Ilimitado", "sms": "Ilimitado" }
+        },
+        "planes_5g_corp": {
+            "startup": { "name": "Startup", "datos": "10 GB", "min": "Ilimitado", "sms": "Ilimitado" },
+            "negocio": { "name": "Negocio", "datos": "25 GB", "min": "Ilimitado", "sms": "Ilimitado" },
+            "corporativo": { "name": "Corporativo", "datos": "30 GB", "min": "Ilimitado", "sms": "Ilimitado" },
+            "ilimitado_corp": { "name": "Ilimitado Empresarial", "datos": "Ilimitado", "min": "Ilimitado", "sms": "Ilimitado" }
         },
         "hardware": {
-            "caja": { "name": "Caja Registradora", "desc": "Equipo fiscal homologado SENIAT para alta rotación." },
+            "caja": { "name": "Caja Auto-Pago", "desc": "Equipo fiscal homologado SENIAT para alta rotación." },
             "impresora": { "name": "Impresora Fiscal", "desc": "Conectividad USB/Red para sistemas de facturación." },
-            "kit": { "name": "Kit Punto de Venta", "desc": "Caja + Impresora + Gaveta + Lector de barras." }
+            "kit": { "name": "Kit TPV Completo", "desc": "Caja + Impresora + Gaveta + Lector de barras." }
         },
         "combos": {
             "solo": {

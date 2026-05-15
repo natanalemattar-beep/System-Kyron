@@ -3,18 +3,23 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { KYRON_SYSTEM_PROMPT } from "@/lib/ai-context";
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY || "");
-const model = genAI.getGenerativeModel({ 
-    model: "gemini-1.5-flash",
-    generationConfig: {
-        temperature: 0.7,
-        topP: 0.8,
-        topK: 40,
-        maxOutputTokens: 1024,
-    }
-});
+const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY || "";
+const genAI = new GoogleGenerativeAI(apiKey);
+let model: ReturnType<typeof genAI.getGenerativeModel> | null = null;
+if (apiKey) {
+    model = genAI.getGenerativeModel({ 
+        model: "gemini-1.5-flash",
+        generationConfig: {
+            temperature: 0.7,
+            topP: 0.8,
+            topK: 40,
+            maxOutputTokens: 1024,
+        }
+    });
+}
 
 export async function chatWithKyron(messages: { role: string; content: string }[]) {
+    if (!model) return { error: "La IA de Kyron no está configurada. Agrega GEMINI_API_KEY en las variables de entorno." };
     try {
         const chat = model.startChat({
             history: messages.slice(0, -1).map(m => ({
@@ -35,6 +40,7 @@ export async function chatWithKyron(messages: { role: string; content: string }[
 }
 
 export async function generateEngineeringInsights(params: any) {
+    if (!model) return "La IA de Kyron no está configurada. Agrega GEMINI_API_KEY en las variables de entorno.";
     try {
         const prompt = `
             Actúa como el Ingeniero Jefe de Kyron. 

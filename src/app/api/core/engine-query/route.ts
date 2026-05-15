@@ -34,13 +34,13 @@ export async function POST(req: NextRequest) {
     }
 
     const lastMessage = messages[messages.length - 1].content;
-    const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+    const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY;
 
     // 1. Lógica con Gemini
     if (apiKey) {
       try {
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         if (stream) {
           // Versión Streaming

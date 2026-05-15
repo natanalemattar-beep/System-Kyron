@@ -7,7 +7,8 @@ import { Label } from '@/components/ui/label';
 import {
   Loader2, User, ChevronLeft, Fingerprint, ShieldCheck, UserPlus, Shield,
   Eye, EyeOff, CircleCheck, ArrowRight, TriangleAlert, Mail, Lock,
-  KeyRound, RotateCcw, Scan, Sparkles, Smartphone, MessageSquare, MessageCircle
+  KeyRound, RotateCcw, Scan, Sparkles, Smartphone, MessageSquare, MessageCircle,
+  Cpu
 } from 'lucide-react';
 import { useRouter, Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
@@ -184,8 +185,8 @@ export default function LoginPersonalPage() {
     <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden bg-[#02040a]">
       {/* Background HUD / Digital Vault */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 blur-[150px] rounded-full animate-pulse-slow" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-600/5 blur-[150px] rounded-full animate-pulse" />
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 blur-[150px] rounded-full" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-600/5 blur-[150px] rounded-full" />
         <div className="absolute inset-0 bg-[url('/images/grid-bg.png')] opacity-[0.02] mix-blend-overlay" />
       </div>
 

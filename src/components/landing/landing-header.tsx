@@ -87,9 +87,9 @@ export function LandingHeader() {
             transition={{ type: 'spring', stiffness: 300, damping: 35 }}
         >
             <div className={cn(
-                "mx-auto px-4 transition-all duration-500",
+                "mx-auto px-4 transition-all duration-700",
                 isScrolled
-                    ? "max-w-[1400px] rounded-[2.5rem] border border-black/5 dark:border-white/10 bg-white/70 dark:bg-[#060a14]/85 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+                    ? "max-w-[1400px] rounded-[3rem] border border-white/10 bg-[#060a14]/60 backdrop-blur-3xl shadow-2xl"
                     : "max-w-full px-6 md:px-12"
             )}>
                 {/* Scroll progress bar */}
@@ -109,54 +109,54 @@ export function LandingHeader() {
                             <div className="absolute -inset-2 bg-cyan-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
                         <div className="flex flex-col leading-none">
-                            <span className="text-[14px] font-black tracking-[0.15em] uppercase text-slate-900 dark:text-white transition-colors">
-                                System <span className="text-cyan-600 dark:text-cyan-400">Kyron</span>
+                            <span className="text-[16px] font-black tracking-tighter uppercase text-white transition-colors italic">
+                                System <span className="text-glow-cyan not-italic">Kyron</span>
                             </span>
                         </div>
                     </Link>
 
                     {/* Desktop Navigation (Premium Glass) */}
                     <nav className="hidden lg:flex items-center gap-2 flex-1 justify-center">
-                        <div className="flex items-center gap-1 p-1.5 bg-black/[0.03] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 rounded-2xl backdrop-blur-md transition-colors">
+                        <div className="flex items-center gap-2 p-2 bg-white/[0.03] border border-white/5 rounded-[1.5rem] backdrop-blur-3xl">
                             {navItems.map((item) => (
                                 <Link
                                     key={item.labelKey}
                                     href={item.href}
                                     onClick={(e) => handleAnchorClick(e, item.href)}
-                                    className="px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white transition-all duration-300 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 relative group"
+                                    className="px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-white transition-all duration-500 rounded-xl hover:bg-white/5 relative group"
                                 >
                                     {t(item.labelKey)}
                                     <motion.span 
-                                        className="absolute bottom-1 left-5 right-5 h-[1.5px] bg-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" 
+                                        className="absolute bottom-1.5 left-6 right-6 h-[2px] bg-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" 
                                     />
                                 </Link>
                             ))}
 
                             <DropdownMenu>
-                                <DropdownMenuTrigger className="flex items-center gap-2 px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white transition-all duration-300 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 outline-none">
+                                <DropdownMenuTrigger className="flex items-center gap-3 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-white transition-all duration-500 rounded-xl hover:bg-white/5 outline-none group">
                                     {t('solutions')}
-                                    <ChevronDown className="h-3 w-3 opacity-30 group-data-[state=open]:rotate-180 transition-transform" />
+                                    <ChevronDown className="h-3.5 w-3.5 opacity-30 group-data-[state=open]:rotate-180 transition-transform" />
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="center" className="w-80 p-3 rounded-[2rem] border border-black/[0.08] dark:border-white/[0.08] bg-white/95 dark:bg-[#0c1120]/95 backdrop-blur-3xl shadow-2xl mt-4 space-y-1">
-                                    <DropdownMenuItem className="rounded-2xl p-3 flex items-center gap-4 hover:bg-slate-100 dark:hover:bg-white/5 transition-all group cursor-pointer">
-                                        <div className="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                                            <Cpu className="h-5 w-5" />
+                                <DropdownMenuContent align="center" className="w-80 p-4 rounded-[2.5rem] border border-white/10 bg-[#0c1120]/95 backdrop-blur-3xl shadow-2xl mt-6 space-y-1">
+                                    <DropdownMenuItem className="rounded-[1.5rem] p-4 flex items-center gap-5 hover:bg-white/5 transition-all group cursor-pointer border border-transparent hover:border-white/5">
+                                        <div className="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                                            <Cpu className="h-6 w-6" />
                                         </div>
                                         <div>
-                                            <p className="text-sm font-black uppercase tracking-tight text-slate-900 dark:text-white">{t('connectivity_title')}</p>
-                                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{t('connectivity_desc')}</p>
+                                            <p className="text-sm font-black uppercase tracking-tight text-white">{t('connectivity_title')}</p>
+                                            <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest">{t('connectivity_desc')}</p>
                                         </div>
-                                        <ArrowRight className="h-4 w-4 ml-auto text-zinc-800 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+                                        <ArrowRight className="h-5 w-5 ml-auto text-white/20 group-hover:text-cyan-400 group-hover:translate-x-2 transition-all" />
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem className="rounded-2xl p-3 flex items-center gap-4 hover:bg-slate-100 dark:hover:bg-white/5 transition-all group cursor-pointer">
-                                        <div className="h-10 w-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-                                            <ShieldCheck className="h-5 w-5" />
+                                    <DropdownMenuItem className="rounded-[1.5rem] p-4 flex items-center gap-5 hover:bg-white/5 transition-all group cursor-pointer border border-transparent hover:border-white/5">
+                                        <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                                            <ShieldCheck className="h-6 w-6" />
                                         </div>
                                         <div>
-                                            <p className="text-sm font-black uppercase tracking-tight text-slate-900 dark:text-white">{t('legal_title')}</p>
-                                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{t('legal_desc')}</p>
+                                            <p className="text-sm font-black uppercase tracking-tight text-white">{t('legal_title')}</p>
+                                            <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest">{t('legal_desc')}</p>
                                         </div>
-                                        <ArrowRight className="h-4 w-4 ml-auto text-zinc-800 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
+                                        <ArrowRight className="h-5 w-5 ml-auto text-white/20 group-hover:text-emerald-400 group-hover:translate-x-2 transition-all" />
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
@@ -195,9 +195,9 @@ export function LandingHeader() {
                                 </Button>
                             </Link>
                             <Link href="/register">
-                                <Button className="text-[11px] font-black uppercase tracking-[0.25em] bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-zinc-200 text-white dark:text-black rounded-2xl px-10 h-11 shadow-[0_15px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_15px_30px_rgba(255,255,255,0.15)] transition-all active:scale-95 group border-none">
+                                <Button className="text-[11px] font-black uppercase tracking-[0.3em] bg-white hover:bg-cyan-50 text-black rounded-2xl px-10 h-12 shadow-2xl shadow-white/10 transition-all active:scale-95 group border-none">
                                     {t('register')}
-                                    <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
+                                    <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-2 transition-transform" />
                                 </Button>
                             </Link>
                         </div>

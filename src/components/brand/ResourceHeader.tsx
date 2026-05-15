@@ -54,7 +54,7 @@ export function ResourceHeader() {
                 <nav className="flex items-center gap-1 relative">
                     {navItems.map((item) => {
                         const Icon = item.icon;
-                        const isActive = pathname === item.href || (item.href !== '/brand-kit' && pathname.includes(item.href));
+                        const isActive = pathname === item.href || (item.href !== '/brand-kit' && (pathname === item.href || pathname.startsWith(item.href + '/')));
                         
                         return (
                             <Link

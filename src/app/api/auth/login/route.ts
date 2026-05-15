@@ -224,7 +224,7 @@ export async function POST(req: NextRequest) {
 
         const challengeToken = createLoginChallenge(user.email, user.id);
 
-        const isDev = process.env.NODE_ENV === 'development';
+        const isDev = process.env.NODE_ENV === 'development' || !!process.env.NEXT_PUBLIC_DEV_CODE;
 
         if (emailResult && !emailResult.success) {
             console.error('[login] Verification email failed:', emailResult.error);
@@ -264,6 +264,7 @@ export async function POST(req: NextRequest) {
             hasPhone,
             maskedPhone,
             challengeToken,
+            ...(isDev ? { devCode: code } : {}),
         });
     } catch (err: any) {
         console.error('CRITICAL LOGIN ERROR:', {

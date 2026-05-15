@@ -62,20 +62,18 @@ function SectionTitle({ badge, title, highlight, subtitle }: {
   badge: string; title: string; highlight?: string; subtitle: string;
 }) {
   return (
-    <div className="text-center mb-16 md:mb-20">
-      <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 dark:bg-emerald-500/5 backdrop-blur-sm mb-6 mx-auto transition-transform hover:scale-105 duration-500">
-        <Sparkles className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-700 dark:text-emerald-200/60 transition-colors">{badge}</span>
+    <div className="text-center mb-24 md:mb-32 space-y-8">
+      <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-3xl mx-auto shadow-2xl">
+        <Sparkles className="h-4 w-4 text-cyan-400" />
+        <span className="text-[10px] font-black uppercase tracking-[0.5em] text-cyan-200/60">{badge}</span>
       </div>
-      <h3 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4 leading-none transition-colors">
-        {title}{' '}
+      <h3 className="text-[clamp(2.5rem,6vw,4.5rem)] font-black text-white leading-[0.9] tracking-tighter uppercase italic">
+        {title}<br/>
         {highlight && (
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-cyan-600 dark:from-emerald-400 dark:to-cyan-400 block sm:inline mt-2 sm:mt-0 drop-shadow-sm">
-            {highlight}
-          </span>
+          <span className="text-glow-cyan not-italic">{highlight}</span>
         )}
       </h3>
-      <p className="text-base md:text-lg text-slate-500 dark:text-white/30 font-medium max-w-xl mx-auto leading-relaxed transition-colors">{subtitle}</p>
+      <p className="text-xl text-white/30 font-medium max-w-2xl mx-auto leading-relaxed font-outfit">{subtitle}</p>
     </div>
   );
 }
@@ -138,75 +136,106 @@ function PricingGraphs({ t }: { t: any }) {
 
 function ModuleCard({ id, mod, index, t }: { id: string; mod: any; index: number; t: any }) {
   const Icon = ICONS[id] || Shield;
-  const precio = id === 'personal' || id === 'sostenibilidad' ? null : (id === 'contable' ? 45 : (id === 'legal' ? 45 : (id === 'tpv' ? 15 : (id === 'socios' ? 190 : (id === 'milinea' ? 15 : 10)))));
-  const isFree = precio === null;
-  const isPopular = id === 'contable';
-
-  const colorClasses: Record<string, string> = {
-    personal: 'from-emerald-500/15 to-teal-500/10',
-    milinea: 'from-cyan-500/15 to-blue-500/10',
-    milinea_corp: 'from-blue-600/15 to-indigo-600/10',
-    contable: 'from-blue-500/15 to-indigo-500/10',
-    legal: 'from-amber-500/15 to-orange-500/10',
-    tpv: 'from-violet-500/15 to-purple-500/10',
-    socios: 'from-rose-500/15 to-pink-500/10',
-    sostenibilidad: 'from-green-500/15 to-lime-500/10',
+  
+  // Official Pricing Logic 2026
+  const PRECIOS: Record<string, number | null> = {
+    personal: null,
+    sostenibilidad: null,
+    contable: 39.99,
+    legal: 14.99,
+    socios: 24.99,
+    tpv: 0, // Included with hardware or other modules
+    milinea: 6.99, // Starting price
+    milinea_corp: 9.99, // Starting price
   };
+
+  const precio = PRECIOS[id] ?? 0;
+  const isFree = id === 'personal' || id === 'sostenibilidad';
+  const isIncluded = id === 'tpv';
 
   const acentoClasses: Record<string, string> = {
     personal: 'text-emerald-400',
     milinea: 'text-cyan-400',
     milinea_corp: 'text-blue-400',
-    contable: 'text-blue-400',
+    contable: 'text-cyan-400',
     legal: 'text-amber-400',
     tpv: 'text-violet-400',
     socios: 'text-rose-400',
-    sostenibilidad: 'text-green-400',
+    sostenibilidad: 'text-emerald-400',
+  };
+
+  const glowClasses: Record<string, string> = {
+    contable: 'shadow-[0_0_40px_rgba(34,211,238,0.1)] border-cyan-500/30',
+    personal: 'shadow-[0_0_40px_rgba(16,185,129,0.05)]',
   };
 
   return (
     <ScrollReveal
       delay={index * 0.08}
       className={cn(
-        'relative group p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 h-full rounded-[2.5rem]',
-        'border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]',
-        'hover:shadow-2xl transition-all'
+        'relative group p-10 flex flex-col transition-all duration-700 hover:-translate-y-3 h-full rounded-[3rem] overflow-hidden',
+        'bg-white/[0.02] border border-white/10 backdrop-blur-3xl',
+        glowClasses[id] || 'hover:border-white/20'
       )}
     >
+      {/* Decorative HUD Corner */}
+      <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none">
+        <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-white/10 group-hover:bg-cyan-400 transition-colors" />
+        <div className="absolute top-4 right-8 w-4 h-[1px] bg-white/5" />
+      </div>
 
-      <div className="flex items-start justify-between mb-8">
-        <div className={cn('h-16 w-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm', 
-          'bg-white dark:bg-white/5 border border-black/5 dark:border-white/10'
+      <div className="flex items-start justify-between mb-12">
+        <div className={cn('h-16 w-16 rounded-[1.5rem] flex items-center justify-center transition-all duration-700 group-hover:scale-110 group-hover:rotate-6', 
+          'bg-white/5 border border-white/10 group-hover:bg-white/10'
         )}>
-          <Icon className={cn('h-7 w-7', acentoClasses[id])} />
+          <Icon className={cn('h-8 w-8', acentoClasses[id])} />
         </div>
         {isFree ? (
-          <span className="px-4 py-1.5 bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full transition-colors">
-            {t('free')}
+          <div className="flex flex-col items-end">
+            <span className="px-5 py-2.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[11px] font-black uppercase tracking-[0.4em] rounded-2xl shadow-lg">
+              {t('free')}
+            </span>
+            <span className="text-[9px] text-emerald-400/50 font-black uppercase tracking-[0.3em] mt-3 italic animate-kyron-breathe">Siempre gratis</span>
+          </div>
+        ) : isIncluded ? (
+          <span className="px-5 py-2.5 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[11px] font-black uppercase tracking-[0.4em] rounded-2xl">
+            INCLUIDO
           </span>
         ) : (
           <div className="text-right">
-            <span className="text-4xl font-black text-slate-900 dark:text-white leading-none transition-colors">${precio}</span>
-            <span className="text-[10px] text-slate-400 dark:text-white/30 font-black uppercase tracking-widest block mt-2 transition-colors">{t('per_month')}</span>
+            <div className="flex items-baseline justify-end gap-1">
+                <span className="text-xs font-black text-white/20 mr-1">$</span>
+                <span className="text-5xl md:text-[clamp(2.5rem,5vw,3.5rem)] font-black text-white leading-none italic tracking-tighter drop-shadow-glow">
+                    {Math.floor(precio as number)}
+                    <span className="text-2xl opacity-40">.{String(precio).split('.')[1] || '00'}</span>
+                </span>
+            </div>
+            <span className="text-[10px] text-white/10 font-black uppercase tracking-[0.4em] block mt-3">{t('per_month')}</span>
           </div>
         )}
       </div>
 
-      <h4 className="text-2xl font-black text-slate-900 dark:text-white mb-4 tracking-tight transition-colors">{mod.name}</h4>
-      <p className="text-sm md:text-base text-slate-500 dark:text-white/40 font-medium leading-relaxed flex-1 mb-8 transition-colors">{mod.desc}</p>
+      <h4 className="text-2xl font-black text-white mb-4 tracking-tighter uppercase italic">{mod.name}</h4>
+      <p className="text-base text-white/40 font-medium leading-relaxed flex-1 mb-10">{mod.desc}</p>
 
       {mod.tag && (
-        <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.1em] mb-4">{mod.tag}</p>
+        <p className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.4em] mb-6 animate-pulse">{mod.tag}</p>
       )}
 
       <Button asChild className={cn(
-        'w-full h-14 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 hover:scale-[1.03] active:scale-[0.98]',
+        'w-full h-16 rounded-[1.25rem] font-black text-[12px] uppercase tracking-[0.4em] transition-all duration-500 hover:scale-[1.04] active:scale-[0.96] border-2 shadow-2xl',
         isFree
-          ? 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.1)]'
-          : 'glass-liquid-hud text-white border-white/20'
+          ? 'bg-[#bfff00] text-black hover:bg-[#d4ff5e] border-[#bfff00] shadow-[0_15px_40px_rgba(191,255,0,0.25)]'
+          : 'bg-white text-black hover:bg-cyan-50 border-white hover:border-cyan-200'
       )}>
         <Link href={(MODULE_ROUTES[id] ?? '/register') as any}>
-          {isFree ? t('cta_start') : id === 'milinea' ? t('cta_select_plan') : t('cta_start')} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
+          <span className="flex items-center">
+            {isFree 
+              ? (id === 'personal' ? t('cta_register_free') : t('cta_activate_free'))
+              : (id === 'milinea' || id === 'milinea_corp' ? t('cta_select_plan') : t('cta_start'))
+            } 
+            <ArrowRight className="w-5 h-5 ml-4 group-hover:translate-x-2 transition-transform" />
+          </span>
         </Link>
       </Button>
     </ScrollReveal>
@@ -221,24 +250,35 @@ export function PricingSection() {
   
   const saasModules = t.raw('saas_modules');
   const planes5G = t.raw('planes_5g');
+  const planes5GCorp = t.raw('planes_5g_corp');
   const hardware = t.raw('hardware');
   const combos = t.raw('combos');
 
-  const hardwarePrices: Record<string, number> = { caja: 350, impresora: 200, kit: 500 };
-  const planes5GPrices: Record<string, number> = { basico: 15, plus: 25, pro: 45, empresarial: 90, ilimitado: 120 };
-  const combosTotals: Record<string, number> = { solo: 0, pro: 45, comerciante: 15, negocio: 80, total: 190 };
+  const hardwarePrices: Record<string, number> = { caja: 299, impresora: 149, kit: 399 };
+  const planes5GPrices: Record<string, number> = { 
+    basico: 6.99, 
+    estandar: 7.99,
+    plus: 9.99, 
+    pro: 12.99, 
+    ilimitado: 14.99 
+  };
+  const planes5GCorpPrices: Record<string, number> = {
+    startup: 9.99,
+    negocio: 12.99,
+    corporativo: 14.99,
+    ilimitado_corp: 19.99
+  };
+  const combosTotals: Record<string, number> = { solo: 0, pro: 39.99, comerciante: 14.99, negocio: 79.99, total: 149.99 };
 
   return (
     <section
       id="pricing"
-      className="relative py-20 md:py-32 w-full overflow-hidden scroll-mt-20 bg-white dark:bg-[#050816] transition-colors duration-700"
+      className="relative py-32 md:py-48 w-full overflow-hidden bg-transparent"
     >
-      {/* Background elements */}
-      <div className="absolute inset-0 -z-10 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
-        <div className="absolute top-[10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-cyan-500/[0.08] dark:bg-cyan-500/[0.04] blur-[150px] animate-mesh-drift" />
-        <div className="absolute bottom-[10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-500/[0.06] dark:bg-blue-500/[0.03] blur-[150px] animate-mesh-drift" style={{ animationDelay: '-10s' }} />
+      {/* Kyron Aurora Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[10%] left-[-10%] w-[70vw] h-[70vw] rounded-full bg-cyan-600/[0.05] blur-[160px] animate-mesh-drift" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-emerald-600/[0.04] blur-[140px] animate-mesh-drift" style={{ animationDelay: '-12s' }} />
       </div>
 
       <div className="container mx-auto px-4 md:px-10 lg:px-12 max-w-[1440px] relative z-10">
@@ -259,16 +299,24 @@ export function PricingSection() {
             {t('title')}<br />
             <span className="block text-glow-cyan mt-3 transition-all duration-500">{t('highlight')}</span>
           </h2>
-          <p className="text-lg md:text-xl text-slate-500 dark:text-white/40 max-w-2xl mx-auto font-medium leading-relaxed mb-10 transition-colors">
+          <p className="text-lg md:text-xl text-slate-500 dark:text-white/40 max-w-2xl mx-auto font-medium leading-relaxed mb-12 transition-colors">
             {t('subtitle')}
           </p>
 
-          {/* Free note */}
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 backdrop-blur-sm">
-            <Check className="h-4 w-4 text-emerald-400" strokeWidth={3} />
-            <span className="text-xs font-black text-emerald-200 uppercase tracking-widest">
-              {t('free_note')}
-            </span>
+          <div className="flex flex-col items-center gap-8 mb-16">
+            <Link href="/register">
+              <Button className="h-16 px-16 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-black font-black text-[14px] uppercase tracking-[0.4em] shadow-[0_0_50px_rgba(34,211,238,0.3)] hover:scale-[1.05] transition-all border-none">
+                {t('cta_try_free')}
+              </Button>
+            </Link>
+
+            {/* Free note */}
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 backdrop-blur-sm">
+              <Check className="h-4 w-4 text-emerald-400" strokeWidth={3} />
+              <span className="text-xs font-black text-emerald-200 uppercase tracking-widest">
+                {t('free_note')}
+              </span>
+            </div>
           </div>
         </motion.div>
 
@@ -320,80 +368,120 @@ export function PricingSection() {
             </div>
           </div>
 
-          {/* Plans cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            {Object.entries(planes5G).map(([id, plan]: [string, any], i) => (
-              <motion.div
-                key={id}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i * 0.08}
-                className={cn(
-                  'relative p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 rounded-3xl glass-system-kyron-interactive',
-                  id === 'pro'
-                    ? 'border-blue-500/40 bg-blue-500/5'
-                    : 'border-white/5 bg-white/[0.02]'
-                )}
-              >
-                {id === 'pro' && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
-                    <span className="px-4 py-1.5 bg-blue-500 text-white text-[9px] font-black uppercase tracking-[0.2em] rounded-full shadow-lg border border-white/20">
-                      {t('most_chosen')}
-                    </span>
+          {/* Personal Plans */}
+          <div className="mb-20">
+            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-white/30 text-center mb-10">— PLANES PERSONALES —</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+              {Object.entries(planes5G).map(([id, plan]: [string, any], i) => (
+                <motion.div
+                  key={id}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  custom={i * 0.08}
+                  className={cn(
+                    'relative p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 rounded-3xl glass-system-kyron-interactive',
+                    id === 'pro'
+                      ? 'border-blue-500/40 bg-blue-500/5'
+                      : 'border-white/5 bg-white/[0.02]'
+                  )}
+                >
+                  <div className="flex items-center gap-3 mb-6">
+                    <Wifi className="h-5 w-5 text-cyan-400" />
+                    <h4 className={cn('text-sm font-black uppercase tracking-widest', 
+                      id === 'basico' ? 'text-slate-300' : 
+                      id === 'plus' ? 'text-cyan-300' : 
+                      id === 'pro' ? 'text-blue-300' : 
+                      id === 'estandar' ? 'text-emerald-300' : 'text-amber-300'
+                    )}>{plan.name}</h4>
                   </div>
-                )}
 
-                <div className="flex items-center gap-3 mb-6">
-                  <Wifi className="h-5 w-5 text-cyan-400" />
-                  <h4 className={cn('text-sm font-black uppercase tracking-widest', 
-                    id === 'basico' ? 'text-slate-300' : 
-                    id === 'plus' ? 'text-cyan-300' : 
-                    id === 'pro' ? 'text-blue-300' : 
-                    id === 'empresarial' ? 'text-violet-300' : 'text-amber-300'
-                  )}>{plan.name}</h4>
-                </div>
-
-                {/* Price */}
-                <div className="mb-8">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter">${planes5GPrices[id]?.toFixed(2)}</span>
-                    <span className="text-[10px] text-slate-400 dark:text-white/30 font-black uppercase tracking-widest ml-1">{t('per_month')}</span>
-                  </div>
-                </div>
-
-                {/* Specs */}
-                <div className="space-y-4 mb-10 flex-1">
-                  {[
-                    { label: 'Datos', value: plan.datos },
-                    { label: 'Minutos', value: plan.min },
-                    { label: 'SMS', value: plan.sms },
-                  ].map(({ label, value }) => (
-                    <div key={label} className="flex items-center justify-between text-xs py-1 border-b border-black/5 dark:border-white/5">
-                      <span className="text-slate-400 dark:text-white/40 font-medium">{label}</span>
-                      <span className={cn('font-black', 
-                         id === 'basico' ? 'text-slate-500 dark:text-slate-300' : 
-                         id === 'plus' ? 'text-cyan-600 dark:text-cyan-300' : 
-                         id === 'pro' ? 'text-blue-600 dark:text-blue-300' : 
-                         id === 'empresarial' ? 'text-violet-600 dark:text-violet-300' : 'text-amber-600 dark:text-amber-300'
-                      )}>{value}</span>
+                  <div className="mb-8">
+                    <div className="flex items-baseline justify-start gap-1">
+                      <span className="text-xs font-black text-white/20 mr-1">$</span>
+                      <span className="text-5xl md:text-[clamp(2.2rem,4vw,3.2rem)] font-black text-white tracking-tighter italic drop-shadow-glow">
+                          {Math.floor(planes5GPrices[id])}
+                          <span className="text-2xl opacity-40">.{String(planes5GPrices[id]).split('.')[1] || '00'}</span>
+                      </span>
+                      <span className="text-[10px] text-white/30 font-black uppercase tracking-widest ml-2">{t('per_month')}</span>
                     </div>
-                  ))}
-                </div>
+                  </div>
 
-                <Button asChild className={cn(
-                  'w-full h-12 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 hover:scale-[1.05]',
-                  id === 'pro'
-                    ? 'btn-3d-primary'
-                    : 'glass-liquid-hud text-white'
-                )}>
-                  <Link href="/register">
-                    {t('cta_start')} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </motion.div>
-            ))}
+                  <div className="space-y-4 mb-10 flex-1">
+                    {[
+                      { label: 'Datos', value: plan.datos },
+                      { label: 'Minutos', value: plan.min },
+                      { label: 'SMS', value: plan.sms },
+                    ].map(({ label, value }) => (
+                      <div key={label} className="flex items-center justify-between text-xs py-1 border-b border-white/5">
+                        <span className="text-white/40 font-medium">{label}</span>
+                        <span className="font-black text-white">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Button asChild className="w-full h-12 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 hover:scale-[1.05] glass-liquid-hud text-white">
+                    <Link href="/register">
+                      {t('cta_start')} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Business Plans */}
+          <div>
+            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-white/30 text-center mb-10">— PLANES EMPRESARIALES —</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {Object.entries(planes5GCorp).map(([id, plan]: [string, any], i) => (
+                <motion.div
+                  key={id}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  custom={i * 0.08}
+                  className="relative p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 rounded-3xl glass-system-kyron-interactive border-white/5 bg-white/[0.02]"
+                >
+                  <div className="flex items-center gap-3 mb-6">
+                    <Users className="h-5 w-5 text-emerald-400" />
+                    <h4 className="text-sm font-black uppercase tracking-widest text-emerald-300">{plan.name}</h4>
+                  </div>
+
+                  <div className="mb-8">
+                    <div className="flex items-baseline justify-start gap-1">
+                      <span className="text-xs font-black text-white/20 mr-1">$</span>
+                      <span className="text-5xl md:text-[clamp(2.2rem,4vw,3.2rem)] font-black text-white tracking-tighter italic drop-shadow-glow">
+                          {Math.floor(planes5GCorpPrices[id])}
+                          <span className="text-2xl opacity-40">.{String(planes5GCorpPrices[id]).split('.')[1] || '00'}</span>
+                      </span>
+                      <span className="text-[10px] text-white/30 font-black uppercase tracking-widest ml-2">{t('per_month')}</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4 mb-10 flex-1">
+                    {[
+                      { label: 'Datos', value: plan.datos },
+                      { label: 'Minutos', value: plan.min },
+                      { label: 'SMS', value: plan.sms },
+                    ].map(({ label, value }) => (
+                      <div key={label} className="flex items-center justify-between text-xs py-1 border-b border-white/5">
+                        <span className="text-white/40 font-medium">{label}</span>
+                        <span className="font-black text-white">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Button asChild className="w-full h-12 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] transition-all duration-500 hover:scale-[1.05] glass-liquid-hud text-white">
+                    <Link href="/register">
+                      {t('cta_start')} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
           {/* Mi Línea note */}
@@ -454,8 +542,14 @@ export function PricingSection() {
 
                   <div className="flex items-center justify-between pt-8 border-t border-black/5 dark:border-white/5">
                     <div>
-                      <p className="text-[9px] text-slate-400 dark:text-white/20 font-black uppercase tracking-[0.2em] mb-1">{t('one_time_payment')}</p>
-                      <p className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">${hardwarePrices[id]}</p>
+                      <p className="text-[10px] text-white/20 font-black uppercase tracking-[0.3em] mb-3">{t('one_time_payment')}</p>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-xs font-black text-white/20 mr-1">$</span>
+                        <span className="text-4xl font-black text-white tracking-tighter italic drop-shadow-glow">
+                            {hardwarePrices[id]}
+                            <span className="text-xl opacity-30">.00</span>
+                        </span>
+                      </div>
                     </div>
                     <Button asChild className="h-14 px-10 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] bg-amber-500 hover:bg-amber-600 text-white dark:text-black shadow-lg transition-all hover:scale-[1.05] border-none">
                       <Link href="/#contacto">

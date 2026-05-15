@@ -52,131 +52,134 @@ export function HeroSectionOptimized() {
   }, []);
 
   return (
-    <section id="inicio" ref={containerRef} className="relative min-h-[100svh] flex flex-col items-center justify-center pt-24 pb-12 overflow-hidden transition-colors duration-700 bg-background">
-      {/* --- ELITE DYNAMIC BACKGROUND --- */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Base Layer */}
-        <div className="absolute inset-0 bg-[#f8faff] dark:bg-[#02040a] transition-colors duration-1000" />
+    <section id="inicio" ref={containerRef} className="relative min-h-[100svh] flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden bg-[#030712]">
+      {/* --- NEURAL AURORA BACKGROUND --- */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Deep Space Base */}
+        <div className="absolute inset-0 bg-[#030712]" />
         
-        {/* Cinematic Mesh Blobs */}
-        <div className="absolute top-[-10%] left-[-10%] w-[80vw] h-[80vw] rounded-full bg-blue-600/[0.1] dark:bg-blue-600/[0.08] blur-[150px] animate-mesh-drift" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-emerald-500/[0.1] dark:bg-emerald-500/[0.07] blur-[150px] animate-mesh-drift" style={{ animationDelay: '-8s' }} />
-        <div className="absolute top-[40%] left-[20%] w-[40vw] h-[40vw] rounded-full bg-cyan-400/[0.08] dark:bg-cyan-400/[0.05] blur-[120px] animate-mesh-drift" style={{ animationDelay: '-12s' }} />
+        {/* Neural Gradients */}
+        <div className="absolute top-[-20%] left-[-10%] w-[100vw] h-[100vw] rounded-full bg-cyan-600/[0.12] blur-[160px] animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-[-30%] right-[-10%] w-[80vw] h-[80vw] rounded-full bg-blue-600/[0.08] blur-[140px] animate-pulse" style={{ animationDuration: '12s', animationDelay: '2s' }} />
+        <div className="absolute top-[20%] right-[-20%] w-[60vw] h-[60vw] rounded-full bg-emerald-500/[0.05] blur-[120px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '-4s' }} />
         
-        {/* Subtle HUD Patterns */}
-        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] hud-grid mix-blend-overlay" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.2)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)]" />
+        {/* Scanline & Grid Effect */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#030712_80%)]" />
       </div>
 
       <div className="relative z-10 w-full container mx-auto px-6 max-w-7xl">
-        <div className="flex flex-col items-center text-center space-y-10">
+        <div className="flex flex-col lg:flex-row items-center gap-20">
           
-          {/* Gold Status Badge */}
-          <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full border border-amber-500/20 bg-gradient-to-r from-amber-500/10 to-amber-600/5 backdrop-blur-xl shadow-[0_0_20px_rgba(245,158,11,0.1)] group hover:border-amber-500/40 transition-all duration-500">
-            <div className="h-2 w-2 rounded-full bg-amber-500 animate-pulse shadow-[0_0_8px_rgba(245,158,11,1)]" />
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-600 dark:text-amber-400/90 group-hover:text-amber-500 transition-colors">
-              {t('badge')}
-            </span>
-          </div>
-
-          {/* Main Title Overhaul - Back to Elegant Roots */}
-          <div className="space-y-6 max-w-5xl">
-            <h1 className="text-[clamp(2.5rem,8vw,6rem)] font-extrabold leading-[0.9] tracking-tight text-[#0a1020] dark:text-white">
-              <span className="block opacity-90">{t('title_line1')}</span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-primary to-emerald-500 dark:from-blue-400 dark:via-cyan-300 dark:to-emerald-400 drop-shadow-sm py-1">
-                {t('title_line2')}
+          {/* Left Side: Content */}
+          <div className="flex-1 text-center lg:text-left space-y-12">
+            {/* Status Badge */}
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-2xl shadow-[0_0_30px_rgba(6,182,212,0.15)] animate-fade-in-up">
+              <Zap className="h-4 w-4 text-cyan-400 animate-pulse" />
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-cyan-200/80">
+                {t('badge')}
               </span>
-              <span className="block opacity-80 text-[0.8em] font-medium tracking-[-0.02em]">{t('title_line3')}</span>
-            </h1>
-            
-            <div className="flex items-center justify-center gap-6 py-2">
-                <div className="h-[1px] w-20 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-                <div className="text-lg md:text-xl font-bold uppercase tracking-[0.5em] text-primary/60">
-                    <RotatingWords words={rotatingTexts} interval={3500} />
-                </div>
-                <div className="h-[1px] w-20 bg-gradient-to-l from-transparent via-primary/30 to-transparent" />
+            </div>
+
+            {/* Headline Overhaul */}
+            <div className="space-y-6">
+              <h1 className="text-[clamp(3rem,8vw,5.5rem)] font-black leading-[0.9] tracking-tight text-white uppercase italic">
+                <span className="block opacity-60 text-[0.4em] tracking-[0.6em] mb-4 not-italic font-medium">{t('title_line1')}</span>
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-200 to-blue-400 drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  {t('title_line2')}
+                </span>
+                <span className="block text-[0.85em] mt-2 text-glow-cyan">{t('title_line3')}</span>
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-white/40 max-w-2xl font-medium leading-relaxed font-outfit mx-auto lg:mx-0">
+                {t('subtitle')}
+              </p>
+            </div>
+
+            {/* Premium Actions */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start pt-6">
+              <Button asChild className="h-20 px-14 text-[12px] font-black uppercase tracking-[0.4em] rounded-2xl bg-white text-black hover:bg-cyan-50 shadow-[0_20px_40px_rgba(255,255,255,0.1)] hover:shadow-[0_25px_50px_rgba(6,182,212,0.2)] hover:-translate-y-2 transition-all duration-500 group border-none">
+                <Link href="/register" className="flex items-center gap-4">
+                  {t('cta_main')} 
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
+                </Link>
+              </Button>
+              
+              <Button variant="outline" className="h-20 px-10 text-[12px] font-black uppercase tracking-[0.4em] rounded-2xl border-white/10 bg-white/5 backdrop-blur-2xl text-white/60 hover:bg-white/10 hover:text-white transition-all duration-500 hover:scale-[1.05]">
+                <span className="flex items-center gap-4">
+                  <Play className="h-4 w-4 fill-current" />
+                  {t('cta_secondary')}
+                </span>
+              </Button>
             </div>
           </div>
 
-          {/* Premium Subtext */}
-          <p className="text-lg md:text-xl text-slate-500 dark:text-white/40 max-w-3xl font-medium leading-relaxed font-inter transition-colors">
-            {t('subtitle')}
-          </p>
+          {/* Right Side: Neural Core Visual */}
+          <div className="flex-1 relative hidden lg:block">
+            <div className="relative aspect-square w-full max-w-[600px] mx-auto">
+              {/* Neural Ring 1 */}
+              <div className="absolute inset-0 border-2 border-dashed border-cyan-500/20 rounded-full animate-[spin_60s_linear_infinite]" />
+              {/* Neural Ring 2 */}
+              <div className="absolute inset-[10%] border border-blue-500/10 rounded-full animate-[spin_40s_linear_infinite_reverse]" />
+              {/* Neural Ring 3 */}
+              <div className="absolute inset-[20%] border-2 border-dotted border-emerald-500/20 rounded-full animate-[spin_20s_linear_infinite]" />
+              
+              {/* Central Core */}
+              <div className="absolute inset-[30%] flex items-center justify-center">
+                <div className="w-full h-full rounded-full bg-gradient-to-br from-cyan-500/20 via-blue-600/30 to-emerald-500/20 blur-3xl animate-pulse" />
+                <div className="absolute w-32 h-32 bg-white/5 backdrop-blur-3xl rounded-[2.5rem] border border-white/20 shadow-[0_0_50px_rgba(6,182,212,0.3)] flex items-center justify-center transform rotate-12 animate-float">
+                  <Logo className="w-16 h-16 text-white" />
+                </div>
+              </div>
 
-          {/* High-Impact Actions */}
-          <div className="flex flex-col sm:flex-row gap-6 pt-8 w-full sm:w-auto">
-            <Button asChild className="h-20 px-14 text-[12px] font-black uppercase tracking-[0.3em] rounded-3xl bg-primary text-white shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:shadow-[0_25px_50px_-12px_rgba(37,99,235,0.6)] hover:-translate-y-1.5 transition-all duration-500 group overflow-hidden border-none relative">
-              <Link href="/precios" className="flex items-center gap-3 relative z-10">
-                {t('cta_main')} 
-                <div className="p-1 rounded-full bg-white/20 group-hover:bg-white/40 transition-colors">
-                    <ArrowRight className="h-5 w-5" />
+              {/* Floating Data Link Badges */}
+              <div className="absolute top-[10%] -right-5 p-6 rounded-3xl glass-system-kyron border-cyan-500/20 shadow-2xl animate-float-slow">
+                <div className="flex items-center gap-4">
+                  <div className="h-10 w-10 rounded-xl bg-cyan-500/20 flex items-center justify-center">
+                    <Zap className="h-5 w-5 text-cyan-400" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-[10px] font-black text-white uppercase tracking-widest">BCV Real-Time</p>
+                    <p className="text-[8px] font-bold text-cyan-400/60 uppercase tracking-widest">Latency: 0.2ms</p>
+                  </div>
                 </div>
-              </Link>
-            </Button>
-            
-            <Button variant="outline" className="h-20 px-10 text-[12px] font-black uppercase tracking-[0.3em] rounded-3xl border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-xl text-slate-600 dark:text-white/50 hover:bg-white dark:hover:bg-white/10 hover:text-primary dark:hover:text-white transition-all duration-500 hover:scale-[1.02]">
-              <span className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-xl bg-slate-100 dark:bg-white/10 flex items-center justify-center">
-                    <Play className="h-3 w-3 fill-current" />
-                </div>
-                {t('cta_secondary')}
-              </span>
-            </Button>
-          </div>
+              </div>
 
-          {/* Visual Hook - Floating Mockup */}
-          <div className="hidden lg:block w-full max-w-6xl pt-20 perspective-1000">
-            <div className="relative rounded-[3rem] p-3 bg-gradient-to-b from-white/20 to-transparent dark:from-white/5 dark:to-transparent border border-white/20 shadow-2xl backdrop-blur-2xl animate-float-slow transform rotateX-10">
-                <div className="relative aspect-[21/9] w-full rounded-[2.5rem] overflow-hidden bg-black shadow-inner">
-                    <Image 
-                      src="/images/landing/hero-dashboard-dark.jpg" 
-                      alt="Kyron Neural Interface" 
-                      fill 
-                      className="object-cover opacity-80"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
-                    
-                    {/* Inner HUD Overlay */}
-                    <div className="absolute top-8 left-8 flex gap-2">
-                        <div className="h-1.5 w-1.5 rounded-full bg-primary animate-ping" />
-                        <span className="text-[8px] font-black text-white/40 uppercase tracking-[0.5em]">System.Core Active</span>
-                    </div>
+              <div className="absolute bottom-[15%] -left-10 p-6 rounded-3xl glass-system-kyron border-blue-500/20 shadow-2xl animate-float" style={{ animationDelay: '-2s' }}>
+                <div className="flex items-center gap-4">
+                  <div className="h-10 w-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                    <ShieldCheck className="h-5 w-5 text-blue-400" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-[10px] font-black text-white uppercase tracking-widest">AES-256 Active</p>
+                    <p className="text-[8px] font-bold text-blue-400/60 uppercase tracking-widest">Quantum Shield</p>
+                  </div>
                 </div>
-                
-                {/* Out-of-bounds Floating Badges */}
-                <div className="absolute -top-10 -right-10 p-6 rounded-3xl glass-system-kyron border-amber-500/20 shadow-2xl animate-float">
-                    <div className="flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-2xl bg-amber-500/20 flex items-center justify-center">
-                            <Zap className="h-5 w-5 text-amber-500" />
-                        </div>
-                        <div className="text-left">
-                            <p className="text-[10px] font-black text-white uppercase tracking-widest">IA Generativa</p>
-                            <p className="text-[8px] font-bold text-amber-500/80 uppercase tracking-widest">Optimización 98%</p>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Trust Bar Overhaul */}
-      <div className="w-full py-16 mt-20 relative border-y border-black/[0.05] dark:border-white/[0.05] bg-white/20 dark:bg-black/20 backdrop-blur-sm">
-        <div className="container mx-auto px-6 max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-12">
-          {[
-            { val: '24/7', label: t('support'), icon: Headphones },
-            { val: '5G', label: t('network'), icon: Signal },
-            { val: liveStats.totalUsuarios > 0 ? liveStats.totalUsuarios : '500+', label: t('portals'), icon: Users },
-            { val: '100%', label: t('legal'), icon: ShieldCheck }
-          ].map((stat, i) => (
-            <div key={i} className="flex flex-col items-center group">
-              <div className="h-12 w-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center mb-4 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-500">
-                <stat.icon className="h-5 w-5 text-slate-400 dark:text-white/20 group-hover:text-primary transition-colors" />
+      {/* Cinematic Trust Bar */}
+      <div className="w-full py-20 mt-32 relative border-t border-white/5 bg-white/[0.02] backdrop-blur-md">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-20">
+            {[
+              { val: '24/7', label: t('support'), icon: Headphones, color: 'text-cyan-400' },
+              { val: '5G', label: t('network'), icon: Signal, color: 'text-blue-400' },
+              { val: liveStats.totalUsuarios > 0 ? liveStats.totalUsuarios : '2.4k+', label: t('portals'), icon: Users, color: 'text-emerald-400' },
+              { val: '100%', label: t('legal'), icon: ShieldCheck, color: 'text-violet-400' }
+            ].map((stat, i) => (
+              <div key={i} className="flex flex-col items-center group">
+                <div className={cn("h-14 w-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/10 group-hover:scale-110 transition-all duration-500", stat.color.replace('text-', 'shadow-'))}>
+                  <stat.icon className={cn("h-6 w-6", stat.color)} />
+                </div>
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-3">{stat.label}</p>
+                <p className="text-4xl font-black text-white tracking-tighter italic">{stat.val}</p>
               </div>
-              <p className="text-[9px] font-black uppercase tracking-[0.4em] text-slate-400 dark:text-white/30 mb-2">{stat.label}</p>
-              <p className="text-3xl font-black text-[#0a1020] dark:text-white tracking-tighter">{stat.val}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

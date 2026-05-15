@@ -8,79 +8,95 @@ export function SustainabilitySection() {
     const t = useTranslations('SustainabilitySection');
 
     return (
-        <section className="py-24 relative overflow-hidden bg-white dark:bg-[#03050a] transition-colors duration-700">
+        <section className="py-32 relative overflow-hidden bg-transparent">
+            {/* Emerald Aurora Background */}
             <div className="absolute inset-0 z-0 pointer-events-none">
-                <div className="absolute top-0 left-[-10%] w-[50vw] h-[50vw] rounded-full bg-emerald-500/[0.05] dark:bg-emerald-500/[0.03] blur-[120px] animate-mesh-drift" />
-                <div className="absolute bottom-0 right-[-10%] w-[40vw] h-[40vw] rounded-full bg-blue-500/[0.04] dark:bg-blue-500/[0.02] blur-[100px] animate-mesh-drift" style={{ animationDelay: '-10s' }} />
+                <div className="absolute top-[20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-emerald-500/[0.08] blur-[160px] animate-mesh-drift" />
+                <div className="absolute bottom-[20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-green-600/[0.04] blur-[140px] animate-mesh-drift" style={{ animationDelay: '-10s' }} />
             </div>
-            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
             
-            <div className="max-w-7xl mx-auto px-6">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
-                    <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="space-y-8"
-                    >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 transition-colors">
-                            <Leaf className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-700 dark:text-emerald-400">{t('badge')}</span>
+            <div className="container mx-auto px-6 max-w-7xl relative z-10">
+                <div className="grid lg:grid-cols-2 gap-24 items-center">
+                    {/* Content Side */}
+                    <div className="space-y-12">
+                        <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-3xl shadow-[0_0_30px_rgba(16,185,129,0.15)] animate-fade-in-up">
+                            <Leaf className="h-4 w-4 text-emerald-400 animate-pulse" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-emerald-200/80">
+                                {t('badge')}
+                            </span>
                         </div>
                         
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 dark:text-white leading-[0.95] uppercase italic transition-colors">
-                            {t('title_main')} <span className="text-emerald-500 drop-shadow-sm">{t('title_highlight')}</span>
-                        </h2>
-                        
-                        <p className="text-xl md:text-2xl text-slate-500 dark:text-zinc-400 leading-relaxed font-medium transition-colors">
-                            {t('description')}
-                        </p>
+                        <div className="space-y-8">
+                            <h2 className="text-[clamp(3rem,8vw,5.5rem)] font-black text-white leading-[0.9] tracking-tighter uppercase italic">
+                                {t('title_main')}<br/>
+                                <span className="text-glow-emerald not-italic">{t('title_highlight')}</span>
+                            </h2>
+                            
+                            <p className="text-xl md:text-2xl text-white/30 max-w-2xl font-medium leading-relaxed font-outfit">
+                                {t('description')}
+                            </p>
+                        </div>
 
                         <div className="grid sm:grid-cols-2 gap-8 pt-6">
-                            <div className="p-8 rounded-[2.5rem] bg-black/[0.02] dark:bg-white/5 border border-black/5 dark:border-white/10 backdrop-blur-xl hover:border-emerald-500/30 transition-all hover:-translate-y-2 group/card">
-                                <Recycle className="w-10 h-10 text-emerald-500 mb-6 group-hover/card:scale-110 transition-transform" />
-                                <h4 className="text-slate-900 dark:text-white font-black uppercase tracking-tight text-lg mb-3 transition-colors">{t('smart_bins_title')}</h4>
-                                <p className="text-sm text-slate-500 dark:text-zinc-500 font-medium leading-relaxed transition-colors">{t('smart_bins_desc')}</p>
+                            <div className="group/card p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all duration-700 hover:-translate-y-2">
+                                <div className="h-14 w-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-8 group-hover/card:scale-110 group-hover/card:rotate-12 transition-all">
+                                    <Recycle className="h-7 w-7" />
+                                </div>
+                                <h4 className="text-xl font-black text-white uppercase tracking-tighter mb-4 italic">{t('smart_bins_title')}</h4>
+                                <p className="text-base text-white/30 font-medium leading-relaxed">{t('smart_bins_desc')}</p>
                             </div>
-                            <div className="p-8 rounded-[2.5rem] bg-black/[0.02] dark:bg-white/5 border border-black/5 dark:border-white/10 backdrop-blur-xl hover:border-emerald-500/30 transition-all hover:-translate-y-2 group/card">
-                                <Wind className="w-10 h-10 text-emerald-500 mb-6 group-hover/card:scale-110 transition-transform" />
-                                <h4 className="text-slate-900 dark:text-white font-black uppercase tracking-tight text-lg mb-3 transition-colors">{t('eco_credits_title')}</h4>
-                                <p className="text-sm text-slate-500 dark:text-zinc-500 font-medium leading-relaxed transition-colors">{t('eco_credits_desc')}</p>
+                            
+                            <div className="group/card p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all duration-700 hover:-translate-y-2">
+                                <div className="h-14 w-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-8 group-hover/card:scale-110 group-hover/card:rotate-12 transition-all">
+                                    <Wind className="h-7 w-7" />
+                                </div>
+                                <h4 className="text-xl font-black text-white uppercase tracking-tighter mb-4 italic">{t('eco_credits_title')}</h4>
+                                <p className="text-base text-white/30 font-medium leading-relaxed">{t('eco_credits_desc')}</p>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        className="relative group"
-                    >
-                        <div className="absolute inset-0 bg-emerald-500/20 blur-[100px] rounded-full opacity-50 group-hover:opacity-100 transition-opacity" />
-                        <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl glass-system-kyron-interactive p-3">
-                            <img 
-                                src="/images/salto-angel.jpg" 
-                                alt="Sustainability Impact" 
-                                className="w-full aspect-square object-cover rounded-[2.5rem] transition-transform duration-1000 group-hover:scale-105"
-                            />
+                    {/* Visual Side */}
+                    <div className="relative group">
+                        {/* Aurora Glow */}
+                        <div className="absolute inset-0 bg-emerald-500/20 blur-[120px] rounded-full opacity-30 group-hover:opacity-60 transition-opacity" />
+                        
+                        <div className="relative rounded-[4rem] overflow-hidden border border-white/10 p-4 bg-white/[0.01] backdrop-blur-3xl shadow-2xl">
+                            <div className="relative aspect-square w-full rounded-[3rem] overflow-hidden group/img">
+                                <img 
+                                    src="/images/salto-angel.jpg" 
+                                    alt="Kyron Sostenibilidad" 
+                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover/img:scale-105"
+                                />
+                                {/* Scanline Effect */}
+                                <div className="absolute inset-0 opacity-20 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(16,185,129,0.06),rgba(0,255,0,0.02),rgba(16,185,129,0.06))] bg-[length:100%_2px,3px_100%]" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 via-transparent to-transparent opacity-60" />
+                            </div>
                             
-                            {/* Overlay Stats */}
-                            <div className="absolute top-10 left-10 p-6 rounded-[2rem] bg-white/80 dark:bg-black/60 backdrop-blur-xl border border-black/5 dark:border-white/20 shadow-2xl animate-float transition-colors">
-                                <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-1 transition-colors">{t('overlay_label')}</p>
-                                <h3 className="text-2xl font-black text-slate-900 dark:text-white transition-colors">{t('overlay_value')}</h3>
-                                <p className="text-[9px] text-slate-400 dark:text-white/40 font-black uppercase tracking-widest transition-colors">{t('overlay_sublabel')}</p>
+                            {/* Floating Metadata Card */}
+                            <div className="absolute top-12 left-12 p-8 rounded-[2.5rem] bg-black/60 backdrop-blur-2xl border border-white/20 shadow-2xl animate-float transition-all hover:scale-105">
+                                <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.4em] mb-2">{t('overlay_label')}</p>
+                                <div className="flex items-baseline gap-2">
+                                    <h3 className="text-4xl font-black text-white tracking-tighter italic">{t('overlay_value')}</h3>
+                                    <div className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+                                </div>
+                                <p className="text-[9px] text-white/40 font-black uppercase tracking-[0.2em] mt-3">{t('overlay_sublabel')}</p>
                             </div>
 
-                            <div className="absolute bottom-10 right-10 p-6 rounded-[1.5rem] bg-white/80 dark:bg-black/60 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-xl transition-colors">
-                                <div className="flex items-center gap-4">
-                                    <div className="h-10 w-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                                        <ShieldCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                            {/* Certification Link */}
+                            <div className="absolute bottom-12 right-12 p-6 rounded-[1.5rem] bg-emerald-500/10 backdrop-blur-xl border border-emerald-500/20 shadow-2xl transition-all hover:bg-emerald-500/20">
+                                <div className="flex items-center gap-5">
+                                    <div className="h-12 w-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+                                        <ShieldCheck className="h-6 w-6" />
                                     </div>
-                                    <p className="text-[11px] font-black text-slate-900 dark:text-white uppercase tracking-[0.2em] transition-colors">{t('certification_label')}</p>
+                                    <p className="text-[11px] font-black text-white uppercase tracking-[0.3em] leading-tight">
+                                        {t('certification_label')}<br/>
+                                        <span className="text-emerald-400/60">Verified Active</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section>

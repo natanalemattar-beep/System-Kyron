@@ -111,11 +111,11 @@ const RESOURCES: Resource[] = [
 export default function BrandKitPage() {
     const [mounted, setMounted] = useState(false);
     const [search, setSearch] = useState('');
-    const [baseUrl, setBaseUrl] = useState('https://system-kyron.app');
+    const [baseUrl, setBaseUrl] = useState('');
 
     useEffect(() => {
         setMounted(true);
-        if (typeof window !== 'undefined') setBaseUrl(window.location.origin);
+        setBaseUrl(window.location.origin);
     }, []);
 
     const filteredResources = useMemo(() => {
@@ -134,7 +134,7 @@ export default function BrandKitPage() {
             {/* Ambient Background - High Performance Layer */}
             <div className="fixed inset-0 pointer-events-none z-0">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[1400px]">
-                    <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 blur-[180px] rounded-full animate-pulse" />
+                    <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 blur-[180px] rounded-full" />
                     <div className="absolute bottom-[10%] right-[-5%] w-[500px] h-[500px] bg-cyan-500/5 blur-[150px] rounded-full" />
                 </div>
                 <div className="absolute inset-0 opacity-[0.015] mix-blend-overlay pointer-events-none"
@@ -201,13 +201,15 @@ export default function BrandKitPage() {
                         <div className="absolute -inset-4 bg-cyan-500/10 blur-3xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity" />
                         <div className="relative bg-white/5 backdrop-blur-3xl border border-white/10 p-10 rounded-[3rem] flex flex-col items-center gap-8 shadow-2xl">
                             <div className="p-4 bg-white rounded-3xl shadow-[0_20px_50px_rgba(255,255,255,0.1)] relative">
-                                <Image 
-                                    src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(baseUrl)}&color=000000&bgcolor=ffffff&margin=1`} 
-                                    alt="Master QR" 
-                                    width={112}
-                                    height={112}
-                                    className="object-contain"
-                                />
+                                {baseUrl && (
+                                    <Image 
+                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(baseUrl)}&color=000000&bgcolor=ffffff&margin=1`} 
+                                        alt="Master QR" 
+                                        width={112}
+                                        height={112}
+                                        className="object-contain"
+                                    />
+                                )}
                                 <div className="absolute top-0 left-0 right-0 h-1 bg-cyan-500/40 animate-scan pointer-events-none" />
                             </div>
                             <div className="text-center space-y-2">
@@ -222,7 +224,7 @@ export default function BrandKitPage() {
                 {/* Grid - Bento Box Layout */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                     <AnimatePresence mode="popLayout">
-                        {filteredResources.map((res, i) => (
+                        {filteredResources.length > 0 ? filteredResources.map((res, i) => (
                             <motion.div
                                 key={res.id}
                                 layout
@@ -237,7 +239,21 @@ export default function BrandKitPage() {
                             >
                                 <ResourceCard resource={res} />
                             </motion.div>
-                        ))}
+                        )) : (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="col-span-full flex flex-col items-center justify-center py-24 text-center"
+                            >
+                                <Search className="h-12 w-12 text-zinc-600 mb-4" />
+                                <h3 className="text-2xl font-black uppercase tracking-tight text-zinc-500 italic">
+                                    Sin resultados
+                                </h3>
+                                <p className="text-zinc-600 text-sm font-medium mt-2">
+                                    No hay recursos que coincidan con "{search}"
+                                </p>
+                            </motion.div>
+                        )}
                     </AnimatePresence>
                 </div>
 

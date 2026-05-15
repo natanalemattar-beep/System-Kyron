@@ -28,13 +28,11 @@ export function CtaSection() {
     const containerRef = useRef<HTMLDivElement>(null);
 
     return (
-        <section id="contacto" ref={containerRef} className="relative overflow-hidden scroll-mt-20">
-            <div className="relative py-24 md:py-36">
+        <section id="contacto" ref={containerRef} className="relative overflow-hidden scroll-mt-20 bg-[#030712]">
+            <div className="relative py-32 md:py-48">
                 <div className="absolute inset-0 -z-10">
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/60 via-teal-50/40 to-cyan-50/60 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]" />
-                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
-                    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-emerald-500/[0.04] blur-[150px]" />
-                    <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.03] blur-[120px]" />
+                    <div className="absolute top-[20%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-cyan-600/[0.05] blur-[160px] animate-mesh-drift" />
+                    <div className="absolute bottom-[20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-emerald-600/[0.04] blur-[140px] animate-mesh-drift" style={{ animationDelay: '-12s' }} />
                 </div>
 
                 <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -47,9 +45,9 @@ export function CtaSection() {
                             </ScrollReveal>
 
                             <ScrollReveal delay={0.2} y={30} blur={15}>
-                                <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-black tracking-[-0.04em] leading-[0.95] text-white uppercase overflow-visible break-words" lang="es">
-                                    {t('title_highlight')}{' '}
-                                    <span className="block text-glow-cyan">
+                                <h2 className="text-[clamp(3rem,6vw,5.5rem)] font-black tracking-tighter leading-[0.9] text-white uppercase italic">
+                                    {t('title_highlight')}<br/>
+                                    <span className="text-glow-cyan not-italic">
                                         {t('title_rest')}
                                     </span>
                                 </h2>
@@ -61,11 +59,11 @@ export function CtaSection() {
                                 </p>
                             </ScrollReveal>
 
-                            <ScrollReveal delay={0.4} className="flex flex-wrap justify-center lg:justify-start gap-4">
+                            <ScrollReveal delay={0.4} className="flex flex-wrap justify-center lg:justify-start gap-5">
                                 {checks.map((label, i) => (
-                                    <div key={i} className="flex items-center gap-3 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                                    <div key={i} className="flex items-center gap-3 px-5 py-2.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-3xl">
                                         <CircleCheck className="h-4 w-4 text-emerald-400" />
-                                        <span className="text-[10px] font-black uppercase tracking-[0.15em] text-emerald-100">{label}</span>
+                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60">{label}</span>
                                     </div>
                                 ))}
                             </ScrollReveal>
@@ -89,19 +87,19 @@ export function CtaSection() {
                                 delay={0.6}
                                 y={40}
                             >
-                                <div className="absolute -inset-10 rounded-[3rem] bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 blur-[60px] -z-[1] animate-mesh-drift" />
-                                <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] bg-white/[0.02] backdrop-blur-md transition-transform duration-700 hover:scale-[1.02]">
-                                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
-                                    <Image
-                                        src="/images/landing/devices-mockup.webp"
-                                        alt=""
-                                        width={1408}
-                                        height={768}
-                                        quality={90}
-                                        className="w-full h-auto opacity-80 group-hover:opacity-100 transition-opacity"
-                                        loading="lazy"
-                                        sizes="(max-width: 1024px) 0px, 45vw"
-                                    />
+                                <div className="absolute -inset-20 rounded-[4rem] bg-gradient-to-br from-cyan-500/10 to-blue-500/10 blur-[100px] -z-[1] animate-mesh-drift" />
+                                <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl bg-white/[0.01] backdrop-blur-3xl p-4">
+                                    <div className="relative rounded-[2.5rem] overflow-hidden border border-white/5">
+                                        <Image
+                                            src="/images/landing/hero-dashboard-dark.jpg"
+                                            alt="Ecosystem Dashboard"
+                                            width={1408}
+                                            height={768}
+                                            quality={90}
+                                            className="w-full h-auto opacity-60 group-hover:opacity-100 transition-opacity duration-1000"
+                                            loading="lazy"
+                                        />
+                                    </div>
                                 </div>
                             </ScrollReveal>
                         </div>

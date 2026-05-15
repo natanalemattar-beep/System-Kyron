@@ -21,7 +21,7 @@ export function Footer() {
         { label: t('nav_platform'), href: "/#caracteristicas" },
         { label: "Planes & Precios", href: "/precios" },
         { label: "Resumen Ejecutivo", href: "/resumen-ejecutivo" },
-        { label: "Presentación Final", href: "/presentacion-final" },
+        { label: "Pitch Studio", href: "/pitch" },
     ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -32,10 +32,11 @@ export function Footer() {
     };
 
     return (
-        <footer id="footer" className="relative overflow-hidden border-t border-white/[0.04] bg-gradient-to-b from-slate-50/80 via-slate-100/60 to-slate-100/80 dark:from-[#040810] dark:via-[#050a12] dark:to-[#030608]">
+        <footer id="footer" className="relative overflow-hidden bg-[#030712] border-t border-white/5">
+            {/* Neural Background */}
             <div className="absolute inset-0 pointer-events-none -z-10">
-                <div className="absolute bottom-0 left-1/4 w-[400px] h-[250px] rounded-full bg-blue-500/[0.02] blur-[100px]" />
-                <div className="absolute bottom-0 right-1/4 w-[300px] h-[200px] rounded-full bg-emerald-500/[0.02] blur-[80px]" />
+                <div className="absolute bottom-0 left-1/4 w-[500px] h-[300px] rounded-full bg-cyan-600/[0.03] blur-[150px]" />
+                <div className="absolute bottom-0 right-1/4 w-[400px] h-[250px] rounded-full bg-emerald-600/[0.03] blur-[120px]" />
             </div>
 
             <div className="h-[2px] bg-gradient-to-r from-cyan-500 via-blue-500 via-violet-500 to-pink-500" />
@@ -54,22 +55,22 @@ export function Footer() {
                 <div className="grid md:grid-cols-12 gap-10 md:gap-8">
 
                     <div className="md:col-span-4 space-y-6">
-                        <div className="flex items-center gap-3">
-                            <Logo className="h-10 w-10 drop-shadow-glow" />
+                        <div className="flex items-center gap-4">
+                            <Logo className="h-12 w-12 drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]" />
                             <div className="flex flex-col">
-                                <span className="text-lg font-black uppercase tracking-tight text-foreground leading-none">System Kyron</span>
-                                <span className="text-[9px] font-bold uppercase tracking-[0.3em] mt-1 bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">{tHero('slogan')}</span>
+                                <span className="text-xl font-black uppercase tracking-tighter text-white leading-none italic">System Kyron</span>
+                                <span className="text-[10px] font-bold uppercase tracking-[0.4em] mt-2 text-glow-cyan">{tHero('slogan')}</span>
                             </div>
                         </div>
-                        <p className="text-xs text-foreground/45 font-medium leading-relaxed max-w-sm">
+                        <p className="text-sm text-white/40 font-medium leading-relaxed max-w-sm">
                             {t('description')}
                         </p>
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-emerald-500/15 bg-emerald-500/[0.04]">
-                            <span className="relative flex h-2 w-2">
+                        <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl border border-emerald-500/20 bg-emerald-500/5">
+                            <span className="relative flex h-2.5 w-2.5">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
                             </span>
-                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400">{t('status_online')}</span>
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400">{t('status_online')}</span>
                         </div>
                     </div>
 
@@ -97,24 +98,22 @@ export function Footer() {
                         </nav>
                     </div>
 
-                    <div className="md:col-span-3 space-y-5">
-                        <h4 className="text-[10px] font-black uppercase tracking-[0.25em] bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">{t('contact')}</h4>
-                        <div className="space-y-4">
+                        <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20 mb-6">{t('contact')}</h4>
+                        <div className="space-y-6">
                             <a href="mailto:infosystemkyron@gmail.com"
-                                className="flex items-center gap-3 group text-foreground/55 hover:text-foreground/90 transition-colors">
-                                <div className="h-9 w-9 rounded-xl border border-white/[0.06] bg-cyan-500/[0.04] flex items-center justify-center shrink-0 group-hover:border-cyan-500/20 group-hover:bg-cyan-500/[0.08] transition-all">
-                                    <Mail className="h-4 w-4 text-cyan-400" />
+                                className="flex items-center gap-4 group text-white/40 hover:text-white transition-all">
+                                <div className="h-10 w-10 rounded-xl border border-white/5 bg-white/5 flex items-center justify-center shrink-0 group-hover:border-cyan-500/30 group-hover:bg-cyan-500/10 transition-all">
+                                    <Mail className="h-5 w-5 text-cyan-400" />
                                 </div>
-                                <span className="text-[10px] font-semibold uppercase tracking-wide">infosystemkyron@gmail.com</span>
+                                <span className="text-[11px] font-black uppercase tracking-widest">infosystemkyron@gmail.com</span>
                             </a>
-                            <div className="flex items-center gap-3 text-foreground/45">
-                                <div className="h-9 w-9 rounded-xl border border-white/[0.06] bg-white/[0.02] flex items-center justify-center shrink-0">
-                                    <MapPin className="h-4 w-4 text-violet-400" />
+                            <div className="flex items-center gap-4 text-white/30">
+                                <div className="h-10 w-10 rounded-xl border border-white/5 bg-white/5 flex items-center justify-center shrink-0">
+                                    <MapPin className="h-5 w-5 text-emerald-400" />
                                 </div>
-                                <span className="text-[10px] font-semibold uppercase tracking-wide">{t('location')}</span>
+                                <span className="text-[11px] font-black uppercase tracking-widest">{t('location')}</span>
                             </div>
                         </div>
-                    </div>
                 </div>
 
                 <div className="mt-12 pt-8 border-t border-white/[0.04]">

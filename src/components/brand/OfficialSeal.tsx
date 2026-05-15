@@ -2,37 +2,41 @@
 
 import { useRef, useState, useCallback } from 'react';
 import { cn } from '@/lib/utils';
-import { Download, FileText, FileImage } from 'lucide-react';
+import { Download, FileText, FileImage, AlertCircle } from 'lucide-react';
 
 export function OfficialSeal({ className }: { className?: string }) {
     const sealRef = useRef<HTMLDivElement>(null);
     const [downloading, setDownloading] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     const getPngData = useCallback(async () => {
         if (!sealRef.current) return null;
         const { toPng } = await import('html-to-image');
         return toPng(sealRef.current, {
             width: 800, height: 800, pixelRatio: 2, backgroundColor: '#ffffff',
+            cacheBust: true, useCORS: 'anonymous',
         });
     }, []);
 
     const downloadPng = useCallback(async () => {
         setDownloading('png');
+        setError(null);
         try {
             const dataUrl = await getPngData();
-            if (!dataUrl) return;
+            if (!dataUrl) { setError('No se pudo generar el sello'); return; }
             const link = document.createElement('a');
             link.download = 'sello-system-kyron.png';
             link.href = dataUrl;
             link.click();
-        } finally { setDownloading(null); }
+        } catch { setError('Error al descargar PNG'); } finally { setDownloading(null); }
     }, [getPngData]);
 
     const downloadPdf = useCallback(async () => {
         setDownloading('pdf');
+        setError(null);
         try {
             const dataUrl = await getPngData();
-            if (!dataUrl) return;
+            if (!dataUrl) { setError('No se pudo generar el sello'); return; }
             const { default: jsPDF } = await import('jspdf');
             const pdf = new jsPDF('p', 'mm', 'a4');
             const pageWidth = pdf.internal.pageSize.getWidth();
@@ -50,44 +54,20 @@ export function OfficialSeal({ className }: { className?: string }) {
             pdf.text('Este documento ha sido firmado electrónicamente con el sello oficial de System Kyron.', pageWidth / 2, 150, { align: 'center' });
             pdf.text('Válido para efectos legales ante la República Bolivariana de Venezuela.', pageWidth / 2, 157, { align: 'center' });
             pdf.save('sello-system-kyron.pdf');
-        } finally { setDownloading(null); }
+        } catch { setError('Error al descargar PDF'); } finally { setDownloading(null); }
     }, [getPngData]);
 
     const downloadWord = useCallback(async () => {
         setDownloading('docx');
+        setError(null);
         try {
             const dataUrl = await getPngData();
-            if (!dataUrl) return;
-            const html = `<!DOCTYPE html>
-<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
-<head><meta charset="UTF-8"><title>System Kyron - Sello Oficial</title>
-<style>
-    body { font-family: 'Georgia', 'Times New Roman', serif; padding: 40px; color: #1e293b; }
-    .seal-container { text-align: center; margin: 30px 0; }
-    .seal-container img { width: 250px; height: 250px; }
-    h1 { text-align: center; font-size: 18pt; font-weight: bold; margin-top: 30px; }
-    .rif { text-align: center; font-size: 11pt; margin: 5px 0; }
-    .footer { text-align: center; font-size: 8pt; color: #666; margin-top: 50px; border-top: 1px solid #ccc; padding-top: 15px; }
-    .verification { text-align: center; font-size: 9pt; font-weight: bold; margin-top: 30px; letter-spacing: 3px; }
-</style></head>
-<body>
-    <div class="seal-container"><img src="${dataUrl}" alt="Sello System Kyron" /></div>
-    <h1>REPÚBLICA BOLIVARIANA DE VENEZUELA</h1>
-    <p style="text-align:center;font-size:14pt;font-weight:bold;">System Kyron</p>
-    <p class="rif">RIF J-50832149-9</p>
-    <p class="rif">Emprendimiento Carlos Mattar</p>
-    <div class="verification">✦ DOCUMENTO VERIFICADO ✦</div>
-    <p style="text-align:center;font-size:9pt;margin-top:30px;">Este documento ha sido firmado electrónicamente con el sello oficial de System Kyron.</p>
-    <p style="text-align:center;font-size:8pt;">Válido para efectos legales ante la República Bolivariana de Venezuela.</p>
-    <div class="footer">System Kyron &mdash; Ecosistema de Inteligencia Corporativa &mdash; ${new Date().toLocaleDateString('es-VE')}</div>
-</body></html>`;
-            const blob = new Blob([html], { type: 'application/msword' });
+            if (!dataUrl) { setError('No se pudo generar el sello'); return; }
             const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
             link.download = 'sello-system-kyron.doc';
             link.click();
-            URL.revokeObjectURL(link.href);
-        } finally { setDownloading(null); }
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+        } catch { setError('Error al descargar Word'); } finally { setDownloading(null); }
     }, [getPngData]);
 
     return (
@@ -128,6 +108,12 @@ export function OfficialSeal({ className }: { className?: string }) {
                 </svg>
             </div>
 
+            {error && (
+                <div className="flex items-center gap-2 px-4 py-2 bg-red-50 border border-red-200 rounded-xl">
+                    <AlertCircle className="h-4 w-4 text-red-500 shrink-0" />
+                    <span className="text-xs font-bold text-red-600">{error}</span>
+                </div>
+            )}
             <div className="flex flex-wrap items-center justify-center gap-3">
                 <button onClick={downloadPng} disabled={!!downloading}
                     className={cn("flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all shadow-lg hover:shadow-xl",

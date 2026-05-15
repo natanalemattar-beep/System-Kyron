@@ -281,7 +281,7 @@ export function SpecializedLoginCard({
     }
   };
 
-  const submitCode = async (code: string) => {
+  const submitCode = useCallback(async (code: string) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -301,7 +301,7 @@ export function SpecializedLoginCard({
       setSingleCode('');
       setIsLoading(false);
     }
-  };
+  }, [verificationEmail, redirectPath, toast, router]);
 
   const handleBackToLogin = () => { setStep('credentials'); setError(null); setSingleCode(''); setVerifVerified(false); setVerificationMethod('email'); setChallengeToken(''); setHasPhone(false); setMaskedPhone(''); setDevCode(null); };
   const formatCountdown = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
@@ -339,7 +339,7 @@ export function SpecializedLoginCard({
     if (singleCode.length === 6 && step === 'verification' && !verifVerified) {
       submitCode(singleCode);
     }
-  }, [singleCode, step, verifVerified]);
+  }, [singleCode, step, verifVerified, submitCode]);
 
   const handleSwitchMethod = async (method: 'email' | 'sms' | 'whatsapp') => {
     if (method === verificationMethod || switchingMethod) return;
@@ -1053,8 +1053,8 @@ export function SpecializedLoginCard({
       <div className="absolute inset-0 hud-grid opacity-20" />
       
       {/* Dynamic Glows */}
-      <div className="absolute top-0 left-1/4 w-[800px] h-[800px] blur-[150px] opacity-20 rounded-full animate-pulse-slow" style={{ background: theme.glowFrom }} />
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] blur-[150px] opacity-10 rounded-full animate-pulse" style={{ background: theme.glowFrom }} />
+      <div className="absolute top-0 left-1/4 w-[800px] h-[800px] blur-[150px] opacity-20 rounded-full" style={{ background: theme.glowFrom }} />
+      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] blur-[150px] opacity-10 rounded-full" style={{ background: theme.glowFrom }} />
       
       {/* Animated Scanline */}
       <motion.div 
