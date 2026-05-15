@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
     ChevronLeft, ChevronRight, ShieldCheck, Zap, BarChart3, 
     Globe, Users, Leaf, Cpu, Rocket, FileText, Globe2,
-    FileDown, ExternalLink, Share2
+    FileDown, ExternalLink, Share2, Loader2, CheckCircle2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -13,6 +13,7 @@ import { Badge } from '@/components/ui/badge';
 // Dinámicamente cargamos pptxgenjs desde CDN para evitar problemas de instalación
 const loadPptxGen = () => {
     return new Promise((resolve) => {
+        if ((window as any).PptxGenJS) return resolve((window as any).PptxGenJS);
         const script = document.createElement('script');
         script.src = "https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.bundle.js";
         script.onload = () => resolve((window as any).PptxGenJS);
@@ -311,10 +312,19 @@ export default function PresentacionFinalPage() {
                     variant="outline" 
                     onClick={handleExportPPTX}
                     disabled={isExporting}
-                    className="rounded-full bg-white/5 border-white/10 hover:bg-white/10 text-white font-bold uppercase text-[10px] tracking-widest px-6 h-12"
+                    className="rounded-full bg-white/5 border-white/10 hover:bg-white/10 text-white font-bold uppercase text-[10px] tracking-widest px-6 h-12 min-w-[160px]"
                 >
-                    {isExporting ? <Zap className="w-4 h-4 mr-2 animate-spin" /> : <FileDown className="w-4 h-4 mr-2" />}
-                    {isExporting ? 'Generando...' : 'Descargar PPTX'}
+                    {isExporting ? (
+                        <span className="flex items-center gap-2">
+                            <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                            Generando...
+                        </span>
+                    ) : (
+                        <span className="flex items-center gap-2">
+                            <FileDown className="w-4 h-4" />
+                            Descargar PPTX
+                        </span>
+                    )}
                 </Button>
             </div>
 
