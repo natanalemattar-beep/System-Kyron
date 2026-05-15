@@ -243,32 +243,26 @@ export default function BrandKitPage() {
 
                 {/* Official Seal Section */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
                     transition={{ delay: 0.6 }}
                     className="flex flex-col items-center justify-center py-24"
                 >
-                    <div className="relative group">
-                        {/* Glow behind seal */}
-                        <div className="absolute -inset-10 bg-cyan-500/5 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                        <OfficialSeal className="w-56 h-56 lg:w-64 lg:h-64" />
-                    </div>
-                    <div className="text-center space-y-3 mt-8">
-                        <h2 className="text-2xl font-black uppercase tracking-widest text-white italic">
+                    <div className="max-w-2xl mx-auto text-center mb-12 space-y-4">
+                        <h2 className="text-3xl lg:text-4xl font-black uppercase tracking-tight text-white italic">
                             Sello Oficial
                         </h2>
-                        <p className="text-sm font-medium text-zinc-500 max-w-md mx-auto">
-                            Emprendimiento Carlos Mattar · RIF J-50832149-9
+                        <p className="text-zinc-500 text-sm font-medium leading-relaxed max-w-lg mx-auto">
+                            Sello notarial oficial de System Kyron para la autenticación de documentos, 
+                            certificaciones y comunicaciones institucionales.
                         </p>
-                        <p className="text-xs font-medium text-zinc-600 max-w-md mx-auto">
-                            República Bolivariana de Venezuela
-                        </p>
-                        <div className="flex items-center justify-center gap-4 pt-4">
-                            <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-500/30" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400">Documento Verificado</span>
-                            <div className="h-px w-12 bg-gradient-to-r from-cyan-500/30 to-transparent" />
+                        <div className="flex items-center justify-center gap-3">
+                            <div className="h-px w-8 bg-zinc-800" />
+                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-600">VALIDEZ JURÍDICA</span>
+                            <div className="h-px w-8 bg-zinc-800" />
                         </div>
                     </div>
+                    <OfficialSeal />
                 </motion.div>
 
                 {/* Footer Insight */}
