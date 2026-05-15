@@ -162,12 +162,23 @@ export default function PresentacionFinalPage() {
     const next = () => setCurrent((prev) => (prev + 1) % slides.length);
     const prev = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
-    // Preload de imágenes para evitar lag en transiciones
+    // Ultra-Fast Parallel Asset Preloading
     useEffect(() => {
-        const nextSlide = (current + 1) % slides.length;
-        const img = new Image();
-        img.src = slides[nextSlide].image;
-    }, [current]);
+        const preloadAssets = async () => {
+            const promises = slides.map(slide => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = slide.image;
+                    img.onload = resolve;
+                    img.onerror = resolve; // Continue even if one fails
+                });
+            });
+            await Promise.all(promises);
+            console.log("Kyron Core: Assets Cached for Turbo Download");
+        };
+        preloadAssets();
+        loadPptxGen(); // Preload library immediately
+    }, []);
 
     const handleExportPPTX = async () => {
         setIsExporting(true);
