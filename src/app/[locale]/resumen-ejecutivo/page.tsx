@@ -113,10 +113,17 @@ export default function ResumenEjecutivoPage() {
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
                                 <FileText className="h-4 w-4" /> 1. INFORMACIÓN GENERAL
                             </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 print:border-black/10">
-                                <p className="text-sm font-bold text-white print:text-black">Nombre: <span className="font-normal text-white/70 print:text-black/70">System Kyron (Nexus AI Ecosystem)</span></p>
-                                <p className="text-sm font-bold text-white print:text-black">Eslogan: <span className="font-normal text-white/70 print:text-black/70">Un solo ecosistema. Un solo mando. Cero fronteras operativas.</span></p>
-                                <p className="text-sm font-bold text-white print:text-black">Equipo: <span className="font-normal text-white/70 print:text-black/70">Liderado por Carlos Mattar (Tecnología), Sebastian Garrido (Operaciones) y Marcos Sousa (Legal).</span></p>
+                            <div className="pl-4 border-l-2 border-primary/10 grid md:grid-cols-2 gap-4 print:border-black/10">
+                                <div>
+                                    <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">Nombre y Eslogan</p>
+                                    <p className="text-sm font-bold text-white print:text-black">System Kyron: Intelligence Hub 4.0</p>
+                                    <p className="text-xs text-white/60 print:text-black/60 italic">"El Futuro de la Inteligencia Corporativa en Venezuela"</p>
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">Equipo Directivo</p>
+                                    <p className="text-sm font-bold text-white print:text-black">C. Mattar (Tech) · S. Garrido (Ops) · M. Sousa (Legal)</p>
+                                    <p className="text-xs text-white/60 print:text-black/60">RIF Jurídico: J-50832149-9</p>
+                                </div>
                             </div>
                         </section>
 
@@ -125,28 +132,54 @@ export default function ResumenEjecutivoPage() {
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
                                 <Globe className="h-4 w-4" /> 2. DEFINICIÓN DEL PROBLEMA
                             </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-3 print:border-black/10">
+                            <div className="pl-4 border-l-2 border-primary/10 space-y-4 print:border-black/10">
                                 <p className="text-sm text-white/70 print:text-black/70 leading-relaxed">
-                                    Las PyMEs venezolanas enfrentan una **crisis de fragmentación**. Un empresario promedio debe gestionar entre 5 y 8 proveedores distintos para telefonía, contabilidad, legalidad y sostenibilidad, lo que genera una **pérdida de productividad del 40%** en saltos operativos. 
+                                    La fragmentación operativa en Venezuela genera una **parálisis de productividad**. El empresario PyME promedio desperdicia el **40% de su jornada** saltando entre sistemas aislados:
                                 </p>
-                                <p className="text-sm text-white/70 print:text-black/70 leading-relaxed italic border-l border-white/10 pl-4">
-                                    "La burocracia digital y la desconexión entre el RIF, la telefonía corporativa y el cumplimiento fiscal SENIAT asfixian el crecimiento de los emprendimientos locales."
-                                </p>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+                                        <p className="text-[9px] font-black text-rose-500 uppercase">Tiempo</p>
+                                        <p className="text-xs font-bold text-white">-4h diarias</p>
+                                    </div>
+                                    <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+                                        <p className="text-[9px] font-black text-rose-500 uppercase">Papel</p>
+                                        <p className="text-xs font-bold text-white">12k hojas/año</p>
+                                    </div>
+                                    <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+                                        <p className="text-[9px] font-black text-rose-500 uppercase">Legal</p>
+                                        <p className="text-xs font-bold text-white">Riesgo SENIAT</p>
+                                    </div>
+                                    <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+                                        <p className="text-[9px] font-black text-rose-500 uppercase">Costos</p>
+                                        <p className="text-xs font-bold text-white">+30% Ineficiencia</p>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
                         {/* 3. Propuesta de Valor */}
                         <section className="space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <Zap className="h-4 w-4" /> 3. PROPUESTA DE VALOR (LA SOLUCIÓN)
+                                <Zap className="h-4 w-4" /> 3. PROPUESTA DE VALOR
                             </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-3 print:border-black/10 text-sm text-white/70 print:text-black/70">
-                                <p>System Kyron es el primer **mando único operativo** de Venezuela. Integra:</p>
-                                <ul className="grid md:grid-cols-2 gap-4">
-                                    <li className="flex items-start gap-2 font-medium"><CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /> Automatización Fiscal VEN-NIF y SENIAT en tiempo real.</li>
-                                    <li className="flex items-start gap-2 font-medium"><CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /> Gestión nativa de líneas 5G y flotas móviles.</li>
-                                    <li className="flex items-start gap-2 font-medium"><CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /> Blindaje Legal Automático (Kyron Shield).</li>
-                                    <li className="flex items-start gap-2 font-medium"><CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /> Gestión de sostenibilidad con tecnología de inducción.</li>
+                            <div className="pl-4 border-l-2 border-primary/10 space-y-4 print:border-black/10">
+                                <p className="text-sm text-white/70 print:text-black/70">Kyron es un **mando único** que fusiona tres pilares críticos en una interfaz de alto rendimiento:</p>
+                                <ul className="grid md:grid-cols-3 gap-6">
+                                    <li className="space-y-2">
+                                        <div className="h-8 w-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400 border border-cyan-500/20"><Cpu className="h-4 w-4" /></div>
+                                        <p className="text-[11px] font-bold text-white">Conectividad 5G</p>
+                                        <p className="text-[10px] text-white/40">Gestión de flotas y activación instantánea de líneas corporativas.</p>
+                                    </li>
+                                    <li className="space-y-2">
+                                        <div className="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20"><ShieldCheck className="h-4 w-4" /></div>
+                                        <p className="text-[11px] font-bold text-white">SaaS Fiscal/Legal</p>
+                                        <p className="text-[10px] text-white/40">Automatización VEN-NIF y blindaje jurídico en tiempo real.</p>
+                                    </li>
+                                    <li className="space-y-2">
+                                        <div className="h-8 w-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 border border-amber-500/20"><Leaf className="h-4 w-4" /></div>
+                                        <p className="text-[11px] font-bold text-white">Economía Circular</p>
+                                        <p className="text-[10px] text-white/40">Smart Bins por inducción magnética y sistema de Eco-Créditos.</p>
+                                    </li>
                                 </ul>
                             </div>
                         </section>
@@ -156,11 +189,15 @@ export default function ResumenEjecutivoPage() {
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
                                 <Target className="h-4 w-4" /> 4. MERCADO OBJETIVO
                             </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-3 print:border-black/10 text-sm text-white/70 print:text-black/70">
-                                <p>Apuntamos a un mercado de **500,000+ PyMEs** y 2 millones de profesionales independientes en Venezuela.</p>
-                                <p className="bg-white/5 p-4 rounded-xl border border-white/10 print:bg-black/5">
-                                    <strong>Perfil del Cliente:</strong> Empresarios de 25-55 años que buscan formalizar su negocio, optimizar costos de telefonía y asegurar su cumplimiento legal sin contratar un ejército de consultores.
-                                </p>
+                            <div className="pl-4 border-l-2 border-primary/10 grid md:grid-cols-2 gap-8 print:border-black/10">
+                                <div className="space-y-2 text-sm text-white/70 print:text-black/70">
+                                    <p className="font-bold text-white">Segmento B2B:</p>
+                                    <p>500,000+ PyMEs activas en Venezuela (Retail, Servicios, Manufactura).</p>
+                                </div>
+                                <div className="space-y-2 text-sm text-white/70 print:text-black/70">
+                                    <p className="font-bold text-white">Segmento B2G/B2C:</p>
+                                    <p>Alcaldías (Gestión urbana) y 2M+ Profesionales Independientes.</p>
+                                </div>
                             </div>
                         </section>
 
@@ -169,20 +206,20 @@ export default function ResumenEjecutivoPage() {
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
                                 <Banknote className="h-4 w-4" /> 5. MODELO DE NEGOCIO
                             </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-3 print:border-black/10 text-sm text-white/70 print:text-black/70">
-                                <p>Generamos ingresos a través de:</p>
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                    <div className="p-3 bg-white/5 rounded-lg border border-white/5 text-center">
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-primary">SaaS Recurrente</p>
-                                        <p className="font-bold">$45-$190/mes</p>
+                            <div className="pl-4 border-l-2 border-primary/10 space-y-4 print:border-black/10">
+                                <p className="text-sm text-white/70 print:text-black/70">Estructura de ingresos diversificada basada en recurrencia y venta de activos:</p>
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center">
+                                        <p className="text-[10px] text-white/40 font-black mb-1">SUSCRIPCIÓN</p>
+                                        <p className="text-sm font-black text-primary">$45 - $190/mes</p>
                                     </div>
-                                    <div className="p-3 bg-white/5 rounded-lg border border-white/5 text-center">
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-primary">Hardware Fiscal</p>
-                                        <p className="font-bold">Venta Directa</p>
+                                    <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center">
+                                        <p className="text-[10px] text-white/40 font-black mb-1">HARDWARE</p>
+                                        <p className="text-sm font-black text-white">$200 - $500</p>
                                     </div>
-                                    <div className="p-3 bg-white/5 rounded-lg border border-white/5 text-center">
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-primary">Telefonía 5G</p>
-                                        <p className="font-bold">Planes Mensuales</p>
+                                    <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center">
+                                        <p className="text-[10px] text-white/40 font-black mb-1">MÁRGEN NETO</p>
+                                        <p className="text-sm font-black text-emerald-500">65% Proy.</p>
                                     </div>
                                 </div>
                             </div>
@@ -191,26 +228,27 @@ export default function ResumenEjecutivoPage() {
                         {/* 6. Estrategia de Marketing */}
                         <section className="space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <Megaphone className="h-4 w-4" /> 6. ESTRATEGIA DE MARKETING Y VENTAS
+                                <Megaphone className="h-4 w-4" /> 6. ESTRATEGIA DE MARKETING
                             </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-3 print:border-black/10 text-sm text-white/70 print:text-black/70">
-                                <p>Canales principales:</p>
-                                <ul className="list-disc pl-5 space-y-1">
-                                    <li><strong>Marketing Educativo:</strong> TikTok e Instagram para enseñar a formalizar empresas (Contenido viral).</li>
-                                    <li><strong>Alianzas Estratégicas:</strong> Con cámaras de comercio y gremios contables en Venezuela.</li>
-                                    <li><strong>Embajadores:</strong> Profesionales del derecho y contaduría que recomiendan la plataforma.</li>
-                                </ul>
+                            <div className="pl-4 border-l-2 border-primary/10 grid md:grid-cols-2 gap-6 print:border-black/10">
+                                <p className="text-sm text-white/70 print:text-black/70">
+                                    **TikTok & Instagram (Marketing Educativo)**: Campañas virales sobre "Cómo formalizar tu empresa en 5 minutos" para captar leads orgánicos.
+                                </p>
+                                <p className="text-sm text-white/70 print:text-black/70">
+                                    **Cámaras de Comercio & Gremios**: Alianzas para ofrecer la plataforma como beneficio a agremiados (Canal Indirecto).
+                                </p>
                             </div>
                         </section>
 
                         {/* 7. Impacto Social o Ambiental */}
                         <section className="space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-500 print:text-black flex items-center gap-2">
-                                <Leaf className="h-4 w-4" /> 7. IMPACTO SOCIAL O AMBIENTAL
+                                <Leaf className="h-4 w-4" /> 7. IMPACTO AMBIENTAL (AMERU)
                             </h2>
-                            <div className="pl-4 border-l-2 border-emerald-500/30 space-y-3 print:border-black/10 text-sm text-white/70 print:text-black/70">
-                                <p><strong>Cero Papel:</strong> Digitalizamos la oficina venezolana, ahorrando 12,000 hojas de papel por empresa al año.</p>
-                                <p><strong>Iniciativa Ameru:</strong> Implementación de Smart Bins para reciclaje urbano inteligente, fomentando la economía circular mediante recompensas digitales.</p>
+                            <div className="pl-4 border-l-2 border-emerald-500/30 p-5 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 print:border-black/10">
+                                <p className="text-sm text-white/70 print:text-black/70 leading-relaxed italic">
+                                    "System Kyron no solo digitaliza el papel, sino que gestiona físicamente los residuos a través de la alianza con Ameru. La inducción magnética permite un procesamiento 4x más rápido en Smart Bins urbanos."
+                                </p>
                             </div>
                         </section>
 
@@ -219,15 +257,21 @@ export default function ResumenEjecutivoPage() {
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
                                 <Milestone className="h-4 w-4" /> 8. ESTADO ACTUAL Y HOJA DE RUTA
                             </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-4 print:border-black/10 text-sm text-white/70 print:text-black/70">
-                                <p><strong>Etapa:</strong> Prototipo Funcional (MVP) y estructura legal completa con RIF J-50832149-9.</p>
-                                <div className="space-y-2">
-                                    <p className="font-bold text-white print:text-black uppercase text-[10px]">Objetivos 6 Meses:</p>
-                                    <ol className="list-decimal pl-5 space-y-1">
-                                        <li>Cerrar alianza con el primer operador 5G para integración de líneas.</li>
-                                        <li>Alcanzar los primeros 500 clientes pagos (Beta privada).</li>
-                                        <li>Lanzar el primer piloto de Smart Bins en un municipio del país.</li>
-                                    </ol>
+                            <div className="pl-4 border-l-2 border-primary/10 space-y-4 print:border-black/10">
+                                <p className="text-sm text-white/70 print:text-black/70">**Estado Actual**: MVP validado en entorno local. RIF Jurídico J-50832149-9 activo.</p>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                        <p className="text-[9px] font-black text-primary mb-2 uppercase">Mes 2</p>
+                                        <p className="text-[11px] font-bold text-white">Primeras 100 PyMEs Pago</p>
+                                    </div>
+                                    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                        <p className="text-[9px] font-black text-primary mb-2 uppercase">Mes 4</p>
+                                        <p className="text-[11px] font-bold text-white">Alianza Operador 5G</p>
+                                    </div>
+                                    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                        <p className="text-[9px] font-black text-primary mb-2 uppercase">Mes 6</p>
+                                        <p className="text-[11px] font-bold text-white">Lanzamiento Smart Bins</p>
+                                    </div>
                                 </div>
                             </div>
                         </section>

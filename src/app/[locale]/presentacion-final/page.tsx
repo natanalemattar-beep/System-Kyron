@@ -28,7 +28,7 @@ const slides = [
         content: 'Ecosistema Unificado: Conectividad, Automatización y Sostenibilidad.',
         team: 'Carlos Mattar • Sebastian Garrido • Marcos Sousa',
         icon: <Rocket className="w-12 h-12 text-primary" />,
-        image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600',
+        image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800',
         bg: 'bg-gradient-to-br from-[#030711] to-primary/10'
     },
     {
@@ -43,7 +43,7 @@ const slides = [
         ],
         badge: 'EL DOLOR',
         icon: <BarChart3 className="w-12 h-12 text-rose-500" />,
-        image: 'https://images.unsplash.com/photo-1590247813693-5541d1c609fd?q=80&w=1600',
+        image: 'https://images.unsplash.com/photo-1590247813693-5541d1c609fd?q=80&w=800',
         bg: 'bg-gradient-to-br from-[#030711] to-rose-500/10'
     },
     {
@@ -58,7 +58,7 @@ const slides = [
         ],
         badge: 'TARGET',
         icon: <Users className="w-12 h-12 text-blue-400" />,
-        image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1600',
+        image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800',
         bg: 'bg-gradient-to-br from-[#030711] to-blue-500/10'
     },
     {
@@ -73,7 +73,7 @@ const slides = [
         ],
         badge: 'LA SOLUCIÓN',
         icon: <Zap className="w-12 h-12 text-amber-500" />,
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600',
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800',
         bg: 'bg-gradient-to-br from-[#030711] to-amber-500/10'
     },
     {
@@ -88,7 +88,7 @@ const slides = [
         ],
         badge: 'VIABILIDAD',
         icon: <ShieldCheck className="w-12 h-12 text-emerald-400" />,
-        image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1600',
+        image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800',
         bg: 'bg-gradient-to-br from-[#030711] to-emerald-500/10'
     },
     {
@@ -101,7 +101,7 @@ const slides = [
             { name: 'Marcos Sousa', role: 'Legal' }
         ],
         icon: <Users className="w-12 h-12 text-primary" />,
-        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600',
+        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800',
         bg: 'bg-gradient-to-br from-[#030711] to-primary/10'
     }
 ];
