@@ -168,6 +168,9 @@ export default function PresentacionFinalPage() {
             await Promise.all(promises);
             console.log("Kyron Core: Assets Cached for Turbo Download");
         };
+        preloadAssets();
+    }, []);
+
     const [isExportingPDF, setIsExportingPDF] = useState(false);
 
     const handleExportPDF = async () => {
