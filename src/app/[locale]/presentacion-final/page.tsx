@@ -68,7 +68,7 @@ const slides = [
         points: [
             'Kyron 5G: Integración nativa de telefonía y ERP.',
             'Cero Papel: Digitalización absoluta de libros contables y legales.',
-            'Reserva On-Demand: Activable para recargas o navegación.',
+            'Reserva On-Demand: Integración SIM-App para recargas sin saldo.',
             'Kyron Shield: Blindaje jurídico automático para cada transacción.'
         ],
         badge: 'LA SOLUCIÓN',
