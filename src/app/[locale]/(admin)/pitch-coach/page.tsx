@@ -325,7 +325,8 @@ export default function PitchCoachPage() {
 
   return (
     <PasswordGate title="Pitch Coach AI">
-      <div className="flex flex-col h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)]">
+      <PageTransition>
+        <div className="flex flex-col h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)]">
         {/* Header */}
         <div className="shrink-0 border-b border-border/40 bg-card/50 backdrop-blur-sm px-4 sm:px-6 py-3">
           <div className="flex items-center justify-between">
@@ -571,7 +572,7 @@ export default function PitchCoachPage() {
           </>
         )}
       </div>
-    </PageTransition>
+      </PageTransition>
     </PasswordGate>
   );
 }

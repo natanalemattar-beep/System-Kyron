@@ -20,9 +20,6 @@ import {
     Fingerprint,
 } from 'lucide-react';
 import { PasswordGate } from '@/components/password-gate';
-    ExternalLink,
-    Layers
-} from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
