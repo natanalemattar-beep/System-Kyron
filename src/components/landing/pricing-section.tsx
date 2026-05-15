@@ -169,17 +169,10 @@ function ModuleCard({ id, mod, index, t }: { id: string; mod: any; index: number
       delay={index * 0.08}
       className={cn(
         'relative group p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 h-full rounded-[2.5rem]',
-        isPopular ? 'border-blue-500/40 dark:border-primary/40 bg-blue-500/[0.04] dark:bg-blue-500/[0.08] shadow-2xl shadow-blue-500/10' : 'border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]',
+        'border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]',
         'hover:shadow-2xl transition-all'
       )}
     >
-      {isPopular && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
-          <span className="px-4 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] border border-white/20">
-            ⭐ {t('most_complete')}
-          </span>
-        </div>
-      )}
 
       <div className="flex items-start justify-between mb-8">
         <div className={cn('h-16 w-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm', 
