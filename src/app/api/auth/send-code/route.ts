@@ -4,13 +4,9 @@ import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { verifyLoginChallenge } from '@/lib/login-challenge';
-import { generateCode, generateMagicToken, storeMagicToken, storeCode, normalizePhone, maskPhone } from '@/lib/verification-codes';
+import { generateCode, generateMagicToken, storeMagicToken, storeCode, normalizePhone } from '@/lib/verification-codes';
 
 export const dynamic = 'force-dynamic';
-  } catch (err) {
-    return { sent: false, error: err instanceof Error ? err.message : String(err) };
-  }
-}
 
 export async function POST(req: NextRequest) {
   try {
