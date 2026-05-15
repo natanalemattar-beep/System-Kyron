@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Headphones, Send, X, Bot, User, Sparkles, Loader2 } from "lucide-react";
+import { MessageCircle, Send, X, Bot, User, Sparkles, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -194,7 +194,7 @@ export function SupportBot() {
                             : "bg-white dark:bg-[#0a1020] border-black/5 dark:border-white/10 text-slate-600 dark:text-white"
                     )}
                 >
-                    {isOpen ? <X className="h-6 w-6 md:h-8 md:w-8" /> : <Headphones className="h-6 w-6 md:h-8 md:w-8" />}
+                    {isOpen ? <X className="h-6 w-6 md:h-8 md:w-8" /> : <MessageCircle className="h-6 w-6 md:h-8 md:w-8" />}
                 </Button>
             </motion.div>
         </div>

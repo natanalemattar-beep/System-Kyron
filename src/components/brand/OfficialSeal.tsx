@@ -11,11 +11,20 @@ export function OfficialSeal({ className }: { className?: string }) {
 
     const getPngData = useCallback(async () => {
         if (!sealRef.current) return null;
+        const el = sealRef.current;
+        const origWidth = el.style.width;
+        const origHeight = el.style.height;
+        el.style.width = '600px';
+        el.style.height = '600px';
+        await new Promise(r => requestAnimationFrame(r));
         const { toPng } = await import('html-to-image');
-        return toPng(sealRef.current, {
-            width: 800, height: 800, pixelRatio: 2, backgroundColor: '#ffffff',
+        const dataUrl = await toPng(el, {
+            width: 1200, height: 1200, pixelRatio: 3, backgroundColor: '#ffffff',
             cacheBust: true, useCORS: 'anonymous',
         });
+        el.style.width = origWidth;
+        el.style.height = origHeight;
+        return dataUrl;
     }, []);
 
     const downloadPng = useCallback(async () => {
@@ -40,7 +49,7 @@ export function OfficialSeal({ className }: { className?: string }) {
             const { default: jsPDF } = await import('jspdf');
             const pdf = new jsPDF('p', 'mm', 'a4');
             const pageWidth = pdf.internal.pageSize.getWidth();
-            const imgSize = 90;
+            const imgSize = 130;
             const x = (pageWidth - imgSize) / 2;
             pdf.addImage(dataUrl, 'PNG', x, 20, imgSize, imgSize);
             pdf.setFont('helvetica', 'bold');
@@ -70,7 +79,7 @@ export function OfficialSeal({ className }: { className?: string }) {
 <style>
     body { font-family: 'Inter', 'Segoe UI', sans-serif; padding: 48px; color: #0f172a; background: #fafafa; }
     .seal-container { text-align: center; margin: 30px 0; }
-    .seal-container img { width: 240px; height: 240px; }
+    .seal-container img { width: 400px; height: 400px; }
     h1 { text-align: center; font-size: 24pt; font-weight: 900; letter-spacing: 2px; margin-top: 20px; color: #0f172a; }
     .sub { text-align: center; font-size: 11pt; font-weight: 700; color: #475569; letter-spacing: 1px; margin: 4px 0; text-transform: uppercase; }
     .meta { text-align: center; font-size: 10pt; color: #64748b; margin: 16px 0 0; }
