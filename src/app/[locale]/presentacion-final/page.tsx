@@ -68,7 +68,7 @@ const slides = [
         points: [
             'Kyron 5G: Integración nativa de telefonía y ERP.',
             'Cero Papel: Digitalización absoluta de libros contables y legales.',
-            'Reserva de Emergencia: 500MB + 30 min activos tras agotar saldo.',
+            'Reserva On-Demand: Activable para recargas o navegación.',
             'Kyron Shield: Blindaje jurídico automático para cada transacción.'
         ],
         badge: 'LA SOLUCIÓN',

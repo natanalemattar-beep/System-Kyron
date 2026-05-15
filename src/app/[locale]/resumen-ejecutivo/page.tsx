@@ -170,7 +170,7 @@ export default function ResumenEjecutivoPage() {
                                     <li className="space-y-2">
                                         <div className="h-8 w-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400 border border-cyan-500/20"><Cpu className="h-4 w-4" /></div>
                                         <p className="text-[11px] font-bold text-white">Conectividad 5G</p>
-                                        <p className="text-[10px] text-white/40">Gestión de flotas y **Reserva de Emergencia** (500MB + 30 min) para asegurar continuidad.</p>
+                                        <p className="text-[10px] text-white/40">**Reserva bajo demanda** (500MB + 30 min) para recargas sin saldo o continuidad opcional.</p>
                                     </li>
                                     <li className="space-y-2">
                                         <div className="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20"><ShieldCheck className="h-4 w-4" /></div>

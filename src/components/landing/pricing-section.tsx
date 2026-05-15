@@ -60,7 +60,7 @@ const SAAS_MODULES: SaasModule[] = [
     id: 'milinea',
     icon: Tablet,
     nombre: 'Línea Personal',
-    descripcion: 'Gestión inteligente de tu línea personal. Incluye Reserva de Emergencia activa.',
+    descripcion: 'Gestión inteligente de tu línea personal. Incluye Reserva de Emergencia controlada desde la App.',
     precio: 3,
     color: 'from-cyan-500/15 to-blue-500/10',
     acento: 'text-cyan-400',
@@ -69,7 +69,7 @@ const SAAS_MODULES: SaasModule[] = [
     id: 'milinea_corp',
     icon: Smartphone,
     nombre: 'Línea Empresarial',
-    descripcion: 'Gestión de flota corporativa, límites de consumo y Reserva de Emergencia compartida.',
+    descripcion: 'Gestión de flota corporativa. Reserva de Emergencia activable para continuidad o recargas.',
     precio: 10,
     color: 'from-blue-600/15 to-indigo-600/10',
     acento: 'text-blue-400',
@@ -423,7 +423,7 @@ export function PricingSection() {
             badge="Conectividad 5G"
             title="Planes de líneas"
             highlight="5G con Kyron Shield"
-            subtitle="Cada plan incluye Reserva de Emergencia (500MB + 30 min) que se activa automáticamente al agotar tu saldo."
+            subtitle="Reserva de Emergencia (500MB + 30 min): Tú decides si la usas para navegar o la guardas para entrar a la App y recargar sin saldo."
           />
 
           {/* Kyron Shield badge */}
