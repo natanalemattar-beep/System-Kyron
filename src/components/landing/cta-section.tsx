@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { Sparkles, ArrowRight, CircleCheck, Shield, Zap, Clock } from "lucide-react";
 import { useTranslations } from 'next-intl';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useRef } from 'react';

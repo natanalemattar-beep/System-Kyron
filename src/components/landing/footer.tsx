@@ -5,7 +5,7 @@ import { Logo } from "@/components/logo";
 import { 
     Mail, MapPin, FileText, Shield, Gavel, 
     ArrowUpRight, Hexagon, Github, Twitter, 
-    Linkedin, Heart, Instagram, BadgeCheck
+    Linkedin, Heart, Instagram
 } from "lucide-react";
 
 import { useTranslations } from 'next-intl';
@@ -98,6 +98,7 @@ export function Footer() {
                         </nav>
                     </div>
 
+                    <div className="md:col-span-3 space-y-5">
                         <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20 mb-6">{t('contact')}</h4>
                         <div className="space-y-6">
                             <a href="mailto:infosystemkyron@gmail.com"
@@ -114,6 +115,7 @@ export function Footer() {
                                 <span className="text-[11px] font-black uppercase tracking-widest">{t('location')}</span>
                             </div>
                         </div>
+                    </div>
                 </div>
 
                 <div className="mt-12 pt-8 border-t border-white/[0.04]">

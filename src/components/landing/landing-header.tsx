@@ -6,22 +6,15 @@ import { Button } from "@/components/ui/button";
 import {
     Menu,
     ChevronDown,
-    Sparkles,
     ShieldCheck,
     ArrowRight,
     ChevronRight,
     KeyRound,
     UserPlus,
-    User,
-    Building2,
-    Smartphone,
     Globe,
     Zap,
     Cpu,
-    Lock,
-    ExternalLink,
-    Rocket,
-    FileText
+    Lock
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import {
