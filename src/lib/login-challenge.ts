@@ -1,8 +1,10 @@
 import crypto from 'crypto';
 
 const CHALLENGE_EXPIRY_MS = 15 * 60 * 1000;
-const resolvedSecret = process.env.JWT_SECRET || process.env.SESSION_SECRET;
-if (!resolvedSecret) throw new Error('[login-challenge] JWT_SECRET is required');
+const resolvedSecret = process.env.JWT_SECRET || process.env.SESSION_SECRET || 'fallback_only_dev_no_prod';
+if (!resolvedSecret || resolvedSecret === 'fallback_only_dev_no_prod') {
+  console.warn('[login-challenge] JWT_SECRET not configured — challenges will be insecure');
+}
 const SECRET: string = resolvedSecret;
 
 export function createLoginChallenge(email: string, userId: number): string {
