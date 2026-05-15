@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Lock, Sparkles } from 'lucide-react';
 
+// Clave de acceso: kyron2026
 const CORRECT_PASSWORD = 'kyron2026';
 
 export function PasswordGate({ children, title }: { children: React.ReactNode; title: string }) {
