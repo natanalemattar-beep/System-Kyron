@@ -17,7 +17,7 @@ const slides = [
     {
         id: 'portada',
         title: 'System Kyron',
-        subtitle: 'La Evolución del Mando Único',
+        subtitle: 'Ecosistema de Inteligencia Corporativa',
         content: 'Sincronizando el Futuro de tu Negocio: Conectividad, Automatización y Sostenibilidad.',
         team: 'Carlos Mattar • Sebastian Garrido • Marcos Sousa',
         icon: <Rocket className="w-12 h-12 text-primary" />,
@@ -42,7 +42,7 @@ const slides = [
     },
     {
         id: 'solucion',
-        title: 'Mando Único',
+        title: 'Sincronización Total',
         subtitle: 'Propuesta de Valor Kyron',
         points: [
             'Conectividad 5G: Integración nativa de telecomunicaciones.',
@@ -337,7 +337,7 @@ export default function PresentacionFinalPage() {
     }, []);
 
     return (
-        <div className="fixed inset-0 bg-[#030711] overflow-hidden flex flex-col font-outfit print:static print:bg-white">
+        <div className="fixed inset-0 bg-[#030711] dark overflow-hidden flex flex-col font-outfit print:static print:bg-white text-white">
             <Script 
                 src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.bundle.js" 
                 strategy="afterInteractive"
