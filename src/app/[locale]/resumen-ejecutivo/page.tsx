@@ -162,25 +162,25 @@ export default function ResumenEjecutivoPage() {
                         {/* 3. Propuesta de Valor */}
                         <section className="space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <Zap className="h-4 w-4" /> 3. PROPUESTA DE VALOR
+                                <Zap className="h-4 w-4" /> 3. PROPUESTA DE VALOR (LA SOLUCIÓN)
                             </h2>
                             <div className="pl-4 border-l-2 border-primary/10 space-y-4 print:border-black/10">
-                                <p className="text-sm text-white/70 print:text-black/70">Kyron es un **mando único** que fusiona tres pilares críticos en una interfaz de alto rendimiento:</p>
+                                <p className="text-sm text-white/70 print:text-black/70">Kyron es un **mando único** que resuelve la fragmentación fusionando tres pilares críticos. El beneficio principal es la **eliminación del error humano y el ahorro del 40% en costos operativos**.</p>
                                 <ul className="grid md:grid-cols-3 gap-6">
                                     <li className="space-y-2">
                                         <div className="h-8 w-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400 border border-cyan-500/20"><Cpu className="h-4 w-4" /></div>
                                         <p className="text-[11px] font-bold text-white">Conectividad 5G</p>
-                                        <p className="text-[10px] text-white/40">**Reserva On-Demand** (Detección nativa SIM-App) para recargas sin saldo o continuidad.</p>
+                                        <p className="text-[10px] text-white/40">Reserva On-Demand nativa para continuidad absoluta del servicio.</p>
                                     </li>
                                     <li className="space-y-2">
                                         <div className="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20"><ShieldCheck className="h-4 w-4" /></div>
                                         <p className="text-[11px] font-bold text-white">SaaS Fiscal/Legal</p>
-                                        <p className="text-[10px] text-white/40">Automatización VEN-NIF y blindaje jurídico en tiempo real.</p>
+                                        <p className="text-[10px] text-white/40">Automatización VEN-NIF y blindaje jurídico inmutable.</p>
                                     </li>
                                     <li className="space-y-2">
-                                        <div className="h-8 w-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 border border-amber-500/20"><Leaf className="h-4 w-4" /></div>
-                                        <p className="text-[11px] font-bold text-white">Economía Circular</p>
-                                        <p className="text-[10px] text-white/40">Smart Bins por inducción magnética y sistema de Eco-Créditos.</p>
+                                        <div className="h-8 w-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 border border-amber-500/20"><Zap className="h-4 w-4" /></div>
+                                        <p className="text-[11px] font-bold text-white">Diferenciación</p>
+                                        <p className="text-[10px] text-white/40">Única plataforma que controla el hardware fiscal y la red de datos desde un mismo panel.</p>
                                     </li>
                                 </ul>
                             </div>
@@ -212,12 +212,12 @@ export default function ResumenEjecutivoPage() {
                                 <p className="text-sm text-white/70 print:text-black/70">Estructura de ingresos diversificada basada en recurrencia y venta de activos:</p>
                                 <div className="grid grid-cols-3 gap-4">
                                     <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center">
-                                        <p className="text-[10px] text-white/40 font-black mb-1">MANT. LÍNEA</p>
-                                        <p className="text-sm font-black text-primary">$3 - $10/mes</p>
+                                        <p className="text-[10px] text-white/40 font-black mb-1">PLAN BASIC</p>
+                                        <p className="text-sm font-black text-primary">$15/mes</p>
                                     </div>
                                     <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center">
-                                        <p className="text-[10px] text-white/40 font-black mb-1">SaaS SAAS</p>
-                                        <p className="text-sm font-black text-white">$45 - $190</p>
+                                        <p className="text-[10px] text-white/40 font-black mb-1">PLAN ENTERPRISE</p>
+                                        <p className="text-sm font-black text-white">$190+/mes</p>
                                     </div>
                                     <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center">
                                         <p className="text-[10px] text-white/40 font-black mb-1">MÁRGEN NETO</p>

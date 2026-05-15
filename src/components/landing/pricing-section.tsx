@@ -63,19 +63,19 @@ function SectionTitle({ badge, title, highlight, subtitle }: {
 }) {
   return (
     <div className="text-center mb-16 md:mb-20">
-      <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 backdrop-blur-sm mb-6 mx-auto transition-transform hover:scale-105 duration-500">
-        <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
-        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-200/60">{badge}</span>
+      <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 dark:bg-emerald-500/5 backdrop-blur-sm mb-6 mx-auto transition-transform hover:scale-105 duration-500">
+        <Sparkles className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-700 dark:text-emerald-200/60 transition-colors">{badge}</span>
       </div>
-      <h3 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight mb-4 leading-none">
+      <h3 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4 leading-none transition-colors">
         {title}{' '}
         {highlight && (
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 block sm:inline mt-2 sm:mt-0">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-cyan-600 dark:from-emerald-400 dark:to-cyan-400 block sm:inline mt-2 sm:mt-0 drop-shadow-sm">
             {highlight}
           </span>
         )}
       </h3>
-      <p className="text-base text-white/30 font-medium max-w-xl mx-auto leading-relaxed">{subtitle}</p>
+      <p className="text-base md:text-lg text-slate-500 dark:text-white/30 font-medium max-w-xl mx-auto leading-relaxed transition-colors">{subtitle}</p>
     </div>
   );
 }
@@ -89,43 +89,43 @@ function PricingGraphs({ t }: { t: any }) {
   ];
 
   return (
-    <div className="grid md:grid-cols-2 gap-12 items-center mb-32 md:mb-48">
-      <div className="space-y-6">
-        <h3 className="text-3xl font-black text-white uppercase tracking-tight font-outfit">
-          {t('analytics_title')} <span className="text-cyan-400">{t('analytics_highlight')}</span>
+    <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center mb-32 md:mb-48">
+      <div className="space-y-8">
+        <h3 className="text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tighter leading-none transition-colors">
+          {t('analytics_title')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400">{t('analytics_highlight')}</span>
         </h3>
-        <p className="text-sm text-white/40 leading-relaxed font-medium">{t('analytics_subtitle')}</p>
-        <div className="space-y-4 pt-4">
+        <p className="text-lg text-slate-500 dark:text-white/40 leading-relaxed font-medium transition-colors">{t('analytics_subtitle')}</p>
+        <div className="space-y-6 pt-4">
           {chartData.map((d) => (
-            <div key={d.label} className="space-y-2">
-              <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-white/60">
+            <div key={d.label} className="space-y-3">
+              <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-white/60 transition-colors">
                 <span>{d.label}</span>
                 <span>{d.val}%</span>
               </div>
-              <div className="h-3 w-full bg-white/5 rounded-full overflow-hidden border border-white/10">
+              <div className="h-3 w-full bg-black/[0.03] dark:bg-white/5 rounded-full overflow-hidden border border-black/5 dark:border-white/10 transition-colors">
                 <motion.div
                   initial={{ width: 0 }}
                   whileInView={{ width: `${d.val}%` }}
                   transition={{ duration: 1.5, ease: "easeOut" }}
-                  className={cn("h-full rounded-full", d.color)}
+                  className={cn("h-full rounded-full shadow-lg", d.color)}
                 />
               </div>
             </div>
           ))}
         </div>
       </div>
-      <div className="relative aspect-square md:aspect-video rounded-[3rem] overflow-hidden border border-white/10 glass-system-kyron-interactive p-8 flex items-center justify-center">
-          <div className="absolute inset-0 bg-grid-white/[0.02]" />
-          <div className="relative z-10 w-full h-full flex items-end justify-between gap-4">
+      <div className="relative aspect-square md:aspect-video rounded-[3.5rem] overflow-hidden border border-black/5 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] p-8 md:p-12 flex items-center justify-center shadow-2xl transition-all">
+          <div className="absolute inset-0 bg-grid-black/[0.01] dark:bg-grid-white/[0.02]" />
+          <div className="relative z-10 w-full h-full flex items-end justify-between gap-3 md:gap-6">
               {[60, 45, 90, 65, 80, 55, 100].map((h, i) => (
                   <motion.div
                     key={i}
                     initial={{ height: 0 }}
                     whileInView={{ height: `${h}%` }}
                     transition={{ duration: 1, delay: i * 0.1 }}
-                    className="flex-1 bg-gradient-to-t from-cyan-600/40 to-cyan-400 rounded-t-xl relative group"
+                    className="flex-1 bg-gradient-to-t from-cyan-600/60 to-cyan-500 rounded-t-[1rem] relative group/bar"
                   >
-                      <div className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-white text-black text-[9px] font-black px-2 py-1 rounded-md">
+                      <div className="absolute -top-12 left-1/2 -translate-x-1/2 opacity-0 group-hover/bar:opacity-100 transition-all scale-90 group-hover/bar:scale-100 bg-slate-900 text-white text-[10px] font-black px-3 py-1.5 rounded-xl shadow-xl">
                         Q{i+1}
                       </div>
                   </motion.div>
@@ -168,9 +168,9 @@ function ModuleCard({ id, mod, index, t }: { id: string; mod: any; index: number
     <ScrollReveal
       delay={index * 0.08}
       className={cn(
-        'relative group p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 h-full rounded-3xl glass-system-kyron-interactive',
-        isPopular ? 'border-primary/40' : 'border-white/5',
-        `bg-gradient-to-br ${colorClasses[id] || 'from-white/5 to-white/5'}`
+        'relative group p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 h-full rounded-[2.5rem]',
+        isPopular ? 'border-blue-500/40 dark:border-primary/40 bg-blue-500/[0.04] dark:bg-blue-500/[0.08] shadow-2xl shadow-blue-500/10' : 'border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]',
+        'hover:shadow-2xl transition-all'
       )}
     >
       {isPopular && (
@@ -182,25 +182,25 @@ function ModuleCard({ id, mod, index, t }: { id: string; mod: any; index: number
       )}
 
       <div className="flex items-start justify-between mb-8">
-        <div className={cn('h-14 w-14 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3', 
-          'bg-white/5 border border-white/10 group-hover:bg-white/10'
+        <div className={cn('h-16 w-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm', 
+          'bg-white dark:bg-white/5 border border-black/5 dark:border-white/10'
         )}>
-          <Icon className={cn('h-6 w-6', acentoClasses[id])} />
+          <Icon className={cn('h-7 w-7', acentoClasses[id])} />
         </div>
         {isFree ? (
-          <span className="px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full">
+          <span className="px-4 py-1.5 bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full transition-colors">
             {t('free')}
           </span>
         ) : (
           <div className="text-right">
-            <span className="text-3xl font-black text-white leading-none">${precio}</span>
-            <span className="text-[10px] text-white/30 font-black uppercase tracking-widest block mt-1">{t('per_month')}</span>
+            <span className="text-4xl font-black text-slate-900 dark:text-white leading-none transition-colors">${precio}</span>
+            <span className="text-[10px] text-slate-400 dark:text-white/30 font-black uppercase tracking-widest block mt-2 transition-colors">{t('per_month')}</span>
           </div>
         )}
       </div>
 
-      <h4 className="text-xl font-black text-white mb-3 tracking-tight">{mod.name}</h4>
-      <p className="text-sm text-white/40 font-medium leading-relaxed flex-1 mb-8">{mod.desc}</p>
+      <h4 className="text-2xl font-black text-slate-900 dark:text-white mb-4 tracking-tight transition-colors">{mod.name}</h4>
+      <p className="text-sm md:text-base text-slate-500 dark:text-white/40 font-medium leading-relaxed flex-1 mb-8 transition-colors">{mod.desc}</p>
 
       {mod.tag && (
         <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.1em] mb-4">{mod.tag}</p>
@@ -238,14 +238,14 @@ export function PricingSection() {
   return (
     <section
       id="pricing"
-      className="relative py-20 md:py-28 w-full overflow-hidden scroll-mt-20 bg-[#050816]"
+      className="relative py-20 md:py-32 w-full overflow-hidden scroll-mt-20 bg-white dark:bg-[#050816] transition-colors duration-700"
     >
       {/* Background elements */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
-        <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-cyan-500/[0.04] blur-[150px] animate-mesh-drift" />
-        <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-blue-500/[0.03] blur-[150px]" />
+        <div className="absolute top-[10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-cyan-500/[0.08] dark:bg-cyan-500/[0.04] blur-[150px] animate-mesh-drift" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-500/[0.06] dark:bg-blue-500/[0.03] blur-[150px] animate-mesh-drift" style={{ animationDelay: '-10s' }} />
       </div>
 
       <div className="container mx-auto px-4 md:px-10 lg:px-12 max-w-[1440px] relative z-10">
@@ -259,14 +259,14 @@ export function PricingSection() {
           viewport={{ once: true }}
         >
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md mb-8 mx-auto">
-            <Zap className="h-4 w-4 text-cyan-400" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-200/80">{t('badge')}</span>
+            <Zap className="h-4 w-4 text-cyan-600 dark:text-cyan-400 transition-colors" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-700 dark:text-cyan-200/80 transition-colors">{t('badge')}</span>
           </div>
-          <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-black tracking-[-0.04em] text-white leading-[0.95] mb-8">
+          <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-black tracking-[-0.04em] text-slate-900 dark:text-white leading-[0.95] mb-8 transition-colors">
             {t('title')}<br />
-            <span className="block text-glow-cyan mt-2">{t('highlight')}</span>
+            <span className="block text-glow-cyan mt-3 transition-all duration-500">{t('highlight')}</span>
           </h2>
-          <p className="text-lg text-white/40 max-w-2xl mx-auto font-medium leading-relaxed mb-10">
+          <p className="text-lg md:text-xl text-slate-500 dark:text-white/40 max-w-2xl mx-auto font-medium leading-relaxed mb-10 transition-colors">
             {t('subtitle')}
           </p>
 

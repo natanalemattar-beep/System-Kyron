@@ -89,7 +89,7 @@ export function LandingHeader() {
             <div className={cn(
                 "mx-auto px-4 transition-all duration-500",
                 isScrolled
-                    ? "max-w-[1400px] rounded-[2.5rem] border border-white/10 bg-[#060a14]/85 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+                    ? "max-w-[1400px] rounded-[2.5rem] border border-black/5 dark:border-white/10 bg-white/70 dark:bg-[#060a14]/85 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
                     : "max-w-full px-6 md:px-12"
             )}>
                 {/* Scroll progress bar */}
@@ -109,27 +109,21 @@ export function LandingHeader() {
                             <div className="absolute -inset-2 bg-cyan-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
                         <div className="flex flex-col leading-none">
-                            <span className="text-[14px] font-black tracking-[0.15em] uppercase text-white">
-                                System <span className="text-cyan-400">Kyron</span>
-                            </span>
-                            <span className={cn(
-                                "text-[7.5px] font-black uppercase tracking-[0.3em] bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 bg-clip-text text-transparent transition-all duration-700",
-                                isScrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"
-                            )}>
-                                Visionary Intel
+                            <span className="text-[14px] font-black tracking-[0.15em] uppercase text-slate-900 dark:text-white transition-colors">
+                                System <span className="text-cyan-600 dark:text-cyan-400">Kyron</span>
                             </span>
                         </div>
                     </Link>
 
                     {/* Desktop Navigation (Premium Glass) */}
                     <nav className="hidden lg:flex items-center gap-2 flex-1 justify-center">
-                        <div className="flex items-center gap-1 p-1.5 bg-white/[0.03] border border-white/5 rounded-2xl backdrop-blur-md">
+                        <div className="flex items-center gap-1 p-1.5 bg-black/[0.03] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 rounded-2xl backdrop-blur-md transition-colors">
                             {navItems.map((item) => (
                                 <Link
                                     key={item.labelKey}
                                     href={item.href}
                                     onClick={(e) => handleAnchorClick(e, item.href)}
-                                    className="px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-white/50 hover:text-white transition-all duration-300 rounded-xl hover:bg-white/5 relative group"
+                                    className="px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white transition-all duration-300 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 relative group"
                                 >
                                     {t(item.labelKey)}
                                     <motion.span 
@@ -139,28 +133,28 @@ export function LandingHeader() {
                             ))}
 
                             <DropdownMenu>
-                                <DropdownMenuTrigger className="flex items-center gap-2 px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-white/50 hover:text-white transition-all duration-300 rounded-xl hover:bg-white/5 outline-none">
+                                <DropdownMenuTrigger className="flex items-center gap-2 px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white transition-all duration-300 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 outline-none">
                                     {t('solutions')}
                                     <ChevronDown className="h-3 w-3 opacity-30 group-data-[state=open]:rotate-180 transition-transform" />
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="center" className="w-80 p-3 rounded-[2rem] border border-white/[0.08] bg-[#0c1120]/95 backdrop-blur-3xl shadow-2xl mt-4 space-y-1">
-                                    <DropdownMenuItem className="rounded-2xl p-3 flex items-center gap-4 hover:bg-white/5 transition-all group cursor-pointer">
-                                        <div className="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                                <DropdownMenuContent align="center" className="w-80 p-3 rounded-[2rem] border border-black/[0.08] dark:border-white/[0.08] bg-white/95 dark:bg-[#0c1120]/95 backdrop-blur-3xl shadow-2xl mt-4 space-y-1">
+                                    <DropdownMenuItem className="rounded-2xl p-3 flex items-center gap-4 hover:bg-slate-100 dark:hover:bg-white/5 transition-all group cursor-pointer">
+                                        <div className="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400">
                                             <Cpu className="h-5 w-5" />
                                         </div>
                                         <div>
-                                            <p className="text-sm font-black uppercase tracking-tight text-white">{t('connectivity_title')}</p>
-                                            <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">{t('connectivity_desc')}</p>
+                                            <p className="text-sm font-black uppercase tracking-tight text-slate-900 dark:text-white">{t('connectivity_title')}</p>
+                                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{t('connectivity_desc')}</p>
                                         </div>
                                         <ArrowRight className="h-4 w-4 ml-auto text-zinc-800 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem className="rounded-2xl p-3 flex items-center gap-4 hover:bg-white/5 transition-all group cursor-pointer">
-                                        <div className="h-10 w-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                                    <DropdownMenuItem className="rounded-2xl p-3 flex items-center gap-4 hover:bg-slate-100 dark:hover:bg-white/5 transition-all group cursor-pointer">
+                                        <div className="h-10 w-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                                             <ShieldCheck className="h-5 w-5" />
                                         </div>
                                         <div>
-                                            <p className="text-sm font-black uppercase tracking-tight text-white">{t('legal_title')}</p>
-                                            <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">{t('legal_desc')}</p>
+                                            <p className="text-sm font-black uppercase tracking-tight text-slate-900 dark:text-white">{t('legal_title')}</p>
+                                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{t('legal_desc')}</p>
                                         </div>
                                         <ArrowRight className="h-4 w-4 ml-auto text-zinc-800 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
                                     </DropdownMenuItem>
@@ -180,7 +174,7 @@ export function LandingHeader() {
                             <Link href="/login">
                                 <Button 
                                     variant="ghost" 
-                                    className="group relative h-11 px-10 rounded-2xl overflow-hidden border border-white/10 bg-white/5 transition-all duration-500 hover:border-cyan-500/40 hover:bg-cyan-500/10 active:scale-95 shadow-[0_0_25px_rgba(0,0,0,0.5)]"
+                                    className="group relative h-11 px-10 rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 transition-all duration-500 hover:border-cyan-500/40 hover:bg-cyan-500/10 active:scale-95 shadow-[0_0_25px_rgba(0,0,0,0.05)] dark:shadow-[0_0_25px_rgba(0,0,0,0.5)]"
                                 >
                                     {/* Liquid Glow Background */}
                                     <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/20 via-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -188,9 +182,9 @@ export function LandingHeader() {
                                     {/* Animated Top Shine */}
                                     <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-30 group-hover:opacity-100 group-hover:via-cyan-400 transition-all duration-500" />
                                     
-                                    <span className="relative z-10 flex items-center gap-4 text-[11px] font-black uppercase tracking-[0.25em] text-white/60 group-hover:text-white transition-all duration-500">
+                                    <span className="relative z-10 flex items-center gap-4 text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 dark:text-white/60 group-hover:text-slate-900 dark:group-hover:text-white transition-all duration-500">
                                         <div className="relative">
-                                            <KeyRound className="h-4 w-4 text-cyan-500/50 group-hover:text-cyan-400 transition-all duration-500 group-hover:scale-110" />
+                                            <KeyRound className="h-4 w-4 text-cyan-600/50 dark:text-cyan-500/50 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-all duration-500 group-hover:scale-110" />
                                             <div className="absolute inset-0 bg-cyan-400 blur-sm opacity-0 group-hover:opacity-40 transition-opacity" />
                                         </div>
                                         {t('login')}
@@ -201,7 +195,7 @@ export function LandingHeader() {
                                 </Button>
                             </Link>
                             <Link href="/register">
-                                <Button className="text-[11px] font-black uppercase tracking-[0.25em] bg-white hover:bg-zinc-200 text-black rounded-2xl px-10 h-11 shadow-[0_15px_30px_rgba(255,255,255,0.15)] transition-all active:scale-95 group">
+                                <Button className="text-[11px] font-black uppercase tracking-[0.25em] bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-zinc-200 text-white dark:text-black rounded-2xl px-10 h-11 shadow-[0_15px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_15px_30px_rgba(255,255,255,0.15)] transition-all active:scale-95 group border-none">
                                     {t('register')}
                                     <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
                                 </Button>
@@ -214,7 +208,7 @@ export function LandingHeader() {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="lg:hidden rounded-2xl h-11 w-11 border border-white/[0.08] text-white bg-white/[0.02] active:scale-90 transition-transform"
+                                    className="lg:hidden rounded-2xl h-11 w-11 border border-black/[0.08] dark:border-white/[0.08] text-slate-900 dark:text-white bg-black/[0.02] dark:bg-white/[0.02] active:scale-90 transition-transform"
                                 >
                                     <Menu className="h-5 w-5" />
                                 </Button>

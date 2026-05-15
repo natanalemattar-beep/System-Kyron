@@ -29,83 +29,130 @@ const slides = [
         team: 'Carlos Mattar • Sebastian Garrido • Marcos Sousa',
         icon: <Rocket className="w-12 h-12 text-primary" />,
         image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800',
-        bg: 'bg-gradient-to-br from-[#030711] to-primary/10'
+        bg: 'bg-gradient-to-br from-[#030711] to-primary/10',
+        badge: 'RETO INSPIRA 2026'
     },
     {
         id: 'problema',
-        title: 'Ineficiencia Sistémica',
-        subtitle: 'Fragmentación Operativa y Desperdicio de Capital',
+        title: 'El Caos Operativo',
+        subtitle: 'Fragmentación y Riesgo en la PyME',
         points: [
-            '40% de pérdida de productividad por ecosistemas desconectados.',
-            'Impacto Ecológico: 12,000 hojas de papel anuales por cada PyME.',
-            'Fuga de Capital: Costos ocultos en gestión multianimal de proveedores.',
-            'Riesgo Fiscal: Incumplimiento crítico de normativas SENIAT/VEN-NIF.'
+            'Ineficiencia: 40% de pérdida de productividad por sistemas aislados.',
+            'Costo Ecológico: 12,000 hojas de papel anuales por cada empresa.',
+            'Riesgo Fiscal: Incumplimiento crítico de normativas SENIAT/IGTF.',
+            'Fragmentación: El empresario promedio lidia con 5+ proveedores.'
         ],
-        badge: 'CRISIS ESTRUCTURAL',
+        badge: 'EL PROBLEMA',
         icon: <BarChart3 className="w-12 h-12 text-rose-500" />,
         image: 'https://images.unsplash.com/photo-1590247813693-5541d1c609fd?q=80&w=800',
         bg: 'bg-gradient-to-br from-[#030711] to-rose-500/10'
     },
     {
-        id: 'mercado',
-        title: 'Nuestro Mercado',
-        subtitle: '¿A quién le vendemos?',
-        points: [
-            'B2B: 500,000+ PyMEs venezolanas sedientas de automatización legal/fiscal.',
-            'B2C: Profesionales independientes que buscan identidad digital blindada.',
-            'B2G: Gobiernos locales interesados en ciudades inteligentes y sostenibilidad.',
-            'Sectores: Retail, Manufactura, Consultoría y Servicios Contables.'
-        ],
-        badge: 'TARGET',
-        icon: <Users className="w-12 h-12 text-blue-400" />,
-        image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800',
-        bg: 'bg-gradient-to-br from-[#030711] to-blue-500/10'
-    },
-    {
         id: 'solucion',
-        title: 'Integración Vertical',
-        subtitle: 'Unificación Operativa de Alto Rendimiento',
+        title: 'Mando Único',
+        subtitle: 'Propuesta de Valor Kyron',
         points: [
-            'Kyron 5G: Convergencia nativa de telecomunicaciones y ERP.',
-            'Cero Papel: Digitalización pericial de libros contables y jurídicos.',
-            'Reserva Dinámica: Algoritmo SIM-App para continuidad de servicio.',
-            'Kyron Shield: Protocolo de seguridad inmutable para transacciones.'
+            'Conectividad 5G: Integración nativa de telecomunicaciones.',
+            'Cero Papel: Automatización legal y fiscal en la nube.',
+            'Blindaje Jurídico: Contratos inteligentes bajo norma nacional.',
+            'Diferenciación: Único ecosistema con hardware fiscal y software unificado.'
         ],
-        badge: 'VENTAJA COMPETITIVA',
+        badge: 'LA SOLUCIÓN',
         icon: <Zap className="w-12 h-12 text-amber-500" />,
         image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800',
         bg: 'bg-gradient-to-br from-[#030711] to-amber-500/10'
     },
     {
-        id: 'finanzas',
-        title: 'Inversión & Ganancia',
-        subtitle: 'Proyección de Crecimiento 2026-2028',
+        id: 'mercado',
+        title: 'Mercado Total',
+        subtitle: 'Oportunidad en Venezuela',
         points: [
-            'Modelo SaaS: Ingresos recurrentes con márgenes del 65%.',
-            'Hardware Fiscal: Venta directa de equipos homologados SENIAT.',
-            'Inversión: Infraestructura Cloud, Nodos 5G y Alianza Ameru.',
-            'Retorno (ROI): Punto de equilibrio proyectado en el mes 14.'
+            'B2B: 500,000+ PyMEs (Retail, Servicios, Manufactura).',
+            'B2C: 2M+ Profesionales Independientes sedientos de tecnología.',
+            'B2G: Gobiernos locales buscando ciudades inteligentes.',
+            'Potencial: Transformación digital del 80% de la economía informal.'
         ],
-        badge: 'VIABILIDAD',
+        badge: 'MERCADO OBJETIVO',
+        icon: <Users className="w-12 h-12 text-blue-400" />,
+        image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800',
+        bg: 'bg-gradient-to-br from-[#030711] to-blue-500/10'
+    },
+    {
+        id: 'modelo_negocio',
+        title: 'Suscripciones',
+        subtitle: 'Economía de Recurrencia SaaS',
+        points: [
+            'Plan Basic ($15/mes): Mando único esencial para emprendedores.',
+            'Plan Pro ($45/mes): Gestión fiscal automatizada y blindaje legal.',
+            'Plan Enterprise ($190+/mes): Control total 5G y hardware fiscal.',
+            'Márgenes: 65% de rentabilidad proyectada por usuario activo.'
+        ],
+        badge: 'MODELO DE NEGOCIO',
         icon: <ShieldCheck className="w-12 h-12 text-emerald-400" />,
         image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800',
         bg: 'bg-gradient-to-br from-[#030711] to-emerald-500/10'
     },
     {
+        id: 'marketing',
+        title: 'Crecimiento Exponencial',
+        subtitle: 'Estrategia de Ventas y Canales',
+        points: [
+            'Marketing Educativo: Campañas en TikTok/Instagram sobre formalización.',
+            'Alianzas Gremiales: Cámaras de Comercio como canales de distribución.',
+            'Venta Directa: Fuerza de ventas B2B para el sector corporativo.',
+            'Referidos: Sistema de beneficios para contadores y abogados.'
+        ],
+        badge: 'MARKETING Y VENTAS',
+        icon: <Globe2 className="w-12 h-12 text-primary" />,
+        image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800',
+        bg: 'bg-gradient-to-br from-[#030711] to-primary/5'
+    },
+    {
+        id: 'impacto',
+        title: 'Impacto Inspira',
+        subtitle: 'Sostenibilidad y Cambio Positivo',
+        points: [
+            'Cero Emisiones: Digitalización masiva para eliminar el papel físico.',
+            'Alianza Ameru: Gestión de residuos mediante inducción magnética.',
+            'Formalización: Inclusión de la economía informal al sistema bancario.',
+            'Social: Empoderamiento tecnológico para la base de la pirámide.'
+        ],
+        badge: 'IMPACTO SOCIAL',
+        icon: <Leaf className="w-12 h-12 text-emerald-500" />,
+        image: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=800',
+        bg: 'bg-gradient-to-br from-[#030711] to-emerald-500/5'
+    },
+    {
+        id: 'hoja_ruta',
+        title: 'Hoja de Ruta',
+        subtitle: 'Próximos 6 Meses de Evolución',
+        points: [
+            'Mes 1-2: Lanzamiento oficial y captación de 100 PyMEs piloto.',
+            'Mes 3-4: Alianza con operadoras para integración nativa 5G.',
+            'Mes 5-6: Despliegue de Smart Bins y hardware fiscal homologado.',
+            'Estado: MVP Validado / RIF Jurídico J-50832149-9 Activo.'
+        ],
+        badge: 'ESTADO ACTUAL',
+        icon: <Cpu className="w-12 h-12 text-blue-400" />,
+        image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800',
+        bg: 'bg-gradient-to-br from-[#030711] to-blue-500/5'
+    },
+    {
         id: 'equipo',
-        title: 'Equipo Kyron',
-        subtitle: 'RIF: J-50832149-9',
+        title: 'Mando Kyron',
+        subtitle: 'Pasión por la Ingeniería Venezolana',
         teamMembers: [
             { name: 'Carlos Mattar', role: 'Founder & Tech Lead' },
             { name: 'Sebastian Garrido', role: 'Operations' },
             { name: 'Marcos Sousa', role: 'Legal' }
         ],
         badge: 'EL EQUIPO',
-        icon: <ShieldCheck className="w-12 h-12 text-emerald-400" />,
+        icon: <Users className="w-12 h-12 text-white" />,
         image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800',
-        bg: 'bg-gradient-to-br from-[#030711] to-emerald-500/10'
+        bg: 'bg-gradient-to-br from-[#030711] to-zinc-900'
     }
 ];
+
 
 export default function PresentacionFinalPage() {
     const [current, setCurrent] = useState(0);
@@ -266,7 +313,7 @@ export default function PresentacionFinalPage() {
             </div>
 
             {/* Slide Content */}
-            <div className="flex-1 relative flex items-center justify-center p-8 sm:p-20">
+            <div className="flex-1 relative flex items-center justify-center p-4 sm:p-20 overflow-y-auto sm:overflow-hidden">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={current}
@@ -274,7 +321,7 @@ export default function PresentacionFinalPage() {
                         animate={{ opacity: 1, x: 0, scale: 1 }}
                         exit={{ opacity: 0, x: -50, scale: 0.95 }}
                         transition={{ duration: 0.5, ease: "circOut" }}
-                        className={`w-full max-w-6xl aspect-[16/9] rounded-[4rem] p-16 sm:p-24 relative overflow-hidden border border-white/5 shadow-2xl flex flex-col justify-center ${slides[current].bg}`}
+                        className={`w-full max-w-6xl aspect-video max-sm:aspect-auto max-sm:min-h-[80vh] rounded-[2rem] sm:rounded-[4rem] p-8 sm:p-24 relative overflow-hidden border border-white/5 shadow-2xl flex flex-col justify-center ${slides[current].bg}`}
                     >
                         {/* Background Image Layer */}
                         <div className="absolute inset-0 z-0">
@@ -308,14 +355,14 @@ export default function PresentacionFinalPage() {
                             </div>
 
                             <div className="space-y-4">
-                                <h1 className="text-6xl sm:text-8xl font-black uppercase tracking-tighter leading-none">
+                                <h1 className="text-4xl sm:text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none">
                                     {slides[current].title.split(' ').map((word, i) => (
                                         <span key={i} className={i === slides[current].title.split(' ').length - 1 ? "text-primary italic" : "text-white"}>
                                             {word}{' '}
                                         </span>
                                     ))}
                                 </h1>
-                                <p className="text-2xl sm:text-3xl font-medium text-white/50 tracking-tight">
+                                <p className="text-lg sm:text-2xl md:text-3xl font-medium text-white/50 tracking-tight">
                                     {slides[current].subtitle}
                                 </p>
                             </div>
@@ -329,16 +376,16 @@ export default function PresentacionFinalPage() {
                             )}
 
                             {slides[current].points && (
-                                <ul className="space-y-6">
+                                <ul className="space-y-3 sm:space-y-6">
                                     {slides[current].points.map((point, i) => (
                                         <motion.li 
                                             key={i} 
                                             initial={{ opacity: 0, x: -20 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: i * 0.1 }}
-                                            className="flex items-center gap-4 text-xl sm:text-2xl text-white/80"
+                                            className="flex items-start gap-4 text-sm sm:text-xl md:text-2xl text-white/80"
                                         >
-                                            <div className="h-2 w-2 rounded-full bg-primary shrink-0" />
+                                            <div className="h-2 w-2 rounded-full bg-primary shrink-0 mt-2" />
                                             {point}
                                         </motion.li>
                                     ))}
@@ -352,11 +399,11 @@ export default function PresentacionFinalPage() {
                             )}
 
                             {slides[current].teamMembers && (
-                                <div className="grid grid-cols-3 gap-8 mt-12">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:grid-cols-3 gap-8 mt-6 sm:mt-12">
                                     {slides[current].teamMembers.map((m, i) => (
-                                        <div key={i} className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl">
-                                            <p className="text-lg font-black text-white uppercase">{m.name}</p>
-                                            <p className="text-xs font-bold text-primary uppercase tracking-widest">{m.role}</p>
+                                        <div key={i} className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl">
+                                            <p className="text-base sm:text-lg font-black text-white uppercase">{m.name}</p>
+                                            <p className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest">{m.role}</p>
                                         </div>
                                     ))}
                                 </div>

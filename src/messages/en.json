@@ -19,7 +19,14 @@
         "mobile_portal": "Kyron Portal",
         "pricing": "Pricing",
         "presentation": "Final Presentation",
-        "summary": "Executive Summary"
+        "summary": "Executive Summary",
+        "connectivity_title": "Connectivity",
+        "connectivity_desc": "5G Network Management",
+        "legal_title": "Legal Advisory",
+        "legal_desc": "Legal Shielding",
+        "mobile_portal_sub": "Digital Ecosystem",
+        "secure_portal": "Secure Portal",
+        "encryption_active": "AES-256 Encryption Active"
     },
     "DemoBanner": {
         "message": "⚠️ Platform in development · Prices shown are for testing and are NOT final prices · Changes may occur without notice.",
@@ -27,27 +34,28 @@
         "dismiss": "Dismiss banner"
     },
     "HeroSection": {
-        "title_line1": "Your entire",
-        "title_line2": "business in",
-        "title_line3": "one place",
-        "slogan": "Corporate Infrastructure · Zero Risk",
-        "subtitle": "Accounting, invoicing, payroll and connectivity. 100% adapted to Venezuelan regulations.",
-        "badge": "Advanced Business Platform",
-        "cta_main": "Access",
-        "cta_secondary": "User Guide",
+        "title_line1": "Issues with",
+        "title_line2": "your lines or Zero Risk",
+        "title_line3": "Without Limits.",
+        "slogan": "System Kyron: The Ultimate Ecosystem for the Modern Company.",
+        "subtitle": "Tired of wasting time with a thousand programs that don't speak to each other? Automate your accounting, payroll and invoicing in one place. AI that truly solves, 100% Venezuelan.",
+
+        "badge": "AI POWERED BUSINESS PLATFORM",
+        "cta_main": "Start Now",
+        "cta_secondary": "See Capabilities",
         "cta_brochure": "Download Brochure",
         "tutorial_link": "How to register? — View step-by-step tutorial",
         "features": [
             "VEN-NIF Certified",
             "IVA & IGTF Auto",
             "BCV Real-Time",
-            "Management Core"
+            "Total Compliance"
         ],
         "compliance": "Compliance",
-        "support": "Support",
-        "network": "Network",
-        "portals": "Portals",
-        "legal": "Legal",
+        "support": "Kyron Support",
+        "network": "Managed Network",
+        "portals": "Active Companies",
+        "legal": "Legal Shield",
         "modules_label": "Modules",
         "modules_value": "7 Integrated",
         "stats": [
@@ -68,7 +76,7 @@
                 "label": "Certified"
             }
         ],
-        "rotating_2": "Business Intel",
+        "rotating_2": "Advanced Management",
         "rotating_3": "Zero Risk",
         "live_users_label": "users",
         "live_companies_label": "companies",
@@ -78,8 +86,8 @@
         "encryption_label": "AES-256",
         "encryption_active": "Encryption active",
         "rotating_words": [
-            "Total Automation",
-            "Business Core",
+            "Automation",
+            "Security",
             "Zero Risk"
         ]
     },
@@ -190,187 +198,114 @@
             }
         ]
     },
-    "ServicesSection": {
-        "badge": "Plans & Pricing",
-        "title_highlight": "The Perfect Plan For",
-        "title_rest": "Your Business",
-        "subtitle": "All plans include AES-256 encryption, Venezuelan compliance and automatic updates.",
-        "modules_title": "All Integrated,",
-        "modules_highlight": "One Ecosystem",
-        "explore": "Explore Ecosystem",
-        "features": [
-            {
-                "title": "Accounting & Tax",
-                "subtitle": "VEN-NIF · SENIAT · ISLR",
-                "description": "Complete accounting system with legal books, Venezuelan chart of accounts, automatic IVA 16%, IGTF 3% and ISLR calculation. Compliant with the current Official Gazette.",
-                "badges": [
-                    "VEN-NIF",
-                    "SENIAT",
-                    "LOTTT",
-                    "BCV"
-                ]
-            },
-            {
-                "title": "AES-256 Security",
-                "subtitle": "Military Encryption · JWT · Audit",
-                "description": "Bank-grade security infrastructure. AES-256 encryption, JWT authentication with HTTP-only cookies, and an immutable log of every action.",
-                "badges": [
-                    "AES-256",
-                    "JWT",
-                    "HTTPS",
-                    "Audit"
-                ]
-            },
-            {
-                "title": "Advanced Management",
-                "subtitle": "Algorithms · Processing · Automation",
-                "description": "Management engine specialized in corporate strategy and business projections, ensuring that every data point is processed with maximum precision.",
-                "badges": [
-                    "Algorithms",
-                    "Management",
-                    "Precision",
-                    "Automation"
-                ]
-            }
-        ],
-        "modules": [
-            "Personal Account",
-            "My Line Personal",
-            "My Line Corporate",
-            "Accounting Advisory",
-            "Legal Advisory",
-            "Invoicing",
-            "Partners & Board"
-        ],
-        "platform_badge": "Platform in Numbers",
-        "platform_title": "Results that",
-        "platform_highlight": "speak for themselves",
-        "platform_subtitle": "Venezuela's most robust infrastructure for comprehensive corporate management.",
-        "stat_modules": "Integrated Modules",
-        "stat_encryption": "Enterprise Encryption",
-        "stat_compliance": "Tax Compliance",
-        "stat_support": "24/7 Technical Support",
-        "start_now": "Get Started",
-        "monthly": "Monthly",
-        "annual": "Annual",
-        "discount": "-20%",
+    "PricingSection": {
+        "badge": "Pricing Architecture",
+        "title": "Invest in your",
+        "highlight": "Growth",
+        "subtitle": "Select the modules your company needs or choose an optimized combo. No long-term contracts, cancel anytime.",
+        "free_note": "Personal accounts always free",
+        "analytics_title": "Efficiency",
+        "analytics_highlight": "Projection",
+        "analytics_subtitle": "Our integrated analytics show a 90% reduction in tax processing times.",
+        "most_complete": "Most Complete",
+        "most_chosen": "Most Chosen",
+        "free": "Free",
         "per_month": "/mo",
-        "free_label": "Free",
-        "free_forever": "Forever · No credit card required",
-        "billed_annually": "Billed annually",
-        "per_year": "/year",
-        "most_popular": "Most Popular",
-        "modules_badge": "Individual Modules",
-        "modules_title": "Build your plan",
-        "modules_highlight": "your way",
-        "modules_subtitle": "Need only invoicing? Or just accounting advisory? Pay only for what you use. Each module works independently.",
-        "tab_combo": "Combo Plans",
-        "tab_individual": "Modules",
-        "tab_budget": "Customized",
-        "tab_combo_desc": "Optimized bundles with essential integrated tools.",
-        "tab_individual_desc": "Select specific modules according to your exact business needs.",
-        "tab_budget_desc": "Configure a custom budget based on your technical requirements.",
-        "show_details": "Show details",
-        "hide_details": "Hide details",
-        "price_from": "From",
-        "see_all_plans": "View all plans",
-        "select_module": "Choose module",
-        "individual_modules": [
-            {
-                "name": "My Line Personal",
-                "description": "6 data plans from 2 GB",
-                "features": ["From $3/mo (2 GB)", "Up to Unlimited ($35)", "4G/5G coverage", "eSIM & roaming"]
+        "cta_start": "Get Started",
+        "cta_select_plan": "Choose Plan",
+        "linea_note": "Lines are activated within 24-48 business hours after document verification.",
+        "seniat_certified": "SENIAT Certified",
+        "one_time_payment": "One-time Payment",
+        "estimated_cost": "Estimated Cost",
+        "modules_badge": "SaaS Modules",
+        "modules_title": "Module",
+        "modules_highlight": "Universe",
+        "modules_subtitle": "Comprehensive management from one place. Each module is shielded with AES-256 encryption.",
+        "connectivity_badge": "Telecom & 5G",
+        "connectivity_title": "Connectivity",
+        "connectivity_highlight": "Mission Critical",
+        "connectivity_subtitle": "High-speed data plans with network priority for businesses.",
+        "shield_title": "Kyron Shield",
+        "shield_desc": "Data protection and network redundancy included in all 5G plans.",
+        "hardware_badge": "Fiscal Hardware",
+        "hardware_title": "Hardware",
+        "hardware_highlight": "Certified",
+        "hardware_subtitle": "Hardware natively integrated with the Kyron ecosystem for your physical location.",
+        "combos_badge": "Access Profiles",
+        "combos_title": "Investment",
+        "combos_highlight": "Structure",
+        "combos_subtitle": "Combos designed to adapt to your business's current stage.",
+        "saas_modules": {
+            "personal": {
+                "name": "Personal Account",
+                "desc": "Digital identity, civil procedures, and health.",
+                "tag": "ALWAYS FREE"
             },
-            {
-                "name": "My Line Corporate",
-                "description": "Corporate fleet from 5 lines",
-                "features": ["From $15/mo", "Corporate MDM", "CONATEL reports", "Business internet"]
-            },
-            {
+            "contable": {
                 "name": "Accounting Advisory",
-                "description": "VEN-NIF accounting engine",
-                "features": ["From $8/mo", "Legal books", "Tax Center", "Fiscal Engine"]
+                "desc": "VEN-NIF accounting, payroll, and SENIAT tax management.",
+                "tag": "MOST POPULAR"
             },
-            {
+            "legal": {
                 "name": "Legal Advisory",
-                "description": "Algorithmic documents & contracts",
-                "features": ["From $5/mo", "Document generator", "Contract archive", "Litigation tracking"]
+                "desc": "Contract generation, documents, and litigation control."
             },
-            {
+            "milinea": {
+                "name": "My 5G Line",
+                "desc": "Mobile line management, top-ups, and eSIM."
+            },
+            "tpv": {
                 "name": "Invoicing",
-                "description": "SENIAT fiscal invoicing",
-                "features": ["From $6/mo", "Point of Sale", "Quotes", "Debit/credit notes"]
+                "desc": "Fiscal POS, inventory, and quotes."
             },
-            {
-                "name": "Partners & Board",
-                "description": "Corporate governance & shareholders",
-                "features": ["From $10/mo", "Assembly minutes", "Dividends", "Approval workflows"]
+            "socios": {
+                "name": "Partners & Directors",
+                "desc": "Corporate governance, dividends, and strategic control."
+            },
+            "sostenibilidad": {
+                "name": "Sustainability",
+                "desc": "Eco-Credits, recycling, and carbon offsetting.",
+                "tag": "NEW"
             }
-        ],
-        "plans": [
-            {
-                "name": "Personal",
-                "description": "Personal account with basic tools",
-                "features": [
-                    "Full Personal Account",
-                    "Live BCV exchange rate",
-                    "Technical Assistance (50 msgs/mo)",
-                    "SENIAT alerts (10/mo)",
-                    "RIF/ID lookup",
-                    "Personal documents",
-                    "Personal dashboard",
-                    "1 user"
-                ],
-                "cta": "Start Free"
+        },
+        "planes_5g": {
+            "basico": { "name": "Basic", "datos": "2 GB", "min": "100", "sms": "50" },
+            "plus": { "name": "Plus", "datos": "10 GB", "min": "500", "sms": "200" },
+            "pro": { "name": "Pro", "datos": "25 GB", "min": "1000", "sms": "500" },
+            "empresarial": { "name": "Enterprise", "datos": "50 GB", "min": "3000", "sms": "1000" },
+            "ilimitado": { "name": "Unlimited", "datos": "Unlim.", "min": "Unlim.", "sms": "Unlim." }
+        },
+        "hardware": {
+            "caja": { "name": "Cash Register", "desc": "SENIAT-approved fiscal hardware for high-volume transactions." },
+            "impresora": { "name": "Fiscal Printer", "desc": "USB/Network connectivity for invoicing systems." },
+            "kit": { "name": "POS Kit", "desc": "Register + Printer + Drawer + Scanner." }
+        },
+        "combos": {
+            "solo": {
+                "profile": "Independent",
+                "badge": "Entrepreneur",
+                "items": ["Personal Account", "Sustainability", "Basic Assistance"]
             },
-            {
-                "name": "Professional",
-                "description": "Accounting + Invoicing + My Line bundle",
-                "features": [
-                    "Everything in Personal +",
-                    "VEN-NIF Accounting Advisory",
-                    "SENIAT Invoicing (200/mo)",
-                    "My Line (5 lines)",
-                    "Full Tax Center",
-                    "Assisted filings",
-                    "Blockchain audit trail",
-                    "3 users"
-                ],
-                "cta": "Choose Professional"
+            "pro": {
+                "profile": "Professional",
+                "badge": "Recommended",
+                "items": ["Accounting", "My 5G Line", "Priority Support"]
             },
-            {
-                "name": "Enterprise",
-                "description": "All-in-one for growing businesses",
-                "features": [
-                    "ALL modules included",
-                    "Advanced Accounting Advisory",
-                    "Full Legal Advisory",
-                    "Unlimited invoicing",
-                    "Partners & Board",
-                    "My Line Corporate (20 lines)",
-                    "Multichannel alerts",
-                    "Advanced Support (500 msgs/mo)",
-                    "10 users"
-                ],
-                "cta": "Choose Enterprise"
+            "comerciante": {
+                "profile": "Merchant",
+                "items": ["Invoicing", "Fiscal Hardware", "Inventory"]
             },
-            {
-                "name": "Kyron MAX",
-                "description": "Everything unlimited, no restrictions",
-                "features": [
-                    "ALL modules without limits",
-                    "Unlimited VIP Support 24/7",
-                    "Unlimited invoicing",
-                    "Unlimited My Line Corporate",
-                    "Accounting Advisory MAX",
-                    "Legal Advisory MAX",
-                    "Dedicated API + White-label",
-                    "VIP priority support",
-                    "Unlimited users"
-                ],
-                "cta": "Contact Sales"
+            "negocio": {
+                "profile": "SMB / Business",
+                "badge": "Premium",
+                "items": ["Accounting", "Invoicing", "Legal", "5 Users"]
+            },
+            "total": {
+                "profile": "Total Ecosystem",
+                "badge": "Corporate",
+                "items": ["All Modules", "24/7 VIP Support", "Unlimited Users"]
             }
-        ]
+        }
     },
     "ComplianceSection": {
         "badge": "Regulatory Compliance",
@@ -1124,8 +1059,7 @@
                 "name": "Blockchain Audit",
                 "desc": "Merkle tree anchored on Polygon/Ethereum"
             }
-        ],
-        "subtitle": "{count} specialized tools covering every aspect of your business. No extra modules, no hidden costs."
+        ]
     },
     "ShowcaseSection": {
         "badge": "Platform Preview",
@@ -1218,5 +1152,19 @@
         "module_asesoria_legal": "Legal Advisory",
         "module_facturacion": "Invoicing",
         "module_socios_directivos": "Partners"
+    },
+    "SustainabilitySection": {
+        "badge": "Positive Environmental Impact",
+        "title_main": "Green",
+        "title_highlight": "Commitment",
+        "description": "System Kyron doesn't just digitize your business, it makes it sustainable. Through our integration with Ameru technology, we transform electronic waste into operational credits.",
+        "smart_bins_title": "Smart Recycling",
+        "smart_bins_desc": "Automated management of obsolete hardware and corporate waste classification.",
+        "eco_credits_title": "Kyron Eco-Credits",
+        "eco_credits_desc": "Offset your carbon footprint and access tax benefits for sustainability.",
+        "overlay_label": "Cumulative Impact",
+        "overlay_value": "12.5 Tons",
+        "overlay_sublabel": "CO2 Avoided this year",
+        "certification_label": "Kyron-Ameru Certification"
     }
 }
