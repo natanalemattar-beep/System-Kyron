@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import { LandingClientWrapper } from '@/components/landing/landing-client-wrapper';
 import { LazySection } from '@/components/landing/lazy-section';
+import Image from 'next/image';
 
 // Above-the-fold — SSR for SEO & LCP
 const HeroSection      = dynamic(() => import('@/components/landing/hero-section-optimized').then(m => ({ default: m.HeroSectionOptimized })), { ssr: true });
@@ -13,6 +14,12 @@ const FaqSection        = dynamic(() => import('@/components/landing/faq-section
 const CtaSection        = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })));
 const Footer            = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })));
 
+const showImages = [
+  { src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format", alt: "System Kyron Intelligence Core" },
+  { src: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format", alt: "Digital Security Shield" },
+  { src: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format", alt: "Technology Infrastructure" },
+];
+
 export default function LandingPage() {
   return (
     <div className="relative min-h-screen selection:bg-cyan-500/30 w-full bg-[#030712] text-white font-outfit">
@@ -23,6 +30,29 @@ export default function LandingPage() {
           <div id="inicio">
             <HeroSection />
           </div>
+
+          {/* 1.5 Showcase — Imagenes de alto impacto */}
+          <section className="relative w-full overflow-hidden py-12 md:py-20">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                {showImages.map((img, i) => (
+                  <div key={i} className="relative group overflow-hidden rounded-3xl aspect-[4/3] bg-slate-900/50 border border-white/5">
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      className="object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-90"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <p className="text-xs font-bold uppercase tracking-widest text-white/80">{img.alt}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
 
           {/* 2. Features — Qué hace la plataforma (SSR) */}
           <section id="caracteristicas">

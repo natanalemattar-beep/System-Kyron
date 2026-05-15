@@ -544,6 +544,7 @@ export default function ManualUsuarioPage() {
 
   const handleDownloadWord = async () => {
     setIsExporting(true);
+    try {
 
     let logoBase64 = "";
     if (logoRef.current) {
@@ -631,7 +632,7 @@ export default function ManualUsuarioPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
 
     setIsExporting(false);
     toast({
@@ -639,6 +640,10 @@ export default function ManualUsuarioPage() {
       description: `La gu\u00EDa de operaciones (${chapters.length} cap\u00EDtulos) ha sido generada con \u00E9xito.`,
       action: <CircleCheck className="text-primary h-4 w-4" />,
     });
+    } catch {
+      toast({ title: "Error al descargar", description: "Ocurri\u00F3 un error al generar el documento.", variant: "destructive" });
+      setIsExporting(false);
+    }
   };
 
   return (
@@ -681,9 +686,7 @@ export default function ManualUsuarioPage() {
             />
           </div>
           <nav className="space-y-0.5">
-            {filteredChapters.map((ch) => {
-              const i = chapters.indexOf(ch);
-              return (
+            {filteredChapters.map((ch, i) => {
               <button
                 key={ch.id}
                 onClick={() => scrollToChapter(ch.id)}
