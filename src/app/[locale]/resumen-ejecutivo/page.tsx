@@ -1,9 +1,11 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { 
     Download, Printer, ShieldCheck, FileText, CheckCircle2, 
-    FileDown, Leaf, Recycle, Globe, BrainCircuit, Banknote, 
-    Target, Megaphone, Milestone, Users
+    FileDown, Leaf, Recycle, Globe, Brain, Banknote, 
+    Target, Megaphone, Milestone, Users, Zap, Cpu
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
