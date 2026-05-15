@@ -27,6 +27,7 @@ export const globalNavGroups = [
             { href: "/presentacion", label: "Presentación Oficial", icon: Rocket, badge: "LIVE" },
             { href: "/resumen-ejecutivo", label: "Resumen Ejecutivo", icon: FileText, badge: "PDF" },
             { href: "/brand-kit", label: "Brand Kit", icon: Wand2 },
+            { href: "/pitch-coach", label: "Pitch Coach", icon: Target, badge: "NUEVO" },
         ]
     }
 ];
@@ -174,7 +175,7 @@ export const asesoriaContableNavGroups = [
       icon: Sparkles,
       items: [
           { href: "/kyron-chat", label: "Kyron Chat", icon: MessageSquare },
-          { href: "/pitch-coach", label: "Pitch Coach", icon: Target, badge: "NUEVO" },
+          { href: "/pitch-coach", label: "Pitch Coach", icon: Target, badge: "NUEVO", public: true },
           { href: "/resumen-ejecutivo", label: "Resumen Ejecutivo", icon: FileText, badge: "OFICIAL" },
           { href: "/presentacion", label: "Presentación Oficial", icon: Rocket, badge: "LIVE" },
           { href: "/presentacion", label: "Pitch Deck Kyron", icon: Wand2, badge: "RETO" },
