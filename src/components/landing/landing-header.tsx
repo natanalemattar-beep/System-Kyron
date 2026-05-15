@@ -302,5 +302,6 @@ export function LandingHeader() {
                 </div>
             </div>
         </motion.header>
+        </>
     );
 }
