@@ -26,8 +26,6 @@ export const globalNavGroups = [
             { href: "/precios", label: "Planes y Precios", icon: Banknote },
             { href: "/presentacion", label: "Presentación Oficial", icon: Rocket, badge: "LIVE" },
             { href: "/resumen-ejecutivo", label: "Resumen Ejecutivo", icon: FileText, badge: "PDF" },
-            { href: "/brand-kit", label: "Brand Kit", icon: Wand2 },
-            { href: "/pitch-coach", label: "Pitch Coach", icon: Target, badge: "NUEVO" },
         ]
     }
 ];
@@ -170,15 +168,15 @@ export const asesoriaContableNavGroups = [
         { href: "/ingenieria-ia", label: "Ingeniería de Sistemas", icon: Cpu, section: "Planificación" },
     ],
   },
-    {
+{
       title: "IA Core",
       icon: Sparkles,
       items: [
           { href: "/kyron-chat", label: "Kyron Chat", icon: MessageSquare },
-          { href: "/pitch-coach", label: "Pitch Coach", icon: Target, badge: "NUEVO", public: true },
+          { href: "/pitch-coach", label: "Pitch Coach", icon: Target, badge: "NUEVO" },
+          { href: "/brand-kit", label: "Brand Kit", icon: Wand2, badge: "PRIVADO" },
           { href: "/resumen-ejecutivo", label: "Resumen Ejecutivo", icon: FileText, badge: "OFICIAL" },
           { href: "/presentacion", label: "Presentación Oficial", icon: Rocket, badge: "LIVE" },
-          { href: "/presentacion", label: "Pitch Deck Kyron", icon: Wand2, badge: "RETO" },
           { href: "/automatizaciones", label: "Automatizaciones", icon: Zap },
       ],
     },
