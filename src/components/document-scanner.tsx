@@ -94,8 +94,8 @@ export function DocumentScanner({ onScanComplete, onClose, type }: DocumentScann
                 setError(json.error || "No se pudo leer el documento.");
                 setStep("select");
             }
-        } catch {
-            setError("Error al procesar la imagen.");
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Error al procesar la imagen.");
             setStep("select");
         }
     };

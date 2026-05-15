@@ -16,6 +16,8 @@ export async function POST(req: NextRequest) {
         const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
+        const mimeMatch = image.match(/^data:([a-z]+\/[a-z0-9+.-]+);base64,/);
+        const mimeType = mimeMatch ? mimeMatch[1] : 'image/jpeg';
         const imageData = image.includes('base64,') ? image.split('base64,')[1] : image;
 
         // 1. ANALIZAR DOCUMENTO CON GEMINI (extraer número + verificar autenticidad)
@@ -56,7 +58,7 @@ Responde ÚNICAMENTE en este JSON (sin texto adicional):
 
         const result = await model.generateContent([
             { text: analysisPrompt },
-            { inlineData: { mimeType: 'image/jpeg', data: imageData } },
+            { inlineData: { mimeType, data: imageData } },
         ]);
 
         const response = await result.response;

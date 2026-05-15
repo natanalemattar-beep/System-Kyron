@@ -542,33 +542,41 @@ export default function ManualUsuarioPage() {
     return () => document.removeEventListener("keydown", handleEsc);
   }, [tocOpen]);
 
+  const getLogoBase64 = async (): Promise<string> => {
+    if (!logoRef.current) return "";
+    const svgElement = logoRef.current.querySelector("svg");
+    if (!svgElement) return "";
+    try {
+      const svgData = new XMLSerializer().serializeToString(svgElement);
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return "";
+      canvas.width = 400;
+      canvas.height = 400;
+      const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+      await new Promise<void>((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          ctx.fillStyle = "white";
+          ctx.fillRect(0, 0, 400, 400);
+          ctx.drawImage(img, 0, 0, 400, 400);
+          URL.revokeObjectURL(url);
+          resolve();
+        };
+        img.onerror = () => { URL.revokeObjectURL(url); resolve(); };
+        img.src = url;
+      });
+      return canvas.toDataURL("image/png");
+    } catch {
+      return "";
+    }
+  };
+
   const handleDownloadWord = async () => {
     setIsExporting(true);
     try {
-
-    let logoBase64 = "";
-    if (logoRef.current) {
-      const svgElement = logoRef.current.querySelector("svg");
-      if (svgElement) {
-        const svgData = new XMLSerializer().serializeToString(svgElement);
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        const img = new Image();
-        canvas.width = 400;
-        canvas.height = 400;
-        const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
-        const url = URL.createObjectURL(svgBlob);
-        await new Promise((resolve) => {
-          img.onload = () => {
-            if (ctx) { ctx.fillStyle = "white"; ctx.fillRect(0, 0, 400, 400); ctx.drawImage(img, 0, 0, 400, 400); }
-            URL.revokeObjectURL(url);
-            resolve(true);
-          };
-          img.src = url;
-        });
-        logoBase64 = canvas.toDataURL("image/png");
-      }
-    }
+    const logoBase64 = await getLogoBase64();
 
     const docContent = `
       <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
@@ -729,16 +737,16 @@ export default function ManualUsuarioPage() {
               <Button
                 variant="outline"
                 onClick={() => window.print()}
-                className="h-11 px-5 rounded-xl border-border bg-card/50 text-foreground text-[11px] font-semibold uppercase tracking-widest hover:bg-card/80 transition-all"
+                className="h-12 px-6 rounded-xl border-border bg-card/50 text-foreground text-xs font-bold uppercase tracking-widest hover:bg-card/80 transition-all"
               >
-                <Printer className="mr-2 h-4 w-4" /> Imprimir
+                <Printer className="mr-2 h-5 w-5" /> Imprimir
               </Button>
               <Button
                 onClick={handleDownloadWord}
                 disabled={isExporting}
-                className="h-11 px-6 rounded-xl font-bold text-[11px] uppercase tracking-widest shadow-lg shadow-primary/20"
+                className="h-14 px-8 rounded-xl font-black text-sm uppercase tracking-widest shadow-xl shadow-primary/30"
               >
-                {isExporting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
+                {isExporting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Download className="mr-2 h-5 w-5" />}
                 Descargar Word
               </Button>
             </div>
