@@ -35,7 +35,11 @@ export function HeroSectionOptimized() {
   const t = useTranslations('HeroSection');
   const containerRef = useRef<HTMLElement>(null);
   const [liveStats, setLiveStats] = useState({ totalUsuarios: 0 });
-  const rotatingTexts = t.raw('rotating_words') as string[] || ['Automatización', 'Seguridad', 'Riesgo Cero'];
+  const rotatingTexts = [
+    t('rotating_words.0'),
+    'Facturación SENIAT',
+    t('rotating_words.2')
+  ];
 
   useEffect(() => {
     fetch('/api/stats')

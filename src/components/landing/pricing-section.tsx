@@ -138,7 +138,7 @@ function PricingGraphs({ t }: { t: any }) {
 
 function ModuleCard({ id, mod, index, t }: { id: string; mod: any; index: number; t: any }) {
   const Icon = ICONS[id] || Shield;
-  const precio = id === 'personal' || id === 'sostenibilidad' ? null : (id === 'contable' ? 45 : (id === 'legal' ? 30 : (id === 'tpv' ? 20 : (id === 'socios' ? 50 : (id === 'milinea' ? 3 : 10)))));
+  const precio = id === 'personal' || id === 'sostenibilidad' ? null : (id === 'contable' ? 45 : (id === 'legal' ? 30 : (id === 'tpv' ? 15 : (id === 'socios' ? 190 : (id === 'milinea' ? 3 : 10)))));
   const isFree = precio === null;
   const isPopular = id === 'contable';
 
@@ -233,7 +233,7 @@ export function PricingSection() {
 
   const hardwarePrices: Record<string, number> = { caja: 350, impresora: 200, kit: 500 };
   const planes5GPrices: Record<string, number> = { basico: 12, plus: 20, pro: 30, empresarial: 45, ilimitado: 60 };
-  const combosTotals: Record<string, number> = { solo: 0, pro: 20, comerciante: 17, negocio: 100, total: 225 };
+  const combosTotals: Record<string, number> = { solo: 0, pro: 45, comerciante: 15, negocio: 80, total: 190 };
 
   return (
     <section
