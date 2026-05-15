@@ -8,7 +8,7 @@ const genAI = new GoogleGenerativeAI(apiKey);
 let model: ReturnType<typeof genAI.getGenerativeModel> | null = null;
 if (apiKey) {
     model = genAI.getGenerativeModel({ 
-        model: "gemini-2.0-flash",
+        model: "gemini-1.5-flash",
         generationConfig: {
             temperature: 0.2,
             topP: 0.6,

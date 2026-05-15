@@ -9,7 +9,7 @@ let model: ReturnType<GoogleGenerativeAI["getGenerativeModel"]> | null = null;
 if (apiKey) {
     const genAI = new GoogleGenerativeAI(apiKey);
     model = genAI.getGenerativeModel({ 
-        model: "gemini-2.0-flash",
+        model: "gemini-1.5-flash",
         systemInstruction: KYRON_SYSTEM_PROMPT
     });
 }
