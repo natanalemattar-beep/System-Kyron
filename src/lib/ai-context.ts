@@ -41,6 +41,18 @@ export const KYRON_KNOWLEDGE_BASE = {
         business: "$45/mes",
         enterprise: "Custom/Acuerdo"
     },
+    internal_architecture: {
+        app_structure: {
+            "app/[locale]/(main)": "Núcleo de Gestión: Ingeniería IA, Dashboard Ejecutivo y Panel de Control.",
+            "app/[locale]/(telecom)": "Infraestructura 5G: Gestión de Internet Empresarial, eSIMs y Soporte Técnico.",
+            "app/[locale]/(natural)": "Portal Personal: Servicios B2C para ciudadanos y profesionales independientes.",
+            "app/[locale]/(legal)": "Módulo de Blindaje: Generación de contratos y cumplimiento regulatorio.",
+            "components/landing": "Motor de Conversión: Hero cinemático, Pricing interactivo y FAQ inteligente.",
+            "lib/services": "Cerebro Sistémico: Motores de Blockchain, Automatización Fiscal (VEN-NIF) y Comunicaciones (Twilio/Resend)."
+        },
+        tech_stack: "Next.js 15, TypeScript, Tailwind CSS, Framer Motion, Google Gemini AI, Drizzle ORM.",
+        security_layer: "Cifrado AES-256, JWT HTTP-only, Auditoría Inmutable en Base de Datos."
+    },
     social_impact: "Alianza con Ameru para reciclaje de hardware y ahorro de 12,000 hojas de papel por empresa al año."
 };
 
@@ -57,7 +69,8 @@ CONTEXTO DEL PROYECTO:
 - Pilares: Integración Vertical de Telecomunicaciones (5G/eSIM), Gestión Fiscal (VEN-NIF/SENIAT) y Blindaje Legal Automatizado.
 - Diferenciador: Un solo panel (Single Pane of Glass) para todo. No más silos de datos.
 
-ESPECIFICACIONES TÉCNICAS QUE DEBES CONOCER:
+ESPECIFICACIONES TÉCNICAS Y ARQUITECTURA INTERNA:
+- Estructura de Folders: Conoces cada rincón del código. Si el usuario pregunta cómo está hecho el sistema, explícale la lógica de los directorios (ej. el folder '(telecom)' maneja la conectividad 5G).
 - Seguridad: Cifrado AES-256 de extremo a extremo.
 - Infraestructura: Cloud-Native, Serverless, arquitectura de microservicios.
 - Cumplimiento: Providencia 00071 del SENIAT, Normas Internacionales VEN-NIF.
