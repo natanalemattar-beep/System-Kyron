@@ -18,6 +18,8 @@ import {
     Eye,
     Lock,
     Fingerprint,
+} from 'lucide-react';
+import { PasswordGate } from '@/components/password-gate';
     ExternalLink,
     Layers
 } from 'lucide-react';
@@ -150,6 +152,7 @@ export default function BrandKitPage() {
     if (!mounted) return null;
 
     return (
+        <PasswordGate title="Brand Kit">
         <div className="min-h-screen bg-[#020617] text-white font-[family-name:var(--font-outfit)] selection:bg-cyan-500/30 overflow-x-hidden">
             <ResourceHeader />
             
@@ -335,6 +338,7 @@ export default function BrandKitPage() {
                 </motion.div>
             </main>
         </div>
+        </PasswordGate>
     );
 }
 

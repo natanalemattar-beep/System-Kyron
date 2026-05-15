@@ -9,6 +9,7 @@ import {
   Sparkles, MessageSquare, FileCheck, ArrowDown, Paperclip, X,
   Lightbulb, Target, Clock, AlertTriangle, Download
 } from 'lucide-react';
+import { PasswordGate } from '@/components/password-gate';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -323,7 +324,7 @@ export default function PitchCoachPage() {
   const hasContent = messages.length > 0 || uploadedFile !== null;
 
   return (
-    <PageTransition>
+    <PasswordGate title="Pitch Coach AI">
       <div className="flex flex-col h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)]">
         {/* Header */}
         <div className="shrink-0 border-b border-border/40 bg-card/50 backdrop-blur-sm px-4 sm:px-6 py-3">
@@ -571,5 +572,6 @@ export default function PitchCoachPage() {
         )}
       </div>
     </PageTransition>
+    </PasswordGate>
   );
 }
