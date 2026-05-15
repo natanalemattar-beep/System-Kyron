@@ -79,21 +79,22 @@ export function HeroSectionOptimized() {
             </span>
           </div>
 
-          {/* Main Title Overhaul */}
-          <div className="space-y-4 max-w-5xl">
-            <h1 className="text-[clamp(2.5rem,9vw,6.5rem)] font-black leading-[0.85] tracking-[-0.05em] text-[#0a1020] dark:text-white">
-              <span className="block opacity-90 drop-shadow-sm italic">{t('title_line1')}</span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 dark:from-blue-400 dark:via-cyan-300 dark:to-emerald-400 drop-shadow-xl py-2">
+          {/* Main Title Overhaul - Back to Elegant Roots */}
+          <div className="space-y-6 max-w-5xl">
+            <h1 className="text-[clamp(2.5rem,8vw,6rem)] font-extrabold leading-[0.9] tracking-tight text-[#0a1020] dark:text-white">
+              <span className="block opacity-90">{t('title_line1')}</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-primary to-emerald-500 dark:from-blue-400 dark:via-cyan-300 dark:to-emerald-400 drop-shadow-sm py-1">
                 {t('title_line2')}
               </span>
+              <span className="block opacity-80 text-[0.8em] font-medium tracking-[-0.02em]">{t('title_line3')}</span>
             </h1>
             
-            <div className="flex items-center justify-center gap-4 py-4">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/20" />
-                <div className="text-xl md:text-2xl font-black uppercase tracking-[0.2em] text-primary italic drop-shadow-glow">
-                    <RotatingWords words={rotatingTexts} interval={3000} />
+            <div className="flex items-center justify-center gap-6 py-2">
+                <div className="h-[1px] w-20 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+                <div className="text-lg md:text-xl font-bold uppercase tracking-[0.5em] text-primary/60">
+                    <RotatingWords words={rotatingTexts} interval={3500} />
                 </div>
-                <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/20" />
+                <div className="h-[1px] w-20 bg-gradient-to-l from-transparent via-primary/30 to-transparent" />
             </div>
           </div>
 
