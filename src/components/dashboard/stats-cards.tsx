@@ -60,7 +60,7 @@ export function StatsCards() {
   return (
     <div className="grid gap-6 grid-cols-2 lg:grid-cols-4 w-full">
       {stats.map((stat) => (
-        <Card key={stat.title} className="bg-[#050505] border border-[#1f1f1f] group hover:border-[#333] transition-all">
+        <Card key={stat.title} className="bg-[#050505] border border-[#1f1f1f] group hover:border-[#333] transition-all" data-stat={stat.title}>
           <CardHeader className="flex flex-row items-center justify-between p-6 pb-2">
             <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-white/40">{stat.title}</CardTitle>
             <stat.icon className="h-3.5 w-3.5 text-white/20 group-hover:text-white transition-colors" />
@@ -69,7 +69,7 @@ export function StatsCards() {
             {loading ? (
               <Skeleton className="h-7 w-24 bg-white/10 rounded mb-2" />
             ) : (
-              <div className="text-xl font-bold text-white mb-1">{stat.value ?? '—'}</div>
+              <div className="text-xl font-bold text-white mb-1 stat-value">{stat.value ?? '—'}</div>
             )}
             <p className={cn(
               "text-[10px] font-bold uppercase tracking-widest",

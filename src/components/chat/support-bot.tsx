@@ -25,14 +25,52 @@ export function SupportBot() {
     const [messages, setMessages] = useState<Message[]>([
         { 
             role: "model", 
-            content: "Hola, soy Kyron Core. Pregúntame lo que necesites sobre System Kyron: precios, funcionalidades, registro o cualquier duda técnica.", 
+            content: "Hola, soy Kyron Core. Puedo analizar tu dashboard y darte insights estratégicos. Pregúntame lo que necesites.", 
             timestamp: new Date() 
         }
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [pageContext, setPageContext] = useState("");
     const scrollRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    // Capturar contexto de la página actual
+    useEffect(() => {
+        if (!isOpen) return;
+        
+        const captureContext = () => {
+            const url = window.location.pathname;
+            const title = document.title;
+            
+            // Extraer métricas y datos visibles
+            const stats = Array.from(document.querySelectorAll('[data-stat], .stat-value, [class*="stat"]'))
+                .map(el => el.textContent?.trim())
+                .filter(Boolean)
+                .slice(0, 10);
+            
+            // Extraer títulos de secciones
+            const headings = Array.from(document.querySelectorAll('h1, h2, h3'))
+                .map(el => el.textContent?.trim())
+                .filter(Boolean)
+                .slice(0, 5);
+            
+            // Extraer contenido principal
+            const mainContent = document.querySelector('main')?.textContent?.slice(0, 2000) || "";
+            
+            setPageContext(JSON.stringify({
+                url,
+                title,
+                stats: stats.slice(0, 5),
+                headings: headings.slice(0, 3),
+                contentPreview: mainContent.slice(0, 500)
+            }));
+        };
+        
+        captureContext();
+        const interval = setInterval(captureContext, 5000);
+        return () => clearInterval(interval);
+    }, [isOpen]);
 
     useEffect(() => {
         if (scrollRef.current) {
@@ -58,7 +96,13 @@ export function SupportBot() {
 
         try {
             const history = messages.map(m => ({ role: m.role, content: m.content }));
-            history.push({ role: "user", content: userMessage });
+            
+            // Enviar contexto de la página para que la IA pueda analizar el dashboard
+            const contextMessage = pageContext 
+                ? `[CONTEXTO ACTUAL: ${pageContext}]\n\nPregunta del usuario: ${userMessage}`
+                : userMessage;
+            
+            history.push({ role: "user", content: contextMessage });
 
             const response = await chatWithKyron(history);
             
@@ -78,7 +122,7 @@ export function SupportBot() {
         } finally {
             setIsLoading(false);
         }
-    }, [input, isLoading, messages]);
+    }, [input, isLoading, messages, pageContext]);
 
     const formatTime = (date: Date) => {
         return date.toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit' });
@@ -190,6 +234,19 @@ export function SupportBot() {
 
                             {/* Input Area */}
                             <div className="p-3 bg-white/[0.02] border-t border-white/5">
+                                <div className="flex gap-2 mb-2">
+                                    <Button 
+                                        onClick={() => {
+                                            setInput("Analiza el dashboard actual y dame insights estratégicos basados en los datos visibles.");
+                                            setTimeout(handleSend, 100);
+                                        }}
+                                        variant="outline"
+                                        size="sm"
+                                        className="h-9 px-3 rounded-lg border-white/10 bg-white/5 text-[10px] text-white/60 hover:text-white hover:bg-white/10 font-medium"
+                                    >
+                                        <Zap className="h-3 w-3 mr-1.5 text-cyan-400" /> Analizar Dashboard
+                                    </Button>
+                                </div>
                                 <div className="flex gap-2">
                                     <Input 
                                         ref={inputRef}
@@ -212,7 +269,7 @@ export function SupportBot() {
                                     </Button>
                                 </div>
                                 <p className="text-[9px] text-white/15 text-center mt-2">
-                                    Kyron Core AI · Respuestas basadas en datos reales de System Kyron
+                                    Kyron Core AI · Puede analizar tu dashboard en tiempo real
                                 </p>
                             </div>
                         </Card>
