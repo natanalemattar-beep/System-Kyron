@@ -39,265 +39,189 @@ export default function LoginSelectionPage() {
   const enterpriseOptions = optionKeys.filter(o => o.category === 'corporate');
 
   return (
-    <div className="min-h-screen flex flex-col items-center w-full relative bg-[#050816] overflow-hidden">
-      {/* Deep Space / HUD Background */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-blue-600/10 blur-[150px] rounded-full animate-pulse-slow" />
-        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-600/10 blur-[150px] rounded-full animate-pulse" />
+    <div className="min-h-screen flex flex-col items-center w-full relative bg-[#02040a] overflow-hidden">
+      {/* Hyper-Space / HUD Background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-blue-600/10 blur-[180px] rounded-full animate-pulse-slow" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[700px] h-[700px] bg-emerald-600/5 blur-[180px] rounded-full animate-pulse" />
         
-        {/* Animated Scanline */}
+        {/* Animated HUD Grid */}
+        <div className="absolute inset-0 bg-[url('/images/grid-bg.png')] bg-repeat opacity-[0.03] mix-blend-overlay" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#02040a]/80 to-[#02040a]" />
+
+        {/* Scanning Line */}
         <motion.div 
-          animate={{ top: ['-10%', '110%'] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          className="absolute left-0 right-0 h-[1px] bg-cyan-500/10 z-10 pointer-events-none"
+          animate={{ top: ['0%', '100%'] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent z-10 pointer-events-none"
         />
-
-        {/* Dynamic Particles */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(24)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full bg-cyan-400/30"
-              style={{
-                width: 2 + (i % 3),
-                height: 2 + (i % 3),
-                left: `${5 + (i * 4)}%`,
-                top: `${(i % 10) * 10}%`,
-              }}
-              animate={{
-                y: [0, -60, -120],
-                opacity: [0, 0.8, 0],
-                x: [0, i % 2 === 0 ? 20 : -20],
-              }}
-              transition={{
-                duration: 6 + (i % 4) * 2,
-                repeat: Infinity,
-                delay: i * 0.3,
-                ease: "linear",
-              }}
-            />
-          ))}
-        </div>
-
-        <div className="absolute inset-0 hud-grid opacity-20" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050816]/50 to-[#050816]" />
       </div>
 
-      <div className="w-full max-w-5xl px-4 md:px-8 py-6">
-        <Button variant="ghost" asChild className="rounded-xl h-9 px-3 text-xs text-slate-400 hover:text-slate-700 hover:bg-slate-100 dark:hover:text-slate-200 dark:hover:bg-slate-800 -ml-3">
-          <Link href="/" className="flex items-center"><ChevronLeft className="mr-1.5 h-4 w-4" /> {t('back')}</Link>
+      <div className="w-full max-w-6xl px-6 py-6 flex justify-between items-center relative z-20">
+        <Button variant="ghost" asChild className="rounded-full h-10 px-4 text-[10px] font-black uppercase tracking-widest text-white/30 hover:text-white hover:bg-white/5 transition-all">
+          <Link href="/" className="flex items-center"><ChevronLeft className="mr-2 h-4 w-4" /> {t('back')}</Link>
         </Button>
+        <div className="flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.8)]" />
+            <span className="text-[9px] font-black text-white/40 uppercase tracking-[0.3em]">Servidores Operativos</span>
+        </div>
       </div>
 
       <motion.div
-        className="w-full max-w-5xl px-4 md:px-8 pb-12"
-        initial={{ opacity: 0, y: 20 }}
+        className="w-full max-w-6xl px-6 pb-20 relative z-10"
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <header className="text-center mb-12 md:mb-16">
+        <header className="text-center mb-16 md:mb-24">
           <motion.div
-            className="flex justify-center mb-6"
-            initial={{ scale: 0.8, opacity: 0 }}
+            className="flex justify-center mb-8"
+            initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.1 }}
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-primary/15 blur-2xl rounded-full scale-150 animate-pulse" />
-              <div className="relative h-16 w-16 rounded-2xl bg-gradient-to-br from-primary/15 to-cyan-500/15 border border-blue-200/50 dark:border-blue-700/50 flex items-center justify-center backdrop-blur-sm">
-                <Logo className="h-10 w-10 relative drop-shadow-lg" />
+            <div className="relative group">
+              <div className="absolute inset-0 bg-cyan-500/20 blur-3xl rounded-full scale-150 animate-kyron-breathe" />
+              <div className="relative h-20 w-20 rounded-[2rem] bg-gradient-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center backdrop-blur-xl shadow-2xl group-hover:rotate-12 transition-transform duration-500">
+                <Logo className="h-12 w-12 relative drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" />
               </div>
             </div>
           </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.4 }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-300/40 dark:border-cyan-700/40 bg-cyan-50 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 text-[10px] font-semibold uppercase tracking-wide mb-5 backdrop-blur-sm">
-              <Lock className="h-3 w-3" /> {t('badge')}
-            </div>
-          </motion.div>
-          <motion.h1
-            className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter mb-4 text-white leading-[0.9] uppercase font-impact italic"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            {t('title')}{' '}
-            <span className="bg-gradient-to-r from-cyan-400 via-primary to-emerald-400 bg-clip-text text-transparent">{t('title_highlight')}</span>
-          </motion.h1>
-          <motion.p
-            className="text-[10px] font-bold text-cyan-500/40 max-w-lg mx-auto leading-relaxed uppercase tracking-[0.2em] font-tech"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.4 }}
-          >
-            {t('subtitle')}
-          </motion.p>
+          
+          <div className="space-y-4">
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-white/5 bg-white/[0.02] text-cyan-400 text-[10px] font-black uppercase tracking-[0.4em] backdrop-blur-md mb-2"
+            >
+                <Lock className="h-3 w-3" /> {t('badge')}
+            </motion.div>
+            <h1 className="text-[clamp(2.5rem,8vw,6rem)] font-black tracking-[-0.05em] leading-[0.85] text-white uppercase italic font-impact">
+                {t('title')}<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-emerald-400 text-glow-cyan">
+                    {t('title_highlight')}
+                </span>
+            </h1>
+            <p className="text-xs font-bold text-white/30 max-w-xl mx-auto uppercase tracking-[0.3em] font-tech">
+                {t('subtitle')}
+            </p>
+          </div>
         </header>
 
-        <motion.section
-          className="mb-10"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-              <User className="h-4 w-4 text-blue-400" />
-            </div>
-            <div>
-              <h2 className="text-[11px] font-black text-white uppercase tracking-[0.2em]">{t('citizen_portal')}</h2>
-              <p className="text-[9px] font-bold text-blue-500/40 uppercase tracking-widest mt-0.5">Identidad Digital Avanzada</p>
-            </div>
-            <div className="h-px flex-1 bg-gradient-to-r from-blue-500/20 to-transparent" />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {personalOptions.map((o) => (
-              <motion.div variants={itemVariants} key={o.key}>
-                <Link href={o.href as any} className="group block" onClick={() => setNavigatingTo(o.href)}>
-                  <motion.div
-                    whileHover={{ scale: 1.01, x: 4 }}
-                    whileTap={{ scale: 0.99 }}
-                    onHoverStart={() => setHoveredKey(o.key)}
-                    onHoverEnd={() => setHoveredKey(null)}
-                    className={cn(
-                      "relative flex items-center gap-5 p-6 rounded-[1.2rem] border border-white/5 bg-white/[0.01] backdrop-blur-3xl transition-all duration-500 overflow-hidden group/card",
-                      "hover:bg-white/[0.04] hover:border-white/10"
-                    )}
-                  >
-                    {hoveredKey === o.key && (
-                      <motion.div
-                        layoutId="glow"
-                        className="absolute inset-0 z-0 pointer-events-none"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1, background: `radial-gradient(150px circle at 50% 50%, ${o.glow}, transparent)` }}
-                        exit={{ opacity: 0 }}
-                      />
-                    )}
-                    
-                    <div className={cn("h-14 w-14 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-lg text-white shrink-0 transition-transform group-hover:scale-110 duration-500 relative z-10", o.color)}>
-                      {navigatingTo === o.href ? <Loader2 className="h-6 w-6 animate-spin" /> : <o.icon className="h-6 w-6" />}
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
+            {/* PORTAL CIUDADANO - Left Side / Main focus */}
+            <div className="lg:col-span-5 space-y-8">
+                <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.1)]">
+                        <User className="h-5 w-5 text-blue-400" />
                     </div>
-                    <div className="flex-1 min-w-0 relative z-10">
-                      <p className="text-lg font-black text-white tracking-tighter group-hover/card:text-cyan-400 transition-colors uppercase italic">{t(`options.${o.key}.label`)}</p>
-                      <p className="text-[9px] font-bold text-white/30 mt-1 leading-relaxed line-clamp-1 uppercase tracking-[0.15em]">{t(`options.${o.key}.description`)}</p>
+                    <div className="flex-1">
+                        <h2 className="text-xs font-black text-white uppercase tracking-[0.3em]">{t('citizen_portal')}</h2>
+                        <div className="h-[1px] w-full bg-gradient-to-r from-blue-500/30 to-transparent mt-2" />
                     </div>
-                    <div className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-all shrink-0 relative z-10">
-                      <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all" />
-                    </div>
-                  </motion.div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
+                </div>
 
-        <motion.section
-          className="mb-10"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-10 w-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
-              <Building2 className="h-4 w-4 text-emerald-400" />
+                <div className="grid gap-4">
+                    {personalOptions.map((o, i) => (
+                        <motion.div 
+                            key={o.key}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4 + (i * 0.1) }}
+                        >
+                            <Link href={o.href as any} className="group block" onClick={() => setNavigatingTo(o.href)}>
+                                <div className="glass-system-kyron-interactive p-8 rounded-[2.5rem] flex items-center gap-8 relative overflow-hidden">
+                                    <div className={cn("h-16 w-16 rounded-[1.5rem] bg-gradient-to-br flex items-center justify-center shadow-xl text-white shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500", o.color)}>
+                                        {navigatingTo === o.href ? <Loader2 className="h-7 w-7 animate-spin" /> : <o.icon className="h-7 w-7" />}
+                                    </div>
+                                    <div className="flex-1 space-y-1">
+                                        <h3 className="text-2xl font-black text-white tracking-tighter uppercase italic group-hover:text-cyan-400 transition-colors">{t(`options.${o.key}.label`)}</h3>
+                                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest leading-relaxed line-clamp-1">{t(`options.${o.key}.description`)}</p>
+                                    </div>
+                                    <div className="h-12 w-12 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-cyan-500/30 group-hover:bg-cyan-500/10 transition-all">
+                                        <ArrowRight className="h-5 w-5 text-white/20 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
+                                    </div>
+                                </div>
+                            </Link>
+                        </motion.div>
+                    ))}
+                </div>
             </div>
-            <div>
-              <h2 className="text-[11px] font-black text-white uppercase tracking-[0.2em]">{t('corporate_portals')}</h2>
-              <p className="text-[9px] font-bold text-emerald-500/40 uppercase tracking-widest mt-0.5">Infraestructura Corporativa Kyron</p>
-            </div>
-            <div className="h-px flex-1 bg-gradient-to-r from-emerald-500/20 to-transparent" />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {enterpriseOptions.map((option) => (
-              <motion.div key={option.href} variants={itemVariants}>
-                <Link href={option.href as any} className="group block" onClick={() => setNavigatingTo(option.href)}>
-                  <motion.div
-                    whileHover={{ scale: 1.01, x: 4 }}
-                    whileTap={{ scale: 0.99 }}
-                    className={cn(
-                      "relative flex items-center gap-4 p-5 rounded-[1rem] border border-white/5 bg-white/[0.01] backdrop-blur-3xl transition-all duration-500 overflow-hidden group/card",
-                      "hover:bg-white/[0.04] hover:border-white/10"
-                    )}
-                  >
-                    {/* HUD corner accent */}
-                    <div className="absolute top-0 right-0 w-6 h-6 pointer-events-none opacity-10 group-hover:opacity-60">
-                      <div className="absolute top-2 right-2 w-1 h-1 bg-cyan-500/40 rounded-full" />
-                      <div className="absolute top-2 right-2 w-[1px] h-2 bg-cyan-500/20" />
-                      <div className="absolute top-2 right-2 w-2 h-[1px] bg-cyan-500/20" />
-                    </div>
 
-                    <div className={cn("h-11 w-11 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-md text-white shrink-0 transition-transform group-hover:scale-110 duration-500", option.color)}>
-                      {navigatingTo === option.href ? <Loader2 className="h-4 w-4 animate-spin" /> : <option.icon className="h-4 w-4" />}
+            {/* PORTAL CORPORATIVO - Right Side / Grid of modules */}
+            <div className="lg:col-span-7 space-y-8">
+                <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+                        <Building2 className="h-5 w-5 text-emerald-400" />
                     </div>
-                    <div className="flex-1 min-w-0 relative z-10">
-                      <p className="text-sm font-bold text-white tracking-tight group-hover:text-cyan-400 transition-colors uppercase">{t(`options.${option.key}.label`)}</p>
-                      <p className="text-[10px] text-slate-500 mt-0.5 leading-snug line-clamp-1 uppercase tracking-widest font-bold">{t(`options.${option.key}.description`)}</p>
+                    <div className="flex-1">
+                        <h2 className="text-xs font-black text-white uppercase tracking-[0.3em]">{t('corporate_portals')}</h2>
+                        <div className="h-[1px] w-full bg-gradient-to-r from-emerald-500/30 to-transparent mt-2" />
                     </div>
-                    <ArrowRight className="h-4 w-4 text-slate-600 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all shrink-0 relative z-10" />
-                  </motion.div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
+                </div>
 
-        <motion.div
-          className="rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-3xl p-8 mb-8 relative overflow-hidden group"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.4 }}
-        >
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent" />
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-5">
-              <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary/10 to-cyan-500/10 flex items-center justify-center border border-white/10 shrink-0 group-hover:scale-110 transition-transform">
-                <Sparkles className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm font-black text-white uppercase italic tracking-tighter">{t('full_ecosystem')}</p>
-                <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mt-1">{t('ecosystem_desc')}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link href="/recuperar-cuenta" className="text-[10px] font-bold text-white/40 hover:text-cyan-400 transition-colors flex items-center gap-2 uppercase tracking-widest">
-                <KeyRound className="h-3.5 w-3.5" /> {t('recover_account')}
-              </Link>
-              <Link href="/register">
-                <Button size="sm" className="rounded-xl text-[10px] font-black px-8 shadow-xl hover:shadow-cyan-500/20 transition-all h-12 bg-gradient-to-r from-primary to-cyan-600 hover:from-primary/90 hover:to-cyan-500 uppercase tracking-widest italic">
-                  <User className="mr-2 h-3.5 w-3.5" /> {t('create_account')}
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </motion.div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                    {enterpriseOptions.map((option, i) => (
+                        <motion.div 
+                            key={option.key}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.5 + (i * 0.05) }}
+                        >
+                            <Link href={option.href as any} className="group block" onClick={() => setNavigatingTo(option.href)}>
+                                <div className="glass-system-kyron-interactive p-6 rounded-[2rem] flex items-center gap-5">
+                                    <div className={cn("h-12 w-12 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-lg text-white shrink-0 group-hover:scale-110 transition-all duration-500", option.color)}>
+                                        {navigatingTo === option.href ? <Loader2 className="h-5 w-5 animate-spin" /> : <option.icon className="h-5 w-5" />}
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <h4 className="text-sm font-black text-white uppercase tracking-tight group-hover:text-cyan-400 transition-colors">{t(`options.${option.key}.label`)}</h4>
+                                        <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest mt-0.5 line-clamp-1">{t(`options.${option.key}.description`)}</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </motion.div>
+                    ))}
+                </div>
 
-        <motion.div
-          className="text-center space-y-4 pb-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.4 }}
-        >
-          <div className="flex items-center justify-center gap-2 flex-wrap">
-            {[
-              { label: "VEN-NIF", icon: ShieldCheck },
-              { label: "SENIAT", icon: ShieldCheck },
-              { label: "IGTF 3%", icon: ShieldCheck },
-              { label: "LOTTT", icon: ShieldCheck },
-            ].map((badge, i) => (
-              <span key={i} className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3 py-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700/60 bg-white/40 dark:bg-slate-800/40">
-                <badge.icon className="h-2.5 w-2.5" />
-                {badge.label}
-              </span>
-            ))}
-          </div>
-          <p className="text-[10px] text-slate-300 dark:text-slate-500 uppercase tracking-wide font-bold">
-            <Globe className="h-3 w-3 inline mr-1.5" />
-            {t('footer')}
-          </p>
-        </motion.div>
+                {/* Final CTA Card */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1 }}
+                    className="p-8 rounded-[2.5rem] bg-gradient-to-r from-primary/10 to-cyan-500/5 border border-white/5 relative overflow-hidden group"
+                >
+                    <div className="absolute inset-0 bg-grid-white/[0.02] -z-10" />
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
+                        <div className="flex items-center gap-6">
+                            <div className="h-16 w-16 rounded-[1.5rem] bg-white/5 flex items-center justify-center border border-white/10 shadow-2xl group-hover:rotate-6 transition-transform">
+                                <Sparkles className="h-8 w-8 text-primary animate-pulse" />
+                            </div>
+                            <div>
+                                <h4 className="text-xl font-black text-white uppercase tracking-tighter italic">{t('full_ecosystem')}</h4>
+                                <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] mt-1">{t('ecosystem_desc')}</p>
+                            </div>
+                        </div>
+                        <Button asChild className="h-14 px-10 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] bg-white text-black hover:bg-cyan-400 transition-all hover:scale-105 active:scale-95 italic shadow-[0_20px_40px_rgba(255,255,255,0.1)]">
+                            <Link href="/register">Crear Cuenta <ArrowRight className="ml-3 h-4 w-4" /></Link>
+                        </Button>
+                    </div>
+                </motion.div>
+            </div>
+        </div>
+
+        <footer className="mt-24 pt-12 border-t border-white/[0.03] flex flex-col items-center gap-8">
+            <div className="flex items-center justify-center gap-4 flex-wrap opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+                {["VEN-NIF", "SENIAT", "IGTF 3.0", "LOTTT", "SAPI", "SUDEBAN"].map((badge) => (
+                    <div key={badge} className="px-5 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-white">
+                        {badge}
+                    </div>
+                ))}
+            </div>
+            <p className="text-[10px] font-bold text-white/10 uppercase tracking-[0.5em] flex items-center gap-4">
+                <Globe className="h-3 w-3" /> Protocolo de Seguridad Kyron Shield v2026.04
+            </p>
+        </footer>
       </motion.div>
     </div>
   );
