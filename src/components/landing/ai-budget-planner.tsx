@@ -60,19 +60,15 @@ export function AIBudgetPlanner() {
         let totalValue = 0;
         let savings = 15;
         
-        if (budget >= 190 || needs.length >= 5) {
+        if (budget >= 190 || needs.length >= 4) {
             planId = 'total';
             totalValue = 190;
             savings = 65;
-        } else if (budget >= 80 || needs.includes('accounting') || needs.includes('legal')) {
-            planId = 'negocio';
-            totalValue = 80;
-            savings = 35;
-        } else if (budget >= 45 || needs.includes('invoicing')) {
+        } else if (budget >= 45 || needs.includes('asesoria_contable') || needs.includes('asesoria_legal')) {
             planId = 'pro';
             totalValue = 45;
-            savings = 20;
-        } else if (budget >= 15) {
+            savings = 15;
+        } else if (budget >= 15 || needs.includes('mi_linea_personal') || needs.includes('facturacion')) {
             planId = 'comerciante';
             totalValue = 15;
             savings = 5;
@@ -246,7 +242,7 @@ export function AIBudgetPlanner() {
                                                 {t('result_title')}
                                             </h3>
                                             <p className="text-lg text-slate-500 dark:text-white/40 font-medium transition-colors">
-                                                Configuración recomendada para su presupuesto mensual.
+                                                Configuración recomendada para su ecosistema empresarial.
                                             </p>
                                         </div>
 
@@ -275,7 +271,7 @@ export function AIBudgetPlanner() {
                                                 <p className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter transition-colors">${recommendation.totalValue}</p>
                                             </div>
                                             <div className="space-y-2">
-                                                <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-500/40 uppercase tracking-[0.4em] transition-colors">{t('savings')}</p>
+                                                <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-500/60 uppercase tracking-[0.4em] transition-colors">{t('savings')}</p>
                                                 <p className="text-4xl font-black text-emerald-600 dark:text-emerald-400 tracking-tighter transition-colors">${recommendation.savings}</p>
                                             </div>
                                         </div>

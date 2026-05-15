@@ -138,7 +138,7 @@ function PricingGraphs({ t }: { t: any }) {
 
 function ModuleCard({ id, mod, index, t }: { id: string; mod: any; index: number; t: any }) {
   const Icon = ICONS[id] || Shield;
-  const precio = id === 'personal' || id === 'sostenibilidad' ? null : (id === 'contable' ? 45 : (id === 'legal' ? 30 : (id === 'tpv' ? 15 : (id === 'socios' ? 190 : (id === 'milinea' ? 3 : 10)))));
+  const precio = id === 'personal' || id === 'sostenibilidad' ? null : (id === 'contable' ? 45 : (id === 'legal' ? 45 : (id === 'tpv' ? 15 : (id === 'socios' ? 190 : (id === 'milinea' ? 15 : 10)))));
   const isFree = precio === null;
   const isPopular = id === 'contable';
 
@@ -225,7 +225,7 @@ export function PricingSection() {
   const combos = t.raw('combos');
 
   const hardwarePrices: Record<string, number> = { caja: 350, impresora: 200, kit: 500 };
-  const planes5GPrices: Record<string, number> = { basico: 12, plus: 20, pro: 30, empresarial: 45, ilimitado: 60 };
+  const planes5GPrices: Record<string, number> = { basico: 15, plus: 25, pro: 45, empresarial: 90, ilimitado: 120 };
   const combosTotals: Record<string, number> = { solo: 0, pro: 45, comerciante: 15, negocio: 80, total: 190 };
 
   return (
@@ -312,10 +312,10 @@ export function PricingSection() {
           {/* Kyron Shield badge */}
           <div className="flex justify-center mb-16">
             <div className="inline-flex items-center gap-4 px-8 py-5 rounded-3xl border border-blue-500/20 bg-blue-500/10 backdrop-blur-md">
-              <Shield className="h-6 w-6 text-blue-400" />
+              <Shield className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               <div className="text-left">
-                <p className="text-xs font-black text-white uppercase tracking-widest">{t('shield_title')}</p>
-                <p className="text-[10px] text-white/40 font-medium">{t('shield_desc')}</p>
+                <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">{t('shield_title')}</p>
+                <p className="text-[10px] text-slate-500 dark:text-white/40 font-medium">{t('shield_desc')}</p>
               </div>
             </div>
           </div>
@@ -358,8 +358,8 @@ export function PricingSection() {
                 {/* Price */}
                 <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-white tracking-tighter">${planes5GPrices[id]?.toFixed(2)}</span>
-                    <span className="text-[10px] text-white/30 font-black uppercase tracking-widest ml-1">{t('per_month')}</span>
+                    <span className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter">${planes5GPrices[id]?.toFixed(2)}</span>
+                    <span className="text-[10px] text-slate-400 dark:text-white/30 font-black uppercase tracking-widest ml-1">{t('per_month')}</span>
                   </div>
                 </div>
 
@@ -370,13 +370,13 @@ export function PricingSection() {
                     { label: 'Minutos', value: plan.min },
                     { label: 'SMS', value: plan.sms },
                   ].map(({ label, value }) => (
-                    <div key={label} className="flex items-center justify-between text-xs py-1 border-b border-white/5">
-                      <span className="text-white/40 font-medium">{label}</span>
+                    <div key={label} className="flex items-center justify-between text-xs py-1 border-b border-black/5 dark:border-white/5">
+                      <span className="text-slate-400 dark:text-white/40 font-medium">{label}</span>
                       <span className={cn('font-black', 
-                         id === 'basico' ? 'text-slate-300' : 
-                         id === 'plus' ? 'text-cyan-300' : 
-                         id === 'pro' ? 'text-blue-300' : 
-                         id === 'empresarial' ? 'text-violet-300' : 'text-amber-300'
+                         id === 'basico' ? 'text-slate-500 dark:text-slate-300' : 
+                         id === 'plus' ? 'text-cyan-600 dark:text-cyan-300' : 
+                         id === 'pro' ? 'text-blue-600 dark:text-blue-300' : 
+                         id === 'empresarial' ? 'text-violet-600 dark:text-violet-300' : 'text-amber-600 dark:text-amber-300'
                       )}>{value}</span>
                     </div>
                   ))}
@@ -439,25 +439,25 @@ export function PricingSection() {
                 >
                   <div className="flex items-center gap-5 mb-8">
                     <div className="h-16 w-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-                      <Icon className="h-8 w-8 text-amber-400" />
+                      <Icon className="h-8 w-8 text-amber-500 dark:text-amber-400" />
                     </div>
                     <div>
-                      <h4 className="text-lg font-black text-white tracking-tight">{hw.name}</h4>
+                      <h4 className="text-lg font-black text-slate-900 dark:text-white tracking-tight">{hw.name}</h4>
                       <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-500/30 mt-1">
-                        <Check className="h-2.5 w-2.5 text-emerald-400" />
-                        <span className="text-[8px] text-emerald-400 font-black uppercase tracking-widest">{t('seniat_certified')}</span>
+                        <Check className="h-2.5 w-2.5 text-emerald-600 dark:text-emerald-400" />
+                        <span className="text-[8px] text-emerald-600 dark:text-emerald-400 font-black uppercase tracking-widest">{t('seniat_certified')}</span>
                       </div>
                     </div>
                   </div>
 
-                  <p className="text-sm text-white/40 font-medium leading-relaxed flex-1 mb-8">{hw.desc}</p>
+                  <p className="text-sm text-slate-500 dark:text-white/40 font-medium leading-relaxed flex-1 mb-8">{hw.desc}</p>
 
-                  <div className="flex items-center justify-between pt-8 border-t border-white/5">
+                  <div className="flex items-center justify-between pt-8 border-t border-black/5 dark:border-white/5">
                     <div>
-                      <p className="text-[9px] text-white/20 font-black uppercase tracking-[0.2em] mb-1">{t('one_time_payment')}</p>
-                      <p className="text-3xl font-black text-white tracking-tighter">${hardwarePrices[id]}</p>
+                      <p className="text-[9px] text-slate-400 dark:text-white/20 font-black uppercase tracking-[0.2em] mb-1">{t('one_time_payment')}</p>
+                      <p className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">${hardwarePrices[id]}</p>
                     </div>
-                    <Button asChild className="h-14 px-10 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] bg-amber-500 hover:bg-amber-600 text-black shadow-lg transition-all hover:scale-[1.05]">
+                    <Button asChild className="h-14 px-10 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] bg-amber-500 hover:bg-amber-600 text-white dark:text-black shadow-lg transition-all hover:scale-[1.05] border-none">
                       <Link href="/#contacto">
                         {t('cta_start')} <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
@@ -506,15 +506,15 @@ export function PricingSection() {
                   custom={i * 0.08}
                   className={cn('rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1 glass-system-kyron-interactive border-white/5', colorClasses[id]?.replace('border-', 'border-opacity-0 border-'))}
                 >
-                  <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-4">
-                      <div className="h-12 w-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-                        <Icon className="h-5 w-5 text-white/60" />
+                      <div className="h-12 w-12 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 flex items-center justify-center">
+                        <Icon className="h-5 w-5 text-slate-400 dark:text-white/60" />
                       </div>
-                      <h4 className="text-base font-black text-white tracking-tight">{combo.profile}</h4>
+                      <h4 className="text-base font-black text-slate-900 dark:text-white tracking-tight">{combo.profile}</h4>
                     </div>
                     {combo.badge && (
-                      <span className={cn('text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest shrink-0 border border-white/20 shadow-lg', badgeColors[id] || 'bg-white/10 text-white')}>
+                      <span className={cn('text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest shrink-0 border border-black/10 dark:border-white/20 shadow-lg', badgeColors[id] || 'bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white')}>
                         {combo.badge}
                       </span>
                     )}
@@ -522,8 +522,8 @@ export function PricingSection() {
 
                   <ul className="space-y-3 mb-8">
                     {combo.items.map((item: string, j: number) => (
-                      <li key={j} className="flex items-center gap-3 text-xs text-white/50 font-medium">
-                        <div className="h-1.5 w-1.5 rounded-full bg-white/20" />
+                      <li key={j} className="flex items-center gap-3 text-xs text-slate-500 dark:text-white/50 font-medium">
+                        <div className="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-white/20" />
                         {item}
                       </li>
                     ))}
@@ -559,22 +559,22 @@ export function PricingSection() {
             viewport={{ once: true }}
             className="mt-24 text-center"
           >
-            <div className="inline-grid grid-cols-2 md:grid-cols-4 gap-4 px-10 py-8 rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-md max-w-5xl mx-auto">
+            <div className="inline-grid grid-cols-2 md:grid-cols-4 gap-4 px-10 py-8 rounded-[2rem] border border-black/5 dark:border-white/5 bg-black/[0.01] dark:bg-white/[0.02] backdrop-blur-md max-w-5xl mx-auto">
               <div className="flex flex-col items-center gap-3 p-4">
-                <Check className="h-5 w-5 text-emerald-400" strokeWidth={3} />
-                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest text-center leading-tight">Cuenta Personal<br/>Sempre Gratis</span>
+                <Check className="h-5 w-5 text-emerald-600 dark:text-emerald-400" strokeWidth={3} />
+                <span className="text-[10px] font-black text-slate-500 dark:text-white/40 uppercase tracking-widest text-center leading-tight">Cuenta Personal<br/>Siempre Gratis</span>
               </div>
-              <div className="flex flex-col items-center gap-3 p-4 border-l border-white/5">
-                <Shield className="h-5 w-5 text-blue-400" />
-                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest text-center leading-tight">Kyron Shield<br/>Integrado</span>
+              <div className="flex flex-col items-center gap-3 p-4 border-l border-black/5 dark:border-white/5">
+                <Shield className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                <span className="text-[10px] font-black text-slate-500 dark:text-white/40 uppercase tracking-widest text-center leading-tight">Kyron Shield<br/>Integrado</span>
               </div>
-              <div className="flex flex-col items-center gap-3 p-4 border-l border-white/5">
-                <Leaf className="h-5 w-5 text-green-400" />
-                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest text-center leading-tight">Sostenibilidad<br/>Certificada</span>
+              <div className="flex flex-col items-center gap-3 p-4 border-l border-black/5 dark:border-white/5">
+                <Leaf className="h-5 w-5 text-green-600 dark:text-green-400" />
+                <span className="text-[10px] font-black text-slate-500 dark:text-white/40 uppercase tracking-widest text-center leading-tight">Sostenibilidad<br/>Certificada</span>
               </div>
-              <div className="flex flex-col items-center gap-3 p-4 border-l border-white/5">
-                <Star className="h-5 w-5 text-amber-400" />
-                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest text-center leading-tight">Sin Contratos<br/>Obligatorios</span>
+              <div className="flex flex-col items-center gap-3 p-4 border-l border-black/5 dark:border-white/5">
+                <Star className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+                <span className="text-[10px] font-black text-slate-500 dark:text-white/40 uppercase tracking-widest text-center leading-tight">Sin Contratos<br/>Obligatorios</span>
               </div>
             </div>
           </motion.div>
