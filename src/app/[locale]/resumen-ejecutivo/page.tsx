@@ -17,21 +17,51 @@ export default function ResumenEjecutivoPage() {
     };
 
     const handleExportWord = () => {
-        const content = document.getElementById('reporte-contenido')?.innerHTML;
-        if (!content) return;
-        
-        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
-                "xmlns:w='urn:schemas-microsoft-com:office:word' " +
-                "xmlns='http://www.w3.org/TR/REC-html40'>" +
-                "<head><meta charset='utf-8'><title>Resumen Ejecutivo Kyron</title></head><body>";
-        const footer = "</body></html>";
-        const sourceHTML = header + content + footer;
-        
-        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-        const fileLink = document.createElement("a");
-        fileLink.href = source;
-        fileLink.download = 'RESUMEN_EJECUTIVO_KYRON.doc';
-        fileLink.click();
+        const styles = `
+            body { font-family: 'Segoe UI', Arial, sans-serif; padding: 48px; color: #0f172a; background: #fff; }
+            .kyron-header { text-align: center; margin-bottom: 40px; border-bottom: 3px solid #0A2472; padding-bottom: 24px; }
+            h1 { color: #0A2472; font-size: 28pt; font-weight: 900; text-transform: uppercase; }
+            h2 { color: #0A2472; font-size: 16pt; font-weight: 900; text-transform: uppercase; border-bottom: 1px solid #cbd5e1; padding-bottom: 8px; margin-top: 40px; }
+            h3 { color: #00A86B; font-size: 12pt; font-weight: 800; text-transform: uppercase; }
+            p { font-size: 11pt; line-height: 1.7; color: #334155; margin-bottom: 12px; }
+            .badge { display: inline-block; padding: 4px 12px; border: 1px solid #cbd5e1; border-radius: 20px; font-size: 9pt; font-weight: 700; text-transform: uppercase; }
+            ul { margin-bottom: 20px; padding-left: 24px; }
+            li { font-size: 11pt; color: #334155; margin-bottom: 8px; }
+            .grid { display: flex; flex-wrap: wrap; gap: 16px; margin: 16px 0; }
+            .grid-2 { width: 48%; }
+            .grid-3 { width: 31%; }
+            .grid-4 { width: 23%; }
+            .card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; }
+            .section { border-left: 3px solid #0A2472; padding-left: 16px; margin: 20px 0; }
+            .highlight { background: #f1f5f9; border-left: 4px solid #00A86B; padding: 16px; border-radius: 8px; margin: 20px 0; }
+            .footer { text-align: center; font-size: 9pt; color: #94a3b8; margin-top: 60px; border-top: 1px solid #e2e8f0; padding-top: 20px; }
+        `;
+        const el = document.getElementById('reporte-contenido');
+        if (!el) return;
+        let content = el.innerHTML.replace(/<style[\s\S]*?<\/style>/gi, '');
+        const html = `<!DOCTYPE html>
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head><meta charset='utf-8'><title>Resumen Ejecutivo Kyron</title><style>${styles}</style></head>
+<body>
+    <div class="kyron-header">
+        <h1>SYSTEM KYRON</h1>
+        <p style="font-size: 12pt; color: #64748b; text-transform: uppercase; letter-spacing: 3px;">Resumen Ejecutivo — Reto Inspira 2026</p>
+        <p style="font-size: 10pt; color: #94a3b8;">Equipo: Carlos Mattar · Sebastian Garrido · Marcos Sousa</p>
+    </div>
+    ${content}
+    <div class="footer">
+        <p>System Kyron — Inteligencia Corporativa — RIF J-50832149-9</p>
+        <p>&copy; 2026 Emprendimiento Carlos Mattar &bull; infosystemkyron@gmail.com</p>
+    </div>
+</body></html>`;
+        const blob = new Blob(["\ufeff", html], { type: 'application/vnd.ms-word' });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = 'RESUMEN_EJECUTIVO_KYRON.doc';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(link.href), 1000);
     };
 
     return (
@@ -56,11 +86,11 @@ export default function ResumenEjecutivoPage() {
                     </div>
                     
                     <div className="flex flex-wrap gap-3 w-full md:w-auto">
-                        <Button variant="outline" onClick={handlePrint} className="flex-1 md:flex-none rounded-xl border-primary/20 hover:bg-primary/5 h-12 px-6 font-bold uppercase text-[10px] tracking-widest text-white">
-                            <Printer className="h-4 w-4 mr-2" /> Descargar PDF
+                        <Button variant="outline" onClick={handlePrint} className="flex-1 md:flex-none rounded-xl border-primary/20 hover:bg-primary/5 h-12 px-6 font-bold uppercase text-[11px] tracking-widest text-white">
+                            <Printer className="h-5 w-5 mr-2" /> Descargar PDF
                         </Button>
-                        <Button onClick={handleExportWord} variant="outline" className="flex-1 md:flex-none rounded-xl border-primary/20 hover:bg-primary/5 h-12 px-6 font-bold uppercase text-[10px] tracking-widest text-white">
-                            <FileDown className="h-4 w-4 mr-2" /> Exportar Word
+                        <Button onClick={handleExportWord} className="flex-1 md:flex-none rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground h-14 px-8 font-black uppercase text-sm tracking-widest shadow-xl shadow-primary/30">
+                            <FileDown className="h-5 w-5 mr-2" /> Exportar Word
                         </Button>
                     </div>
                 </motion.div>

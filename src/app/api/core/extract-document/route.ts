@@ -18,6 +18,9 @@ export async function POST(req: NextRequest) {
 
         const mimeMatch = image.match(/^data:([a-z]+\/[a-z0-9+.-]+);base64,/);
         const mimeType = mimeMatch ? mimeMatch[1] : 'image/jpeg';
+        if (!mimeType.startsWith('image/')) {
+            return NextResponse.json({ error: 'Solo se admiten imágenes (JPG, PNG, WebP). Los archivos PDF no son compatibles con el escáner de documentos.' }, { status: 400 });
+        }
         const imageData = image.includes('base64,') ? image.split('base64,')[1] : image;
 
         // 1. ANALIZAR DOCUMENTO CON GEMINI (extraer número + verificar autenticidad)
