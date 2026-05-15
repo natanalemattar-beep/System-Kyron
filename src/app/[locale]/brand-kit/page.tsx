@@ -7,7 +7,6 @@ import {
     Image as ImageIcon, 
     Presentation, 
     ArrowRight, 
-    Download, 
     Sparkles, 
     Globe, 
     Instagram, 
@@ -19,7 +18,8 @@ import {
     Eye,
     Lock,
     Fingerprint,
-    ExternalLink
+    ExternalLink,
+    Layers
 } from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
