@@ -101,7 +101,7 @@ export function OfficialSeal({ className }: { className?: string }) {
                         <textPath href="#bottom-arc" startOffset="50%" textAnchor="middle">SYSTEM KYRON</textPath>
                     </text>
                     <text x="200" y="108" textAnchor="middle" fontSize="16" fill="#1e293b" fontFamily="Georgia, serif">★</text>
-                    <image href="/images/logo-kyron-hq.png" x="148" y="145" width="104" height="104" />
+                    <image href="/images/logo-black.png" x="148" y="145" width="104" height="104" />
                     <text x="200" y="280" textAnchor="middle" fontSize="9" fontWeight="700" fontFamily="Georgia, 'Times New Roman', serif" fill="#1e293b" letterSpacing="2">RIF J-50832149-9</text>
                     <text x="200" y="296" textAnchor="middle" fontSize="7.5" fontWeight="600" fontFamily="Arial, sans-serif" fill="#1e293b" letterSpacing="2.5">EMPRENDIMIENTO CARLOS MATTAR</text>
                     <text x="200" y="318" textAnchor="middle" fontSize="8" fill="#1e293b" fontFamily="Georgia, serif">✦</text>
