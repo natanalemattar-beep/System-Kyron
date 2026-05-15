@@ -69,7 +69,7 @@ export async function GET() {
     features['xss-protection'] = {
         active: true,
         verified: false,
-        detail: 'Input sanitization + X-XSS-Protection + X-Content-Type-Options: nosniff',
+        detail: 'Input sanitization + CSP headers + X-Content-Type-Options: nosniff',
     };
 
     features['sql-injection-prevention'] = {

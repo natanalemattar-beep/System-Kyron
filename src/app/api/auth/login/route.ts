@@ -246,41 +246,14 @@ export async function POST(req: NextRequest) {
                 });
             }
 
-            // FALLBACK: Si el email falla y no tiene teléfono, crear sesión directamente
-            // para no bloquear al usuario. La contraseña ya fue verificada arriba.
-            console.warn(`[login] Email delivery failed for ${user.email}. Granting direct session as fallback.`);
-            const fallbackToken = await createToken({
-                userId: user.id,
-                email: user.email,
-                tipo: user.tipo,
-                nombre: displayName,
-            });
-            const fallbackCookie = setSessionCookie(fallbackToken);
-            const fallbackRes = NextResponse.json({
-                success: true,
-                emailBypass: true,
-                user: {
-                    id: user.id,
-                    email: user.email,
-                    tipo: user.tipo,
-                    nombre: displayName,
-                    apellido: user.apellido,
-                    cedula: user.cedula,
-                    razon_social: user.razon_social,
-                    rif: user.rif,
-                },
-            });
-            fallbackRes.cookies.set(fallbackCookie.name, fallbackCookie.value, fallbackCookie.options as Parameters<typeof fallbackRes.cookies.set>[2]);
-            await logActivity({
-                userId: user.id,
-                evento: 'LOGIN',
-                categoria: 'auth',
-                descripcion: `Login directo (email fallback): ${displayName} (${user.email})`,
-                entidadTipo: 'usuario',
-                entidadId: user.id,
-                metadata: { email: user.email, tipo: user.tipo, metodo: 'email_fallback' },
-            });
-            return fallbackRes;
+            // FALLBACK: Si el email falla y tiene llave de acceso válida, crear sesión
+            // Si no tiene llave, intentar SMS/WhatsApp o rechazar
+            if (!hasPhone && !user.access_key_hash) {
+                return NextResponse.json({
+                    error: 'Error enviando código de verificación. Intenta de nuevo más tarde.',
+                    emailFailed: true,
+                }, { status: 502 });
+            }
         }
 
         return NextResponse.json({
@@ -297,7 +270,6 @@ export async function POST(req: NextRequest) {
             message: err.message,
             stack: err.stack,
             cause: err.cause,
-            headers: Object.fromEntries(req.headers.entries())
         });
         return NextResponse.json({ 
             error: 'Error interno del servidor',

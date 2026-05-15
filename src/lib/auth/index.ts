@@ -1,8 +1,13 @@
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 
-const jwtSecret = process.env.JWT_SECRET ?? 'kyron_secret_key_fixed_2026';
-const SECRET = new TextEncoder().encode(jwtSecret);
+const jwtSecret = process.env.JWT_SECRET;
+
+if (!jwtSecret) {
+  console.error('[auth] CRITICAL: JWT_SECRET is not set. Authentication will fail.');
+}
+
+const SECRET = new TextEncoder().encode(jwtSecret || 'fallback_only_dev');
 const COOKIE_NAME = 'sk_session';
 const EXPIRES_IN = 60 * 60 * 24 * 7; // 7 days in seconds
 

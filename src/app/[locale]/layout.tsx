@@ -6,18 +6,23 @@ import { DemoBannerProvider } from "@/components/demo-banner";
 import { DemoBannerSpacer } from "@/components/demo-banner-spacer";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
-import { Inter, Outfit } from 'next/font/google';
+import { Inter, Outfit, Lora } from 'next/font/google';
 
 import { Metadata } from 'next';
 import { Providers } from "@/components/providers";
 import { SupportBot } from "@/components/chat/support-bot";
 
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit', display: 'swap' });
+const lora = Lora({ subsets: ['latin'], variable: '--font-lora', display: 'swap' });
 
-
-
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: '#030711',
+};
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -30,8 +35,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: locale === 'es' 
       ? 'Plataforma líder en gestión empresarial, legal y tecnológica en Venezuela. EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9).'
       : 'Leading corporate, legal, and tech platform in Venezuela. EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9).',
-    viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
-    themeColor: '#030711',
     manifest: '/manifest.json',
   };
 }
@@ -57,16 +60,13 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${inter.variable} ${outfit.variable} dark overflow-x-hidden`} suppressHydrationWarning>
+    <html lang={locale} className={`${inter.variable} ${outfit.variable} ${lora.variable} dark overflow-x-hidden`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
         <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://wa.me" />
       </head>
       <body className="antialiased font-inter bg-[#030711] text-foreground selection:bg-primary/30 selection:text-white overflow-x-hidden w-full" suppressHydrationWarning>
         <Providers>

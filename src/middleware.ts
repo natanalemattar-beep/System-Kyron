@@ -29,7 +29,6 @@ const CSP_DIRECTIVES = [
 const SECURITY_HEADERS: Record<string, string> = {
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'SAMEORIGIN',
-  'X-XSS-Protection': '1; mode=block',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
@@ -39,13 +38,13 @@ const SECURITY_HEADERS: Record<string, string> = {
 
 const COOKIE_NAME = 'sk_session';
 
-const resolvedSecret = process.env.JWT_SECRET || process.env.SESSION_SECRET || 'kyron_secret_key_fixed_2026';
+const resolvedSecret = process.env.JWT_SECRET || process.env.SESSION_SECRET;
 
-if (!process.env.JWT_SECRET && IS_PRODUCTION) {
-  console.warn('[MIDDLEWARE] WARNING: JWT_SECRET environment variable is missing. Using fallback.');
+if (!resolvedSecret) {
+  console.error('[MIDDLEWARE] CRITICAL: JWT_SECRET is not set. All protected routes will fail.');
 }
 
-const JWT_SECRET = new TextEncoder().encode(resolvedSecret);
+const JWT_SECRET = new TextEncoder().encode(resolvedSecret || 'fallback_only_dev');
 
 // Page segments (after locale prefix) that are publicly accessible
 const PUBLIC_SEGMENTS = new Set([

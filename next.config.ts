@@ -1,9 +1,12 @@
-const createNextIntlPlugin = require('next-intl/plugin');
+import type { NextConfig } from 'next';
+import createNextIntlPlugin from 'next-intl/plugin';
+import withPWAInit from '@ducanh2912/next-pwa';
+
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
-const withPWA = require("@ducanh2912/next-pwa").default({
-  dest: "public",
-  disable: process.env.NODE_ENV === "development",
+const withPWA = withPWAInit({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
   register: true,
   skipWaiting: true,
   cacheOnFrontEndNav: true,
@@ -14,8 +17,7 @@ const withPWA = require("@ducanh2912/next-pwa").default({
   },
 });
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -26,15 +28,28 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
-  },
   experimental: {
     serverActions: {
-      bodySizeLimit: '10mb', // Aumentado para manejar PDFs 4K
+      bodySizeLimit: '10mb',
     },
+    optimizePackageImports: [
+      'lucide-react', 'recharts', 'date-fns', 'framer-motion',
+      '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-select', '@radix-ui/react-tabs',
+      '@radix-ui/react-tooltip', '@radix-ui/react-popover',
+      '@radix-ui/react-accordion', '@radix-ui/react-avatar',
+      '@radix-ui/react-checkbox', '@radix-ui/react-switch',
+      '@radix-ui/react-alert-dialog', '@radix-ui/react-collapsible',
+      '@radix-ui/react-label', '@radix-ui/react-menubar',
+      '@radix-ui/react-progress', '@radix-ui/react-radio-group',
+      '@radix-ui/react-scroll-area', '@radix-ui/react-separator',
+      '@radix-ui/react-slider', '@radix-ui/react-toast',
+      'zod', 'jose', 'class-variance-authority', 'clsx',
+      'tailwind-merge', 'ethers', 'googleapis', 'react-hook-form',
+      '@hookform/resolvers', 'embla-carousel-react', 'react-day-picker',
+      'react-intersection-observer', 'input-otp',
+    ],
   },
-  allowedDevOrigins: ['*.replit.dev', '*.picard.replit.dev', '*.kirk.replit.dev', '*.spock.replit.dev', '*.riker.replit.dev', '*.janeway.replit.dev'],
   webpack: (config, { isServer, webpack }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -51,11 +66,9 @@ const nextConfig = {
         url: false,
         os: false,
       };
-      
-      // Manejar el esquema "node:" que usan librerías como pptxgenjs
       config.plugins.push(
         new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
-          resource.request = resource.request.replace(/^node:/, "");
+          resource.request = resource.request.replace(/^node:/, '');
         })
       );
     }
@@ -69,20 +82,18 @@ const nextConfig = {
       { protocol: 'https', hostname: 'api.qrserver.com' },
       { protocol: 'https', hostname: 'i.pravatar.cc' },
     ],
-    formats: ['image/webp'], // AVIF es lento de procesar en servidor, mejor solo WebP
-    minimumCacheTTL: 31536000, // Un año para evitar re-procesamiento
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 31536000,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
   },
   async headers() {
     return [
       {
-        source: '/:path*',
+        source: '/api/:path*',
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
-          { key: 'X-XSS-Protection', value: '1; mode=block' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-          { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains; preload' },
         ],
       },
       {
@@ -102,5 +113,4 @@ const nextConfig = {
   },
 };
 
-// Temporarily disabling PWA to resolve Webpack minification error in Next.js 15
-module.exports = withNextIntl(nextConfig);
+export default withPWA(withNextIntl(nextConfig));
