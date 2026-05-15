@@ -85,8 +85,41 @@ export function HeroSectionOptimized() {
               </div>
             </div>
             {/* Image/preview column */}
-            <div className="hidden lg:block lg:col-span-5">
-              <Image src="/images/landing/hero-dashboard-light.jpg" alt="Demo de dashboard" width={1000} height={600} className="w-full h-auto rounded-2xl shadow-lg" />
+            <div className="hidden lg:block lg:col-span-5 relative group">
+              <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl glass-system-kyron-interactive p-2">
+                <img 
+                  src="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1000&auto=format&fit=crop" 
+                  alt="System Kyron Interface" 
+                  className="w-full h-auto rounded-[2rem] transition-transform duration-700 group-hover:scale-105"
+                />
+                
+                {/* Floating HUD Card */}
+                <div className="absolute bottom-10 -left-10 p-6 rounded-3xl glass-liquid-hud border border-white/20 shadow-2xl animate-float max-w-[240px]">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="h-8 w-8 rounded-lg bg-cyan-500/20 flex items-center justify-center">
+                      <Zap className="h-4 w-4 text-cyan-400" />
+                    </div>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-white">Live Metrics</p>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-full w-[85%] bg-cyan-500 rounded-full" />
+                    </div>
+                    <div className="h-1.5 w-[60%] bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-full w-full bg-blue-500 rounded-full" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Second Floating Badge */}
+                <div className="absolute top-10 -right-6 p-4 rounded-2xl glass-system-kyron border border-white/10 shadow-xl animate-float-slow">
+                  <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <p className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">Global 5G Node</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

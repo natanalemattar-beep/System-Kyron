@@ -130,6 +130,43 @@ export function FeaturesSection() {
                     })}
                 </div>
 
+                <ScrollReveal className="mt-32 relative group" delay={0.4}>
+                    <div className="absolute inset-0 bg-cyan-500/10 blur-[120px] rounded-full opacity-50" />
+                    <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl glass-system-kyron-interactive p-4">
+                        <div className="grid lg:grid-cols-2 gap-8 items-center">
+                            <div className="p-10 space-y-6">
+                                <div className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+                                    Kyron Hub 5G
+                                </div>
+                                <h3 className="text-4xl font-black text-white uppercase tracking-tighter leading-none">
+                                    El Cerebro de tu <span className="text-cyan-400">Infraestructura</span>
+                                </h3>
+                                <p className="text-lg text-white/40 font-medium leading-relaxed">
+                                    Visualiza y gestiona cada nodo de tu empresa en tiempo real. Nuestra interfaz 4.0 convierte la complejidad de los datos en claridad operativa absoluta.
+                                </p>
+                                <div className="flex gap-4 pt-4">
+                                    <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex-1">
+                                        <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-1">Latencia</p>
+                                        <p className="text-xl font-black text-cyan-400">0.4ms</p>
+                                    </div>
+                                    <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex-1">
+                                        <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-1">Disponibilidad</p>
+                                        <p className="text-xl font-black text-emerald-400">99.9%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="relative aspect-video lg:aspect-square overflow-hidden rounded-[2rem] border border-white/10">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop" 
+                                    alt="Platform Showcase" 
+                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-transparent opacity-60" />
+                            </div>
+                        </div>
+                    </div>
+                </ScrollReveal>
+
                 {/* Final CTA Strip */}
                 <ScrollReveal
                     className="flex justify-center mt-32"

@@ -44,18 +44,34 @@ export function SustainabilitySection() {
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        className="relative"
+                        className="relative group"
                     >
-                        <div className="absolute inset-0 bg-emerald-500/20 blur-[120px] rounded-full" />
-                        <div className="relative p-8 rounded-[3rem] bg-gradient-to-br from-emerald-500/10 to-transparent border border-emerald-500/20 backdrop-blur-3xl aspect-square flex flex-col items-center justify-center text-center">
-                            <div className="h-32 w-32 rounded-full bg-emerald-500 flex items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.5)] mb-8">
-                                <ShieldCheck className="h-16 w-16 text-white" />
+                        <div className="absolute inset-0 bg-emerald-500/20 blur-[100px] rounded-full opacity-50 group-hover:opacity-100 transition-opacity" />
+                        <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl glass-system-kyron-interactive p-3">
+                            <img 
+                                src="https://images.unsplash.com/photo-1542601906990-b4d3fb773b09?q=80&w=1000&auto=format&fit=crop" 
+                                alt="Sustainability Impact" 
+                                className="w-full aspect-square object-cover rounded-[2.5rem] transition-transform duration-1000 group-hover:scale-105"
+                            />
+                            
+                            {/* Overlay Stats */}
+                            <div className="absolute top-10 left-10 p-6 rounded-3xl glass-liquid-hud border border-white/20 shadow-2xl animate-float">
+                                <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">Impacto Real</p>
+                                <h3 className="text-2xl font-black text-white">-12,000</h3>
+                                <p className="text-[9px] text-white/40 font-bold uppercase">Hojas/Año por PyME</p>
                             </div>
-                            <h3 className="text-4xl font-black text-white uppercase tracking-tighter mb-4">Certificación <br/>Ecológica Kyron</h3>
-                            <p className="text-emerald-400 font-black uppercase tracking-widest text-sm">Tu empresa, 100% Sostenible</p>
+
+                            <div className="absolute bottom-10 right-10 p-4 rounded-2xl bg-black/60 backdrop-blur-xl border border-white/10 shadow-xl">
+                                <div className="flex items-center gap-3">
+                                    <div className="h-8 w-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                                        <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                                    </div>
+                                    <p className="text-[10px] font-black text-white uppercase tracking-widest">Certificación Kyron</p>
+                                </div>
+                            </div>
                         </div>
                     </motion.div>
                 </div>
