@@ -10,10 +10,10 @@ if (apiKey) {
     model = genAI.getGenerativeModel({ 
         model: "gemini-2.0-flash",
         generationConfig: {
-            temperature: 0.7,
-            topP: 0.8,
-            topK: 40,
-            maxOutputTokens: 1024,
+            temperature: 0.2,
+            topP: 0.6,
+            topK: 20,
+            maxOutputTokens: 2048,
         }
     });
 }
