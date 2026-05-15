@@ -184,54 +184,70 @@ export default function PresentacionFinalPage() {
                 ]
             });
 
-            slides.forEach((slideData) => {
+            slides.forEach((slideData, i) => {
                 const slide = pptx.addSlide({ masterName: 'KYRON_MASTER' });
                 
                 // Overlay sutil de imagen
                 if (slideData.image) {
-                    slide.addImage({ path: slideData.image, x: 0, y: 0, w: '100%', h: '100%', opacity: 15 });
+                    slide.addImage({ path: slideData.image, x: 0, y: 0, w: '100%', h: '100%', opacity: 20 });
+                }
+
+                // Badge (RETO INSPIRA / EL PROBLEMA / etc)
+                if (slideData.badge) {
+                    slide.addText(slideData.badge, {
+                        x: 0.5, y: 0.4, w: 4, h: 0.3,
+                        fontSize: 10, fontFace: 'Arial Black', color: '00E5FF',
+                        bold: true, characterSpacing: 2
+                    });
                 }
 
                 // Titular Principal (Cyan)
                 slide.addText(slideData.title.toUpperCase(), {
                     x: 0.5, y: 0.8, w: '90%', h: 1,
-                    fontSize: 48, fontFace: 'Arial Black', color: '00E5FF',
+                    fontSize: 44, fontFace: 'Arial Black', color: '00E5FF',
                     bold: true, margin: 0
                 });
 
                 // Subtítulo (Blanco)
                 slide.addText(slideData.subtitle, {
                     x: 0.5, y: 1.8, w: '90%', h: 0.5,
-                    fontSize: 26, fontFace: 'Arial', color: 'FFFFFF',
+                    fontSize: 24, fontFace: 'Arial', color: 'FFFFFF',
                     bold: true
                 });
 
                 // Línea divisora
-                slide.addShape(pptx.shapes.LINE, { x: 0.5, y: 2.5, w: 2, h: 0, line: { color: '00E5FF', width: 2 } });
+                slide.addShape(pptx.shapes.LINE, { x: 0.5, y: 2.4, w: 3, h: 0, line: { color: '00E5FF', width: 3 } });
 
-                // Contenido
-                if (slideData.content) {
+                // Contenido específico por tipo de slide
+                if (slideData.id === 'portada' && slideData.content) {
                     slide.addText(slideData.content, {
-                        x: 0.5, y: 3, w: '85%', h: 2.5,
-                        fontSize: 22, fontFace: 'Arial', color: 'CCCCCC',
-                        lineSpacing: 35
+                        x: 0.5, y: 3, w: '90%', h: 1.5,
+                        fontSize: 22, fontFace: 'Arial', color: 'CCCCCC', italic: true
                     });
+                    if (slideData.team) {
+                        slide.addText(slideData.team, {
+                            x: 0.5, y: 5.5, w: '90%', h: 0.5,
+                            fontSize: 16, fontFace: 'Arial Black', color: 'FFFFFF', align: 'left'
+                        });
+                    }
                 }
 
                 if (slideData.points) {
                     slide.addText(slideData.points.map(p => `• ${p}`).join('\n'), {
-                        x: 0.5, y: 3, w: '85%', h: 3.5,
-                        fontSize: 20, fontFace: 'Arial', color: 'E0E0E0',
-                        lineSpacing: 40
+                        x: 0.5, y: 2.8, w: '90%', h: 3.5,
+                        fontSize: 18, fontFace: 'Arial', color: 'E0E0E0',
+                        lineSpacing: 38
                     });
                 }
 
                 if (slideData.teamMembers) {
                     slideData.teamMembers.forEach((m, idx) => {
-                        slide.addText(`${m.name}\n${m.role}`, {
-                            x: 0.5 + (idx * 3.5), y: 3.5, w: 3, h: 1,
-                            fontSize: 18, fontFace: 'Arial Black', color: 'FFFFFF',
-                            align: 'center', fill: { color: '111827' }
+                        slide.addText(`${m.name.toUpperCase()}\n${m.role}`, {
+                            x: 0.5 + (idx * 3.1), y: 3.5, w: 2.8, h: 1.5,
+                            fontSize: 14, fontFace: 'Arial Black', color: 'FFFFFF',
+                            align: 'center', fill: { color: '111827' },
+                            valign: 'middle',
+                            line: { color: '00E5FF', width: 1 }
                         });
                     });
                 }
