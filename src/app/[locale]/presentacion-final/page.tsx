@@ -100,9 +100,10 @@ const slides = [
             { name: 'Sebastian Garrido', role: 'Operations' },
             { name: 'Marcos Sousa', role: 'Legal' }
         ],
-        icon: <Users className="w-12 h-12 text-primary" />,
+        badge: 'EL EQUIPO',
+        icon: <ShieldCheck className="w-12 h-12 text-emerald-400" />,
         image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800',
-        bg: 'bg-gradient-to-br from-[#030711] to-primary/10'
+        bg: 'bg-gradient-to-br from-[#030711] to-emerald-500/10'
     }
 ];
 

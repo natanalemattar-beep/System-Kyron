@@ -94,7 +94,7 @@ export default function ResumenEjecutivoPage() {
                             </div>
                             <div className="space-y-1">
                                 <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest print:text-black/60">
-                                    ESLOGAN: <span className="text-white print:text-black font-bold italic">"EL FUTURO DE LA INTELIGENCIA CORPORATIVA"</span>
+                                    ESLOGAN: <span className="text-white print:text-black font-bold italic">"LA EVOLUCIÓN DEL MANDO ÚNICO: SINCRONIZANDO EL FUTURO DE TU NEGOCIO"</span>
                                 </p>
                                 <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest print:text-black/60">
                                     EQUIPO: <span className="text-white print:text-black font-bold">CARLOS MATTAR · SEBASTIAN GARRIDO · MARCOS SOUSA</span>

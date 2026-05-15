@@ -81,11 +81,13 @@ export function HeroSectionOptimized() {
             {/* Image/preview column */}
             <div className="hidden lg:block lg:col-span-5 relative group">
               <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl glass-system-kyron-interactive p-2">
-                <img 
+              <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl glass-system-kyron-interactive p-2 aspect-[4/3] lg:aspect-auto">
+                <Image 
                   src="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1000&auto=format&fit=crop" 
                   alt="System Kyron Interface" 
-                  className="w-full h-auto rounded-[2rem] transition-transform duration-700 group-hover:scale-105"
+                  fill
+                  priority
+                  className="object-cover rounded-[2rem] transition-transform duration-700 group-hover:scale-105"
                 />
                 
                 {/* Floating HUD Card */}
