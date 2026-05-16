@@ -54,7 +54,12 @@ Responde ÚNICAMENTE en este JSON:
         ]);
 
         const response = await result.response;
-        const aiResult = JSON.parse(response.text());
+        let aiResult;
+        try {
+            aiResult = JSON.parse(response.text());
+        } catch (e) {
+            return NextResponse.json({ error: 'La IA no pudo leer el documento correctamente. Intenta con una imagen más clara.' }, { status: 500 });
+        }
 
         // Verificación en DB
         let dbResult = null;
@@ -72,6 +77,6 @@ Responde ÚNICAMENTE en este JSON:
         return NextResponse.json({ success: true, ai: aiResult, db: dbResult });
     } catch (error) {
         console.error('[extract-document] Error:', error);
-        return NextResponse.json({ error: 'Error al analizar el documento' }, { status: 500 });
+        return NextResponse.json({ error: 'Error al analizar el documento. Verifica tu conexión.' }, { status: 500 });
     }
 }

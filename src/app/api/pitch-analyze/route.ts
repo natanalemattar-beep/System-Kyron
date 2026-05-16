@@ -20,7 +20,7 @@ TU TAREA:
 4. Generar un guion de presentación BASADO EN LO VISIBLE, con timing sugerido
 5. Dar feedback constructivo sobre lo que puedas ver
 
-FORMATO de RESPUESTA:
+FORMATO DE RESPUESTA:
 - Usa encabezados claros ## para cada sección
 - Incluye timing sugerido para cada parte (ej: "30 segundos")
 - Si generas un guion, formato numerado con bloques de texto
@@ -82,6 +82,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Se requiere una imagen o mensajes' }, { status: 400 });
   } catch (error) {
     console.error('[pitch-analyze] Error:', error);
-    return NextResponse.json({ error: 'Error al procesar con la IA' }, { status: 500 });
+    return NextResponse.json({ error: 'Error al procesar con la IA. Intenta de nuevo.' }, { status: 500 });
   }
 }

@@ -125,6 +125,8 @@ const PUBLIC_API_SET = new Set([
   '/api/feedback',
   '/api/pitch-analyze',
   '/api/core/extract-document',
+  '/api/core/engine-query',
+  '/api/core/engine-query-trial',
 ]);
 
 // Routes that handle their own header-based auth (e.g. x-admin-key)
