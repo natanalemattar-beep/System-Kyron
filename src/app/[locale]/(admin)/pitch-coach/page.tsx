@@ -63,15 +63,15 @@ function renderMarkdown(text: string) {
       const codeMatch = remaining.match(/`([^`]+)`/);
 
       type InlineMatch = { idx: number; len: number; node: React.ReactNode };
-      let firstMatch: InlineMatch | null = null;
+      let firstMatch: InlineMatch | null = null as any;
 
       if (boldMatch && typeof boldMatch.index === 'number') {
         const candidate: InlineMatch = { idx: boldMatch.index, len: boldMatch[0].length, node: <strong key={key++} className="font-bold text-foreground">{boldMatch[1]}</strong> };
-        if (!firstMatch || candidate.idx < firstMatch.idx) firstMatch = candidate;
+        if (!firstMatch || (firstMatch && candidate.idx < firstMatch.idx)) firstMatch = candidate;
       }
       if (codeMatch && typeof codeMatch.index === 'number') {
         const candidate: InlineMatch = { idx: codeMatch.index, len: codeMatch[0].length, node: <code key={key++} className="px-1.5 py-0.5 rounded-md bg-muted text-sm font-mono text-primary">{codeMatch[1]}</code> };
-        if (!firstMatch || candidate.idx < firstMatch.idx) firstMatch = candidate;
+        if (!firstMatch || (firstMatch && candidate.idx < firstMatch.idx)) firstMatch = candidate;
       }
 
       if (firstMatch) {

@@ -18,6 +18,8 @@ import {
     Eye,
     Lock,
     Fingerprint,
+    Layers,
+    ExternalLink,
 } from 'lucide-react';
 import { PasswordGate } from '@/components/password-gate';
 import Image from 'next/image';

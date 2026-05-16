@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Lock, Sparkles } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 // Clave de acceso: kyron2026
 const CORRECT_PASSWORD = 'kyron2026';
