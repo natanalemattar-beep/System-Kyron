@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   const estado = searchParams.get('estado');
 
   const conditions: string[] = ['user_id = $1'];
-  const params: unknown[] = [session.userId];
+  const params: unknown[] = [session.user.id];
   let i = 2;
 
   if (tipo)   { conditions.push(`tipo = $${i++}`);   params.push(tipo); }
@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
                           AND estado = 'vigente')::int AS por_vencer,
        COUNT(*) FILTER (WHERE estado = 'vencido')::int AS vencidos
      FROM documentos_juridicos WHERE user_id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({ documentos, stats: stats ?? { contratos_activos: 0, poderes_vigentes: 0, por_vencer: 0, vencidos: 0 } });
@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!tipo || !titulo) {
-    return NextResponse.json({ error: 'Tipo y título son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Tipo y tÃ­tulo son requeridos' }, { status: 400 });
   }
 
   const [doc] = await query(
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
      RETURNING id, tipo, titulo, estado`,
     [
-      session.userId,
+      session.user.id,
       tipo,
       titulo,
       descripcion ?? null,
@@ -91,10 +91,10 @@ export async function POST(req: NextRequest) {
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'DOCUMENTO_JURIDICO_CREADO',
     categoria: 'legal',
-    descripcion: `Documento jurídico: ${titulo} (${tipo})`,
+    descripcion: `Documento jurÃ­dico: ${titulo} (${tipo})`,
     entidadTipo: 'documento_juridico',
     entidadId: (doc as { id: number }).id,
     metadata: { tipo, titulo, estado: estado ?? 'vigente' },
@@ -114,7 +114,7 @@ export async function PATCH(req: NextRequest) {
 
   const existing = await queryOne(
     `SELECT id FROM documentos_juridicos WHERE id = $1 AND user_id = $2`,
-    [id, session.userId]
+    [id, session.user.id]
   );
   if (!existing) return NextResponse.json({ error: 'Documento no encontrado' }, { status: 404 });
 
@@ -125,13 +125,13 @@ export async function PATCH(req: NextRequest) {
          updated_at = NOW()
      WHERE id = $3 AND user_id = $4
      RETURNING id, tipo, titulo, estado`,
-    [estado ?? null, notas ?? null, id, session.userId]
+    [estado ?? null, notas ?? null, id, session.user.id]
   );
 
   const updated = doc as { id: number; titulo: string; estado: string };
   if (estado) {
     notifyDocumentReady({
-      userId: session.userId,
+      userId: session.user.id,
       documentType: 'documento_juridico',
       documentTitle: updated.titulo,
       newStatus: updated.estado,
@@ -153,14 +153,14 @@ export async function DELETE(req: NextRequest) {
 
   await query(
     `DELETE FROM documentos_juridicos WHERE id = $1 AND user_id = $2`,
-    [parseInt(id), session.userId]
+    [parseInt(id), session.user.id]
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'DOCUMENTO_JURIDICO_ELIMINADO',
     categoria: 'legal',
-    descripcion: `Documento jurídico #${id} eliminado`,
+    descripcion: `Documento jurÃ­dico #${id} eliminado`,
     entidadTipo: 'documento_juridico',
     entidadId: parseInt(id),
   });

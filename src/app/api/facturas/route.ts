@@ -76,7 +76,7 @@ export async function GET(req: NextRequest) {
         const limit  = Math.min(parseInt(searchParams.get('limit') ?? '50', 10), 500);
 
         const conditions: string[] = ['f.user_id = $1'];
-        const params: unknown[] = [session.userId];
+        const params: unknown[] = [session.user.id];
         let i = 2;
 
         if (tipo)   { conditions.push(`f.tipo = $${i++}`);   params.push(tipo); }
@@ -137,14 +137,14 @@ export async function POST(req: NextRequest) {
         } = body;
 
         if (!fecha_emision) {
-            return NextResponse.json({ error: 'La fecha de emisión es obligatoria' }, { status: 400 });
+            return NextResponse.json({ error: 'La fecha de emisiÃ³n es obligatoria' }, { status: 400 });
         }
 
         const tipoDoc = (tipo_documento ?? 'FACTURA').toUpperCase();
 
         if (['NOTA_DEBITO', 'NOTA_CREDITO'].includes(tipoDoc)) {
             if (!factura_referencia_num && !factura_referencia_id) {
-                return NextResponse.json({ error: 'Las Notas de Débito/Crédito requieren referencia a la factura original (Art. 18)' }, { status: 400 });
+                return NextResponse.json({ error: 'Las Notas de DÃ©bito/CrÃ©dito requieren referencia a la factura original (Art. 18)' }, { status: 400 });
             }
             if (!motivo_ajuste) {
                 return NextResponse.json({ error: 'Debe indicar el motivo del ajuste' }, { status: 400 });
@@ -152,12 +152,12 @@ export async function POST(req: NextRequest) {
         }
 
         if (rif_emisor && !validateRIF(rif_emisor)) {
-            return NextResponse.json({ error: 'El RIF del emisor tiene formato inválido. Use: V/J/E/P/G-12345678-0' }, { status: 400 });
+            return NextResponse.json({ error: 'El RIF del emisor tiene formato invÃ¡lido. Use: V/J/E/P/G-12345678-0' }, { status: 400 });
         }
 
         const sub = parseFloat(subtotal ?? '0');
         if (isNaN(sub)) {
-            return NextResponse.json({ error: 'Subtotal inválido' }, { status: 400 });
+            return NextResponse.json({ error: 'Subtotal invÃ¡lido' }, { status: 400 });
         }
 
         let baseImponible = 0;
@@ -195,8 +195,8 @@ export async function POST(req: NextRequest) {
         const retIslr = (baseImponible + baseExenta + baseNoSujeta) * (pRetIslr / 100);
         const totalAPagar = total - retIva - retIslr;
 
-        const numFactura = numero_factura || await getNextNumeroFactura(session.userId, tipoDoc);
-        const numControl = await getNextNumeroControl(session.userId);
+        const numFactura = numero_factura || await getNextNumeroFactura(session.user.id, tipoDoc);
+        const numControl = await getNextNumeroControl(session.user.id);
 
         const estadoFinal = estado ?? 'emitida';
         const esEmitida = estadoFinal !== 'borrador';
@@ -237,7 +237,7 @@ export async function POST(req: NextRequest) {
                 $43,$44,$45
             ) RETURNING id, numero_factura, numero_control, total::text, hash_fiscal, inmutable`,
             [
-                session.userId,
+                session.user.id,
                 cliente_id ?? null,
                 numFactura,
                 numControl,
@@ -317,10 +317,10 @@ export async function POST(req: NextRequest) {
         }
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: tipoDoc === 'FACTURA' ? 'NUEVA_FACTURA' : tipoDoc === 'NOTA_DEBITO' ? 'NUEVA_NOTA_DEBITO' : tipoDoc === 'NOTA_CREDITO' ? 'NUEVA_NOTA_CREDITO' : 'NUEVO_DOCUMENTO',
             categoria: 'contabilidad',
-            descripcion: `${tipoDoc} creada: ${factura.numero_factura} (Control: ${factura.numero_control}) — Total: ${factura.total}${esEmitida ? ' [INMUTABLE — SENIAT]' : ' [BORRADOR]'}`,
+            descripcion: `${tipoDoc} creada: ${factura.numero_factura} (Control: ${factura.numero_control}) â€” Total: ${factura.total}${esEmitida ? ' [INMUTABLE â€” SENIAT]' : ' [BORRADOR]'}`,
             entidadTipo: 'factura',
             entidadId: factura.id,
             metadata: {
@@ -339,7 +339,7 @@ export async function POST(req: NextRequest) {
             try {
                 await query(
                     `UPDATE facturas SET estado = 'anulada', anulada_por_nc = $1 WHERE id = $2 AND user_id = $3 AND inmutable = true`,
-                    [factura.numero_factura, factura_referencia_id, session.userId]
+                    [factura.numero_factura, factura_referencia_id, session.user.id]
                 );
             } catch {
             }
@@ -350,7 +350,7 @@ export async function POST(req: NextRequest) {
             factura,
             inmutable: esEmitida,
             mensaje_fiscal: esEmitida
-                ? 'DOCUMENTO FISCAL EMITIDO — Este documento es inmutable según la Providencia SNAT/2011/00071. No puede ser editado ni eliminado. Para correcciones utilice Nota de Crédito o Nota de Débito.'
+                ? 'DOCUMENTO FISCAL EMITIDO â€” Este documento es inmutable segÃºn la Providencia SNAT/2011/00071. No puede ser editado ni eliminado. Para correcciones utilice Nota de CrÃ©dito o Nota de DÃ©bito.'
                 : 'Borrador guardado. Puede editarse hasta ser emitido.',
         });
     } catch (err) {

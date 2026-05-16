@@ -31,11 +31,11 @@ export const GET = apiHandler(async (ctx) => {
   const [campanas, countResult] = await Promise.all([
     query(
       `SELECT * FROM campanas_marketing WHERE user_id = $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3`,
-      [ctx.session!.userId, limit, offset]
+      [ctx.session!.user.id, limit, offset]
     ),
     queryOne<{ count: string }>(
       `SELECT COUNT(*) as count FROM campanas_marketing WHERE user_id = $1`,
-      [ctx.session!.userId]
+      [ctx.session!.user.id]
     ),
   ]);
 
@@ -51,7 +51,7 @@ export const POST = apiHandler(async (ctx) => {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
      RETURNING *`,
     [
-      ctx.session!.userId,
+      ctx.session!.user.id,
       data.nombre,
       data.tipo,
       data.canales,
@@ -71,7 +71,7 @@ export const POST = apiHandler(async (ctx) => {
 
   const c = campana as { id: number };
   await logActivity({
-    userId: ctx.session!.userId,
+    userId: ctx.session!.user.id,
     evento: 'NUEVA_CAMPANA',
     categoria: 'marketing',
     descripcion: `Campaña creada: ${data.nombre}`,

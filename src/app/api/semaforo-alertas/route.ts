@@ -17,7 +17,7 @@ interface AlertaVencimiento {
 export async function GET() {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
-  const uid = session.userId;
+  const uid = session.user.id;
 
   try {
     const alertas: AlertaVencimiento[] = [];
@@ -143,8 +143,8 @@ export async function GET() {
     for (const r of nomRows) {
       const d = diasHasta(r.fecha_pago);
       alertas.push({
-        categoria: "Nómina",
-        label: `${r.tipo} — ${r.periodo}`,
+        categoria: "NÃ³mina",
+        label: `${r.tipo} â€” ${r.periodo}`,
         item: "Pendiente de pago",
         dias: d,
         nivel: d < 0 ? "vencido" : d <= 3 ? "urgente" : "proximo",

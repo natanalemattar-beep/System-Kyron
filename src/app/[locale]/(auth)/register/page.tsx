@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "@/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +16,6 @@ import {
     Hexagon, CircuitBoard,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
 import { Logo } from "@/components/logo";
 import { DocumentScanner } from "@/components/document-scanner";
 
@@ -431,6 +431,7 @@ export default function RegisterSelectionPage() {
         nacionalidad?: string; edadEstimada?: { rangoEdad: string; generacion: string }; info?: string;
     } | null>(null);
     const [showScanner, setShowScanner] = useState(false);
+    const [navigatingModule, setNavigatingModule] = useState<string | null>(null);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const fullDocument = `${prefix}-${docNumber}`;

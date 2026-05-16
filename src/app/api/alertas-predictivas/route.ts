@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
-  if (session.tipo !== 'juridico') {
+  if (session.user.tipo !== 'juridico') {
     return NextResponse.json({ error: 'Solo cuentas empresariales pueden ejecutar esta acción' }, { status: 403 });
   }
 

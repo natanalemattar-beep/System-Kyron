@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState, useCallback } from 'react';
-import { ArrowLeft, Scale, ShieldCheck, Clock, Gavel } from 'lucide-react';
+import { Scale, ShieldCheck, Clock, Gavel } from 'lucide-react';
 import { DocumentRequestTable, type Solicitud } from "@/components/document-request-table";
-import { Link } from '@/navigation';
 import { motion } from 'framer-motion';
+import { BackToDashboard } from "@/components/back-to-dashboard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function mapToSolicitud(row: Record<string, unknown>): Solicitud {
   return {
@@ -44,9 +45,7 @@ export default function DocumentosJudicialesPage() {
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto">
-      <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
-        <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
-      </Link>
+      <BackToDashboard />
 
       <motion.div
         initial={{ opacity: 0, y: 16 }}
@@ -79,11 +78,19 @@ export default function DocumentosJudicialesPage() {
         </div>
       </motion.div>
 
-      <DocumentRequestTable
-        solicitudes={solicitudes}
-        docTypeForDownload="Expediente_Judicial"
-        getDocumentContent={(s) => `<h1>Expediente ${s.id}</h1><p>Descripción: ${s.nombres}</p>`}
-      />
+      {loading ? (
+        <div className="space-y-4">
+          <Skeleton className="h-12 w-full rounded-xl" />
+          <Skeleton className="h-12 w-full rounded-xl" />
+          <Skeleton className="h-12 w-3/4 rounded-xl" />
+        </div>
+      ) : (
+        <DocumentRequestTable
+          solicitudes={solicitudes}
+          docTypeForDownload="Expediente_Judicial"
+          getDocumentContent={(s) => `<h1>Expediente ${s.id}</h1><p>Descripción: ${s.nombres}</p>`}
+        />
+      )}
     </div>
   );
 }

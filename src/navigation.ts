@@ -179,8 +179,18 @@ export const pathnames = {
 
   // LEGACY ROUTES COMPATIBILITY
   '/analisis-ventas': '/ventas/analisis-comercial',
-  '/facturacion': '/ventas/facturacion',
-  '/punto-de-venta': '/ventas/punto-de-venta',
+  '/facturacion': '/facturacion',
+  '/punto-de-venta': '/punto-de-venta',
+  '/facturacion-credito': '/facturacion-credito',
+  '/proformas': '/proformas',
+  '/modelo-factura': '/modelo-factura',
+  '/nota-debito': '/nota-debito',
+  '/nota-credito': '/nota-credito',
+  '/cotizaciones': '/cotizaciones',
+  '/simulador-fiscal': '/simulador-fiscal',
+  '/analisis-clientes': '/analisis-clientes',
+  '/cobros': '/cobros',
+  '/ordenes-compra': '/ordenes-compra',
   '/gaceta-6952': '/gaceta-6952',
   '/declaracion-iva': '/contabilidad/tributos/iva',
   '/islr-arc': '/contabilidad/tributos/islr',
@@ -192,6 +202,26 @@ export const pathnames = {
   '/stickers': '/stickers',
   '/resumen-ejecutivo': '/resumen-ejecutivo',
   '/brand-kit': '/brand-kit',
+
+  // ADDITIONAL MISSING PATHS
+  '/contabilidad/cierre-contable': '/contabilidad/cierre-contable',
+  '/cuentas-por-cobrar': '/cuentas-por-cobrar',
+  '/cuentas-por-pagar': '/cuentas-por-pagar',
+  '/inventario': '/inventario',
+  '/soporte': '/soporte',
+  '/helpdesk': '/helpdesk',
+  '/escritorio-juridico': '/escritorio-juridico',
+  '/api/ai/audit': '/api/ai/audit',
+  '/dashboard': '/dashboard',
+  '/documentos': '/documentos',
+  '/tarjeta-reciclaje': '/tarjeta-reciclaje',
+  '/registro-rif': '/registro-rif',
+  '/pitch-coach': '/pitch-coach',
+  '/kit-defensa': '/kit-defensa',
+  '/presentacion-final': '/presentacion-final',
+  '/#contacto': '/#contacto',
+  '/prueba-velocidad': '/prueba-velocidad',
+  '/seguridad-personal': '/seguridad-personal',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({

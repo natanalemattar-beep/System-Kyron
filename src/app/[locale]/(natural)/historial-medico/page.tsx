@@ -11,10 +11,25 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import {Loader2, Plus, Search, Trash2, ArrowLeft, FileText, Stethoscope, TriangleAlert, Calendar, Clock, CircleCheck, XCircle, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Hash, Landmark} from "lucide-react";
+  import {Loader2, Plus, Search, Trash2, FileText, Stethoscope, TriangleAlert, Calendar, Clock, CircleCheck, XCircle, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Hash, Landmark} from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
+  import { BackToDashboard } from "@/components/back-to-dashboard";
   import { cn } from "@/lib/utils";
-  import { Link } from "@/navigation";
+
+  interface HistorialMedicoRow {
+    id: number;
+    tipo: string;
+    especialidad: string;
+    medico: string;
+    centro_medico: string;
+    diagnostico: string;
+    tratamiento: string;
+    medicamentos: string;
+    fecha_cita: string;
+    proxima_cita: string;
+    notas: string;
+    created_at?: string;
+  }
 
   const estadoColors: Record<string, string> = {
     consulta: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
@@ -26,8 +41,8 @@
 
   export default function HistorialMédicoPage() {
     const { toast } = useToast();
-    const [data, setData] = useState<any[]>([]);
-    const [stats, setStats] = useState<any>({});
+    const [data, setData] = useState<HistorialMedicoRow[]>([]);
+    const [stats, setStats] = useState<Record<string, number>>({});
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -84,6 +99,7 @@
     };
 
     const handleDelete = async (id: number) => {
+      if (!window.confirm("¿Eliminar este registro médico?")) return;
       try {
         await fetch("/api/historial-medico", {
           method: "DELETE",
@@ -110,9 +126,7 @@
         </div>
 
         <div>
-          <Link href="/dashboard" className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition mb-4">
-            <ArrowLeft className="h-3 w-3" /> Mi Panel
-          </Link>
+          <BackToDashboard />
           <motion.header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <div>
               <motion.div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-semibold uppercase tracking-wide text-emerald-500 mb-4" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
@@ -250,7 +264,7 @@
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filtered.map((row: any) => (
+                    {filtered.map((row: HistorialMedicoRow) => (
                       <TableRow key={row.id} className="hover:bg-muted/30 transition">
                         <TableCell className="text-xs text-muted-foreground">{row.fecha_cita ? new Date(row.fecha_cita).toLocaleDateString("es-VE") : "—"}</TableCell>
                       <TableCell><Badge variant="outline" className={cn("text-[10px] font-bold capitalize", estadoColors[row.tipo] || "bg-gray-500/20 text-gray-400")}>{(row.tipo || "").replace(/_/g, " ")}</Badge></TableCell>

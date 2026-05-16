@@ -2,13 +2,13 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Gavel, Calculator, History, CircleCheck as CircleCheck, TriangleAlert as TriangleAlert, Download, ArrowLeft } from "lucide-react";
+import { Gavel, Calculator, History, CircleCheck as CircleCheck, TriangleAlert as TriangleAlert, Download } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from '@/navigation';
 import { motion } from "framer-motion";
+import { BackToDashboard } from "@/components/back-to-dashboard";
 
 const depositos = [
     { id: "DEP-001", fecha: "15/07/2024", monto: 1200, concepto: "Mensualidad Julio", estado: "Confirmado" },
@@ -21,9 +21,7 @@ export default function ManutencionPage() {
 
     return (
         <div className="space-y-8 max-w-5xl mx-auto">
-            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
-                <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
-            </Link>
+            <BackToDashboard />
 
             <motion.div
                 initial={{ opacity: 0, y: 16 }}

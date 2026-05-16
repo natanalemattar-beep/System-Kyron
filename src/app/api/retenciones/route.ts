@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     const limit = Number.isFinite(rawLimit) ? Math.min(Math.max(rawLimit, 1), 200) : 50;
 
     const conditions: string[] = ['user_id = $1'];
-    const params: unknown[] = [session.userId];
+    const params: unknown[] = [session.user.id];
     let i = 2;
 
     if (tipo) { conditions.push(`tipo = $${i++}`); params.push(tipo); }
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
        RETURNING id, tipo, monto_retenido::text, numero_comprobante`,
       [
-        session.userId,
+        session.user.id,
         tipoNorm,
         proveedor_rif ?? null,
         proveedor_nombre ?? null,
@@ -91,10 +91,10 @@ export async function POST(req: NextRequest) {
     );
 
     await logActivity({
-      userId: session.userId,
+      userId: session.user.id,
       evento: 'NUEVA_RETENCION',
       categoria: 'contabilidad',
-      descripcion: `Retención ${tipo.toUpperCase()} registrada — ${proveedor_nombre ?? proveedor_rif ?? 'Sin proveedor'} · Monto: ${monto}`,
+      descripcion: `RetenciÃ³n ${tipo.toUpperCase()} registrada â€” ${proveedor_nombre ?? proveedor_rif ?? 'Sin proveedor'} Â· Monto: ${monto}`,
       entidadTipo: 'retencion',
       entidadId: (ret as { id: number }).id,
       metadata: { tipo, base_imponible: base, porcentaje: pct, monto_retenido: monto },
@@ -103,6 +103,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, retencion: ret });
   } catch (err) {
     console.error('[retenciones] POST error:', err);
-    return NextResponse.json({ error: 'Error al registrar retención' }, { status: 500 });
+    return NextResponse.json({ error: 'Error al registrar retenciÃ³n' }, { status: 500 });
   }
 }

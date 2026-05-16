@@ -8,7 +8,7 @@ export async function GET(req: Request) {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
-  const uid = session.userId;
+  const uid = session.user.id;
   const { searchParams } = new URL(req.url);
   const timeFrame = searchParams.get('timeFrame') ?? 'quarter';
 

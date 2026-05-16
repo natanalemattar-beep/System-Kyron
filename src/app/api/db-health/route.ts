@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     if (!session) {
         return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
     }
-    if ((session.tipo as string) !== 'admin') {
+    if ((session.user.tipo as string) !== 'admin') {
         return NextResponse.json({ error: 'Acceso restringido a administradores' }, { status: 403 });
     }
 

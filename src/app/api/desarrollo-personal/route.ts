@@ -22,7 +22,7 @@ export async function GET() {
        LEFT JOIN empleados e ON e.id = dp.empleado_id
        WHERE dp.user_id = $1
        ORDER BY dp.created_at DESC`,
-      [session.userId]
+      [session.user.id]
     );
 
     const stats = await query(
@@ -32,7 +32,7 @@ export async function GET() {
          COUNT(*)::int AS total,
          COALESCE(ROUND(AVG(progreso), 0), 0)::int AS progreso_promedio
        FROM desarrollo_personal WHERE user_id = $1`,
-      [session.userId]
+      [session.user.id]
     );
 
     return NextResponse.json({ planes, stats: stats[0] ?? {} });
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
     if (empleado_id) {
       const emp = await query(
         `SELECT id FROM empleados WHERE id = $1 AND user_id = $2`,
-        [empleado_id, session.userId]
+        [empleado_id, session.user.id]
       );
       if (emp.length === 0) {
         return NextResponse.json({ error: 'Empleado no encontrado o no autorizado' }, { status: 400 });
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
        RETURNING id`,
       [
-        session.userId,
+        session.user.id,
         validatedEmpleadoId,
         nombre_plan,
         categoria ?? 'tecnico',
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
     );
 
     await logActivity({
-      userId: session.userId,
+      userId: session.user.id,
       evento: 'PLAN_DESARROLLO',
       categoria: 'rrhh',
       descripcion: `Plan de desarrollo creado: ${nombre_plan}`,
@@ -120,7 +120,7 @@ export async function PATCH(req: NextRequest) {
     if (estado) { updates.push(`estado = $${i++}`); params.push(estado); }
     if (notas !== undefined) { updates.push(`notas = $${i++}`); params.push(notas); }
 
-    params.push(id, session.userId);
+    params.push(id, session.user.id);
 
     const result = await query(
       `UPDATE desarrollo_personal SET ${updates.join(', ')} WHERE id = $${i++} AND user_id = $${i++} RETURNING id`,

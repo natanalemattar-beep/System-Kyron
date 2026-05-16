@@ -43,6 +43,12 @@ export function SupportBot() {
             const url = window.location.pathname;
             const title = document.title;
             
+            // Determinar rol basado en la ruta
+            let rol = "Kyron Core AI (General)";
+            if (url.includes('/contabilidad')) rol = "Contador Senior KYRON (Especialista VEN-NIF/SENIAT)";
+            else if (url.includes('/legal')) rol = "Abogado KYRON (Especialista SAREN/SAPI)";
+            else if (url.includes('/telecom')) rol = "Telecom KYRON (Especialista 5G/CONATEL)";
+            
             // Extraer métricas y datos visibles
             const stats = Array.from(document.querySelectorAll('[data-stat], .stat-value, [class*="stat"]'))
                 .map(el => el.textContent?.trim())
@@ -58,13 +64,14 @@ export function SupportBot() {
             // Extraer contenido principal
             const mainContent = document.querySelector('main')?.textContent?.slice(0, 2000) || "";
             
-            setPageContext(JSON.stringify({
-                url,
-                title,
-                stats: stats.slice(0, 5),
-                headings: headings.slice(0, 3),
-                contentPreview: mainContent.slice(0, 500)
-            }));
+                setPageContext(JSON.stringify({
+                    rol,
+                    url,
+                    title,
+                    stats: stats.slice(0, 5),
+                    headings: headings.slice(0, 3),
+                    contentPreview: mainContent.slice(0, 500)
+                }));
         };
         
         captureContext();

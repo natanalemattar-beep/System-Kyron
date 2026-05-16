@@ -1,11 +1,11 @@
 "use client";
 
-import { ArrowLeft, Shield, ShieldCheck, Clock, FileText, Download, CircleCheck, Globe } from 'lucide-react';
+import { Shield, ShieldCheck, Clock, FileText, Download, CircleCheck, Globe } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from '@/navigation';
 import { motion } from 'framer-motion';
+import { BackToDashboard } from "@/components/back-to-dashboard";
 import { cn } from '@/lib/utils';
 
 const certificados = [
@@ -17,9 +17,7 @@ export default function AntecedentesPenalesPage() {
 
     return (
         <div className="space-y-8 max-w-5xl mx-auto">
-            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
-                <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
-            </Link>
+            <BackToDashboard />
 
             <motion.div
                 initial={{ opacity: 0, y: 16 }}

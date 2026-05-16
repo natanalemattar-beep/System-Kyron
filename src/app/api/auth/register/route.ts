@@ -318,8 +318,27 @@ async function registerJuridico(body: Record<string, unknown>) {
                 );
             }
         } catch (modErr) {
-            console.error('[register] Fallo al insertar módulos (posible tabla faltante):', modErr);
-            // No crasheamos el registro por los módulos
+            console.error('[register] Fallo al insertar módulos:', modErr);
+            const retryDelay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+            for (let attempt = 1; attempt <= 3; attempt++) {
+                try {
+                    await retryDelay(attempt * 500);
+                    for (const mod of modules as Array<{ id: string; label: string }>) {
+                        await query(
+                            `INSERT INTO user_modules (user_id, module_id, module_label)
+                             VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`,
+                            [Number(user.id), String(mod.id), mod.label]
+                        );
+                    }
+                    console.log('[register] Módulos insertados exitosamente en intento', attempt);
+                    break;
+                } catch (retryErr) {
+                    console.error(`[register] Reintento ${attempt} fallido:`, retryErr);
+                    if (attempt === 3) {
+                        console.error('[register] Todos los reintentos fallaron. Los módulos no se registraron.');
+                    }
+                }
+            }
         }
     }
 

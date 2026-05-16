@@ -10,7 +10,7 @@ export async function GET() {
         return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
     }
 
-    const uid = session.userId;
+    const uid = session.user.id;
 
     try {
         const [solicitudes, documentos, notificaciones] = await Promise.all([

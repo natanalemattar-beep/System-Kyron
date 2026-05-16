@@ -36,7 +36,7 @@ export default function TarjetaDigitalPage() {
 
     useEffect(() => {
         setIsClient(true);
-        const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://systemkyron.com';
+        const currentUrl = typeof window !== 'undefined' ? `${window.location.origin}/natural/perfil` : 'https://systemkyron.com/perfil';
         setQrCodeUrl(`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(currentUrl)}&bgcolor=ffffff&color=000000&margin=1`);
     }, []);
 
@@ -178,7 +178,7 @@ export default function TarjetaDigitalPage() {
                         </CardContent>
                         
                         <div className="p-3 border-t border-primary/5 bg-primary/[0.02] text-center no-print">
-                            <span className="text-[10px] uppercase font-bold tracking-wide text-muted-foreground/40">Kyron Ecosystem · 2025</span>
+                            <span className="text-[10px] uppercase font-bold tracking-wide text-muted-foreground/40">Kyron Ecosystem · {new Date().getFullYear()}</span>
                         </div>
                     </Card>
 

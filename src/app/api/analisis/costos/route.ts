@@ -8,12 +8,12 @@ export async function GET() {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
-  const uid = session.userId;
+  const uid = session.user.id;
 
   const cxp = await query(
-    `SELECT COALESCE(concepto, 'Sin categoría') AS nombre, SUM(monto_original)::float AS valor
+    `SELECT COALESCE(concepto, 'Sin categorÃ­a') AS nombre, SUM(monto_original)::float AS valor
      FROM cuentas_por_pagar WHERE user_id = $1
-     GROUP BY COALESCE(concepto, 'Sin categoría')
+     GROUP BY COALESCE(concepto, 'Sin categorÃ­a')
      ORDER BY valor DESC LIMIT 6`,
     [uid]
   );

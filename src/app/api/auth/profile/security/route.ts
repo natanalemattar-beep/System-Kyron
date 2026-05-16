@@ -9,7 +9,7 @@ export async function GET() {
 
     const user = await queryOne<{ two_factor_enabled: boolean; notification_method: string }>(
         `SELECT two_factor_enabled, notification_method FROM users WHERE id = $1`,
-        [session.userId]
+        [session.user.id]
     );
 
     if (!user) return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
@@ -19,7 +19,7 @@ export async function GET() {
          FROM activity_log 
          WHERE user_id = $1 AND evento IN ('LOGIN_EXITOSO', 'LOGIN_FALLIDO', '2FA_VERIFIED')
          ORDER BY created_at DESC LIMIT 5`,
-        [session.userId]
+        [session.user.id]
     );
 
     return NextResponse.json({
@@ -42,14 +42,14 @@ export async function POST(req: NextRequest) {
         `UPDATE users 
          SET two_factor_enabled = $1, notification_method = $2, updated_at = NOW() 
          WHERE id = $3`,
-        [twoFactorEnabled, notificationMethod, session.userId]
+        [twoFactorEnabled, notificationMethod, session.user.id]
     );
 
     await logActivity({
-        userId: session.userId,
+        userId: session.user.id,
         evento: 'SECURITY_UPDATE',
         categoria: 'security',
-        descripcion: `Configuración de seguridad actualizada: 2FA ${twoFactorEnabled ? 'Activado' : 'Desactivado'}`,
+        descripcion: `ConfiguraciÃ³n de seguridad actualizada: 2FA ${twoFactorEnabled ? 'Activado' : 'Desactivado'}`,
         metadata: { twoFactorEnabled, notificationMethod }
     });
 

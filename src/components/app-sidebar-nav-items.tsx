@@ -200,8 +200,8 @@ export const ventasNavGroups = [
     icon: ShoppingCart, 
     items: [
         { href: "/facturacion", label: "Centro de Facturas", icon: FileText },
-        { href: "/contabilidad/punto-de-ventas", label: "Punto de Venta", icon: TabletSmartphone },
-        { href: "/proformas", label: "Cotizaciones", icon: Receipt },
+        { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
+        { href: "/cotizaciones", label: "Cotizaciones", icon: Receipt },
         { href: "/facturacion-credito", label: "Ventas a Crédito", icon: CreditCard },
     ],
     subGroups: []

@@ -2,9 +2,9 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, UserPlus, Info, CircleCheck, ArrowRight, Download, ShieldCheck, ArrowLeft } from "lucide-react";
+import { FileText, UserPlus, Info, CircleCheck, ArrowRight, Download, ShieldCheck } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from '@/navigation';
+import { BackToDashboard } from "@/components/back-to-dashboard";
 import { motion } from "framer-motion";
 
 const recaudos = [
@@ -20,9 +20,7 @@ export default function RegistroRifPage() {
 
     return (
         <div className="max-w-5xl mx-auto space-y-8">
-            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
-                <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
-            </Link>
+            <BackToDashboard />
 
             <motion.div
                 initial={{ opacity: 0, y: 16 }}
@@ -95,8 +93,28 @@ export default function RegistroRifPage() {
                             </ul>
                         </CardContent>
                         <CardFooter className="pt-0">
-                            <Button variant="outline" className="w-full h-10 rounded-xl border-border/30 text-[10px] font-bold uppercase tracking-widest gap-2"
-                                onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'natural', subcategoria: 'checklist_generado', descripcion: "Checklist generado" }) }); if (res.ok) toast({ title: "Checklist generado" }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
+                            <Button
+                                variant="outline"
+                                className="w-full h-10 rounded-xl border-border/30 text-[10px] font-bold uppercase tracking-widest gap-2"
+                                onClick={async () => {
+                                    try {
+                                        const res = await fetch('/api/solicitudes', {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({ categoria: 'natural', subcategoria: 'checklist_generado', descripcion: "Checklist generado" })
+                                        });
+                                        if (res.ok) {
+                                            toast({ title: "Checklist generado" });
+                                        } else {
+                                            const e = await res.json().catch(() => ({}));
+                                            toast({ title: "Error", description: e.error || "Error", variant: "destructive" });
+                                        }
+                                    } catch (err) {
+                                        console.error('[rif-checklist]', err);
+                                        toast({ title: "Error de conexión", variant: "destructive" });
+                                    }
+                                }}
+                            >
                                 <Download className="h-3.5 w-3.5" /> Descargar Checklist
                             </Button>
                         </CardFooter>
@@ -112,7 +130,28 @@ export default function RegistroRifPage() {
                         </div>
                         <h3 className="text-xl font-bold text-primary-foreground relative z-10">Asistente de Pre-Inscripción</h3>
                         <p className="text-sm text-primary-foreground/70 font-medium relative z-10">Llenado automático de la planilla digital SENIAT</p>
-                        <Button variant="secondary" className="w-full h-12 rounded-xl font-bold text-sm gap-2 relative z-10">
+                        <Button
+                            variant="secondary"
+                            className="w-full h-12 rounded-xl font-bold text-sm gap-2 relative z-10"
+                            onClick={async () => {
+                                try {
+                                    const res = await fetch('/api/solicitudes', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ categoria: 'natural', subcategoria: 'pre_inscripcion_rif', descripcion: "Solicitud de pre-inscripción RIF para carga familiar" })
+                                    });
+                                    if (res.ok) {
+                                        toast({ title: "Solicitud enviada", description: "Recibirás una notificación cuando el trámite esté listo." });
+                                    } else {
+                                        const err = await res.json().catch(() => ({}));
+                                        toast({ title: "Error", description: err.error || "No se pudo procesar la solicitud.", variant: "destructive" });
+                                    }
+                                } catch (err) {
+                                    console.error('[registro-rif] Error:', err);
+                                    toast({ title: "Error de conexión", variant: "destructive" });
+                                }
+                            }}
+                        >
                             Iniciar Llenado <ArrowRight className="h-4 w-4" />
                         </Button>
                     </CardContent>

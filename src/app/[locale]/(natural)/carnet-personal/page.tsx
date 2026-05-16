@@ -4,10 +4,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { Heart, Download, QrCode, Activity, Stethoscope, Smartphone, TriangleAlert, ArrowLeft } from "lucide-react";
+import { Heart, Download, QrCode, Activity, Stethoscope, Smartphone, TriangleAlert } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/lib/auth/context";
-import { Link } from '@/navigation';
+import { BackToDashboard } from "@/components/back-to-dashboard";
 
 export default function CarnetPersonalPage() {
     const { toast } = useToast();
@@ -22,9 +22,7 @@ export default function CarnetPersonalPage() {
 
     return (
         <div className="space-y-8 pb-20 max-w-4xl mx-auto">
-            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
-                <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
-            </Link>
+            <BackToDashboard />
 
             <motion.div
                 initial={{ opacity: 0, y: 16 }}

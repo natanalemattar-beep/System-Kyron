@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { queryOne } from '@/lib/db';
+import { query, queryOne } from '@/lib/db';
 import { createToken, setSessionCookie } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
@@ -86,6 +86,12 @@ export async function POST(req: NextRequest) {
       ? (user.razon_social ?? user.nombre)
       : `${user.nombre} ${user.apellido || ''}`.trim();
 
+    const userModules = await query<{ module_id: string }>(
+      `SELECT module_id FROM user_modules WHERE user_id = $1 AND activo = true`,
+      [user.id]
+    );
+    const moduleIds = userModules.map(m => m.module_id);
+
     const token = await createToken({
       userId: user.id,
       email: user.email,
@@ -106,6 +112,7 @@ export async function POST(req: NextRequest) {
         cedula: user.cedula,
         razon_social: user.razon_social,
         rif: user.rif,
+        modules: moduleIds,
       },
     });
 

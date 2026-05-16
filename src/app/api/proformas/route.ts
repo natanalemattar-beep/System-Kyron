@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   const estado = searchParams.get('estado');
 
   const conditions = ['p.user_id = $1'];
-  const params: unknown[] = [session.userId];
+  const params: unknown[] = [session.user.id];
   let i = 2;
 
   if (estado) { conditions.push(`p.estado = $${i++}`); params.push(estado); }
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
        COUNT(*) FILTER (WHERE estado = 'rechazada')::int   AS rechazadas,
        COALESCE(SUM(total) FILTER (WHERE estado = 'aprobada'),0)::text AS total_aprobado
      FROM proformas WHERE user_id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({ proformas, stats: stats[0] ?? {} });
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!numero_proforma || !fecha_emision || subtotal === undefined) {
-    return NextResponse.json({ error: 'Faltan campos obligatorios: número, fecha y subtotal' }, { status: 400 });
+    return NextResponse.json({ error: 'Faltan campos obligatorios: nÃºmero, fecha y subtotal' }, { status: 400 });
   }
 
   const sub   = parseFloat(subtotal ?? '0');
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
      RETURNING id, numero_proforma`,
     [
-      session.userId,
+      session.user.id,
       cliente_id ?? null,
       numero_proforma,
       fecha_emision,
@@ -107,10 +107,10 @@ export async function POST(req: NextRequest) {
   }
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'NUEVA_PROFORMA',
     categoria: 'contabilidad',
-    descripcion: `Proforma creada: ${proforma.numero_proforma} — Total: Bs. ${total.toFixed(2)}`,
+    descripcion: `Proforma creada: ${proforma.numero_proforma} â€” Total: Bs. ${total.toFixed(2)}`,
     entidadTipo: 'proforma',
     entidadId: proforma.id,
     metadata: { numero_proforma: proforma.numero_proforma, total, moneda: moneda ?? 'VES' },
@@ -129,7 +129,7 @@ export async function PATCH(req: NextRequest) {
 
   await query(
     `UPDATE proformas SET estado = $1, updated_at = NOW() WHERE id = $2 AND user_id = $3`,
-    [estado, id, session.userId]
+    [estado, id, session.user.id]
   );
 
   return NextResponse.json({ success: true });

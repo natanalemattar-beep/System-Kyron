@@ -26,7 +26,7 @@ export async function GET() {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
-  const balance = await getOrCreateEcoBalance(session.userId);
+  const balance = await getOrCreateEcoBalance(session.user.id);
 
   const transacciones = await query(
     `SELECT id, tipo_material, peso_kg::text, eco_creditos::text,
@@ -35,7 +35,7 @@ export async function GET() {
      WHERE user_id = $1
      ORDER BY fecha_reciclaje DESC
      LIMIT 50`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({ balance, transacciones });
@@ -60,10 +60,10 @@ export async function POST(req: NextRequest) {
      (user_id, tipo_material, peso_kg, eco_creditos, punto_ameru, codigo_qr, verificado)
      VALUES ($1,$2,$3,$4,$5,$6, true)
      RETURNING id, tipo_material, peso_kg::text, eco_creditos::text, fecha_reciclaje`,
-    [session.userId, tipo_material, peso, creditos, punto_ameru ?? null, codigo_qr ?? null]
+    [session.user.id, tipo_material, peso, creditos, punto_ameru ?? null, codigo_qr ?? null]
   );
 
-  await getOrCreateEcoBalance(session.userId);
+  await getOrCreateEcoBalance(session.user.id);
   await query(
     `UPDATE eco_creditos
      SET balance            = balance + $1,
@@ -76,14 +76,14 @@ export async function POST(req: NextRequest) {
          END,
          updated_at = NOW()
      WHERE user_id = $3`,
-    [creditos, peso, session.userId]
+    [creditos, peso, session.user.id]
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'ECO_RECICLAJE',
     categoria: 'eco',
-    descripcion: `Reciclaje registrado: ${tipo_material} ${peso} kg → +${creditos} ECR`,
+    descripcion: `Reciclaje registrado: ${tipo_material} ${peso} kg â†’ +${creditos} ECR`,
     entidadTipo: 'eco_transaccion',
     entidadId: (tx as { id: number }).id,
     metadata: { tipo_material, peso_kg: peso, eco_creditos: creditos, punto_ameru: punto_ameru ?? null },

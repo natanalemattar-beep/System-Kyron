@@ -10,7 +10,7 @@ export async function GET() {
 
   const rows = await query(
     `SELECT id, titulo, descripcion, impacto, plazo, icono, activa FROM estrategias_ventas WHERE user_id = $1 ORDER BY id`,
-    [session.userId]
+    [session.user.id]
   ).catch(() => []);
 
   return NextResponse.json({ estrategias: rows });
@@ -22,11 +22,11 @@ export async function POST(req: NextRequest) {
 
   try {
     const { titulo, descripcion, impacto, plazo, icono } = await req.json();
-    if (!titulo) return NextResponse.json({ error: 'Título requerido' }, { status: 400 });
+    if (!titulo) return NextResponse.json({ error: 'TÃ­tulo requerido' }, { status: 400 });
 
     const [row] = await query(
       `INSERT INTO estrategias_ventas (user_id, titulo, descripcion, impacto, plazo, icono) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
-      [session.userId, titulo, descripcion ?? '', impacto ?? 'Medio', plazo ?? '', icono ?? '']
+      [session.user.id, titulo, descripcion ?? '', impacto ?? 'Medio', plazo ?? '', icono ?? '']
     );
 
     return NextResponse.json({ success: true, id: (row as Record<string, unknown>).id });
@@ -46,7 +46,7 @@ export async function PATCH(req: NextRequest) {
 
     await query(
       `UPDATE estrategias_ventas SET activa = $1 WHERE id = $2 AND user_id = $3`,
-      [activa ?? true, id, session.userId]
+      [activa ?? true, id, session.user.id]
     );
 
     return NextResponse.json({ success: true });

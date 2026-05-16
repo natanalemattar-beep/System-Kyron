@@ -11,10 +11,27 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import {Loader2, Plus, Search, Trash2, ArrowLeft, FileText, CircleCheck, TriangleAlert, DollarSign, Shield, Clock, XCircle, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, Car, Heart, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark} from "lucide-react";
+  import {Loader2, Plus, Search, Trash2, FileText, CircleCheck, TriangleAlert, DollarSign, Shield, Clock, XCircle, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, Car, Heart, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark} from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
+  import { BackToDashboard } from "@/components/back-to-dashboard";
   import { cn } from "@/lib/utils";
-  import { Link } from "@/navigation";
+
+  interface SeguroRow {
+    id: number;
+    tipo: string;
+    aseguradora: string;
+    numero_poliza: string;
+    titular: string;
+    estado: string;
+    cobertura: string;
+    prima_mensual: string;
+    moneda: string;
+    fecha_inicio: string;
+    fecha_vencimiento: string;
+    contacto_emergencia: string;
+    notas: string;
+    created_at?: string;
+  }
 
   const estadoColors: Record<string, string> = {
     activo: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
@@ -25,8 +42,8 @@
 
   export default function MisSegurosPage() {
     const { toast } = useToast();
-    const [data, setData] = useState<any[]>([]);
-    const [stats, setStats] = useState<any>({});
+    const [data, setData] = useState<SeguroRow[]>([]);
+    const [stats, setStats] = useState<Record<string, number>>({});
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -85,6 +102,7 @@
     };
 
     const handleDelete = async (id: number) => {
+      if (!window.confirm("¿Eliminar este seguro?")) return;
       try {
         await fetch("/api/seguros-personales", {
           method: "DELETE",
@@ -111,9 +129,7 @@
         </div>
 
         <div>
-          <Link href="/dashboard" className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition mb-4">
-            <ArrowLeft className="h-3 w-3" /> Mi Panel
-          </Link>
+          <BackToDashboard />
           <motion.header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <div>
               <motion.div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[11px] font-semibold uppercase tracking-wide text-blue-500 mb-4" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
@@ -266,7 +282,7 @@
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filtered.map((row: any) => (
+                    {filtered.map((row: SeguroRow) => (
                       <TableRow key={row.id} className="hover:bg-muted/30 transition">
                         <TableCell><Badge variant="outline" className={cn("text-[10px] font-bold capitalize", estadoColors[row.tipo] || "bg-gray-500/20 text-gray-400")}>{(row.tipo || "").replace(/_/g, " ")}</Badge></TableCell>
                       <TableCell className="text-xs font-medium">{row.aseguradora || "—"}</TableCell>

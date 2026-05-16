@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const categoria = searchParams.get('categoria');
 
-    const params: unknown[] = [session.userId];
+    const params: unknown[] = [session.user.id];
     let where = 'user_id = $1';
     if (categoria) { where += ' AND categoria = $2'; params.push(categoria); }
 
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     } = body;
 
     if (!categoria) {
-        return NextResponse.json({ error: 'La categoría es requerida' }, { status: 400 });
+        return NextResponse.json({ error: 'La categorÃ­a es requerida' }, { status: 400 });
     }
 
     const [sol] = await query(
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
          RETURNING id, categoria, estado, created_at`,
         [
-            session.userId, categoria, subcategoria ?? null,
+            session.user.id, categoria, subcategoria ?? null,
             empresa_solicitante ?? null, rif ?? null, descripcion ?? null,
             ciiu_codigo ?? null, estado_operacion ?? null, municipio ?? null,
             personal_requerido ? parseInt(personal_requerido) : null,

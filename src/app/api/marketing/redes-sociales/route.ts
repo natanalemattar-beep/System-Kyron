@@ -12,7 +12,7 @@ export async function GET() {
     try {
         const redes = await query(
             `SELECT * FROM redes_sociales WHERE user_id = $1 ORDER BY seguidores DESC`,
-            [session.userId]
+            [session.user.id]
         );
         return NextResponse.json({ redes });
     } catch (err) {
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
              VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
              RETURNING *`,
             [
-                session.userId,
+                session.user.id,
                 nombre,
                 handle ?? null,
                 safeSeguidores,
@@ -58,10 +58,10 @@ export async function POST(req: NextRequest) {
         );
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'NUEVA_RED_SOCIAL',
             categoria: 'marketing',
-            descripcion: `Red social añadida: ${nombre}`,
+            descripcion: `Red social aÃ±adida: ${nombre}`,
             entidadTipo: 'red_social',
             entidadId: (red as { id: number }).id,
         });

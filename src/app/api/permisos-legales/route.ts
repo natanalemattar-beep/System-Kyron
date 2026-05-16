@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
      FROM permisos_legales
      WHERE user_id = $1${organismoFilter ? ' AND UPPER(organismo) = UPPER($2)' : ''}
      ORDER BY estado ASC, fecha_vencimiento ASC NULLS LAST`,
-    organismoFilter ? [session.userId, organismoFilter] : [session.userId]
+    organismoFilter ? [session.user.id, organismoFilter] : [session.user.id]
   );
 
   const stats = await query(
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
                           AND fecha_vencimiento <= CURRENT_DATE + INTERVAL '30 days'
                           AND estado = 'vigente')::int AS por_vencer
      FROM permisos_legales WHERE user_id = $1${organismoFilter ? ' AND UPPER(organismo) = UPPER($2)' : ''}`,
-    organismoFilter ? [session.userId, organismoFilter] : [session.userId]
+    organismoFilter ? [session.user.id, organismoFilter] : [session.user.id]
   );
 
   return NextResponse.json({ permisos, stats: stats[0] ?? {} });
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
      RETURNING id`,
     [
-      session.userId,
+      session.user.id,
       tipo, nombre_permiso, numero_permiso ?? null, organismo,
       fecha_emision ?? null, fecha_vencimiento ?? null,
       estado ?? 'vigente',
@@ -77,10 +77,10 @@ export async function POST(req: NextRequest) {
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'NUEVO_PERMISO_LEGAL',
     categoria: 'legal',
-    descripcion: `Permiso legal registrado: ${nombre_permiso} — ${organismo}`,
+    descripcion: `Permiso legal registrado: ${nombre_permiso} â€” ${organismo}`,
     entidadTipo: 'permiso_legal',
     entidadId: permiso.id,
   });
@@ -104,7 +104,7 @@ export async function PATCH(req: NextRequest) {
   if (numero_permiso)   { updates.push(`numero_permiso = $${i++}`);   params.push(numero_permiso); }
   if (fecha_vencimiento){ updates.push(`fecha_vencimiento = $${i++}`);params.push(fecha_vencimiento); }
 
-  params.push(id, session.userId);
+  params.push(id, session.user.id);
   await query(
     `UPDATE permisos_legales SET ${updates.join(', ')} WHERE id = $${i++} AND user_id = $${i++}`,
     params
@@ -112,7 +112,7 @@ export async function PATCH(req: NextRequest) {
 
   if (estado) {
     notifyDocumentReady({
-      userId: session.userId,
+      userId: session.user.id,
       documentType: 'permiso_legal',
       documentTitle: `Permiso legal #${id}`,
       newStatus: estado,

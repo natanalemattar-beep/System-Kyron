@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
     Calculator, ShieldAlert, ShieldCheck, Scale, TriangleAlert, TrendingDown,
-    Info, ChevronRight, Banknote, FileText, Clock, Percent, Building2, ArrowRight
+    Info, ChevronRight, Banknote, FileText, Clock, Percent, Building2, ArrowRight, Sparkles, Loader2
 } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";

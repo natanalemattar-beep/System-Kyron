@@ -66,7 +66,7 @@ export default function DashboardPersonalPage() {
       const r = await fetch("/api/natural/dashboard");
       if (r.ok) { setData(await r.json()); }
       else { setLoadError(true); }
-    } catch { setLoadError(true); }
+    } catch (err) { console.error('[dashboard] fetchData error:', err); setLoadError(true); }
     finally { setLoading(false); }
   }, []);
 

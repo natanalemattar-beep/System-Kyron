@@ -73,7 +73,7 @@ export async function GET() {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
-  const config = await getOrCreateConfig(session.userId);
+  const config = await getOrCreateConfig(session.user.id);
   return NextResponse.json({ config });
 }
 
@@ -93,7 +93,7 @@ export async function PATCH(req: NextRequest) {
     reducir_animaciones, nav_lateral
   } = body;
 
-  await getOrCreateConfig(session.userId);
+  await getOrCreateConfig(session.user.id);
 
   const [config] = await query(
     `UPDATE configuracion_usuario
@@ -145,7 +145,7 @@ export async function PATCH(req: NextRequest) {
       email_alertas ?? null,
       reducir_animaciones !== undefined ? reducir_animaciones : null,
       nav_lateral !== undefined ? nav_lateral : null,
-      session.userId,
+      session.user.id,
     ]
   );
 

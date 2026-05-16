@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
         const search = searchParams.get('search');
 
         const conditions: string[] = ['user_id = $1', 'activo = true'];
-        const params: unknown[] = [session.userId];
+        const params: unknown[] = [session.user.id];
         let i = 2;
 
         if (categoria) { conditions.push(`categoria = $${i++}`); params.push(categoria); }
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
                 COUNT(*) FILTER (WHERE stock_actual <= stock_minimo AND stock_minimo > 0)::text AS items_criticos,
                 COUNT(DISTINCT categoria)::text AS categorias
              FROM inventario WHERE user_id = $1 AND activo = true`,
-            [session.userId]
+            [session.user.id]
         );
 
         return NextResponse.json({ items, stats });
@@ -74,8 +74,8 @@ export async function POST(req: NextRequest) {
         }
 
         if (codigo) {
-            const exists = await queryOne(`SELECT id FROM inventario WHERE user_id = $1 AND codigo = $2`, [session.userId, codigo]);
-            if (exists) return NextResponse.json({ error: 'Ya existe un producto con ese código' }, { status: 409 });
+            const exists = await queryOne(`SELECT id FROM inventario WHERE user_id = $1 AND codigo = $2`, [session.user.id, codigo]);
+            if (exists) return NextResponse.json({ error: 'Ya existe un producto con ese cÃ³digo' }, { status: 409 });
         }
 
         const [item] = await query(
@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
              VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
              RETURNING id, codigo, nombre, stock_actual, precio_costo::text`,
             [
-                session.userId,
+                session.user.id,
                 codigo || null,
                 nombre,
                 descripcion || null,
@@ -98,10 +98,10 @@ export async function POST(req: NextRequest) {
         );
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'NUEVO_PRODUCTO_INVENTARIO',
             categoria: 'sistema',
-            descripcion: `Producto registrado: ${nombre} — Código: ${codigo || 'N/A'}`,
+            descripcion: `Producto registrado: ${nombre} â€” CÃ³digo: ${codigo || 'N/A'}`,
             entidadTipo: 'inventario',
             entidadId: (item as { id: number }).id,
             metadata: { codigo, nombre, categoria, stock_actual },
@@ -123,7 +123,7 @@ export async function PATCH(req: NextRequest) {
         const { id, stock_actual, precio_costo, precio_venta, stock_minimo } = body;
 
         const parsedId = safeInt(id);
-        if (parsedId <= 0) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+        if (parsedId <= 0) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
 
         const [item] = await query(
             `UPDATE inventario
@@ -139,7 +139,7 @@ export async function PATCH(req: NextRequest) {
              precio_costo != null ? safeFloat(precio_costo) : null,
              precio_venta != null ? safeFloat(precio_venta) : null,
              stock_minimo != null ? safeFloat(stock_minimo) : null,
-             session.userId]
+             session.user.id]
         );
 
         return NextResponse.json({ success: true, item });
@@ -159,11 +159,11 @@ export async function DELETE(req: NextRequest) {
         if (!id) return NextResponse.json({ error: 'ID requerido' }, { status: 400 });
 
         const parsedId = safeInt(id);
-        if (parsedId <= 0) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+        if (parsedId <= 0) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
 
         await query(
             `UPDATE inventario SET activo = false, updated_at = NOW() WHERE id = $1 AND user_id = $2`,
-            [parsedId, session.userId]
+            [parsedId, session.user.id]
         );
 
         return NextResponse.json({ success: true });

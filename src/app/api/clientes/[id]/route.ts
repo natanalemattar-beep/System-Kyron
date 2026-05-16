@@ -11,11 +11,11 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
 
     try {
         const { id } = await params;
-        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
         const idNum = parseInt(id);
         const cliente = await queryOne(
             `SELECT * FROM clientes WHERE id = $1 AND user_id = $2`,
-            [idNum, session.userId]
+            [idNum, session.user.id]
         );
         if (!cliente) return NextResponse.json({ error: 'Cliente no encontrado' }, { status: 404 });
         return NextResponse.json({ cliente });
@@ -30,10 +30,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
     const idNum = parseInt(id);
 
-    const existing = await queryOne(`SELECT id FROM clientes WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+    const existing = await queryOne(`SELECT id FROM clientes WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
     if (!existing) return NextResponse.json({ error: 'Cliente no encontrado' }, { status: 404 });
 
     try {
@@ -67,12 +67,12 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
                 activo ?? null, segmento ?? null,
                 valor_estimado != null ? Math.max(0, parseFloat(valor_estimado) || 0) : null,
                 satisfaccion != null ? Math.min(5, Math.max(1, parseInt(satisfaccion) || 1)) : null,
-                idNum, session.userId,
+                idNum, session.user.id,
             ]
         );
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'ACTUALIZAR_CLIENTE',
             categoria: 'clientes',
             descripcion: `Cliente actualizado: ${(updated as { razon_social?: string; nombre_contacto?: string }).razon_social ?? (updated as { razon_social?: string; nombre_contacto?: string }).nombre_contacto ?? 'Sin nombre'}`,
@@ -92,17 +92,17 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
     const idNum = parseInt(id);
 
-    const existing = await queryOne<{ razon_social?: string; nombre_contacto?: string }>(`SELECT razon_social, nombre_contacto FROM clientes WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+    const existing = await queryOne<{ razon_social?: string; nombre_contacto?: string }>(`SELECT razon_social, nombre_contacto FROM clientes WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
     if (!existing) return NextResponse.json({ error: 'Cliente no encontrado' }, { status: 404 });
 
     try {
-        await query(`DELETE FROM clientes WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+        await query(`DELETE FROM clientes WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'ELIMINAR_CLIENTE',
             categoria: 'clientes',
             descripcion: `Cliente eliminado: ${existing.razon_social ?? existing.nombre_contacto ?? 'Sin nombre'}`,

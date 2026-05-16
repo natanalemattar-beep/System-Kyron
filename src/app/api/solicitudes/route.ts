@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
      WHERE user_id = $1
        AND ($2::text IS NULL OR categoria = $2)
      ORDER BY created_at DESC LIMIT $3`,
-    [session.userId, categoria, limit]
+    [session.user.id, categoria, limit]
   ).catch(() => []);
 
   return NextResponse.json({ rows });
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     const { categoria, subcategoria, descripcion, metadata } = body;
 
     if (!categoria) {
-      return NextResponse.json({ error: 'Categoría requerida' }, { status: 400 });
+      return NextResponse.json({ error: 'CategorÃ­a requerida' }, { status: 400 });
     }
 
     const [row] = await query(
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
        VALUES ($1, $2, $3, $4, 'pendiente', $5)
        RETURNING *`,
       [
-        session.userId,
+        session.user.id,
         categoria,
         subcategoria || null,
         descripcion || '',
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
     );
 
     await logActivity({
-      userId: session.userId,
+      userId: session.user.id,
       evento: 'SOLICITUD_CREADA',
       categoria: 'sistema',
       descripcion: `Solicitud ${categoria}${subcategoria ? ` - ${subcategoria}` : ''} registrada`,

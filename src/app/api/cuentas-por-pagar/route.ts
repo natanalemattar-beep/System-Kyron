@@ -19,7 +19,7 @@ export async function GET() {
      LEFT JOIN proveedores p ON p.id = c.proveedor_id
      WHERE c.user_id = $1
      ORDER BY c.estado ASC, c.fecha_vencimiento ASC NULLS LAST`,
-    [session.userId]
+    [session.user.id]
   );
 
   const stats = await query(
@@ -29,7 +29,7 @@ export async function GET() {
        COUNT(*) FILTER (WHERE estado IN ('pendiente','parcial'))::int AS num_pendientes,
        COUNT(*) FILTER (WHERE estado = 'vencida')::int AS num_vencidas
      FROM cuentas_por_pagar WHERE user_id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({ cuentas: cxp, stats: stats[0] ?? {} });
@@ -51,14 +51,14 @@ export async function POST(req: NextRequest) {
     `INSERT INTO cuentas_por_pagar (user_id, proveedor_id, concepto, monto_original, monto_pendiente, moneda, fecha_emision, fecha_vencimiento, numero_factura_proveedor, notas)
      VALUES ($1,$2,$3,$4,$4,$5,$6,$7,$8,$9)
      RETURNING id`,
-    [session.userId, proveedor_id ?? null, concepto, monto, moneda ?? 'VES', fecha_emision, fecha_vencimiento ?? null, numero_factura_proveedor ?? null, notas ?? null]
+    [session.user.id, proveedor_id ?? null, concepto, monto, moneda ?? 'VES', fecha_emision, fecha_vencimiento ?? null, numero_factura_proveedor ?? null, notas ?? null]
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'NUEVA_CXP',
     categoria: 'contabilidad',
-    descripcion: `C×P registrada: ${concepto} — Bs. ${monto.toFixed(2)}`,
+    descripcion: `CÃ—P registrada: ${concepto} â€” Bs. ${monto.toFixed(2)}`,
     entidadTipo: 'cxp',
     entidadId: cxp.id,
   });
@@ -83,12 +83,12 @@ export async function PATCH(req: NextRequest) {
                          ELSE estado END,
            updated_at = NOW()
        WHERE id = $2 AND user_id = $3`,
-      [parseFloat(monto_abono), id, session.userId]
+      [parseFloat(monto_abono), id, session.user.id]
     );
   } else if (estado) {
     await query(
       `UPDATE cuentas_por_pagar SET estado = $1, updated_at = NOW() WHERE id = $2 AND user_id = $3`,
-      [estado, id, session.userId]
+      [estado, id, session.user.id]
     );
   }
 

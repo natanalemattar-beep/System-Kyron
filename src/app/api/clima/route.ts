@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   const periodo = searchParams.get('periodo');
 
   const conditions = ['c.user_id = $1'];
-  const params: unknown[] = [session.userId];
+  const params: unknown[] = [session.user.id];
   let i = 2;
 
   if (periodo) { conditions.push(`c.periodo = $${i++}`); params.push(periodo); }
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
   const encuestas = await query(
     `SELECT c.id, c.periodo, c.fecha_encuesta, c.dimension, c.puntuacion,
             c.comentario, c.anonimo, c.created_at,
-            CASE WHEN c.anonimo THEN 'Anónimo'
+            CASE WHEN c.anonimo THEN 'AnÃ³nimo'
                  ELSE e.nombre || ' ' || e.apellido END AS empleado,
             CASE WHEN c.anonimo THEN NULL
                  ELSE e.cargo END AS cargo
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
     params
   );
 
-  const resumenParams: unknown[] = [session.userId];
+  const resumenParams: unknown[] = [session.user.id];
   let resumenCondition = '';
   if (periodo) {
     resumenParams.push(periodo);
@@ -63,12 +63,12 @@ export async function POST(req: NextRequest) {
   const { empleado_id, periodo, dimension, puntuacion, comentario, anonimo } = body;
 
   if (!periodo || !dimension || puntuacion === undefined) {
-    return NextResponse.json({ error: 'Período, dimensión y puntuación son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'PerÃ­odo, dimensiÃ³n y puntuaciÃ³n son requeridos' }, { status: 400 });
   }
 
   const puntaje = parseInt(puntuacion);
   if (puntaje < 1 || puntaje > 10) {
-    return NextResponse.json({ error: 'La puntuación debe estar entre 1 y 10' }, { status: 400 });
+    return NextResponse.json({ error: 'La puntuaciÃ³n debe estar entre 1 y 10' }, { status: 400 });
   }
 
   const [encuesta] = await query<{ id: number }>(
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7)
      RETURNING id`,
     [
-      session.userId,
+      session.user.id,
       anonimo ? null : (empleado_id ?? null),
       periodo, dimension, puntaje,
       comentario ?? null,
@@ -85,10 +85,10 @@ export async function POST(req: NextRequest) {
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'ENCUESTA_CLIMA',
     categoria: 'rrhh',
-    descripcion: `Encuesta de clima registrada: ${dimension} — Puntuación: ${puntaje}/10`,
+    descripcion: `Encuesta de clima registrada: ${dimension} â€” PuntuaciÃ³n: ${puntaje}/10`,
     entidadTipo: 'clima',
     entidadId: encuesta.id,
   });

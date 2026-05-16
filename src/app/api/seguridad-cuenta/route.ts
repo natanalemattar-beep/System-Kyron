@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
      WHERE user_id = $1
      ORDER BY created_at DESC
      LIMIT 20`,
-    [session.userId]
+    [session.user.id]
   );
 
   const user = await queryOne<{
@@ -75,7 +75,7 @@ export async function GET(req: NextRequest) {
     `SELECT email, COALESCE(nombre, 'Usuario') as nombre, created_at,
             email_verificado, telefono_verificado, telefono, ultimo_login
      FROM users WHERE id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   const config = await queryOne<{
@@ -85,17 +85,17 @@ export async function GET(req: NextRequest) {
   }>(
     `SELECT notif_email, notif_whatsapp, notif_sms
      FROM configuracion_usuario WHERE user_id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   const totalEventos = await queryOne<{ count: string }>(
     `SELECT COUNT(*) as count FROM auditoria_detallada WHERE user_id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   const eventosAltos = await queryOne<{ count: string }>(
     `SELECT COUNT(*) as count FROM auditoria_detallada WHERE user_id = $1 AND risk_level IN ('high', 'critical')`,
-    [session.userId]
+    [session.user.id]
   );
 
   const loginRecientes = await query<{
@@ -108,13 +108,13 @@ export async function GET(req: NextRequest) {
      WHERE user_id = $1 AND operacion = 'LOGIN'
      ORDER BY created_at DESC
      LIMIT 5`,
-    [session.userId]
+    [session.user.id]
   );
 
   const sesionesFormateadas = [
     {
       id: 0,
-      dispositivo: `${navegador} — ${sistema}`,
+      dispositivo: `${navegador} â€” ${sistema}`,
       ip: maskIp(currentIp),
       creada: new Date().toISOString(),
       actual: true,
@@ -131,7 +131,7 @@ export async function GET(req: NextRequest) {
         const parsed = parseUserAgent(l.user_agent);
         return {
           id: idx + 1,
-          dispositivo: `${parsed.navegador} — ${parsed.sistema}`,
+          dispositivo: `${parsed.navegador} â€” ${parsed.sistema}`,
           ip: maskIp(l.ip_address),
           creada: l.created_at,
           actual: false,
@@ -143,19 +143,19 @@ export async function GET(req: NextRequest) {
   const historialFormateado = historial.map(h => {
     let accion = h.operacion;
     const tabla = h.tabla_afectada;
-    if (h.operacion === 'LOGIN') accion = 'Inicio de sesión';
-    else if (h.operacion === 'LOGOUT') accion = 'Cierre de sesión';
-    else if (h.operacion === 'UPDATE' && tabla === 'users') accion = 'Actualización de datos de cuenta';
-    else if (h.operacion === 'UPDATE' && tabla === 'configuracion_usuario') accion = 'Cambio de configuración';
+    if (h.operacion === 'LOGIN') accion = 'Inicio de sesiÃ³n';
+    else if (h.operacion === 'LOGOUT') accion = 'Cierre de sesiÃ³n';
+    else if (h.operacion === 'UPDATE' && tabla === 'users') accion = 'ActualizaciÃ³n de datos de cuenta';
+    else if (h.operacion === 'UPDATE' && tabla === 'configuracion_usuario') accion = 'Cambio de configuraciÃ³n';
     else if (h.operacion === 'INSERT' && tabla === 'facturas') accion = 'Factura emitida';
     else if (h.operacion === 'UPDATE' && tabla === 'facturas') accion = 'Factura actualizada';
-    else if (h.operacion === 'DELETE') accion = `Eliminación de registro (${tabla})`;
-    else if (h.operacion === 'INSERT' && tabla === 'notificaciones') accion = 'Notificación generada';
+    else if (h.operacion === 'DELETE') accion = `EliminaciÃ³n de registro (${tabla})`;
+    else if (h.operacion === 'INSERT' && tabla === 'notificaciones') accion = 'NotificaciÃ³n generada';
     else if (h.operacion === 'INSERT' && tabla === 'clientes') accion = 'Nuevo cliente registrado';
     else if (h.operacion === 'INSERT') accion = `Nuevo registro (${tabla})`;
-    else if (h.operacion === 'UPDATE') accion = `Actualización (${tabla})`;
-    else if (h.operacion === 'EXPORT') accion = `Exportación de datos (${tabla})`;
-    else if (h.operacion === 'IMPORT') accion = `Importación de datos (${tabla})`;
+    else if (h.operacion === 'UPDATE') accion = `ActualizaciÃ³n (${tabla})`;
+    else if (h.operacion === 'EXPORT') accion = `ExportaciÃ³n de datos (${tabla})`;
+    else if (h.operacion === 'IMPORT') accion = `ImportaciÃ³n de datos (${tabla})`;
     else if (h.operacion === 'SELECT') accion = `Consulta de datos (${tabla})`;
 
     return {
@@ -201,14 +201,14 @@ export async function DELETE(req: NextRequest) {
   if (cerrarTodas) {
     await query(
       `UPDATE user_sessions SET activa = false WHERE user_id = $1`,
-      [session.userId]
+      [session.user.id]
     );
 
     await query(
       `INSERT INTO auditoria_detallada (user_id, tabla_afectada, operacion, ip_address, user_agent, risk_level, datos_nuevos)
        VALUES ($1, 'user_sessions', 'LOGOUT', $2, $3, 'medium', '{"accion": "cerrar_todas_sesiones"}'::jsonb)`,
       [
-        session.userId,
+        session.user.id,
         req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null,
         req.headers.get('user-agent') || null,
       ]
@@ -217,5 +217,5 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ success: true, mensaje: 'Todas las sesiones han sido cerradas' });
   }
 
-  return NextResponse.json({ error: 'Parámetros inválidos' }, { status: 400 });
+  return NextResponse.json({ error: 'ParÃ¡metros invÃ¡lidos' }, { status: 400 });
 }

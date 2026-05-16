@@ -54,11 +54,12 @@ export async function sendNotificationEmail(
       ),
     ]);
 
-    if (config?.notif_email === false) {
+    if (config && config.notif_email === false) {
       return;
     }
 
     if (!user?.email) {
+      console.warn(`[alert-email] User ${userId} has no email on record`);
       return;
     }
 

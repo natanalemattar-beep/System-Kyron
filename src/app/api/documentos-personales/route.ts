@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   const categoria = searchParams.get('categoria');
 
   const conditions: string[] = ['user_id = $1', 'activo = true'];
-  const params: unknown[] = [session.userId];
+  const params: unknown[] = [session.user.id];
   let i = 2;
 
   if (categoria) { conditions.push(`categoria = $${i++}`); params.push(categoria); }
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!nombre || !categoria) {
-    return NextResponse.json({ error: 'Nombre y categoría son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Nombre y categorÃ­a son requeridos' }, { status: 400 });
   }
 
   const [doc] = await query(
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
      RETURNING id, categoria, nombre, tipo_archivo`,
     [
-      session.userId,
+      session.user.id,
       categoria,
       nombre,
       tipo_archivo ?? 'PDF',
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'DOCUMENTO_PERSONAL_SUBIDO',
     categoria: 'documentos',
     descripcion: `Documento subido: ${nombre} (${categoria})`,
@@ -88,13 +88,13 @@ export async function DELETE(req: NextRequest) {
 
   const existing = await queryOne(
     `SELECT id FROM documentos_personales WHERE id = $1 AND user_id = $2`,
-    [id, session.userId]
+    [id, session.user.id]
   );
   if (!existing) return NextResponse.json({ error: 'Documento no encontrado' }, { status: 404 });
 
   await query(
     `UPDATE documentos_personales SET activo = false WHERE id = $1 AND user_id = $2`,
-    [id, session.userId]
+    [id, session.user.id]
   );
 
   return NextResponse.json({ success: true });

@@ -10,19 +10,19 @@ const BANCOS_VE: Record<string, { nombre: string; codigo: string; emailPatterns:
     nombre: 'Banesco',
     codigo: '0134',
     emailPatterns: ['@banesco.com', 'notificaciones@banesco.com', 'alertas@banesco.com'],
-    subjectPatterns: ['banesco', 'notificación de transacción', 'movimiento de cuenta'],
+    subjectPatterns: ['banesco', 'notificaciÃ³n de transacciÃ³n', 'movimiento de cuenta'],
   },
   mercantil: {
     nombre: 'Mercantil',
     codigo: '0105',
     emailPatterns: ['@mercantilbanco.com', '@bancomercantil.com', 'notificaciones@mercantilbanco.com'],
-    subjectPatterns: ['mercantil', 'notificación', 'alerta de movimiento'],
+    subjectPatterns: ['mercantil', 'notificaciÃ³n', 'alerta de movimiento'],
   },
   provincial: {
     nombre: 'Provincial (BBVA)',
     codigo: '0108',
     emailPatterns: ['@provincial.com', '@bbvaprovincial.com', 'notificaciones@provincial.com'],
-    subjectPatterns: ['provincial', 'bbva', 'alerta', 'notificación de operación'],
+    subjectPatterns: ['provincial', 'bbva', 'alerta', 'notificaciÃ³n de operaciÃ³n'],
   },
   venezuela: {
     nombre: 'Banco de Venezuela',
@@ -34,7 +34,7 @@ const BANCOS_VE: Record<string, { nombre: string; codigo: string; emailPatterns:
     nombre: 'BNC',
     codigo: '0191',
     emailPatterns: ['@bnc.com.ve', 'notificaciones@bnc.com.ve'],
-    subjectPatterns: ['bnc', 'bicentenario', 'notificación'],
+    subjectPatterns: ['bnc', 'bicentenario', 'notificaciÃ³n'],
   },
   bod: {
     nombre: 'BOD',
@@ -49,10 +49,10 @@ const BANCOS_VE: Record<string, { nombre: string; codigo: string; emailPatterns:
     subjectPatterns: ['exterior', 'banco exterior'],
   },
   fondo_comun: {
-    nombre: 'Banco Fondo Común (BFC)',
+    nombre: 'Banco Fondo ComÃºn (BFC)',
     codigo: '0151',
     emailPatterns: ['@bfc.com.ve', 'notificaciones@bfc.com.ve'],
-    subjectPatterns: ['bfc', 'fondo común', 'fondo comun'],
+    subjectPatterns: ['bfc', 'fondo comÃºn', 'fondo comun'],
   },
   bancaribe: {
     nombre: 'Bancaribe',
@@ -98,8 +98,8 @@ function parseTransactionFromEmail(body: string, subject: string): { monto: numb
   if (monto <= 0) return null;
 
   let tipo = 'credito';
-  const debitKeywords = ['débito', 'debito', 'cargo', 'retiro', 'pago', 'transferencia enviada', 'egreso', 'compra', 'punto de venta', 'pos'];
-  const creditKeywords = ['crédito', 'credito', 'abono', 'depósito', 'deposito', 'transferencia recibida', 'ingreso'];
+  const debitKeywords = ['dÃ©bito', 'debito', 'cargo', 'retiro', 'pago', 'transferencia enviada', 'egreso', 'compra', 'punto de venta', 'pos'];
+  const creditKeywords = ['crÃ©dito', 'credito', 'abono', 'depÃ³sito', 'deposito', 'transferencia recibida', 'ingreso'];
   for (const kw of debitKeywords) {
     if (combined.includes(kw)) { tipo = 'debito'; break; }
   }
@@ -135,7 +135,7 @@ function parseTransactionFromEmail(body: string, subject: string): { monto: numb
     }
   }
 
-  const conceptoMatch = cleanBody.match(/(?:concepto|descripci[oó]n|detalle|motivo)\s*[:\s]*([^\n.]{5,80})/i);
+  const conceptoMatch = cleanBody.match(/(?:concepto|descripci[oÃ³]n|detalle|motivo)\s*[:\s]*([^\n.]{5,80})/i);
   const concepto = conceptoMatch ? conceptoMatch[1].trim() : (subject.length > 5 ? subject.substring(0, 100) : 'Movimiento bancario');
 
   return { monto, tipo, referencia: referencia || null!, concepto, fecha };
@@ -169,7 +169,7 @@ export async function POST(request: NextRequest) {
 
       let cuentaId: number | null = null;
       if (cuenta_id) {
-        const check = await query('SELECT id FROM cuentas_bancarias WHERE id = $1 AND user_id = $2', [cuenta_id, session.userId]);
+        const check = await query('SELECT id FROM cuentas_bancarias WHERE id = $1 AND user_id = $2', [cuenta_id, session.user.id]);
         if (!check.length) {
           return NextResponse.json({ error: 'Cuenta bancaria no encontrada' }, { status: 404 });
         }
@@ -181,7 +181,7 @@ export async function POST(request: NextRequest) {
         gmail = await getUncachableGmailClient();
       } catch {
         return NextResponse.json({
-          error: 'No se pudo conectar con Gmail. Verifique que la integración de Google Mail esté activa.',
+          error: 'No se pudo conectar con Gmail. Verifique que la integraciÃ³n de Google Mail estÃ© activa.',
           requiere_integracion: true,
         }, { status: 503 });
       }
@@ -210,7 +210,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
           success: true,
           importados: 0,
-          mensaje: `No se encontraron correos de ${banco.nombre} en los últimos 30 días.`,
+          mensaje: `No se encontraron correos de ${banco.nombre} en los Ãºltimos 30 dÃ­as.`,
           busqueda: searchQuery,
         });
       }
@@ -218,7 +218,7 @@ export async function POST(request: NextRequest) {
       const existingRefs = new Set<string>();
       const existingRows = await query(
         'SELECT referencia FROM movimientos_bancarios WHERE user_id = $1 AND referencia IS NOT NULL AND referencia != \'\'',
-        [session.userId]
+        [session.user.id]
       );
       for (const r of existingRows) {
         if (r.referencia) existingRefs.add(r.referencia.toLowerCase());
@@ -285,7 +285,7 @@ export async function POST(request: NextRequest) {
           success: true,
           importados: 0,
           correos_encontrados: messageIds.length,
-          mensaje: 'Se encontraron correos pero no se pudieron extraer movimientos válidos, o ya estaban registrados.',
+          mensaje: 'Se encontraron correos pero no se pudieron extraer movimientos vÃ¡lidos, o ya estaban registrados.',
           errores: errores.slice(0, 10),
         });
       }
@@ -296,7 +296,7 @@ export async function POST(request: NextRequest) {
           await client.query(
             `INSERT INTO movimientos_bancarios (user_id, cuenta_id, fecha_operacion, concepto, monto, tipo, referencia, categoria)
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-            [session.userId, cuentaId, mov.fecha_operacion, mov.concepto, mov.monto, mov.tipo, mov.referencia, banco.nombre]
+            [session.user.id, cuentaId, mov.fecha_operacion, mov.concepto, mov.monto, mov.tipo, mov.referencia, banco.nombre]
           );
           count++;
         }
@@ -304,7 +304,7 @@ export async function POST(request: NextRequest) {
         if (cuentaId) {
           await client.query(
             'UPDATE cuentas_bancarias SET ultima_sincronizacion = NOW() WHERE id = $1 AND user_id = $2',
-            [cuentaId, session.userId]
+            [cuentaId, session.user.id]
           );
         }
 
@@ -321,9 +321,9 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    return NextResponse.json({ error: 'Acción no válida' }, { status: 400 });
+    return NextResponse.json({ error: 'AcciÃ³n no vÃ¡lida' }, { status: 400 });
   } catch (err: any) {
     console.error('[bank-sync] Error:', err);
-    return NextResponse.json({ error: 'Error en la sincronización bancaria' }, { status: 500 });
+    return NextResponse.json({ error: 'Error en la sincronizaciÃ³n bancaria' }, { status: 500 });
   }
 }

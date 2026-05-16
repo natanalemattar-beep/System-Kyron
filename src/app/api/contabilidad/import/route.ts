@@ -6,14 +6,14 @@ import * as XLSX from 'xlsx';
 export const dynamic = 'force-dynamic';
 
 const COLUMN_ALIASES: Record<string, string[]> = {
-  fecha_operacion: ['fecha', 'date', 'fecha_operacion', 'fecha operacion', 'fecha de operacion', 'f. operación', 'f. operacion', 'fecha valor', 'fecha_valor'],
-  concepto: ['concepto', 'descripcion', 'descripción', 'detalle', 'description', 'concepto/descripcion', 'referencia_descripcion', 'observacion'],
+  fecha_operacion: ['fecha', 'date', 'fecha_operacion', 'fecha operacion', 'fecha de operacion', 'f. operaciÃ³n', 'f. operacion', 'fecha valor', 'fecha_valor'],
+  concepto: ['concepto', 'descripcion', 'descripciÃ³n', 'detalle', 'description', 'concepto/descripcion', 'referencia_descripcion', 'observacion'],
   monto: ['monto', 'amount', 'importe', 'valor', 'cantidad', 'monto bs', 'monto_bs', 'monto bs.'],
   tipo: ['tipo', 'type', 'naturaleza', 'mov', 'movimiento', 'tipo_movimiento', 'tipo movimiento'],
   referencia: ['referencia', 'ref', 'reference', 'nro referencia', 'nro_referencia', 'numero', 'nro', 'comprobante', 'nro. referencia'],
-  categoria: ['categoria', 'categoría', 'category', 'rubro', 'clasificacion'],
-  debito: ['debito', 'débito', 'debe', 'cargo', 'debit', 'egreso', 'salida'],
-  credito: ['credito', 'crédito', 'haber', 'abono', 'credit', 'ingreso', 'entrada', 'deposito', 'depósito'],
+  categoria: ['categoria', 'categorÃ­a', 'category', 'rubro', 'clasificacion'],
+  debito: ['debito', 'dÃ©bito', 'debe', 'cargo', 'debit', 'egreso', 'salida'],
+  credito: ['credito', 'crÃ©dito', 'haber', 'abono', 'credit', 'ingreso', 'entrada', 'deposito', 'depÃ³sito'],
 };
 
 function normalizeHeader(h: string): string {
@@ -126,16 +126,16 @@ export async function POST(request: NextRequest) {
     const cuentaId = cuentaIdStr ? parseInt(cuentaIdStr, 10) : null;
 
     if (cuentaId !== null && (!Number.isInteger(cuentaId) || cuentaId <= 0)) {
-      return NextResponse.json({ error: 'ID de cuenta bancaria inválido' }, { status: 400 });
+      return NextResponse.json({ error: 'ID de cuenta bancaria invÃ¡lido' }, { status: 400 });
     }
 
     if (!file) {
-      return NextResponse.json({ error: 'No se proporcionó un archivo' }, { status: 400 });
+      return NextResponse.json({ error: 'No se proporcionÃ³ un archivo' }, { status: 400 });
     }
 
     const maxSize = 5 * 1024 * 1024;
     if (file.size > maxSize) {
-      return NextResponse.json({ error: 'El archivo excede el tamaño máximo permitido (5 MB)' }, { status: 400 });
+      return NextResponse.json({ error: 'El archivo excede el tamaÃ±o mÃ¡ximo permitido (5 MB)' }, { status: 400 });
     }
 
     const fileName = file.name.toLowerCase();
@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (cuentaId) {
-      const check = await query('SELECT id FROM cuentas_bancarias WHERE id = $1 AND user_id = $2', [cuentaId, session.userId]);
+      const check = await query('SELECT id FROM cuentas_bancarias WHERE id = $1 AND user_id = $2', [cuentaId, session.user.id]);
       if (!check.length) {
         return NextResponse.json({ error: 'Cuenta bancaria no encontrada' }, { status: 404 });
       }
@@ -161,11 +161,11 @@ export async function POST(request: NextRequest) {
 
     const rows: Record<string, unknown>[] = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { defval: null });
     if (!rows.length) {
-      return NextResponse.json({ error: 'El archivo está vacío o no tiene datos' }, { status: 400 });
+      return NextResponse.json({ error: 'El archivo estÃ¡ vacÃ­o o no tiene datos' }, { status: 400 });
     }
 
     if (rows.length > 5000) {
-      return NextResponse.json({ error: 'Máximo 5,000 movimientos por importación' }, { status: 400 });
+      return NextResponse.json({ error: 'MÃ¡ximo 5,000 movimientos por importaciÃ³n' }, { status: 400 });
     }
 
     const headers = Object.keys(rows[0]);
@@ -182,13 +182,13 @@ export async function POST(request: NextRequest) {
     if (!hasFecha || !hasConcepto || !hasMonto) {
       const missing: string[] = [];
       if (!hasFecha) missing.push('fecha');
-      if (!hasConcepto) missing.push('concepto/descripción');
-      if (!hasMonto) missing.push('monto (o columnas débito/crédito)');
+      if (!hasConcepto) missing.push('concepto/descripciÃ³n');
+      if (!hasMonto) missing.push('monto (o columnas dÃ©bito/crÃ©dito)');
       return NextResponse.json({
         error: `Columnas requeridas no encontradas: ${missing.join(', ')}`,
         columnas_detectadas: headers,
         columnas_mapeadas: mappedFields,
-        sugerencia: 'El archivo debe tener al menos columnas de fecha, concepto/descripción, y monto (o débito y crédito separados).',
+        sugerencia: 'El archivo debe tener al menos columnas de fecha, concepto/descripciÃ³n, y monto (o dÃ©bito y crÃ©dito separados).',
       }, { status: 400 });
     }
 
@@ -201,25 +201,25 @@ export async function POST(request: NextRequest) {
 
       const concepto = mappedFields.concepto ? String(row[mappedFields.concepto] ?? '').trim() : '';
       if (!concepto) {
-        errors.push({ fila: rowNum, error: 'Concepto vacío' });
+        errors.push({ fila: rowNum, error: 'Concepto vacÃ­o' });
         continue;
       }
 
       const fecha = parseDate(row[mappedFields.fecha_operacion]);
       if (!fecha) {
-        errors.push({ fila: rowNum, error: `Fecha inválida: "${row[mappedFields.fecha_operacion]}"` });
+        errors.push({ fila: rowNum, error: `Fecha invÃ¡lida: "${row[mappedFields.fecha_operacion]}"` });
         continue;
       }
 
       const tipo = inferTipo(row, mappedFields);
       if (!tipo) {
-        errors.push({ fila: rowNum, error: 'No se pudo determinar el tipo (crédito/débito)' });
+        errors.push({ fila: rowNum, error: 'No se pudo determinar el tipo (crÃ©dito/dÃ©bito)' });
         continue;
       }
 
       const monto = inferMonto(row, mappedFields, tipo);
       if (!monto || monto <= 0) {
-        errors.push({ fila: rowNum, error: `Monto inválido: "${row[mappedFields.monto] ?? row[mappedFields.debito] ?? row[mappedFields.credito]}"` });
+        errors.push({ fila: rowNum, error: `Monto invÃ¡lido: "${row[mappedFields.monto] ?? row[mappedFields.debito] ?? row[mappedFields.credito]}"` });
         continue;
       }
 
@@ -231,7 +231,7 @@ export async function POST(request: NextRequest) {
 
     if (processed.length === 0) {
       return NextResponse.json({
-        error: 'No se pudo procesar ningún movimiento del archivo',
+        error: 'No se pudo procesar ningÃºn movimiento del archivo',
         errores: errors.slice(0, 20),
         total_filas: rows.length,
       }, { status: 400 });
@@ -243,7 +243,7 @@ export async function POST(request: NextRequest) {
         await client.query(
           `INSERT INTO movimientos_bancarios (user_id, cuenta_id, fecha_operacion, concepto, monto, tipo, referencia, categoria)
            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-          [session.userId, cuentaId, mov.fecha_operacion, mov.concepto, mov.monto, mov.tipo, mov.referencia, mov.categoria]
+          [session.user.id, cuentaId, mov.fecha_operacion, mov.concepto, mov.monto, mov.tipo, mov.referencia, mov.categoria]
         );
         count++;
       }

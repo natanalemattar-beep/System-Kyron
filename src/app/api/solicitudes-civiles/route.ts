@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   const tipo = searchParams.get('tipo');
 
   const conditions: string[] = ['user_id = $1'];
-  const params: unknown[] = [session.userId];
+  const params: unknown[] = [session.user.id];
   let i = 2;
 
   if (tipo) { conditions.push(`tipo = $${i++}`); params.push(tipo); }
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
      RETURNING id, tipo, nombres, estado, created_at`,
     [
-      session.userId,
+      session.user.id,
       tipo,
       nombres,
       acta ?? null,
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'SOLICITUD_DOCUMENTO_CIVIL',
     categoria: 'documentos',
     descripcion: `Solicitud de ${tipo.replace(/_/g, ' ')}: ${nombres}`,
@@ -92,7 +92,7 @@ export async function PATCH(req: NextRequest) {
          updated_at = NOW()
      WHERE id = $3 AND user_id = $4
      RETURNING id, tipo, estado`,
-    [estado ?? null, notas ?? null, id, session.userId]
+    [estado ?? null, notas ?? null, id, session.user.id]
   );
 
   if (!sol) return NextResponse.json({ error: 'Solicitud no encontrada' }, { status: 404 });
@@ -100,7 +100,7 @@ export async function PATCH(req: NextRequest) {
   const updated = sol as { id: number; tipo: string; estado: string };
   if (estado) {
     notifyDocumentReady({
-      userId: session.userId,
+      userId: session.user.id,
       documentType: 'solicitud_civil',
       documentTitle: `Solicitud ${updated.tipo?.replace(/_/g, ' ') ?? 'civil'}`,
       newStatus: updated.estado,

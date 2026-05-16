@@ -9,15 +9,14 @@ const FeaturesSection  = dynamic(() => import('@/components/landing/features-sec
 const SustainabilitySection = dynamic(() => import('@/components/landing/SustainabilitySection').then(m => ({ default: m.SustainabilitySection })), { ssr: true });
 
 // Below-the-fold — loaded dynamically
-const PricingSection    = dynamic(() => import('@/components/landing/pricing-section').then(m => ({ default: m.PricingSection })));
 const FaqSection        = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })));
 const CtaSection        = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })));
 const Footer            = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })));
 
 const showImages = [
-  { src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format", alt: "System Kyron Intelligence Core" },
-  { src: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format", alt: "Digital Security Shield" },
-  { src: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format", alt: "Technology Infrastructure" },
+  { src: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop", alt: "System Kyron Intelligence Core" },
+  { src: "https://images.unsplash.com/photo-1639322537228-f710d8463eaa?q=80&w=1200&auto=format&fit=crop", alt: "Digital Security Shield" },
+  { src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop", alt: "Technology Infrastructure" },
 ];
 
 export default function LandingPage() {
@@ -62,12 +61,7 @@ export default function LandingPage() {
           {/* 2.5 Sustainability — Impacto Ambiental (SSR) */}
           <SustainabilitySection />
 
-          {/* 3. Pricing — Planes y precios */}
-          <LazySection fallbackHeight="800px">
-            <PricingSection />
-          </LazySection>
-
-          {/* 4. FAQ — Dudas comunes */}
+          {/* 3. FAQ — Dudas comunes */}
           <LazySection fallbackHeight="600px">
             <div id="faq">
               <FaqSection />

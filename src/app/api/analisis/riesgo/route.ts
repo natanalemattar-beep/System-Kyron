@@ -8,7 +8,7 @@ export async function GET() {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
-  const uid = session.userId;
+  const uid = session.user.id;
 
   const cxcVencidas = await query(
     `SELECT id, COALESCE(concepto, 'Cuenta por cobrar') AS desc, monto_pendiente::text AS monto

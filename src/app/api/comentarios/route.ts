@@ -47,8 +47,8 @@ export async function GET() {
 export async function POST(req: NextRequest) {
     try {
         const session = await getSession();
-        if (!session?.userId) {
-            return NextResponse.json({ error: 'Debes iniciar sesión para comentar' }, { status: 401 });
+        if (!session?.user?.id) {
+            return NextResponse.json({ error: 'Debes iniciar sesiÃ³n para comentar' }, { status: 401 });
         }
 
         const body = await req.json();
@@ -66,16 +66,16 @@ export async function POST(req: NextRequest) {
 
         const existing = await query(
             `SELECT id FROM comentarios_publicos WHERE user_id = $1 AND created_at > NOW() - INTERVAL '24 hours'`,
-            [session.userId]
+            [session.user.id]
         );
         if (existing.length >= 3) {
-            return NextResponse.json({ error: 'Máximo 3 comentarios por día' }, { status: 429 });
+            return NextResponse.json({ error: 'MÃ¡ximo 3 comentarios por dÃ­a' }, { status: 429 });
         }
 
         await query(
             `INSERT INTO comentarios_publicos (user_id, texto, calificacion, modulo, aprobado)
              VALUES ($1, $2, $3, $4, true)`,
-            [session.userId, texto.trim(), cal, modulo || null]
+            [session.user.id, texto.trim(), cal, modulo || null]
         );
 
         invalidateCache('comentarios:');

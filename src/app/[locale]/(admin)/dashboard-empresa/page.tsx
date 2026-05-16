@@ -129,6 +129,7 @@ export default function DashboardEmpresaPage() {
   const currentLocale = useLocale();
   const { activeEvent } = useSeasonalTheme();
   const { format: fmtCur, convert, config: curConfig, formatRaw } = useCurrency();
+  const [showAI, setShowAI] = useState(false);
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);

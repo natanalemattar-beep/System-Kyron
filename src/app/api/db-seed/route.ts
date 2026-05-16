@@ -11,16 +11,16 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-        const result = await seedDemoData(session.userId);
+        const result = await seedDemoData(session.user.id);
         return NextResponse.json({
             success: true,
-            message: `Datos de demostración cargados: ${result.seeded.length} módulos.`,
+            message: `Datos de demostraciÃ³n cargados: ${result.seeded.length} mÃ³dulos.`,
             ...result,
         });
     } catch (err) {
         console.error('[db-seed] Error:', err);
         return NextResponse.json(
-            { error: 'Error al cargar datos de demostración' },
+            { error: 'Error al cargar datos de demostraciÃ³n' },
             { status: 500 }
         );
     }

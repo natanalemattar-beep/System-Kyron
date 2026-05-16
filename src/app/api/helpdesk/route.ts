@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   const rows = await query(
     `SELECT id, titulo, descripcion, categoria, prioridad, estado, asignado_a, created_at::text, updated_at::text
      FROM helpdesk_tickets WHERE user_id = $1 ORDER BY created_at DESC LIMIT $2`,
-    [session.userId, limit]
+    [session.user.id, limit]
   ).catch(() => []);
 
   return NextResponse.json({ tickets: rows });
@@ -26,12 +26,12 @@ export async function POST(req: NextRequest) {
 
   try {
     const { titulo, descripcion, categoria, prioridad } = await req.json();
-    if (!titulo) return NextResponse.json({ error: 'Título requerido' }, { status: 400 });
+    if (!titulo) return NextResponse.json({ error: 'TÃ­tulo requerido' }, { status: 400 });
 
     const [row] = await query(
       `INSERT INTO helpdesk_tickets (user_id, titulo, descripcion, categoria, prioridad)
        VALUES ($1, $2, $3, $4, $5) RETURNING id`,
-      [session.userId, titulo, descripcion ?? '', categoria ?? 'general', prioridad ?? 'media']
+      [session.user.id, titulo, descripcion ?? '', categoria ?? 'general', prioridad ?? 'media']
     );
 
     return NextResponse.json({ success: true, id: (row as Record<string, unknown>).id });
@@ -51,7 +51,7 @@ export async function PATCH(req: NextRequest) {
 
     await query(
       `UPDATE helpdesk_tickets SET estado = $1, updated_at = NOW() WHERE id = $2 AND user_id = $3`,
-      [estado, id, session.userId]
+      [estado, id, session.user.id]
     );
 
     return NextResponse.json({ success: true });

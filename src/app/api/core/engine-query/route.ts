@@ -1,14 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { KYRON_SYSTEM_PROMPT } from "@/lib/ai-context";
 
-const SYSTEM_PROMPT = `Eres Kyron Core AI, la inteligencia central de System Kyron. 
-Tu misión es actuar como el asesor definitivo para socios y clientes durante el Reto Inspira 2026.
-Tus pilares fundamentales son:
-1. Sostenibilidad (Cero Papel): Explicar cómo eliminamos el papel y protegemos el ambiente.
-2. Conectividad: Detallar nuestra red 5G y reserva de emergencia para empresas.
-3. Blindaje Legal: Cómo automatizamos el cumplimiento de leyes venezolanas (LOTTT, SENIAT, etc.).
-El equipo directivo: Carlos Mattar (Fundador), Sebastian Garrido y Marcos Sousa.
-Sé extremadamente profesional, innovador, directo y amable. Siempre responde en el idioma que el usuario te hable (español o inglés).`;
+const SYSTEM_PROMPT = KYRON_SYSTEM_PROMPT;
 
 export async function POST(req: NextRequest) {
   try {

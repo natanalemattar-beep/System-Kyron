@@ -12,7 +12,7 @@ export async function GET() {
     try {
         const embudos = await query(
             `SELECT * FROM embudos_ventas WHERE user_id = $1 ORDER BY created_at DESC`,
-            [session.userId]
+            [session.user.id]
         );
 
         const embudoIds = (embudos as { id: number }[]).map(e => e.id);
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
             `INSERT INTO embudos_ventas (user_id, nombre, estado, leads, conversion_global, ticket_promedio, ingreso_estimado)
              VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *`,
             [
-                session.userId,
+                session.user.id,
                 nombre,
                 estado ?? 'activo',
                 safeLeads,
@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
         }
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'NUEVO_EMBUDO',
             categoria: 'marketing',
             descripcion: `Embudo creado: ${nombre}`,

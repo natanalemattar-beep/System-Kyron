@@ -19,7 +19,7 @@ export async function GET() {
      FROM vacantes v
      WHERE v.user_id = $1
      ORDER BY v.fecha_publicacion DESC`,
-    [session.userId]
+    [session.user.id]
   );
 
   const stats = await query(
@@ -31,7 +31,7 @@ export async function GET() {
         JOIN vacantes vv ON vv.id = cv.vacante_id
         WHERE vv.user_id = $1)::int AS total_candidatos
      FROM vacantes WHERE user_id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({ vacantes, stats: stats[0] ?? {} });
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!titulo || !departamento) {
-    return NextResponse.json({ error: 'Título y departamento son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'TÃ­tulo y departamento son requeridos' }, { status: 400 });
   }
 
   const [vacante] = await query<{ id: number }>(
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
      RETURNING id`,
     [
-      session.userId,
+      session.user.id,
       titulo, departamento,
       descripcion ?? null,
       Array.isArray(requisitos) ? requisitos : null,
@@ -75,10 +75,10 @@ export async function POST(req: NextRequest) {
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'NUEVA_VACANTE',
     categoria: 'rrhh',
-    descripcion: `Vacante publicada: ${titulo} — ${departamento}`,
+    descripcion: `Vacante publicada: ${titulo} â€” ${departamento}`,
     entidadTipo: 'vacante',
     entidadId: vacante.id,
   });
@@ -96,7 +96,7 @@ export async function PATCH(req: NextRequest) {
 
   await query(
     `UPDATE vacantes SET estado = $1, updated_at = NOW() WHERE id = $2 AND user_id = $3`,
-    [estado, id, session.userId]
+    [estado, id, session.user.id]
   );
   return NextResponse.json({ success: true });
 }

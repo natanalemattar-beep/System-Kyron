@@ -18,7 +18,7 @@ const CSP_DIRECTIVES = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob: https://flagcdn.com https://images.unsplash.com https://picsum.photos https://api.qrserver.com https://i.pravatar.cc https://grainy-gradients.vercel.app",
-  "connect-src 'self' https://*.google.com https://*.googleapis.com https://*.gstatic.com https://*.openai.com https://*.anthropic.com https://*.twilio.com https://*.microsoft.com https://*.outlook.com https://*.vercel-storage.com https://*.vercel.app https://vitals.vercel-insights.com",
+  "connect-src 'self' https://*.google.com https://*.googleapis.com https://*.gstatic.com https://*.twilio.com https://*.microsoft.com https://*.outlook.com https://*.vercel-storage.com https://*.vercel.app https://vitals.vercel-insights.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",

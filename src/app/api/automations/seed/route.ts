@@ -8,7 +8,7 @@ export async function POST() {
     return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
   }
 
-  if (session.tipo !== 'admin') {
+  if (session.user.tipo !== 'admin') {
     return NextResponse.json({ error: 'Acceso restringido a administradores' }, { status: 403 });
   }
 

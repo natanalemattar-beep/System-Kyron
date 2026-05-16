@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   if (!session) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
 
   const tipo = req.nextUrl.searchParams.get("tipo");
-  const uid = session.userId;
+  const uid = session.user.id;
 
   try {
     if (tipo === "programas") {
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
 
-  const uid = session.userId;
+  const uid = session.user.id;
 
   try {
     const body = await req.json();
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
 
     if (accion === "reconocimiento") {
       const { empleado_id, programa_id, tipo, titulo, descripcion, puntos } = body;
-      if (!empleado_id || !titulo) return NextResponse.json({ error: "Empleado y título requeridos" }, { status: 400 });
+      if (!empleado_id || !titulo) return NextResponse.json({ error: "Empleado y tÃ­tulo requeridos" }, { status: 400 });
       const rows = await query(
         `INSERT INTO reconocimientos_empleado (user_id, empleado_id, programa_id, tipo, titulo, descripcion, puntos)
          VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
@@ -111,7 +111,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ plan: rows[0] });
     }
 
-    return NextResponse.json({ error: "Acción no válida" }, { status: 400 });
+    return NextResponse.json({ error: "AcciÃ³n no vÃ¡lida" }, { status: 400 });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Error desconocido";
     return NextResponse.json({ error: message }, { status: 500 });

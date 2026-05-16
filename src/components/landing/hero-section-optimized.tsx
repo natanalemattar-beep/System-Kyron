@@ -65,15 +65,15 @@ export function HeroSectionOptimized() {
       id="inicio" 
       ref={containerRef} 
       onMouseMove={handleMouseMove}
-      className="relative min-h-[100svh] flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden bg-[#020617]"
+      className="relative min-h-[100svh] flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden bg-[#02040a]"
     >
-      {/* --- ENHANCED NEURAL AURORA BACKGROUND --- */}
+      {/* --- MINIMALIST NEURAL BACKGROUND --- */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[#020617]" />
+        <div className="absolute inset-0 bg-[#02040a]" />
         
-        {/* Mouse-reactive gradient */}
+        {/* Subtle reactive light */}
         <div 
-          className="absolute w-[800px] h-[800px] rounded-full bg-cyan-500/10 blur-[180px] transition-all duration-[2000ms] ease-out"
+          className="absolute w-[600px] h-[600px] rounded-full bg-cyan-500/[0.05] blur-[120px] transition-all duration-1000 ease-out"
           style={{ 
             left: `${mousePos.x}%`, 
             top: `${mousePos.y}%`, 
@@ -81,14 +81,13 @@ export function HeroSectionOptimized() {
           }} 
         />
         
-        {/* Ambient gradients */}
-        <div className="absolute top-[-20%] left-[-10%] w-[100vw] h-[100vw] rounded-full bg-cyan-600/[0.08] blur-[160px] animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute bottom-[-30%] right-[-10%] w-[80vw] h-[80vw] rounded-full bg-blue-600/[0.06] blur-[140px] animate-pulse" style={{ animationDuration: '12s', animationDelay: '2s' }} />
-        <div className="absolute top-[20%] right-[-20%] w-[60vw] h-[60vw] rounded-full bg-emerald-500/[0.04] blur-[120px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '-4s' }} />
+        {/* Minimalist ambient glow */}
+        <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-blue-600/[0.03] blur-[150px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-emerald-500/[0.02] blur-[150px]" />
         
-        {/* Grid overlay */}
-        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#020617_80%)]" />
+        {/* Very subtle grid */}
+        <div className="absolute inset-0 opacity-[0.01]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)', backgroundSize: '100px 100px' }} />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#02040a_90%)]" />
       </div>
 
       <div className="relative z-10 w-full container mx-auto px-6 max-w-7xl">
@@ -108,82 +107,56 @@ export function HeroSectionOptimized() {
             </div>
 
             {/* Headline */}
-            <div className="space-y-5">
-              <h1 className="text-[clamp(2.5rem,7vw,5rem)] font-black leading-[0.85] tracking-tight uppercase">
-                <span className="block text-[0.35em] tracking-[0.5em] mb-3 not-italic font-medium text-white/40">{t('title_line1')}</span>
-                <span className="block bg-gradient-to-r from-white via-cyan-100 to-blue-300 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(255,255,255,0.08)]">
-                  {t('title_line2')}
-                </span>
-                <span className="block text-[0.8em] mt-3 text-cyan-300/60 font-light not-italic">{t('title_line3')}</span>
-              </h1>
-              
-              <p className="text-lg md:text-xl text-white/35 max-w-xl font-medium leading-relaxed mx-auto lg:mx-0">
-                {t('subtitle')}
-              </p>
-            </div>
+             <div className="space-y-5">
+               <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] font-black leading-[0.85] tracking-tighter uppercase">
+                 <span className="block text-[0.3em] tracking-[0.6em] mb-4 not-italic font-medium text-white/30 uppercase">SISTEMA DE MANDO ÚNICO</span>
+                 <span className="block bg-gradient-to-br from-white via-cyan-100 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,255,255,0.15)]">
+                   {t('title_line2')}
+                 </span>
+                 <span className="block text-[0.75em] mt-4 text-cyan-400/60 font-light not-italic tracking-wide italic">
+                   {t('title_line3')}
+                 </span>
+               </h1>
+               
+               <p className="text-lg md:text-xl text-white/40 max-w-xl font-medium leading-relaxed mx-auto lg:mx-0 border-l-2 border-cyan-500/30 pl-6">
+                 {t('subtitle')}
+               </p>
+             </div>
+
 
             {/* Actions */}
-            <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start pt-4">
-              <Button asChild className="h-16 px-12 text-[11px] font-black uppercase tracking-[0.3em] rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 shadow-[0_20px_40px_rgba(6,182,212,0.15)] hover:shadow-[0_25px_50px_rgba(6,182,212,0.25)] hover:-translate-y-1 transition-all duration-500 group border-none">
-                <Link href="/register" className="flex items-center gap-4">
-                  {t('cta_main')} 
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1.5 transition-transform" />
-                </Link>
-              </Button>
-              
-              <Button variant="outline" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-xl border-white/10 bg-white/[0.03] backdrop-blur-2xl text-white/50 hover:bg-white/[0.06] hover:text-white/80 transition-all duration-500 hover:scale-[1.02]">
-                <span className="flex items-center gap-3">
-                  <Play className="h-3.5 w-3.5 fill-current" />
-                  {t('cta_secondary')}
-                </span>
-              </Button>
-            </div>
+             <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start pt-8">
+               <Button asChild className="h-16 px-12 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 shadow-[0_0_40px_rgba(6,182,212,0.3)] hover:shadow-[0_0_60px_rgba(6,182,212,0.5)] hover:-translate-y-1 transition-all duration-500 group border-none">
+                 <Link href="/register" className="flex items-center gap-4">
+                   {t('cta_main')} 
+                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1.5 transition-transform" />
+                 </Link>
+               </Button>
+               
+               <Button variant="outline" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl border-white/10 bg-white/[0.03] backdrop-blur-3xl text-white/50 hover:bg-white/[0.08] hover:text-white transition-all duration-500 hover:scale-[1.02] hover:border-white/20">
+                 <span className="flex items-center gap-3">
+                   <Play className="h-3.5 w-3.5 fill-current" />
+                   {t('cta_secondary')}
+                 </span>
+               </Button>
+             </div>
+
           </div>
 
-          {/* Right Side: Neural Core Visual */}
-          <div className="flex-1 relative hidden lg:block">
-            <div className="relative aspect-square w-full max-w-[550px] mx-auto">
-              {/* Neural Ring 1 */}
-              <div className="absolute inset-0 border border-cyan-500/15 rounded-full animate-[spin_60s_linear_infinite]" />
-              {/* Neural Ring 2 */}
-              <div className="absolute inset-[8%] border border-blue-500/10 rounded-full animate-[spin_40s_linear_infinite_reverse]" />
-              {/* Neural Ring 3 */}
-              <div className="absolute inset-[16%] border border-emerald-500/15 rounded-full animate-[spin_25s_linear_infinite]" />
-              
-              {/* Central Core */}
-              <div className="absolute inset-[28%] flex items-center justify-center">
-                <div className="w-full h-full rounded-full bg-gradient-to-br from-cyan-500/15 via-blue-600/20 to-emerald-500/15 blur-3xl animate-pulse" />
-                <div className="absolute w-28 h-28 bg-white/[0.03] backdrop-blur-3xl rounded-[2rem] border border-white/15 shadow-[0_0_50px_rgba(6,182,212,0.2)] flex items-center justify-center transform rotate-12 animate-float">
-                  <Logo className="w-14 h-14 text-white" />
-                </div>
-              </div>
+           {/* Right Side: Minimal Neural Core */}
+           <div className="flex-1 relative hidden lg:block">
+             <div className="relative aspect-square w-full max-w-[500px] mx-auto flex items-center justify-center">
+               {/* Single, elegant rotating ring */}
+               <div className="absolute inset-0 border border-white/5 rounded-full animate-[spin_100s_linear_infinite]" />
+               <div className="absolute inset-12 border border-white/10 rounded-full animate-[spin_60s_linear_infinite_reverse]" />
+               
+               {/* Central Core */}
+               <div className="relative z-10 w-40 h-40 rounded-full bg-white/[0.02] backdrop-blur-3xl border border-white/10 shadow-[0_0_80px_rgba(6,182,212,0.1)] flex items-center justify-center animate-float">
+                 <Logo className="w-16 h-16 text-white opacity-90" />
+               </div>
+             </div>
+           </div>
 
-              {/* Floating Data Link Badges */}
-              <div className="absolute top-[8%] -right-5 p-5 rounded-2xl bg-white/[0.03] border border-cyan-500/15 shadow-2xl backdrop-blur-xl animate-float-slow">
-                <div className="flex items-center gap-3.5">
-                  <div className="h-9 w-9 rounded-xl bg-cyan-500/15 flex items-center justify-center">
-                    <Zap className="h-4.5 w-4.5 text-cyan-400" />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-[9px] font-black text-white/80 uppercase tracking-widest">BCV Real-Time</p>
-                    <p className="text-[8px] font-bold text-cyan-400/50 uppercase tracking-widest">Latency: 0.2ms</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="absolute bottom-[12%] -left-8 p-5 rounded-2xl bg-white/[0.03] border border-blue-500/15 shadow-2xl backdrop-blur-xl animate-float" style={{ animationDelay: '-2s' }}>
-                <div className="flex items-center gap-3.5">
-                  <div className="h-9 w-9 rounded-xl bg-blue-500/15 flex items-center justify-center">
-                    <ShieldCheck className="h-4.5 w-4.5 text-blue-400" />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-[9px] font-black text-white/80 uppercase tracking-widest">AES-256 Active</p>
-                    <p className="text-[8px] font-bold text-blue-400/50 uppercase tracking-widest">Quantum Shield</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 

@@ -1,9 +1,9 @@
 "use client";
 
-import { ArrowLeft, Baby, ShieldCheck, Clock, FileText } from 'lucide-react';
+import { Baby, ShieldCheck, Clock, FileText } from 'lucide-react';
 import { DocumentRequestTable, type Solicitud } from "@/components/document-request-table";
-import { Link } from '@/navigation';
 import { motion } from 'framer-motion';
+import { BackToDashboard } from "@/components/back-to-dashboard";
 
 const solicitudes: Solicitud[] = [
     {
@@ -39,9 +39,7 @@ const solicitudes: Solicitud[] = [
 export default function PartidasNacimientoPage() {
     return (
         <div className="space-y-8 max-w-5xl mx-auto">
-            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
-                <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
-            </Link>
+            <BackToDashboard />
 
             <motion.div
                 initial={{ opacity: 0, y: 16 }}

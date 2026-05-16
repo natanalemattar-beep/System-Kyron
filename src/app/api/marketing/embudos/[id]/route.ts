@@ -11,12 +11,12 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
 
     try {
         const { id } = await params;
-        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
         const idNum = parseInt(id);
 
         const embudo = await queryOne(
             `SELECT * FROM embudos_ventas WHERE id = $1 AND user_id = $2`,
-            [idNum, session.userId]
+            [idNum, session.user.id]
         );
         if (!embudo) return NextResponse.json({ error: 'Embudo no encontrado' }, { status: 404 });
 
@@ -37,10 +37,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
     const idNum = parseInt(id);
 
-    const existing = await queryOne(`SELECT id FROM embudos_ventas WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+    const existing = await queryOne(`SELECT id FROM embudos_ventas WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
     if (!existing) return NextResponse.json({ error: 'Embudo no encontrado' }, { status: 404 });
 
     try {
@@ -64,7 +64,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
                 conversion_global != null ? parseFloat(conversion_global) || 0 : null,
                 ticket_promedio != null ? Math.max(0, parseFloat(ticket_promedio) || 0) : null,
                 ingreso_estimado != null ? Math.max(0, parseFloat(ingreso_estimado) || 0) : null,
-                idNum, session.userId,
+                idNum, session.user.id,
             ]
         );
 
@@ -80,7 +80,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         }
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'ACTUALIZAR_EMBUDO',
             categoria: 'marketing',
             descripcion: `Embudo actualizado: ${(updated as { nombre: string }).nombre}`,
@@ -100,18 +100,18 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
     const idNum = parseInt(id);
 
-    const existing = await queryOne<{ nombre: string }>(`SELECT nombre FROM embudos_ventas WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+    const existing = await queryOne<{ nombre: string }>(`SELECT nombre FROM embudos_ventas WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
     if (!existing) return NextResponse.json({ error: 'Embudo no encontrado' }, { status: 404 });
 
     try {
         await query(`DELETE FROM etapas_embudo WHERE embudo_id = $1`, [idNum]);
-        await query(`DELETE FROM embudos_ventas WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+        await query(`DELETE FROM embudos_ventas WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'ELIMINAR_EMBUDO',
             categoria: 'marketing',
             descripcion: `Embudo eliminado: ${existing.nombre}`,

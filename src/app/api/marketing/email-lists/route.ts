@@ -12,7 +12,7 @@ export async function GET() {
     try {
         const lists = await query(
             `SELECT * FROM email_lists WHERE user_id = $1 ORDER BY nombre ASC`,
-            [session.userId]
+            [session.user.id]
         );
         return NextResponse.json({ lists });
     } catch (err) {
@@ -36,11 +36,11 @@ export async function POST(req: NextRequest) {
 
         const [list] = await query(
             `INSERT INTO email_lists (user_id, nombre, total, activos) VALUES ($1,$2,$3,$4) RETURNING *`,
-            [session.userId, nombre, safeTotal, safeActivos]
+            [session.user.id, nombre, safeTotal, safeActivos]
         );
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'NUEVA_EMAIL_LIST',
             categoria: 'marketing',
             descripcion: `Lista de email creada: ${nombre}`,

@@ -4,12 +4,13 @@ import dynamic from "next/dynamic";
 import { AppHeader } from "@/components/app-header";
 import { AppSidebar } from "@/components/app-sidebar";
 import { PageTransition } from "@/components/ui/motion";
-import { adminNavGroups } from "@/components/app-sidebar-nav-items";
+import { adminNavGroups, ventasNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
 import { useSetModuleContext } from "@/lib/module-context";
 import { PreferencesProvider, usePreferences } from "@/lib/preferences-context";
 import { CurrencyProvider } from "@/lib/currency-context";
 import { PageTracker } from "@/components/page-tracker";
+import { usePathname } from "@/navigation";
 
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { FinancialToolkit } from "@/components/financial-toolkit";
@@ -18,10 +19,15 @@ import { LazyVoiceAssistant } from "@/components/voice-assistant-lazy";
 
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
 
+const VENTAS_PATHS = ['/facturacion', '/punto-de-venta', '/modelo-factura', '/nota-debito', '/nota-credito', '/facturacion-credito', '/proformas', '/cotizaciones'];
+
 function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     const { user } = useAuth();
     const { prefs } = usePreferences();
+    const pathname = usePathname();
     useSetModuleContext("admin");
+    const isVentasSection = VENTAS_PATHS.some(p => pathname.startsWith(p));
+    const effectiveNavGroups = isVentasSection ? ventasNavGroups : adminNavGroups;
     const displayName = user?.tipo === 'juridico'
       ? (user?.razon_social || user?.nombre || "Empresa")
       : `${user?.nombre || ""}${user?.apellido ? ' ' + user.apellido : ''}`.trim() || "Usuario";
@@ -53,7 +59,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
               <AppHeader 
                 user={headerUser} 
                 dashboardHref="/dashboard-empresa" 
-                navGroups={adminNavGroups}
+                navGroups={effectiveNavGroups}
                 compact={prefs.nav_lateral}
               />
               

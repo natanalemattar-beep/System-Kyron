@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { File, Download, Eye, Search, Lock, Upload, Loader2, Trash2, Plus, FileText, Image, FileSpreadsheet, ArrowLeft, Fingerprint } from "lucide-react";
+import { File, Download, Eye, Search, Lock, Upload, Loader2, Trash2, Plus, FileText, Image, FileSpreadsheet, Fingerprint } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { DocumentVerification } from "@/components/document-verification";
 
-import { Link } from '@/navigation';
+import { BackToDashboard } from "@/components/back-to-dashboard";
 const categorias = [
   "Cédula de Identidad",
   "RIF Personal",
@@ -125,6 +125,7 @@ export default function MisDocumentosPage() {
   };
 
   const handleDelete = async (id: number, nombre: string) => {
+    if (!window.confirm(`¿Eliminar "${nombre}" de la bóveda?`)) return;
     try {
       const res = await fetch(`/api/documentos-personales?id=${id}`, { method: "DELETE" });
       if (res.ok) {
@@ -153,7 +154,7 @@ export default function MisDocumentosPage() {
 
   return (
     <div className="space-y-12">
-      <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
+      <BackToDashboard />
       <header className="relative overflow-hidden rounded-2xl border border-border/30 bg-gradient-to-br from-blue-500/[0.04] via-card to-card p-6 sm:p-8">
         <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/[0.03] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
         <div className="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-5">

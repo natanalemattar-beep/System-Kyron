@@ -17,12 +17,12 @@ export async function GET(req: NextRequest) {
   const checkRegulatorio = searchParams.get('check_regulatorio') === 'true';
   const limit = parseInt(searchParams.get('limit') ?? '20', 10);
 
-  if (checkRegulatorio && session.tipo === 'juridico') {
+  if (checkRegulatorio && session.user.tipo === 'juridico') {
     await verificarAlertasRegulatorias();
   }
 
   const conditions: string[] = ['user_id = $1'];
-  const params: unknown[] = [session.userId];
+  const params: unknown[] = [session.user.id];
   let i = 2;
 
   if (soloNoLeidas) { conditions.push(`leida = false`); }
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
   const [{ total_no_leidas }] = await query<{ total_no_leidas: string }>(
     `SELECT COUNT(*)::text AS total_no_leidas
      FROM notificaciones WHERE user_id = $1 AND leida = false`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({
@@ -59,22 +59,22 @@ export async function PATCH(req: NextRequest) {
   if (todas) {
     await query(
       `UPDATE notificaciones SET leida = true WHERE user_id = $1 AND leida = false`,
-      [session.userId]
+      [session.user.id]
     );
-    return NextResponse.json({ success: true, message: 'Todas las notificaciones marcadas como leídas' });
+    return NextResponse.json({ success: true, message: 'Todas las notificaciones marcadas como leÃ­das' });
   }
 
   if (!id) return NextResponse.json({ error: 'ID requerido' }, { status: 400 });
 
   const existing = await queryOne(
     `SELECT id FROM notificaciones WHERE id = $1 AND user_id = $2`,
-    [id, session.userId]
+    [id, session.user.id]
   );
-  if (!existing) return NextResponse.json({ error: 'Notificación no encontrada' }, { status: 404 });
+  if (!existing) return NextResponse.json({ error: 'NotificaciÃ³n no encontrada' }, { status: 404 });
 
   await query(
     `UPDATE notificaciones SET leida = true WHERE id = $1 AND user_id = $2`,
-    [id, session.userId]
+    [id, session.user.id]
   );
 
   return NextResponse.json({ success: true });
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
   const { tipo, titulo, mensaje, accion_url, metadata } = body;
 
   if (!tipo || !titulo || !mensaje) {
-    return NextResponse.json({ error: 'Tipo, título y mensaje son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Tipo, tÃ­tulo y mensaje son requeridos' }, { status: 400 });
   }
 
   const [notif] = await query(
@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6)
      RETURNING id, tipo, titulo, leida, created_at`,
     [
-      session.userId,
+      session.user.id,
       tipo,
       titulo,
       mensaje,
@@ -105,9 +105,9 @@ export async function POST(req: NextRequest) {
     ]
   );
 
-  sendNotificationEmail(session.userId, { tipo, titulo, mensaje, accion_url }).catch(() => {});
-  sendWhatsAppNotification(session.userId, { tipo, titulo, mensaje }).catch(() => {});
-  sendSmsNotification(session.userId, { tipo, titulo, mensaje }).catch(() => {});
+  sendNotificationEmail(session.user.id, { tipo, titulo, mensaje, accion_url }).catch(err => console.error('[notificaciones] Email falló:', err));
+  sendWhatsAppNotification(session.user.id, { tipo, titulo, mensaje }).catch(err => console.error('[notificaciones] WhatsApp falló:', err));
+  sendSmsNotification(session.user.id, { tipo, titulo, mensaje }).catch(err => console.error('[notificaciones] SMS falló:', err));
 
   return NextResponse.json({ success: true, notificacion: notif });
 }

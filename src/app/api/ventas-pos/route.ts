@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   const fecha_fin = searchParams.get('fecha_fin');
 
   const conditions = ['v.user_id = $1'];
-  const params: unknown[] = [session.userId];
+  const params: unknown[] = [session.user.id];
   let i = 2;
 
   if (fecha_inicio) { conditions.push(`v.fecha_venta >= $${i++}`); params.push(fecha_inicio); }
@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
        COALESCE(SUM(total) FILTER (WHERE estado = 'completada' AND DATE(fecha_venta) = CURRENT_DATE), 0)::text AS total_hoy,
        COALESCE(SUM(total) FILTER (WHERE estado = 'completada' AND date_trunc('month', fecha_venta) = date_trunc('month', NOW())), 0)::text AS total_mes
      FROM ventas_pos WHERE user_id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({ ventas, stats: stats[0] ?? {} });
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!numero_venta || !Array.isArray(items) || items.length === 0) {
-    return NextResponse.json({ error: 'Número de venta e items son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'NÃºmero de venta e items son requeridos' }, { status: 400 });
   }
 
   let subtotal = 0;
@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,16,$5,$6,$7,$8,$9,$10,$11,$12)
      RETURNING id, numero_venta`,
     [
-      session.userId,
+      session.user.id,
       cliente_id ?? null, numero_venta,
       subtotal, monto_iva, descuento_total, total,
       moneda ?? 'VES',
@@ -108,16 +108,16 @@ export async function POST(req: NextRequest) {
     if (item.inventario_id && cant > 0) {
       await query(
         `UPDATE inventario SET stock_actual = GREATEST(0, stock_actual - $1) WHERE id = $2 AND user_id = $3`,
-        [cant, item.inventario_id, session.userId]
+        [cant, item.inventario_id, session.user.id]
       );
     }
   }
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'VENTA_POS',
     categoria: 'contabilidad',
-    descripcion: `Venta POS: ${venta.numero_venta} — Total: Bs. ${total.toFixed(2)} (${metodo_pago ?? 'efectivo'})`,
+    descripcion: `Venta POS: ${venta.numero_venta} â€” Total: Bs. ${total.toFixed(2)} (${metodo_pago ?? 'efectivo'})`,
     entidadTipo: 'venta_pos',
     entidadId: venta.id,
     metadata: { total, metodo_pago, moneda },

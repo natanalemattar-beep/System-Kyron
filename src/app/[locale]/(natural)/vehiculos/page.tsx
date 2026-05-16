@@ -11,10 +11,29 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import { Loader2, Plus, Search, Trash2, ArrowLeft, Car, CircleCheck, TriangleAlert, Clock, XCircle, FileText, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Heart, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
+  import { Loader2, Plus, Search, Trash2, Car, CircleCheck, TriangleAlert, Clock, XCircle, FileText, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Heart, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
+  import { BackToDashboard } from "@/components/back-to-dashboard";
   import { cn } from "@/lib/utils";
-  import { Link } from "@/navigation";
+
+  interface VehiculoRow {
+    id: number;
+    marca: string;
+    modelo: string;
+    anio: string;
+    color: string;
+    placa: string;
+    serial_carroceria: string;
+    serial_motor: string;
+    tipo: string;
+    estado: string;
+    fecha_registro: string;
+    seguro_poliza: string;
+    seguro_vencimiento: string;
+    revision_tecnica: string;
+    notas: string;
+    created_at?: string;
+  }
 
   const estadoColors: Record<string, string> = {
     activo: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
@@ -25,8 +44,8 @@
 
   export default function MisVehículosPage() {
     const { toast } = useToast();
-    const [data, setData] = useState<any[]>([]);
-    const [stats, setStats] = useState<any>({});
+    const [data, setData] = useState<VehiculoRow[]>([]);
+    const [stats, setStats] = useState<Record<string, number>>({});
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -86,6 +105,7 @@
     };
 
     const handleDelete = async (id: number) => {
+      if (!window.confirm("¿Eliminar este vehículo?")) return;
       try {
         await fetch("/api/vehiculos", {
           method: "DELETE",
@@ -112,9 +132,7 @@
         </div>
 
         <div>
-          <Link href="/dashboard" className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition mb-4">
-            <ArrowLeft className="h-3 w-3" /> Mi Panel
-          </Link>
+          <BackToDashboard />
           <motion.header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <div>
               <motion.div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-[11px] font-semibold uppercase tracking-wide text-violet-500 mb-4" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
@@ -264,7 +282,7 @@
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filtered.map((row: any) => (
+                    {filtered.map((row: VehiculoRow) => (
                       <TableRow key={row.id} className="hover:bg-muted/30 transition">
                         <TableCell className="text-xs font-medium">{row.marca || "—"}</TableCell>
                       <TableCell className="text-xs font-medium">{row.modelo || "—"}</TableCell>

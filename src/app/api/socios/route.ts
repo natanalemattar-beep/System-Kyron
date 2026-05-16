@@ -15,7 +15,7 @@ export async function GET() {
      FROM socios
      WHERE user_id = $1
      ORDER BY porcentaje_participacion DESC`,
-    [session.userId]
+    [session.user.id]
   );
 
   const actas = await query(
@@ -26,7 +26,7 @@ export async function GET() {
      WHERE user_id = $1
      ORDER BY fecha_asamblea DESC
      LIMIT 20`,
-    [session.userId]
+    [session.user.id]
   );
 
   const stats = await queryOne<{
@@ -40,7 +40,7 @@ export async function GET() {
        (SELECT COUNT(*)::int FROM socios WHERE user_id = $1 AND activo = true) AS socios_activos,
        (SELECT COUNT(*)::int FROM actas_asamblea WHERE user_id = $1) AS total_actas,
        (SELECT COUNT(*)::int FROM actas_asamblea WHERE user_id = $1 AND estado = 'registrada') AS actas_registradas`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({
@@ -65,13 +65,13 @@ export async function POST(req: NextRequest) {
       `INSERT INTO socios (user_id, nombre, cedula_rif, tipo, porcentaje_participacion, cargo, fecha_ingreso, email, telefono)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
        RETURNING id, nombre, porcentaje_participacion::text, cargo`,
-      [session.userId, nombre, cedula_rif ?? null, tipo ?? 'natural',
+      [session.user.id, nombre, cedula_rif ?? null, tipo ?? 'natural',
        parseFloat(porcentaje_participacion || '0'), cargo ?? null,
        fecha_ingreso ?? null, email ?? null, telefono ?? null]
     );
 
     await logActivity({
-      userId: session.userId, evento: 'SOCIO_REGISTRADO', categoria: 'socios',
+      userId: session.user.id, evento: 'SOCIO_REGISTRADO', categoria: 'socios',
       descripcion: `Socio registrado: ${nombre}`,
       entidadTipo: 'socio', entidadId: (socio as { id: number }).id,
       metadata: { nombre, cargo },
@@ -83,21 +83,21 @@ export async function POST(req: NextRequest) {
   if (entity === 'acta') {
     const { numero_acta, tipo, fecha_asamblea, lugar, quorum_pct, orden_del_dia, acuerdos, presidente, secretario, notas } = body;
     if (!numero_acta || !fecha_asamblea) {
-      return NextResponse.json({ error: 'Número de acta y fecha son requeridos' }, { status: 400 });
+      return NextResponse.json({ error: 'NÃºmero de acta y fecha son requeridos' }, { status: 400 });
     }
 
     const [acta] = await query(
       `INSERT INTO actas_asamblea (user_id, numero_acta, tipo, fecha_asamblea, lugar, quorum_pct, orden_del_dia, acuerdos, presidente, secretario, notas)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
        RETURNING id, numero_acta, tipo, estado`,
-      [session.userId, numero_acta, tipo ?? 'ordinaria', fecha_asamblea,
+      [session.user.id, numero_acta, tipo ?? 'ordinaria', fecha_asamblea,
        lugar ?? null, quorum_pct ? parseFloat(quorum_pct) : null,
        orden_del_dia ?? null, acuerdos ?? null,
        presidente ?? null, secretario ?? null, notas ?? null]
     );
 
     await logActivity({
-      userId: session.userId, evento: 'ACTA_ASAMBLEA_CREADA', categoria: 'socios',
+      userId: session.user.id, evento: 'ACTA_ASAMBLEA_CREADA', categoria: 'socios',
       descripcion: `Acta de asamblea: ${numero_acta}`,
       entidadTipo: 'acta_asamblea', entidadId: (acta as { id: number }).id,
       metadata: { numero_acta, tipo },
@@ -106,7 +106,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, acta });
   }
 
-  return NextResponse.json({ error: 'Entidad no válida' }, { status: 400 });
+  return NextResponse.json({ error: 'Entidad no vÃ¡lida' }, { status: 400 });
 }
 
 export async function PATCH(req: NextRequest) {
@@ -132,7 +132,7 @@ export async function PATCH(req: NextRequest) {
       [nombre ?? null, cedula_rif ?? null,
        porcentaje_participacion != null ? parseFloat(porcentaje_participacion) : null,
        cargo ?? null, activo ?? null, email ?? null, telefono ?? null,
-       id, session.userId]
+       id, session.user.id]
     );
     return NextResponse.json({ success: true });
   }
@@ -144,12 +144,12 @@ export async function PATCH(req: NextRequest) {
          estado = COALESCE($1, estado),
          notas = COALESCE($2, notas)
        WHERE id = $3 AND user_id = $4`,
-      [estado ?? null, notas ?? null, id, session.userId]
+      [estado ?? null, notas ?? null, id, session.user.id]
     );
     return NextResponse.json({ success: true });
   }
 
-  return NextResponse.json({ error: 'Entidad no válida' }, { status: 400 });
+  return NextResponse.json({ error: 'Entidad no vÃ¡lida' }, { status: 400 });
 }
 
 export async function DELETE(req: NextRequest) {
@@ -162,12 +162,12 @@ export async function DELETE(req: NextRequest) {
   if (!entity || !id) return NextResponse.json({ error: 'entity e id requeridos' }, { status: 400 });
 
   const table = entity === 'socio' ? 'socios' : entity === 'acta' ? 'actas_asamblea' : null;
-  if (!table) return NextResponse.json({ error: 'Entidad no válida' }, { status: 400 });
+  if (!table) return NextResponse.json({ error: 'Entidad no vÃ¡lida' }, { status: 400 });
 
-  await query(`DELETE FROM ${table} WHERE id = $1 AND user_id = $2`, [parseInt(id), session.userId]);
+  await query(`DELETE FROM ${table} WHERE id = $1 AND user_id = $2`, [parseInt(id), session.user.id]);
 
   await logActivity({
-    userId: session.userId, evento: entity === 'socio' ? 'SOCIO_ELIMINADO' : 'ACTA_ELIMINADA',
+    userId: session.user.id, evento: entity === 'socio' ? 'SOCIO_ELIMINADO' : 'ACTA_ELIMINADA',
     categoria: 'socios', descripcion: `${entity} #${id} eliminado`,
     entidadTipo: entity, entidadId: parseInt(id),
   });

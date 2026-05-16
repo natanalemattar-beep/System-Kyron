@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calculator, Calendar, DollarSign, Briefcase, Clock, Award, TrendingUp, ArrowLeft, Activity, Info } from "lucide-react";
+import { Calculator, Calendar, DollarSign, Briefcase, Clock, Award, TrendingUp, Activity, Info } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,8 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { Link } from "@/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { BackToDashboard } from "@/components/back-to-dashboard";
 
 interface ResultadoPrestaciones {
   anosServicio: number;
@@ -206,9 +206,7 @@ export default function CalculadoraPrestacionesPage() {
       >
         <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/[0.03] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
         <div className="relative">
-          <Link href="/dashboard" className="inline-flex items-center gap-1.5 text-[10px] text-muted-foreground/60 hover:text-emerald-500 transition-colors mb-4 font-medium uppercase tracking-widest">
-            <ArrowLeft className="h-3 w-3" /> Volver al Dashboard
-          </Link>
+          <BackToDashboard />
           <div className="flex items-start gap-5">
             <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
               <Calculator className="h-7 w-7 text-emerald-500" />

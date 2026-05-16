@@ -82,9 +82,25 @@ export default function LoginPersonalPage() {
         setIsLoading(false);
         return;
       }
+      const MODULE_PATH_MAP: Record<string, string> = {
+        contabilidad: '/resumen-negocio',
+        juridico: '/resumen-negocio',
+        legal: '/escritorio-juridico',
+        ventas: '/ventas',
+        sostenibilidad: '/sostenibilidad',
+        telecom: '/linea',
+      };
+      const modules = json.user?.modules;
+      let dashboardPath = '/dashboard';
+      if (modules && modules.length > 0) {
+        for (const mod of modules) {
+          const p = MODULE_PATH_MAP[mod];
+          if (p) { dashboardPath = p; break; }
+        }
+      }
       if (json.accessKeyUsed || json.success) {
         toast({ title: json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-        router.push('/dashboard');
+        router.push(dashboardPath as any);
         return;
       }
       if (json.requiresVerification) {
@@ -105,7 +121,7 @@ export default function LoginPersonalPage() {
         return;
       }
       toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-      router.push('/dashboard');
+      router.push(dashboardPath as any);
     } catch { setError('Error de conexión.'); setIsLoading(false); }
   };
 
@@ -167,7 +183,10 @@ export default function LoginPersonalPage() {
       const json = await res.json();
       if (!res.ok) { setError(json.error || 'Código incorrecto.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); setTimeout(() => inputRefs.current[0]?.focus(), 100); return; }
       toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-      router.push('/dashboard' as any);
+      const modPathMap: Record<string, string> = { contabilidad: '/resumen-negocio', juridico: '/resumen-negocio', legal: '/escritorio-juridico', ventas: '/ventas', sostenibilidad: '/sostenibilidad', telecom: '/linea' };
+      let dest = '/dashboard';
+      for (const mod of (json.user?.modules ?? [])) { const p = modPathMap[mod]; if (p) { dest = p; break; } }
+      router.push(dest as any);
     } catch { setError('Error de conexión.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); }
   };
 

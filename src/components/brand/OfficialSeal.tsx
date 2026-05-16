@@ -20,7 +20,7 @@ export function OfficialSeal({ className }: { className?: string }) {
         const { toPng } = await import('html-to-image');
         const dataUrl = await toPng(el, {
             width: 1200, height: 1200, pixelRatio: 3, backgroundColor: '#ffffff',
-            cacheBust: true, useCORS: 'anonymous',
+            cacheBust: true,
         });
         el.style.width = origWidth;
         el.style.height = origHeight;

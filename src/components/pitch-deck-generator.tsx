@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Download, FilePresentation, Sparkles, Loader2, Check } from "lucide-react";
+import { Download, Presentation, Sparkles, Loader2, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -75,7 +75,7 @@ export function PitchDeckGenerator() {
             <div className="space-y-4">
                 <div className="flex items-center gap-3">
                     <div className="p-3 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30">
-                        <FilePresentation className="h-6 w-6 text-cyan-400" />
+                        <Presentation className="h-6 w-6 text-cyan-400" />
                     </div>
                     <div>
                         <h3 className="text-xl font-black uppercase tracking-tight text-white">Generador de Pitch Deck</h3>

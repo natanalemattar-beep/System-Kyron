@@ -18,13 +18,13 @@ export async function GET(req: NextRequest) {
         const limit    = Number.isFinite(rawLimit) ? Math.min(Math.max(rawLimit, 1), 500) : 50;
 
         const conditions: string[] = ['m.user_id = $1'];
-        const params: unknown[] = [session.userId];
+        const params: unknown[] = [session.user.id];
         let i = 2;
 
         if (cuentaId) {
             const cid = parseInt(cuentaId, 10);
             if (!Number.isFinite(cid)) {
-                return NextResponse.json({ error: 'cuenta_id inválido' }, { status: 400 });
+                return NextResponse.json({ error: 'cuenta_id invÃ¡lido' }, { status: 400 });
             }
             conditions.push(`m.cuenta_id = $${i++}`);
             params.push(cid);
@@ -65,34 +65,34 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
         }
         if (!['credito', 'debito'].includes(tipo)) {
-            return NextResponse.json({ error: 'Tipo inválido. Use credito o debito' }, { status: 400 });
+            return NextResponse.json({ error: 'Tipo invÃ¡lido. Use credito o debito' }, { status: 400 });
         }
 
         const montoNum = parseFloat(monto);
         if (!Number.isFinite(montoNum) || montoNum <= 0) {
-            return NextResponse.json({ error: 'Monto inválido — debe ser un número positivo' }, { status: 400 });
+            return NextResponse.json({ error: 'Monto invÃ¡lido â€” debe ser un nÃºmero positivo' }, { status: 400 });
         }
 
         const [mov] = await query(
             `INSERT INTO movimientos_bancarios (user_id, cuenta_id, fecha_operacion, concepto, monto, tipo, referencia)
              VALUES ($1, $2, $3, $4, $5, $6, $7)
              RETURNING id, fecha_operacion, concepto, monto::text, tipo, referencia, conciliado`,
-            [session.userId, cuenta_id ?? null, fecha_operacion, concepto, montoNum, tipo, referencia ?? null]
+            [session.user.id, cuenta_id ?? null, fecha_operacion, concepto, montoNum, tipo, referencia ?? null]
         );
 
         if (cuenta_id) {
             const delta = tipo === 'credito' ? montoNum : -montoNum;
             await query(
                 `UPDATE cuentas_bancarias SET saldo_actual = saldo_actual + $1, saldo_disponible = saldo_disponible + $1 WHERE id = $2 AND user_id = $3`,
-                [delta, cuenta_id, session.userId]
+                [delta, cuenta_id, session.user.id]
             );
         }
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'NUEVO_MOVIMIENTO',
             categoria: 'banco',
-            descripcion: `Movimiento bancario: ${tipo === 'credito' ? '↑ Crédito' : '↓ Débito'} ${monto} — ${concepto}`,
+            descripcion: `Movimiento bancario: ${tipo === 'credito' ? 'â†‘ CrÃ©dito' : 'â†“ DÃ©bito'} ${monto} â€” ${concepto}`,
             entidadTipo: 'movimiento',
             entidadId: (mov as { id: number }).id,
             metadata: { tipo, monto, concepto, cuenta_id: cuenta_id ?? null, referencia: referencia ?? null },

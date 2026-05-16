@@ -23,7 +23,7 @@ export async function GET() {
        AND fecha_vencimiento IS NOT NULL
        AND (fecha_vencimiento - CURRENT_DATE) <= 90
      ORDER BY fecha_vencimiento ASC`,
-    [session.userId]
+    [session.user.id]
   );
 
   const resumen = await query(
@@ -42,7 +42,7 @@ export async function GET() {
                           AND estado = 'vigente')::int AS por_vencer_60,
        COUNT(*)::int AS total
      FROM permisos_legales WHERE user_id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({ alertas, resumen: resumen[0] ?? {} });

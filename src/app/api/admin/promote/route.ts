@@ -17,19 +17,19 @@ export async function POST(req: NextRequest) {
     const { secret } = await req.json();
 
     if (!secret || secret !== ADMIN_SECRET) {
-      return NextResponse.json({ error: 'Contraseña incorrecta' }, { status: 401 });
+      return NextResponse.json({ error: 'ContraseÃ±a incorrecta' }, { status: 401 });
     }
 
     await query(
       `UPDATE users SET tipo = 'admin' WHERE id = $1`,
-      [session.userId]
+      [session.user.id]
     );
 
-    console.log(`[admin] ${session.email} promoted to admin`);
+    console.log(`[admin] ${session.user.email} promoted to admin`);
 
     return NextResponse.json({
       success: true,
-      message: '¡Bienvenido CEO! Ahora eres administrador. Recarga la página para que los cambios se reflejen.',
+      message: 'Â¡Bienvenido CEO! Ahora eres administrador. Recarga la pÃ¡gina para que los cambios se reflejen.',
     });
   } catch (err) {
     console.error('[admin-promote] Error:', err);

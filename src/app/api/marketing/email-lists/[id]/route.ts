@@ -11,11 +11,11 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
 
     try {
         const { id } = await params;
-        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
         const idNum = parseInt(id);
         const list = await queryOne(
             `SELECT * FROM email_lists WHERE id = $1 AND user_id = $2`,
-            [idNum, session.userId]
+            [idNum, session.user.id]
         );
         if (!list) return NextResponse.json({ error: 'Lista no encontrada' }, { status: 404 });
         return NextResponse.json({ list });
@@ -30,10 +30,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
     const idNum = parseInt(id);
 
-    const existing = await queryOne(`SELECT id FROM email_lists WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+    const existing = await queryOne(`SELECT id FROM email_lists WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
     if (!existing) return NextResponse.json({ error: 'Lista no encontrada' }, { status: 404 });
 
     try {
@@ -52,12 +52,12 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
                 nombre ?? null,
                 total != null ? Math.max(0, parseInt(total) || 0) : null,
                 activos != null ? Math.max(0, parseInt(activos) || 0) : null,
-                idNum, session.userId,
+                idNum, session.user.id,
             ]
         );
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'ACTUALIZAR_EMAIL_LIST',
             categoria: 'marketing',
             descripcion: `Lista de email actualizada: ${(updated as { nombre: string }).nombre}`,
@@ -77,17 +77,17 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
     const idNum = parseInt(id);
 
-    const existing = await queryOne<{ nombre: string }>(`SELECT nombre FROM email_lists WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+    const existing = await queryOne<{ nombre: string }>(`SELECT nombre FROM email_lists WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
     if (!existing) return NextResponse.json({ error: 'Lista no encontrada' }, { status: 404 });
 
     try {
-        await query(`DELETE FROM email_lists WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+        await query(`DELETE FROM email_lists WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'ELIMINAR_EMAIL_LIST',
             categoria: 'marketing',
             descripcion: `Lista de email eliminada: ${existing.nombre}`,

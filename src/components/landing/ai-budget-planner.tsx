@@ -134,9 +134,9 @@ export function AIBudgetPlanner() {
                             </div>
 
                             <div className="space-y-8">
-                                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 dark:text-white/30 flex items-center gap-2 transition-colors">
-                                    <Zap className="h-4 w-4" /> {t('needs_label')}
-                                </label>
+                                 <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 dark:text-white/30 flex items-center gap-2 transition-colors">
+                                     <Zap className="h-4 w-4" /> Módulos Necesarios
+                                 </label>
                                 <div className="grid grid-cols-1 gap-4">
                                     {[
                                         { id: 'mi_linea_personal', label: t('module_mi_linea_personal'), icon: Wifi },
@@ -151,12 +151,12 @@ export function AIBudgetPlanner() {
                                                 if (needs.includes(mod.id)) setNeeds(needs.filter(n => n !== mod.id));
                                                 else setNeeds([...needs, mod.id]);
                                             }}
-                                            className={cn(
-                                                "flex items-center gap-5 p-5 rounded-[1.5rem] border transition-all cursor-pointer group shadow-sm",
-                                                needs.includes(mod.id) 
-                                                    ? "bg-cyan-500/10 border-cyan-500/40 text-slate-900 dark:text-white shadow-cyan-500/10" 
-                                                    : "bg-white dark:bg-white/5 border-black/5 dark:border-white/5 text-slate-400 dark:text-white/40 hover:bg-black/[0.03] dark:hover:bg-white/10"
-                                            )}
+                                             className={cn(
+                                                 "flex items-center gap-5 p-5 rounded-[1.5rem] border transition-all cursor-pointer group shadow-sm",
+                                                 needs.includes(mod.id) 
+                                                     ? "bg-cyan-500/20 border-cyan-500/50 text-slate-900 dark:text-white shadow-cyan-500/20" 
+                                                     : "bg-white dark:bg-white/10 border-black/10 dark:border-white/10 text-slate-700 dark:text-white/80 hover:bg-black/[0.03] dark:hover:bg-white/20"
+                                             )}
                                         >
                                             <div className={cn(
                                                 "h-12 w-12 rounded-xl flex items-center justify-center transition-all duration-500 shadow-sm",
@@ -289,10 +289,12 @@ export function AIBudgetPlanner() {
                                     animate={{ opacity: 1 }}
                                     className="h-full flex flex-col items-center justify-center space-y-8 bg-black/[0.01] dark:bg-white/[0.01] rounded-[3.5rem] border-black/5 dark:border-white/5 border-dashed border-2 opacity-50 transition-colors"
                                 >
-                                    <div className="h-24 w-24 rounded-full bg-black/[0.03] dark:bg-white/5 flex items-center justify-center transition-colors">
-                                        <Cpu className="h-12 w-12 text-slate-300 dark:text-white/20 transition-colors" />
-                                    </div>
-                                    <p className="text-[11px] font-black uppercase tracking-[0.5em] text-slate-400 dark:text-white/40 transition-colors">Esperando parámetros...</p>
+                                 <div className="h-24 w-24 rounded-full bg-black/[0.03] dark:bg-white/5 flex items-center justify-center transition-colors border-2 border-dashed border-slate-300 dark:border-white/10">
+                                     <Cpu className="h-12 w-12 text-slate-300 dark:text-white/20 transition-colors" />
+                                 </div>
+                                 <p className="text-[11px] font-black uppercase tracking-[0.5em] text-slate-400 dark:text-white/40 transition-colors">
+                                     {needs.length === 0 ? "Seleccione sus módulos..." : "Esperando parámetros..."}
+                                 </p>
                                 </motion.div>
                             )}
                         </AnimatePresence>

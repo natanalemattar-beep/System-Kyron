@@ -8,7 +8,7 @@ async function isAuthorized(req: NextRequest): Promise<boolean> {
   const adminKey = req.headers.get('x-admin-key');
   if (adminKey && process.env.DB_INIT_SECRET && adminKey === process.env.DB_INIT_SECRET) return true;
   const session = await getSession();
-  return !!session && session.tipo === 'admin';
+  return !!session && session.user.tipo === 'admin';
 }
 
 export async function POST(req: NextRequest) {

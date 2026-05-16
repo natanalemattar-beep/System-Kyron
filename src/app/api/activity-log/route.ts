@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
     const limit = Math.min(parseInt(searchParams.get('limit') ?? '50', 10), 200);
 
     const conditions: string[] = ['user_id = $1'];
-    const params: unknown[] = [session.userId];
+    const params: unknown[] = [session.user.id];
     let i = 2;
 
     if (categoria && categoria !== 'todas') {
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
 
     const resumen = await query<{ categoria: string; total: string }>(
       `SELECT categoria, COUNT(*) as total FROM activity_log WHERE user_id = $1 GROUP BY categoria ORDER BY total DESC`,
-      [session.userId]
+      [session.user.id]
     );
 
     return NextResponse.json({ logs, resumen });
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     await logActivity({
-      userId: session.userId,
+      userId: session.user.id,
       evento: body.evento ?? 'EVENTO_MANUAL',
       categoria: body.categoria ?? 'sistema',
       descripcion: body.descripcion ?? null,

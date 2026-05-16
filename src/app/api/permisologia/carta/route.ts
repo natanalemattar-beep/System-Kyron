@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     `SELECT razon_social, rif, direccion, telefono, nombre, apellido, cedula,
             rep_nombre, rep_cedula, rep_cargo, estado_empresa, municipio_empresa, actividad_economica
      FROM users WHERE id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   if (!user) {
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 
   const socio = await queryOne<{ nombre: string; cedula_rif: string | null; cargo: string | null }>(
     `SELECT nombre, cedula_rif, cargo FROM socios WHERE user_id = $1 ORDER BY porcentaje_participacion DESC, id ASC LIMIT 1`,
-    [session.userId]
+    [session.user.id]
   );
 
   const repNombre = user.rep_nombre || socio?.nombre || `${user.nombre || ''} ${user.apellido || ''}`.trim() || 'REPRESENTANTE LEGAL';
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
   const empresaData: EmpresaCarta = {
     denominacion: user.razon_social || `${user.nombre || ''} ${user.apellido || ''}`.trim() || 'Mi Empresa',
     rif: user.rif || 'Sin RIF registrado',
-    direccion: direccionCompleta || 'Dirección no registrada',
+    direccion: direccionCompleta || 'DirecciÃ³n no registrada',
     telefono: user.telefono || undefined,
     representante: {
       nombre: repNombre,
@@ -80,10 +80,10 @@ export async function POST(req: NextRequest) {
   const carta = generarCartaSolicitud(permiso, empresaData, tipoCarta);
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'CARTA_PERMISOLOGIA',
     categoria: 'legal',
-    descripcion: `Carta de ${tipoCarta} generada: ${permiso.nombre} — ${getOrganismoById(permiso.organismoId)?.nombre}`,
+    descripcion: `Carta de ${tipoCarta} generada: ${permiso.nombre} â€” ${getOrganismoById(permiso.organismoId)?.nombre}`,
     entidadTipo: 'permiso_legal',
   });
 

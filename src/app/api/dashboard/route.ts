@@ -14,7 +14,7 @@ export async function GET() {
     }
 
     try {
-        const uid = session.userId;
+        const uid = session.user.id;
 
         const [
             ingresos, gastos, liquidez,

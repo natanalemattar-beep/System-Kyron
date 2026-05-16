@@ -18,7 +18,7 @@ export async function GET() {
      FROM proyectos_propuesta
      WHERE user_id = $1
      ORDER BY prioridad DESC, created_at DESC`,
-    [session.userId]
+    [session.user.id]
   );
 
   const stats = await query(
@@ -28,7 +28,7 @@ export async function GET() {
        COUNT(*) FILTER (WHERE fase = 'completado')::int AS completados,
        COALESCE(SUM(presupuesto_estimado) FILTER (WHERE fase NOT IN ('cancelado','completado')), 0)::text AS presupuesto_activo
      FROM proyectos_propuesta WHERE user_id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({ proyectos, stats: stats[0] ?? {} });
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19)
      RETURNING id`,
     [
-      session.userId,
+      session.user.id,
       nombre, codigo ?? null,
       tipo ?? 'interno',
       descripcion ?? null, objetivo ?? null, alcance ?? null,
@@ -75,10 +75,10 @@ export async function POST(req: NextRequest) {
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'NUEVO_PROYECTO',
     categoria: 'sistema',
-    descripcion: `Proyecto creado: ${nombre} — ${tipo ?? 'interno'}`,
+    descripcion: `Proyecto creado: ${nombre} â€” ${tipo ?? 'interno'}`,
     entidadTipo: 'proyecto',
     entidadId: proyecto.id,
   });
@@ -96,7 +96,7 @@ export async function PATCH(req: NextRequest) {
 
   await query(
     `UPDATE proyectos_propuesta SET fase = $1, updated_at = NOW() WHERE id = $2 AND user_id = $3`,
-    [fase, id, session.userId]
+    [fase, id, session.user.id]
   );
 
   return NextResponse.json({ success: true });

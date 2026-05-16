@@ -26,18 +26,18 @@ export async function POST(req: NextRequest) {
        VALUES ($1, CURRENT_DATE, 'completo', $2, $3, 0, $4, $5, $6, 'cerrado', $7)
        RETURNING *`,
       [
-        session.userId,
+        session.user.id,
         totalEsperado,
         totalContado,
         totalContado,
         diff,
-        session.nombre || 'Usuario',
+        session.user.nombre || 'Usuario',
         observaciones || '',
       ]
     );
 
     await logActivity({
-      userId: session.userId,
+      userId: session.user.id,
       evento: 'CIERRE_CAJA',
       categoria: 'contabilidad',
       descripcion: `Cierre de caja registrado. Diferencia: ${diferencia}`,
@@ -60,7 +60,7 @@ export async function GET() {
   try {
     const rows = await query(
       `SELECT * FROM arqueos_caja WHERE user_id = $1 ORDER BY created_at DESC LIMIT 30`,
-      [session.userId]
+      [session.user.id]
     );
     return NextResponse.json({ arqueos: rows });
   } catch {

@@ -15,7 +15,7 @@ export async function GET() {
                     fecha_ingreso, salario_base::text, tipo_contrato, activo,
                     telefono, email, cuenta_banco, numero_cuenta, created_at
              FROM empleados WHERE user_id = $1 ORDER BY apellido, nombre`,
-            [session.userId]
+            [session.user.id]
         );
 
         return NextResponse.json({ empleados });
@@ -34,17 +34,17 @@ export async function POST(req: NextRequest) {
         const { nombre, apellido, cedula, cargo, departamento, fecha_ingreso, salario_base, tipo_contrato, telefono, email, cuenta_banco, numero_cuenta } = body;
 
         if (!nombre || !apellido || !cedula) {
-            return NextResponse.json({ error: 'Nombre, apellido y cédula son requeridos' }, { status: 400 });
+            return NextResponse.json({ error: 'Nombre, apellido y cÃ©dula son requeridos' }, { status: 400 });
         }
 
         const existing = await queryOne(`SELECT id FROM empleados WHERE cedula = $1`, [cedula]);
         if (existing) {
-            return NextResponse.json({ error: 'Ya existe un empleado con esa cédula' }, { status: 409 });
+            return NextResponse.json({ error: 'Ya existe un empleado con esa cÃ©dula' }, { status: 409 });
         }
 
         const salarioNum = parseFloat(salario_base ?? '0');
         if (isNaN(salarioNum)) {
-            return NextResponse.json({ error: 'Salario base inválido' }, { status: 400 });
+            return NextResponse.json({ error: 'Salario base invÃ¡lido' }, { status: 400 });
         }
 
         const [empleado] = await query(
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
              VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
              RETURNING id, nombre, apellido, cedula, cargo, departamento`,
             [
-                session.userId,
+                session.user.id,
                 nombre, apellido, cedula,
                 cargo ?? null,
                 departamento ?? null,
@@ -67,10 +67,10 @@ export async function POST(req: NextRequest) {
         );
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'NUEVO_EMPLEADO',
             categoria: 'rrhh',
-            descripcion: `Empleado registrado: ${nombre} ${apellido} — ${cargo ?? 'Sin cargo'} · C.I. ${cedula}`,
+            descripcion: `Empleado registrado: ${nombre} ${apellido} â€” ${cargo ?? 'Sin cargo'} Â· C.I. ${cedula}`,
             entidadTipo: 'empleado',
             entidadId: (empleado as { id: number }).id,
             metadata: { cedula, cargo: cargo ?? null, departamento: departamento ?? null },

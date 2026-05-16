@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { Stethoscope, Search, Smartphone, MapPin, ArrowLeft, Info, Loader2, Inbox } from "lucide-react";
+import { Stethoscope, Search, Smartphone, MapPin, Info, Loader2, Inbox } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from '@/navigation';
 import { cn } from "@/lib/utils";
+import { BackToDashboard } from "@/components/back-to-dashboard";
 
 interface CentroMedico {
   id: number;
@@ -49,9 +49,7 @@ export default function DirectorioMedicoPage() {
 
   return (
     <div className="space-y-8 pb-20 max-w-5xl mx-auto">
-      <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
-        <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
-      </Link>
+      <BackToDashboard />
 
       <motion.div
         initial={{ opacity: 0, y: 16 }}

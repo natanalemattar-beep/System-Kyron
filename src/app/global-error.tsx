@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { ShieldAlert, RefreshCcw } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 
 export default function GlobalError({
   error,

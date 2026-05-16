@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   const conditions = [
     `cv.user_id = $1`
   ];
-  const params: unknown[] = [session.userId];
+  const params: unknown[] = [session.user.id];
   let i = 2;
 
   if (vacante_id) {
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
      RETURNING id`,
     [
-      session.userId,
+      session.user.id,
       vacante_id, nombre, apellido,
       cedula ?? null, email,
       telefono ?? null, cv_url ?? null,
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'NUEVO_CANDIDATO',
     categoria: 'rrhh',
     descripcion: `Candidato registrado: ${nombre} ${apellido} para vacante #${vacante_id}`,
@@ -101,7 +101,7 @@ export async function PATCH(req: NextRequest) {
   if (puntuacion !== undefined) { updates.push(`puntuacion = $${i++}`); params.push(puntuacion); }
   if (notas_evaluacion !== undefined) { updates.push(`notas_evaluacion = $${i++}`); params.push(notas_evaluacion); }
 
-  params.push(id, session.userId);
+  params.push(id, session.user.id);
 
   await query(
     `UPDATE candidatos_vacante SET ${updates.join(', ')} WHERE id = $${i++} AND user_id = $${i++}`,

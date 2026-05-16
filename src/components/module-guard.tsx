@@ -23,6 +23,19 @@ function getUserDefaultDashboard(modules: string[], tipo: string): string {
     for (const mod of modules) {
       if (MODULE_ROUTE_MAP.ventas.includes(mod)) return '/estrategias-ventas';
     }
+    for (const mod of modules) {
+      if (MODULE_ROUTE_MAP.telecom.includes(mod)) return '/dashboard-ejecutivo';
+    }
+    for (const mod of modules) {
+      if (MODULE_ROUTE_MAP.hr.includes(mod)) return '/dashboard-rrhh';
+    }
+    for (const mod of modules) {
+      if (MODULE_ROUTE_MAP.legal.includes(mod)) return '/escritorio-juridico';
+    }
+    for (const mod of modules) {
+      if (MODULE_ROUTE_MAP.informatica.includes(mod)) return '/dashboard-it';
+    }
+    return '/dashboard-empresa';
   }
   return '/dashboard';
 }
@@ -62,6 +75,16 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
         router.replace('/dashboard');
       }
       setAuthorized(layoutKey === 'natural');
+      setChecked(true);
+      return;
+    }
+
+    if (userModules.length === 0 && (user.tipo === 'juridico' || user.tipo === 'admin')) {
+      if (layoutKey !== 'admin' && !redirectedRef.current) {
+        redirectedRef.current = true;
+        router.replace('/dashboard-empresa');
+      }
+      setAuthorized(layoutKey === 'admin');
       setChecked(true);
       return;
     }

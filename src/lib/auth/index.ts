@@ -39,11 +39,21 @@ export async function verifyToken(token: string): Promise<SessionPayload | null>
     }
 }
 
-export async function getSession(): Promise<SessionPayload | null> {
+export async function getSession(): Promise<{ user: { id: number; email: string; tipo: string; nombre: string; role: string } } | null> {
     const cookieStore = await cookies();
     const token = cookieStore.get(COOKIE_NAME)?.value;
     if (!token) return null;
-    return verifyToken(token);
+    const payload = await verifyToken(token);
+    if (!payload) return null;
+    return {
+        user: {
+            id: payload.userId,
+            email: payload.email,
+            tipo: payload.tipo,
+            nombre: payload.nombre,
+            role: payload.tipo === 'admin' ? 'admin' as const : 'user' as const,
+        },
+    };
 }
 
 export function setSessionCookie(token: string): {
@@ -67,6 +77,6 @@ export function setSessionCookie(token: string): {
 
 export const COOKIE_NAME_EXPORT = COOKIE_NAME;
 
-export async function verifyAuth(): Promise<SessionPayload | null> {
+export async function verifyAuth(): Promise<{ user: { id: number; email: string; tipo: string; nombre: string; role: string } } | null> {
   return getSession();
 }

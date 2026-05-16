@@ -29,7 +29,7 @@ export async function GET() {
     const user = await queryOne<DbUser>(
         `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif, plan, plan_monto
          FROM users WHERE id = $1`,
-        [session.userId]
+        [session.user.id]
     );
 
     if (!user) {

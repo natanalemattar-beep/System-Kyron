@@ -8,7 +8,7 @@ export async function GET() {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
-  const userId = session.id;
+  const userId = session.user.id;
 
   const [topRows, totalRow, activeRow] = await Promise.all([
     query(

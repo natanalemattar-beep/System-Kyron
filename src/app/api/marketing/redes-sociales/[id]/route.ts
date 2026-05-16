@@ -11,11 +11,11 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
 
     try {
         const { id } = await params;
-        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
         const idNum = parseInt(id);
         const red = await queryOne(
             `SELECT * FROM redes_sociales WHERE id = $1 AND user_id = $2`,
-            [idNum, session.userId]
+            [idNum, session.user.id]
         );
         if (!red) return NextResponse.json({ error: 'Red social no encontrada' }, { status: 404 });
         return NextResponse.json({ red });
@@ -30,10 +30,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
     const idNum = parseInt(id);
 
-    const existing = await queryOne(`SELECT id FROM redes_sociales WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+    const existing = await queryOne(`SELECT id FROM redes_sociales WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
     if (!existing) return NextResponse.json({ error: 'Red social no encontrada' }, { status: 404 });
 
     try {
@@ -65,12 +65,12 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
                 publicaciones != null ? Math.max(0, parseInt(publicaciones) || 0) : null,
                 mejor_post ?? null,
                 color ?? null, bg ?? null, border_color ?? null,
-                idNum, session.userId,
+                idNum, session.user.id,
             ]
         );
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'ACTUALIZAR_RED_SOCIAL',
             categoria: 'marketing',
             descripcion: `Red social actualizada: ${(updated as { nombre: string }).nombre}`,
@@ -90,17 +90,17 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
     const idNum = parseInt(id);
 
-    const existing = await queryOne<{ nombre: string }>(`SELECT nombre FROM redes_sociales WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+    const existing = await queryOne<{ nombre: string }>(`SELECT nombre FROM redes_sociales WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
     if (!existing) return NextResponse.json({ error: 'Red social no encontrada' }, { status: 404 });
 
     try {
-        await query(`DELETE FROM redes_sociales WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+        await query(`DELETE FROM redes_sociales WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'ELIMINAR_RED_SOCIAL',
             categoria: 'marketing',
             descripcion: `Red social eliminada: ${existing.nombre}`,

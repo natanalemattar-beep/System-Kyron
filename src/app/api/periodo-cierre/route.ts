@@ -16,7 +16,7 @@ export async function GET() {
      FROM periodo_fiscal_cierres
      WHERE user_id = $1
      ORDER BY fecha_cierre DESC`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({ cierres });
@@ -36,13 +36,13 @@ export async function POST(req: NextRequest) {
   const ingresos = await queryOne<{ total: string }>(
     `SELECT COALESCE(SUM(monto), 0)::text AS total FROM movimientos_bancarios
      WHERE user_id = $1 AND tipo = 'credito' AND fecha_operacion BETWEEN $2 AND $3`,
-    [session.userId, fecha_inicio, fecha_fin]
+    [session.user.id, fecha_inicio, fecha_fin]
   );
 
   const gastos = await queryOne<{ total: string }>(
     `SELECT COALESCE(SUM(monto), 0)::text AS total FROM movimientos_bancarios
      WHERE user_id = $1 AND tipo = 'debito' AND fecha_operacion BETWEEN $2 AND $3`,
-    [session.userId, fecha_inicio, fecha_fin]
+    [session.user.id, fecha_inicio, fecha_fin]
   );
 
   const facturas = await queryOne<{ emitidas: string; cobradas: string }>(
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
        COUNT(*) FILTER (WHERE tipo = 'venta')::text AS emitidas,
        COUNT(*) FILTER (WHERE estado = 'cobrada')::text AS cobradas
      FROM facturas WHERE user_id = $1 AND fecha_emision BETWEEN $2 AND $3`,
-    [session.userId, fecha_inicio, fecha_fin]
+    [session.user.id, fecha_inicio, fecha_fin]
   );
 
   const ingresosNum = parseFloat(ingresos?.total ?? '0');
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
      RETURNING id`,
     [
-      session.userId, periodo, fecha_inicio, fecha_fin,
+      session.user.id, periodo, fecha_inicio, fecha_fin,
       ingresosNum, gastosNum, utilidad,
       parseInt(facturas?.emitidas ?? '0'),
       parseInt(facturas?.cobradas ?? '0'),
@@ -73,10 +73,10 @@ export async function POST(req: NextRequest) {
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'CIERRE_PERIODO_FISCAL',
     categoria: 'contabilidad',
-    descripcion: `Período fiscal cerrado: ${periodo} — Utilidad: Bs. ${utilidad.toFixed(2)}`,
+    descripcion: `PerÃ­odo fiscal cerrado: ${periodo} â€” Utilidad: Bs. ${utilidad.toFixed(2)}`,
     entidadTipo: 'periodo_cierre',
     entidadId: cierre.id,
     metadata: { periodo, ingresosNum, gastosNum, utilidad },

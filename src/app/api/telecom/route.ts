@@ -17,7 +17,7 @@ export async function GET() {
      FROM lineas_telecom
      WHERE user_id = $1
      ORDER BY activa DESC, operadora ASC`,
-    [session.userId]
+    [session.user.id]
   );
 
   const facturas = await query(
@@ -29,7 +29,7 @@ export async function GET() {
      WHERE ft.user_id = $1
      ORDER BY ft.fecha_emision DESC
      LIMIT 20`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({ lineas, facturas });
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!numero || !operadora) {
-    return NextResponse.json({ error: 'Número y operadora son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'NÃºmero y operadora son requeridos' }, { status: 400 });
   }
 
   const existing = await queryOne(
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
     [numero]
   );
   if (existing) {
-    return NextResponse.json({ error: 'Ya existe una línea con ese número. Genere uno nuevo.' }, { status: 409 });
+    return NextResponse.json({ error: 'Ya existe una lÃ­nea con ese nÃºmero. Genere uno nuevo.' }, { status: 409 });
   }
 
   const existsInAsignados = await queryOne(
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
     [numero]
   );
   if (existsInAsignados) {
-    return NextResponse.json({ error: 'Este número ya fue asignado anteriormente. Genere uno nuevo.' }, { status: 409 });
+    return NextResponse.json({ error: 'Este nÃºmero ya fue asignado anteriormente. Genere uno nuevo.' }, { status: 409 });
   }
 
   const [linea] = await query(
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
      RETURNING id, numero, operadora, tipo_linea, activa`,
     [
-      session.userId,
+      session.user.id,
       numero,
       operadora,
       tipo_linea ?? 'postpago',
@@ -93,14 +93,14 @@ export async function POST(req: NextRequest) {
   const tipoNumero = numero.startsWith('KYR-EMP-') ? 'empresarial' : 'personal';
   await query(
     `INSERT INTO telecom_numeros_asignados (numero, tipo, user_id) VALUES ($1, $2, $3) ON CONFLICT (numero) DO NOTHING`,
-    [numero, tipoNumero, session.userId]
+    [numero, tipoNumero, session.user.id]
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'LINEA_TELECOM_REGISTRADA',
     categoria: 'telecom',
-    descripcion: `Línea registrada: ${numero} (${operadora} - ${tipo_linea ?? 'postpago'})`,
+    descripcion: `LÃ­nea registrada: ${numero} (${operadora} - ${tipo_linea ?? 'postpago'})`,
     entidadTipo: 'linea_telecom',
     entidadId: (linea as { id: number }).id,
     metadata: { numero, operadora, tipo_linea: tipo_linea ?? 'postpago' },
@@ -115,26 +115,26 @@ export async function PATCH(req: NextRequest) {
 
   const body = await req.json();
   const { id, ...updates } = body;
-  if (!id) return NextResponse.json({ error: 'ID de línea requerido' }, { status: 400 });
+  if (!id) return NextResponse.json({ error: 'ID de lÃ­nea requerido' }, { status: 400 });
 
   const owned = await queryOne(
     `SELECT id FROM lineas_telecom WHERE id = $1 AND user_id = $2`,
-    [id, session.userId]
+    [id, session.user.id]
   );
-  if (!owned) return NextResponse.json({ error: 'Línea no encontrada' }, { status: 404 });
+  if (!owned) return NextResponse.json({ error: 'LÃ­nea no encontrada' }, { status: 404 });
 
   if (updates.numero) {
     const numDup = await queryOne(
       `SELECT id FROM lineas_telecom WHERE numero = $1 AND id != $2`,
       [updates.numero, id]
     );
-    if (numDup) return NextResponse.json({ error: 'Ese número ya está en uso por otra línea.' }, { status: 409 });
+    if (numDup) return NextResponse.json({ error: 'Ese nÃºmero ya estÃ¡ en uso por otra lÃ­nea.' }, { status: 409 });
 
     const numAsignado = await queryOne(
       `SELECT id FROM telecom_numeros_asignados WHERE numero = $1`,
       [updates.numero]
     );
-    if (numAsignado) return NextResponse.json({ error: 'Ese número ya fue asignado anteriormente.' }, { status: 409 });
+    if (numAsignado) return NextResponse.json({ error: 'Ese nÃºmero ya fue asignado anteriormente.' }, { status: 409 });
   }
 
   const fields: string[] = [];
@@ -180,7 +180,7 @@ export async function PATCH(req: NextRequest) {
   if (fields.length === 0) return NextResponse.json({ error: 'Nada que actualizar' }, { status: 400 });
 
   fields.push(`updated_at = NOW()`);
-  vals.push(id, session.userId);
+  vals.push(id, session.user.id);
 
   const result = await query(
     `UPDATE lineas_telecom SET ${fields.join(', ')} WHERE id = $${idx} AND user_id = $${idx + 1}
@@ -189,10 +189,10 @@ export async function PATCH(req: NextRequest) {
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'LINEA_TELECOM_ACTUALIZADA',
     categoria: 'telecom',
-    descripcion: `Línea actualizada: ID ${id}`,
+    descripcion: `LÃ­nea actualizada: ID ${id}`,
     entidadTipo: 'linea_telecom',
     entidadId: id,
     metadata: updates,
@@ -209,22 +209,22 @@ export async function DELETE(req: NextRequest) {
   const idStr = searchParams.get('id');
   const idNum = idStr ? parseInt(idStr, 10) : NaN;
   if (!Number.isInteger(idNum) || idNum <= 0) {
-    return NextResponse.json({ error: 'ID requerido y debe ser un número válido' }, { status: 400 });
+    return NextResponse.json({ error: 'ID requerido y debe ser un nÃºmero vÃ¡lido' }, { status: 400 });
   }
 
   const linea = await queryOne(
     `SELECT id, numero, operadora FROM lineas_telecom WHERE id = $1 AND user_id = $2`,
-    [idNum, session.userId]
+    [idNum, session.user.id]
   );
-  if (!linea) return NextResponse.json({ error: 'Línea no encontrada' }, { status: 404 });
+  if (!linea) return NextResponse.json({ error: 'LÃ­nea no encontrada' }, { status: 404 });
 
-  await query(`DELETE FROM lineas_telecom WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+  await query(`DELETE FROM lineas_telecom WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'LINEA_TELECOM_ELIMINADA',
     categoria: 'telecom',
-    descripcion: `Línea eliminada: ${(linea as { numero: string }).numero}`,
+    descripcion: `LÃ­nea eliminada: ${(linea as { numero: string }).numero}`,
     entidadTipo: 'linea_telecom',
     entidadId: idNum,
     metadata: linea as Record<string, unknown>,

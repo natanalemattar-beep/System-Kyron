@@ -1,32 +1,64 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { unzip } from 'unzipit';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
-const SYSTEM_PROMPT = `Eres un coach experto en presentaciones de pitch para startups e inversores. Analiza solo lo que efectivamente ves en las diapositivas.
+const SYSTEM_PROMPT = `Eres el "Pitch Coach AI" de System Kyron, un mentor de élite especializado en levantar capital en Silicon Valley y mercados globales. Tu misión no es solo describir diapositivas, sino transformar una presentación mediocre en un pitch ganador que cierre rondas de inversión.
 
-REGLAS IMPORTANTES:
-1. Solo analiza y menciona información que PUEDES VER en las diapositivas/presentación
-2. Si no puedes ver algo, dilo claramente: "No puedo ver esos datos en la diapositiva"
-3. No inventes ni suplas información que no está visible
-4. Si una diapositiva tiene poco contenido, describe solo lo que ves
-5. Si hay texto borroso o ilegible, indícalo
+ENFOQUE ESTRATÉGICO:
+1. ANALISIS VISUAL: Describe con precisión lo que ves, pero no te quedes ahí.
+2. VALOR AGREGADO: Si falta algo crítico (ej: Traction, Market Size, Exit Strategy), no digas solo "no lo veo", sino "Te falta X, que es fundamental para que un inversor confíe en ti. Sugiero añadir Y".
+3. CRÍTICA CONSTRUCTIVA: Sé honesto, directo y exigente. Si el diseño es pobre o el mensaje es confuso, dilo, pero ofrece la solución inmediata.
+4. NARRATIVA (STORYTELLING): Ayuda al usuario a crear un arco narrativo emocionante que atrape al inversor desde el segundo 1.
 
-TU TAREA:
-1. Describir qué ves en cada diapositiva (títulos, gráficos, texto legible, imágenes)
-2. Extraer los puntos clave VISIBLES: problema, solución, mercado, modelo de negocio, equipo, tracción, ask
-3. Si no ves alguno de estos elementos, dilo honestamente
-4. Generar un guion de presentación BASADO EN LO VISIBLE, con timing sugerido
-5. Dar feedback constructivo sobre lo que puedas ver
+REGLAS DE ORO:
+- No inventes datos reales, pero SÍ sugiere qué métricas o datos debería buscar el usuario para validar su punto.
+- Si el usuario pide un guion, no hagas una lista aburrida; crea un discurso persuasivo, con ganchos (hooks) y cierres fuertes.
+- Usa un tono profesional, inspirador y con la energía de un emprendedor exitoso.
 
 FORMATO DE RESPUESTA:
-- Usa encabezados claros ## para cada sección
-- Incluye timing sugerido para cada parte (ej: "30 segundos")
-- Si generas un guion, formato numerado con bloques de texto
-- Sé honesto sobre las limitaciones de lo que puedes analizar
+- Usa encabezados claros ##.
+- Para guiones: usa formato de "Diálogo" con timing preciso (ej: [0:00-0:30] - Gancho inicial).
+- Termina siempre con un "Tip de Oro" para mejorar el pitch.
 
-Idioma: Español venezolano formal`;
+Idioma: Español venezolano formal pero moderno y dinámico`;
+
+// Función para extraer texto de PPTX
+async function extractPptxText(base64Data: string): Promise<string> {
+  try {
+    const buffer = Buffer.from(base64Data, 'base64');
+    const { entries } = await unzip(buffer);
+    let fullText = "";
+    
+    const slideRegex = /^ppt\/slides\/slide(\d+)\.xml$/;
+    const slideNumbers: number[] = [];
+    
+    for (const [name] of Object.entries(entries)) {
+      const match = name.match(slideRegex);
+      if (match) slideNumbers.push(parseInt(match[1]));
+    }
+    
+    slideNumbers.sort((a, b) => a - b);
+    
+    for (const num of slideNumbers) {
+      const entry = entries[`ppt/slides/slide${num}.xml`];
+      if (entry) {
+        const xml = await entry.text();
+        const textMatches = xml.match(/<a:t[^>]*>([^<]*)<\/a:t>/g);
+        if (textMatches) {
+          const slideContent = textMatches.map(t => t.replace(/<\/?a:t[^>]*>/g, '')).join(' ');
+          fullText += `--- Diapositiva ${num} ---\n${slideContent}\n\n`;
+        }
+      }
+    }
+    return fullText || "No se pudo extraer texto de la presentación.";
+  } catch (error) {
+    console.error('PPTX Parse Error:', error);
+    throw new Error('Error al leer el archivo PowerPoint. Asegúrate de que no esté protegido con contraseña.');
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -41,11 +73,24 @@ export async function POST(req: NextRequest) {
     const model = genAI.getGenerativeModel({ 
       model: 'gemini-1.5-flash',
       generationConfig: {
-        temperature: 0.1,
+        temperature: 0.7,
         maxOutputTokens: 2048,
       }
     });
 
+    // Manejo de PPTX
+    if (type === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' && image) {
+      const base64Data = image.split(',')[1];
+      const text = await extractPptxText(base64Data);
+      
+      const result = await model.generateContent([
+        { text: SYSTEM_PROMPT + '\n\nAnaliza el contenido de esta presentación (texto extraído de las diapositivas): ' + text },
+      ]);
+      const response = await result.response;
+      return NextResponse.json({ content: response.text() });
+    }
+
+    // Manejo de Imágenes/PDFs
     if (image) {
       const base64Data = image.split(',')[1];
       const mimeType = image.split(',')[0].split(':')[1].split(';')[0];
@@ -64,6 +109,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ content: response.text() });
     }
 
+    // Manejo de Chat
     if (messages && messages.length > 0) {
       const chat = model.startChat({
         history: messages.slice(0, -1).map((m: { role: string; content: string }) => ({
@@ -81,7 +127,10 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ error: 'Se requiere una imagen o mensajes' }, { status: 400 });
   } catch (error) {
-    console.error('[pitch-analyze] Error:', error);
-    return NextResponse.json({ error: 'Error al procesar con la IA. Intenta de nuevo.' }, { status: 500 });
+    console.error('[pitch-analyze] Critical Error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Error inesperado en el servicio de IA';
+    return NextResponse.json({ 
+      error: `Error de Procesamiento: ${errorMessage}. Por favor, verifica que la API Key esté configurada correctamente.` 
+    }, { status: 500 });
   }
 }

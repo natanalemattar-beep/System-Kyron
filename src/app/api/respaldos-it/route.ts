@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   const rows = await query(
     `SELECT id, nombre, tipo, destino, estado, tamano_mb, notas, created_at::text
      FROM respaldos_it WHERE user_id = $1 ORDER BY created_at DESC LIMIT $2`,
-    [session.userId, limit]
+    [session.user.id, limit]
   ).catch(() => []);
 
   return NextResponse.json({ respaldos: rows });
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     const [row] = await query(
       `INSERT INTO respaldos_it (user_id, nombre, tipo, destino, notas)
        VALUES ($1, $2, $3, $4, $5) RETURNING id`,
-      [session.userId, nombre, tipo ?? 'completo', destino ?? 'local', notas ?? '']
+      [session.user.id, nombre, tipo ?? 'completo', destino ?? 'local', notas ?? '']
     );
 
     return NextResponse.json({ success: true, id: (row as Record<string, unknown>).id });

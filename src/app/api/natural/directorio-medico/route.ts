@@ -11,7 +11,7 @@ export async function GET() {
   const rows = await query(
     `SELECT id, nombre, tipo, zona, COALESCE(telefono, '') AS tel, especialidades, disponible
      FROM directorio_medico WHERE user_id = $1 ORDER BY nombre`,
-    [session.userId]
+    [session.user.id]
   ).catch(() => []);
 
   const centros = rows.map(r => {
@@ -42,11 +42,11 @@ export async function POST(req: Request) {
     const [row] = await query(
       `INSERT INTO directorio_medico (user_id, nombre, tipo, zona, telefono, especialidades, disponible)
        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`,
-      [session.userId, nombre, tipo ?? 'Centro Médico', zona ?? '', telefono ?? '', especialidades ?? [], disponible ?? true]
+      [session.user.id, nombre, tipo ?? 'Centro MÃ©dico', zona ?? '', telefono ?? '', especialidades ?? [], disponible ?? true]
     );
     return NextResponse.json({ success: true, id: (row as Record<string, unknown>).id });
   } catch (err) {
     console.error('[directorio-medico] POST error:', err);
-    return NextResponse.json({ error: 'Error al registrar centro médico' }, { status: 500 });
+    return NextResponse.json({ error: 'Error al registrar centro mÃ©dico' }, { status: 500 });
   }
 }

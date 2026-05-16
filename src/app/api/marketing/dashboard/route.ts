@@ -20,7 +20,7 @@ export async function GET() {
                     COALESCE(SUM(presupuesto), 0) as total_presupuesto,
                     COALESCE(SUM(gastado), 0) as total_gastado
              FROM campanas_marketing WHERE user_id = $1`,
-            [session.userId]
+            [session.user.id]
         );
 
         const clientesStats = await queryOne<{
@@ -31,7 +31,7 @@ export async function GET() {
                     COALESCE(AVG(satisfaccion), 0) as avg_satisfaccion,
                     COALESCE(SUM(valor_estimado), 0) as total_valor
              FROM clientes WHERE user_id = $1`,
-            [session.userId]
+            [session.user.id]
         );
 
         const emailStats = await queryOne<{
@@ -42,7 +42,7 @@ export async function GET() {
                     COALESCE(SUM(abiertos), 0) as total_abiertos,
                     COALESCE(SUM(clicks), 0) as total_clicks
              FROM email_campaigns WHERE user_id = $1`,
-            [session.userId]
+            [session.user.id]
         );
 
         const redesStats = await queryOne<{
@@ -52,19 +52,19 @@ export async function GET() {
                     COALESCE(SUM(alcance), 0) as total_alcance,
                     COALESCE(AVG(engagement), 0) as avg_engagement
              FROM redes_sociales WHERE user_id = $1`,
-            [session.userId]
+            [session.user.id]
         );
 
         const recentCampanas = await query(
             `SELECT id, nombre, tipo, estado, alcance, conversiones, roi, created_at
              FROM campanas_marketing WHERE user_id = $1 ORDER BY created_at DESC LIMIT 6`,
-            [session.userId]
+            [session.user.id]
         );
 
         const topRedes = await query(
             `SELECT nombre, seguidores, crecimiento, engagement, color, bg
              FROM redes_sociales WHERE user_id = $1 ORDER BY seguidores DESC LIMIT 4`,
-            [session.userId]
+            [session.user.id]
         );
 
         return NextResponse.json({

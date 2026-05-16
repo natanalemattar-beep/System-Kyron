@@ -19,7 +19,7 @@ export async function GET() {
             `SELECT id, banco, codigo_banco, numero_cuenta, tipo_cuenta, titular,
                     activa, saldo_actual::text, saldo_disponible::text, ultima_sincronizacion, created_at
              FROM cuentas_bancarias WHERE user_id = $1 ORDER BY banco ASC`,
-            [session.userId]
+            [session.user.id]
         );
 
         return NextResponse.json({ cuentas });
@@ -38,29 +38,29 @@ export async function POST(req: NextRequest) {
         const { banco, codigo_banco, numero_cuenta, tipo_cuenta, titular, saldo_actual } = body;
 
         if (!banco || !codigo_banco || !numero_cuenta) {
-            return NextResponse.json({ error: 'Banco, código y número de cuenta son requeridos' }, { status: 400 });
+            return NextResponse.json({ error: 'Banco, cÃ³digo y nÃºmero de cuenta son requeridos' }, { status: 400 });
         }
 
         const existing = await queryOne(
             `SELECT id FROM cuentas_bancarias WHERE user_id = $1 AND numero_cuenta = $2`,
-            [session.userId, numero_cuenta]
+            [session.user.id, numero_cuenta]
         );
         if (existing) {
-            return NextResponse.json({ error: 'Ya existe una cuenta con ese número' }, { status: 409 });
+            return NextResponse.json({ error: 'Ya existe una cuenta con ese nÃºmero' }, { status: 409 });
         }
 
         const [cuenta] = await query(
             `INSERT INTO cuentas_bancarias (user_id, banco, codigo_banco, numero_cuenta, tipo_cuenta, titular, saldo_actual, saldo_disponible)
              VALUES ($1, $2, $3, $4, $5, $6, $7, $7)
              RETURNING id, banco, codigo_banco, numero_cuenta, tipo_cuenta, titular, saldo_actual::text`,
-            [session.userId, banco, codigo_banco, numero_cuenta, tipo_cuenta ?? 'corriente', titular ?? '', safeFloat(saldo_actual)]
+            [session.user.id, banco, codigo_banco, numero_cuenta, tipo_cuenta ?? 'corriente', titular ?? '', safeFloat(saldo_actual)]
         );
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'NUEVA_CUENTA_BANCARIA',
             categoria: 'banco',
-            descripcion: `Cuenta bancaria registrada: ${banco} Nº ${numero_cuenta} (${tipo_cuenta ?? 'corriente'})`,
+            descripcion: `Cuenta bancaria registrada: ${banco} NÂº ${numero_cuenta} (${tipo_cuenta ?? 'corriente'})`,
             entidadTipo: 'cuenta_bancaria',
             entidadId: (cuenta as { id: number }).id,
             metadata: { banco, codigo_banco, numero_cuenta, tipo_cuenta: tipo_cuenta ?? 'corriente', titular: titular ?? null },

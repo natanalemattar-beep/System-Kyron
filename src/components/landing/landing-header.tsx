@@ -131,25 +131,29 @@ export function LandingHeader() {
                                     <ChevronDown className="h-3.5 w-3.5 opacity-30 group-data-[state=open]:rotate-180 transition-transform" />
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="center" className="w-80 p-4 rounded-[2.5rem] border border-white/10 bg-[#0c1120]/95 backdrop-blur-3xl shadow-2xl mt-6 space-y-1">
-                                    <DropdownMenuItem className="rounded-[1.5rem] p-4 flex items-center gap-5 hover:bg-white/5 transition-all group cursor-pointer border border-transparent hover:border-white/5">
-                                        <div className="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
-                                            <Cpu className="h-6 w-6" />
-                                        </div>
-                                        <div>
-                                            <p className="text-sm font-black uppercase tracking-tight text-white">{t('connectivity_title')}</p>
-                                            <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest">{t('connectivity_desc')}</p>
-                                        </div>
-                                        <ArrowRight className="h-5 w-5 ml-auto text-white/20 group-hover:text-cyan-400 group-hover:translate-x-2 transition-all" />
+                                    <DropdownMenuItem asChild className="rounded-[1.5rem] p-4 flex items-center gap-5 hover:bg-white/5 transition-all group cursor-pointer border border-transparent hover:border-white/5">
+                                        <Link href="/login-linea?type=personal">
+                                            <div className="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                                                <Cpu className="h-6 w-6" />
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-black uppercase tracking-tight text-white">{t('connectivity_title')}</p>
+                                                <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest">{t('connectivity_desc')}</p>
+                                            </div>
+                                            <ArrowRight className="h-5 w-5 ml-auto text-white/20 group-hover:text-cyan-400 group-hover:translate-x-2 transition-all" />
+                                        </Link>
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem className="rounded-[1.5rem] p-4 flex items-center gap-5 hover:bg-white/5 transition-all group cursor-pointer border border-transparent hover:border-white/5">
-                                        <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-                                            <ShieldCheck className="h-6 w-6" />
-                                        </div>
-                                        <div>
-                                            <p className="text-sm font-black uppercase tracking-tight text-white">{t('legal_title')}</p>
-                                            <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest">{t('legal_desc')}</p>
-                                        </div>
-                                        <ArrowRight className="h-5 w-5 ml-auto text-white/20 group-hover:text-emerald-400 group-hover:translate-x-2 transition-all" />
+                                    <DropdownMenuItem asChild className="rounded-[1.5rem] p-4 flex items-center gap-5 hover:bg-white/5 transition-all group cursor-pointer border border-transparent hover:border-white/5">
+                                        <Link href="/login-escritorio-juridico">
+                                            <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                                                <ShieldCheck className="h-6 w-6" />
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-black uppercase tracking-tight text-white">{t('legal_title')}</p>
+                                                <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest">{t('legal_desc')}</p>
+                                            </div>
+                                            <ArrowRight className="h-5 w-5 ml-auto text-white/20 group-hover:text-emerald-400 group-hover:translate-x-2 transition-all" />
+                                        </Link>
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
@@ -249,6 +253,32 @@ export function LandingHeader() {
                                             </SheetClose>
                                         ))}
                                     </nav>
+
+                                    <div className="space-y-2">
+                                        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-4 px-4">Soluciones</p>
+                                        <SheetClose asChild>
+                                            <Link href="/login-linea?type=personal" className="flex items-center justify-between p-4 rounded-[1.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 transition-all group">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center">
+                                                        <Cpu className="h-5 w-5 text-zinc-500 group-hover:text-cyan-400 transition-colors" />
+                                                    </div>
+                                                    <span className="text-sm font-black uppercase tracking-widest text-white/70 group-hover:text-white transition-colors">{t('connectivity_title')}</span>
+                                                </div>
+                                                <ChevronRight className="h-4 w-4 text-zinc-800 group-hover:text-cyan-400 transition-all" />
+                                            </Link>
+                                        </SheetClose>
+                                        <SheetClose asChild>
+                                            <Link href="/login-escritorio-juridico" className="flex items-center justify-between p-4 rounded-[1.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 transition-all group">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center">
+                                                        <ShieldCheck className="h-5 w-5 text-zinc-500 group-hover:text-emerald-400 transition-colors" />
+                                                    </div>
+                                                    <span className="text-sm font-black uppercase tracking-widest text-white/70 group-hover:text-white transition-colors">{t('legal_title')}</span>
+                                                </div>
+                                                <ChevronRight className="h-4 w-4 text-zinc-800 group-hover:text-emerald-400 transition-all" />
+                                            </Link>
+                                        </SheetClose>
+                                    </div>
 
                                     <div className="space-y-3">
                                         <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-4 px-4">Portal de Acceso</p>

@@ -12,16 +12,16 @@ export async function GET() {
     try {
         const campaigns = await query(
             `SELECT * FROM email_campaigns WHERE user_id = $1 ORDER BY created_at DESC`,
-            [session.userId]
+            [session.user.id]
         );
         const lists = await query(
             `SELECT * FROM email_lists WHERE user_id = $1 ORDER BY nombre ASC`,
-            [session.userId]
+            [session.user.id]
         );
         return NextResponse.json({ campaigns, lists });
     } catch (err) {
         console.error('[marketing/email-campaigns] GET error:', err);
-        return NextResponse.json({ error: 'Error al obtener campañas de email' }, { status: 500 });
+        return NextResponse.json({ error: 'Error al obtener campaÃ±as de email' }, { status: 500 });
     }
 }
 
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
             const safeActivos = Math.max(0, parseInt(activos) || 0);
             const [list] = await query(
                 `INSERT INTO email_lists (user_id, nombre, total, activos) VALUES ($1,$2,$3,$4) RETURNING *`,
-                [session.userId, nombre, safeTotal, safeActivos]
+                [session.user.id, nombre, safeTotal, safeActivos]
             );
             return NextResponse.json({ success: true, list });
         }
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
              VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
              RETURNING *`,
             [
-                session.userId,
+                session.user.id,
                 nombre,
                 estado ?? 'borrador',
                 fecha ?? null,
@@ -72,10 +72,10 @@ export async function POST(req: NextRequest) {
         );
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'NUEVA_EMAIL_CAMPAIGN',
             categoria: 'marketing',
-            descripcion: `Campaña email creada: ${nombre}`,
+            descripcion: `CampaÃ±a email creada: ${nombre}`,
             entidadTipo: 'email_campaign',
             entidadId: (campaign as { id: number }).id,
         });
@@ -83,6 +83,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: true, campaign });
     } catch (err) {
         console.error('[marketing/email-campaigns] POST error:', err);
-        return NextResponse.json({ error: 'Error al crear campaña de email' }, { status: 500 });
+        return NextResponse.json({ error: 'Error al crear campaÃ±a de email' }, { status: 500 });
     }
 }

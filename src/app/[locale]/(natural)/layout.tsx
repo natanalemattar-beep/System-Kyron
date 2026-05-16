@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { AppHeader } from "@/components/app-header";
+import { ErrorBoundary } from "@/components/error-boundary";
 
 import { PageTransition } from "@/components/ui/motion";
 import { 
@@ -83,9 +84,11 @@ export default function NaturalLayout({
               />
               
               <main className="flex-1 w-full p-4 md:p-10 pt-24 md:pt-32 relative z-10">
-                  <PageTransition className="max-w-7xl mx-auto w-full">
-                    {children}
-                  </PageTransition>
+                    <PageTransition className="max-w-7xl mx-auto w-full">
+                      <ErrorBoundary>
+                        {children}
+                      </ErrorBoundary>
+                    </PageTransition>
               </main>
               
               <footer className="p-8 md:p-12 border-t border-border/20 bg-card/60 text-center mt-20 relative z-20">

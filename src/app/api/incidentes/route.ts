@@ -20,7 +20,7 @@ export async function GET() {
      LEFT JOIN empleados e ON e.id = i.empleado_id
      WHERE i.user_id = $1
      ORDER BY i.fecha_incidente DESC`,
-    [session.userId]
+    [session.user.id]
   );
 
   const stats = await query(
@@ -30,7 +30,7 @@ export async function GET() {
        COUNT(*) FILTER (WHERE estado = 'abierto')::int AS abiertos,
        COALESCE(SUM(dias_reposo), 0)::int AS total_dias_reposo
      FROM incidentes_salud_seguridad WHERE user_id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({ incidentes, stats: stats[0] ?? {} });
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!tipo || !fecha_incidente || !descripcion) {
-    return NextResponse.json({ error: 'Tipo, fecha y descripción son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Tipo, fecha y descripciÃ³n son requeridos' }, { status: 400 });
   }
 
   const [incidente] = await query<{ id: number }>(
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
      RETURNING id`,
     [
-      session.userId,
+      session.user.id,
       empleado_id ?? null,
       tipo, fecha_incidente,
       lugar ?? null, descripcion,
@@ -73,10 +73,10 @@ export async function POST(req: NextRequest) {
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'NUEVO_INCIDENTE_SST',
     categoria: 'rrhh',
-    descripcion: `Incidente SST registrado: ${tipo} — ${fecha_incidente}`,
+    descripcion: `Incidente SST registrado: ${tipo} â€” ${fecha_incidente}`,
     entidadTipo: 'incidente_sst',
     entidadId: incidente.id,
   });
@@ -101,7 +101,7 @@ export async function PATCH(req: NextRequest) {
 
   if (updates.length === 0) return NextResponse.json({ success: true });
 
-  params.push(id, session.userId);
+  params.push(id, session.user.id);
   await query(
     `UPDATE incidentes_salud_seguridad SET ${updates.join(', ')} WHERE id = $${i++} AND user_id = $${i++}`,
     params

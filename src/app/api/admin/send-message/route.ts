@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
     }
 
-    if (session.tipo !== 'admin') {
+    if (session.user.tipo !== 'admin') {
       return NextResponse.json({ error: 'No autorizado. Se requiere rol de administrador.' }, { status: 403 });
     }
 
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       purpose: 'general',
     });
 
-    console.log(`[admin-msg] ${session.email} sent message to ${recipient}: ${result.success ? 'OK' : 'FAIL'}`);
+    console.log(`[admin-msg] ${session.user.email} sent message to ${recipient}: ${result.success ? 'OK' : 'FAIL'}`);
 
     return NextResponse.json({
       success: result.success,

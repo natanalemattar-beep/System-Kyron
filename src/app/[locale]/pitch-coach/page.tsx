@@ -23,8 +23,14 @@ type UploadedFile = {
   dataUrl: string;
 };
 
-const ALLOWED_TYPES = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp'];
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const ALLOWED_TYPES = [
+  'application/pdf', 
+  'image/jpeg', 
+  'image/png', 
+  'image/webp',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation' // PPTX
+];
+const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
 function formatFileSize(bytes: number): string {
   if (bytes < 1024) return bytes + ' B';
@@ -388,7 +394,7 @@ export default function PitchCoachPage() {
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept=".pdf,.jpg,.jpeg,.png,.webp"
+                  accept=".pdf,.jpg,.jpeg,.png,.webp,.pptx"
                   className="hidden"
                   onChange={(e) => {
                     const file = e.target.files?.[0];
@@ -535,7 +541,7 @@ export default function PitchCoachPage() {
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept=".pdf,.jpg,.jpeg,.png,.webp"
+                  accept=".pdf,.jpg,.jpeg,.png,.webp,.pptx"
                   className="hidden"
                   onChange={(e) => {
                     const file = e.target.files?.[0];

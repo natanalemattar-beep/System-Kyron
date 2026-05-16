@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import { useRouter, usePathname } from '@/navigation';
 
 export interface AuthUser {
     id: number;
@@ -24,9 +25,35 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+// Priority-ordered: first matching module wins
+const MODULE_PATH_MAP: Record<string, string> = {
+    contabilidad: '/resumen-negocio',
+    juridico: '/resumen-negocio',
+    legal: '/escritorio-juridico',
+    ventas: '/ventas',
+    tpv: '/ventas',
+    socios: '/socios',
+    sostenibilidad: '/sostenibilidad',
+    telecom: '/linea',
+    rrhh: '/rrhh',
+    nomina: '/rrhh',
+    talento: '/rrhh',
+};
+
+export function getModuleDashboardPath(modules?: string[]): string | null {
+    if (!modules || modules.length === 0) return null;
+    for (const mod of modules) {
+        const path = MODULE_PATH_MAP[mod];
+        if (path) return path;
+    }
+    return null;
+}
+
+function AuthProviderInner({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<AuthUser | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const router = useRouter();
+    const pathname = usePathname();
 
     const refreshUser = useCallback(async () => {
         try {
@@ -45,6 +72,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         refreshUser().finally(() => setIsLoading(false));
     }, [refreshUser]);
+
+    // Redirect to module-specific dashboard if on a generic page
+    useEffect(() => {
+        if (isLoading || !user?.modules) return;
+        if (user.modules.length === 0) return;
+        const genericPaths = ['/', '/login'];
+        const isGeneric = genericPaths.some(p => pathname === p || pathname.endsWith(p) || pathname === `${p}`);
+        if (!isGeneric) return;
+        const dashboardPath = getModuleDashboardPath(user.modules);
+        if (dashboardPath) {
+            router.replace(dashboardPath as any);
+        }
+    }, [user, isLoading, pathname, router]);
 
     const login = useCallback(async (email: string, password: string) => {
         try {
@@ -76,6 +116,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             {children}
         </AuthContext.Provider>
     );
+}
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+    return <AuthProviderInner>{children}</AuthProviderInner>;
 }
 
 export function useAuth() {

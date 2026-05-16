@@ -11,17 +11,17 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
 
     try {
         const { id } = await params;
-        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
         const idNum = parseInt(id);
         const campana = await queryOne(
             `SELECT * FROM campanas_marketing WHERE id = $1 AND user_id = $2`,
-            [idNum, session.userId]
+            [idNum, session.user.id]
         );
-        if (!campana) return NextResponse.json({ error: 'Campaña no encontrada' }, { status: 404 });
+        if (!campana) return NextResponse.json({ error: 'CampaÃ±a no encontrada' }, { status: 404 });
         return NextResponse.json({ campana });
     } catch (err) {
         console.error('[marketing/campanas] GET by id error:', err);
-        return NextResponse.json({ error: 'Error al obtener campaña' }, { status: 500 });
+        return NextResponse.json({ error: 'Error al obtener campaÃ±a' }, { status: 500 });
     }
 }
 
@@ -30,11 +30,11 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
     const idNum = parseInt(id);
 
-    const existing = await queryOne(`SELECT id FROM campanas_marketing WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
-    if (!existing) return NextResponse.json({ error: 'Campaña no encontrada' }, { status: 404 });
+    const existing = await queryOne(`SELECT id FROM campanas_marketing WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
+    if (!existing) return NextResponse.json({ error: 'CampaÃ±a no encontrada' }, { status: 404 });
 
     try {
         const body = await req.json();
@@ -70,15 +70,15 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
                 conversiones != null ? Math.max(0, parseInt(conversiones) || 0) : null,
                 roi != null ? parseFloat(roi) || 0 : null,
                 notas ?? null,
-                idNum, session.userId,
+                idNum, session.user.id,
             ]
         );
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'ACTUALIZAR_CAMPANA',
             categoria: 'marketing',
-            descripcion: `Campaña actualizada: ${(updated as { nombre: string }).nombre}`,
+            descripcion: `CampaÃ±a actualizada: ${(updated as { nombre: string }).nombre}`,
             entidadTipo: 'campana_marketing',
             entidadId: idNum,
         });
@@ -86,7 +86,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         return NextResponse.json({ success: true, campana: updated });
     } catch (err) {
         console.error('[marketing/campanas] PUT error:', err);
-        return NextResponse.json({ error: 'Error al actualizar campaña' }, { status: 500 });
+        return NextResponse.json({ error: 'Error al actualizar campaÃ±a' }, { status: 500 });
     }
 }
 
@@ -95,20 +95,20 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
     const idNum = parseInt(id);
 
-    const existing = await queryOne<{ nombre: string }>(`SELECT nombre FROM campanas_marketing WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
-    if (!existing) return NextResponse.json({ error: 'Campaña no encontrada' }, { status: 404 });
+    const existing = await queryOne<{ nombre: string }>(`SELECT nombre FROM campanas_marketing WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
+    if (!existing) return NextResponse.json({ error: 'CampaÃ±a no encontrada' }, { status: 404 });
 
     try {
-        await query(`DELETE FROM campanas_marketing WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+        await query(`DELETE FROM campanas_marketing WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'ELIMINAR_CAMPANA',
             categoria: 'marketing',
-            descripcion: `Campaña eliminada: ${existing.nombre}`,
+            descripcion: `CampaÃ±a eliminada: ${existing.nombre}`,
             entidadTipo: 'campana_marketing',
             entidadId: idNum,
         });
@@ -116,6 +116,6 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
         return NextResponse.json({ success: true });
     } catch (err) {
         console.error('[marketing/campanas] DELETE error:', err);
-        return NextResponse.json({ error: 'Error al eliminar campaña' }, { status: 500 });
+        return NextResponse.json({ error: 'Error al eliminar campaÃ±a' }, { status: 500 });
     }
 }

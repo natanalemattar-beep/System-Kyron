@@ -26,14 +26,14 @@ export async function POST(req: NextRequest) {
       normalizedPath.includes('\0') ||
       /[^a-zA-Z0-9._\-\/]/.test(normalizedPath.replace('/uploads/', ''))
     ) {
-      return NextResponse.json({ error: 'Ruta de archivo no válida' }, { status: 400 });
+      return NextResponse.json({ error: 'Ruta de archivo no vÃ¡lida' }, { status: 400 });
     }
 
     const existing = await queryOne(
       `SELECT id, veredicto, puntaje_total, resultado FROM verificaciones_documentos
        WHERE user_id = $1 AND archivo_path = $2 AND created_at > NOW() - INTERVAL '24 hours'
        ORDER BY created_at DESC LIMIT 1`,
-      [session.userId, filePath]
+      [session.user.id, filePath]
     );
 
     if (existing) {
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
        RETURNING id`,
       [
-        session.userId,
+        session.user.id,
         documentoId ?? null,
         filePath,
         originalName,
@@ -69,10 +69,10 @@ export async function POST(req: NextRequest) {
     );
 
     await logActivity({
-      userId: session.userId,
+      userId: session.user.id,
       evento: 'DOCUMENTO_VERIFICADO',
       categoria: 'documentos',
-      descripcion: `Verificación: ${originalName} → ${resultado.veredicto.toUpperCase()} (${resultado.puntaje_total}%)`,
+      descripcion: `VerificaciÃ³n: ${originalName} â†’ ${resultado.veredicto.toUpperCase()} (${resultado.puntaje_total}%)`,
       entidadTipo: 'verificacion_documento',
       entidadId: (row as { id: number }).id,
       metadata: {
@@ -108,21 +108,21 @@ export async function GET(req: NextRequest) {
       `SELECT id, archivo_nombre, categoria, veredicto, confianza, puntaje_total, resultado, created_at
        FROM verificaciones_documentos WHERE user_id = $1 AND documento_id = $2
        ORDER BY created_at DESC LIMIT 5`,
-      [session.userId, documentoId]
+      [session.user.id, documentoId]
     );
   } else if (archivoPath) {
     rows = await query(
       `SELECT id, archivo_nombre, categoria, veredicto, confianza, puntaje_total, resultado, created_at
        FROM verificaciones_documentos WHERE user_id = $1 AND archivo_path = $2
        ORDER BY created_at DESC LIMIT 5`,
-      [session.userId, archivoPath]
+      [session.user.id, archivoPath]
     );
   } else {
     rows = await query(
       `SELECT id, archivo_nombre, categoria, veredicto, confianza, puntaje_total, created_at
        FROM verificaciones_documentos WHERE user_id = $1
        ORDER BY created_at DESC LIMIT 20`,
-      [session.userId]
+      [session.user.id]
     );
   }
 

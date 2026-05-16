@@ -9,10 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
-import { Wallet, TrendingUp, TrendingDown, PiggyBank, ShoppingBag, Home, Car, Utensils, Heart, Smartphone, Plus, Trash2, ArrowLeft, Activity, DollarSign } from "lucide-react";
+import { Wallet, TrendingUp, TrendingDown, PiggyBank, ShoppingBag, Home, Car, Utensils, Heart, Smartphone, Plus, Trash2, Activity, DollarSign } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Link } from "@/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { BackToDashboard } from "@/components/back-to-dashboard";
 
 interface IncomeRow {
   id: string;
@@ -149,11 +149,7 @@ export default function PresupuestoPersonalPage() {
       >
         <div className="absolute top-0 right-0 w-48 h-48 bg-violet-500/[0.03] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
         <div className="relative">
-          <Link href="/dashboard">
-            <Button variant="ghost" size="sm" className="mb-4 gap-2 text-muted-foreground hover:text-foreground text-xs">
-              <ArrowLeft className="h-4 w-4" /> Volver al Dashboard
-            </Button>
-          </Link>
+          <BackToDashboard />
           <div className="flex items-start gap-5">
             <div className="w-14 h-14 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center shrink-0">
               <Wallet className="h-7 w-7 text-violet-500" />

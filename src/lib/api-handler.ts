@@ -82,7 +82,7 @@ export function apiHandler(handler: RouteHandler, options: HandlerOptions = {}):
       const response = await handler(ctx);
 
       response.headers.set('x-request-id', requestId);
-      timer.endWarn(1000, { status: response.status, userId: session?.userId });
+      timer.endWarn(1000, { status: response.status, userId: session?.user?.id });
 
       return response;
     } catch (error) {

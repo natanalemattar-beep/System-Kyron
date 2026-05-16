@@ -7,7 +7,7 @@ import {
     User, 
     Mic2, 
     Sparkles, 
-    ArrowLeft, 
+    ArrowLeft, ArrowRight, 
     Printer,
     Timer,
     AlertCircle

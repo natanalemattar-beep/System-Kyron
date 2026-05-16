@@ -39,9 +39,9 @@ export const GET = apiHandler(async (ctx) => {
        FROM clientes WHERE user_id = $1
        ORDER BY razon_social ASC NULLS LAST
        LIMIT $2 OFFSET $3`,
-      [ctx.session!.userId, limit, offset]
+      [ctx.session!.user.id, limit, offset]
     ),
-    queryOne<{ count: string }>(`SELECT COUNT(*) as count FROM clientes WHERE user_id = $1`, [ctx.session!.userId]),
+    queryOne<{ count: string }>(`SELECT COUNT(*) as count FROM clientes WHERE user_id = $1`, [ctx.session!.user.id]),
   ]);
 
   const total = parseInt(countResult?.count || '0', 10);
@@ -54,7 +54,7 @@ export const POST = apiHandler(async (ctx) => {
   if (data.rif) {
     const exists = await queryOne(
       `SELECT id FROM clientes WHERE user_id = $1 AND rif = $2`,
-      [ctx.session!.userId, data.rif]
+      [ctx.session!.user.id, data.rif]
     );
     if (exists) throw new ConflictError('Ya existe un cliente con ese RIF');
   }
@@ -64,7 +64,7 @@ export const POST = apiHandler(async (ctx) => {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
      RETURNING *`,
     [
-      ctx.session!.userId,
+      ctx.session!.user.id,
       data.tipo,
       data.razon_social ?? null,
       data.rif ?? null,
@@ -83,7 +83,7 @@ export const POST = apiHandler(async (ctx) => {
 
   const c = cliente as { id: number; razon_social?: string; nombre_contacto?: string };
   await logActivity({
-    userId: ctx.session!.userId,
+    userId: ctx.session!.user.id,
     evento: 'NUEVO_CLIENTE',
     categoria: 'clientes',
     descripcion: `Cliente registrado: ${c.razon_social ?? c.nombre_contacto ?? 'Sin nombre'}`,

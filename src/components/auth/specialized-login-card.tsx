@@ -95,7 +95,29 @@ export function SpecializedLoginCard({
 
   const isPersonalPortal = portalName.toLowerCase().includes('personal') || portalName.toLowerCase().includes('ciudadano');
   const isTelecomPortal = portalName.toLowerCase().includes('línea') || portalName.toLowerCase().includes('teléfono') || portalName.toLowerCase().includes('móvil');
-  
+
+  const MODULE_PATH_MAP_LOCAL: Record<string, string> = {
+    contabilidad: '/resumen-negocio',
+    juridico: '/resumen-negocio',
+    legal: '/escritorio-juridico',
+    ventas: '/ventas',
+    tpv: '/ventas',
+    socios: '/socios',
+    sostenibilidad: '/sostenibilidad',
+    telecom: '/linea',
+    rrhh: '/rrhh',
+  };
+
+  const resolveRedirectPath = useCallback((json?: { user?: { modules?: string[] } }) => {
+    if (json?.user?.modules && json.user.modules.length > 0) {
+      for (const mod of json.user.modules) {
+        const p = MODULE_PATH_MAP_LOCAL[mod];
+        if (p) return p;
+      }
+    }
+    return redirectPath;
+  }, [redirectPath]);
+
   const identifierLabel = isTelecomPortal ? 'Número de Teléfono' : (isPersonalPortal ? 'Número de Cédula / Correo' : 'Correo Electrónico');
   const identifierPlaceholder = isTelecomPortal ? '04XX-XXXXXXX' : (isPersonalPortal ? 'V-12345678 o tu@correo.com' : 'tu@correo.com');
   const IdentifierIcon = isTelecomPortal ? Smartphone : (isPersonalPortal ? Fingerprint : Mail);
@@ -105,6 +127,11 @@ export function SpecializedLoginCard({
     toast({ title: 'Identidad verificada', description: 'Acceso verificado automáticamente.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
     router.push(redirectPath as any);
   }, [toast, router, redirectPath]);
+
+  const handleRedirect = useCallback((json?: { user?: { modules?: string[] } }) => {
+    const path = resolveRedirectPath(json);
+    router.push(path as any);
+  }, [resolveRedirectPath, router]);
 
   useVerificationPoll(
     verificationEmail,
@@ -128,7 +155,7 @@ export function SpecializedLoginCard({
     setEmailDeliveryFailed(false);
     console.log('[Login] Attempting login for:', identifier, 'Portal:', portalName);
     try {
-      const body: Record<string, string> = { identifier, password, portal: 'business' };
+      const body: Record<string, string> = { identifier, password, portal: isPersonalPortal ? 'personal' : 'business' };
       if (accessKey && accessKey.trim()) body.accessKey = accessKey.trim();
 
       const res = await fetch('/api/auth/login', {
@@ -161,7 +188,7 @@ export function SpecializedLoginCard({
 
       if (json.accessKeyUsed || json.success) {
         toast({ title: json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-        router.push(redirectPath as any);
+        handleRedirect(json);
         return;
       }
 
@@ -190,7 +217,7 @@ export function SpecializedLoginCard({
         return;
       }
       toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-      router.push(redirectPath as any);
+      handleRedirect(json);
     } catch (err: any) {
       console.error('[Login] CRITICAL Connection error:', err);
       const isNet = isNetworkError(err);
@@ -271,7 +298,7 @@ export function SpecializedLoginCard({
         });
       } else {
         toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-        router.push(redirectPath as any);
+        handleRedirect(json);
       }
     } catch (err: any) {
       console.error('[PhoneLogin] CRITICAL Connection error:', err);
@@ -295,7 +322,7 @@ export function SpecializedLoginCard({
       if (!res.ok) { setError(json.error || 'Código incorrecto.'); setSingleCode(''); setIsLoading(false); setTimeout(() => singleInputRef.current?.focus(), 100); return; }
       setVerifVerified(true);
       toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-      router.push(redirectPath as any);
+      handleRedirect(json);
     } catch (err) {
       setError(isNetworkError(err) ? 'Error de conexión. Verifica tu internet.' : 'Error al verificar el código. Intenta de nuevo.');
       setSingleCode('');

@@ -7,7 +7,9 @@ import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/logo';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from '@/navigation';
+import { useAuth } from '@/lib/auth/context';
 
 const optionKeys = [
   { key: 'personal', href: '/login-personal', icon: User, category: 'citizen', color: 'from-blue-500 to-indigo-600', iconBg: 'bg-blue-500/10', textColor: 'text-blue-600', borderHover: 'hover:border-blue-400/50', shadow: 'hover:shadow-blue-500/10', glow: 'rgba(59,130,246,0.18)' },
@@ -35,6 +37,27 @@ export default function LoginSelectionPage() {
   const t = useTranslations('LoginPage');
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
   const [navigatingTo, setNavigatingTo] = useState<string | null>(null);
+  const router = useRouter();
+  const { user, isLoading: authLoading } = useAuth();
+  const MODULE_PATH_MAP: Record<string, string> = {
+    contabilidad: '/resumen-negocio',
+    juridico: '/resumen-negocio',
+    legal: '/escritorio-juridico',
+    ventas: '/ventas',
+    tpv: '/ventas',
+    socios: '/socios',
+    sostenibilidad: '/sostenibilidad',
+    telecom: '/linea',
+  };
+
+  useEffect(() => {
+    if (authLoading || !user?.modules || user.modules.length === 0) return;
+    for (const mod of user.modules) {
+      const p = MODULE_PATH_MAP[mod];
+      if (p) { router.replace(p as any); return; }
+    }
+  }, [user, authLoading, router]);
+
   const personalOptions = optionKeys.filter(o => o.category === 'citizen');
   const enterpriseOptions = optionKeys.filter(o => o.category === 'corporate');
 

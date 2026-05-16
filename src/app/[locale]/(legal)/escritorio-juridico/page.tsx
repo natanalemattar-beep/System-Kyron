@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Gavel, Signature as FileSignature, ShieldCheck, Clock, TriangleAlert as TriangleAlert, CirclePlus as PlusCircle, Download, Eye, FileText, Search, Scale, Activity, Lock, Wand as Wand2, ArrowRight, Sparkles, Loader as Loader2, RefreshCw, Trash2 } from "lucide-react";
+import { Gavel, Signature as FileSignature, ShieldCheck, Clock, TriangleAlert as TriangleAlert, CircleCheck, CirclePlus as PlusCircle, Download, Eye, FileText, Search, Scale, Activity, Lock, Wand as Wand2, ArrowRight, Sparkles, Loader as Loader2, RefreshCw, Trash2 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

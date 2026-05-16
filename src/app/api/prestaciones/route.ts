@@ -21,7 +21,7 @@ export async function GET() {
      JOIN empleados e ON e.id = p.empleado_id
      WHERE p.user_id = $1
      ORDER BY p.fecha_corte DESC`,
-    [session.userId]
+    [session.user.id]
   );
 
   const stats = await query(
@@ -30,7 +30,7 @@ export async function GET() {
        COALESCE(SUM(total_prestaciones), 0)::text AS total_garantia_acumulada,
        COALESCE(SUM(total_prestaciones) FILTER (WHERE estado = 'liquidado'), 0)::text AS total_liquidado
      FROM prestaciones_sociales WHERE user_id = $1`,
-    [session.userId]
+    [session.user.id]
   );
 
   return NextResponse.json({ prestaciones, stats: stats[0] ?? {} });
@@ -44,12 +44,12 @@ export async function POST(req: NextRequest) {
   const { empleado_id, periodo, fecha_inicio, fecha_corte, notas } = body;
 
   if (!empleado_id || !periodo || !fecha_inicio || !fecha_corte) {
-    return NextResponse.json({ error: 'Empleado, período, fecha inicio y fecha de corte son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Empleado, perÃ­odo, fecha inicio y fecha de corte son requeridos' }, { status: 400 });
   }
 
   const empleado = await queryOne<{ salario_base: string; fecha_ingreso: string }>(
     `SELECT salario_base::text, fecha_ingreso FROM empleados WHERE id = $1 AND user_id = $2`,
-    [empleado_id, session.userId]
+    [empleado_id, session.user.id]
   );
 
   if (!empleado) return NextResponse.json({ error: 'Empleado no encontrado' }, { status: 404 });
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
      RETURNING id`,
     [
-      session.userId,
+      session.user.id,
       empleado_id, periodo, fecha_inicio, fecha_corte,
       salarioIntegral, dias,
       garantia, intereses,
@@ -85,10 +85,10 @@ export async function POST(req: NextRequest) {
   );
 
   await logActivity({
-    userId: session.userId,
+    userId: session.user.id,
     evento: 'CALCULO_PRESTACIONES',
     categoria: 'nomina',
-    descripcion: `Prestaciones calculadas para empleado #${empleado_id} — Total: Bs. ${total.toFixed(2)}`,
+    descripcion: `Prestaciones calculadas para empleado #${empleado_id} â€” Total: Bs. ${total.toFixed(2)}`,
     entidadTipo: 'prestacion',
     entidadId: prestacion.id,
   });
@@ -110,7 +110,7 @@ export async function PATCH(req: NextRequest) {
 
   await query(
     `UPDATE prestaciones_sociales SET estado = $1 WHERE id = $2 AND user_id = $3`,
-    [estado, id, session.userId]
+    [estado, id, session.user.id]
   );
   return NextResponse.json({ success: true });
 }

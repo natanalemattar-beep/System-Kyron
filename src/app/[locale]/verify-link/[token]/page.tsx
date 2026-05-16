@@ -43,11 +43,21 @@ export default function VerifyLinkPage() {
           verifiedRef.current = true;
           
           // Redirigir según el modo (Registro vs Login)
-          setTimeout(() => {
+          setTimeout(async () => {
             if (data.registrationMode) {
               router.push(`/es/register?email=${encodeURIComponent(data.email)}&verified=true`);
             } else {
-              router.push('/es/dashboard');
+              try {
+                const meRes = await fetch('/api/auth/me');
+                const meData = await meRes.json();
+                if (meData?.user?.tipo === 'juridico') {
+                  router.push('/es/dashboard-empresa');
+                } else {
+                  router.push('/es/dashboard');
+                }
+              } catch {
+                router.push('/es/dashboard');
+              }
             }
           }, 2000);
         } else {

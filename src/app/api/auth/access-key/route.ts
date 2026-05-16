@@ -15,7 +15,7 @@ export async function GET() {
 
         const user = await queryOne<{ access_key_hash: string | null }>(
             `SELECT access_key_hash FROM users WHERE id = $1`,
-            [session.userId]
+            [session.user.id]
         );
 
         return NextResponse.json({
@@ -37,12 +37,12 @@ export async function POST(req: NextRequest) {
         const { accessKey, currentPassword } = await req.json();
 
         if (!currentPassword) {
-            return NextResponse.json({ error: 'Debes confirmar tu contraseña actual' }, { status: 400 });
+            return NextResponse.json({ error: 'Debes confirmar tu contraseÃ±a actual' }, { status: 400 });
         }
 
         const user = await queryOne<{ id: number; password_hash: string }>(
             `SELECT id, password_hash FROM users WHERE id = $1`,
-            [session.userId]
+            [session.user.id]
         );
 
         if (!user) {
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
 
         const passwordValid = await bcrypt.compare(currentPassword, user.password_hash);
         if (!passwordValid) {
-            return NextResponse.json({ error: 'Contraseña incorrecta' }, { status: 401 });
+            return NextResponse.json({ error: 'ContraseÃ±a incorrecta' }, { status: 401 });
         }
 
         if (!accessKey || typeof accessKey !== 'string' || accessKey.trim().length < 6) {
@@ -59,24 +59,24 @@ export async function POST(req: NextRequest) {
         }
 
         if (accessKey.trim().length > 64) {
-            return NextResponse.json({ error: 'La llave de acceso no puede tener más de 64 caracteres' }, { status: 400 });
+            return NextResponse.json({ error: 'La llave de acceso no puede tener mÃ¡s de 64 caracteres' }, { status: 400 });
         }
 
         const accessKeyHash = await bcrypt.hash(accessKey.trim(), 10);
 
         await query(
             `UPDATE users SET access_key_hash = $1, updated_at = NOW() WHERE id = $2`,
-            [accessKeyHash, session.userId]
+            [accessKeyHash, session.user.id]
         );
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'ACCESS_KEY_SET',
             categoria: 'auth',
-            descripcion: `Llave de acceso configurada para ${session.email}`,
+            descripcion: `Llave de acceso configurada para ${session.user.email}`,
             entidadTipo: 'usuario',
-            entidadId: session.userId,
-            metadata: { email: session.email },
+            entidadId: session.user.id,
+            metadata: { email: session.user.email },
         });
 
         return NextResponse.json({ success: true, message: 'Llave de acceso configurada correctamente' });
@@ -95,17 +95,17 @@ export async function DELETE() {
 
         await query(
             `UPDATE users SET access_key_hash = NULL, updated_at = NOW() WHERE id = $1`,
-            [session.userId]
+            [session.user.id]
         );
 
         await logActivity({
-            userId: session.userId,
+            userId: session.user.id,
             evento: 'ACCESS_KEY_REMOVED',
             categoria: 'auth',
-            descripcion: `Llave de acceso eliminada para ${session.email}`,
+            descripcion: `Llave de acceso eliminada para ${session.user.email}`,
             entidadTipo: 'usuario',
-            entidadId: session.userId,
-            metadata: { email: session.email },
+            entidadId: session.user.id,
+            metadata: { email: session.user.email },
         });
 
         return NextResponse.json({ success: true, message: 'Llave de acceso eliminada' });
