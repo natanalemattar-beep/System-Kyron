@@ -20,6 +20,7 @@ import {
     Fingerprint,
     Layers,
     ExternalLink,
+    Rocket,
 } from 'lucide-react';
 import { PasswordGate } from '@/components/password-gate';
 import Image from 'next/image';
@@ -186,14 +187,29 @@ export default function BrandKitPage() {
                             <span className="bg-gradient-to-r from-white via-blue-400 to-cyan-300 bg-clip-text text-transparent">Alta Fidelidad.</span>
                         </motion.h1>
 
-                        <motion.p 
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 }}
-                            className="text-zinc-400 text-base lg:text-lg font-medium leading-relaxed max-w-xl"
-                        >
-                            Infraestructura centralizada de activos estratégicos System Kyron para la defensa del Reto InspiraVe 2026.
-                        </motion.p>
+                            <motion.p 
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 }}
+                                className="text-zinc-400 text-base lg:text-lg font-medium leading-relaxed max-w-xl"
+                            >
+                                Infraestructura centralizada de activos estratégicos System Kyron para la defensa del Reto InspiraVe 2026.
+                            </motion.p>
+
+                            <motion.div 
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.15 }}
+                                className="flex gap-3 pt-2"
+                            >
+                                <Link 
+                                    href="/pitch-coach" 
+                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-sm font-bold hover:scale-105 transition-all shadow-lg shadow-violet-500/20 group"
+                                >
+                                    <Rocket className="h-4 w-4 group-hover:animate-bounce" />
+                                    Ir al Pitch Coach
+                                </Link>
+                            </motion.div>
 
                         <motion.div 
                             initial={{ opacity: 0, y: 20 }}
