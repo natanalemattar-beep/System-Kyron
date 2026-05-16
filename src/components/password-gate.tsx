@@ -5,8 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Lock, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Clave de acceso: kyron2026
-const CORRECT_PASSWORD = 'kyron2026';
+// Clave de acceso: Carlos123
+const CORRECT_PASSWORD = 'Carlos123';
 
 export function PasswordGate({ children, title }: { children: React.ReactNode; title: string }) {
   const [password, setPassword] = useState('');
