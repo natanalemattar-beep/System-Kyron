@@ -90,6 +90,7 @@ const PUBLIC_SEGMENTS = new Set([
   'documentacion',
   'stickers',
   'brand-kit',
+  'pitch-coach',
   'resumen-ejecutivo',
   'presentacion-final',
   'cartas',
@@ -122,6 +123,8 @@ const PUBLIC_API_SET = new Set([
   '/api/rif/consulta',
   '/api/budget',
   '/api/feedback',
+  '/api/pitch-analyze',
+  '/api/core/extract-document',
 ]);
 
 // Routes that handle their own header-based auth (e.g. x-admin-key)
