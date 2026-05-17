@@ -84,13 +84,13 @@ const RESOURCES: Resource[] = [
         image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=600&auto=format'
     },
     {
-        id: 'cartas',
-        title: 'Protocolos de Integración',
-        description: 'Documentación oficial para alianzas estratégicas y cumplimiento institucional.',
+        id: 'alianza-ameru',
+        title: 'Carta de Alianza Ameru',
+        description: 'Propuesta formal de alianza estratégica con Ameru AI para integración de sostenibilidad y smart bins.',
         icon: Building2,
-        href: '/cartas',
+        href: '/alianza-ameru',
         color: 'from-emerald-500 to-teal-600',
-        tag: 'PROTOCOLS',
+        tag: 'ALLIANCE',
         type: 'internal',
         size: 'normal',
         gradient: 'from-emerald-900/40 via-teal-900/20 to-transparent',
