@@ -1,7 +1,8 @@
 
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useAuth } from "@/lib/auth/context";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -62,6 +63,11 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
   const [unreadCount, setUnreadCount] = useState(0);
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
+  const { logout } = useAuth();
+
+  const handleLogout = useCallback(async () => {
+    await logout();
+  }, [logout]);
 
   const toggleSection = (key: string) => {
     setCollapsedSections(prev => ({ ...prev, [key]: !prev[key] }));
@@ -272,11 +278,9 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                     <Link href="/configuracion"><Settings className="mr-2 h-3 w-3" /> Ajustes</Link>
                                 </Button>
                             </SheetClose>
-                            <SheetClose asChild>
-                                <Button variant="outline" size="sm" asChild className="h-9 rounded-xl text-[11px] font-bold uppercase tracking-[0.1em] text-rose-500 border-rose-500/15 hover:bg-rose-500/8">
-                                    <Link href="/login"><LogOut className="h-3 w-3" /></Link>
-                                </Button>
-                            </SheetClose>
+                            <Button variant="outline" size="sm" onClick={handleLogout} className="h-9 rounded-xl text-[11px] font-bold uppercase tracking-[0.1em] text-rose-500 border-rose-500/15 hover:bg-rose-500/8">
+                                <LogOut className="h-3 w-3 mr-1.5" /> Salir
+                            </Button>
                         </div>
                         <div className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-primary/[0.04] border border-primary/8">
                             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
@@ -490,11 +494,11 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
 
                     <DropdownMenuSeparator className="my-1 opacity-30" />
                     
-                    <DropdownMenuItem asChild className="rounded-lg h-9 text-rose-500 focus:text-white focus:bg-rose-600 cursor-pointer">
-                        <Link href="/login" className="flex items-center px-3 text-[11px] font-bold uppercase tracking-[0.1em] gap-2.5">
+                    <DropdownMenuItem onClick={handleLogout} className="rounded-lg h-9 text-rose-500 focus:text-white focus:bg-rose-600 cursor-pointer">
+                        <span className="flex items-center px-3 text-[11px] font-bold uppercase tracking-[0.1em] gap-2.5">
                             <LogOut className="h-3.5 w-3.5" />
                             <span>Salir</span>
-                        </Link>
+                        </span>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

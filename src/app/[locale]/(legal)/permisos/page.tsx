@@ -89,16 +89,16 @@ function generarCarta(permiso: PermisoTipo, tipo: 'inscripcion' | 'renovacion'):
   const fecha = new Date().toLocaleDateString('es-VE', { year: 'numeric', month: 'long', day: 'numeric' });
   const requisitos = tipo === 'inscripcion' ? permiso.requisitosInscripcion : permiso.requisitosRenovacion;
 
-  return `Ciudad y Fecha: _________________, ${fecha}
+  return `Ciudad y fecha: _________________, ${fecha}.
 
-Señores
+Señores:
 ${org?.nombre || permiso.organismoId}
 ${org?.siglas ? `(${org.siglas})` : ''}
 Presente.-
 
 Asunto: Solicitud de ${tipo === 'inscripcion' ? 'Inscripción' : 'Renovación'} — ${permiso.nombre}
 
-Estimados Señores:
+Estimados señores:
 
 Por medio de la presente, me dirijo a ustedes en representación de EMPRENDIMIENTO CARLOS MATTAR, identificada con RIF J-50832149-9, domiciliada en Venezuela, con el fin de solicitar formalmente la ${tipo === 'inscripcion' ? 'inscripción' : 'renovación'} ante ese organismo del trámite denominado "${permiso.nombre}".
 

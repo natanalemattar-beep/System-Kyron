@@ -4,6 +4,8 @@ export async function POST() {
     const res = NextResponse.json({ success: true });
     res.cookies.set('sk_session', '', {
         httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
         expires: new Date(0),
         path: '/',
     });

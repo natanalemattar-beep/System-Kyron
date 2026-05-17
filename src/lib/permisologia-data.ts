@@ -6659,7 +6659,7 @@ export function generarCartaSolicitud(permiso: PermisoTipo, empresa: EmpresaCart
   const requisitos = tipo === 'inscripcion' ? permiso.requisitosInscripcion : permiso.requisitosRenovacion;
 
   return `
-Caracas, ${fecha}
+Caracas, ${fecha}.
 
 Ciudadano(a)
 Director(a) General
@@ -6668,13 +6668,13 @@ Su Despacho.-
 
 REF.: SOLICITUD DE ${tipo === 'inscripcion' ? 'INSCRIPCIÓN' : 'RENOVACIÓN'} — ${permiso.nombre.toUpperCase()}
 
-Yo, ${empresa.representante.nombre}, venezolano(a), mayor de edad, titular de la Cédula de Identidad N° ${empresa.representante.cedula}, actuando en mi carácter de ${empresa.representante.cargo} de la sociedad mercantil "${empresa.denominacion}", inscrita ante el Registro Mercantil correspondiente, domiciliada en ${empresa.direccion}, identificada con el Registro de Información Fiscal (RIF) N° ${empresa.rif}, me dirijo a usted respetuosamente con el objeto de solicitar la ${tipo === 'inscripcion' ? 'inscripción' : 'renovación'} del siguiente permiso:
+Yo, ${empresa.representante.nombre}, venezolano(a), mayor de edad, titular de la cédula de identidad N° ${empresa.representante.cedula}, actuando en mi carácter de ${empresa.representante.cargo} de la sociedad mercantil "${empresa.denominacion}", inscrita ante el Registro Mercantil correspondiente, domiciliada en ${empresa.direccion} e identificada con el RIF N° ${empresa.rif}, por medio de la presente me dirijo a usted respetuosamente para solicitar la ${tipo === 'inscripcion' ? 'inscripción' : 'renovación'} del siguiente permiso:
 
 PERMISO SOLICITADO: ${permiso.nombre}
 ORGANISMO EMISOR: ${organismo?.nombre || permiso.organismoId}
 BASE LEGAL: ${permiso.baseLegal || 'Según normativa vigente'}
 
-A tales efectos, consigno los siguientes recaudos:
+A tal efecto, consigno los siguientes recaudos:
 
 ${requisitos.map((r, i) => `${i + 1}. ${r}`).join('\n')}
 

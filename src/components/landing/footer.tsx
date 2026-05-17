@@ -21,7 +21,6 @@ export function Footer() {
         { label: t('nav_platform'), href: "/#caracteristicas" },
         { label: "Planes & Precios", href: "/precios" },
         { label: "Resumen Ejecutivo", href: "/resumen-ejecutivo" },
-        { label: "Pitch Studio", href: "/pitch" },
     ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {

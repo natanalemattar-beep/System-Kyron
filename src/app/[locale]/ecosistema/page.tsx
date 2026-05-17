@@ -13,7 +13,7 @@ import { AppHeader } from "@/components/app-header";
 import { motion } from 'framer-motion';
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
-import { adminNavGroups } from "@/components/app-sidebar-nav-items";
+
 
 export default function EcosistemaKyron() {
   const { toast } = useToast();
@@ -59,7 +59,7 @@ export default function EcosistemaKyron() {
   return (
     <div className="flex min-h-screen bg-background text-foreground overflow-hidden hud-grid">
       <div className="flex-1 flex flex-col min-h-screen">
-        <AppHeader user={user} dashboardHref="/ecosistema" navGroups={adminNavGroups} />
+        <AppHeader user={user} dashboardHref="/ecosistema" navGroups={[]} />
         
         <main className="flex-1 w-full p-4 md:p-12 pt-20 md:pt-32 overflow-y-auto custom-scrollbar pb-24">
           <motion.div 
