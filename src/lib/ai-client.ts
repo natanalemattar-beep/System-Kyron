@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
+﻿import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
 import { getApiKey, hasApiKeys } from '@/lib/ai-key-manager';
 
 export function createClient(): GoogleGenerativeAI | null {

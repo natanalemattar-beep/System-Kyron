@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -127,7 +127,7 @@ export default function RegisterContabilidadPage() {
 
     const { register, handleSubmit, control, watch, setValue, trigger, getValues, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
-        mode: 'onChange',
+        mode: 'onBlur',
         defaultValues: {
             plan: searchParams.get('plan') || '',
             planType: 'combo',
@@ -259,12 +259,12 @@ export default function RegisterContabilidadPage() {
         }
     };
 
-    const getActivePlan = () => {
+    const activePlan = useMemo(() => {
         if (planType === 'combo') {
             return COMBOS.find(c => c.id === selectedCombo);
         }
         return PLANES_CONTABILIDAD.find(p => p.id === selectedPlan);
-    };
+    }, [planType, selectedCombo, selectedPlan]);
 
     return (
         <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950/20 to-slate-950">
@@ -524,13 +524,21 @@ export default function RegisterContabilidadPage() {
                                              <div className="space-y-1.5">
                                                  <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Nombre</Label>
                                                  <p className="text-[9px] font-bold text-white/20 ml-1">Contador/Representante</p>
-                                                 <Input {...register('nombre')} className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
+                                                 <Input {...register('nombre')} placeholder="Tu nombre" className="h-12 rounded-xl bg-white/10 border-white/20 focus:ring-2 focus:ring-cyan-500/30 text-white placeholder:text-white/30" />
+                                                 {errors.nombre && <p className="text-[10px] text-red-400 mt-1">{errors.nombre.message}</p>}
                                              </div>
                                              <div className="space-y-1.5">
                                                  <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Apellido</Label>
-                                                 <Input {...register('apellido')} className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
+                                                 <Input {...register('apellido')} placeholder="Tu apellido" className="h-12 rounded-xl bg-white/10 border-white/20 focus:ring-2 focus:ring-cyan-500/30 text-white placeholder:text-white/30" />
+                                                 {errors.apellido && <p className="text-[10px] text-red-400 mt-1">{errors.apellido.message}</p>}
                                              </div>
                                          </div>
+                                                 <div className="space-y-1.5">
+                                                     <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Apellido</Label>
+                                                     <Input {...register('apellido')} placeholder="Tu apellido" className="h-12 rounded-xl bg-white/10 border-white/20 focus:ring-2 focus:ring-cyan-500/30 text-white placeholder:text-white/30" />
+                                                     {errors.apellido && <p className="text-[10px] text-red-400 mt-1">{errors.apellido.message}</p>}
+                                                 </div>
+                                             </div>
 
                                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                              <div className="space-y-1.5">
@@ -620,9 +628,10 @@ export default function RegisterContabilidadPage() {
                                                     <button type="button" onClick={sendVerificationCode} className="text-[11px] font-bold uppercase tracking-widest text-cyan-400 hover:underline">Reenviar token</button>
                                                 )}
                                             </div>
-                                            <Button type="submit" disabled={verifCode.length < 6 || verifLoading} className="w-full h-14 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-xl shadow-cyan-500/20 font-black text-base">
-                                                {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Sincronizar y Activar'}
-                                            </Button>
+                                             <Button type="submit" disabled={verifCode.length < 6 || verifLoading} className="w-full h-14 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-xl shadow-cyan-500/20 font-black text-base">
+                                                 {verifLoading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : null}
+                                                 Sincronizar y Activar
+                                             </Button>
                                         </div>
                                     )}
                                 </div>
@@ -646,8 +655,8 @@ export default function RegisterContabilidadPage() {
                                             <p className="text-[10px] font-black uppercase tracking-widest text-white/30 mb-1">Plan</p>
                                             <p className="text-sm font-bold text-cyan-300">
                                                 {planType === 'combo'
-                                                    ? COMBOS.find(c => c.id === getValues('plan'))?.nombre
-                                                    : PLANES_CONTABILIDAD.find(p => p.id === getValues('plan'))?.nombre
+                                                     ? activePlan?.nombre
+                                                     : activePlan?.nombre
                                                 }
                                             </p>
                                         </div>
