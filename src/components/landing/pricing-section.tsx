@@ -137,21 +137,21 @@ function PricingGraphs({ t }: { t: any }) {
 function ModuleCard({ id, mod, index, t }: { id: string; mod: any; index: number; t: any }) {
   const Icon = ICONS[id] || Shield;
   
-  // Official Pricing Logic 2026
+  // Official Pricing Logic 2026 — Competitivo vs Galac
   const PRECIOS: Record<string, number | null> = {
     personal: null,
     sostenibilidad: null,
-    contable: 59.99,
-    legal: 24.99,
-    socios: 24.99,
-    tpv: 0, // Included with hardware or other modules
-    milinea: 6.99, // Starting price
-    milinea_corp: 9.99, // Starting price
+    contable: 19.99,
+    legal: 12.99,
+    socios: 12.99,
+    tpv: 9.99,
+    milinea: 6.99,
+    milinea_corp: 9.99,
   };
 
   const precio = PRECIOS[id] ?? 0;
   const isFree = id === 'personal' || id === 'sostenibilidad';
-  const isIncluded = id === 'tpv';
+  const isIncluded = false;
 
   const acentoClasses: Record<string, string> = {
     personal: 'text-emerald-400',
@@ -254,7 +254,7 @@ export function PricingSection() {
   const hardware = t.raw('hardware');
   const combos = t.raw('combos');
 
-  const hardwarePrices: Record<string, number> = { caja: 1115, impresora: 679, kit: 1999 };
+  const hardwarePrices: Record<string, number> = { caja: 1394, impresora: 849, kit: 2499 };
   const planes5GPrices: Record<string, number> = { 
     basico: 6.99, 
     estandar: 7.99,
@@ -268,8 +268,29 @@ export function PricingSection() {
     corporativo: 14.99,
     ilimitado_corp: 19.99
   };
-  const combosTotals: Record<string, number> = { solo: 0, pro: 39.99, comerciante: 14.99, negocio: 79.99, total: 149.99 };
+  const combosTotals: Record<string, number> = { solo: 19.99, pro: 34.99, comerciante: 49.99, negocio: 69.99, total: 99.99 };
+  const comboItemsPrices: Record<string, number[]> = {
+    solo: [19.99, 9.99, 9.99],
+    pro: [19.99, 9.99, 12.99, 9.99],
+    comerciante: [19.99, 9.99, 12.99, 12.99, 9.99],
+    negocio: [19.99, 9.99, 12.99, 12.99, 9.99, 9.99],
+    total: [55.96, 14.99, 19.99, 29.99],
+  };
 
+  // ─── Comparison matrix for combos ─────────────────
+  const comboFeatures: { key: string; solo: boolean; pro: boolean; comerciante: boolean; negocio: boolean; total: boolean }[] = [
+    { key: 'contable',      solo: true,  pro: true,  comerciante: true,  negocio: true,  total: true },
+    { key: 'tpv',           solo: true,  pro: true,  comerciante: true,  negocio: true,  total: true },
+    { key: 'legal',         solo: false, pro: true,  comerciante: true,  negocio: true,  total: true },
+    { key: 'socios',        solo: false, pro: false, comerciante: true,  negocio: true,  total: true },
+    { key: 'milinea_corp',  solo: true,  pro: true,  comerciante: true,  negocio: true,  total: true },
+    { key: 'usuarios_5',    solo: false, pro: false, comerciante: false, negocio: true,  total: false },
+    { key: 'usuarios_ilimitados', solo: false, pro: false, comerciante: false, negocio: false, total: true },
+    { key: 'soporte_vip',   solo: false, pro: false, comerciante: false, negocio: false, total: true },
+    { key: 'hardware',      solo: false, pro: false, comerciante: true,  negocio: true,  total: true },
+  ];
+  const cc = t.raw('combo_compare') as any;
+ 
   return (
     <section
       id="pricing"
@@ -618,7 +639,8 @@ export function PricingSection() {
                     {combo.items.map((item: string, j: number) => (
                       <li key={j} className="flex items-center gap-3 text-xs text-slate-500 dark:text-white/50 font-medium">
                         <div className="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-white/20" />
-                        {item}
+                        <span className="flex-1">{item}</span>
+                        <span className="text-[10px] font-black text-white/20">{comboItemsPrices[id]?.[j] === 0 ? '✅ Incluido' : `+$${comboItemsPrices[id]?.[j]?.toFixed(2) ?? '—'}`}</span>
                       </li>
                     ))}
                   </ul>
@@ -627,11 +649,20 @@ export function PricingSection() {
                     <div>
                       <p className="text-[9px] text-white/20 font-black uppercase tracking-[0.2em] mb-1">{t('estimated_cost')}</p>
                       <p className="text-3xl font-black text-white tracking-tighter leading-none">
-                        {combosTotals[id] === 0 ? (
-                          <span className="text-emerald-400">{t('free')}</span>
-                        ) : (
-                          `$${combosTotals[id]?.toFixed(2)}`
-                        )}
+                        {(() => {
+                          const sepTotal = comboItemsPrices[id]?.reduce((a, b) => a + b, 0) ?? 0;
+                          const comboTot = combosTotals[id] ?? 0;
+                          const savings = sepTotal - comboTot;
+                          return (
+                            <>
+                              <span className="text-lg font-black text-white/20 line-through mr-2">${sepTotal.toFixed(2)}</span>
+                              <span className="text-emerald-400">${comboTot.toFixed(2)}</span>
+                              {savings > 0 && (
+                                <span className="block text-[9px] text-emerald-400/60 font-black uppercase tracking-widest mt-1">Ahórrate ${savings.toFixed(2)}/mes</span>
+                              )}
+                            </>
+                          );
+                        })()}
                       </p>
                     </div>
                     <Button asChild className="h-11 px-6 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-all hover:scale-[1.03]">
@@ -645,13 +676,81 @@ export function PricingSection() {
             })}
           </div>
 
+          {/* ══════════════════════════════════════════
+              COMPARISON TABLE
+          ══════════════════════════════════════════ */}
+          {cc && (
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="mt-32 mb-24"
+            >
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-black text-white uppercase tracking-tighter">{cc.title}</h3>
+                <p className="text-sm text-white/40 font-medium mt-3">{cc.subtitle}</p>
+              </div>
+
+              <div className="overflow-x-auto rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-md">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/5">
+                      <th className="text-left p-5 text-[10px] font-black uppercase tracking-widest text-white/30 w-[200px] min-w-[160px]">
+                        {t('modules_badge')}
+                      </th>
+                      {Object.entries(combos).map(([id, combo]: [string, any]) => (
+                        <th key={id} className="p-5 text-center">
+                          <span className="text-xs font-black text-white tracking-tight">{combo.profile}</span>
+                          <div className="text-[9px] text-emerald-400 font-black uppercase tracking-widest mt-1">
+                            ${combosTotals[id]?.toFixed(2)}/mes
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {comboFeatures.map((feat, idx) => {
+                      const label = cc.features?.[feat.key];
+                      if (!label) return null;
+                      return (
+                        <tr key={feat.key} className={cn('border-b border-white/5 last:border-0', idx % 2 === 0 ? 'bg-white/[0.01]' : '')}>
+                          <td className="p-5 text-xs font-medium text-white/60">{label}</td>
+                          {(['solo', 'pro', 'comerciante', 'negocio', 'total'] as const).map((cid) => (
+                            <td key={cid} className="p-5 text-center">
+                              {feat[cid] ? (
+                                <Check className="h-4 w-4 text-emerald-400 mx-auto" strokeWidth={3} />
+                              ) : (
+                                <span className="text-white/15 text-xs font-black">{cc.not_included || '—'}</span>
+                              )}
+                            </td>
+                          ))}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* VS Galac callout */}
+              <div className="mt-8 p-6 rounded-2xl border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-md max-w-3xl mx-auto text-center">
+                <p className="text-xs font-black text-cyan-400 uppercase tracking-widest mb-2">VS Gálac</p>
+                <p className="text-sm text-white/50 font-medium leading-relaxed">
+                  Una PYME paga en Galac <span className="text-white/80 font-black">$84–$125/mes</span> solo por 
+                  Administrativo + IVA + Nómina. Con <span className="text-cyan-400 font-black">System Kyron Negocio</span> 
+                  obtienes Contable + TPV + Legal + Socios + Telecom + 5 usuarios por <span className="text-emerald-400 font-black">$69.99/mes</span>.
+                </p>
+              </div>
+            </motion.div>
+          )}
+
           {/* Final trust note */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="mt-24 text-center"
+            className="mt-16 text-center"
           >
             <div className="inline-grid grid-cols-2 md:grid-cols-4 gap-4 px-10 py-8 rounded-[2rem] border border-black/5 dark:border-white/5 bg-black/[0.01] dark:bg-white/[0.02] backdrop-blur-md max-w-5xl mx-auto">
               <div className="flex flex-col items-center gap-3 p-4">

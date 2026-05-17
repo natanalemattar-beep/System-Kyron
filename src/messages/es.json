@@ -223,10 +223,10 @@
         "hardware_title": "Hardware",
         "hardware_highlight": "Certificado",
         "hardware_subtitle": "Equipos integrados nativamente con el ecosistema Kyron para su local físico.",
-        "combos_badge": "Perfiles de Acceso",
-        "combos_title": "Estructura de",
-        "combos_highlight": "Inversión",
-        "combos_subtitle": "Combos diseñados para adaptarse a la etapa actual de su negocio.",
+        "combos_badge": "Planes Empresariales",
+        "combos_title": "System Kyron",
+        "combos_highlight": "Ecosistema",
+        "combos_subtitle": "Planes empresariales progresivos. Entre más crece su negocio, más módulos necesita — y más ahorra.",
         "saas_modules": {
             "personal": {
                 "name": "Cuenta Personal",
@@ -285,28 +285,47 @@
         },
         "combos": {
             "solo": {
-                "profile": "Independiente",
-                "badge": "Emprendedor",
-                "items": ["Cuenta Personal", "Sostenibilidad", "Asistencia Básica"]
+                "profile": "Microempresa",
+                "badge": "System Kyron",
+                "items": ["Asesoría Contable VEN-NIF", "TPV / Facturación SENIAT", "Mi Línea 5G Empresarial"]
             },
             "pro": {
-                "profile": "Profesional",
-                "badge": "Recomendado",
-                "items": ["Contabilidad", "Mi Línea 5G", "Soporte Prioritario"]
+                "profile": "Pequeña Empresa",
+                "badge": "System Kyron",
+                "items": ["Asesoría Contable VEN-NIF", "TPV / Facturación SENIAT", "Asesoría Legal", "Mi Línea 5G Empresarial"]
             },
             "comerciante": {
-                "profile": "Comerciante",
-                "items": ["Facturación", "Hardware Fiscal", "Inventario"]
+                "profile": "Comercio Local",
+                "badge": "System Kyron",
+                "items": ["Asesoría Contable VEN-NIF", "TPV / Facturación SENIAT", "Asesoría Legal", "Socios y Directivos", "Mi Línea 5G Empresarial"]
             },
             "negocio": {
-                "profile": "Pyme / Empresa",
-                "badge": "Premium",
-                "items": ["Contabilidad", "Facturación", "Legal", "5 Usuarios"]
+                "profile": "PYME / Mediana Empresa",
+                "badge": "System Kyron",
+                "items": ["Asesoría Contable VEN-NIF", "TPV / Facturación SENIAT", "Asesoría Legal", "Socios y Directivos", "Mi Línea 5G Empresarial", "5 Usuarios Adicionales"]
             },
             "total": {
-                "profile": "Ecosistema Total",
-                "badge": "Corporativo",
-                "items": ["Todos los Módulos", "Soporte VIP 24/7", "Usuarios Ilimitados"]
+                "profile": "Corporativo / Grupo Empresarial",
+                "badge": "System Kyron",
+                "items": ["Todos los Módulos SaaS", "Mi Línea 5G Ilimitado Empresarial", "Soporte VIP 24/7", "Usuarios Ilimitados"]
+            }
+        },
+        "combo_compare": {
+            "title": "Tabla Comparativa",
+            "subtitle": "Compare qué incluye cada plan de System Kyron",
+            "included": "Incluido",
+            "not_included": "—",
+            "features": {
+                "contable": "Asesoría Contable VEN-NIF",
+                "tpv": "TPV / Facturación SENIAT",
+                "legal": "Asesoría Legal",
+                "socios": "Socios y Directivos",
+                "milinea": "Mi Línea 5G",
+                "milinea_corp": "Mi Línea 5G Empresarial",
+                "usuarios_5": "5 Usuarios Adicionales",
+                "usuarios_ilimitados": "Usuarios Ilimitados",
+                "soporte_vip": "Soporte VIP 24/7",
+                "hardware": "Integración Hardware Fiscal"
             }
         }
     },

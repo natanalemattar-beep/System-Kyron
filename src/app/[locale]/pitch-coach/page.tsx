@@ -406,7 +406,7 @@ export default function PitchCoachPage() {
                   Arrastra tu archivo aquí o <span className="text-primary">haz clic para seleccionar</span>
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  PDF, JPG, PNG o WebP · Máximo 10 MB
+                  PDF, JPG, PNG o WebP · Máximo 20 MB
                 </p>
               </div>
 

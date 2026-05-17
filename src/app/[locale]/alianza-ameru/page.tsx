@@ -102,7 +102,7 @@ export default function AlianzaAmeruPage() {
                                 Creemos que esta alianza no solo acelerará la adopción de gestión inteligente de residuos en la región, sino que también creará una propuesta de valor diferenciada para ambas empresas.
                             </p>
                             <p>
-                                Estaría encantado de programar una reunión a su earliest convenience para discutir esta propuesta en mayor detalle y definir los próximos pasos hacia un acuerdo formal.
+                                Estaría encantado de programar una reunión a la mayor brevedad posible para discutir esta propuesta en mayor detalle y definir los próximos pasos hacia un acuerdo formal.
                             </p>
                             <p>Gracias por considerar esta oportunidad. Quedo a la espera de su favorable respuesta.</p>
                         </div>
