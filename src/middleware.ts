@@ -94,6 +94,7 @@ const PUBLIC_SEGMENTS = new Set([
   'resumen-ejecutivo',
   'presentacion-final',
   'cartas',
+  'alianza-ameru',
 ]);
 
 // Public API routes — explicit whitelist (fail-closed)

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { AppHeader } from "@/components/app-header";
 import { AppSidebar } from "@/components/app-sidebar";
 import { PageTransition } from "@/components/ui/motion";
-import { adminNavGroups, ventasNavGroups } from "@/components/app-sidebar-nav-items";
+import { asesoriaContableNavGroups, ventasNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
 import { useSetModuleContext } from "@/lib/module-context";
 import { PreferencesProvider, usePreferences } from "@/lib/preferences-context";
@@ -27,7 +27,8 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     useSetModuleContext("admin");
     const isVentasSection = VENTAS_PATHS.some(p => pathname.startsWith(p));
-    const effectiveNavGroups = isVentasSection ? ventasNavGroups : adminNavGroups;
+    const isAdmin = user?.tipo === 'admin';
+    const effectiveNavGroups = isVentasSection ? ventasNavGroups : (isAdmin ? asesoriaContableNavGroups : []);
     const displayName = user?.tipo === 'juridico'
       ? (user?.razon_social || user?.nombre || "Empresa")
       : `${user?.nombre || ""}${user?.apellido ? ' ' + user.apellido : ''}`.trim() || "Usuario";

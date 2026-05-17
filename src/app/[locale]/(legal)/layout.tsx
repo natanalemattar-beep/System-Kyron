@@ -36,7 +36,7 @@ export default function LegalLayout({
     const userColor = fromAdmin ? "bg-primary shadow-glow" : "bg-slate-800 shadow-glow";
     const user = { name: displayName, email: authUser?.email || "", fallback: initials, color: userColor };
 
-    const navGroups = fromAdmin ? asesoriaContableNavGroups : legalNavGroups;
+    const navGroups = fromAdmin && authUser?.tipo === 'admin' ? asesoriaContableNavGroups : legalNavGroups;
     const dashHref = fromAdmin ? "/dashboard-empresa" : "/escritorio-juridico";
     const footerLabel = fromAdmin ? "Portal Empresarial" : "Legal";
 
