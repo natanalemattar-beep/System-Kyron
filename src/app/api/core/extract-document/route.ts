@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
         try {
-            const model = createModel("gemini-2.0-flash");
+            const model = createModel("gemini-2.0-flash-lite");
             if (!model) {
                 return NextResponse.json({ error: 'API de IA no configurada' }, { status: 500 });
             }

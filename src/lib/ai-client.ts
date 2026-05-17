@@ -8,7 +8,7 @@ export function createClient(): GoogleGenerativeAI | null {
 }
 
 export function createModel(
-  modelName: string = 'gemini-2.0-flash',
+  modelName: string = 'gemini-2.0-flash-lite',
   config?: Record<string, any>
 ) {
   const client = createClient();

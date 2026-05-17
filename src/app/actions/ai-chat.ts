@@ -9,7 +9,7 @@ export async function chatWithKyron(messages: { role: string; content: string }[
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
         try {
-            const model = createModel("gemini-2.0-flash", {
+            const model = createModel("gemini-2.0-flash-lite", {
                 temperature: 0.2,
                 topP: 0.6,
                 topK: 20,
@@ -70,7 +70,7 @@ export async function generateEngineeringInsights(params: any) {
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
         try {
-            const model = createModel("gemini-2.0-flash", {
+            const model = createModel("gemini-2.0-flash-lite", {
                 temperature: 0.2,
                 maxOutputTokens: 1024,
             });

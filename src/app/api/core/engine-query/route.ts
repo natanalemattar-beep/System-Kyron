@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       try {
-        const model = createModel("gemini-2.0-flash");
+        const model = createModel("gemini-2.0-flash-lite");
         if (!model) {
           return NextResponse.json({ content: "La IA de Kyron no está configurada. Contacta al administrador.", status: 'error' });
         }
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
             SYSTEM_PROMPT + "\n\nUsuario: " + lastMessage
           );
           const response = await result.response;
-          return NextResponse.json({ content: response.text(), provider: 'gemini-2.0-flash', status: 'success' });
+          return NextResponse.json({ content: response.text(), provider: 'gemini-2.0-flash-lite', status: 'success' });
         }
 
       } catch (error: any) {

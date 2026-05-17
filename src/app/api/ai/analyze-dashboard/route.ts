@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       try {
-        const model = createModel("gemini-2.0-flash", {
+        const model = createModel("gemini-2.0-flash-lite", {
           temperature: 0.3,
           topP: 0.7,
           topK: 30,
@@ -87,7 +87,7 @@ Genera un análisis ejecutivo con:
         } else {
           const result = await model.generateContent(prompt);
           const response = await result.response;
-          return NextResponse.json({ content: response.text(), provider: 'gemini-2.0-flash' });
+          return NextResponse.json({ content: response.text(), provider: 'gemini-2.0-flash-lite' });
         }
 
       } catch (error: any) {

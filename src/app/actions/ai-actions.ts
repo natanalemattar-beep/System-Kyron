@@ -9,7 +9,7 @@ export async function getPitchAdvice(slideTitle: string, slideBody: string, slid
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
         try {
-            const model = createModel("gemini-2.0-flash", {
+            const model = createModel("gemini-2.0-flash-lite", {
                 temperature: 0.4,
                 maxOutputTokens: 1024,
             });
