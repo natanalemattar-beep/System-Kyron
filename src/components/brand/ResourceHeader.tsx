@@ -72,16 +72,9 @@ export function ResourceHeader() {
                                     <motion.div 
                                         layoutId="active-pill-liquid"
                                         className="absolute inset-0 bg-white rounded-full shadow-[0_10px_20px_rgba(255,255,255,0.2)]"
-                                        transition={{ 
-                                            type: "spring", 
-                                            stiffness: 400, 
-                                            damping: 32,
-                                            mass: 1,
-                                            // Esto crea el efecto "liquid" de estiramiento
-                                            layout: {
-                                                duration: 0.4,
-                                                ease: [0.23, 1, 0.32, 1]
-                                            }
+                                        transition={{
+                                            duration: 0.45,
+                                            ease: [0.23, 1, 0.32, 1]
                                         }}
                                     >
                                         <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white to-zinc-200 opacity-50" />

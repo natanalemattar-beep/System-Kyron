@@ -85,11 +85,17 @@ const config: Config = {
           "0%,70%,100%": { opacity: "1" },
           "20%,50%": { opacity: "0" },
         },
+        "shake": {
+          "0%, 100%": { transform: "translateX(0)" },
+          "10%, 30%, 50%, 70%, 90%": { transform: "translateX(-4px)" },
+          "20%, 40%, 60%, 80%": { transform: "translateX(4px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.35s cubic-bezier(0.16,1,0.3,1)",
         "accordion-up": "accordion-up 0.35s cubic-bezier(0.16,1,0.3,1)",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
+        "shake": "shake 0.5s ease-in-out",
       },
        textShadow: {
         glow: '0 0 15px hsl(var(--primary) / 0.5), 0 0 30px hsl(var(--primary) / 0.3)',

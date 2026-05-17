@@ -287,6 +287,7 @@ export default function BrandKitPage() {
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
                                 className="col-span-full flex flex-col items-center justify-center py-24 text-center"
                             >
                                 <Search className="h-12 w-12 text-zinc-700 mb-4" />
