@@ -59,6 +59,7 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
         kyron: {
+          deep: "hsl(var(--kyron-deep))",
           cyan: "hsl(var(--kyron-cyan))",
           emerald: "hsl(var(--kyron-emerald))",
           indigo: "hsl(var(--kyron-indigo))",

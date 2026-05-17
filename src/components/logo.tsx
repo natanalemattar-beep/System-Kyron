@@ -19,15 +19,14 @@ export function Logo({ className, id, variant }: LogoProps) {
   }, []);
 
   // Determine logo source based on variant or theme
-  let logoSrc = "/images/logo-transparent.png"; // Default to white logo
+  let logoSrc = "/images/logo-kyron.svg";
 
   if (variant === 'dark') {
-    logoSrc = "/images/logo-black.png";
+    logoSrc = "/images/logo-kyron.svg";
   } else if (variant === 'light' || variant === 'normal') {
-    logoSrc = "/images/logo-transparent.png";
+    logoSrc = "/images/logo-kyron.svg";
   } else if (mounted) {
-    // If no variant specified, use theme
-    logoSrc = resolvedTheme === 'dark' ? "/images/logo-transparent.png" : "/images/logo-black.png";
+    logoSrc = "/images/logo-kyron.svg";
   }
 
   return (

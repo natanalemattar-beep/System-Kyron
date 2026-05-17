@@ -146,7 +146,7 @@ export function SupportBot() {
                         transition={{ type: "spring", damping: 25, stiffness: 300 }}
                         className="mb-4"
                     >
-                        <Card className="w-[340px] sm:w-[380px] md:w-[420px] h-[520px] flex flex-col bg-[#0a0f1e] border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.5)] rounded-3xl overflow-hidden">
+                            <Card className="w-[340px] sm:w-[380px] md:w-[420px] h-[520px] flex flex-col bg-card border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.5)] rounded-3xl overflow-hidden">
                             {/* Header */}
                             <div className="px-5 py-4 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 border-b border-white/5 flex items-center justify-between">
                                 <div className="flex items-center gap-3">

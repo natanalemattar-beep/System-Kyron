@@ -19,62 +19,55 @@ body::after {
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 6%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 221 83% 53%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 191 91% 50%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 1.5rem;
-    --kyron-cyan: 191 91% 50%;
-    --kyron-emerald: 156 72% 45%;
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(14, 165, 233, 0.2);
-    --glass-shadow: rgba(0, 0, 0, 0.05);
-    --glass-highlight: rgba(255, 255, 255, 0.8);
-  }
-
-  .dark {
-    --background: 224 71% 4%;
+    /* Kyron Dark Palette - Standardized */
+    --background: 222 47% 4%;
     --foreground: 213 31% 91%;
-    --card: 224 71% 4%;
+    
+    --card: 222 47% 6%;
     --card-foreground: 213 31% 91%;
-    --popover: 224 71% 4%;
+    
+    --popover: 222 47% 4%;
     --popover-foreground: 213 31% 91%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 1.2%;
-    --secondary: 222.2 47.4% 11.2%;
+    
+    --primary: 191 91% 50%; /* Neon Cyan */
+    --primary-foreground: 222 47% 4%;
+    
+    --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 63% 31%;
+    
+    --muted: 217 33% 12%;
+    --muted-foreground: 215 20% 65%;
+    
+    --accent: 156 72% 45%; /* Emerald */
+    --accent-foreground: 222 47% 4%;
+    
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
-    --ring: 216 34% 17%;
+    
+    --border: 217 33% 15%;
+    --input: 217 33% 15%;
+    --ring: 191 91% 50%;
+    
+    --radius: 1rem;
+    
+    /* Kyron Custom Palette */
+    --kyron-deep: 222 47% 4%;
     --kyron-cyan: 191 91% 50%;
     --kyron-emerald: 156 72% 45%;
     --kyron-indigo: 239 84% 67%;
     --kyron-gold: 45 93% 47%;
-    --glass-bg: rgba(8, 12, 24, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --kyron-violet: 270 80% 60%;
+    
+    --glass-bg: rgba(15, 23, 42, 0.6);
+    --glass-border: rgba(34, 211, 238, 0.2);
     --glass-shadow: rgba(0, 0, 0, 0.4);
-    --glass-highlight: rgba(255, 255, 255, 0.03);
+    --glass-highlight: rgba(255, 255, 255, 0.05);
+  }
+
+  /* Force Dark Mode globally */
+  .dark {
+    --background: 222 47% 4%;
+    --foreground: 213 31% 91%;
   }
 
   html {
@@ -85,7 +78,7 @@ body::after {
   * { @apply border-border; }
 
   body {
-    @apply bg-[#030712] text-foreground antialiased selection:bg-cyan-500/20 selection:text-cyan-200;
+    @apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-primary;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -95,14 +88,8 @@ body::after {
   h1, h2, h3, h4, h5, h6 {
     @apply tracking-tight font-black;
     font-family: 'Outfit', sans-serif;
-    line-height: 0.9;
+    line-height: 1;
   }
-
-  /* Clases de Tipografía por Entorno */
-  .font-tech { font-family: var(--font-outfit), sans-serif; }
-  .font-legal { font-family: var(--font-lora), serif; }
-  .font-impact { font-family: var(--font-outfit), sans-serif; }
-  .font-inter { font-family: var(--font-inter), sans-serif; }
 
   p, span, label, a, li, td, th, dt, dd, div {
     overflow-wrap: break-word;
@@ -112,19 +99,11 @@ body::after {
 @layer utilities {
   .liquid-glass-apple {
     @apply relative overflow-hidden border;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(40px) saturate(2.2) brightness(1.1);
-    -webkit-backdrop-filter: blur(40px) saturate(2.2) brightness(1.1);
-    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(40px) saturate(1.5);
+    -webkit-backdrop-filter: blur(40px) saturate(1.5);
+    border-color: rgba(255, 255, 255, 0.1);
     box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
-  }
-
-  .dark .liquid-glass-apple {
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(45px) saturate(2.5) brightness(0.9);
-    -webkit-backdrop-filter: blur(45px) saturate(2.5) brightness(0.9);
-    border-color: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7);
   }
 
   .kyron-gradient-text {
@@ -135,20 +114,19 @@ body::after {
     box-shadow: 0 0 20px -5px hsla(var(--primary), 0.3);
   }
 
-  /* --- HUD & PREMIUM COMPONENTS --- */
   .glass-liquid-hud {
     @apply relative overflow-hidden transition-all duration-500;
-    background: rgba(255, 255, 255, 0.015);
+    background: rgba(15, 23, 42, 0.2);
     backdrop-filter: blur(25px) saturate(2);
     -webkit-backdrop-filter: blur(25px) saturate(2);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 
-      inset 0 0 12px rgba(255, 255, 255, 0.03),
+      inset 0 0 12px rgba(255, 255, 255, 0.02),
       0 10px 30px -10px rgba(0, 0, 0, 0.4);
   }
 
   .glass-liquid-hud:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(15, 23, 42, 0.4);
     border-color: rgba(34, 211, 238, 0.4);
     box-shadow: 
       inset 0 0 15px rgba(34, 211, 238, 0.1),
@@ -172,90 +150,12 @@ body::after {
       0 15px 30px -5px rgba(37, 99, 235, 0.5);
   }
 
-  .btn-3d-primary:active {
-    transform: translateY(2px);
-    box-shadow: 
-      0 0 0 #1d4ed8,
-      0 5px 10px -5px rgba(37, 99, 235, 0.3);
-  }
-
   .text-glow-cyan {
-    text-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
-  }
-
-  .dark .text-glow-cyan {
-    text-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
+    text-shadow: 0 0 15px rgba(34, 211, 238, 0.6);
   }
 
   .drop-shadow-glow {
-    filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.3));
-  }
-
-  .dark .drop-shadow-glow {
     filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.5));
-  }
-
-  .text-glow-emerald {
-    text-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
-  }
-
-  .text-glow-gold {
-    text-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
-  }
-
-  /* Kyron Glass System */
-  .glass-system-kyron {
-    @apply relative overflow-hidden transition-all duration-500;
-    background: rgba(255, 255, 255, 0.015);
-    backdrop-filter: blur(20px) saturate(1.8);
-    -webkit-backdrop-filter: blur(20px) saturate(1.8);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 
-      inset 0 0 12px rgba(255, 255, 255, 0.02),
-      0 10px 30px -10px rgba(0, 0, 0, 0.3);
-  }
-
-  .glass-system-kyron-interactive {
-    @apply glass-system-kyron hover:bg-white/[0.04] hover:border-cyan-500/30 hover:shadow-cyan-500/5 hover:-translate-y-1 transition-all duration-700;
-  }
-
-  .neural-border {
-    @apply relative border border-white/10 overflow-hidden;
-    background: linear-gradient(135deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.03) 100%);
-  }
-
-  .neural-border::before {
-    content: '';
-    position: absolute;
-    top: -1px; left: -1px; right: -1px; bottom: -1px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.1) 100%);
-    border-radius: inherit;
-    z-index: -1;
-    pointer-events: none;
-  }
-
-  .shine-effect {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .shine-effect::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -60%;
-    width: 20%;
-    height: 200%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: rotate(30deg);
-    transition: none;
-    animation: shine 4s infinite;
-  }
-
-  @keyframes shine {
-    0% { left: -60%; }
-    20% { left: 140%; }
-    100% { left: 140%; }
   }
 
   .scrollbar-hide::-webkit-scrollbar {
@@ -266,18 +166,6 @@ body::after {
     scrollbar-width: none;
   }
 
-  /* --- KYRON PROFESSIONAL ANIMATIONS --- */
-  .animate-mesh-drift {
-    animation: mesh-drift 20s ease-in-out infinite alternate;
-  }
-
-  @keyframes mesh-drift {
-    0% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(5%, 10%) scale(1.1); }
-    66% { transform: translate(-5%, 5%) scale(0.9); }
-    100% { transform: translate(0, 0) scale(1); }
-  }
-
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
@@ -285,33 +173,5 @@ body::after {
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
-  }
-
-  .animate-float-slow {
-    animation: float-slow 8s ease-in-out infinite;
-  }
-
-  @keyframes float-slow {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(2deg); }
-  }
-
-  .animate-kyron-breathe {
-    animation: kyron-breathe 3s ease-in-out infinite;
-  }
-
-  @keyframes kyron-breathe {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(0.98); }
-  }
-
-  .kyron-dot {
-    @apply h-1.5 w-1.5 rounded-full bg-emerald-500;
-    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-  }
-
-  .kyron-accent-line {
-    @apply h-px w-full;
-    background: linear-gradient(90deg, transparent, hsla(var(--primary), 0.3), transparent);
   }
 }

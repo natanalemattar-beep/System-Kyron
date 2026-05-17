@@ -65,15 +65,15 @@ export function HeroSectionOptimized() {
       id="inicio" 
       ref={containerRef} 
       onMouseMove={handleMouseMove}
-      className="relative min-h-[100svh] flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden bg-[#02040a]"
+      className="relative min-h-[100svh] flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden bg-background"
     >
       {/* --- MINIMALIST NEURAL BACKGROUND --- */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[#02040a]" />
+        <div className="absolute inset-0 bg-background" />
         
         {/* Subtle reactive light */}
         <div 
-          className="absolute w-[600px] h-[600px] rounded-full bg-cyan-500/[0.05] blur-[120px] transition-all duration-1000 ease-out"
+          className="absolute w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px] transition-all duration-1000 ease-out"
           style={{ 
             left: `${mousePos.x}%`, 
             top: `${mousePos.y}%`, 
@@ -82,8 +82,8 @@ export function HeroSectionOptimized() {
         />
         
         {/* Minimalist ambient glow */}
-        <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-blue-600/[0.03] blur-[150px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-emerald-500/[0.02] blur-[150px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-blue-600/5 blur-[150px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-accent/5 blur-[150px]" />
         
         {/* Very subtle grid */}
         <div className="absolute inset-0 opacity-[0.01]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)', backgroundSize: '100px 100px' }} />
