@@ -251,7 +251,7 @@ export default function CartasAgradecimientoPage() {
                                 <div className="flex justify-between items-start border-b-[4px] border-zinc-950 pb-12 mb-16">
                                     <div className="flex items-center gap-6">
                                         <div className="h-24 w-24 bg-zinc-950 rounded-[1.5rem] flex items-center justify-center p-5 shadow-2xl">
-                                            <img src="/images/logo-transparent.png" alt="Kyron" className="w-full h-full object-contain" />
+                                            <img src="/images/logo.png" alt="Kyron" className="w-full h-full object-contain" />
                                         </div>
                                         <div>
                                             <h2 className="text-4xl font-black tracking-tighter uppercase leading-none">System Kyron</h2>
@@ -341,7 +341,7 @@ export default function CartasAgradecimientoPage() {
                                 {/* Logo + nombre System Kyron en esquina inferior derecha */}
                                 <div className="absolute bottom-6 right-6 flex items-center gap-4 bg-black/40 backdrop-blur-xl border border-white/20 rounded-2xl px-5 py-3 shadow-2xl">
                                     <div className="h-12 w-12 bg-white/10 border border-white/20 rounded-xl flex items-center justify-center p-2 shadow-inner">
-                                        <img src="/images/logo-transparent.png" alt="System Kyron" className="w-full h-full object-contain" />
+                                        <img src="/images/logo.png" alt="System Kyron" className="w-full h-full object-contain" />
                                     </div>
                                     <div>
                                         <p className="text-base font-black uppercase tracking-[0.15em] text-white leading-none">System Kyron</p>
@@ -373,7 +373,7 @@ export default function CartasAgradecimientoPage() {
                                         <div className="relative flex justify-between items-start">
                                             <div className="flex items-center gap-5">
                                                 <div className="h-16 w-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center p-4 shadow-inner group-hover:bg-white/10 transition-all">
-                                                    <img src="/images/logo-transparent.png" alt="Logo" className="w-full h-full object-contain" />
+                                                    <img src="/images/logo.png" alt="Logo" className="w-full h-full object-contain" />
                                                 </div>
                                                 <div className="space-y-1.5">
                                                     <h4 className="text-xl font-black uppercase tracking-tighter italic leading-none text-white">System Kyron</h4>

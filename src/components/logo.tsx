@@ -18,14 +18,14 @@ export function Logo({ className, id, variant }: LogoProps) {
   }, []);
 
   // Determine logo source based on variant or theme
-  let logoSrc = "/images/logo-transparent.png";
+  let logoSrc = "/images/logo.png";
 
   if (variant === 'dark') {
     logoSrc = "/images/logo-black.png";
   } else if (variant === 'light' || variant === 'normal') {
-    logoSrc = "/images/logo-transparent.png";
+    logoSrc = "/images/logo.png";
   } else if (mounted) {
-    logoSrc = resolvedTheme === 'dark' ? "/images/logo-transparent.png" : "/images/logo-black.png";
+    logoSrc = resolvedTheme === 'dark' ? "/images/logo.png" : "/images/logo-black.png";
   }
 
   return (

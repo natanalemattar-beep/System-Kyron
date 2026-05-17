@@ -426,7 +426,7 @@ function ResourceCard({ resource: res, isActive }: { resource: Resource; isActiv
 
                     <div className="mt-10 pt-6 border-t border-white/5">
                         {res.type === 'internal' ? (
-                            <Link href={res.href as any} className="flex items-center justify-between w-full group/link">
+                            <Link href={res.href as unknown as Parameters<typeof Link>[0]['href']} className="flex items-center justify-between w-full group/link">
                                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 group-hover/link:text-cyan-400 transition-colors">Abrir recurso</span>
                                 <div className={cn(
                                     "h-10 w-10 rounded-xl flex items-center justify-center transition-all shadow-xl",

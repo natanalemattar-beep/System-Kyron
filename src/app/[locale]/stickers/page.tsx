@@ -348,7 +348,7 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
                     {/* Header Branding */}
                     <div className="flex items-center gap-3 mb-6">
                         <div className="h-10 w-10 flex items-center justify-center p-1 bg-zinc-950 rounded-xl shadow-lg">
-                            <img src="/images/logo-transparent.png" alt="Kyron" className="max-w-full max-h-full object-contain" />
+                            <img src="/images/logo.png" alt="Kyron" className="max-w-full max-h-full object-contain" />
                         </div>
                         <div className="h-6 w-[1px] bg-zinc-100" />
                         <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-600">System Kyron</span>
