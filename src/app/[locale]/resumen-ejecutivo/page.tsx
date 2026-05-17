@@ -7,17 +7,310 @@ import {
     FileText, ShieldCheck, FileDown, Leaf, Recycle, Globe, 
     Brain, Banknote, Target, Megaphone, Milestone, Users, 
     Zap, Cpu, Smartphone, Wifi, Printer, Loader2, 
-    Signal, BarChart3, ChevronRight, Building2, TreePine,
-    ArrowRight, Sparkles, Layers
+    Signal, BarChart3, Building2, TreePine, Sparkles, Layers,
+    CheckCircle2
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 import { LandingHeader } from '@/components/landing/landing-header';
 import Image from 'next/image';
 
+type Theme = 'dark' | 'light';
+
+function SectionHeader({ icon: Icon, children, theme }: { icon: React.ComponentType<{ className?: string }>; children: React.ReactNode; theme: Theme }) {
+    const color = theme === 'dark' ? 'text-primary' : 'text-[#0A2472]';
+    return (
+        <h2 className={`text-xs font-black uppercase tracking-[0.2em] ${color} flex items-center gap-2`}>
+            <Icon className="h-4 w-4" /> {children}
+        </h2>
+    );
+}
+
+function SummaryContent({ theme }: { theme: Theme }) {
+    const isDark = theme === 'dark';
+    const t = (dark: string, light: string) => isDark ? dark : light;
+
+    return (
+        <div className={t('', 'text-black')}>
+            {/* Header */}
+            <div className={`flex items-center gap-5 mb-12 pb-8 border-b ${t('border-border', 'border-gray-300')}`}>
+                <div className={`relative ${t('h-14 w-14', 'h-16 w-16')} shrink-0`}>
+                    <Image
+                        src="/images/logo-kyron-hq.png"
+                        alt="System Kyron"
+                        fill
+                        className="object-contain"
+                        unoptimized
+                    />
+                </div>
+                <div className="space-y-2">
+                    <span className={`text-xl font-black tracking-tighter uppercase ${t('text-white', 'text-[#0A2472]')}`}>SYSTEM KYRON</span>
+                    <div className={`h-0.5 w-full ${t('bg-gradient-to-r from-primary to-transparent', 'bg-[#0A2472]')}`} />
+                    <p className={`text-[9px] font-black uppercase tracking-widest ${t('text-muted-foreground', 'text-gray-500')}`}>
+                        ESLOGAN: <span className={`font-bold italic ${t('text-white', 'text-black')}`}>&ldquo;EL ECOSISTEMA QUE PROTEGE TU LÍNEA, TU NEGOCIO Y EL AMBIENTE&rdquo;</span>
+                    </p>
+                    <p className={`text-[9px] font-black uppercase tracking-widest ${t('text-muted-foreground', 'text-gray-500')}`}>
+                        EQUIPO: <span className={`font-bold ${t('text-white', 'text-black')}`}>CARLOS MATTAR · SEBASTIÁN GARRIDO · MARCOS SOUSA</span>
+                    </p>
+                </div>
+            </div>
+
+            <div className="space-y-10">
+                {/* 1. Información General */}
+                <section className="space-y-3">
+                    <SectionHeader icon={FileText} theme={theme}>1. INFORMACIÓN GENERAL</SectionHeader>
+                    <div className={`pl-4 border-l-2 ${t('border-primary/10', 'border-[#0A2472]/20')} grid md:grid-cols-2 gap-4`}>
+                        <div>
+                            <p className={`text-[10px] font-black uppercase mb-1 ${t('text-muted-foreground', 'text-gray-500')}`}>Nombre del Proyecto</p>
+                            <p className={`text-sm font-bold ${t('text-white', 'text-black')}`}>System Kyron</p>
+                            <p className={`text-xs italic ${t('text-white/60', 'text-gray-500')}`}>El ecosistema que protege tu línea, tu negocio y el ambiente.</p>
+                        </div>
+                        <div>
+                            <p className={`text-[10px] font-black uppercase mb-1 ${t('text-muted-foreground', 'text-gray-500')}`}>Equipo</p>
+                            <p className={`text-sm font-bold ${t('text-white', 'text-black')}`}>Carlos Mattar · Sebastián Garrido · Marcos Sousa</p>
+                            <p className={`text-xs ${t('text-white/60', 'text-gray-500')}`}>Emprendimiento Carlos Mattar · RIF: J-50832149-9</p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* 2. Definición del Problema */}
+                <section className="space-y-3">
+                    <SectionHeader icon={Globe} theme={theme}>2. DEFINICIÓN DEL PROBLEMA</SectionHeader>
+                    <div className={`pl-4 border-l-2 ${t('border-primary/10', 'border-[#0A2472]/20')} space-y-4`}>
+                        <p className={`text-sm leading-relaxed ${t('text-white/70', 'text-gray-700')}`}>
+                            El emprendedor y la PyME venezolana se enfrentan diariamente a una <strong>&ldquo;Triple Crisis&rdquo; operativa</strong> que frena su desarrollo:
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            {[
+                                { icon: Signal, label: 'Telecomunicaciones', value: '21M+ líneas vulnerables', desc: 'Bloqueos y fraudes constantes.', color: 'rose' },
+                                { icon: Recycle, label: 'Sostenibilidad', value: '+50% residuos sin reciclar', desc: 'Falta de incentivos y trazabilidad.', color: 'amber' },
+                                { icon: BarChart3, label: 'Carga Administrativa', value: '134 hrs/año perdidas', desc: 'Burocracia y riesgo de multas.', color: 'orange' },
+                            ].map((item, i) => (
+                                <div key={i} className={`p-4 rounded-xl ${t(`bg-white/5 border border-white/5`, 'bg-gray-50 border border-gray-200')}`}>
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <item.icon className={`h-4 w-4 text-${item.color}-500`} />
+                                        <p className={`text-[9px] font-black text-${item.color}-500 uppercase`}>{item.label}</p>
+                                    </div>
+                                    <p className={`text-xs font-bold ${t('text-white', 'text-black')}`}>{item.value}</p>
+                                    <p className={`text-[10px] mt-1 ${t('text-white/40', 'text-gray-400')}`}>{item.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* 3. Propuesta de Valor */}
+                <section className="space-y-3">
+                    <SectionHeader icon={Zap} theme={theme}>3. PROPUESTA DE VALOR (LA SOLUCIÓN)</SectionHeader>
+                    <div className={`pl-4 border-l-2 ${t('border-primary/10', 'border-[#0A2472]/20')} space-y-4`}>
+                        <p className={`text-sm ${t('text-white/70', 'text-gray-700')}`}>
+                            System Kyron es un <strong>ecosistema corporativo integral</strong> que blinda y digitaliza a la PyME mediante <strong>cuatro pilares</strong>:
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {[
+                                { icon: ShieldCheck, label: 'Seguridad (Kyron Shield)', desc: 'Reposición de equipos, defensa legal y "Modo Reserva" —accede a la App sin saldo ni megas.', color: 'indigo' },
+                                { icon: Cpu, label: 'Software (SaaS)', desc: 'Plataforma modular de operación empresarial sin contratos anuales.', color: 'cyan' },
+                                { icon: Printer, label: 'Hardware (Fintech Fiscal)', desc: 'Infraestructura de facturación de lujo, 100% homologada por el SENIAT.', color: 'amber' },
+                                { icon: Leaf, label: 'Impacto', desc: 'Reciclaje conectado que genera rentabilidad.', color: 'emerald' },
+                            ].map((item, i) => (
+                                <div key={i} className={`p-4 rounded-xl ${t(`bg-${item.color}-500/5 border border-${item.color}-500/20`, `bg-${item.color}-50 border border-${item.color}-200`)}`}>
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <item.icon className={`h-4 w-4 text-${item.color}-400`} />
+                                        <p className={`text-[10px] font-black text-${item.color}-400 uppercase`}>{item.label}</p>
+                                    </div>
+                                    <p className={`text-[11px] ${t('text-white/60', 'text-gray-600')}`}>{item.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* 4. Mercado Objetivo */}
+                <section className="space-y-3">
+                    <SectionHeader icon={Target} theme={theme}>4. MERCADO OBJETIVO</SectionHeader>
+                    <div className={`pl-4 border-l-2 ${t('border-primary/10', 'border-[#0A2472]/20')} space-y-4`}>
+                        <div className={`p-5 rounded-xl ${t('bg-white/5 border border-white/10', 'bg-gray-50 border border-gray-200')}`}>
+                            <p className={`text-sm leading-relaxed ${t('text-white/70', 'text-gray-700')}`}>
+                                Nuestro cliente ideal está representado por el perfil de <strong>&ldquo;José&rdquo;</strong>, dueño de un abasto o comercio local en La Guaira, que necesita vender, cumplir con la ley y proteger su negocio sin complicaciones tecnológicas.
+                            </p>
+                        </div>
+                        <div className={`flex items-center gap-3 p-4 rounded-xl ${t('bg-primary/5 border border-primary/10', 'bg-[#0A2472]/5 border border-[#0A2472]/20')}`}>
+                            <Building2 className={`h-5 w-5 shrink-0 ${t('text-primary', 'text-[#0A2472]')}`} />
+                            <div>
+                                <p className={`text-sm font-bold ${t('text-white', 'text-black')}`}>Tamaño de Mercado</p>
+                                <p className={`text-xs ${t('text-white/60', 'text-gray-500')}`}><strong>500,000 PyMEs</strong> existentes en Venezuela.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* 5. Modelo de Negocio */}
+                <section className="space-y-3">
+                    <SectionHeader icon={Banknote} theme={theme}>5. MODELO DE NEGOCIO</SectionHeader>
+                    <div className={`pl-4 border-l-2 ${t('border-primary/10', 'border-[#0A2472]/20')} space-y-5`}>
+                        <p className={`text-sm ${t('text-white/70', 'text-gray-700')}`}>Generamos ingresos a través de <strong>tres vías escalables</strong>:</p>
+
+                        <div className="space-y-1">
+                            <p className={`text-[10px] font-black uppercase flex items-center gap-2 ${t('text-cyan-400', 'text-cyan-700')}`}>
+                                <Layers className="h-3 w-3" /> Suscripciones SaaS
+                            </p>
+                            <div className="grid grid-cols-3 gap-3">
+                                {[
+                                    { name: 'Microempresa', price: '$19.99/mes', highlight: true },
+                                    { name: 'Comercio', price: '$49.99/mes', highlight: false },
+                                    { name: 'Corporativo', price: '$99.99/mes', highlight: false },
+                                ].map((p, i) => (
+                                    <div key={i} className={`p-3 rounded-xl text-center ${t('border border-white/5 bg-white/[0.02]', 'border border-gray-200 bg-gray-50')}`}>
+                                        <p className={`text-[9px] font-black uppercase mb-1 ${t('text-white/40', 'text-gray-400')}`}>{p.name}</p>
+                                        <p className={`text-sm font-black ${p.highlight ? t('text-primary', 'text-[#0A2472]') : t('text-white', 'text-black')}`}>{p.price}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <p className={`text-[10px] font-black uppercase flex items-center gap-2 ${t('text-emerald-400', 'text-emerald-700')}`}>
+                                <Wifi className="h-3 w-3" /> Conectividad 5G Global
+                            </p>
+                            <div className="grid grid-cols-2 gap-3">
+                                {[
+                                    { name: 'Personal', price: 'Desde $6.99', desc: 'Prepago · Pospago · eSIM' },
+                                    { name: 'Empresarial', price: 'Desde $9.99', desc: 'Prepago · Pospago · eSIM' },
+                                ].map((p, i) => (
+                                    <div key={i} className={`p-3 rounded-xl ${t('border border-white/5 bg-white/[0.02]', 'border border-gray-200 bg-gray-50')}`}>
+                                        <p className={`text-[9px] font-black uppercase mb-1 ${t('text-white/40', 'text-gray-400')}`}>{p.name}</p>
+                                        <p className={`text-sm font-black ${t('text-white', 'text-black')}`}>{p.price}</p>
+                                        <p className={`text-[9px] ${t('text-white/30', 'text-gray-400')}`}>{p.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <p className={`text-[10px] font-black uppercase flex items-center gap-2 ${t('text-amber-400', 'text-amber-700')}`}>
+                                <Printer className="h-3 w-3" /> Hardware Fiscal Premium
+                            </p>
+                            <div className="grid grid-cols-3 gap-3">
+                                {[
+                                    { name: 'Impresora Fiscal', price: '$849' },
+                                    { name: 'Caja Auto-Pago', price: '$1,394' },
+                                    { name: 'Kit TPV Completo', price: '$2,499' },
+                                ].map((p, i) => (
+                                    <div key={i} className={`p-3 rounded-xl text-center ${t('border border-white/5 bg-white/[0.02]', 'border border-gray-200 bg-gray-50')}`}>
+                                        <p className={`text-[9px] font-black uppercase mb-1 ${t('text-white/40', 'text-gray-400')}`}>{p.name}</p>
+                                        <p className={`text-sm font-black ${t('text-white', 'text-black')}`}>{p.price}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className={`flex items-center gap-2 p-3 rounded-xl ${t('bg-amber-500/10 border border-amber-500/20', 'bg-amber-50 border border-amber-200')}`}>
+                                <Sparkles className={`h-4 w-4 shrink-0 ${t('text-amber-400', 'text-amber-600')}`} />
+                                <p className={`text-[10px] ${t('text-white/60', 'text-gray-600')}`}><strong>Kyron Finance:</strong> Financiamiento propio en cuotas para facilitar la adquisición.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* 6. Estrategia de Marketing */}
+                <section className="space-y-3">
+                    <SectionHeader icon={Megaphone} theme={theme}>6. ESTRATEGIA DE MARKETING Y VENTAS</SectionHeader>
+                    <div className={`pl-4 border-l-2 ${t('border-primary/10', 'border-[#0A2472]/20')} space-y-4`}>
+                        <p className={`text-sm ${t('text-white/70', 'text-gray-700')}`}>
+                            Nuestra captación (B2B) se fundamenta en demostrar el <strong>retorno de inversión</strong> y operar a través de alianzas de clase mundial:
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            {[
+                                { name: 'Coca-Cola FEMSA', desc: 'Canal comercial de reciclaje.' },
+                                { name: 'The Factory HKA', desc: 'Manufactura de hardware.' },
+                                { name: 'Ameru.AI', desc: 'Tecnología IoT.' },
+                            ].map((a, i) => (
+                                <div key={i} className={`p-4 rounded-xl ${t('bg-white/5 border border-white/10', 'bg-gray-50 border border-gray-200')}`}>
+                                    <p className={`text-[9px] font-black uppercase mb-1 ${t('text-cyan-400', 'text-cyan-700')}`}>{a.name}</p>
+                                    <p className={`text-[10px] ${t('text-white/40', 'text-gray-400')}`}>{a.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            {[
+                                { label: 'Ahorro Fiscal', value: '$8,500', sub: 'anuales por cliente' },
+                                { label: 'Tiempo Recuperado', value: '15 hrs', sub: 'mensuales en gestión' },
+                                { label: 'ROI Proyectado', value: '187%', sub: 'retorno de inversión' },
+                            ].map((m, i) => (
+                                <div key={i} className={`p-4 rounded-xl ${t('bg-emerald-500/5 border border-emerald-500/20', 'bg-emerald-50 border border-emerald-200')}`}>
+                                    <p className={`text-[9px] font-black uppercase ${t('text-emerald-400', 'text-emerald-700')}`}>{m.label}</p>
+                                    <p className={`text-lg font-black ${t('text-white', 'text-black')}`}>{m.value}</p>
+                                    <p className={`text-[10px] ${t('text-white/40', 'text-gray-400')}`}>{m.sub}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* 7. Impacto Social o Ambiental */}
+                <section className="space-y-3">
+                    <SectionHeader icon={TreePine} theme={theme}>7. IMPACTO SOCIAL O AMBIENTAL</SectionHeader>
+                    <div className={`pl-4 border-l-2 ${t('border-emerald-500/30', 'border-emerald-300')} p-6 rounded-2xl ${t('bg-emerald-500/5 border border-emerald-500/10', 'bg-emerald-50 border border-emerald-200')} space-y-4`}>
+                        <p className={`text-sm leading-relaxed ${t('text-white/70', 'text-gray-700')}`}>
+                            En System Kyron, convertimos el reciclaje en activos. A través de nuestra red de <strong>Smart Bins</strong> —nodos equipados con inducción magnética y tecnología IoT— recolectamos con alta precisión plásticos, botellas y metales.
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className={`flex items-start gap-3 p-3 rounded-xl ${t('bg-emerald-500/10 border border-emerald-500/20', 'bg-emerald-100/50 border border-emerald-200')}`}>
+                                <Recycle className={`h-5 w-5 shrink-0 mt-0.5 ${t('text-emerald-400', 'text-emerald-600')}`} />
+                                <div>
+                                    <p className={`text-[10px] font-black uppercase ${t('text-emerald-400', 'text-emerald-700')}`}>Eco-créditos</p>
+                                    <p className={`text-[11px] ${t('text-white/50', 'text-gray-500')}`}>Al depositar residuos, el usuario recibe créditos canjeables que reducen costos operativos.</p>
+                                </div>
+                            </div>
+                            <div className={`flex items-start gap-3 p-3 rounded-xl ${t('bg-emerald-500/10 border border-emerald-500/20', 'bg-emerald-100/50 border border-emerald-200')}`}>
+                                <Leaf className={`h-5 w-5 shrink-0 mt-0.5 ${t('text-emerald-400', 'text-emerald-600')}`} />
+                                <div>
+                                    <p className={`text-[10px] font-black uppercase ${t('text-emerald-400', 'text-emerald-700')}`}>Huella de Carbono</p>
+                                    <p className={`text-[11px] ${t('text-white/50', 'text-gray-500')}`}><strong>1.2 toneladas</strong> de CO₂ reducidas al año por cliente con economía circular.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* 8. Estado Actual y Hoja de Ruta */}
+                <section className="space-y-3">
+                    <SectionHeader icon={Milestone} theme={theme}>8. ESTADO ACTUAL Y HOJA DE RUTA</SectionHeader>
+                    <div className={`pl-4 border-l-2 ${t('border-primary/10', 'border-[#0A2472]/20')} space-y-4`}>
+                        <div className={`flex items-center gap-3 p-4 rounded-xl ${t('bg-amber-500/10 border border-amber-500/20', 'bg-amber-50 border border-amber-200')}`}>
+                            <Zap className={`h-5 w-5 shrink-0 ${t('text-amber-400', 'text-amber-600')}`} />
+                            <p className={`text-sm ${t('text-white/70', 'text-gray-700')}`}>Fase <strong>pre-operativa</strong> — Prototipado y consolidación de alianzas estratégicas.</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            {[
+                                { year: '2026', title: 'Despliegue nacional', sub: 'Venezuela' },
+                                { year: '2027', title: 'Expansión regional', sub: 'Colombia y Panamá' },
+                                { year: '2028', title: 'Consolidación', sub: 'México y EE. UU.' },
+                            ].map((r, i) => (
+                                <div key={i} className={`p-4 rounded-xl ${t('bg-white/5 border border-white/10', 'bg-gray-50 border border-gray-200')}`}>
+                                    <p className={`text-[9px] font-black uppercase mb-2 ${t('text-primary', 'text-[#0A2472]')}`}>{r.year}</p>
+                                    <p className={`text-[11px] font-bold ${t('text-white', 'text-black')}`}>{r.title}</p>
+                                    <p className={`text-[10px] ${t('text-white/40', 'text-gray-400')}`}>{r.sub}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Footer */}
+                <div className={`pt-8 flex flex-col items-center justify-center text-center space-y-3 border-t ${t('border-white/5', 'border-gray-200')}`}>
+                    <div className={`h-px w-48 ${t('bg-border', 'bg-gray-300')}`} />
+                    <p className={`text-[10px] font-black uppercase tracking-[0.3em] ${t('text-muted-foreground', 'text-gray-500')}`}>
+                        Kyron Shield &bull; Ecosistema de Protección Integral &bull; Reto Inspira 2026
+                    </p>
+                    <p className={`text-[8px] font-black uppercase tracking-widest ${t('text-white/20', 'text-gray-400')}`}>Emprendimiento Carlos Mattar · RIF: J-50832149-9</p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default function ResumenEjecutivoPage() {
     const [isExporting, setIsExporting] = useState(false);
-    const contentRef = useRef<HTMLDivElement>(null);
+    const pdfRef = useRef<HTMLDivElement>(null);
 
     const handleExportWord = () => {
         const styles = `
@@ -27,16 +320,8 @@ export default function ResumenEjecutivoPage() {
             h2 { color: #0A2472; font-size: 16pt; font-weight: 900; text-transform: uppercase; border-bottom: 1px solid #cbd5e1; padding-bottom: 8px; margin-top: 40px; }
             h3 { color: #00A86B; font-size: 12pt; font-weight: 800; text-transform: uppercase; }
             p { font-size: 11pt; line-height: 1.7; color: #334155; margin-bottom: 12px; }
-            .badge { display: inline-block; padding: 4px 12px; border: 1px solid #cbd5e1; border-radius: 20px; font-size: 9pt; font-weight: 700; text-transform: uppercase; }
             ul { margin-bottom: 20px; padding-left: 24px; }
             li { font-size: 11pt; color: #334155; margin-bottom: 8px; }
-            .grid { display: flex; flex-wrap: wrap; gap: 16px; margin: 16px 0; }
-            .grid-2 { width: 48%; }
-            .grid-3 { width: 31%; }
-            .grid-4 { width: 23%; }
-            .card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; }
-            .section { border-left: 3px solid #0A2472; padding-left: 16px; margin: 20px 0; }
-            .highlight { background: #f1f5f9; border-left: 4px solid #00A86B; padding: 16px; border-radius: 8px; margin: 20px 0; }
             .footer { text-align: center; font-size: 9pt; color: #94a3b8; margin-top: 60px; border-top: 1px solid #e2e8f0; padding-top: 20px; }
         `;
         const el = document.getElementById('reporte-contenido');
@@ -53,7 +338,7 @@ export default function ResumenEjecutivoPage() {
     </div>
     ${content}
     <div class="footer">
-        <p>System Kyron — El ecosistema que protege tu línea, tu negocio y el ambiente</p>
+        <p>System Kyron — El ecosistema que protege tu linea, tu negocio y el ambiente</p>
         <p>&copy; 2026 Emprendimiento Carlos Mattar &bull; infosystemkyron@gmail.com</p>
     </div>
 </body></html>`;
@@ -75,14 +360,14 @@ export default function ResumenEjecutivoPage() {
             const html2canvas = (await import('html2canvas')).default;
             const { jsPDF } = await import('jspdf');
 
-            const element = contentRef.current;
+            const element = pdfRef.current;
             if (!element) return;
 
             const canvas = await html2canvas(element, {
                 scale: 3,
                 useCORS: true,
                 allowTaint: true,
-                backgroundColor: '#030711',
+                backgroundColor: '#ffffff',
                 logging: false,
                 imageTimeout: 15000,
             });
@@ -162,7 +447,8 @@ export default function ResumenEjecutivoPage() {
                     </div>
                 </motion.div>
 
-                <Card id="reporte-contenido" ref={contentRef} className="p-12 md:p-16 rounded-[3rem] border-white/10 bg-zinc-950 shadow-2xl relative overflow-hidden print:shadow-none print:border-none print:p-0 print:bg-white print:text-black">
+                {/* Versión web - dark */}
+                <Card id="reporte-contenido" className="p-12 md:p-16 rounded-[3rem] border-white/10 bg-zinc-950 shadow-2xl relative overflow-hidden print:shadow-none print:border-none print:p-0 print:bg-white print:text-black">
                     <style jsx global>{`
                         @media print {
                             body { background: white !important; color: black !important; }
@@ -174,349 +460,18 @@ export default function ResumenEjecutivoPage() {
                             section { break-inside: avoid; }
                         }
                     `}</style>
-
-                    <div className="flex flex-col md:flex-row justify-between items-start mb-16 border-b border-border pb-10 gap-8">
-                        <div className="flex items-center gap-6">
-                            <div className="relative h-16 w-16 shrink-0">
-                                <Image
-                                    src="/images/logo-kyron-hq.png"
-                                    alt="System Kyron"
-                                    fill
-                                    className="object-contain"
-                                    unoptimized
-                                />
-                            </div>
-                            <div className="space-y-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="h-12 w-12 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 print:bg-black">
-                                        <ShieldCheck className="h-6 w-6 text-white" />
-                                    </div>
-                                    <div>
-                                        <span className="text-2xl font-black tracking-tighter text-white print:text-black uppercase">SYSTEM KYRON</span>
-                                        <div className="h-1 w-full bg-gradient-to-r from-primary to-transparent mt-1 print:bg-black" />
-                                    </div>
-                                </div>
-                                <div className="space-y-1">
-                                    <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest print:text-black/60">
-                                        ESLOGAN: <span className="text-white print:text-black font-bold italic">&ldquo;EL ECOSISTEMA QUE PROTEGE TU LÍNEA, TU NEGOCIO Y EL AMBIENTE&rdquo;</span>
-                                    </p>
-                                    <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest print:text-black/60">
-                                        EQUIPO: <span className="text-white print:text-black font-bold">CARLOS MATTAR · SEBASTIÁN GARRIDO · MARCOS SOUSA</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex flex-col items-end gap-2 print:hidden">
-                            <Badge variant="outline" className="border-emerald-500/30 text-emerald-500 uppercase font-black text-[10px] py-1 px-3">
-                                RIF: J-50832149-9
-                            </Badge>
-                        </div>
-                    </div>
-
-                    <div className="space-y-12">
-                        {/* 1. Información General */}
-                        <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <FileText className="h-4 w-4" /> 1. INFORMACIÓN GENERAL
-                            </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 grid md:grid-cols-2 gap-4 print:border-black/10">
-                                <div>
-                                    <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">Nombre del Proyecto</p>
-                                    <p className="text-sm font-bold text-white print:text-black">System Kyron</p>
-                                    <p className="text-xs text-white/60 print:text-black/60 italic">El ecosistema que protege tu línea, tu negocio y el ambiente.</p>
-                                </div>
-                                <div>
-                                    <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">Equipo</p>
-                                    <p className="text-sm font-bold text-white print:text-black">Carlos Mattar · Sebastián Garrido · Marcos Sousa</p>
-                                    <p className="text-xs text-white/60 print:text-black/60">Emprendimiento Carlos Mattar · RIF: J-50832149-9</p>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* 2. Definición del Problema */}
-                        <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <Globe className="h-4 w-4" /> 2. DEFINICIÓN DEL PROBLEMA
-                            </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-6 print:border-black/10">
-                                <p className="text-sm text-white/70 print:text-black/70 leading-relaxed">
-                                    El emprendedor y la PyME venezolana se enfrentan diariamente a una <strong>&ldquo;Triple Crisis&rdquo; operativa</strong> que frena su desarrollo:
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="p-4 bg-white/5 rounded-xl border border-white/5 print:border-black/10 print:bg-black/5">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Signal className="h-4 w-4 text-rose-500" />
-                                            <p className="text-[9px] font-black text-rose-500 uppercase">Telecomunicaciones</p>
-                                        </div>
-                                        <p className="text-xs font-bold text-white print:text-black">21M+ líneas vulnerables</p>
-                                        <p className="text-[10px] text-white/40 print:text-black/40 mt-1">Bloqueos y fraudes constantes.</p>
-                                    </div>
-                                    <div className="p-4 bg-white/5 rounded-xl border border-white/5 print:border-black/10 print:bg-black/5">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Recycle className="h-4 w-4 text-amber-500" />
-                                            <p className="text-[9px] font-black text-amber-500 uppercase">Sostenibilidad</p>
-                                        </div>
-                                        <p className="text-xs font-bold text-white print:text-black">+50% residuos sin reciclar</p>
-                                        <p className="text-[10px] text-white/40 print:text-black/40 mt-1">Falta de incentivos y trazabilidad.</p>
-                                    </div>
-                                    <div className="p-4 bg-white/5 rounded-xl border border-white/5 print:border-black/10 print:bg-black/5">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <BarChart3 className="h-4 w-4 text-orange-500" />
-                                            <p className="text-[9px] font-black text-orange-500 uppercase">Carga Administrativa</p>
-                                        </div>
-                                        <p className="text-xs font-bold text-white print:text-black">134 hrs/año perdidas</p>
-                                        <p className="text-[10px] text-white/40 print:text-black/40 mt-1">Burocracia y riesgo de multas.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* 3. Propuesta de Valor */}
-                        <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <Zap className="h-4 w-4" /> 3. PROPUESTA DE VALOR (LA SOLUCIÓN)
-                            </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-6 print:border-black/10">
-                                <p className="text-sm text-white/70 print:text-black/70">
-                                    System Kyron es un <strong>ecosistema corporativo integral</strong> que blinda y digitaliza a la PyME mediante <strong>cuatro pilares</strong>:
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="p-4 bg-indigo-500/5 rounded-xl border border-indigo-500/20 print:border-black/10">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <ShieldCheck className="h-4 w-4 text-indigo-400" />
-                                            <p className="text-[10px] font-black text-indigo-400 uppercase">Seguridad (Kyron Shield)</p>
-                                        </div>
-                                        <p className="text-[11px] text-white/60 print:text-black/60">Reposición de equipos, defensa legal y <strong>&ldquo;Modo Reserva&rdquo;</strong> —accede a la App sin saldo ni megas.</p>
-                                    </div>
-                                    <div className="p-4 bg-cyan-500/5 rounded-xl border border-cyan-500/20 print:border-black/10">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Cpu className="h-4 w-4 text-cyan-400" />
-                                            <p className="text-[10px] font-black text-cyan-400 uppercase">Software (SaaS)</p>
-                                        </div>
-                                        <p className="text-[11px] text-white/60 print:text-black/60">Plataforma modular de operación empresarial sin contratos anuales.</p>
-                                    </div>
-                                    <div className="p-4 bg-amber-500/5 rounded-xl border border-amber-500/20 print:border-black/10">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Printer className="h-4 w-4 text-amber-400" />
-                                            <p className="text-[10px] font-black text-amber-400 uppercase">Hardware (Fintech Fiscal)</p>
-                                        </div>
-                                        <p className="text-[11px] text-white/60 print:text-black/60">Infraestructura de facturación de lujo, 100% homologada por el SENIAT.</p>
-                                    </div>
-                                    <div className="p-4 bg-emerald-500/5 rounded-xl border border-emerald-500/20 print:border-black/10">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Leaf className="h-4 w-4 text-emerald-400" />
-                                            <p className="text-[10px] font-black text-emerald-400 uppercase">Impacto</p>
-                                        </div>
-                                        <p className="text-[11px] text-white/60 print:text-black/60">Reciclaje conectado que genera rentabilidad.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* 4. Mercado Objetivo */}
-                        <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <Target className="h-4 w-4" /> 4. MERCADO OBJETIVO
-                            </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-4 print:border-black/10">
-                                <div className="p-5 bg-white/5 rounded-xl border border-white/10 print:border-black/10 print:bg-black/5">
-                                    <p className="text-sm text-white/70 print:text-black/70 leading-relaxed">
-                                        Nuestro cliente ideal está representado por el perfil de <strong>&ldquo;José&rdquo;</strong>, dueño de un abasto o comercio local en La Guaira, que necesita vender, cumplir con la ley y proteger su negocio sin complicaciones tecnológicas.
-                                    </p>
-                                </div>
-                                <div className="flex items-center gap-3 p-4 bg-primary/5 rounded-xl border border-primary/10 print:border-black/10">
-                                    <Building2 className="h-5 w-5 text-primary shrink-0" />
-                                    <div>
-                                        <p className="text-sm font-bold text-white print:text-black">Tamaño de Mercado</p>
-                                        <p className="text-xs text-white/60 print:text-black/60"><strong>500,000 PyMEs</strong> existentes en Venezuela.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* 5. Modelo de Negocio */}
-                        <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <Banknote className="h-4 w-4" /> 5. MODELO DE NEGOCIO
-                            </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-6 print:border-black/10">
-                                <p className="text-sm text-white/70 print:text-black/70">Generamos ingresos a través de <strong>tres vías escalables</strong>:</p>
-                                
-                                <div className="space-y-1">
-                                    <p className="text-[10px] font-black text-cyan-400 uppercase flex items-center gap-2">
-                                        <Layers className="h-3 w-3" /> Suscripciones SaaS
-                                    </p>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center print:border-black/20">
-                                            <p className="text-[9px] text-white/40 font-black uppercase mb-1 print:text-black/40">Microempresa</p>
-                                            <p className="text-sm font-black text-primary">$19.99/mes</p>
-                                        </div>
-                                        <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center print:border-black/20">
-                                            <p className="text-[9px] text-white/40 font-black uppercase mb-1 print:text-black/40">Comercio</p>
-                                            <p className="text-sm font-black text-white print:text-black">$49.99/mes</p>
-                                        </div>
-                                        <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center print:border-black/20">
-                                            <p className="text-[9px] text-white/40 font-black uppercase mb-1 print:text-black/40">Corporativo</p>
-                                            <p className="text-sm font-black text-white print:text-black">$99.99/mes</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-3">
-                                    <p className="text-[10px] font-black text-emerald-400 uppercase flex items-center gap-2">
-                                        <Wifi className="h-3 w-3" /> Conectividad 5G Global
-                                    </p>
-                                    <div className="grid grid-cols-2 gap-3">
-                                        <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] print:border-black/20">
-                                            <p className="text-[9px] text-white/40 font-black uppercase mb-1 print:text-black/40">Personal</p>
-                                            <p className="text-sm font-black text-white print:text-black">Desde $6.99</p>
-                                            <p className="text-[9px] text-white/30 print:text-black/30">Prepago · Pospago · eSIM</p>
-                                        </div>
-                                        <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] print:border-black/20">
-                                            <p className="text-[9px] text-white/40 font-black uppercase mb-1 print:text-black/40">Empresarial</p>
-                                            <p className="text-sm font-black text-white print:text-black">Desde $9.99</p>
-                                            <p className="text-[9px] text-white/30 print:text-black/30">Prepago · Pospago · eSIM</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-3">
-                                    <p className="text-[10px] font-black text-amber-400 uppercase flex items-center gap-2">
-                                        <Printer className="h-3 w-3" /> Hardware Fiscal Premium
-                                    </p>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center print:border-black/20">
-                                            <p className="text-[9px] text-white/40 font-black uppercase mb-1 print:text-black/40">Impresora Fiscal</p>
-                                            <p className="text-sm font-black text-white print:text-black">$849</p>
-                                        </div>
-                                        <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center print:border-black/20">
-                                            <p className="text-[9px] text-white/40 font-black uppercase mb-1 print:text-black/40">Caja Auto-Pago</p>
-                                            <p className="text-sm font-black text-white print:text-black">$1,394</p>
-                                        </div>
-                                        <div className="border border-white/5 p-3 rounded-xl bg-white/[0.02] text-center print:border-black/20">
-                                            <p className="text-[9px] text-white/40 font-black uppercase mb-1 print:text-black/40">Kit TPV Completo</p>
-                                            <p className="text-sm font-black text-white print:text-black">$2,499</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-2 p-3 bg-amber-500/10 rounded-xl border border-amber-500/20 print:border-black/10 print:bg-black/5">
-                                        <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
-                                        <p className="text-[10px] text-white/60 print:text-black/60"><strong>Kyron Finance:</strong> Financiamiento propio en cuotas para facilitar la adquisición.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* 6. Estrategia de Marketing */}
-                        <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <Megaphone className="h-4 w-4" /> 6. ESTRATEGIA DE MARKETING Y VENTAS
-                            </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-6 print:border-black/10">
-                                <p className="text-sm text-white/70 print:text-black/70">
-                                    Nuestra captación (B2B) se fundamenta en demostrar el <strong>retorno de inversión</strong> y operar a través de alianzas de clase mundial:
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="p-4 bg-white/5 rounded-xl border border-white/10 print:border-black/10">
-                                        <p className="text-[9px] font-black text-cyan-400 uppercase mb-1">Coca-Cola FEMSA</p>
-                                        <p className="text-[10px] text-white/40 print:text-black/40">Canal comercial de reciclaje.</p>
-                                    </div>
-                                    <div className="p-4 bg-white/5 rounded-xl border border-white/10 print:border-black/10">
-                                        <p className="text-[9px] font-black text-cyan-400 uppercase mb-1">The Factory HKA</p>
-                                        <p className="text-[10px] text-white/40 print:text-black/40">Manufactura de hardware.</p>
-                                    </div>
-                                    <div className="p-4 bg-white/5 rounded-xl border border-white/10 print:border-black/10">
-                                        <p className="text-[9px] font-black text-cyan-400 uppercase mb-1">Ameru.AI</p>
-                                        <p className="text-[10px] text-white/40 print:text-black/40">Tecnología IoT.</p>
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="p-4 bg-emerald-500/5 rounded-xl border border-emerald-500/20 print:border-black/10">
-                                        <p className="text-[9px] font-black text-emerald-400 uppercase">Ahorro Fiscal</p>
-                                        <p className="text-lg font-black text-white print:text-black">$8,500</p>
-                                        <p className="text-[10px] text-white/40 print:text-black/40">anuales por cliente</p>
-                                    </div>
-                                    <div className="p-4 bg-emerald-500/5 rounded-xl border border-emerald-500/20 print:border-black/10">
-                                        <p className="text-[9px] font-black text-emerald-400 uppercase">Tiempo Recuperado</p>
-                                        <p className="text-lg font-black text-white print:text-black">15 hrs</p>
-                                        <p className="text-[10px] text-white/40 print:text-black/40">mensuales en gestión</p>
-                                    </div>
-                                    <div className="p-4 bg-emerald-500/5 rounded-xl border border-emerald-500/20 print:border-black/10">
-                                        <p className="text-[9px] font-black text-emerald-400 uppercase">ROI Proyectado</p>
-                                        <p className="text-lg font-black text-white print:text-black">187%</p>
-                                        <p className="text-[10px] text-white/40 print:text-black/40">retorno de inversión</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* 7. Impacto Social o Ambiental */}
-                        <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-500 print:text-black flex items-center gap-2">
-                                <TreePine className="h-4 w-4" /> 7. IMPACTO SOCIAL O AMBIENTAL
-                            </h2>
-                            <div className="pl-4 border-l-2 border-emerald-500/30 p-6 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 print:border-black/10 space-y-4">
-                                <p className="text-sm text-white/70 print:text-black/70 leading-relaxed">
-                                    En System Kyron, convertimos el reciclaje en activos. A través de nuestra red de <strong>Smart Bins</strong> —nodos equipados con inducción magnética y tecnología IoT— recolectamos con alta precisión plásticos, botellas y metales.
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="flex items-start gap-3 p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20 print:border-black/10">
-                                        <Recycle className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
-                                        <div>
-                                            <p className="text-[10px] font-black text-emerald-400 uppercase">Eco-créditos</p>
-                                            <p className="text-[11px] text-white/50 print:text-black/50">Al depositar residuos, el usuario recibe créditos canjeables que reducen costos operativos.</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-start gap-3 p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20 print:border-black/10">
-                                        <Leaf className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
-                                        <div>
-                                            <p className="text-[10px] font-black text-emerald-400 uppercase">Huella de Carbono</p>
-                                            <p className="text-[11px] text-white/50 print:text-black/50"><strong>1.2 toneladas</strong> de CO₂ reducidas al año por cliente con economía circular.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* 8. Estado Actual y Hoja de Ruta */}
-                        <section className="space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary print:text-black flex items-center gap-2">
-                                <Milestone className="h-4 w-4" /> 8. ESTADO ACTUAL Y HOJA DE RUTA
-                            </h2>
-                            <div className="pl-4 border-l-2 border-primary/10 space-y-6 print:border-black/10">
-                                <div className="flex items-center gap-3 p-4 bg-amber-500/10 rounded-xl border border-amber-500/20 print:border-black/10">
-                                    <Zap className="h-5 w-5 text-amber-400 shrink-0" />
-                                    <p className="text-sm text-white/70 print:text-black/70">Fase <strong>pre-operativa</strong> — Prototipado y consolidación de alianzas estratégicas.</p>
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="p-4 rounded-xl bg-white/5 border border-white/10 print:border-black/10">
-                                        <p className="text-[9px] font-black text-primary mb-2 uppercase">2026</p>
-                                        <p className="text-[11px] font-bold text-white print:text-black">Despliegue nacional</p>
-                                        <p className="text-[10px] text-white/40 print:text-black/40">Venezuela</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-white/5 border border-white/10 print:border-black/10">
-                                        <p className="text-[9px] font-black text-primary mb-2 uppercase">2027</p>
-                                        <p className="text-[11px] font-bold text-white print:text-black">Expansión regional</p>
-                                        <p className="text-[10px] text-white/40 print:text-black/40">Colombia y Panamá</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-white/5 border border-white/10 print:border-black/10">
-                                        <p className="text-[9px] font-black text-primary mb-2 uppercase">2028</p>
-                                        <p className="text-[11px] font-bold text-white print:text-black">Consolidación</p>
-                                        <p className="text-[10px] text-white/40 print:text-black/40">México y EE. UU.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Firma Final */}
-                        <div className="mt-20 pt-10 flex flex-col items-center justify-center text-center space-y-4 border-t border-white/5">
-                            <div className="h-[1px] w-48 bg-border print:bg-black" />
-                            <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em] print:text-black">
-                                Kyron Shield • Ecosistema de Protección Integral • Reto Inspira 2026
-                            </p>
-                            <p className="text-[8px] text-white/20 font-black uppercase tracking-widest">Emprendimiento Carlos Mattar · RIF: J-50832149-9</p>
-                        </div>
+                    <SummaryContent theme="dark" />
+                    <div className="flex justify-end mt-6 print:hidden">
+                        <Badge variant="outline" className="border-emerald-500/30 text-emerald-500 uppercase font-black text-[10px] py-1 px-3">
+                            RIF: J-50832149-9
+                        </Badge>
                     </div>
                 </Card>
+
+                {/* Versión PDF - white (oculta, solo para captura) */}
+                <div ref={pdfRef} className="fixed left-[-9999px] top-0 bg-white" style={{ width: '8.5in', padding: '0.75in' }}>
+                    <SummaryContent theme="light" />
+                </div>
             </div>
         </div>
     );
