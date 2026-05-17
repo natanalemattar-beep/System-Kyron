@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
     const record = await queryOne<{ id: number }>(
       `SELECT id FROM verification_codes
        WHERE destino = $1 AND usado = true AND codigo = 'MAGIC_VERIFIED'
-       AND tipo = 'email' AND proposito = 'verification'
+       AND tipo = 'email' AND proposito IN ('verification', 'registration')
        AND expires_at > NOW()
        ORDER BY created_at DESC LIMIT 1`,
       [normalized]

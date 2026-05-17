@@ -45,7 +45,7 @@ export default function VerifyLinkPage() {
           // Redirigir según el modo (Registro vs Login)
           setTimeout(async () => {
             if (data.registrationMode) {
-              router.push(`/es/register?email=${encodeURIComponent(data.email)}&verified=true`);
+              router.push(`/es/register/asesoria-contable?email=${encodeURIComponent(data.email)}&verified=true`);
             } else {
               try {
                 const meRes = await fetch('/api/auth/me');

@@ -154,6 +154,7 @@ async function createCoreAuthTables() {
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_user_sessions_user_id ON user_sessions(user_id)`);
   await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS telefono_verificado BOOLEAN NOT NULL DEFAULT false`);
+  await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verificado BOOLEAN NOT NULL DEFAULT false`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS trusted_devices (
@@ -182,7 +183,7 @@ async function createCoreAuthTables() {
       usado       BOOLEAN NOT NULL DEFAULT false,
       expires_at  TIMESTAMPTZ NOT NULL,
       proposito   TEXT NOT NULL DEFAULT 'verification' 
-                  CHECK (proposito IN ('verification', 'magic_link', 'password_reset', 'recovery')),
+                  CHECK (proposito IN ('verification', 'magic_link', 'password_reset', 'reset_password', 'recovery', 'registration', '2fa', 'sensitive_action')),
       created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);

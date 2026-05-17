@@ -190,13 +190,13 @@ export default function ResumenEjecutivoPage() {
                         </div>
                     </div>
 
-                    <div className="space-y-10">
+                    <div className="space-y-6">
                         {/* 1. Información General */}
-                        <section className="space-y-3">
+                        <section className="bg-white/5 border border-white/10 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary flex items-center gap-2">
                                 <FileText className="h-4 w-4" /> 1. INFORMACIÓN GENERAL
                             </h2>
-                            <div className="pl-4 border-l-2 border-white/10 grid md:grid-cols-2 gap-4">
+                            <div className="grid md:grid-cols-2 gap-4">
                                 <div>
                                     <p className="text-[10px] font-black uppercase mb-1 text-muted-foreground">Nombre del Proyecto</p>
                                     <p className="text-sm font-bold text-white">System Kyron</p>
@@ -211,275 +211,259 @@ export default function ResumenEjecutivoPage() {
                         </section>
 
                         {/* 2. Definición del Problema */}
-                        <section className="space-y-3">
+                        <section className="bg-white/5 border border-white/10 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary flex items-center gap-2">
                                 <Globe className="h-4 w-4" /> 2. DEFINICIÓN DEL PROBLEMA
                             </h2>
-                            <div className="pl-4 border-l-2 border-white/10 space-y-4">
-                                <p className="text-sm leading-relaxed text-white/70">
-                                    El emprendedor y la PyME venezolana se enfrentan diariamente a una <strong>&ldquo;Triple Crisis&rdquo; operativa</strong> que frena su desarrollo:
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                    <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Signal className="h-4 w-4 text-rose-500" />
-                                            <p className="text-[9px] font-black text-rose-500 uppercase">Telecomunicaciones</p>
-                                        </div>
-                                        <p className="text-xs font-bold text-white">21M+ líneas vulnerables</p>
-                                        <p className="text-[10px] mt-1 text-white/40">Bloqueos y fraudes constantes.</p>
+                            <p className="text-sm leading-relaxed text-white/70">
+                                El emprendedor y la PyME venezolana se enfrentan diariamente a una <strong>&ldquo;Triple Crisis&rdquo; operativa</strong> que frena su desarrollo:
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <Signal className="h-4 w-4 text-rose-500" />
+                                        <p className="text-[9px] font-black text-rose-500 uppercase">Telecomunicaciones</p>
                                     </div>
-                                    <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Recycle className="h-4 w-4 text-amber-500" />
-                                            <p className="text-[9px] font-black text-amber-500 uppercase">Sostenibilidad</p>
-                                        </div>
-                                        <p className="text-xs font-bold text-white">+50% residuos sin reciclar</p>
-                                        <p className="text-[10px] mt-1 text-white/40">Falta de incentivos y trazabilidad.</p>
+                                    <p className="text-xs font-bold text-white">21M+ líneas vulnerables</p>
+                                    <p className="text-[10px] mt-1 text-white/40">Bloqueos y fraudes constantes.</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <Recycle className="h-4 w-4 text-amber-500" />
+                                        <p className="text-[9px] font-black text-amber-500 uppercase">Sostenibilidad</p>
                                     </div>
-                                    <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <BarChart3 className="h-4 w-4 text-orange-500" />
-                                            <p className="text-[9px] font-black text-orange-500 uppercase">Carga Administrativa</p>
-                                        </div>
-                                        <p className="text-xs font-bold text-white">134 hrs/año perdidas</p>
-                                        <p className="text-[10px] mt-1 text-white/40">Burocracia y riesgo de multas.</p>
+                                    <p className="text-xs font-bold text-white">+50% residuos sin reciclar</p>
+                                    <p className="text-[10px] mt-1 text-white/40">Falta de incentivos y trazabilidad.</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <BarChart3 className="h-4 w-4 text-orange-500" />
+                                        <p className="text-[9px] font-black text-orange-500 uppercase">Carga Administrativa</p>
                                     </div>
+                                    <p className="text-xs font-bold text-white">134 hrs/año perdidas</p>
+                                    <p className="text-[10px] mt-1 text-white/40">Burocracia y riesgo de multas.</p>
                                 </div>
                             </div>
                         </section>
 
                         {/* 3. Propuesta de Valor */}
-                        <section className="space-y-3">
+                        <section className="bg-white/5 border border-white/10 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary flex items-center gap-2">
                                 <Zap className="h-4 w-4" /> 3. PROPUESTA DE VALOR (LA SOLUCIÓN)
                             </h2>
-                            <div className="pl-4 border-l-2 border-white/10 space-y-4">
-                                <p className="text-sm text-white/70">
-                                    System Kyron es un <strong>ecosistema corporativo integral</strong> que blinda y digitaliza a la PyME mediante <strong>cuatro pilares</strong>:
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    <div className="p-4 rounded-xl bg-indigo-500/5 border border-indigo-500/20">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <ShieldCheck className="h-4 w-4 text-indigo-400" />
-                                            <p className="text-[10px] font-black text-indigo-400 uppercase">Seguridad (Kyron Shield)</p>
-                                        </div>
-                                        <p className="text-[11px] text-white/60">Reposición de equipos, defensa legal y <strong>&ldquo;Modo Reserva&rdquo;</strong> —accede a la App sin saldo ni megas.</p>
+                            <p className="text-sm text-white/70">
+                                System Kyron es un <strong>ecosistema corporativo integral</strong> que blinda y digitaliza a la PyME mediante <strong>cuatro pilares</strong>:
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div className="p-4 rounded-xl bg-indigo-500/5 border border-indigo-500/20">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <ShieldCheck className="h-4 w-4 text-indigo-400" />
+                                        <p className="text-[10px] font-black text-indigo-400 uppercase">Seguridad (Kyron Shield)</p>
                                     </div>
-                                    <div className="p-4 rounded-xl bg-cyan-500/5 border border-cyan-500/20">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Cpu className="h-4 w-4 text-cyan-400" />
-                                            <p className="text-[10px] font-black text-cyan-400 uppercase">Software (SaaS)</p>
-                                        </div>
-                                        <p className="text-[11px] text-white/60">Plataforma modular de operación empresarial sin contratos anuales.</p>
+                                    <p className="text-[11px] text-white/60">Reposición de equipos, defensa legal y <strong>&ldquo;Modo Reserva&rdquo;</strong> —accede a la App sin saldo ni megas.</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-cyan-500/5 border border-cyan-500/20">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <Cpu className="h-4 w-4 text-cyan-400" />
+                                        <p className="text-[10px] font-black text-cyan-400 uppercase">Software (SaaS)</p>
                                     </div>
-                                    <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Printer className="h-4 w-4 text-amber-400" />
-                                            <p className="text-[10px] font-black text-amber-400 uppercase">Hardware (Fintech Fiscal)</p>
-                                        </div>
-                                        <p className="text-[11px] text-white/60">Infraestructura de facturación de lujo, 100% homologada por el SENIAT.</p>
+                                    <p className="text-[11px] text-white/60">Plataforma modular de operación empresarial sin contratos anuales.</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <Printer className="h-4 w-4 text-amber-400" />
+                                        <p className="text-[10px] font-black text-amber-400 uppercase">Hardware (Fintech Fiscal)</p>
                                     </div>
-                                    <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Leaf className="h-4 w-4 text-emerald-400" />
-                                            <p className="text-[10px] font-black text-emerald-400 uppercase">Impacto</p>
-                                        </div>
-                                        <p className="text-[11px] text-white/60">Reciclaje conectado que genera rentabilidad.</p>
+                                    <p className="text-[11px] text-white/60">Infraestructura de facturación de lujo, 100% homologada por el SENIAT.</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <Leaf className="h-4 w-4 text-emerald-400" />
+                                        <p className="text-[10px] font-black text-emerald-400 uppercase">Impacto</p>
                                     </div>
+                                    <p className="text-[11px] text-white/60">Reciclaje conectado que genera rentabilidad.</p>
                                 </div>
                             </div>
                         </section>
 
                         {/* 4. Mercado Objetivo */}
-                        <section className="space-y-3">
+                        <section className="bg-white/5 border border-white/10 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary flex items-center gap-2">
                                 <Target className="h-4 w-4" /> 4. MERCADO OBJETIVO
                             </h2>
-                            <div className="pl-4 border-l-2 border-white/10 space-y-4">
-                                <div className="p-5 rounded-xl bg-white/5 border border-white/10">
-                                    <p className="text-sm leading-relaxed text-white/70">
-                                        Nuestro cliente ideal está representado por el perfil de <strong>&ldquo;José&rdquo;</strong>, dueño de un abasto o comercio local en La Guaira, que necesita vender, cumplir con la ley y proteger su negocio sin complicaciones tecnológicas.
-                                    </p>
-                                </div>
-                                <div className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 border border-primary/10">
-                                    <Building2 className="h-5 w-5 text-primary shrink-0" />
-                                    <div>
-                                        <p className="text-sm font-bold text-white">Tamaño de Mercado</p>
-                                        <p className="text-xs text-white/60"><strong>500,000 PyMEs</strong> existentes en Venezuela.</p>
-                                    </div>
+                            <p className="text-sm leading-relaxed text-white/70">
+                                Nuestro cliente ideal está representado por el perfil de <strong>&ldquo;José&rdquo;</strong>, dueño de un abasto o comercio local en La Guaira, que necesita vender, cumplir con la ley y proteger su negocio sin complicaciones tecnológicas.
+                            </p>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 border border-primary/10">
+                                <Building2 className="h-5 w-5 text-primary shrink-0" />
+                                <div>
+                                    <p className="text-sm font-bold text-white">Tamaño de Mercado</p>
+                                    <p className="text-xs text-white/60"><strong>500,000 PyMEs</strong> existentes en Venezuela.</p>
                                 </div>
                             </div>
                         </section>
 
                         {/* 5. Modelo de Negocio */}
-                        <section className="space-y-3">
+                        <section className="bg-white/5 border border-white/10 rounded-xl p-5 space-y-5">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary flex items-center gap-2">
                                 <Banknote className="h-4 w-4" /> 5. MODELO DE NEGOCIO
                             </h2>
-                            <div className="pl-4 border-l-2 border-white/10 space-y-5">
-                                <p className="text-sm text-white/70">Generamos ingresos a través de <strong>tres vías escalables</strong>:</p>
+                            <p className="text-sm text-white/70">Generamos ingresos a través de <strong>tres vías escalables</strong>:</p>
 
-                                <div className="space-y-1">
-                                    <p className="text-[10px] font-black uppercase flex items-center gap-2 text-cyan-400">
-                                        <Layers className="h-3 w-3" /> Suscripciones SaaS
-                                    </p>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        <div className="p-3 rounded-xl text-center border border-white/5 bg-white/[0.02]">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-white/40">Microempresa</p>
-                                            <p className="text-sm font-black text-primary">$19.99/mes</p>
-                                        </div>
-                                        <div className="p-3 rounded-xl text-center border border-white/5 bg-white/[0.02]">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-white/40">Comercio</p>
-                                            <p className="text-sm font-black text-white">$49.99/mes</p>
-                                        </div>
-                                        <div className="p-3 rounded-xl text-center border border-white/5 bg-white/[0.02]">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-white/40">Corporativo</p>
-                                            <p className="text-sm font-black text-white">$99.99/mes</p>
-                                        </div>
+                            <div className="space-y-1">
+                                <p className="text-[10px] font-black uppercase flex items-center gap-2 text-cyan-400">
+                                    <Layers className="h-3 w-3" /> Suscripciones SaaS
+                                </p>
+                                <div className="grid grid-cols-3 gap-3">
+                                    <div className="p-3 rounded-xl text-center border border-white/5 bg-white/[0.02]">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-white/40">Microempresa</p>
+                                        <p className="text-sm font-black text-primary">$19.99/mes</p>
+                                    </div>
+                                    <div className="p-3 rounded-xl text-center border border-white/5 bg-white/[0.02]">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-white/40">Comercio</p>
+                                        <p className="text-sm font-black text-white">$49.99/mes</p>
+                                    </div>
+                                    <div className="p-3 rounded-xl text-center border border-white/5 bg-white/[0.02]">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-white/40">Corporativo</p>
+                                        <p className="text-sm font-black text-white">$99.99/mes</p>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div className="space-y-2">
-                                    <p className="text-[10px] font-black uppercase flex items-center gap-2 text-emerald-400">
-                                        <Wifi className="h-3 w-3" /> Conectividad 5G Global
-                                    </p>
-                                    <div className="grid grid-cols-2 gap-3">
-                                        <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02]">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-white/40">Personal</p>
-                                            <p className="text-sm font-black text-white">Desde $6.99</p>
-                                            <p className="text-[9px] text-white/30">Prepago · Pospago · eSIM</p>
-                                        </div>
-                                        <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02]">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-white/40">Empresarial</p>
-                                            <p className="text-sm font-black text-white">Desde $9.99</p>
-                                            <p className="text-[9px] text-white/30">Prepago · Pospago · eSIM</p>
-                                        </div>
+                            <div className="space-y-2">
+                                <p className="text-[10px] font-black uppercase flex items-center gap-2 text-emerald-400">
+                                    <Wifi className="h-3 w-3" /> Conectividad 5G Global
+                                </p>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02]">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-white/40">Personal</p>
+                                        <p className="text-sm font-black text-white">Desde $6.99</p>
+                                        <p className="text-[9px] text-white/30">Prepago · Pospago · eSIM</p>
+                                    </div>
+                                    <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02]">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-white/40">Empresarial</p>
+                                        <p className="text-sm font-black text-white">Desde $9.99</p>
+                                        <p className="text-[9px] text-white/30">Prepago · Pospago · eSIM</p>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div className="space-y-2">
-                                    <p className="text-[10px] font-black uppercase flex items-center gap-2 text-amber-400">
-                                        <Printer className="h-3 w-3" /> Hardware Fiscal Premium
-                                    </p>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        <div className="p-3 rounded-xl text-center border border-white/5 bg-white/[0.02]">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-white/40">Impresora Fiscal</p>
-                                            <p className="text-sm font-black text-white">$849</p>
-                                        </div>
-                                        <div className="p-3 rounded-xl text-center border border-white/5 bg-white/[0.02]">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-white/40">Caja Auto-Pago</p>
-                                            <p className="text-sm font-black text-white">$1,394</p>
-                                        </div>
-                                        <div className="p-3 rounded-xl text-center border border-white/5 bg-white/[0.02]">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-white/40">Kit TPV Completo</p>
-                                            <p className="text-sm font-black text-white">$2,499</p>
-                                        </div>
+                            <div className="space-y-2">
+                                <p className="text-[10px] font-black uppercase flex items-center gap-2 text-amber-400">
+                                    <Printer className="h-3 w-3" /> Hardware Fiscal Premium
+                                </p>
+                                <div className="grid grid-cols-3 gap-3">
+                                    <div className="p-3 rounded-xl text-center border border-white/5 bg-white/[0.02]">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-white/40">Impresora Fiscal</p>
+                                        <p className="text-sm font-black text-white">$849</p>
                                     </div>
-                                    <div className="flex items-center gap-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                                        <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
-                                        <p className="text-[10px] text-white/60"><strong>Kyron Finance:</strong> Financiamiento propio en cuotas para facilitar la adquisición.</p>
+                                    <div className="p-3 rounded-xl text-center border border-white/5 bg-white/[0.02]">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-white/40">Caja Auto-Pago</p>
+                                        <p className="text-sm font-black text-white">$1,394</p>
                                     </div>
+                                    <div className="p-3 rounded-xl text-center border border-white/5 bg-white/[0.02]">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-white/40">Kit TPV Completo</p>
+                                        <p className="text-sm font-black text-white">$2,499</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                                    <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
+                                    <p className="text-[10px] text-white/60"><strong>Kyron Finance:</strong> Financiamiento propio en cuotas para facilitar la adquisición.</p>
                                 </div>
                             </div>
                         </section>
 
                         {/* 6. Estrategia de Marketing */}
-                        <section className="space-y-3">
+                        <section className="bg-white/5 border border-white/10 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary flex items-center gap-2">
                                 <Megaphone className="h-4 w-4" /> 6. ESTRATEGIA DE MARKETING Y VENTAS
                             </h2>
-                            <div className="pl-4 border-l-2 border-white/10 space-y-4">
-                                <p className="text-sm text-white/70">
-                                    Nuestra captación (B2B) se fundamenta en demostrar el <strong>retorno de inversión</strong> y operar a través de alianzas de clase mundial:
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                                        <p className="text-[9px] font-black uppercase mb-1 text-cyan-400">Coca-Cola FEMSA</p>
-                                        <p className="text-[10px] text-white/40">Canal comercial de reciclaje.</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                                        <p className="text-[9px] font-black uppercase mb-1 text-cyan-400">The Factory HKA</p>
-                                        <p className="text-[10px] text-white/40">Manufactura de hardware.</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                                        <p className="text-[9px] font-black uppercase mb-1 text-cyan-400">Ameru.AI</p>
-                                        <p className="text-[10px] text-white/40">Tecnología IoT.</p>
-                                    </div>
+                            <p className="text-sm text-white/70">
+                                Nuestra captación (B2B) se fundamenta en demostrar el <strong>retorno de inversión</strong> y operar a través de alianzas de clase mundial:
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                    <p className="text-[9px] font-black uppercase mb-1 text-cyan-400">Coca-Cola FEMSA</p>
+                                    <p className="text-[10px] text-white/40">Canal comercial de reciclaje.</p>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                    <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
-                                        <p className="text-[9px] font-black uppercase text-emerald-400">Ahorro Fiscal</p>
-                                        <p className="text-lg font-black text-white">$8,500</p>
-                                        <p className="text-[10px] text-white/40">anuales por cliente</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
-                                        <p className="text-[9px] font-black uppercase text-emerald-400">Tiempo Recuperado</p>
-                                        <p className="text-lg font-black text-white">15 hrs</p>
-                                        <p className="text-[10px] text-white/40">mensuales en gestión</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
-                                        <p className="text-[9px] font-black uppercase text-emerald-400">ROI Proyectado</p>
-                                        <p className="text-lg font-black text-white">187%</p>
-                                        <p className="text-[10px] text-white/40">retorno de inversión</p>
-                                    </div>
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                    <p className="text-[9px] font-black uppercase mb-1 text-cyan-400">The Factory HKA</p>
+                                    <p className="text-[10px] text-white/40">Manufactura de hardware.</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                    <p className="text-[9px] font-black uppercase mb-1 text-cyan-400">Ameru.AI</p>
+                                    <p className="text-[10px] text-white/40">Tecnología IoT.</p>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
+                                    <p className="text-[9px] font-black uppercase text-emerald-400">Ahorro Fiscal</p>
+                                    <p className="text-lg font-black text-white">$8,500</p>
+                                    <p className="text-[10px] text-white/40">anuales por cliente</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
+                                    <p className="text-[9px] font-black uppercase text-emerald-400">Tiempo Recuperado</p>
+                                    <p className="text-lg font-black text-white">15 hrs</p>
+                                    <p className="text-[10px] text-white/40">mensuales en gestión</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
+                                    <p className="text-[9px] font-black uppercase text-emerald-400">ROI Proyectado</p>
+                                    <p className="text-lg font-black text-white">187%</p>
+                                    <p className="text-[10px] text-white/40">retorno de inversión</p>
                                 </div>
                             </div>
                         </section>
 
                         {/* 7. Impacto Social o Ambiental */}
-                        <section className="space-y-3">
+                        <section className="bg-emerald-500/5 border border-emerald-500/10 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-500 flex items-center gap-2">
                                 <TreePine className="h-4 w-4" /> 7. IMPACTO SOCIAL O AMBIENTAL
                             </h2>
-                            <div className="pl-4 border-l-2 border-emerald-500/30 p-6 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 space-y-4">
-                                <p className="text-sm leading-relaxed text-white/70">
-                                    En System Kyron, convertimos el reciclaje en activos. A través de nuestra red de <strong>Smart Bins</strong> —nodos equipados con inducción magnética y tecnología IoT— recolectamos con alta precisión plásticos, botellas y metales.
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="flex items-start gap-3 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                                        <Recycle className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
-                                        <div>
-                                            <p className="text-[10px] font-black uppercase text-emerald-400">Eco-créditos</p>
-                                            <p className="text-[11px] text-white/50">Al depositar residuos, el usuario recibe créditos canjeables que reducen costos operativos.</p>
-                                        </div>
+                            <p className="text-sm leading-relaxed text-white/70">
+                                En System Kyron, convertimos el reciclaje en activos. A través de nuestra red de <strong>Smart Bins</strong> —nodos equipados con inducción magnética y tecnología IoT— recolectamos con alta precisión plásticos, botellas y metales.
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="flex items-start gap-3 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                                    <Recycle className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+                                    <div>
+                                        <p className="text-[10px] font-black uppercase text-emerald-400">Eco-créditos</p>
+                                        <p className="text-[11px] text-white/50">Al depositar residuos, el usuario recibe créditos canjeables que reducen costos operativos.</p>
                                     </div>
-                                    <div className="flex items-start gap-3 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                                        <Leaf className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
-                                        <div>
-                                            <p className="text-[10px] font-black uppercase text-emerald-400">Huella de Carbono</p>
-                                            <p className="text-[11px] text-white/50"><strong>1.2 toneladas</strong> de CO₂ reducidas al año por cliente con economía circular.</p>
-                                        </div>
+                                </div>
+                                <div className="flex items-start gap-3 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                                    <Leaf className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+                                    <div>
+                                        <p className="text-[10px] font-black uppercase text-emerald-400">Huella de Carbono</p>
+                                        <p className="text-[11px] text-white/50"><strong>1.2 toneladas</strong> de CO₂ reducidas al año por cliente con economía circular.</p>
                                     </div>
                                 </div>
                             </div>
                         </section>
 
                         {/* 8. Estado Actual y Hoja de Ruta */}
-                        <section className="space-y-3">
+                        <section className="bg-white/5 border border-white/10 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-primary flex items-center gap-2">
                                 <Milestone className="h-4 w-4" /> 8. ESTADO ACTUAL Y HOJA DE RUTA
                             </h2>
-                            <div className="pl-4 border-l-2 border-white/10 space-y-4">
-                                <div className="flex items-center gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                                    <Zap className="h-5 w-5 text-amber-400 shrink-0" />
-                                    <p className="text-sm text-white/70">Fase <strong>pre-operativa</strong> — Prototipado y consolidación de alianzas estratégicas.</p>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                                <Zap className="h-5 w-5 text-amber-400 shrink-0" />
+                                <p className="text-sm text-white/70">Fase <strong>pre-operativa</strong> — Prototipado y consolidación de alianzas estratégicas.</p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                    <p className="text-[9px] font-black uppercase mb-2 text-primary">2026</p>
+                                    <p className="text-[11px] font-bold text-white">Despliegue nacional</p>
+                                    <p className="text-[10px] text-white/40">Venezuela</p>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                                        <p className="text-[9px] font-black uppercase mb-2 text-primary">2026</p>
-                                        <p className="text-[11px] font-bold text-white">Despliegue nacional</p>
-                                        <p className="text-[10px] text-white/40">Venezuela</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                                        <p className="text-[9px] font-black uppercase mb-2 text-primary">2027</p>
-                                        <p className="text-[11px] font-bold text-white">Expansión regional</p>
-                                        <p className="text-[10px] text-white/40">Colombia y Panamá</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                                        <p className="text-[9px] font-black uppercase mb-2 text-primary">2028</p>
-                                        <p className="text-[11px] font-bold text-white">Consolidación</p>
-                                        <p className="text-[10px] text-white/40">México y EE. UU.</p>
-                                    </div>
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                    <p className="text-[9px] font-black uppercase mb-2 text-primary">2027</p>
+                                    <p className="text-[11px] font-bold text-white">Expansión regional</p>
+                                    <p className="text-[10px] text-white/40">Colombia y Panamá</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                    <p className="text-[9px] font-black uppercase mb-2 text-primary">2028</p>
+                                    <p className="text-[11px] font-bold text-white">Consolidación</p>
+                                    <p className="text-[10px] text-white/40">México y EE. UU.</p>
                                 </div>
                             </div>
                         </section>
@@ -526,13 +510,13 @@ export default function ResumenEjecutivoPage() {
                         </div>
                     </div>
 
-                    <div className="space-y-10">
+                    <div className="space-y-6">
                         {/* 1. Información General */}
-                        <section className="space-y-3">
+                        <section className="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-[#0A2472] flex items-center gap-2">
                                 <FileText className="h-4 w-4" /> 1. INFORMACIÓN GENERAL
                             </h2>
-                            <div className="pl-4 border-l-2 border-gray-300 grid md:grid-cols-2 gap-4">
+                            <div className="grid md:grid-cols-2 gap-4">
                                 <div>
                                     <p className="text-[10px] font-black uppercase mb-1 text-gray-500">Nombre del Proyecto</p>
                                     <p className="text-sm font-bold text-black">System Kyron</p>
@@ -547,275 +531,259 @@ export default function ResumenEjecutivoPage() {
                         </section>
 
                         {/* 2. Definición del Problema */}
-                        <section className="space-y-3">
+                        <section className="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-[#0A2472] flex items-center gap-2">
                                 <Globe className="h-4 w-4" /> 2. DEFINICIÓN DEL PROBLEMA
                             </h2>
-                            <div className="pl-4 border-l-2 border-gray-300 space-y-4">
-                                <p className="text-sm leading-relaxed text-gray-700">
-                                    El emprendedor y la PyME venezolana se enfrentan diariamente a una <strong>&ldquo;Triple Crisis&rdquo; operativa</strong> que frena su desarrollo:
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                    <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Signal className="h-4 w-4 text-rose-600" />
-                                            <p className="text-[9px] font-black text-rose-600 uppercase">Telecomunicaciones</p>
-                                        </div>
-                                        <p className="text-xs font-bold text-black">21M+ líneas vulnerables</p>
-                                        <p className="text-[10px] mt-1 text-gray-400">Bloqueos y fraudes constantes.</p>
+                            <p className="text-sm leading-relaxed text-gray-700">
+                                El emprendedor y la PyME venezolana se enfrentan diariamente a una <strong>&ldquo;Triple Crisis&rdquo; operativa</strong> que frena su desarrollo:
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div className="p-4 rounded-xl bg-white border border-gray-200">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <Signal className="h-4 w-4 text-rose-600" />
+                                        <p className="text-[9px] font-black text-rose-600 uppercase">Telecomunicaciones</p>
                                     </div>
-                                    <div className="p-4 rounded-xl bg-amber-50 border border-amber-200">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Recycle className="h-4 w-4 text-amber-600" />
-                                            <p className="text-[9px] font-black text-amber-600 uppercase">Sostenibilidad</p>
-                                        </div>
-                                        <p className="text-xs font-bold text-black">+50% residuos sin reciclar</p>
-                                        <p className="text-[10px] mt-1 text-gray-400">Falta de incentivos y trazabilidad.</p>
+                                    <p className="text-xs font-bold text-black">21M+ líneas vulnerables</p>
+                                    <p className="text-[10px] mt-1 text-gray-400">Bloqueos y fraudes constantes.</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-amber-50 border border-amber-200">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <Recycle className="h-4 w-4 text-amber-600" />
+                                        <p className="text-[9px] font-black text-amber-600 uppercase">Sostenibilidad</p>
                                     </div>
-                                    <div className="p-4 rounded-xl bg-orange-50 border border-orange-200">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <BarChart3 className="h-4 w-4 text-orange-600" />
-                                            <p className="text-[9px] font-black text-orange-600 uppercase">Carga Administrativa</p>
-                                        </div>
-                                        <p className="text-xs font-bold text-black">134 hrs/año perdidas</p>
-                                        <p className="text-[10px] mt-1 text-gray-400">Burocracia y riesgo de multas.</p>
+                                    <p className="text-xs font-bold text-black">+50% residuos sin reciclar</p>
+                                    <p className="text-[10px] mt-1 text-gray-400">Falta de incentivos y trazabilidad.</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-orange-50 border border-orange-200">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <BarChart3 className="h-4 w-4 text-orange-600" />
+                                        <p className="text-[9px] font-black text-orange-600 uppercase">Carga Administrativa</p>
                                     </div>
+                                    <p className="text-xs font-bold text-black">134 hrs/año perdidas</p>
+                                    <p className="text-[10px] mt-1 text-gray-400">Burocracia y riesgo de multas.</p>
                                 </div>
                             </div>
                         </section>
 
                         {/* 3. Propuesta de Valor */}
-                        <section className="space-y-3">
+                        <section className="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-[#0A2472] flex items-center gap-2">
                                 <Zap className="h-4 w-4" /> 3. PROPUESTA DE VALOR (LA SOLUCIÓN)
                             </h2>
-                            <div className="pl-4 border-l-2 border-gray-300 space-y-4">
-                                <p className="text-sm text-gray-700">
-                                    System Kyron es un <strong>ecosistema corporativo integral</strong> que blinda y digitaliza a la PyME mediante <strong>cuatro pilares</strong>:
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    <div className="p-4 rounded-xl bg-indigo-50 border border-indigo-200">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <ShieldCheck className="h-4 w-4 text-indigo-600" />
-                                            <p className="text-[10px] font-black text-indigo-600 uppercase">Seguridad (Kyron Shield)</p>
-                                        </div>
-                                        <p className="text-[11px] text-gray-600">Reposición de equipos, defensa legal y <strong>&ldquo;Modo Reserva&rdquo;</strong> —accede a la App sin saldo ni megas.</p>
+                            <p className="text-sm text-gray-700">
+                                System Kyron es un <strong>ecosistema corporativo integral</strong> que blinda y digitaliza a la PyME mediante <strong>cuatro pilares</strong>:
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div className="p-4 rounded-xl bg-indigo-50 border border-indigo-200">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <ShieldCheck className="h-4 w-4 text-indigo-600" />
+                                        <p className="text-[10px] font-black text-indigo-600 uppercase">Seguridad (Kyron Shield)</p>
                                     </div>
-                                    <div className="p-4 rounded-xl bg-cyan-50 border border-cyan-200">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Cpu className="h-4 w-4 text-cyan-600" />
-                                            <p className="text-[10px] font-black text-cyan-600 uppercase">Software (SaaS)</p>
-                                        </div>
-                                        <p className="text-[11px] text-gray-600">Plataforma modular de operación empresarial sin contratos anuales.</p>
+                                    <p className="text-[11px] text-gray-600">Reposición de equipos, defensa legal y <strong>&ldquo;Modo Reserva&rdquo;</strong> —accede a la App sin saldo ni megas.</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-cyan-50 border border-cyan-200">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <Cpu className="h-4 w-4 text-cyan-600" />
+                                        <p className="text-[10px] font-black text-cyan-600 uppercase">Software (SaaS)</p>
                                     </div>
-                                    <div className="p-4 rounded-xl bg-amber-50 border border-amber-200">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Printer className="h-4 w-4 text-amber-600" />
-                                            <p className="text-[10px] font-black text-amber-600 uppercase">Hardware (Fintech Fiscal)</p>
-                                        </div>
-                                        <p className="text-[11px] text-gray-600">Infraestructura de facturación de lujo, 100% homologada por el SENIAT.</p>
+                                    <p className="text-[11px] text-gray-600">Plataforma modular de operación empresarial sin contratos anuales.</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-amber-50 border border-amber-200">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <Printer className="h-4 w-4 text-amber-600" />
+                                        <p className="text-[10px] font-black text-amber-600 uppercase">Hardware (Fintech Fiscal)</p>
                                     </div>
-                                    <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Leaf className="h-4 w-4 text-emerald-600" />
-                                            <p className="text-[10px] font-black text-emerald-600 uppercase">Impacto</p>
-                                        </div>
-                                        <p className="text-[11px] text-gray-600">Reciclaje conectado que genera rentabilidad.</p>
+                                    <p className="text-[11px] text-gray-600">Infraestructura de facturación de lujo, 100% homologada por el SENIAT.</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <Leaf className="h-4 w-4 text-emerald-600" />
+                                        <p className="text-[10px] font-black text-emerald-600 uppercase">Impacto</p>
                                     </div>
+                                    <p className="text-[11px] text-gray-600">Reciclaje conectado que genera rentabilidad.</p>
                                 </div>
                             </div>
                         </section>
 
                         {/* 4. Mercado Objetivo */}
-                        <section className="space-y-3">
+                        <section className="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-[#0A2472] flex items-center gap-2">
                                 <Target className="h-4 w-4" /> 4. MERCADO OBJETIVO
                             </h2>
-                            <div className="pl-4 border-l-2 border-gray-300 space-y-4">
-                                <div className="p-5 rounded-xl bg-gray-50 border border-gray-200">
-                                    <p className="text-sm leading-relaxed text-gray-700">
-                                        Nuestro cliente ideal está representado por el perfil de <strong>&ldquo;José&rdquo;</strong>, dueño de un abasto o comercio local en La Guaira, que necesita vender, cumplir con la ley y proteger su negocio sin complicaciones tecnológicas.
-                                    </p>
-                                </div>
-                                <div className="flex items-center gap-3 p-4 rounded-xl bg-[#0A2472]/5 border border-[#0A2472]/20">
-                                    <Building2 className="h-5 w-5 text-[#0A2472] shrink-0" />
-                                    <div>
-                                        <p className="text-sm font-bold text-black">Tamaño de Mercado</p>
-                                        <p className="text-xs text-gray-500"><strong>500,000 PyMEs</strong> existentes en Venezuela.</p>
-                                    </div>
+                            <p className="text-sm leading-relaxed text-gray-700">
+                                Nuestro cliente ideal está representado por el perfil de <strong>&ldquo;José&rdquo;</strong>, dueño de un abasto o comercio local en La Guaira, que necesita vender, cumplir con la ley y proteger su negocio sin complicaciones tecnológicas.
+                            </p>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-[#0A2472]/5 border border-[#0A2472]/20">
+                                <Building2 className="h-5 w-5 text-[#0A2472] shrink-0" />
+                                <div>
+                                    <p className="text-sm font-bold text-black">Tamaño de Mercado</p>
+                                    <p className="text-xs text-gray-500"><strong>500,000 PyMEs</strong> existentes en Venezuela.</p>
                                 </div>
                             </div>
                         </section>
 
                         {/* 5. Modelo de Negocio */}
-                        <section className="space-y-3">
+                        <section className="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-5">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-[#0A2472] flex items-center gap-2">
                                 <Banknote className="h-4 w-4" /> 5. MODELO DE NEGOCIO
                             </h2>
-                            <div className="pl-4 border-l-2 border-gray-300 space-y-5">
-                                <p className="text-sm text-gray-700">Generamos ingresos a través de <strong>tres vías escalables</strong>:</p>
+                            <p className="text-sm text-gray-700">Generamos ingresos a través de <strong>tres vías escalables</strong>:</p>
 
-                                <div className="space-y-1">
-                                    <p className="text-[10px] font-black uppercase flex items-center gap-2 text-cyan-700">
-                                        <Layers className="h-3 w-3" /> Suscripciones SaaS
-                                    </p>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        <div className="p-3 rounded-xl text-center border border-gray-200 bg-gray-50">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Microempresa</p>
-                                            <p className="text-sm font-black text-[#0A2472]">$19.99/mes</p>
-                                        </div>
-                                        <div className="p-3 rounded-xl text-center border border-gray-200 bg-gray-50">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Comercio</p>
-                                            <p className="text-sm font-black text-black">$49.99/mes</p>
-                                        </div>
-                                        <div className="p-3 rounded-xl text-center border border-gray-200 bg-gray-50">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Corporativo</p>
-                                            <p className="text-sm font-black text-black">$99.99/mes</p>
-                                        </div>
+                            <div className="space-y-1">
+                                <p className="text-[10px] font-black uppercase flex items-center gap-2 text-cyan-700">
+                                    <Layers className="h-3 w-3" /> Suscripciones SaaS
+                                </p>
+                                <div className="grid grid-cols-3 gap-3">
+                                    <div className="p-3 rounded-xl text-center border border-gray-200 bg-white">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Microempresa</p>
+                                        <p className="text-sm font-black text-[#0A2472]">$19.99/mes</p>
+                                    </div>
+                                    <div className="p-3 rounded-xl text-center border border-gray-200 bg-white">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Comercio</p>
+                                        <p className="text-sm font-black text-black">$49.99/mes</p>
+                                    </div>
+                                    <div className="p-3 rounded-xl text-center border border-gray-200 bg-white">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Corporativo</p>
+                                        <p className="text-sm font-black text-black">$99.99/mes</p>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div className="space-y-2">
-                                    <p className="text-[10px] font-black uppercase flex items-center gap-2 text-emerald-700">
-                                        <Wifi className="h-3 w-3" /> Conectividad 5G Global
-                                    </p>
-                                    <div className="grid grid-cols-2 gap-3">
-                                        <div className="p-3 rounded-xl border border-gray-200 bg-gray-50">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Personal</p>
-                                            <p className="text-sm font-black text-black">Desde $6.99</p>
-                                            <p className="text-[9px] text-gray-400">Prepago · Pospago · eSIM</p>
-                                        </div>
-                                        <div className="p-3 rounded-xl border border-gray-200 bg-gray-50">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Empresarial</p>
-                                            <p className="text-sm font-black text-black">Desde $9.99</p>
-                                            <p className="text-[9px] text-gray-400">Prepago · Pospago · eSIM</p>
-                                        </div>
+                            <div className="space-y-2">
+                                <p className="text-[10px] font-black uppercase flex items-center gap-2 text-emerald-700">
+                                    <Wifi className="h-3 w-3" /> Conectividad 5G Global
+                                </p>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="p-3 rounded-xl border border-gray-200 bg-white">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Personal</p>
+                                        <p className="text-sm font-black text-black">Desde $6.99</p>
+                                        <p className="text-[9px] text-gray-400">Prepago · Pospago · eSIM</p>
+                                    </div>
+                                    <div className="p-3 rounded-xl border border-gray-200 bg-white">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Empresarial</p>
+                                        <p className="text-sm font-black text-black">Desde $9.99</p>
+                                        <p className="text-[9px] text-gray-400">Prepago · Pospago · eSIM</p>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div className="space-y-2">
-                                    <p className="text-[10px] font-black uppercase flex items-center gap-2 text-amber-700">
-                                        <Printer className="h-3 w-3" /> Hardware Fiscal Premium
-                                    </p>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        <div className="p-3 rounded-xl text-center border border-gray-200 bg-gray-50">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Impresora Fiscal</p>
-                                            <p className="text-sm font-black text-black">$849</p>
-                                        </div>
-                                        <div className="p-3 rounded-xl text-center border border-gray-200 bg-gray-50">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Caja Auto-Pago</p>
-                                            <p className="text-sm font-black text-black">$1,394</p>
-                                        </div>
-                                        <div className="p-3 rounded-xl text-center border border-gray-200 bg-gray-50">
-                                            <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Kit TPV Completo</p>
-                                            <p className="text-sm font-black text-black">$2,499</p>
-                                        </div>
+                            <div className="space-y-2">
+                                <p className="text-[10px] font-black uppercase flex items-center gap-2 text-amber-700">
+                                    <Printer className="h-3 w-3" /> Hardware Fiscal Premium
+                                </p>
+                                <div className="grid grid-cols-3 gap-3">
+                                    <div className="p-3 rounded-xl text-center border border-gray-200 bg-white">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Impresora Fiscal</p>
+                                        <p className="text-sm font-black text-black">$849</p>
                                     </div>
-                                    <div className="flex items-center gap-2 p-3 rounded-xl bg-amber-50 border border-amber-200">
-                                        <Sparkles className="h-4 w-4 text-amber-600 shrink-0" />
-                                        <p className="text-[10px] text-gray-600"><strong>Kyron Finance:</strong> Financiamiento propio en cuotas para facilitar la adquisición.</p>
+                                    <div className="p-3 rounded-xl text-center border border-gray-200 bg-white">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Caja Auto-Pago</p>
+                                        <p className="text-sm font-black text-black">$1,394</p>
                                     </div>
+                                    <div className="p-3 rounded-xl text-center border border-gray-200 bg-white">
+                                        <p className="text-[9px] font-black uppercase mb-1 text-gray-400">Kit TPV Completo</p>
+                                        <p className="text-sm font-black text-black">$2,499</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2 p-3 rounded-xl bg-amber-50 border border-amber-200">
+                                    <Sparkles className="h-4 w-4 text-amber-600 shrink-0" />
+                                    <p className="text-[10px] text-gray-600"><strong>Kyron Finance:</strong> Financiamiento propio en cuotas para facilitar la adquisición.</p>
                                 </div>
                             </div>
                         </section>
 
                         {/* 6. Estrategia de Marketing */}
-                        <section className="space-y-3">
+                        <section className="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-[#0A2472] flex items-center gap-2">
                                 <Megaphone className="h-4 w-4" /> 6. ESTRATEGIA DE MARKETING Y VENTAS
                             </h2>
-                            <div className="pl-4 border-l-2 border-gray-300 space-y-4">
-                                <p className="text-sm text-gray-700">
-                                    Nuestra captación (B2B) se fundamenta en demostrar el <strong>retorno de inversión</strong> y operar a través de alianzas de clase mundial:
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                    <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                                        <p className="text-[9px] font-black uppercase mb-1 text-cyan-700">Coca-Cola FEMSA</p>
-                                        <p className="text-[10px] text-gray-400">Canal comercial de reciclaje.</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                                        <p className="text-[9px] font-black uppercase mb-1 text-cyan-700">The Factory HKA</p>
-                                        <p className="text-[10px] text-gray-400">Manufactura de hardware.</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                                        <p className="text-[9px] font-black uppercase mb-1 text-cyan-700">Ameru.AI</p>
-                                        <p className="text-[10px] text-gray-400">Tecnología IoT.</p>
-                                    </div>
+                            <p className="text-sm text-gray-700">
+                                Nuestra captación (B2B) se fundamenta en demostrar el <strong>retorno de inversión</strong> y operar a través de alianzas de clase mundial:
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div className="p-4 rounded-xl bg-white border border-gray-200">
+                                    <p className="text-[9px] font-black uppercase mb-1 text-cyan-700">Coca-Cola FEMSA</p>
+                                    <p className="text-[10px] text-gray-400">Canal comercial de reciclaje.</p>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                    <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
-                                        <p className="text-[9px] font-black uppercase text-emerald-700">Ahorro Fiscal</p>
-                                        <p className="text-lg font-black text-black">$8,500</p>
-                                        <p className="text-[10px] text-gray-400">anuales por cliente</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
-                                        <p className="text-[9px] font-black uppercase text-emerald-700">Tiempo Recuperado</p>
-                                        <p className="text-lg font-black text-black">15 hrs</p>
-                                        <p className="text-[10px] text-gray-400">mensuales en gestión</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
-                                        <p className="text-[9px] font-black uppercase text-emerald-700">ROI Proyectado</p>
-                                        <p className="text-lg font-black text-black">187%</p>
-                                        <p className="text-[10px] text-gray-400">retorno de inversión</p>
-                                    </div>
+                                <div className="p-4 rounded-xl bg-white border border-gray-200">
+                                    <p className="text-[9px] font-black uppercase mb-1 text-cyan-700">The Factory HKA</p>
+                                    <p className="text-[10px] text-gray-400">Manufactura de hardware.</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-white border border-gray-200">
+                                    <p className="text-[9px] font-black uppercase mb-1 text-cyan-700">Ameru.AI</p>
+                                    <p className="text-[10px] text-gray-400">Tecnología IoT.</p>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+                                    <p className="text-[9px] font-black uppercase text-emerald-700">Ahorro Fiscal</p>
+                                    <p className="text-lg font-black text-black">$8,500</p>
+                                    <p className="text-[10px] text-gray-400">anuales por cliente</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+                                    <p className="text-[9px] font-black uppercase text-emerald-700">Tiempo Recuperado</p>
+                                    <p className="text-lg font-black text-black">15 hrs</p>
+                                    <p className="text-[10px] text-gray-400">mensuales en gestión</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+                                    <p className="text-[9px] font-black uppercase text-emerald-700">ROI Proyectado</p>
+                                    <p className="text-lg font-black text-black">187%</p>
+                                    <p className="text-[10px] text-gray-400">retorno de inversión</p>
                                 </div>
                             </div>
                         </section>
 
                         {/* 7. Impacto Social o Ambiental */}
-                        <section className="space-y-3">
+                        <section className="bg-emerald-50 border border-emerald-200 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-700 flex items-center gap-2">
                                 <TreePine className="h-4 w-4" /> 7. IMPACTO SOCIAL O AMBIENTAL
                             </h2>
-                            <div className="pl-4 border-l-2 border-emerald-300 p-6 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-4">
-                                <p className="text-sm leading-relaxed text-gray-700">
-                                    En System Kyron, convertimos el reciclaje en activos. A través de nuestra red de <strong>Smart Bins</strong> —nodos equipados con inducción magnética y tecnología IoT— recolectamos con alta precisión plásticos, botellas y metales.
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="flex items-start gap-3 p-3 rounded-xl bg-emerald-100/50 border border-emerald-200">
-                                        <Recycle className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-                                        <div>
-                                            <p className="text-[10px] font-black uppercase text-emerald-700">Eco-créditos</p>
-                                            <p className="text-[11px] text-gray-500">Al depositar residuos, el usuario recibe créditos canjeables que reducen costos operativos.</p>
-                                        </div>
+                            <p className="text-sm leading-relaxed text-gray-700">
+                                En System Kyron, convertimos el reciclaje en activos. A través de nuestra red de <strong>Smart Bins</strong> —nodos equipados con inducción magnética y tecnología IoT— recolectamos con alta precisión plásticos, botellas y metales.
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="flex items-start gap-3 p-3 rounded-xl bg-white border border-emerald-200">
+                                    <Recycle className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+                                    <div>
+                                        <p className="text-[10px] font-black uppercase text-emerald-700">Eco-créditos</p>
+                                        <p className="text-[11px] text-gray-500">Al depositar residuos, el usuario recibe créditos canjeables que reducen costos operativos.</p>
                                     </div>
-                                    <div className="flex items-start gap-3 p-3 rounded-xl bg-emerald-100/50 border border-emerald-200">
-                                        <Leaf className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-                                        <div>
-                                            <p className="text-[10px] font-black uppercase text-emerald-700">Huella de Carbono</p>
-                                            <p className="text-[11px] text-gray-500"><strong>1.2 toneladas</strong> de CO₂ reducidas al año por cliente con economía circular.</p>
-                                        </div>
+                                </div>
+                                <div className="flex items-start gap-3 p-3 rounded-xl bg-white border border-emerald-200">
+                                    <Leaf className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+                                    <div>
+                                        <p className="text-[10px] font-black uppercase text-emerald-700">Huella de Carbono</p>
+                                        <p className="text-[11px] text-gray-500"><strong>1.2 toneladas</strong> de CO₂ reducidas al año por cliente con economía circular.</p>
                                     </div>
                                 </div>
                             </div>
                         </section>
 
                         {/* 8. Estado Actual y Hoja de Ruta */}
-                        <section className="space-y-3">
+                        <section className="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
                             <h2 className="text-xs font-black uppercase tracking-[0.2em] text-[#0A2472] flex items-center gap-2">
                                 <Milestone className="h-4 w-4" /> 8. ESTADO ACTUAL Y HOJA DE RUTA
                             </h2>
-                            <div className="pl-4 border-l-2 border-gray-300 space-y-4">
-                                <div className="flex items-center gap-3 p-4 rounded-xl bg-amber-50 border border-amber-200">
-                                    <Zap className="h-5 w-5 text-amber-600 shrink-0" />
-                                    <p className="text-sm text-gray-700">Fase <strong>pre-operativa</strong> — Prototipado y consolidación de alianzas estratégicas.</p>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-amber-50 border border-amber-200">
+                                <Zap className="h-5 w-5 text-amber-600 shrink-0" />
+                                <p className="text-sm text-gray-700">Fase <strong>pre-operativa</strong> — Prototipado y consolidación de alianzas estratégicas.</p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div className="p-4 rounded-xl bg-white border border-gray-200">
+                                    <p className="text-[9px] font-black uppercase mb-2 text-[#0A2472]">2026</p>
+                                    <p className="text-[11px] font-bold text-black">Despliegue nacional</p>
+                                    <p className="text-[10px] text-gray-400">Venezuela</p>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                    <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                                        <p className="text-[9px] font-black uppercase mb-2 text-[#0A2472]">2026</p>
-                                        <p className="text-[11px] font-bold text-black">Despliegue nacional</p>
-                                        <p className="text-[10px] text-gray-400">Venezuela</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                                        <p className="text-[9px] font-black uppercase mb-2 text-[#0A2472]">2027</p>
-                                        <p className="text-[11px] font-bold text-black">Expansión regional</p>
-                                        <p className="text-[10px] text-gray-400">Colombia y Panamá</p>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                                        <p className="text-[9px] font-black uppercase mb-2 text-[#0A2472]">2028</p>
-                                        <p className="text-[11px] font-bold text-black">Consolidación</p>
-                                        <p className="text-[10px] text-gray-400">México y EE. UU.</p>
-                                    </div>
+                                <div className="p-4 rounded-xl bg-white border border-gray-200">
+                                    <p className="text-[9px] font-black uppercase mb-2 text-[#0A2472]">2027</p>
+                                    <p className="text-[11px] font-bold text-black">Expansión regional</p>
+                                    <p className="text-[10px] text-gray-400">Colombia y Panamá</p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-white border border-gray-200">
+                                    <p className="text-[9px] font-black uppercase mb-2 text-[#0A2472]">2028</p>
+                                    <p className="text-[11px] font-bold text-black">Consolidación</p>
+                                    <p className="text-[10px] text-gray-400">México y EE. UU.</p>
                                 </div>
                             </div>
                         </section>

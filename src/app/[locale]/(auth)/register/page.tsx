@@ -201,24 +201,28 @@ function AnimatedGridBg() {
                     linear-gradient(rgba(56,189,248,0.12) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(56,189,248,0.12) 1px, transparent 1px)
                 `,
-                backgroundSize: '60px 60px'
+                backgroundSize: '60px 60px',
+                willChange: 'opacity'
             }} />
             <div className="absolute inset-0 opacity-[0.02]" style={{
                 backgroundImage: `
                     linear-gradient(rgba(56,189,248,0.2) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(56,189,248,0.2) 1px, transparent 1px)
                 `,
-                backgroundSize: '15px 15px'
+                backgroundSize: '15px 15px',
+                willChange: 'opacity'
             }} />
             <motion.div
                 className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sky-500/30 to-transparent"
                 animate={{ opacity: [0.3, 0.6, 0.3] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                style={{ willChange: 'opacity' }}
             />
             <motion.div
                 className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"
                 animate={{ opacity: [0.2, 0.5, 0.2] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                style={{ willChange: 'opacity' }}
             />
         </div>
     );
@@ -227,18 +231,19 @@ function AnimatedGridBg() {
 function FloatingParticles() {
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(6)].map((_, i) => (
+            {[...Array(3)].map((_, i) => (
                 <motion.div
                     key={i}
                     className="absolute w-1 h-1 rounded-full bg-sky-400/30"
                     style={{
-                        left: `${15 + i * 15}%`,
+                        left: `${20 + i * 30}%`,
                         top: `${10 + (i % 3) * 30}%`,
+                        willChange: 'transform, opacity'
                     }}
                     animate={{
-                        y: [0, -30, 0],
-                        opacity: [0.2, 0.6, 0.2],
-                        scale: [1, 1.5, 1],
+                        y: [0, -20, 0],
+                        opacity: [0.2, 0.5, 0.2],
+                        scale: [1, 1.2, 1],
                     }}
                     transition={{
                         duration: 4 + i * 0.5,
@@ -257,12 +262,12 @@ function GlowingCard({ children, className, active }: { children: React.ReactNod
         <div className={cn("relative group/card", className)}>
             <motion.div
                 className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-sky-400/30 via-cyan-400/20 to-emerald-400/30 pointer-events-none"
-                animate={active ? { opacity: [0.4, 0.7, 0.4] } : { opacity: 0 }}
-                whileHover={{ opacity: 0.6 }}
+                animate={active ? { opacity: [0.3, 0.6, 0.3] } : { opacity: 0 }}
+                whileHover={{ opacity: 0.5 }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                style={{ filter: "blur(1px)" }}
+                style={{ filter: "blur(1px)", willChange: 'opacity' }}
             />
-            <div className="relative rounded-2xl bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 backdrop-blur-xl overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50">
+            <div className="relative rounded-2xl bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 backdrop-blur-sm overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50">
                 <div className="absolute inset-0 bg-gradient-to-br from-sky-50/50 via-transparent to-emerald-50/30 dark:from-sky-950/50 dark:to-emerald-950/30 pointer-events-none" />
                 <div className="relative">
                     {children}
@@ -655,24 +660,28 @@ export default function RegisterSelectionPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-sky-100/40 via-transparent to-emerald-100/20 dark:from-sky-900/20 dark:to-emerald-900/10" />
 
                 <motion.div
-                    className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-blue-400/[0.12] blur-[120px] pointer-events-none"
-                    animate={{ scale: [1, 1.1, 1], opacity: [0.08, 0.14, 0.08] }}
+                    className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-blue-400/[0.12] blur-[60px] pointer-events-none"
+                    animate={{ scale: [1, 1.05, 1], opacity: [0.08, 0.12, 0.08] }}
                     transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ willChange: 'transform, opacity' }}
                 />
                 <motion.div
-                    className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-emerald-400/[0.10] blur-[100px] pointer-events-none"
-                    animate={{ scale: [1, 1.15, 1], opacity: [0.06, 0.12, 0.06] }}
+                    className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-emerald-400/[0.10] blur-[60px] pointer-events-none"
+                    animate={{ scale: [1, 1.1, 1], opacity: [0.06, 0.10, 0.06] }}
                     transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                    style={{ willChange: 'transform, opacity' }}
                 />
                 <motion.div
-                    className="absolute top-[40%] right-[5%] w-[250px] h-[250px] rounded-full bg-violet-400/[0.08] blur-[80px] pointer-events-none"
-                    animate={{ x: [0, 20, 0], y: [0, -15, 0], opacity: [0.06, 0.10, 0.06] }}
+                    className="absolute top-[40%] right-[5%] w-[250px] h-[250px] rounded-full bg-violet-400/[0.08] blur-[40px] pointer-events-none"
+                    animate={{ x: [0, 10, 0], y: [0, -10, 0], opacity: [0.06, 0.08, 0.06] }}
                     transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    style={{ willChange: 'transform, opacity' }}
                 />
                 <motion.div
-                    className="absolute top-[15%] left-[10%] w-[200px] h-[200px] rounded-full bg-cyan-400/[0.08] blur-[80px] pointer-events-none"
-                    animate={{ y: [0, 25, 0], opacity: [0.05, 0.10, 0.05] }}
+                    className="absolute top-[15%] left-[10%] w-[200px] h-[200px] rounded-full bg-cyan-400/[0.08] blur-[40px] pointer-events-none"
+                    animate={{ y: [0, 15, 0], opacity: [0.05, 0.08, 0.05] }}
                     transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+                    style={{ willChange: 'transform, opacity' }}
                 />
 
 
