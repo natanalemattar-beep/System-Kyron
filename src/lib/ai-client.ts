@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { getApiKey, hasApiKeys, getKeyCount } from '@/lib/ai-key-manager';
+import { getApiKey, hasApiKeys } from '@/lib/ai-key-manager';
 
 export function createClient(): GoogleGenerativeAI | null {
   const key = getApiKey();
@@ -19,9 +19,8 @@ export function createModel(
   });
 }
 
-export function getAiStatus(): { configured: boolean; keyCount: number } {
+export function getAiStatus(): { configured: boolean } {
   return {
     configured: hasApiKeys(),
-    keyCount: getKeyCount(),
   };
 }
