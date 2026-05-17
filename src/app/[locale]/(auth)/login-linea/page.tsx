@@ -15,6 +15,7 @@ import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { cn } from '@/lib/utils';
+import { getDeviceFingerprint } from '@/lib/device-fingerprint';
 
 const ACCESS_TYPES = {
   personal: {
@@ -51,6 +52,8 @@ export default function LoginLineaUnifiedPage() {
   const [maskedEmail, setMaskedEmail] = useState('');
   const [codeDigits, setCodeDigits] = useState(['', '', '', '', '', '']);
   const [countdown, setCountdown] = useState(0);
+  const [trustDevice, setTrustDevice] = useState(false);
+  const [deviceFingerprint] = useState(() => getDeviceFingerprint());
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
   const { toast } = useToast();
@@ -91,7 +94,7 @@ export default function LoginLineaUnifiedPage() {
     const accessKey = (formData.get('accessKey') as string || '').trim();
 
     try {
-      const body: Record<string, string> = { identifier, password, portal: selected === 'empresa' ? 'business' : 'personal' };
+      const body: Record<string, any> = { identifier, password, portal: selected === 'empresa' ? 'business' : 'personal', deviceFingerprint, trustDevice };
 
       if (accessKey) body.accessKey = accessKey;
       const res = await fetch('/api/auth/login', {
@@ -110,11 +113,9 @@ export default function LoginLineaUnifiedPage() {
         return;
       }
       if (json.accessKeyUsed || json.success) {
-        toast({
-          title: json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido',
-          description: `Bienvenido, ${json.user?.nombre ?? ''}.`,
-          action: <CircleCheck className="text-emerald-500 h-4 w-4" />,
-        });
+        const title = json.trustedDevice ? 'Dispositivo confiable' : (json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido');
+        const desc = json.trustedDevice ? `Bienvenido, ${json.user?.nombre ?? ''}. Acceso automático desde dispositivo confiable.` : `Bienvenido, ${json.user?.nombre ?? ''}.`;
+        toast({ title, description: desc, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
         router.push(current.redirectPath as any);
         return;
       }
@@ -167,7 +168,18 @@ export default function LoginLineaUnifiedPage() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/auth/verify-code', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: verificationEmail, code }) });
+      const res = await fetch('/api/auth/verify-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: verificationEmail,
+          code,
+          deviceFingerprint,
+          trustDevice,
+          deviceName: typeof navigator !== 'undefined' ? navigator.userAgent?.slice(0, 120) : undefined,
+          deviceType: 'web',
+        }),
+      });
       const json = await res.json();
       if (!res.ok) { setError(json.error || 'Código incorrecto.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); setTimeout(() => inputRefs.current[0]?.focus(), 100); return; }
       toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
@@ -324,6 +336,18 @@ export default function LoginLineaUnifiedPage() {
                       </p>
                     )}
                   </div>
+
+                  <label className="flex items-center gap-3 px-1 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      checked={trustDevice}
+                      onChange={e => setTrustDevice(e.target.checked)}
+                      className="h-4 w-4 rounded border-white/20 bg-white/5 text-cyan-500 focus:ring-cyan-500/30 accent-cyan-500"
+                    />
+                    <span className="text-[10px] font-bold text-muted-foreground/50 group-hover:text-muted-foreground/80 uppercase tracking-[0.15em] transition-colors">
+                      Confiar en este dispositivo
+                    </span>
+                  </label>
 
                   <Button type="submit" className="w-full h-12 rounded-xl font-bold text-sm shadow-lg" disabled={isLoading}>
                     {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Acceder <ArrowRight className="ml-2 h-4 w-4" /></>}

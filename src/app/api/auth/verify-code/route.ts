@@ -33,6 +33,8 @@ export async function POST(req: NextRequest) {
     const destino = (body.email || body.destino || '').trim().toLowerCase();
     const codigo = (body.code || body.codigo || '').trim();
     const proposito = body.proposito || 'verification';
+    const deviceFingerprint = body.deviceFingerprint || '';
+    const trustDevice = !!body.trustDevice;
 
     if (!destino || !codigo) {
       return NextResponse.json({ error: 'Destino y código son requeridos para la verificación' }, { status: 400 });
@@ -117,6 +119,27 @@ export async function POST(req: NextRequest) {
     });
 
     response.cookies.set(cookie.name, cookie.value, cookie.options as any);
+
+    // Registrar dispositivo como confiable si el usuario lo solicitó
+    if (trustDevice && deviceFingerprint && typeof deviceFingerprint === 'string' && deviceFingerprint.length > 5) {
+      const existing = await queryOne<{ id: number }>(
+        `SELECT id FROM trusted_devices WHERE user_id = $1 AND fingerprint = $2`,
+        [user.id, deviceFingerprint]
+      );
+      if (!existing) {
+        const ua = req.headers.get('user-agent') || '';
+        await query(
+          `INSERT INTO trusted_devices (user_id, fingerprint, device_name, device_type, ip, user_agent)
+           VALUES ($1, $2, $3, $4, $5, $6)`,
+          [user.id, deviceFingerprint, body.deviceName || null, body.deviceType || 'web', ip, ua]
+        );
+      } else {
+        await query(
+          `UPDATE trusted_devices SET last_used_at = NOW(), ip = $3, user_agent = $4 WHERE id = $1`,
+          [existing.id, null, ip, req.headers.get('user-agent') || '']
+        );
+      }
+    }
 
     // Registrar actividad de éxito
     await logActivity({

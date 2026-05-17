@@ -156,6 +156,23 @@ async function createCoreAuthTables() {
   await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS telefono_verificado BOOLEAN NOT NULL DEFAULT false`);
 
   await query(`
+    CREATE TABLE IF NOT EXISTS trusted_devices (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      fingerprint     TEXT NOT NULL,
+      device_name     TEXT,
+      device_type     TEXT DEFAULT 'unknown',
+      ip              TEXT,
+      user_agent      TEXT,
+      last_used_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE(user_id, fingerprint)
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_trusted_devices_user ON trusted_devices(user_id)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_trusted_devices_fingerprint ON trusted_devices(user_id, fingerprint)`);
+
+  await query(`
     CREATE TABLE IF NOT EXISTS verification_codes (
       id          SERIAL PRIMARY KEY,
       destino     TEXT NOT NULL,

@@ -16,6 +16,7 @@ import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { getDeviceFingerprint } from '@/lib/device-fingerprint';
 
 export default function LoginPersonalPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +34,8 @@ export default function LoginPersonalPage() {
   const [codeDigits, setCodeDigits] = useState(['', '', '', '', '', '']);
   const [countdown, setCountdown] = useState(0);
   const [devCode, setDevCode] = useState<string | null>(null);
+  const [trustDevice, setTrustDevice] = useState(false);
+  const [deviceFingerprint] = useState(() => getDeviceFingerprint());
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
   const { toast } = useToast();
@@ -58,7 +61,7 @@ export default function LoginPersonalPage() {
     if (step === 'verification') setTimeout(() => inputRefs.current[0]?.focus(), 100);
   }, [step]);
 
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
     setError(null);
@@ -68,7 +71,7 @@ export default function LoginPersonalPage() {
     const password = formData.get('password') as string;
     const accessKey = (formData.get('accessKey') as string || '').trim();
     try {
-      const body: Record<string, string> = { identifier, password, portal: 'personal' };
+      const body: Record<string, any> = { identifier, password, portal: 'personal', deviceFingerprint, trustDevice };
 
       if (accessKey) body.accessKey = accessKey;
       const res = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
@@ -86,9 +89,11 @@ export default function LoginPersonalPage() {
         contabilidad: '/resumen-negocio',
         juridico: '/resumen-negocio',
         legal: '/escritorio-juridico',
-        ventas: '/ventas',
+        ventas: '/punto-de-venta',
         sostenibilidad: '/sostenibilidad',
-        telecom: '/linea',
+        telecom: '/mi-linea',
+        socios: '/dashboard-socios',
+        rrhh: '/dashboard-rrhh',
       };
       const modules = json.user?.modules;
       let dashboardPath = '/dashboard';
@@ -99,7 +104,9 @@ export default function LoginPersonalPage() {
         }
       }
       if (json.accessKeyUsed || json.success) {
-        toast({ title: json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+        const title = json.trustedDevice ? 'Dispositivo confiable' : (json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido');
+        const desc = json.trustedDevice ? `Bienvenido, ${json.user?.nombre ?? ''}. Acceso automático desde dispositivo confiable.` : `Bienvenido, ${json.user?.nombre ?? ''}.`;
+        toast({ title, description: desc, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
         router.push(dashboardPath as any);
         return;
       }
@@ -179,11 +186,22 @@ export default function LoginPersonalPage() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/auth/verify-code', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: verificationEmail, code }) });
+      const res = await fetch('/api/auth/verify-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: verificationEmail,
+          code,
+          deviceFingerprint,
+          trustDevice,
+          deviceName: typeof navigator !== 'undefined' ? navigator.userAgent?.slice(0, 120) : undefined,
+          deviceType: 'web',
+        }),
+      });
       const json = await res.json();
       if (!res.ok) { setError(json.error || 'Código incorrecto.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); setTimeout(() => inputRefs.current[0]?.focus(), 100); return; }
       toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-      const modPathMap: Record<string, string> = { contabilidad: '/resumen-negocio', juridico: '/resumen-negocio', legal: '/escritorio-juridico', ventas: '/ventas', sostenibilidad: '/sostenibilidad', telecom: '/linea' };
+      const modPathMap: Record<string, string> = { contabilidad: '/resumen-negocio', juridico: '/resumen-negocio', legal: '/escritorio-juridico', ventas: '/punto-de-venta', sostenibilidad: '/sostenibilidad', telecom: '/mi-linea', socios: '/dashboard-socios', rrhh: '/dashboard-rrhh' };
       let dest = '/dashboard';
       for (const mod of (json.user?.modules ?? [])) { const p = modPathMap[mod]; if (p) { dest = p; break; } }
       router.push(dest as any);
@@ -332,6 +350,18 @@ export default function LoginPersonalPage() {
                       </button>
                     </div>
                   </div>
+
+                  <label className="flex items-center gap-3 px-2 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      checked={trustDevice}
+                      onChange={e => setTrustDevice(e.target.checked)}
+                      className="h-4 w-4 rounded border-white/20 bg-white/5 text-cyan-500 focus:ring-cyan-500/30 accent-cyan-500"
+                    />
+                    <span className="text-[9px] font-bold text-white/30 group-hover:text-white/50 uppercase tracking-[0.2em] transition-colors">
+                      Confiar en este dispositivo — no pedir código otra vez
+                    </span>
+                  </label>
 
                   <Button type="submit" className="w-full h-18 rounded-[1.5rem] font-black text-[12px] uppercase tracking-[0.4em] shadow-2xl bg-blue-600 hover:bg-blue-500 text-white transition-all hover:scale-[1.02] active:scale-[0.98] italic group/btn overflow-hidden relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />

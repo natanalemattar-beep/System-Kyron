@@ -167,6 +167,22 @@ export async function GET(req: NextRequest) {
     };
   });
 
+  const trustedDevices = await query<{
+    id: number;
+    device_name: string | null;
+    device_type: string;
+    ip: string | null;
+    user_agent: string | null;
+    last_used_at: string;
+    created_at: string;
+  }>(
+    `SELECT id, device_name, device_type, ip, user_agent, last_used_at, created_at
+     FROM trusted_devices
+     WHERE user_id = $1
+     ORDER BY last_used_at DESC`,
+    [session.user.id]
+  );
+
   return NextResponse.json({
     usuario: {
       email: user?.email || '',
@@ -184,10 +200,19 @@ export async function GET(req: NextRequest) {
     },
     sesiones: sesionesFormateadas,
     historial: historialFormateado,
+    dispositivosConfianza: trustedDevices.map(d => ({
+      id: d.id,
+      nombre: d.device_name || 'Dispositivo desconocido',
+      tipo: d.device_type || 'web',
+      ip: maskIp(d.ip),
+      ultimoUso: d.last_used_at,
+      creado: d.created_at,
+    })),
     estadisticas: {
       totalSesiones: sesionesFormateadas.length,
       totalEventos: parseInt(totalEventos?.count || '0'),
       eventosAltos: parseInt(eventosAltos?.count || '0'),
+      dispositivosConfianza: trustedDevices.length,
     },
   });
 }
@@ -218,4 +243,25 @@ export async function DELETE(req: NextRequest) {
   }
 
   return NextResponse.json({ error: 'ParÃ¡metros invÃ¡lidos' }, { status: 400 });
+}
+
+export async function PATCH(req: NextRequest) {
+  const session = await getSession();
+  if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+
+  const body = await req.json();
+  const { deviceId, action } = body;
+
+  if (action === 'remove_trusted' && deviceId) {
+    const deleted = await query(
+      `DELETE FROM trusted_devices WHERE id = $1 AND user_id = $2`,
+      [deviceId, session.user.id]
+    );
+    if (deleted && deleted.rowCount && deleted.rowCount > 0) {
+      return NextResponse.json({ success: true, mensaje: 'Dispositivo removido de la lista de confianza' });
+    }
+    return NextResponse.json({ error: 'Dispositivo no encontrado' }, { status: 404 });
+  }
+
+  return NextResponse.json({ error: 'AcciÃ³n no vÃ¡lida' }, { status: 400 });
 }

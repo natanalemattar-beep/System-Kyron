@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Shield, ShieldCheck, ShieldAlert, Lock, KeyRound, Smartphone, Monitor, Fingerprint, Clock, CircleCheck, TriangleAlert, Bell, Globe, LogOut, History, Key, Loader2, RefreshCw, Mail } from "lucide-react";
+import { Shield, ShieldCheck, ShieldAlert, Lock, KeyRound, Smartphone, Monitor, Fingerprint, Clock, CircleCheck, TriangleAlert, Bell, Globe, LogOut, History, Key, Loader2, RefreshCw, Mail, Laptop, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -28,6 +28,15 @@ interface EventoSeguridad {
   estado: string;
 }
 
+interface DispositivoConfianza {
+  id: number;
+  nombre: string;
+  tipo: string;
+  ip: string;
+  ultimoUso: string;
+  creado: string;
+}
+
 interface DatosSeguridad {
   usuario: {
     email: string;
@@ -45,10 +54,12 @@ interface DatosSeguridad {
   };
   sesiones: SesionActiva[];
   historial: EventoSeguridad[];
+  dispositivosConfianza: DispositivoConfianza[];
   estadisticas: {
     totalSesiones: number;
     totalEventos: number;
     eventosAltos: number;
+    dispositivosConfianza: number;
   };
 }
 
@@ -220,6 +231,8 @@ export default function SeguridadCuentaPage() {
                   <>
                     <span>{datos.estadisticas.totalSesiones} sesión(es) activa(s)</span>
                     <span>•</span>
+                    <span>{datos.estadisticas.dispositivosConfianza} dispositivo(s) de confianza</span>
+                    <span>•</span>
                     <span>{datos.estadisticas.totalEventos} eventos registrados</span>
                     {datos.estadisticas.eventosAltos > 0 && (
                       <>
@@ -306,6 +319,58 @@ export default function SeguridadCuentaPage() {
                 ) : (
                   <div className="text-center py-4">
                     <p className="text-[11px] text-muted-foreground/50">Solo esta sesión está activa</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}>
+            <Card className="rounded-2xl border border-border/30 bg-card">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-bold text-foreground flex items-center gap-2">
+                  <Laptop className="h-4 w-4 text-cyan-500" /> Dispositivos de Confianza
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {datos?.dispositivosConfianza && datos.dispositivosConfianza.length > 0 ? (
+                  datos.dispositivosConfianza.map((d) => (
+                    <div key={d.id} className="flex items-center gap-3 p-3 rounded-xl border border-border/15 bg-muted/10">
+                      <div className="p-2 rounded-lg bg-cyan-500/10 shrink-0">
+                        <Laptop className="h-4 w-4 text-cyan-500" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[11px] font-bold text-foreground">{d.nombre}</p>
+                        <p className="text-[10px] text-muted-foreground/50">{d.ip} • Último uso: {tiempoRelativo(d.ultimoUso)}</p>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={async () => {
+                          try {
+                            const res = await fetch('/api/seguridad-cuenta', {
+                              method: 'PATCH',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ deviceId: d.id, action: 'remove_trusted' }),
+                            });
+                            if (res.ok) {
+                              toast({ title: 'Dispositivo removido', description: 'Este dispositivo ya no es de confianza.' });
+                              fetchDatos();
+                            }
+                          } catch {
+                            toast({ title: 'Error', description: 'No se pudo remover el dispositivo', variant: 'destructive' });
+                          }
+                        }}
+                        className="h-7 w-7 p-0 text-muted-foreground/40 hover:text-red-500"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </Button>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-4">
+                    <p className="text-[11px] text-muted-foreground/50">No tienes dispositivos de confianza registrados</p>
+                    <p className="text-[10px] text-muted-foreground/30 mt-1">Marca "Confiar en este dispositivo" al iniciar sesión para agregar uno</p>
                   </div>
                 )}
               </CardContent>

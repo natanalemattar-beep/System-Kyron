@@ -15,6 +15,7 @@ import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { Logo } from '@/components/logo';
 import { cn, isNetworkError } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getDeviceFingerprint } from '@/lib/device-fingerprint';
 
 type LayoutVariant = 'split-left' | 'split-right' | 'centered' | 'stacked' | 'minimal' | 'dark-immersive' | 'accounting-premium';
 
@@ -80,6 +81,8 @@ export function SpecializedLoginCard({
   const [devCode, setDevCode] = useState<string | null>(null);
   const [singleCode, setSingleCode] = useState('');
   const [verifVerified, setVerifVerified] = useState(false);
+  const [trustDevice, setTrustDevice] = useState(false);
+  const [deviceFingerprint] = useState(() => getDeviceFingerprint());
   const singleInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const { toast } = useToast();
@@ -100,12 +103,12 @@ export function SpecializedLoginCard({
     contabilidad: '/resumen-negocio',
     juridico: '/resumen-negocio',
     legal: '/escritorio-juridico',
-    ventas: '/ventas',
-    tpv: '/ventas',
-    socios: '/socios',
+    ventas: '/punto-de-venta',
+    tpv: '/punto-de-venta',
+    socios: '/dashboard-socios',
     sostenibilidad: '/sostenibilidad',
-    telecom: '/linea',
-    rrhh: '/rrhh',
+    telecom: '/mi-linea',
+    rrhh: '/dashboard-rrhh',
   };
 
   const resolveRedirectPath = useCallback((json?: { user?: { modules?: string[] } }) => {
@@ -155,7 +158,7 @@ export function SpecializedLoginCard({
     setEmailDeliveryFailed(false);
     console.log('[Login] Attempting login for:', identifier, 'Portal:', portalName);
     try {
-      const body: Record<string, string> = { identifier, password, portal: isPersonalPortal ? 'personal' : 'business' };
+      const body: Record<string, any> = { identifier, password, portal: isPersonalPortal ? 'personal' : 'business', deviceFingerprint, trustDevice };
       if (accessKey && accessKey.trim()) body.accessKey = accessKey.trim();
 
       const res = await fetch('/api/auth/login', {
@@ -187,7 +190,9 @@ export function SpecializedLoginCard({
       }
 
       if (json.accessKeyUsed || json.success) {
-        toast({ title: json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+        const title = json.trustedDevice ? 'Dispositivo confiable' : (json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido');
+        const desc = json.trustedDevice ? `Bienvenido, ${json.user?.nombre ?? ''}. Acceso automático desde dispositivo confiable.` : `Bienvenido, ${json.user?.nombre ?? ''}.`;
+        toast({ title, description: desc, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
         handleRedirect(json);
         return;
       }
@@ -315,7 +320,15 @@ export function SpecializedLoginCard({
       const res = await fetch('/api/auth/verify-code', { 
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' }, 
-        body: JSON.stringify({ destino: verificationEmail, codigo: code, proposito: 'verification' }) 
+        body: JSON.stringify({ 
+          destino: verificationEmail, 
+          codigo: code, 
+          proposito: 'verification',
+          deviceFingerprint,
+          trustDevice,
+          deviceName: typeof navigator !== 'undefined' ? navigator.userAgent?.slice(0, 120) : undefined,
+          deviceType: 'web',
+        }) 
       });
 
       const json = await res.json();
@@ -593,6 +606,18 @@ export function SpecializedLoginCard({
                     </AnimatePresence>
                   </div>
 
+                  <label className="flex items-center gap-3 px-1 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      checked={trustDevice}
+                      onChange={e => setTrustDevice(e.target.checked)}
+                      className="h-4 w-4 rounded border-white/20 bg-white/5 text-cyan-500 focus:ring-cyan-500/30 accent-cyan-500"
+                    />
+                    <span className="text-[10px] font-bold text-muted-foreground/50 group-hover:text-muted-foreground/80 uppercase tracking-[0.15em] transition-colors">
+                      Confiar en este dispositivo
+                    </span>
+                  </label>
+
                   <Button type="submit" className={cn("w-full h-16 rounded-2xl font-black text-[11px] uppercase tracking-[0.25em] text-white shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98]", theme.btnBg)} disabled={isLoading}>
                     {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <>Validar Acceso <ArrowRight className="ml-3 h-4 w-4" /></>}
                   </Button>
@@ -655,6 +680,18 @@ export function SpecializedLoginCard({
                       </button>
                     </div>
                   </div>
+
+                  <label className="flex items-center gap-3 px-1 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      checked={trustDevice}
+                      onChange={e => setTrustDevice(e.target.checked)}
+                      className="h-4 w-4 rounded border-white/20 bg-white/5 text-emerald-500 focus:ring-emerald-500/30 accent-emerald-500"
+                    />
+                    <span className="text-[10px] font-bold text-muted-foreground/50 group-hover:text-muted-foreground/80 uppercase tracking-[0.15em] transition-colors">
+                      Confiar en este dispositivo
+                    </span>
+                  </label>
 
                   <Button type="submit" className="w-full h-12 rounded-xl font-bold text-[13px] text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500" disabled={isLoading}>
                     {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Enviar Código <ArrowRight className="ml-2 h-4 w-4" /></>}

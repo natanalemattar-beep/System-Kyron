@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
         const rl = rateLimit(`login:${ip}`, 10, 15 * 60 * 1000);
         if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs);
 
-        const { identifier, email, password, accessKey, portal } = await req.json();
+        const { identifier, email, password, accessKey, portal, deviceFingerprint, trustDevice } = await req.json();
         const loginId = (identifier || email || '').trim();
 
         if (!loginId || !password) {
@@ -107,6 +107,57 @@ export async function POST(req: NextRequest) {
 
         clearLoginFailures(`bf:${user.email}`);
 
+        // Check if device is trusted to skip 2FA
+        let isTrustedDevice = false;
+        if (deviceFingerprint && typeof deviceFingerprint === 'string' && deviceFingerprint.length > 5) {
+            const trusted = await queryOne<{ id: number }>(
+                `SELECT id FROM trusted_devices WHERE user_id = $1 AND fingerprint = $2`,
+                [user.id, deviceFingerprint]
+            );
+            if (trusted) {
+                isTrustedDevice = true;
+                await query(
+                    `UPDATE trusted_devices SET last_used_at = NOW(), ip = $3, user_agent = $4 WHERE id = $1`,
+                    [trusted.id, null, ip, req.headers.get('user-agent') || '']
+                );
+            }
+        }
+
+        if (isTrustedDevice) {
+            const token = await createToken({
+                userId: user.id,
+                email: user.email,
+                tipo: user.tipo,
+                nombre: displayName,
+            });
+            const cookie = setSessionCookie(token);
+            const res = NextResponse.json({
+                success: true,
+                trustedDevice: true,
+                user: {
+                    id: user.id,
+                    email: user.email,
+                    tipo: user.tipo,
+                    nombre: displayName,
+                    apellido: user.apellido,
+                    cedula: user.cedula,
+                    razon_social: user.razon_social,
+                    rif: user.rif,
+                    modules: moduleIds,
+                },
+            });
+            res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
+            await logActivity({
+                userId: user.id,
+                evento: 'LOGIN',
+                categoria: 'auth',
+                descripcion: `Inicio de sesión desde dispositivo confiable: ${displayName} (${user.email})`,
+                entidadTipo: 'usuario',
+                entidadId: user.id,
+                metadata: { email: user.email, tipo: user.tipo, metodo: 'trusted_device' },
+            });
+            return res;
+        }
 
         const portalMismatch =
             (normalizedPortal === 'personal' && user.tipo === 'juridico') ||
@@ -248,6 +299,7 @@ export async function POST(req: NextRequest) {
                     hasPhone,
                     maskedPhone,
                     challengeToken,
+                    isTrustedDevice,
                     emailFailed: true,
                     emailFailedMessage: 'No pudimos enviar el código por correo. Usa SMS o WhatsApp.',
                 });
@@ -271,6 +323,7 @@ export async function POST(req: NextRequest) {
             hasPhone,
             maskedPhone,
             challengeToken,
+            isTrustedDevice,
             ...(isDev ? { devCode: code } : {}),
         });
     } catch (err: any) {

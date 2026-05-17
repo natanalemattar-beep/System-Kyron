@@ -30,14 +30,14 @@ const MODULE_PATH_MAP: Record<string, string> = {
     contabilidad: '/resumen-negocio',
     juridico: '/resumen-negocio',
     legal: '/escritorio-juridico',
-    ventas: '/ventas',
-    tpv: '/ventas',
-    socios: '/socios',
+    ventas: '/punto-de-venta',
+    tpv: '/punto-de-venta',
+    socios: '/dashboard-socios',
     sostenibilidad: '/sostenibilidad',
-    telecom: '/linea',
-    rrhh: '/rrhh',
-    nomina: '/rrhh',
-    talento: '/rrhh',
+    telecom: '/mi-linea',
+    rrhh: '/dashboard-rrhh',
+    nomina: '/dashboard-rrhh',
+    talento: '/dashboard-rrhh',
 };
 
 export function getModuleDashboardPath(modules?: string[]): string | null {
@@ -61,17 +61,27 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
             if (res.ok) {
                 const data = await res.json();
                 setUser(data.user);
+                return data.user;
             } else {
                 setUser(null);
+                return null;
             }
         } catch {
             setUser(null);
+            return null;
         }
     }, []);
 
     useEffect(() => {
         refreshUser().finally(() => setIsLoading(false));
     }, [refreshUser]);
+
+    // Re-check user on pathname change when user is null (e.g. after login redirect)
+    useEffect(() => {
+        if (!isLoading && !user) {
+            refreshUser();
+        }
+    }, [pathname, isLoading, user, refreshUser]);
 
     // Redirect to module-specific dashboard if on a generic page
     useEffect(() => {
