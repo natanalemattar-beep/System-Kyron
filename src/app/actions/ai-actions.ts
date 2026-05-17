@@ -1,29 +1,23 @@
 'use server';
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
+import { createModel } from "@/lib/ai-client";
 import { KYRON_SYSTEM_PROMPT } from "@/lib/ai-context";
 
-const apiKey = process.env.GEMINI_API_KEY || "";
-let model: ReturnType<GoogleGenerativeAI["getGenerativeModel"]> | null = null;
-if (apiKey) {
-    const genAI = new GoogleGenerativeAI(apiKey);
-    model = genAI.getGenerativeModel({ 
-        model: "gemini-1.5-flash",
-        systemInstruction: KYRON_SYSTEM_PROMPT
-    });
-}
-
 export async function getPitchAdvice(slideTitle: string, slideBody: string, slideContext: string) {
-    if (!model || !apiKey) {
-        return "Configura GEMINI_API_KEY en Vercel para activar el Coach de IA.";
+    const model = createModel("gemini-1.5-flash", {
+        temperature: 0.4,
+        maxOutputTokens: 1024,
+    });
+
+    if (!model) {
+        return "Configura GEMINI_API_KEY_1 en Vercel para activar el Coach de IA.";
     }
 
     const prompt = `
         DIAPOSITIVA ACTUAL: "${slideTitle}"
         CONTENIDO: "${slideBody}"
         ETIQUETA: "${slideContext}"
-        
+
         Dame 3 consejos de oro para mi presentación.
     `;
 

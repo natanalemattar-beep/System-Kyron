@@ -31,7 +31,7 @@ import { es } from 'date-fns/locale';
 import { ESTADOS_VE, getMunicipios, getCiudades } from '@/lib/venezuela-geo';
 
 const TOTAL_STEPS = 4;
-const FORM_STEPS = 2; // Identity & Access
+const FORM_STEPS = 3; // Datos Personales, Acceso y Contacto, Verificación
 
 const fullSchema = z.object({
   nombre: z.string().min(2, 'El nombre es requerido.'),
@@ -169,7 +169,10 @@ export default function RegisterNaturalPage() {
   const nextStep = async () => {
     const fields = step === 1 ? step1Fields : step2Fields;
     const valid = await trigger(fields as any);
-    if (step === 2 && !acceptTerms) return;
+    if (step === 2 && !acceptTerms) {
+      toast({ title: 'Términos requeridos', description: 'Debes aceptar los términos y condiciones para continuar.', variant: 'destructive' });
+      return;
+    }
     if (valid) setStep(s => s + 1);
   };
 
@@ -584,7 +587,13 @@ export default function RegisterNaturalPage() {
                         )} />
                       ))}
                     </div>
-                    <span className="text-[10px] text-muted-foreground">Seguridad: Media-Alta</span>
+                    <span className="text-[10px] text-muted-foreground">
+                      {(function() {
+                        const pw = getValues('password') || '';
+                        const strength = (pw.length >= 8 ? 1 : 0) + (/[A-Z]/.test(pw) ? 1 : 0) + (/[0-9]/.test(pw) ? 1 : 0) + (/[^A-Za-z0-9]/.test(pw) ? 1 : 0);
+                        return strength <= 1 ? 'Débil' : strength <= 2 ? 'Media' : strength <= 3 ? 'Alta' : 'Muy Alta';
+                      })()}
+                    </span>
                   </div>
                 </Field>
 

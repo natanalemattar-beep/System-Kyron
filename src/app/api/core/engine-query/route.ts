@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { createModel, getAiStatus } from "@/lib/ai-client";
 import { KYRON_SYSTEM_PROMPT } from "@/lib/ai-context";
 
 const SYSTEM_PROMPT = KYRON_SYSTEM_PROMPT;
@@ -12,14 +12,11 @@ export async function POST(req: NextRequest) {
     }
 
     const lastMessage = messages[messages.length - 1].content;
-    const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY;
+    const model = createModel("gemini-1.5-flash");
 
-    if (!apiKey) {
+    if (!model) {
       return NextResponse.json({ content: "La IA de Kyron no está configurada. Contacta al administrador.", status: 'error' });
     }
-
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     if (stream) {
       const chat = model.startChat({
@@ -30,10 +27,10 @@ export async function POST(req: NextRequest) {
       });
 
       const result = await chat.sendMessageStream(
-        (context ? `Contexto Operativo: ${context}\n\n` : '') + 
+        (context ? `Contexto Operativo: ${context}\n\n` : '') +
         SYSTEM_PROMPT + "\n\nUsuario: " + lastMessage
       );
-      
+
       const encoder = new TextEncoder();
       const readableStream = new ReadableStream({
         async start(controller) {
@@ -61,7 +58,7 @@ export async function POST(req: NextRequest) {
         })),
       });
       const result = await chat.sendMessage(
-        (context ? `Contexto Operativo: ${context}\n\n` : '') + 
+        (context ? `Contexto Operativo: ${context}\n\n` : '') +
         SYSTEM_PROMPT + "\n\nUsuario: " + lastMessage
       );
       const response = await result.response;

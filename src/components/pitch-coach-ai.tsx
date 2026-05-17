@@ -29,7 +29,6 @@ export function PitchCoachAI({ currentSlide }: PitchCoachAIProps) {
             setAdvice(result);
             setIsLoading(false);
         }
-
         fetchAdvice();
     }, [currentSlide.title]);
 
@@ -59,7 +58,7 @@ export function PitchCoachAI({ currentSlide }: PitchCoachAIProps) {
                                 <span className="text-[8px] font-black uppercase tracking-widest text-white/20">Procesando Estrategia...</span>
                             </div>
                         ) : (
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 className="space-y-3"
@@ -80,7 +79,7 @@ export function PitchCoachAI({ currentSlide }: PitchCoachAIProps) {
                                 <div className="w-1 h-1 rounded-full bg-cyan-500 animate-ping" />
                                 <span className="text-[7px] font-black text-white/20 uppercase tracking-widest">Live Engine: Gemini 1.5 Flash</span>
                             </div>
-                            <button 
+                            <button
                                 onClick={() => setIsVisible(false)}
                                 className="text-[7px] font-black text-white/40 hover:text-white uppercase tracking-widest transition-colors"
                             >
@@ -90,9 +89,9 @@ export function PitchCoachAI({ currentSlide }: PitchCoachAIProps) {
                     </motion.div>
                 )}
             </AnimatePresence>
-            
+
             {!isVisible && (
-                <button 
+                <button
                     onClick={() => setIsVisible(true)}
                     className="absolute bottom-0 right-0 h-10 w-10 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center hover:bg-cyan-500/20 transition-all group"
                 >

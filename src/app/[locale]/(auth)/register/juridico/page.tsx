@@ -114,7 +114,7 @@ export default function RegisterJuridicoPage() {
             const res = await fetch('/api/auth/send-code', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino, tipo: 'email' }),
+                body: JSON.stringify({ destino, tipo: 'email', proposito: 'registration' }),
             });
             if (!res.ok) throw new Error('Error');
             setVerifSent(true);
@@ -134,7 +134,7 @@ export default function RegisterJuridicoPage() {
             const res = await fetch('/api/auth/verify-code', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino: verifDestino, codigo: code }),
+                body: JSON.stringify({ destino: verifDestino, codigo: code, proposito: 'registration' }),
             });
             if (!res.ok) throw new Error('Código inválido');
             setVerifVerified(true);
@@ -190,8 +190,8 @@ export default function RegisterJuridicoPage() {
             if (!res.ok) throw new Error('Error en el registro');
             await refreshUser();
             setStep(TOTAL_STEPS);
-        } catch (e: any) {
-            toast({ title: 'Error', description: e.message, variant: 'destructive' });
+        } catch (e: unknown) {
+            toast({ title: 'Error', description: e instanceof Error ? e.message : 'Error en el registro', variant: 'destructive' });
         } finally {
             setIsLoading(false);
         }
@@ -413,7 +413,7 @@ export default function RegisterJuridicoPage() {
                                         <Check className="h-12 w-12 text-white stroke-[4px]" />
                                     </div>
                                     <div className="space-y-2">
-                                        <h2 className="text-3xl font-black italic tracking-tight text-slate-800 dark:text-slate-100 italic">¡Bienvenido a Kyron!</h2>
+                                        <h2 className="text-3xl font-black italic tracking-tight text-slate-800 dark:text-slate-100">¡Bienvenido a Kyron!</h2>
                                         <p className="text-sm text-slate-500 font-medium px-8">{isLegalMode ? 'Tu despacho legal digital ha sido creado exitosamente.' : 'Tu empresa ha sido registrada correctamente en el ecosistema Kyron.'}</p>
                                     </div>
                                     

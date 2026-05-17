@@ -140,7 +140,7 @@ export default function RegisterContabilidadPage() {
             const res = await fetch('/api/auth/send-code', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino, tipo: 'email' }),
+                body: JSON.stringify({ destino, tipo: 'email', proposito: 'registration' }),
             });
             if (!res.ok) throw new Error('Error');
             setVerifSent(true);
@@ -160,7 +160,7 @@ export default function RegisterContabilidadPage() {
             const res = await fetch('/api/auth/verify-code', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino: verifDestino, codigo: code }),
+                body: JSON.stringify({ destino: verifDestino, codigo: code, proposito: 'registration' }),
             });
             if (!res.ok) throw new Error('Código inválido');
             setVerifVerified(true);
@@ -220,8 +220,8 @@ export default function RegisterContabilidadPage() {
             if (!res.ok) throw new Error('Error en el registro');
             await refreshUser();
             setStep(TOTAL_STEPS);
-        } catch (e: any) {
-            toast({ title: 'Error', description: e.message, variant: 'destructive' });
+        } catch (e: unknown) {
+            toast({ title: 'Error', description: e instanceof Error ? e.message : 'Error en el registro', variant: 'destructive' });
         } finally {
             setIsLoading(false);
         }

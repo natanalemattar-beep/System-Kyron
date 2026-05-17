@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { createModel } from '@/lib/ai-client';
 
 export async function POST(req: NextRequest) {
     try {
@@ -8,13 +8,10 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Imagen requerida' }, { status: 400 });
         }
 
-        const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY;
-        if (!apiKey) {
+        const model = createModel("gemini-1.5-flash");
+        if (!model) {
             return NextResponse.json({ error: 'API de IA no configurada' }, { status: 500 });
         }
-
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
         const mimeMatch = image.match(/^data:([a-z]+\/[a-z0-9+.-]+);base64,/);
         const mimeType = mimeMatch ? mimeMatch[1] : 'image/jpeg';
@@ -61,7 +58,6 @@ Responde ÚNICAMENTE en este JSON:
             return NextResponse.json({ error: 'La IA no pudo leer el documento correctamente. Intenta con una imagen más clara.' }, { status: 500 });
         }
 
-        // Verificación en DB
         let dbResult = null;
         if (aiResult.number && aiResult.prefix) {
             try {

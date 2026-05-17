@@ -56,8 +56,8 @@ async function registerNatural(body: Record<string, unknown>) {
         nombre, apellido, cedula, telefono, telefono_alt,
         fecha_nacimiento, genero, estado_civil,
         estado_residencia, municipio, ciudad, direccion,
-        email, password,
-    } = body as Record<string, string>;
+        email, password, plan, modules,
+    } = body as Record<string, any>;
 
     if (!email || !password || !nombre || !apellido || !cedula) {
         return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
@@ -146,6 +146,31 @@ async function registerNatural(body: Record<string, unknown>) {
 
     sendWelcomeEmail(normalizedEmail, `${nombre} ${apellido}`).catch(() => {});
 
+    if (Array.isArray(modules) && modules.length > 0) {
+        try {
+            for (const mod of modules as Array<{ id: string; label: string }>) {
+                await query(
+                    `INSERT INTO user_modules (user_id, module_id, module_label)
+                     VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`,
+                    [Number(user.id), String(mod.id), mod.label ?? '']
+                );
+            }
+        } catch (modErr) {
+            console.error('[register] Fallo al insertar módulos para natural:', modErr);
+        }
+    }
+
+    if (plan && typeof plan === 'string') {
+        try {
+            await query(
+                `UPDATE users SET plan = $1 WHERE id = $2`,
+                [plan, user.id]
+            );
+        } catch (planErr) {
+            console.error('[register] Fallo al actualizar plan para natural:', planErr);
+        }
+    }
+
     await logActivity({
         userId: user.id,
         evento: 'REGISTRO_USUARIO',
@@ -153,7 +178,7 @@ async function registerNatural(body: Record<string, unknown>) {
         descripcion: `Nuevo usuario natural registrado: ${nombre} ${apellido} (${email})`,
         entidadTipo: 'usuario',
         entidadId: user.id,
-        metadata: { email, tipo: 'natural', cedula, email_verificado: emailVerified, telefono_verificado: phoneVerified },
+        metadata: { email, tipo: 'natural', cedula, email_verificado: emailVerified, telefono_verificado: phoneVerified, plan, modules },
     });
     return res;
 }

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { createModel } from "@/lib/ai-client";
 
 const SYSTEM_PROMPT = `Eres Kyron Analytics, el motor de inteligencia contable de System Kyron.
 Tu especialidad es analizar dashboards contables bajo normas VEN-NIF y normativa venezolana (SENIAT, LOTTT, BCV).
@@ -23,21 +23,16 @@ export async function POST(req: NextRequest) {
   try {
     const { module, stream = false, data = {}, context = "" } = await req.json();
 
-    const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    const model = createModel("gemini-1.5-flash", {
+      temperature: 0.3,
+      topP: 0.7,
+      topK: 30,
+      maxOutputTokens: 2048,
+    });
+
+    if (!model) {
       return NextResponse.json({ error: "IA no configurada" }, { status: 500 });
     }
-
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash",
-      generationConfig: {
-        temperature: 0.3,
-        topP: 0.7,
-        topK: 30,
-        maxOutputTokens: 2048,
-      }
-    });
 
     const kpiSummary = Object.entries(data)
       .filter(([, v]) => v !== null && v !== undefined)

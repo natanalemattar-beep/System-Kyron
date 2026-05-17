@@ -24,7 +24,7 @@ import {
     DropdownMenuItem, 
     DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
-import { PitchCoachAI } from "@/components/ai/pitch-coach-ai";
+import { PitchCoachAI } from "@/components/pitch-coach-ai";
 
 /**
  * KYRON SYSTEM CORE PROTOCOLS v4.0.8

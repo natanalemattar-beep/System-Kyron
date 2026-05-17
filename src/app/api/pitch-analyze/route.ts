@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { createModel } from '@/lib/ai-client';
 import { unzip } from 'unzipit';
 
 export const dynamic = 'force-dynamic';
@@ -25,23 +25,22 @@ FORMATO DE RESPUESTA:
 
 Idioma: Español venezolano formal pero moderno y dinámico`;
 
-// Función para extraer texto de PPTX
 async function extractPptxText(base64Data: string): Promise<string> {
   try {
     const buffer = Buffer.from(base64Data, 'base64');
     const { entries } = await unzip(buffer);
     let fullText = "";
-    
+
     const slideRegex = /^ppt\/slides\/slide(\d+)\.xml$/;
     const slideNumbers: number[] = [];
-    
+
     for (const [name] of Object.entries(entries)) {
       const match = name.match(slideRegex);
       if (match) slideNumbers.push(parseInt(match[1]));
     }
-    
+
     slideNumbers.sort((a, b) => a - b);
-    
+
     for (const num of slideNumbers) {
       const entry = entries[`ppt/slides/slide${num}.xml`];
       if (entry) {
@@ -64,25 +63,19 @@ export async function POST(req: NextRequest) {
   try {
     const { image, type, messages } = await req.json();
 
-    const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    const model = createModel("gemini-1.5-flash", {
+      temperature: 0.7,
+      maxOutputTokens: 2048,
+    });
+
+    if (!model) {
       return NextResponse.json({ error: 'API key no configurada en Vercel' }, { status: 500 });
     }
 
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ 
-      model: 'gemini-1.5-flash',
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 2048,
-      }
-    });
-
-    // Manejo de PPTX
     if (type === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' && image) {
       const base64Data = image.split(',')[1];
       const text = await extractPptxText(base64Data);
-      
+
       const result = await model.generateContent([
         { text: SYSTEM_PROMPT + '\n\nAnaliza el contenido de esta presentación (texto extraído de las diapositivas): ' + text },
       ]);
@@ -90,7 +83,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ content: response.text() });
     }
 
-    // Manejo de Imágenes/PDFs
     if (image) {
       const base64Data = image.split(',')[1];
       const mimeType = image.split(',')[0].split(':')[1].split(';')[0];
@@ -109,7 +101,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ content: response.text() });
     }
 
-    // Manejo de Chat
     if (messages && messages.length > 0) {
       const chat = model.startChat({
         history: messages.slice(0, -1).map((m: { role: string; content: string }) => ({
@@ -129,8 +120,8 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('[pitch-analyze] Critical Error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Error inesperado en el servicio de IA';
-    return NextResponse.json({ 
-      error: `Error de Procesamiento: ${errorMessage}. Por favor, verifica que la API Key esté configurada correctamente.` 
+    return NextResponse.json({
+      error: `Error de Procesamiento: ${errorMessage}. Por favor, verifica que la API Key esté configurada correctamente.`
     }, { status: 500 });
   }
 }
