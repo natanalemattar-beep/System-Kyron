@@ -141,8 +141,8 @@ function ModuleCard({ id, mod, index, t }: { id: string; mod: any; index: number
   const PRECIOS: Record<string, number | null> = {
     personal: null,
     sostenibilidad: null,
-    contable: 39.99,
-    legal: 14.99,
+    contable: 59.99,
+    legal: 24.99,
     socios: 24.99,
     tpv: 0, // Included with hardware or other modules
     milinea: 6.99, // Starting price
@@ -254,7 +254,7 @@ export function PricingSection() {
   const hardware = t.raw('hardware');
   const combos = t.raw('combos');
 
-  const hardwarePrices: Record<string, number> = { caja: 299, impresora: 149, kit: 399 };
+  const hardwarePrices: Record<string, number> = { caja: 1115, impresora: 679, kit: 1999 };
   const planes5GPrices: Record<string, number> = { 
     basico: 6.99, 
     estandar: 7.99,
