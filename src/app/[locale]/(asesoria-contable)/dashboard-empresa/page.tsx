@@ -21,6 +21,7 @@ import { Link } from "@/navigation";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import dynamic from "next/dynamic";
 import { cn, isNetworkError } from "@/lib/utils";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { useToast } from "@/hooks/use-toast";
 import { ModuleTutorial } from "@/components/module-tutorial";
 import { useCurrency } from "@/lib/currency-context";
@@ -213,7 +214,7 @@ export default function DashboardEmpresaPage() {
 
   const healthScore = useMemo(() => data ? getHealthScore(data) : null, [data]);
   const sparklineData = useMemo(() => {
-    if (!data?.chartMensual?.length) return { ingresos: [], gastos: [] };
+    if (!data?.chartMensual?.length || !Array.isArray(data.chartMensual)) return { ingresos: [], gastos: [] };
     return { ingresos: data.chartMensual.map(d => d.ingresos), gastos: data.chartMensual.map(d => d.gastos) };
   }, [data]);
 
@@ -348,17 +349,19 @@ export default function DashboardEmpresaPage() {
   const variacionIcon = (v: number) => v > 0 ? <ArrowUpRight className="h-3 w-3" /> : v < 0 ? <ArrowDownRight className="h-3 w-3" /> : null;
   const variacionColor = (v: number, invert = false) => { if (v === 0) return "text-muted-foreground"; return (invert ? v < 0 : v > 0) ? "text-emerald-400" : "text-rose-400"; };
   const facturasPie = useMemo(() => {
-    if (!data?.facturas) return [];
+    if (!data?.facturas || typeof data.facturas !== 'object') return [];
+    const f = data.facturas as Record<string, unknown>;
     return [
-      { name: "Cobradas", value: data.facturas.cobradas },
-      { name: "Emitidas", value: data.facturas.emitidas },
-      { name: "Pagadas", value: data.facturas.pagadas },
-      { name: "Vencidas", value: data.facturas.vencidas }
+      { name: "Cobradas", value: Number(f.cobradas) || 0 },
+      { name: "Emitidas", value: Number(f.emitidas) || 0 },
+      { name: "Pagadas", value: Number(f.pagadas) || 0 },
+      { name: "Vencidas", value: Number(f.vencidas) || 0 }
     ].filter(d => d.value > 0);
   }, [data]);
   const GreetingIcon = greeting?.icon ?? Sun;
 
   return (
+    <ErrorBoundary>
     <div className="relative min-h-screen pb-20">
       {/* Background Orbs and Mesh */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
@@ -723,7 +726,7 @@ export default function DashboardEmpresaPage() {
             </div>
             {loading ? (
               <div className="space-y-2">{[1, 2, 3, 4].map(n => <div key={n} className="h-10 bg-muted/10 rounded-lg animate-pulse" />)}</div>
-            ) : data?.movimientosRecientes?.length ? (
+            ) : Array.isArray(data?.movimientosRecientes) && data.movimientosRecientes.length ? (
               <div className="space-y-1">
                 {data.movimientosRecientes.slice(0, 6).map((mov) => (
                   <div key={mov.id} className="flex items-center gap-3 py-2.5 px-2 rounded-lg hover:bg-muted/10 transition-all">
@@ -897,7 +900,7 @@ export default function DashboardEmpresaPage() {
             <Link href="/contabilidad/tributos/calendario-fiscal"><span className="text-[10px] font-medium text-amber-400/70 hover:text-amber-300 flex items-center gap-1">Ver todo <ChevronRight className="h-3 w-3" /></span></Link>
           </div>
           <div className="space-y-1.5">
-            {fiscalDeadlines.length === 0 ? (
+            {!Array.isArray(fiscalDeadlines) || fiscalDeadlines.length === 0 ? (
               <div className="py-4 text-center"><p className="text-[10px] text-muted-foreground/30">Cargando calendario...</p></div>
             ) : fiscalDeadlines.map((d, i) => {
               const FISCAL_ICONS: Record<string, typeof PercentCircle> = { iva: PercentCircle, ret: Receipt, islr: Landmark, para: Users, faov: Building2 };
@@ -1035,7 +1038,7 @@ export default function DashboardEmpresaPage() {
                   </div>
                 </div>
 
-                {semaforo.alertas.length === 0 ? (
+                {!Array.isArray(semaforo.alertas) || semaforo.alertas.length === 0 ? (
                   <div className="py-6 text-center">
                     <CircleCheck className="h-8 w-8 text-emerald-400/20 mx-auto mb-2" />
                     <p className="text-[10px] text-muted-foreground/40">No hay vencimientos próximos ni pendientes</p>
@@ -1263,5 +1266,6 @@ export default function DashboardEmpresaPage() {
       </Dialog>
     </div>
   </div>
+  </ErrorBoundary>
 );
 }

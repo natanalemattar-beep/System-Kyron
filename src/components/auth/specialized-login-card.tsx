@@ -313,7 +313,11 @@ export function SpecializedLoginCard({
     }
   };
 
+  const submittingRef = useRef(false);
+
   const submitCode = useCallback(async (code: string) => {
+    if (submittingRef.current) return;
+    submittingRef.current = true;
     setIsLoading(true);
     setError(null);
     try {
@@ -332,7 +336,7 @@ export function SpecializedLoginCard({
       });
 
       const json = await res.json();
-      if (!res.ok) { setError(json.error || 'Código incorrecto.'); setSingleCode(''); setIsLoading(false); setTimeout(() => singleInputRef.current?.focus(), 100); return; }
+      if (!res.ok) { setError(json.error || 'Código incorrecto.'); setSingleCode(''); setIsLoading(false); submittingRef.current = false; setTimeout(() => singleInputRef.current?.focus(), 100); return; }
       setVerifVerified(true);
       toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
       handleRedirect(json);
@@ -340,16 +344,18 @@ export function SpecializedLoginCard({
       setError(isNetworkError(err) ? 'Error de conexión. Verifica tu internet.' : 'Error al verificar el código. Intenta de nuevo.');
       setSingleCode('');
       setIsLoading(false);
+      submittingRef.current = false;
     }
   }, [verificationEmail, redirectPath, toast, router]);
 
-  const handleBackToLogin = () => { setStep('credentials'); setError(null); setSingleCode(''); setVerifVerified(false); setVerificationMethod('email'); setChallengeToken(''); setHasPhone(false); setMaskedPhone(''); setDevCode(null); };
+  const handleBackToLogin = () => { setStep('credentials'); setError(null); setSingleCode(''); setVerifVerified(false); setVerificationMethod('email'); setChallengeToken(''); setHasPhone(false); setMaskedPhone(''); setDevCode(null); submittingRef.current = false; };
   const formatCountdown = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
 
   const handleResendCode = async () => {
     setIsLoading(true);
     setError(null);
     setSingleCode('');
+    submittingRef.current = false;
     try {
       const body: Record<string, string> = { method: verificationMethod, destino: verificationEmail, tipo: verificationMethod };
       if ((verificationMethod === 'sms' || verificationMethod === 'whatsapp') && challengeToken) {
@@ -865,11 +871,8 @@ export function SpecializedLoginCard({
 
                   <div className="flex justify-center gap-4 py-6">
                     {[...Array(6)].map((_, i) => (
-                      <motion.div
+                      <div
                         key={i}
-                        initial={{ opacity: 0, y: 15, scale: 0.8 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        transition={{ delay: i * 0.05, duration: 0.5, type: "spring", stiffness: 300, damping: 20 }}
                         className="relative group/input"
                       >
                         <input
@@ -880,6 +883,12 @@ export function SpecializedLoginCard({
                           value={singleCode[i] || ''}
                           onChange={(e) => {
                             const val = e.target.value.replace(/\D/g, '');
+                            if (!val) {
+                              const newCode = singleCode.split('');
+                              newCode[i] = '';
+                              setSingleCode(newCode.join(''));
+                              return;
+                            }
                             const newCode = singleCode.split('');
                             newCode[i] = val;
                             const finalCode = newCode.join('');
@@ -888,8 +897,12 @@ export function SpecializedLoginCard({
                               const nextInput = e.currentTarget.parentElement?.nextElementSibling?.querySelector('input');
                               nextInput?.focus();
                             }
-                            if (finalCode.length === 6) {
-                              submitCode(finalCode);
+                          }}
+                          onPaste={(e) => {
+                            e.preventDefault();
+                            const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+                            if (pasted) {
+                              setSingleCode(pasted);
                             }
                           }}
                           onKeyDown={(e) => {
@@ -903,15 +916,13 @@ export function SpecializedLoginCard({
                             singleCode[i] && "border-blue-500/60 bg-blue-500/5 shadow-[0_0_30px_rgba(59,130,246,0.2)]"
                           )}
                         />
-                        {/* Interactive underline indicator */}
-                        <motion.div 
+                        <div 
                           className={cn(
-                            "absolute bottom-3 left-4 right-4 h-1 rounded-full blur-[1px] transition-all duration-500",
+                            "absolute bottom-3 left-4 right-4 h-1 rounded-full blur-[1px] transition-all duration-300",
                             singleCode[i] ? "bg-blue-400 opacity-100" : "bg-white/5 opacity-40"
                           )} 
-                          animate={singleCode[i] ? { scaleX: [0.5, 1], opacity: [0.5, 1] } : {}}
                         />
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
 
