@@ -515,44 +515,44 @@ export default function RegisterContabilidadPage() {
                                             </div>
                                         </div>
 
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Nombre</Label>
-                                                <p className="text-[9px] font-bold text-white/20 -mt-1">Contador/Representante</p>
-                                                <Input {...register('nombre')} className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
-                                            </div>
-                                            <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Apellido</Label>
-                                                <Input {...register('apellido')} className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
-                                            </div>
-                                        </div>
+                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                             <div className="space-y-1.5">
+                                                 <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Nombre</Label>
+                                                 <p className="text-[9px] font-bold text-white/20 ml-1">Contador/Representante</p>
+                                                 <Input {...register('nombre')} className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
+                                             </div>
+                                             <div className="space-y-1.5">
+                                                 <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Apellido</Label>
+                                                 <Input {...register('apellido')} className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
+                                             </div>
+                                         </div>
 
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Email Profesional</Label>
-                                                <Input {...register('email')} type="email" className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
-                                            </div>
-                                            <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Teléfono</Label>
-                                                <Input {...register('telefono')} type="tel" className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
-                                            </div>
-                                        </div>
+                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                             <div className="space-y-1.5">
+                                                 <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Email Profesional</Label>
+                                                 <Input {...register('email')} type="email" className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
+                                             </div>
+                                             <div className="space-y-1.5">
+                                                 <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Teléfono</Label>
+                                                 <Input {...register('telefono')} type="tel" className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
+                                             </div>
+                                         </div>
 
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Contraseña</Label>
-                                                <div className="relative">
-                                                    <Input type={showPassword ? 'text' : 'password'} {...register('password')} className="h-12 rounded-xl bg-white/5 border-white/10 pr-10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
-                                                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60">
-                                                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Confirmar</Label>
-                                                <Input type="password" {...register('confirmPassword')} className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
-                                            </div>
-                                        </div>
+                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                             <div className="space-y-1.5">
+                                                 <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Contraseña</Label>
+                                                 <div className="relative">
+                                                     <Input type={showPassword ? 'text' : 'password'} {...register('password')} className="h-12 rounded-xl bg-white/5 border-white/10 pr-10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
+                                                     <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60">
+                                                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                                     </button>
+                                                 </div>
+                                             </div>
+                                             <div className="space-y-1.5">
+                                                 <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Confirmar</Label>
+                                                 <Input type="password" {...register('confirmPassword')} className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />
+                                             </div>
+                                         </div>
 
                                         <button
                                             type="button"

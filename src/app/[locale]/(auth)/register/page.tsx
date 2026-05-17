@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "@/navigation";
@@ -412,7 +412,7 @@ export default function RegisterSelectionPage() {
     const prefixRef = useRef<HTMLDivElement>(null);
     const prefixTriggerRef = useRef<HTMLButtonElement>(null);
     const [docNumber, setDocNumber] = useState("");
-    const [detected, setDetected] = useState<{ type: DetectedType; format: "cedula" | "rif" | null; label: string; valid: boolean }>({ type: null, format: null, label: "", valid: false });
+    const detected = useMemo(() => detectDocumentType(prefix, docNumber), [prefix, docNumber]);
     const [checking, setChecking] = useState(false);
     const [existsResult, setExistsResult] = useState<null | { exists: boolean }>(null);
     const [rifLookup, setRifLookup] = useState<RifLookupResult | null>(null);
@@ -443,8 +443,6 @@ export default function RegisterSelectionPage() {
     }, [step]);
 
     useEffect(() => {
-        const result = detectDocumentType(prefix, docNumber);
-        setDetected(result);
         setExistsResult(null);
         setRifLookup(null);
         setRifSearched(false);
