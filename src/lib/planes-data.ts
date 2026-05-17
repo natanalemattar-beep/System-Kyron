@@ -153,14 +153,14 @@ export const MODULOS_INDIVIDUALES: ModuloIndividual[] = [
     id: 'asesoria_contable',
     nombre: 'Asesoría Contable',
     descripcion: 'Contabilidad VEN-NIF con libros, tributos y analítica fiscal.',
-    precioDesdeUSD: 8,
+    precioDesdeUSD: 19.99,
     color: '#3B82F6',
     icono: 'calculator',
     subPlanes: [
-      { id: 'contable_esencial', nombre: 'Esencial', precioMensualUSD: 8, caracteristicas: ['Libros legales básicos (Diario, Mayor)', 'Calendario fiscal con alertas', 'Consulta RIF/Cédula (20/mes)', 'Tasa BCV en vivo', '1 usuario'] },
-      { id: 'contable_profesional', nombre: 'Profesional', precioMensualUSD: 18, popular: true, caracteristicas: ['Todo en Esencial +', 'Libro de Inventario', 'Centro Tributario (IVA, ISLR, IGTF)', 'Retenciones automáticas', 'Simulador de multas COT', 'Exportación Excel', '3 usuarios'] },
-      { id: 'contable_avanzado', nombre: 'Avanzado', precioMensualUSD: 35, caracteristicas: ['Todo en Profesional +', 'Vigilancia Normativa Automatizada', 'Declaraciones asistidas (12/año)', 'Conciliación bancaria', 'Asientos automáticos', 'Auditoría forense', '5 usuarios'] },
-      { id: 'contable_max', nombre: 'MAX', precioMensualUSD: 60, caracteristicas: ['Todo en Avanzado +', 'Dictamen de Contador Público', 'Blockchain audit trail', 'Multi-empresa', 'Usuarios ilimitados', 'Soporte VIP 24/7', 'API de integración'] },
+      { id: 'contable_esencial', nombre: 'Esencial', precioMensualUSD: 19.99, caracteristicas: ['Libros legales básicos (Diario, Mayor)', 'Calendario fiscal con alertas', 'Consulta RIF/Cédula (20/mes)', 'Tasa BCV en vivo', '1 usuario'] },
+      { id: 'contable_profesional', nombre: 'Profesional', precioMensualUSD: 34.99, popular: true, caracteristicas: ['Todo en Esencial +', 'Libro de Inventario', 'Centro Tributario (IVA, ISLR, IGTF)', 'Retenciones automáticas', 'Simulador de multas COT', 'Exportación Excel', '3 usuarios'] },
+      { id: 'contable_avanzado', nombre: 'Avanzado', precioMensualUSD: 54.99, caracteristicas: ['Todo en Profesional +', 'Vigilancia Normativa Automatizada', 'Declaraciones asistidas (12/año)', 'Conciliación bancaria', 'Asientos automáticos', 'Auditoría forense', '5 usuarios'] },
+      { id: 'contable_max', nombre: 'MAX', precioMensualUSD: 89.99, caracteristicas: ['Todo en Avanzado +', 'Dictamen de Contador Público', 'Blockchain audit trail', 'Multi-empresa', 'Usuarios ilimitados', 'Soporte VIP 24/7', 'API de integración'] },
     ],
   },
   {
@@ -421,12 +421,12 @@ export const VALID_PLANS_MAP: Record<string, number> = {
   comerciante: 49.99,
   empresarial: 69.99,
   kyron_max: 99.99,
-  contable_esencial: 19.99, contable_profesional: 19.99, contable_avanzado: 19.99, contable_max: 19.99,
-  basico_2gb: 9.99, conecta_5gb: 9.99, plus_10gb: 9.99, global_25gb: 9.99, ultra_50gb: 9.99, infinite: 9.99,
-  juridica_basico: 12.99, juridica_plus: 12.99, juridica_pro: 12.99, juridica_max: 12.99,
-  legal_basico: 12.99, legal_profesional: 12.99, legal_escritorio: 12.99, legal_max: 12.99,
-  fact_basico: 9.99, fact_comercial: 9.99, fact_enterprise: 9.99, fact_max: 9.99,
-  socios_basico: 12.99, socios_profesional: 12.99, socios_enterprise: 12.99,
+  contable_esencial: 19.99, contable_profesional: 34.99, contable_avanzado: 54.99, contable_max: 89.99,
+  basico_2gb: 3, conecta_5gb: 5, plus_10gb: 8, global_25gb: 14, ultra_50gb: 22, infinite: 35,
+  juridica_basico: 15, juridica_plus: 35, juridica_pro: 65, juridica_max: 120,
+  legal_basico: 5, legal_profesional: 15, legal_escritorio: 30, legal_max: 50,
+  fact_basico: 6, fact_comercial: 15, fact_enterprise: 30, fact_max: 50,
+  socios_basico: 10, socios_profesional: 25, socios_enterprise: 45,
 };
 
 export function obtenerPlan(tier: PlanTier): PlanKyron {
