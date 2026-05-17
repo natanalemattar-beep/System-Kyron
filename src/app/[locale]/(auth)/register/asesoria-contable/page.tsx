@@ -239,12 +239,17 @@ export default function RegisterContabilidadPage() {
                 body: JSON.stringify({
                     tipo: 'juridico',
                     ...data,
+                    repEmail: data.email,
+                    repNombre: `${data.nombre} ${data.apellido}`,
                     modules: modules.map(m => ({ id: m, label: m })),
                     plan: data.plan,
                     planType: data.planType,
                 }),
             });
-            if (!res.ok) throw new Error('Error en el registro');
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData.error || 'Error en el registro');
+            }
             await refreshUser();
             setStep(TOTAL_STEPS);
         } catch (e: unknown) {

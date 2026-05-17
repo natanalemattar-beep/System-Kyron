@@ -363,61 +363,6 @@ registerAction('inventory_alerts', async () => {
   return `Inventario: ${lowStock.length} bajo stock, ${outOfStock.length} agotados, ${notified} alerta(s)`;
 });
 
-registerAction('hr_contract_alerts', async () => {
-  const expiringContracts = await query<Record<string, unknown>>(
-    `SELECT cl.id, cl.titulo, cl.cargo, cl.fecha_fin, cl.user_id,
-            e.nombre || ' ' || e.apellido as empleado_nombre
-     FROM contratos_laborales cl
-     LEFT JOIN empleados e ON cl.empleado_id = e.id
-     WHERE cl.estado IN ('vigente', 'firmado')
-       AND cl.fecha_fin IS NOT NULL
-       AND cl.fecha_fin BETWEEN CURRENT_DATE AND CURRENT_DATE + INTERVAL '30 days'`
-  );
-
-  const expiredContracts = await query<Record<string, unknown>>(
-    `SELECT cl.id, cl.titulo, cl.cargo, cl.fecha_fin, cl.user_id,
-            e.nombre || ' ' || e.apellido as empleado_nombre
-     FROM contratos_laborales cl
-     LEFT JOIN empleados e ON cl.empleado_id = e.id
-     WHERE cl.estado IN ('vigente', 'firmado')
-       AND cl.fecha_fin IS NOT NULL
-       AND cl.fecha_fin < CURRENT_DATE`
-  );
-
-  let notified = 0;
-
-  const userExpiring = new Map<number, string[]>();
-  for (const c of expiringContracts) {
-    const uid = c.user_id as number;
-    if (!userExpiring.has(uid)) userExpiring.set(uid, []);
-    const daysLeft = Math.ceil((new Date(c.fecha_fin as string).getTime() - Date.now()) / 86400000);
-    userExpiring.get(uid)!.push(`${c.empleado_nombre || c.cargo} (${daysLeft} días)`);
-  }
-  for (const [userId, items] of userExpiring) {
-    await safeQuery(
-      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-       VALUES ($1, 'advertencia', 'Contratos por vencer', $2, 'alta', 'app')`,
-      [userId, `${items.length} contrato(s) vencen pronto: ${items.slice(0, 5).join(', ')}`]
-    );
-    notified++;
-  }
-
-  for (const c of expiredContracts) {
-    await safeQuery(
-      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-       VALUES ($1, 'alerta', 'Contrato laboral vencido', $2, 'critica', 'app')`,
-      [c.user_id, `Contrato de ${c.empleado_nombre || c.cargo}: "${c.titulo}" venció el ${c.fecha_fin}`]
-    );
-    await safeQuery(
-      `UPDATE contratos_laborales SET estado = 'finalizado' WHERE id = $1 AND estado IN ('vigente','firmado')`,
-      [c.id]
-    );
-    notified++;
-  }
-
-  return `RRHH Contratos: ${expiringContracts.length} por vencer, ${expiredContracts.length} vencidos, ${notified} alerta(s)`;
-});
-
 registerAction('hr_vacation_alerts', async () => {
   const pendingVacations = await query<Record<string, unknown>>(
     `SELECT vc.id, vc.dias_pendientes, vc.periodo, vc.user_id, vc.empleado_id,
@@ -585,57 +530,6 @@ registerAction('accounts_receivable_alerts', async () => {
   return `CxC: ${overdueCxC.length} vencidas, ${upcomingCxC.length} próximas, ${notified} alerta(s)`;
 });
 
-registerAction('accounts_payable_alerts', async () => {
-  const overdueCxP = await query<Record<string, unknown>>(
-    `SELECT cxp.id, cxp.concepto, cxp.monto_pendiente, cxp.fecha_vencimiento, cxp.user_id,
-            p.razon_social as proveedor_nombre
-     FROM cuentas_por_pagar cxp
-     LEFT JOIN proveedores p ON cxp.proveedor_id = p.id
-     WHERE cxp.estado IN ('pendiente', 'parcial')
-       AND cxp.fecha_vencimiento < CURRENT_DATE`
-  );
-
-  const upcomingCxP = await query<Record<string, unknown>>(
-    `SELECT cxp.id, cxp.concepto, cxp.monto_pendiente, cxp.fecha_vencimiento, cxp.user_id,
-            p.razon_social as proveedor_nombre
-     FROM cuentas_por_pagar cxp
-     LEFT JOIN proveedores p ON cxp.proveedor_id = p.id
-     WHERE cxp.estado IN ('pendiente', 'parcial')
-       AND cxp.fecha_vencimiento BETWEEN CURRENT_DATE AND CURRENT_DATE + INTERVAL '5 days'`
-  );
-
-  let notified = 0;
-
-  const userOverdue = new Map<number, { count: number; total: number }>();
-  for (const c of overdueCxP) {
-    const uid = c.user_id as number;
-    const current = userOverdue.get(uid) || { count: 0, total: 0 };
-    current.count++;
-    current.total += parseFloat(c.monto_pendiente as string || '0');
-    userOverdue.set(uid, current);
-  }
-  for (const [userId, data] of userOverdue) {
-    await safeQuery(
-      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-       VALUES ($1, 'alerta', 'Pagos a proveedores vencidos', $2, 'critica', 'app')`,
-      [userId, `${data.count} pago(s) vencido(s) por ${data.total.toFixed(2)}. Evita recargos y mantén buenas relaciones comerciales.`]
-    );
-    notified++;
-  }
-
-  for (const [userId, ] of new Map([...upcomingCxP.map(c => [c.user_id as number, true] as const)])) {
-    const count = upcomingCxP.filter(c => c.user_id === userId).length;
-    await safeQuery(
-      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-       VALUES ($1, 'advertencia', 'Pagos próximos a vencer', $2, 'alta', 'app')`,
-      [userId, `${count} pago(s) a proveedores vencen en los próximos 5 días`]
-    );
-    notified++;
-  }
-
-  return `CxP: ${overdueCxP.length} vencidas, ${upcomingCxP.length} próximas, ${notified} alerta(s)`;
-});
-
 registerAction('budget_alerts', async () => {
   const overBudget = await query<Record<string, unknown>>(
     `SELECT p.id, p.nombre, p.categoria, p.monto_presupuestado, p.monto_ejecutado, p.user_id,
@@ -761,58 +655,6 @@ registerAction('legal_contract_alerts', async () => {
   }
 
   return `Legal: ${expiringLegal.length} por vencer, ${expiredLegal.length} vencidos, ${notified} alerta(s)`;
-});
-
-registerAction('security_alerts', async () => {
-  const failedLogins = await queryOne<Record<string, string>>(
-    `SELECT COUNT(*) as cnt FROM activity_log
-     WHERE evento = 'LOGIN_FAILED' AND created_at > NOW() - INTERVAL '1 hour'`
-  );
-  const failedCount = parseInt(failedLogins?.cnt || '0');
-
-  const suspiciousIPs = await query<Record<string, unknown>>(
-    `SELECT metadata->>'ip' as ip, COUNT(*) as attempts
-     FROM activity_log
-     WHERE evento = 'LOGIN_FAILED' AND created_at > NOW() - INTERVAL '1 hour'
-       AND metadata->>'ip' IS NOT NULL
-     GROUP BY metadata->>'ip'
-     HAVING COUNT(*) >= 5`
-  );
-
-  const newUsers24h = await queryOne<Record<string, string>>(
-    `SELECT COUNT(*) as cnt FROM users WHERE created_at > NOW() - INTERVAL '24 hours'`
-  );
-
-  let notified = 0;
-
-  if (failedCount >= 10) {
-    await safeQuery(
-      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-       SELECT id, 'alerta', 'Actividad sospechosa detectada', $1, 'critica', 'app'
-       FROM users WHERE tipo = 'admin' AND activo = true`,
-      [`${failedCount} intentos fallidos de login en la última hora. ${suspiciousIPs.length} IP(s) sospechosa(s).`]
-    );
-    notified++;
-  }
-
-  if (suspiciousIPs.length > 0) {
-    const ipList = suspiciousIPs.map(s => `${s.ip} (${s.attempts}x)`).join(', ');
-    await safeQuery(
-      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-       SELECT id, 'alerta', 'IPs con intentos masivos', $1, 'critica', 'app'
-       FROM users WHERE tipo = 'admin' AND activo = true`,
-      [`IPs con 5+ intentos fallidos/hora: ${ipList}`]
-    );
-    notified++;
-  }
-
-  const lockedAccounts = await queryOne<Record<string, string>>(
-    `SELECT COUNT(*) as cnt FROM users
-     WHERE activo = false AND updated_at > NOW() - INTERVAL '24 hours'`
-  );
-  const lockedCount = parseInt(lockedAccounts?.cnt || '0');
-
-  return `Seguridad: ${failedCount} login(s) fallidos/hora, ${suspiciousIPs.length} IP(s) sospechosa(s), ${lockedCount} cuenta(s) bloqueada(s), registros nuevos: ${newUsers24h?.cnt || 0}, ${notified} alerta(s)`;
 });
 
 registerAction('client_alerts', async () => {

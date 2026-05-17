@@ -1,24 +1,24 @@
-import { AiClient } from '@/lib/ai';
+import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
+import { getApiKey, hasApiKeys } from '@/lib/ai-key-manager';
 
-export function createClient(): AiClient | null {
-  try {
-    const client = new AiClient();
-    return client.isConfigured() ? client : null;
-  } catch {
-    return null;
-  }
+export function createClient(): GoogleGenerativeAI | null {
+  const key = getApiKey();
+  if (!key) return null;
+  return new GoogleGenerativeAI(key);
 }
 
 export function createModel(
   modelName: string = 'gemini-2.0-flash-lite',
   config?: Record<string, any>
-) {
+): GenerativeModel | null {
   const client = createClient();
   if (!client) return null;
-  return client;
+  return client.getGenerativeModel({
+    model: modelName,
+    ...(config ? { generationConfig: config } : {}),
+  });
 }
 
 export function getAiStatus(): { configured: boolean } {
-  const client = new AiClient();
-  return { configured: client.isConfigured() };
+  return { configured: hasApiKeys() };
 }
