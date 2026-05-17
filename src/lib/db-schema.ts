@@ -2844,6 +2844,13 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_tipo ON notificaciones(tipo, created_at DESC)`);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_prioridad ON notificaciones(prioridad) WHERE leida = false`);
 
+  await safeQuery(`ALTER TABLE clientes ADD COLUMN IF NOT EXISTS rif_hash TEXT`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_clientes_rif_hash ON clientes(rif_hash)`);
+  await safeQuery(`ALTER TABLE proveedores ADD COLUMN IF NOT EXISTS rif_hash TEXT`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_proveedores_rif_hash ON proveedores(rif_hash)`);
+  await safeQuery(`ALTER TABLE empleados ADD COLUMN IF NOT EXISTS cedula_hash TEXT`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_empleados_cedula_hash ON empleados(cedula_hash)`);
+
   await query(`CREATE TABLE IF NOT EXISTS email_automaticos (
     id             SERIAL PRIMARY KEY,
     tipo           TEXT NOT NULL

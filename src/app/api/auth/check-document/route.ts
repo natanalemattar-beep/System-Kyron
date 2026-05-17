@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { queryOne } from '@/lib/db';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
+import { generateSearchHash } from '@/lib/encryption';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,10 +26,9 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ exists: false });
         }
 
-        const column = field === 'cedula' ? 'cedula' : 'rif';
         const row = await queryOne(
-            `SELECT 1 FROM users WHERE ${column} = $1 LIMIT 1`,
-            [sanitizedValue]
+            `SELECT 1 FROM users WHERE ${field === 'cedula' ? 'cedula_hash' : 'rif_hash'} = $1 LIMIT 1`,
+            [generateSearchHash(sanitizedValue)]
         );
 
         await new Promise(r => setTimeout(r, 100 + Math.random() * 150));

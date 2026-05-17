@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { validarRIF, normalizarRIF } from '@/lib/validacion-venezuela';
+import { generateSearchHash, decryptIfEncrypted } from '@/lib/encryption';
 
 export const dynamic = 'force-dynamic';
 
@@ -55,12 +56,14 @@ export async function GET(req: NextRequest) {
   const rif = normalizarRIF(rawRif);
 
   try {
+    const rifHash = generateSearchHash(rif);
+
     const users = await query(
       `SELECT razon_social, tipo_empresa, actividad_economica, estado_empresa, municipio_empresa, direccion, telefono
        FROM users 
-       WHERE rif = $1 AND tipo = 'juridico'
+       WHERE rif_hash = $1 AND tipo = 'juridico'
        LIMIT 1`,
-      [rif]
+      [rifHash]
     );
 
     if (users.length > 0) {
@@ -80,8 +83,8 @@ export async function GET(req: NextRequest) {
           actividadEconomica: row.actividad_economica,
           estado: row.estado_empresa,
           municipio: row.municipio_empresa,
-          direccion: row.direccion,
-          telefono: row.telefono,
+          direccion: decryptIfEncrypted(row.direccion),
+          telefono: decryptIfEncrypted(row.telefono),
         },
       });
     }
@@ -126,6 +129,66 @@ export async function GET(req: NextRequest) {
 
     if (proveedores.length > 0) {
       const row = proveedores[0] as Record<string, string>;
+      return NextResponse.json({
+        found: true,
+        source: 'proveedores_db',
+        validacion: {
+          formatoValido: true,
+          digitoVerificadorValido: true,
+          tipo: validacion.tipo,
+          rifNormalizado: validacion.rifNormalizado,
+        },
+        data: {
+          razonSocial: row.razon_social,
+          tipoEmpresa: row.categoria,
+          estado: row.estado,
+          municipio: row.municipio,
+          direccion: row.direccion,
+          telefono: row.telefono,
+        },
+      });
+    }
+
+    const clientesHash = await query(
+      `SELECT razon_social, tipo, direccion, estado, municipio, telefono, email
+       FROM clientes 
+       WHERE rif_hash = $1
+       LIMIT 1`,
+      [rifHash]
+    );
+
+    if (clientesHash.length > 0) {
+      const row = clientesHash[0] as Record<string, string>;
+      return NextResponse.json({
+        found: true,
+        source: 'clientes_db',
+        validacion: {
+          formatoValido: true,
+          digitoVerificadorValido: true,
+          tipo: validacion.tipo,
+          rifNormalizado: validacion.rifNormalizado,
+        },
+        data: {
+          razonSocial: row.razon_social,
+          tipoEmpresa: row.tipo,
+          estado: row.estado,
+          municipio: row.municipio,
+          direccion: row.direccion,
+          telefono: row.telefono,
+        },
+      });
+    }
+
+    const proveedoresHash = await query(
+      `SELECT razon_social, categoria, direccion, estado, municipio, telefono
+       FROM proveedores 
+       WHERE rif_hash = $1
+       LIMIT 1`,
+      [rifHash]
+    );
+
+    if (proveedoresHash.length > 0) {
+      const row = proveedoresHash[0] as Record<string, string>;
       return NextResponse.json({
         found: true,
         source: 'proveedores_db',

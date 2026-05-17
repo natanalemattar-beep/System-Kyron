@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { validarFormatoCedula, normalizarCedula } from '@/lib/validacion-venezuela';
+import { generateSearchHash, decryptIfEncrypted } from '@/lib/encryption';
 
 export const dynamic = 'force-dynamic';
 
@@ -80,12 +81,14 @@ export async function GET(req: NextRequest) {
   };
 
   try {
+    const cedulaHash = generateSearchHash(cedula);
+
     const users = await query(
       `SELECT nombre, apellido, estado_residencia, municipio, telefono
        FROM users
-       WHERE cedula = $1
+       WHERE cedula_hash = $1
        LIMIT 1`,
-      [cedula]
+      [cedulaHash]
     );
 
     if (users.length > 0) {
@@ -109,9 +112,9 @@ export async function GET(req: NextRequest) {
       `SELECT e.nombre, e.apellido, u.estado_residencia, u.municipio
        FROM empleados e
        LEFT JOIN users u ON e.user_id = u.id
-       WHERE e.cedula = $1
+       WHERE e.cedula_hash = $1
        LIMIT 1`,
-      [cedula]
+      [cedulaHash]
     );
 
     if (empleados.length > 0) {

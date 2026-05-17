@@ -65,7 +65,10 @@ export async function POST(req: NextRequest) {
             let dbResult = null;
             if (aiResult.number && aiResult.prefix) {
                 try {
-                    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/verificar-${type === 'cedula' ? 'cedula' : 'rif'}?numero=${aiResult.number}&letra=${aiResult.prefix}`, {
+                    const docParam = type === 'cedula'
+                        ? `cedula=${encodeURIComponent(aiResult.prefix + '-' + aiResult.number)}`
+                        : `rif=${encodeURIComponent(aiResult.prefix + '-' + aiResult.number + (aiResult.number.length > 8 ? '-' + aiResult.number.slice(-1) : ''))}`;
+                    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/${type === 'cedula' ? 'cedula/consulta' : 'rif/consulta'}?${docParam}`, {
                         headers: { 'Content-Type': 'application/json' }
                     });
                     if (res.ok) dbResult = await res.json();

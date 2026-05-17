@@ -173,7 +173,7 @@ function detectDocumentType(prefix: string, number: string): { type: DetectedTyp
 
     if (["V", "E"].includes(prefix)) {
         if (isRifFormat) {
-            return { type: "natural", format: "cedula", label: "Persona Natural (con RIF)", valid: true };
+            return { type: "natural", format: "rif", label: "Persona Natural (con RIF)", valid: true };
         }
         if (isCedulaFormat) {
             return { type: "natural", format: "cedula", label: prefix === "V" ? "Ciudadano Venezolano" : "Residente Extranjero", valid: true };
@@ -567,7 +567,7 @@ export default function RegisterSelectionPage() {
     }, []);
 
     const handleRifSearch = useCallback(async () => {
-        if (!detected.valid || detected.type !== "juridico") return;
+        if (!detected.valid || (detected.type !== "juridico" && detected.format !== "rif")) return;
         setRifSearching(true);
         setRifLookup(null);
         setRifValidationError(null);
@@ -594,7 +594,7 @@ export default function RegisterSelectionPage() {
         if (!detected.type || !detected.valid) return;
         setChecking(true);
         try {
-            const field = detected.format === "rif" || ["J", "G", "C", "F"].includes(prefix) ? "rif" : "cedula";
+            const field = detected.format === "rif" ? "rif" : "cedula";
             const res = await fetch(`/api/auth/check-document?field=${field}&value=${encodeURIComponent(fullDocument)}`);
             const data = await res.json();
             if (data.exists) {
@@ -614,19 +614,24 @@ export default function RegisterSelectionPage() {
         if (rifLookup?.razonSocial) params.set('razon', rifLookup.razonSocial);
         if (rifLookup?.tipoEmpresa) params.set('tipo', rifLookup.tipoEmpresa);
         if (rifLookup?.actividadEconomica) params.set('actividad', rifLookup.actividadEconomica);
-        if (rifLookup?.estado) params.set('estado', rifLookup.estado);
-        if (rifLookup?.municipio) params.set('municipio', rifLookup.municipio);
         if (rifLookup?.telefono) params.set('tel', rifLookup.telefono);
         if (cedulaLookup?.nombre) params.set('nombre', cedulaLookup.nombre);
         if (cedulaLookup?.apellido) params.set('apellido', cedulaLookup.apellido);
-        if (cedulaLookup?.estado) params.set('estado', cedulaLookup.estado);
-        if (cedulaLookup?.municipio) params.set('municipio', cedulaLookup.municipio);
         if (cedulaLookup?.fechaNacimiento) params.set('fechaNac', cedulaLookup.fechaNacimiento.split('T')[0]);
         if (cedulaLookup?.sexo) params.set('sexo', cedulaLookup.sexo);
         if (cedulaLookup?.estadoCivil) params.set('civil', cedulaLookup.estadoCivil);
-        if (cedulaLookup?.parroquia) params.set('parroquia', cedulaLookup.parroquia);
-        if (cedulaLookup?.lugarNacimiento) params.set('lugarNac', cedulaLookup.lugarNacimiento);
         if (cedulaLookup?.nacionalidad) params.set('nacionalidad', cedulaLookup.nacionalidad);
+        try {
+            const saimeData = {
+                estado: cedulaLookup?.estado,
+                municipio: cedulaLookup?.municipio,
+                parroquia: cedulaLookup?.parroquia,
+                lugarNac: cedulaLookup?.lugarNacimiento,
+                estadoRif: rifLookup?.estado,
+                municipioRif: rifLookup?.municipio,
+            };
+            sessionStorage.setItem('kyron-saime-data', JSON.stringify(saimeData));
+        } catch {}
         router.push(`/register/${moduleRoute}?${params.toString()}` as any);
     }, [fullDocument, router, rifLookup, cedulaLookup]);
 
@@ -896,7 +901,7 @@ export default function RegisterSelectionPage() {
                                                             <Scan className="h-4 w-4 mr-1.5" /> Escanear
                                                         </Button>
                                                     </motion.div>
-                                                    {isJuridico && detected.valid && (
+                                                    {(isJuridico || detected.format === "rif") && detected.valid && (
                                                         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2 }}>
                                                             <Button
                                                                 type="button"

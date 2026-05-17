@@ -89,23 +89,31 @@ async function registerNatural(body: Record<string, unknown>) {
         }, { status: 403 });
     }
 
+    if (!telefono && !telefono_alt) {
+        return NextResponse.json({ error: 'Debes proporcionar al menos un número de teléfono' }, { status: 400 });
+    }
+
+    if (!fecha_nacimiento) {
+        return NextResponse.json({ error: 'La fecha de nacimiento es obligatoria' }, { status: 400 });
+    }
+
     const existing = await queryOne('SELECT id FROM users WHERE email = $1', [normalizedEmail]);
     if (existing) {
         return NextResponse.json({ error: 'Ya existe una cuenta con ese correo' }, { status: 409 });
     }
 
-    const cedulaExisting = await queryOne('SELECT id FROM users WHERE cedula = $1', [cedula]);
+    const cedulaHash = generateSearchHash(cedula);
+    const cedulaExisting = await queryOne('SELECT id FROM users WHERE cedula_hash = $1', [cedulaHash]);
     if (cedulaExisting) {
         return NextResponse.json({ error: 'Ya existe una cuenta con esa cédula' }, { status: 409 });
     }
 
     const password_hash = await bcrypt.hash(password, 12);
 
+    const encCedula = encryptIfNotEmpty(cedula);
     const encTelefono = encryptIfNotEmpty(telefono);
     const encTelefonoAlt = encryptIfNotEmpty(telefono_alt);
     const telefonoHash = generateSearchHash(telefono);
-    const cedulaHash = generateSearchHash(cedula);
-
 
     const [user] = await query<{ id: number; email: string }>(
         `INSERT INTO users (
@@ -118,7 +126,7 @@ async function registerNatural(body: Record<string, unknown>) {
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
-            nombre, apellido, cedula,
+            nombre, apellido, encCedula,
             encTelefono, encTelefonoAlt,
             fecha_nacimiento ?? null, genero ?? '', estado_civil ?? '',
             estado_residencia ?? '', municipio ?? '', ciudad ?? '', direccion ?? '',
@@ -261,7 +269,9 @@ async function registerJuridico(body: Record<string, unknown>) {
         return NextResponse.json({ error: 'Ya existe una cuenta con ese correo' }, { status: 409 });
     }
 
-    const rifExisting = await queryOne('SELECT id FROM users WHERE rif = $1', [(rif as string).trim()]);
+    const rifClean = (rif as string).trim();
+    const rifHash = generateSearchHash(rifClean);
+    const rifExisting = await queryOne('SELECT id FROM users WHERE rif_hash = $1', [rifHash]);
     if (rifExisting) {
         return NextResponse.json({ error: 'Ya existe una empresa registrada con ese RIF' }, { status: 409 });
     }
@@ -272,8 +282,8 @@ async function registerJuridico(body: Record<string, unknown>) {
     const sanitizedCodigoCiiu = codigo_ciiu ? sanitizeString(String(codigo_ciiu), 10) : '';
     const repNombreStr = sanitizeString((repNombre ?? '') as string, 200);
     const telefonoHash = generateSearchHash(telefono as string);
-    const rifHash = generateSearchHash(rif as string);
     const repCedulaHash = generateSearchHash(repCedula as string);
+    const encRif = encryptIfNotEmpty(rifClean);
 
 
     const results = await query<{ id: string; email: string }>(
@@ -300,7 +310,7 @@ async function registerJuridico(body: Record<string, unknown>) {
             normalizedEmail, password_hash,
             repNombreStr || sanitizedRazonSocial,
             sanitizedRazonSocial,
-            (rif as string).trim(),
+            encRif,
             sanitizeString((tipo_empresa ?? '') as string, 100),
             sanitizeString((actividad_economica ?? '') as string, 500),
             sanitizedCodigoCiiu,

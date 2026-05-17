@@ -86,10 +86,12 @@ export function DocumentScanner({ onScanComplete, onClose, type }: DocumentScann
             });
             const json = await res.json();
 
-            if (json.number) {
-                setResult(json);
+            const aiData = json.ai || json;
+            if (aiData.number) {
+                const fullDoc = `${aiData.prefix}-${aiData.number}`;
+                setResult({ ...aiData, db: json.db, fullDocument: fullDoc });
                 setStep("result");
-                onScanComplete(json.number, json.prefix, json);
+                onScanComplete(aiData.number, aiData.prefix, aiData);
             } else {
                 setError(json.error || "No se pudo leer el documento.");
                 setStep("select");

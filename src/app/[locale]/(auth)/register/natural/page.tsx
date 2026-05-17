@@ -107,12 +107,23 @@ export default function RegisterNaturalPage() {
 
   const prefilledNombre = searchParams.get('nombre') || '';
   const prefilledApellido = searchParams.get('apellido') || '';
-  const prefilledEstado = searchParams.get('estado') || '';
-  const prefilledMunicipio = searchParams.get('municipio') || '';
   const prefilledFechaNac = searchParams.get('fechaNac') || '';
   const prefilledSexo = searchParams.get('sexo') || '';
   const prefilledCivil = searchParams.get('civil') || '';
-  const prefilledParroquia = searchParams.get('parroquia') || '';
+
+  let prefilledEstado = searchParams.get('estado') || '';
+  let prefilledMunicipio = searchParams.get('municipio') || '';
+  let prefilledParroquia = searchParams.get('parroquia') || '';
+
+  try {
+    const stored = typeof window !== 'undefined' ? sessionStorage.getItem('kyron-saime-data') : null;
+    if (stored) {
+      const saimeData = JSON.parse(stored);
+      prefilledEstado = prefilledEstado || saimeData.estado || '';
+      prefilledMunicipio = prefilledMunicipio || saimeData.municipio || '';
+      prefilledParroquia = prefilledParroquia || saimeData.parroquia || '';
+    }
+  } catch {}
 
   const hasSaimeData = !!(prefilledNombre && prefilledApellido);
 
