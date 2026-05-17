@@ -16,11 +16,18 @@ export async function chatWithKyron(messages: { role: string; content: string }[
     }
 
     try {
+        // Prepare history
+        const history = messages.slice(0, -1).map(m => ({
+            role: m.role === "user" ? "user" : "model",
+            parts: [{ text: m.content }]
+        }));
+
+        // Ensure history starts with a 'user' message
+        const firstUserIndex = history.findIndex(m => m.role === "user");
+        const validHistory = firstUserIndex !== -1 ? history.slice(firstUserIndex) : [];
+
         const chat = model.startChat({
-            history: messages.slice(0, -1).map(m => ({
-                role: m.role === "user" ? "user" : "model",
-                parts: [{ text: m.content }]
-            })),
+            history: validHistory,
             systemInstruction: KYRON_SYSTEM_PROMPT,
         });
 

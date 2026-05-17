@@ -12,18 +12,25 @@ export async function POST(req: NextRequest) {
     }
 
     const lastMessage = messages[messages.length - 1].content;
-     const model = createModel("gemini-2.0-flash");
+    const model = createModel("gemini-2.0-flash");
 
     if (!model) {
       return NextResponse.json({ content: "La IA de Kyron no está configurada. Contacta al administrador.", status: 'error' });
     }
 
+    // Prepare history
+    const history = messages.slice(0, -1).map((m: any) => ({
+      role: m.role === 'user' ? 'user' : 'model',
+      parts: [{ text: m.content }],
+    }));
+
+    // Ensure history starts with a 'user' message
+    const firstUserIndex = history.findIndex(m => m.role === 'user');
+    const validHistory = firstUserIndex !== -1 ? history.slice(firstUserIndex) : [];
+
     if (stream) {
       const chat = model.startChat({
-        history: messages.slice(0, -1).map((m: any) => ({
-          role: m.role === 'user' ? 'user' : 'model',
-          parts: [{ text: m.content }],
-        })),
+        history: validHistory,
       });
 
       const result = await chat.sendMessageStream(
@@ -52,17 +59,14 @@ export async function POST(req: NextRequest) {
       });
     } else {
       const chat = model.startChat({
-        history: messages.slice(0, -1).map((m: any) => ({
-          role: m.role === 'user' ? 'user' : 'model',
-          parts: [{ text: m.content }],
-        })),
+        history: validHistory,
       });
       const result = await chat.sendMessage(
         (context ? `Contexto Operativo: ${context}\n\n` : '') +
         SYSTEM_PROMPT + "\n\nUsuario: " + lastMessage
       );
       const response = await result.response;
-       return NextResponse.json({ content: response.text(), provider: 'gemini-2.0-flash', status: 'success' });
+      return NextResponse.json({ content: response.text(), provider: 'gemini-2.0-flash', status: 'success' });
     }
 
   } catch (error) {
