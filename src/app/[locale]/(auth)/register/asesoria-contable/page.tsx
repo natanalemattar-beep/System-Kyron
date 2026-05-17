@@ -269,11 +269,11 @@ export default function RegisterContabilidadPage() {
     return (
         <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950/20 to-slate-950">
             {/* Ambient Background */}
-            <div className="absolute top-[-200px] left-[-100px] w-[600px] h-[600px] rounded-full opacity-20 pointer-events-none" style={{ background: 'radial-gradient(circle, #6366f130 0%, transparent 70%)' }} />
-            <div className="absolute bottom-[-200px] right-[-100px] w-[700px] h-[700px] rounded-full opacity-20 pointer-events-none" style={{ background: 'radial-gradient(circle, #06b6d420 0%, transparent 70%)' }} />
-
+            <div className="absolute top-[-200px] left-[-100px] w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none" style={{ background: 'radial-gradient(circle, #6366f130 0%, transparent 70%)', willChange: 'opacity' }} />
+            <div className="absolute bottom-[-200px] right-[-100px] w-[700px] h-[700px] rounded-full opacity-10 pointer-events-none" style={{ background: 'radial-gradient(circle, #06b6d420 0%, transparent 70%)', willChange: 'opacity' }} />
+            
             {/* ─── Top Navigation Bar ─────────────────── */}
-            <nav className="relative z-20 border-b border-white/5 bg-slate-950/80 backdrop-blur-xl">
+            <nav className="relative z-20 border-b border-white/5 bg-slate-950/80 backdrop-blur-md">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="p-2 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/20">
@@ -284,7 +284,7 @@ export default function RegisterContabilidadPage() {
                             <p className="text-[9px] text-cyan-400/60 font-black uppercase tracking-widest">System Kyron</p>
                         </div>
                     </div>
-
+                    
                     {/* Progress Steps */}
                     {step < TOTAL_STEPS && (
                         <div className="hidden sm:flex items-center gap-1">
@@ -312,19 +312,19 @@ export default function RegisterContabilidadPage() {
                             })}
                         </div>
                     )}
-
+                    
                     <Link href="/" className="text-[10px] font-bold text-white/30 hover:text-white/60 uppercase tracking-widest transition-colors">
                         ← Inicio
                     </Link>
                 </div>
             </nav>
-
+            
             {/* ─── Main Content ───────────────────────── */}
             <div className={cn(
                 "relative z-10 container mx-auto px-4 py-8 flex flex-col items-center min-h-[calc(100vh-4rem)]",
                 step === 1 ? "max-w-5xl" : "max-w-xl"
             )}>
-                <div className="w-full bg-white/5 dark:bg-slate-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-cyan-500/5 border border-white/10 dark:border-slate-800 overflow-hidden">
+                <div className="w-full bg-white/5 dark:bg-slate-900/60 backdrop-blur-md rounded-3xl shadow-2xl shadow-cyan-500/5 border border-white/10 dark:border-slate-800 overflow-hidden">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="p-6 md:p-8">
                             {/* ─── Step 1: Plan Selection ───────────────── */}
@@ -532,15 +532,9 @@ export default function RegisterContabilidadPage() {
                                                  <Input {...register('apellido')} placeholder="Tu apellido" className="h-12 rounded-xl bg-white/10 border-white/20 focus:ring-2 focus:ring-cyan-500/30 text-white placeholder:text-white/30" />
                                                  {errors.apellido && <p className="text-[10px] text-red-400 mt-1">{errors.apellido.message}</p>}
                                              </div>
-                                         </div>
-                                                 <div className="space-y-1.5">
-                                                     <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Apellido</Label>
-                                                     <Input {...register('apellido')} placeholder="Tu apellido" className="h-12 rounded-xl bg-white/10 border-white/20 focus:ring-2 focus:ring-cyan-500/30 text-white placeholder:text-white/30" />
-                                                     {errors.apellido && <p className="text-[10px] text-red-400 mt-1">{errors.apellido.message}</p>}
-                                                 </div>
-                                             </div>
+                                        </div>
 
-                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                              <div className="space-y-1.5">
                                                  <Label className="text-[10px] font-black uppercase tracking-widest text-white/40">Email Profesional</Label>
                                                  <Input {...register('email')} type="email" className="h-12 rounded-xl bg-white/5 border-white/10 focus:ring-2 focus:ring-cyan-500/20 text-white placeholder:text-white/20" />

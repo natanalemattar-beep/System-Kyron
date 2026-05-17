@@ -36,7 +36,7 @@ export function SupportBot() {
             if (url.includes("/contabilidad")) rol = "Contador Senior KYRON (Especialista VEN-NIF/SENIAT)";
             else if (url.includes("/legal")) rol = "Abogado KYRON (Especialista SAREN/SAPI)";
             else if (url.includes("/telecom")) rol = "Telecom KYRON (Especialista 5G/CONATEL)";
-            const stats = Array.from(document.querySelectorAll("[data-stat], .stat-value, [class*="stat"]"))
+            const stats = Array.from(document.querySelectorAll("[data-stat], .stat-value, [class*='stat']"))
                 .map(el => el.textContent?.trim()).filter(Boolean).slice(0, 5);
             const headings = Array.from(document.querySelectorAll("h1, h2, h3"))
                 .map(el => el.textContent?.trim()).filter(Boolean).slice(0, 3);
