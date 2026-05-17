@@ -32,7 +32,6 @@ export const INTEGRATIONS: IntegrationDef[] = [
     clientFile: 'src/lib/document-verifier.ts',
     envVars: [],
     usedBy: [
-      'src/app/api/core/engine-query/route.ts',
       'src/lib/document-verifier.ts',
     ],
     notes: 'Primary deterministic engine for audit and verification.',

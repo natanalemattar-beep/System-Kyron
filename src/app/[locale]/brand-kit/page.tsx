@@ -202,13 +202,7 @@ export default function BrandKitPage() {
                                 transition={{ delay: 0.15 }}
                                 className="flex gap-3 pt-2"
                             >
-                                <Link 
-                                    href="/pitch-coach" 
-                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-sm font-bold hover:scale-105 transition-all shadow-lg shadow-violet-500/20 group"
-                                >
-                                    <Rocket className="h-4 w-4 group-hover:animate-bounce" />
-                                    Ir al Pitch Coach
-                                </Link>
+
                             </motion.div>
 
                         <motion.div 

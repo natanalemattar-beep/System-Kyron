@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import {
   TrendingUp, TrendingDown, Activity, Zap, ArrowRight, ArrowUpRight, ArrowDownRight,
   BookOpen, Landmark, Users, History, Box, Receipt, Loader as Loader2,
-  RefreshCw, Calendar, Lock, Search, FileText, BrainCircuit, Sparkles,
+  RefreshCw, Calendar, Lock, Search, FileText, Sparkles,
   Shield, Scale, Briefcase, Leaf, Globe, TriangleAlert, Wifi,
   PercentCircle, Building2, Gavel, Wallet, CreditCard, Banknote,
   CircleCheck as CircleCheck, Calculator, Bell, Package, DollarSign,
@@ -18,7 +18,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@/navigation";
-import { MarkdownRenderer } from "@/components/markdown-renderer";
 import dynamic from "next/dynamic";
 import { cn, isNetworkError } from "@/lib/utils";
 import { ErrorBoundary } from "@/components/error-boundary";
@@ -142,11 +141,6 @@ export default function DashboardEmpresaPage() {
   const [auditLogs, setAuditLogs] = useState<ActivityLog[]>([]);
   const [auditLoading, setAuditLoading] = useState(false);
   const [auditSearch, setAuditSearch] = useState("");
-  const [showAnalysis, setShowAnalysis] = useState(false);
-  const [coreAnalysis, setCoreAnalysis] = useState<string | null>(null);
-  const [analysisLoading, setAnalysisLoading] = useState(false);
-  const [analysisStreaming, setAnalysisStreaming] = useState(false);
-  const analysisAbortRef = useMemo(() => ({ current: null as AbortController | null }), []);
   const [clientDateStr, setClientDateStr] = useState<string | null>(null);
   const [clientTimeStr, setClientTimeStr] = useState<string | null>(null);
   const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
@@ -251,100 +245,6 @@ export default function DashboardEmpresaPage() {
   };
 
   const filteredLogs = auditLogs.filter(l => !auditSearch || l.evento.toLowerCase().includes(auditSearch.toLowerCase()) || (l.descripcion ?? "").toLowerCase().includes(auditSearch.toLowerCase()) || l.categoria.toLowerCase().includes(auditSearch.toLowerCase()));
-
-  const handleCoreAnalysis = async () => {
-    if (analysisAbortRef.current) analysisAbortRef.current.abort();
-    const abort = new AbortController();
-    analysisAbortRef.current = abort;
-
-    setShowAnalysis(true);
-    if (!data) { toast({ title: "Sin datos", description: "Carga el dashboard primero.", variant: "destructive" }); return; }
-    setAnalysisLoading(true); setAnalysisStreaming(false); setCoreAnalysis("");
-    try {
-      const res = await fetch("/api/core/analyze-dashboard", {
-        method: "POST",
-        signal: abort.signal,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          module: "Dashboard Empresarial — Panel Principal",
-          stream: true,
-          data: {
-            resumenFinanciero: {
-              ingresosMesActual: data.ingresos,
-              gastosMesActual: data.gastos,
-              utilidadNeta: data.utilidadNeta,
-              liquidezDisponible: data.liquidezTotal,
-              nominaMensual: data.nominaMensual,
-            },
-            variacionesMensuales: data.variaciones,
-            cartera: {
-              cuentasPorCobrar: data.cuentasCobrar,
-              cuentasPorPagar: data.cuentasPagar,
-            },
-            facturas: data.facturas,
-            operaciones: {
-              empleadosActivos: data.empleados,
-              clientesActivos: data.clientesActivos,
-              facturasEsteMes: data.facturasEsteMes,
-              inventarioBajoStock: data.inventarioBajoStock,
-              notificacionesPendientes: data.notificacionesNoLeidas,
-            },
-            tasaBCV: data.tasaBCV,
-            evolucionMensual: data.chartMensual,
-            movimientosRecientes: data.movimientosRecientes?.slice(0, 8),
-          },
-          context: `Empresa: ${user?.razon_social || user?.nombre || "N/A"}. Moneda de visualización: ${curConfig?.code ?? "VES"}. Fecha: ${clientDateStr ?? ""}. Hora: ${clientTimeStr ?? ""}.`,
-        }),
-      });
-
-      if (!res.ok) {
-        const json = await res.json().catch(() => ({ error: "Error del servidor" }));
-        toast({ title: "Error", description: json.error, variant: "destructive" });
-        setShowAI(false);
-        setShowAnalysis(false);
-        setAnalysisLoading(false);
-        return;
-      }
-
-      const reader = res.body?.getReader();
-      if (!reader) { setAnalysisLoading(false); return; }
-
-      setAnalysisStreaming(true); setAnalysisLoading(false);
-
-      const decoder = new TextDecoder();
-      let buffer = "";
-      let fullText = "";
-
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split("\n");
-          buffer = lines.pop() ?? "";
-          for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              try {
-                const parsed = JSON.parse(line.slice(6));
-                if (parsed.text) {
-                  fullText += parsed.text;
-                  setCoreAnalysis(fullText);
-                }
-              } catch {}
-            }
-          }
-        }
-      } finally {
-        setAnalysisStreaming(false);
-      }
-      if (!fullText) setCoreAnalysis("No se pudo generar el análisis. Intente nuevamente.");
-    } catch (err) {
-      if ((err as Error)?.name !== "AbortError") {
-        toast({ title: "Error de conexión", variant: "destructive" });
-        setShowAnalysis(false);
-      }
-    } finally { setAnalysisLoading(false); setAnalysisStreaming(false); }
-  };
 
   const variacionIcon = (v: number) => v > 0 ? <ArrowUpRight className="h-3 w-3" /> : v < 0 ? <ArrowDownRight className="h-3 w-3" /> : null;
   const variacionColor = (v: number, invert = false) => { if (v === 0) return "text-muted-foreground"; return (invert ? v < 0 : v > 0) ? "text-emerald-400" : "text-rose-400"; };
@@ -459,9 +359,6 @@ export default function DashboardEmpresaPage() {
                 </div>
 
                 <div className="flex gap-3 w-full sm:w-auto">
-                  <Button onClick={handleCoreAnalysis} disabled={analysisLoading || analysisStreaming || loading} className="flex-1 sm:flex-none h-14 px-8 rounded-2xl bg-primary text-primary-foreground font-black text-[11px] uppercase tracking-[0.2em] shadow-[0_20px_40px_-10px_rgba(59,130,246,0.5)] hover:shadow-[0_25px_50px_-10px_rgba(59,130,246,0.6)] transition-all hover:scale-[1.03] active:scale-[0.97] font-tech group">
-                    <BrainCircuit className="h-5 w-5 mr-3 group-hover:rotate-12 transition-transform" /> Kyron Nexus Core
-                  </Button>
                   <Button onClick={() => { setClosingData(null); setShowCierre(true); }} className="flex-1 sm:flex-none h-14 px-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] text-white font-black text-[11px] uppercase tracking-[0.2em] transition-all font-tech">
                     <Lock className="h-4 w-4 mr-3 text-white/40" /> Cierre Fiscal
                   </Button>
@@ -1197,73 +1094,7 @@ export default function DashboardEmpresaPage() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={showAnalysis} onOpenChange={setShowAnalysis}>
-        <DialogContent className="max-w-3xl max-h-[85vh] flex flex-col rounded-2xl">
-          <DialogHeader>
-            <DialogTitle className="text-sm font-bold flex items-center gap-2">
-              <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-md shadow-cyan-500/20">
-                <BrainCircuit className="h-3.5 w-3.5 text-white" />
-              </div>
-              <div>
-                <span>KYRON Analytics</span>
-                <p className="text-[11px] font-normal text-muted-foreground/50 mt-0.5">Auditoría financiera en tiempo real</p>
-              </div>
-            </DialogTitle>
-          </DialogHeader>
-          <div className="flex-1 overflow-y-auto py-2 min-h-0">
-            {analysisLoading && !coreAnalysis ? (
-              <div className="space-y-5 py-10 text-center">
-                <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-cyan-500/15 to-blue-500/15 flex items-center justify-center mx-auto shadow-lg shadow-cyan-500/5">
-                  <Sparkles className="h-7 w-7 text-cyan-400 animate-pulse" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-foreground/70">Procesando análisis ejecutivo</p>
-                  <p className="text-[10px] text-muted-foreground/40 mt-1">Evaluando indicadores financieros, tendencias y riesgos...</p>
-                </div>
-                <div className="max-w-sm mx-auto space-y-2.5 mt-4">
-                  {["Diagnóstico financiero...", "Análisis de cartera...", "Evaluación de riesgos...", "Generando recomendaciones..."].map((label, n) => (
-                    <div key={n} className="flex items-center gap-3">
-                      <div className="h-1.5 flex-1 bg-muted/10 rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-full animate-pulse" style={{ width: `${85 - n * 15}%`, animationDelay: `${n * 200}ms` }} />
-                      </div>
-                      <span className="text-[11px] text-muted-foreground/30 w-36 text-left">{label}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : coreAnalysis ? (
-              <div className="space-y-3">
-                <div className="p-5 bg-gradient-to-br from-cyan-500/[0.02] to-blue-500/[0.02] rounded-xl border border-cyan-500/8">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-cyan-400">Análisis Ejecutivo</span>
-                    {analysisStreaming && <span className="text-[11px] text-muted-foreground/40 animate-pulse ml-auto">● Generando...</span>}
-                  </div>
-                  <div className="prose prose-sm dark:prose-invert max-w-none prose-headings:text-sm prose-headings:font-bold prose-p:text-xs prose-p:leading-relaxed prose-li:text-xs prose-li:leading-relaxed prose-strong:text-foreground">
-                    <MarkdownRenderer content={coreAnalysis} />
-                  </div>
-                </div>
-                {!analysisLoading && !analysisStreaming && (
-                  <div className="flex items-center justify-between px-1">
-                    <p className="text-[11px] text-muted-foreground/30 flex items-center gap-1.5">
-                      <CircleCheck className="h-3 w-3" /> Análisis completado · {clientDateStr ?? ""}
-                    </p>
-                    <p className="text-[11px] text-muted-foreground/20">Powered by KYRON CORE</p>
-                  </div>
-                )}
-              </div>
-            ) : null}
-          </div>
-          <DialogFooter className="flex-row gap-2">
-            {(coreAnalysis && !analysisLoading && !analysisStreaming) && (
-              <Button variant="outline" onClick={handleCoreAnalysis} disabled={analysisLoading || analysisStreaming} className="rounded-xl text-xs h-8 mr-auto">
-                <RefreshCw className="mr-1.5 h-3 w-3" /> Regenerar análisis
-              </Button>
-            )}
-            <Button variant="outline" onClick={() => setShowAnalysis(false)} className="rounded-xl text-xs h-8">Cerrar</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+
     </div>
   </div>
   </ErrorBoundary>
