@@ -6,7 +6,7 @@ import { useAuth } from '@/lib/auth/context';
 import { Logo } from '@/components/logo';
 
 const MODULE_ROUTE_MAP: Record<string, string[]> = {
-  admin: ['contabilidad', 'facturacion', 'inventario', 'nomina', 'tesoreria', 'asesoria-contable', 'contabilidad-comunal', 'rendicion-cuentas', 'presupuesto-participativo', 'contraloria-social', 'presupuesto-publico', 'sigecof', 'rendicion-cgr', 'onapre', 'transparencia'],
+  'asesoria-contable': ['contabilidad', 'facturacion', 'inventario', 'nomina', 'tesoreria', 'asesoria-contable', 'contabilidad-comunal', 'rendicion-cuentas', 'presupuesto-participativo', 'contraloria-social', 'presupuesto-publico', 'sigecof', 'rendicion-cgr', 'onapre', 'transparencia'],
   telecom: ['telecom', 'telecomunicaciones'],
   ventas: ['tpv', 'ventas-estrategia', 'inventario', 'fidelizacion', 'ventas'],
   hr: ['rrhh', 'talento-humano', 'nomina', 'contabilidad', 'facturacion', 'asesoria-contable', 'ivss', 'inces', 'banavih'],
@@ -18,7 +18,7 @@ const MODULE_ROUTE_MAP: Record<string, string[]> = {
 function getUserDefaultDashboard(modules: string[], tipo: string): string {
   if (tipo === 'juridico' || tipo === 'admin') {
     for (const mod of modules) {
-      if (MODULE_ROUTE_MAP.admin.includes(mod)) return '/dashboard-empresa';
+      if (MODULE_ROUTE_MAP['asesoria-contable'].includes(mod)) return '/dashboard-empresa';
     }
     for (const mod of modules) {
       if (MODULE_ROUTE_MAP.ventas.includes(mod)) return '/estrategias-ventas';
@@ -80,11 +80,11 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
     }
 
     if (userModules.length === 0 && (user.tipo === 'juridico' || user.tipo === 'admin')) {
-      if (layoutKey !== 'admin' && !redirectedRef.current) {
+      if (layoutKey !== 'asesoria-contable' && !redirectedRef.current) {
         redirectedRef.current = true;
         router.replace('/dashboard-empresa');
       }
-      setAuthorized(layoutKey === 'admin');
+      setAuthorized(layoutKey === 'asesoria-contable');
       setChecked(true);
       return;
     }

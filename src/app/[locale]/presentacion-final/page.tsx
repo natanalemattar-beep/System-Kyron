@@ -300,10 +300,10 @@ export default function PresentacionFinalPage() {
     };
 
     const generatePDF = async () => {
-        const html2pdf = (window as any).html2pdf;
-        if (!html2pdf) { alert('Motor PDF cargando. Reintenta en 2 segundos.'); return; }
         setIsExportingPDF(true);
         try {
+            const html2pdfModule = await import('html2pdf.js');
+            const html2pdf = html2pdfModule.default;
             const el = document.getElementById('presentation-container');
             if (!el) return;
             const slidesEls = el.querySelectorAll('.print-slide');
@@ -359,10 +359,9 @@ export default function PresentacionFinalPage() {
     };
 
     const generatePPTX = async () => {
-        const PptxGenJS = (window as any).PptxGenJS;
-        if (!PptxGenJS) { alert('Motor PPTX cargando. Reintenta en 2 segundos.'); return; }
         setIsExportingPPTX(true);
         try {
+            const PptxGenJS = (await import('pptxgenjs')).default;
             const pptx = new PptxGenJS();
             pptx.layout = 'LAYOUT_WIDE';
             pptx.defineSlideMaster({

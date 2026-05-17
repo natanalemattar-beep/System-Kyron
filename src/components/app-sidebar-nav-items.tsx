@@ -188,8 +188,6 @@ export const asesoriaContableNavGroups = [
     }
 ];
 
-export const adminNavGroups = asesoriaContableNavGroups;
-
 export const ventasNavGroups = [
   { 
     title: "Operaciones", 
