@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import {
     Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
     Leaf, Check, ShieldCheck, Mail, RefreshCw, Smartphone, Building, User, Lock,
-    Recycle, CloudSun, Globe, TreePine,
+    Recycle, CloudSun, Globe, TreePine, Sparkles,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
@@ -20,8 +20,11 @@ import { useAuth } from '@/lib/auth/context';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { DocumentInput } from '@/components/document-input';
+import { usePopularPlan } from '@/hooks/use-popular-plan';
+import { PLANES } from '@/lib/planes-data';
 
 const schema = z.object({
+    plan: z.string().min(1, 'Seleccione un plan'),
     razonSocial: z.string().min(3, 'Ingrese la razón social'),
     rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50832149-9'),
     nombre: z.string().min(2, 'Ingrese su nombre'),
@@ -40,9 +43,10 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
 
 const stepConfig = [
+    { title: 'Plan', desc: 'Elige tu plan', icon: Sparkles },
     { title: 'Empresa', desc: 'Identidad Verde', icon: Leaf },
     { title: 'Representante', desc: 'Gestion de Impacto', icon: User },
     { title: 'Verificar', desc: 'Confirmación', icon: Mail },
@@ -64,6 +68,8 @@ export default function RegisterSostenibilidadPage() {
     const [verifLoading, setVerifLoading] = useState(false);
     const [verifDestino, setVerifDestino] = useState('');
     const [countdown, setCountdown] = useState(0);
+    const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+    const { popularPlan, recordSelection } = usePopularPlan('sostenibilidad');
 
     const onMagicLinkVerified = useCallback(() => {
         setVerifVerified(true);
@@ -76,6 +82,7 @@ export default function RegisterSostenibilidadPage() {
         resolver: zodResolver(schema),
         mode: 'onChange',
         defaultValues: {
+            plan: searchParams.get('plan') || '',
             rif: searchParams.get('doc') || '',
             razonSocial: searchParams.get('razon') || '',
         },
@@ -138,18 +145,27 @@ export default function RegisterSostenibilidadPage() {
 
     const nextStep = async () => {
         if (step === 1) {
-            const valid = await trigger(['razonSocial', 'rif']);
-            if (valid) setStep(2);
+            if (!selectedPlan) {
+                toast({ title: 'Selecciona un plan', variant: 'destructive' });
+                return;
+            }
+            setValue('plan', selectedPlan);
+            setStep(2);
             return;
         }
         if (step === 2) {
+            const valid = await trigger(['razonSocial', 'rif']);
+            if (valid) setStep(3);
+            return;
+        }
+        if (step === 3) {
             const valid = await trigger(['nombre', 'apellido', 'email', 'telefono', 'password', 'confirmPassword']);
             if (!valid) return;
             if (!acceptTerms) {
                 toast({ title: 'Términos requeridos', variant: 'destructive' });
                 return;
             }
-            setStep(3);
+            setStep(4);
         }
     };
 
@@ -160,6 +176,7 @@ export default function RegisterSostenibilidadPage() {
         }
         setIsLoading(true);
         try {
+            recordSelection(data.plan);
             const res = await fetch('/api/auth/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -171,6 +188,7 @@ export default function RegisterSostenibilidadPage() {
                         { id: 'eco-creditos', label: 'Eco-Créditos' },
                         { id: 'ameru-ia', label: 'Ameru IA' }
                     ],
+                    plan: data.plan,
                     // Details deferred
                 }),
             });
@@ -205,7 +223,7 @@ export default function RegisterSostenibilidadPage() {
                 {/* Progress Steps */}
                 {step < TOTAL_STEPS && (
                     <div className="flex items-center gap-0 mb-10 w-full max-w-md mx-auto">
-                        {stepConfig.slice(0, 3).map((s, i) => {
+                        {stepConfig.slice(0, 4).map((s, i) => {
                             const stepNum = i + 1;
                             const isActive = step === stepNum;
                             const isDone = step > stepNum;
@@ -223,7 +241,7 @@ export default function RegisterSostenibilidadPage() {
                                         </div>
                                         <p className={cn("text-[10px] font-bold uppercase tracking-widest mt-2 px-1 text-center leading-tight", isActive ? "text-emerald-600" : isDone ? "text-slate-600" : "text-slate-400")}>{s.title}</p>
                                     </div>
-                                    {i < 2 && <div className={cn("flex-1 h-0.5 mx-2 -mt-6 rounded-full transition-colors duration-500", step > stepNum ? "bg-emerald-500" : "bg-slate-200 dark:bg-slate-800")} />}
+                                    {i < 3 && <div className={cn("flex-1 h-0.5 mx-2 -mt-6 rounded-full transition-colors duration-500", step > stepNum ? "bg-emerald-500" : "bg-slate-200 dark:bg-slate-800")} />}
                                 </div>
                             );
                         })}
@@ -234,6 +252,56 @@ export default function RegisterSostenibilidadPage() {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="p-8">
                             {step === 1 && (
+                                <div className="space-y-8">
+                                    <div className="text-center space-y-1.5">
+                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 italic">Elige tu Plan Kyron</h2>
+                                        <p className="text-sm text-slate-500 font-medium">Selecciona el plan que mejor se adapte a tu huella ambiental.</p>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {PLANES.map((p) => {
+                                            const isSelected = selectedPlan === p.id;
+                                            return (
+                                                <button
+                                                    key={p.id} type="button" onClick={() => setSelectedPlan(p.id)}
+                                                    className={cn(
+                                                        "relative text-left p-6 rounded-[2rem] border-2 transition-all duration-300 group hover:shadow-xl",
+                                                        isSelected ? "border-emerald-500 bg-emerald-50/50 dark:bg-emerald-500/5 ring-4 ring-emerald-500/10" : "bg-white dark:bg-slate-800/50 border-slate-100 dark:border-slate-800 hover:border-emerald-200"
+                                                    )}
+                                                >
+                                                    {popularPlan === p.id && <div className="absolute -top-3 right-6 px-3 py-1 bg-gradient-to-r from-emerald-500 to-green-600 rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-white shadow-lg">Más Popular</div>}
+                                                    <div className="flex justify-between items-center mb-3">
+                                                        <div className={cn("p-2 rounded-xl", isSelected ? "bg-emerald-500 text-white" : "bg-emerald-50 dark:bg-emerald-900/20 text-emerald-500")}>
+                                                            <Sparkles className="h-5 w-5" />
+                                                        </div>
+                                                        {isSelected && <CircleCheck className="h-5 w-5 text-emerald-500" />}
+                                                    </div>
+                                                    <p className="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">{p.nombre}</p>
+                                                    <p className="text-[11px] text-slate-500 mb-2 leading-tight">{p.descripcion}</p>
+                                                    <div className="flex items-baseline gap-1 mb-2">
+                                                        <span className="text-2xl font-black text-slate-800 dark:text-slate-100">${p.precioMensualUSD}</span>
+                                                        <span className="text-xs font-bold text-slate-400">/mes</span>
+                                                    </div>
+                                                    <div className="space-y-1.5 pt-3 border-t border-slate-100 dark:border-slate-800">
+                                                        {p.modulosIncluidos.slice(0, 4).map((f, i) => (
+                                                            <div key={i} className="flex items-center gap-2">
+                                                                <Check className="h-3 w-3 text-emerald-500" />
+                                                                <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">{f}</span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+
+                                    <Button type="button" onClick={nextStep} className="w-full h-14 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base shadow-xl shadow-emerald-500/20 transition-all active:scale-[0.98]">
+                                        Continuar con el Plan <ArrowRight className="ml-2 h-5 w-5" />
+                                    </Button>
+                                </div>
+                            )}
+
+                            {step === 2 && (
                                 <div className="space-y-6">
                                     <div className="text-center space-y-1 mb-4">
                                         <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 italic">Compromiso Ambiental</h2>
@@ -276,7 +344,7 @@ export default function RegisterSostenibilidadPage() {
                                 </div>
                             )}
 
-                            {step === 2 && (
+                            {step === 3 && (
                                 <div className="space-y-6">
                                     <div className="text-center space-y-1 mb-4">
                                         <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 italic">Acceso de Gestión</h2>
@@ -331,7 +399,7 @@ export default function RegisterSostenibilidadPage() {
                                     </div>
 
                                     <div className="flex gap-4 pt-2">
-                                        <Button type="button" variant="ghost" onClick={() => setStep(1)} className="h-14 rounded-2xl border border-slate-200 dark:border-slate-800 px-6 font-bold text-slate-400 hover:text-slate-800">
+                                        <Button type="button" variant="ghost" onClick={() => setStep(2)} className="h-14 rounded-2xl border border-slate-200 dark:border-slate-800 px-6 font-bold text-slate-400 hover:text-slate-800">
                                             <ArrowLeft className="h-5 w-5" />
                                         </Button>
                                         <Button type="button" onClick={nextStep} className="flex-1 h-14 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-xl shadow-emerald-500/20 transition-all active:scale-[0.98]">
@@ -341,7 +409,7 @@ export default function RegisterSostenibilidadPage() {
                                 </div>
                             )}
 
-                            {step === 3 && (
+                            {step === 4 && (
                                 <div className="space-y-8 py-4">
                                     <div className="text-center space-y-2">
                                         <div className="inline-flex p-4 rounded-[1.5rem] bg-emerald-500/10 mb-2">
@@ -375,7 +443,7 @@ export default function RegisterSostenibilidadPage() {
                                 </div>
                             )}
 
-                            {step === 4 && (
+                            {step === 5 && (
                                 <div className="text-center py-10 space-y-6">
                                     <div className="inline-flex items-center justify-center w-24 h-24 rounded-[2.5rem] bg-gradient-to-br from-emerald-500 to-green-600 shadow-2xl shadow-emerald-500/40 mb-2">
                                         <Globe className="h-12 w-12 text-white stroke-[3px]" />

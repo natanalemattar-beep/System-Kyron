@@ -1,5 +1,6 @@
 "use client";
 
+import useSWR from 'swr';
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -107,26 +108,31 @@ export function NotificacionesPageContent() {
   const [backHref, setBackHref] = useState("/dashboard");
   const { toast } = useToast();
 
+  const fetcher = (url: string) => fetch(url).then(res => {
+    if (!res.ok) throw new Error('Failed to fetch');
+    return res.json();
+  });
+
+  const getKey = useCallback(() => {
+    const base = tab === 'no_leidas' ? '/api/notificaciones?no_leidas=true&limit=50' : '/api/notificaciones?limit=50';
+    return base;
+  }, [tab]);
+
+  const { data, error, isLoading, mutate } = useSWR(getKey, fetcher, {
+    refreshInterval: 10000,
+    revalidateOnFocus: true,
+    dedupingInterval: 5000,
+    onSuccess: (data) => {
+      setNotificaciones(data?.notificaciones ?? []);
+      setTotalNoLeidas(data?.total_no_leidas ?? 0);
+      setLoading(false);
+    }
+  });
+
   useEffect(() => {
     const ctx = getModuleContext();
     setBackHref(DASHBOARD_MAP[ctx] || "/dashboard");
   }, []);
-
-  const fetchNotificaciones = useCallback(async (checkRegulatorio = false) => {
-    try {
-      let params = tab === 'no_leidas' ? '?no_leidas=true&limit=50' : '?limit=50';
-      if (checkRegulatorio) params += '&check_regulatorio=true';
-      
-      const res = await fetch(`/api/notificaciones${params}`);
-      if (!res.ok) return;
-      const data = await res.json();
-      setNotificaciones(data.notificaciones ?? []);
-      setTotalNoLeidas(data.total_no_leidas ?? 0);
-    } catch {
-    } finally {
-      setLoading(false);
-    }
-  }, [tab]);
 
   const fetchConfig = useCallback(async () => {
     try {
@@ -138,12 +144,15 @@ export function NotificacionesPageContent() {
   }, []);
 
   useEffect(() => {
-    fetchNotificaciones();
-  }, [fetchNotificaciones]);
-
-  useEffect(() => {
     if (showSettings && !config) fetchConfig();
   }, [showSettings, config, fetchConfig]);
+
+  const refreshData = useCallback(async () => {
+    setLoading(true);
+    await mutate();
+  }, [mutate]);
+
+  const combinedLoading = loading || isLoading;
 
   const markAsRead = async (id: number) => {
     try {
@@ -247,10 +256,10 @@ export function NotificacionesPageContent() {
         <div className="flex gap-2">
           <Button
             variant="outline" size="sm"
-            onClick={() => { setLoading(true); fetchNotificaciones(true); }}
+            onClick={() => { setLoading(true); refreshData(); }}
             className="rounded-xl text-xs font-bold"
           >
-            <RefreshCw className="h-3.5 w-3.5 mr-1.5" /> Actualizar
+            <RefreshCw className={`h-3.5 w-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} /> Actualizar
           </Button>
           {totalNoLeidas > 0 && (
             <Button
@@ -422,7 +431,7 @@ export function NotificacionesPageContent() {
         </Card>
       )}
 
-      {loading ? (
+      {combinedLoading ? (
         <div className="flex flex-col items-center justify-center py-20 gap-3">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
           <p className="text-sm text-muted-foreground">Cargando notificaciones...</p>

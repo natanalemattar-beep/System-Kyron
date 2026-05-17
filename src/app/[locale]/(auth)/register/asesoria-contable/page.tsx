@@ -23,38 +23,20 @@ import { usePopularPlan } from '@/hooks/use-popular-plan';
 import { useAuth } from '@/lib/auth/context';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
+import { MODULOS_INDIVIDUALES } from '@/lib/planes-data';
 import { DocumentInput } from '@/components/document-input';
 
-const PLANES_CONTABILIDAD = [
-    {
-        id: 'contable_esencial',
-        nombre: 'Esencial',
-        precioUsd: 8,
-        descripcion: 'Libros legales básicos y calendario fiscal automatizado.',
-        features: ['Libros Diario/Mayor', 'Calendario Fiscal IA', 'Tasa BCV en vivo', '1 Usuario'],
-    },
-    {
-        id: 'contable_profesional',
-        nombre: 'Profesional',
-        precioUsd: 18,
-        descripcion: 'Gestión tributaria avanzada y declaraciones asistidas.',
-        features: ['Todo en Esencial', 'Retenciones IVA/ISLR', 'Centro Tributario', '3 Usuarios'],
-    },
-    {
-        id: 'contable_avanzado',
-        nombre: 'Avanzado',
-        precioUsd: 35,
-        descripcion: 'IA de auditoría y conciliación bancaria completa.',
-        features: ['Todo en Profesional', 'IA Fiscal Auditor', 'Conciliación Bancaria', '5 Usuarios'],
-    },
-    {
-        id: 'contable_max',
-        nombre: 'MAX',
-        precioUsd: 60,
-        descripcion: 'Poder absoluto multi-empresa con soporte VIP 24/7.',
-        features: ['Todo ilimitado', 'Multi-empresa (hasta 5)', 'Soporte VIP 24/7', 'API Connect'],
-    },
-];
+const PLANES_CONTABILIDAD = (() => {
+  const modulo = MODULOS_INDIVIDUALES.find(m => m.id === 'asesoria_contable');
+  return modulo ? modulo.subPlanes.map(sp => ({
+    id: sp.id,
+    nombre: sp.nombre,
+    precioUsd: sp.precioMensualUSD,
+    descripcion: sp.caracteristicas.slice(0, 2).join(', '),
+    features: sp.caracteristicas.slice(0, 4),
+    popular: sp.popular || false,
+  })) : [];
+})();
 
 const schema = z.object({
     razonSocial: z.string().min(3, 'Ingrese la razón social'),
@@ -297,7 +279,7 @@ export default function RegisterContabilidadPage() {
                                                         isSelected ? "border-indigo-500 bg-indigo-50/50 dark:bg-indigo-500/5 ring-4 ring-indigo-500/10" : "bg-white dark:bg-slate-800/50 border-slate-100 dark:border-slate-800 hover:border-indigo-200"
                                                     )}
                                                 >
-                                                    {popularPlan === p.id && <div className="absolute -top-3 right-6 px-3 py-1 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-white shadow-lg">Más Vendido</div>}
+                                                    {p.popular && <div className="absolute -top-3 right-6 px-3 py-1 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-white shadow-lg">Más Vendido</div>}
                                                     <div className="flex justify-between items-center mb-3">
                                                         <div className={cn("p-2 rounded-xl", isSelected ? "bg-indigo-500 text-white" : "bg-indigo-50 dark:bg-indigo-900/20 text-indigo-500")}>
                                                             <ChartColumn className="h-5 w-5" />
@@ -351,7 +333,8 @@ export default function RegisterContabilidadPage() {
 
                                         <div className="grid grid-cols-2 gap-4 px-1">
                                             <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Nombre Contador/Representante</Label>
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Nombre</Label>
+                                                <p className="text-[9px] font-bold text-slate-400 -mt-1 ml-1">Contador/Representante</p>
                                                 <Input {...register('nombre')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-indigo-500/20 shadow-sm" />
                                             </div>
                                             <div className="space-y-1.5">

@@ -20,9 +20,12 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
+import { usePopularPlan } from '@/hooks/use-popular-plan';
 import { useAuth } from '@/lib/auth/context';
+import { PLANES_MI_LINEA } from '@/lib/planes-data';
 import { DocumentInput } from '@/components/document-input';
 import { DocumentUpload, type UploadedDoc } from '@/components/document-upload';
+import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
@@ -30,10 +33,18 @@ import { format, parse } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { ESTADOS_VE, getMunicipios, getCiudades } from '@/lib/venezuela-geo';
 
-const TOTAL_STEPS = 4;
-const FORM_STEPS = 3; // Datos Personales, Acceso y Contacto, Verificación
+const TOTAL_STEPS = 5;
+const FORM_STEPS = 4; // Plan, Datos Personales, Acceso y Contacto, Verificación
 
+const stepConfig = [
+  { title: 'Plan', desc: 'Elige tu servicio', icon: Smartphone },
+  { title: 'Datos', desc: 'Identidad básica', icon: User },
+  { title: 'Acceso', desc: 'Tus credenciales', icon: Lock },
+  { title: 'Verificar', desc: 'Confirma email', icon: Mail },
+];
 const fullSchema = z.object({
+  tipo_cliente: z.enum(['personal', 'empresarial']).default('personal'),
+  plan: z.string().min(1, 'Seleccione un plan'),
   nombre: z.string().min(2, 'El nombre es requerido.'),
   apellido: z.string().min(2, 'El apellido es requerido.'),
   cedula: z.string().min(7).regex(/^[VE][-]\d+$/, 'Formato: V-18745632 o E-12345678'),
@@ -60,33 +71,32 @@ const step2Fields = ['telefono', 'email', 'password', 'confirmPassword'] as cons
 export default function RegisterNaturalPage() {
   const searchParams = useSearchParams();
   const prefilledDoc = searchParams.get('doc') || '';
-
   const [step, setStep] = useState(() => {
     try {
       const s = typeof window !== 'undefined' ? sessionStorage.getItem('kyron-register-natural-step') : null;
       const parsed = s ? parseInt(s, 10) : 1;
-      return parsed >= 1 && parsed <= 3 ? parsed : 1;
+      return parsed >= 1 && parsed <= 4 ? parsed : 1;
     } catch { return 1; }
   });
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [uploadedDocs, setUploadedDocs] = useState<Record<string, UploadedDoc | null>>({});
   const [acceptTerms, setAcceptTerms] = useState(false);
-
   const [verifMethod, setVerifMethod] = useState<'email' | 'sms'>('email');
   const [verifSent, setVerifSent] = useState(false);
   const [verifCode, setVerifCode] = useState('');
-  const [verifLoading, setVerifLoading] = useState(false);
   const [verifVerified, setVerifVerified] = useState(false);
+  const [verifLoading, setVerifLoading] = useState(false);
   const [verifDestino, setVerifDestino] = useState('');
   const [countdown, setCountdown] = useState(0);
   const [devCode, setDevCode] = useState<string | null>(null);
-
   const { toast } = useToast();
   const router = useRouter();
   const { refreshUser } = useAuth();
+  const { popularPlan, recordSelection } = usePopularPlan('mi_linea_personal');
 
   const onMagicLinkVerified = useCallback(() => {
     setVerifVerified(true);
@@ -167,13 +177,31 @@ export default function RegisterNaturalPage() {
   }, [estadoResidencia]);
 
   const nextStep = async () => {
-    const fields = step === 1 ? step1Fields : step2Fields;
-    const valid = await trigger(fields as any);
-    if (step === 2 && !acceptTerms) {
-      toast({ title: 'Términos requeridos', description: 'Debes aceptar los términos y condiciones para continuar.', variant: 'destructive' });
+    if (step === 1) {
+      if (!selectedPlan) {
+        toast({ title: 'Selecciona un plan', variant: 'destructive' });
+        return;
+      }
+      setValue('plan', selectedPlan);
+      setStep(2);
       return;
     }
-    if (valid) setStep(s => s + 1);
+    if (step === 2) {
+      const fields = ['nombre', 'apellido', 'cedula', 'fecha_nacimiento'];
+      const valid = await trigger(fields as any);
+      if (valid) setStep(3);
+      return;
+    }
+    if (step === 3) {
+      const fields = ['telefono', 'email', 'password', 'confirmPassword'];
+      const valid = await trigger(fields as any);
+      if (!valid) return;
+      if (!acceptTerms) {
+        toast({ title: 'Términos requeridos', description: 'Debes aceptar los términos y condiciones para continuar.', variant: 'destructive' });
+        return;
+      }
+      setStep(4);
+    }
   };
 
   const prevStep = () => {
@@ -269,6 +297,7 @@ export default function RegisterNaturalPage() {
     submittingRef.current = true;
     setIsLoading(true);
     try {
+      recordSelection(data.plan);
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -280,6 +309,8 @@ export default function RegisterNaturalPage() {
           documentos_adjuntos: Object.fromEntries(
             Object.entries(uploadedDocs).filter(([, v]) => v != null)
           ),
+          modules: [{ id: 'personal', label: 'Cuenta Personal' }],
+          plan: data.plan,
         }),
       });
       const json = await res.json();

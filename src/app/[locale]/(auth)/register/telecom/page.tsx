@@ -20,44 +20,19 @@ import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { usePopularPlan } from '@/hooks/use-popular-plan';
 import { useAuth } from '@/lib/auth/context';
+import { PLANES_MI_LINEA } from '@/lib/planes-data';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { DocumentInput } from '@/components/document-input';
 
-const PLANES_TELECOM = [
-    {
-        id: 'conecta_5gb',
-        nombre: 'Conecta 5G',
-        precioUsd: 5,
-        descripcion: 'Perfecto para uso diario con redes sociales ilimitadas.',
-        color: 'blue',
-        features: ['5 GB de datos 5G', '150 min llamadas', 'Redes Sociales ilimitadas', 'Música streaming'],
-    },
-    {
-        id: 'plus_10gb',
-        nombre: 'Plus 5G',
-        precioUsd: 8,
-        descripcion: 'Navegación fluida y streaming en alta definición.',
-        color: 'indigo',
-        features: ['10 GB de datos 5G', '300 min llamadas', '150 SMS incluidos', 'Streaming video HD'],
-    },
-    {
-        id: 'global_25gb',
-        nombre: 'Global 5G',
-        precioUsd: 14,
-        descripcion: 'Potencia total para productividad y entretenimiento.',
-        color: 'violet',
-        features: ['25 GB de datos 5G', 'Llamadas ilimitadas', '500 SMS incluidos', 'Roaming Premium'],
-    },
-    {
-        id: 'infinite',
-        nombre: 'Infinite 5G',
-        precioUsd: 35,
-        descripcion: 'La experiencia definitiva sin límites de velocidad.',
-        color: 'rose',
-        features: ['Datos ILIMITADOS 5G', 'Todo ilimitado', 'Soporte VIP 24/7', 'eSIM Multi-perfil'],
-    },
-];
+const PLANES_TELECOM = PLANES_MI_LINEA.map(p => ({
+    id: p.id,
+    nombre: p.nombre,
+    precioUsd: p.precioMensualUSD,
+    descripcion: p.caracteristicas[0] || p.nombre,
+    color: p.color,
+    features: p.caracteristicas,
+}));
 
 const schema = z.object({
     tipo_cliente: z.enum(['personal', 'empresarial']),
