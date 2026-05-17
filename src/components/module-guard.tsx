@@ -9,8 +9,8 @@ const MODULE_ROUTE_MAP: Record<string, string[]> = {
   admin: ['contabilidad', 'facturacion', 'inventario', 'nomina', 'tesoreria', 'asesoria-contable', 'contabilidad-comunal', 'rendicion-cuentas', 'presupuesto-participativo', 'contraloria-social', 'presupuesto-publico', 'sigecof', 'rendicion-cgr', 'onapre', 'transparencia'],
   telecom: ['telecom', 'telecomunicaciones'],
   ventas: ['tpv', 'ventas-estrategia', 'inventario', 'fidelizacion', 'ventas'],
-  hr: ['rrhh', 'talento-humano', 'nomina', 'facturacion', 'ivss', 'inces', 'banavih'],
-  legal: ['legal', 'asesoria-legal', 'permisologia', 'facturacion'],
+  hr: ['rrhh', 'talento-humano', 'nomina', 'contabilidad', 'facturacion', 'asesoria-contable', 'ivss', 'inces', 'banavih'],
+  legal: ['legal', 'asesoria-legal', 'permisologia', 'contabilidad', 'facturacion', 'asesoria-contable'],
   socios: ['socios', 'gestion-socios'],
   informatica: ['informatica', 'it', 'sistemas'],
 };
@@ -98,20 +98,7 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
 
     const hasAccess = userModules.some(mod => requiredModules.includes(mod));
 
-    if (hasAccess && layoutKey === 'admin' && user.tipo !== 'admin') {
-      const nonContableAdminModules = requiredModules.filter(
-        mod => mod !== 'contabilidad' && mod !== 'asesoria-contable'
-      );
-      const hasNonContableAccess = userModules.some(mod => nonContableAdminModules.includes(mod));
-      if (hasNonContableAccess) {
-        setAuthorized(true);
-      } else if (!redirectedRef.current) {
-        redirectedRef.current = true;
-        const redirectTo = getUserDefaultDashboard(userModules, user.tipo);
-        router.replace(redirectTo);
-        setAuthorized(false);
-      }
-    } else if (hasAccess) {
+    if (hasAccess) {
       setAuthorized(true);
     } else if (!redirectedRef.current) {
       redirectedRef.current = true;

@@ -1,6 +1,6 @@
 'use client';
 
-import { asesoriaContableNavGroups } from "@/components/app-sidebar-nav-items";
+import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Link } from "@/navigation";
 import { Button } from "../ui/button";
@@ -29,7 +29,7 @@ interface QuickAccessProps {
 }
 
 export function QuickAccess({ navGroups }: QuickAccessProps) {
-    const groupsToShow = navGroups || (asesoriaContableNavGroups as unknown as NavGroup[]).filter(g => 
+    const groupsToShow = navGroups || (adminNavGroups as NavGroup[]).filter(g => 
         g.title === "Ventas y Facturación" ||
         g.title === "Finanzas y Contabilidad" || 
         g.title === "Impuestos y Cumplimiento" ||

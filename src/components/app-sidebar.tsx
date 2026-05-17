@@ -33,14 +33,14 @@ export function AppSidebar() {
     const groups = [];
     const userModules = user?.modules || [];
     
-    if (userModules.includes('contabilidad') && user?.tipo === 'admin') groups.push(asesoriaContableNavGroups);
+    if (userModules.includes('contabilidad')) groups.push(asesoriaContableNavGroups);
     if (userModules.includes('ventas') || userModules.includes('tpv')) groups.push(ventasNavGroups);
     if (userModules.includes('sostenibilidad')) groups.push(sostenibilidadNavGroups);
     if (userModules.includes('legal')) groups.push(legalNavGroups);
     if (userModules.includes('socios')) groups.push(sociosNavGroups);
     if (userModules.includes('telecom')) groups.push(telecomNavGroups);
     
-    return groups.flat();
+    if (groups.length === 0) groups.push(asesoriaContableNavGroups);
   };
 
   const currentGroups = [...globalNavGroups, ...getAuthorizedGroups()];
