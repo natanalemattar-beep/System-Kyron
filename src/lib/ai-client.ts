@@ -1,10 +1,12 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { getApiKey, hasApiKeys } from '@/lib/ai-key-manager';
+import { AiClient } from '@/lib/ai';
 
-export function createClient(): GoogleGenerativeAI | null {
-  const key = getApiKey();
-  if (!key) return null;
-  return new GoogleGenerativeAI(key);
+export function createClient(): AiClient | null {
+  try {
+    const client = new AiClient();
+    return client.isConfigured() ? client : null;
+  } catch {
+    return null;
+  }
 }
 
 export function createModel(
@@ -13,14 +15,10 @@ export function createModel(
 ) {
   const client = createClient();
   if (!client) return null;
-  return client.getGenerativeModel({
-    model: modelName,
-    ...(config ? { generationConfig: config } : {}),
-  });
+  return client;
 }
 
 export function getAiStatus(): { configured: boolean } {
-  return {
-    configured: hasApiKeys(),
-  };
+  const client = new AiClient();
+  return { configured: client.isConfigured() };
 }

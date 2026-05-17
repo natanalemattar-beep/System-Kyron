@@ -47,7 +47,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
             nav_lateral: data.config.nav_lateral ?? false,
           };
           setPrefs(serverPrefs);
-          localStorage.setItem(LOCAL_KEY, JSON.stringify(serverPrefs));
+          try { localStorage.setItem(LOCAL_KEY, JSON.stringify(serverPrefs)); } catch {}
         }
       })
       .catch(() => {})
@@ -65,7 +65,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   const updatePref = useCallback((key: keyof Preferences, value: boolean) => {
     setPrefs(prev => {
       const next = { ...prev, [key]: value };
-      localStorage.setItem(LOCAL_KEY, JSON.stringify(next));
+      try { localStorage.setItem(LOCAL_KEY, JSON.stringify(next)); } catch {}
       return next;
     });
 

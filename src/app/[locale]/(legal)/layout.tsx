@@ -22,7 +22,7 @@ export default function LegalLayout({
 
     useEffect(() => {
         const prevCtx = getModuleContext();
-        if (prevCtx === "admin") {
+        if (prevCtx === "asesoria-contable") {
             setFromAdmin(true);
         }
     }, []);

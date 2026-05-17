@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -31,18 +31,20 @@ export function AIBudgetPlanner() {
     const [showResult, setShowResult] = useState(false);
     const [aiStep, setAiStep] = useState(0);
     
-    const aiSteps = t.raw('ai_steps');
+    const aiSteps = t.raw('ai_steps') ?? ['Sincronizando Tasa BCV', 'Analizando IGTF', 'Validando VEN-NIF', 'Calculando ROI'];
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const handleGenerate = () => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
         setIsGenerating(true);
         setShowResult(false);
         setAiStep(0);
         
-        // Simular pasos de IA
         const interval = setInterval(() => {
             setAiStep(prev => {
                 if (prev >= aiSteps.length - 1) {
                     clearInterval(interval);
+                    intervalRef.current = null;
                     setTimeout(() => {
                         setIsGenerating(false);
                         setShowResult(true);
@@ -52,7 +54,14 @@ export function AIBudgetPlanner() {
                 return prev + 1;
             });
         }, 1200);
+        intervalRef.current = interval;
     };
+
+    useEffect(() => {
+        return () => {
+            if (intervalRef.current) clearInterval(intervalRef.current);
+        };
+    }, []);
 
     // Lógica determinística de recomendación sincronizada con PricingSection
     const getRecommendation = () => {

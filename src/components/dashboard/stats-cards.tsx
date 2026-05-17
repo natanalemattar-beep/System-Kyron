@@ -50,10 +50,10 @@ export function StatsCards() {
     },
     {
       title: "Facturas Activas",
-      value: data ? String(data.facturas.emitidas) : null,
-      trend: data ? `${data.facturas.vencidas} vencidas` : "—",
+      value: data ? String(data.facturas?.emitidas ?? 0) : null,
+      trend: data ? `${data.facturas?.vencidas ?? 0} vencidas` : "—",
       icon: Receipt,
-      positive: data ? data.facturas.vencidas === 0 : true,
+      positive: data ? (data.facturas?.vencidas ?? 0) === 0 : true,
     },
   ];
 

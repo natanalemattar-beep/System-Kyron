@@ -25,7 +25,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     const { user } = useAuth();
     const { prefs } = usePreferences();
     const pathname = usePathname();
-    useSetModuleContext("admin");
+    useSetModuleContext("asesoria-contable");
     const isVentasSection = VENTAS_PATHS.some(p => pathname.startsWith(p));
     const effectiveNavGroups = isVentasSection ? ventasNavGroups : asesoriaContableNavGroups;
     const displayName = user?.tipo === 'juridico'
