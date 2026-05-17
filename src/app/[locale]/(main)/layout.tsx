@@ -9,7 +9,6 @@ import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { useAuth } from "@/lib/auth/context";
 import { asesoriaContableNavGroups } from "@/components/app-sidebar-nav-items";
-import { LazyVoiceAssistant } from "@/components/voice-assistant-lazy";
 
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
 
@@ -53,7 +52,6 @@ export default function MainLayout({
           <ScrollToTop />
           <FinancialToolkit />
           <WelcomeTutorial />
-          <LazyVoiceAssistant />
 
       </div>
     );

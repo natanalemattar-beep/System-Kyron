@@ -24,7 +24,6 @@ import {
     DropdownMenuItem, 
     DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
-import { PitchCoachAI } from "@/components/pitch-coach-ai";
 
 /**
  * KYRON SYSTEM CORE PROTOCOLS v4.0.8
@@ -1111,7 +1110,6 @@ export default function PitchPage() {
 
     return (
         <PasswordGate title="Pitch Ejecutivo" description="Documentación confidencial para inversores y competencia.">
-            <PitchCoachAI currentSlide={slide} />
             <div className={cn("fixed inset-0 bg-[#02040a] text-white flex flex-col overflow-hidden transition-all duration-700 font-[family-name:var(--font-outfit)]", isPrinting ? "print-mode" : "")}>
                 <style jsx global>{`
                     @media print {
