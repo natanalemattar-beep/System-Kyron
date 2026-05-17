@@ -133,28 +133,6 @@ registerAction('regulatory_alerts', async () => {
   return `Monitor regulatorio ejecutado — ${nuevasAlertas} nueva(s) alerta(s) generada(s) para los usuarios`;
 });
 
-registerAction('ai_proactive_investigation', async () => {
-  const { investigarNovedadesRegulatorias } = await import('@/lib/ai-investigator');
-  const novedades = await investigarNovedadesRegulatorias();
-
-  if (novedades.length > 0) {
-    for (const n of novedades) {
-      await safeQuery(
-        `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-         SELECT id, 'regulatorio', $1, $2, $3, 'email,app'
-         FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`,
-        [
-          `[IA Kyron] Investigación: ${n.titulo}`,
-          `${n.resumen}\n\nFuente probable: ${n.fuente_probable}\n\nAcción recomendada: ${n.accion_recomendada}`,
-          n.impacto === 'alto' ? 'critica' : 'alta'
-        ]
-      );
-    }
-  }
-
-  return `Investigación IA completada: ${novedades.length} novedad(es) detectada(s) y procesada(s)`;
-});
-
 registerAction('db_health_check', async () => {
   const start = Date.now();
   const userRow = await queryOne<{ total: string }>('SELECT COUNT(*) as total FROM users');

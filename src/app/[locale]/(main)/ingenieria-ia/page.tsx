@@ -14,13 +14,10 @@ import { Label } from "@/components/ui/label";
 import { formatCurrency, cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { generateEngineeringInsights } from "@/app/actions/ai-chat";
-
 export default function IngenieriaTecnicaPage() {
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
     const [planoGenerado, setPlanoGenerado] = useState<string | null>(null);
-    const [aiInsights, setAiInsights] = useState<string | null>(null);
 
     const handleGenerate = async () => {
         setIsLoading(true);
@@ -32,9 +29,7 @@ export default function IngenieriaTecnicaPage() {
             });
             if (res.ok) {
                 setPlanoGenerado("https://picsum.photos/seed/blueprint/1200/800");
-                const insights = await generateEngineeringInsights({ categoria: "ingenieria", subcategoria: "generacion_plano" });
-                setAiInsights(insights);
-                toast({ title: "PROCESAMIENTO EXITOSO", description: "Protocolo de IA completado. Datos técnicos inyectados." });
+                toast({ title: "PROCESAMIENTO EXITOSO", description: "Plano generado correctamente." });
             } else {
                 toast({ variant: "destructive", title: "FALLA DE SISTEMA", description: "No se pudo sincronizar con el motor de renderizado." });
             }
@@ -142,17 +137,6 @@ export default function IngenieriaTecnicaPage() {
                                         <Image src={planoGenerado} alt="Plano Técnico" fill className="object-contain p-12 opacity-90 drop-shadow-[0_0_50px_rgba(37,99,235,0.2)]" />
                                     </div>
 
-                                    <div className="p-10 bg-primary/5 border-t border-primary/20">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <div className="p-2 rounded-xl bg-primary/20">
-                                                <Brain className="h-5 w-5 text-primary" />
-                                            </div>
-                                            <span className="text-[11px] font-black uppercase tracking-[0.3em] text-primary">Protocolo Kyron.Insights</span>
-                                        </div>
-                                        <p className="text-sm font-medium text-slate-800 dark:text-white/80 leading-relaxed font-inter italic">
-                                            "{aiInsights}"
-                                        </p>
-                                    </div>
                                 </Card>
                             </motion.div>
                         ) : (

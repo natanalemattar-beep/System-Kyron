@@ -26,15 +26,6 @@ const IDENTITIES = [
   { key: "rrhh", role: "Kyron RRHH", icon: CircleUserRound, color: "from-[#ec4899] to-[#f43f5e]", desc: "Nómina LOTTT, prestaciones" },
 ];
 
-const CONTEXTS: Record<string, string> = {
-  master: "El usuario está en el Centro de Control Kyron Core. Está DENTRO de la plataforma autenticado. Domina todos los módulos: Contabilidad VEN-NIF, RRHH LOTTT, Telecom 5G, Sostenibilidad, Legal, Portal Ciudadano.",
-  fiscal: "El usuario está en el Módulo de Auditoría Fiscal. Está DENTRO de la plataforma autenticado. Prioriza respuestas sobre IVA 16%, ISLR, IGTF 3%, retenciones, libros fiscales, SENIAT, tasa BCV y normativa VEN-NIF.",
-  legal: "El usuario está en el Centro de Asistencia Legal. Está DENTRO de la plataforma autenticado. Prioriza respuestas sobre contratos, SAREN, SAPI, registros mercantiles y normativa venezolana.",
-  telecom: "El usuario está en la Central de Gestión Telecom. Está DENTRO de la plataforma autenticado. Prioriza respuestas sobre líneas 5G, eSIM, flota empresarial, planes y facturación telecom.",
-  verde: "El usuario está en el Panel de Sostenibilidad. Está DENTRO de la plataforma autenticado. Prioriza respuestas sobre Eco-Créditos, reciclaje tecnológico, economía circular y activos verdes.",
-  rrhh: "El usuario está en el Centro de Gestión de Nómina. Está DENTRO de la plataforma autenticado. Prioriza respuestas sobre nómina LOTTT, prestaciones, vacaciones, liquidaciones, IVSS, INCES, BANAVIH.",
-};
-
 const GREETINGS: Record<string, string> = {
   master: "Soy Kyron Master. Tengo visión completa del ecosistema. ¿En qué módulo necesitas ayuda?",
   fiscal: "Soy Kyron Fiscal. Especialista en contabilidad VEN-NIF, impuestos y cumplimiento SENIAT. ¿Qué necesitas calcular o consultar?",
@@ -273,67 +264,10 @@ export default function KyronChatPage() {
     abortControllerRef.current = controller;
 
     try {
-      const res = await fetch('/api/core/engine-query', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: newMessages.map(m => ({ role: m.role, content: m.content })),
-          context: CONTEXTS[selectedIdentity] || CONTEXTS.master,
-          stream: true,
-        }),
-        signal: controller.signal,
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({ error: 'Error de conexión' }));
-        setMessages(prev => [...prev, { role: 'assistant', content: err.error || 'Error al procesar la solicitud.' }]);
-        setIsStreaming(false);
-        return;
-      }
-
-      const reader = res.body?.getReader();
-      if (!reader) throw new Error('No readable stream');
-
-      const decoder = new TextDecoder();
-      let accumulated = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split('\n');
-
-        for (const line of lines) {
-          if (!line.startsWith('data: ')) continue;
-          try {
-            const data = JSON.parse(line.slice(6));
-            if (data.text) {
-              accumulated += data.text;
-              setStreamingText(accumulated);
-            }
-            if (data.done) {
-              setMessages(prev => [...prev, { role: 'assistant', content: accumulated }]);
-              setStreamingText('');
-              setIsStreaming(false);
-              return;
-            }
-            if (data.error) {
-              setMessages(prev => [...prev, { role: 'assistant', content: data.error }]);
-              setStreamingText('');
-              setIsStreaming(false);
-              return;
-            }
-          } catch {}
-        }
-      }
-
-      if (accumulated && !controller.signal.aborted) {
-        setMessages(prev => [...prev, { role: 'assistant', content: accumulated }]);
-        setStreamingText('');
-      }
-    } catch (err) {
-      if (err instanceof DOMException && err.name === 'AbortError') return;
+      await new Promise(resolve => setTimeout(resolve, 500));
+      const respuesta = "Mensaje recibido. El asistente no está disponible en este momento.";
+      setMessages(prev => [...prev, { role: 'assistant', content: respuesta }]);
+    } catch {
       setMessages(prev => [...prev, { role: 'assistant', content: 'Error de conexión. Inténtalo de nuevo.' }]);
     } finally {
       setIsStreaming(false);

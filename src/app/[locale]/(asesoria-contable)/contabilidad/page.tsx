@@ -6,16 +6,11 @@ import { moduleTutorials } from "@/lib/module-tutorials";
 import { Link } from "@/navigation";
 import {
   Calculator, Wallet, TrendingUp, Activity, BookOpen, Receipt, Users, HandCoins, Zap,
-  ArrowRight, Book, History, Box, Landmark, BrainCircuit, ShieldCheck, Bot, Loader2,
+  ArrowRight, Book, History, Box, Landmark, BrainCircuit, ShieldCheck, Loader2,
   ShieldAlert, ChartColumn, CircleCheck as CircleCheck, Handshake,
   CreditCard, Smartphone, Building2, MessageSquare, Heart, Shield, Car,
-  Banknote, RefreshCw, Store, Wifi, Globe, Sparkles
+  Banknote, RefreshCw, Store, Wifi, Globe
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { cn } from "@/lib/utils";
-import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -132,11 +127,6 @@ interface DashboardKPI {
 export default function ContabilidadPage() {
   const { toast } = useToast();
   const [isAuditing, setIsAuditing] = useState(false);
-  const [showAI, setShowAI] = useState(false);
-  const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
-  const [aiLoading, setAiLoading] = useState(false);
-  const [aiStreaming, setAiStreaming] = useState(false);
-  const aiAbortRef = useMemo(() => ({ current: null as AbortController | null }), []);
   const [kpi, setKpi] = useState<DashboardKPI | null>(null);
   const [kpiLoading, setKpiLoading] = useState(true);
 
@@ -157,106 +147,6 @@ export default function ContabilidadPage() {
       .catch((err) => { console.warn('[contabilidad-kpi]', err.message); })
       .finally(() => setKpiLoading(false));
   }, []);
-
-  const handleAIAnalysis = useCallback(async () => {
-    if (aiAbortRef.current) aiAbortRef.current.abort();
-    const abort = new AbortController();
-    aiAbortRef.current = abort;
-
-    setShowAI(true);
-    setAiLoading(true);
-    setAiStreaming(false);
-    setAiAnalysis("");
-    try {
-      const res = await fetch("/api/ai/analyze-dashboard", {
-        method: "POST",
-        signal: abort.signal,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          module: "Centro Contable — VEN-NIF",
-          stream: true,
-          data: kpi ?? {},
-          context: "Dashboard contable empresarial Venezuela. Normas VEN-NIF, SENIAT, retenciones ISLR/IVA. Fecha: " + new Date().toLocaleDateString("es-VE"),
-        }),
-      });
-
-      if (!res.ok) {
-        const json = await res.json().catch(() => ({ error: "Error del servidor" }));
-        toast({ title: "Error", description: json.error, variant: "destructive" });
-        setShowAI(false);
-        setAiLoading(false);
-        return;
-      }
-
-      const reader = res.body?.getReader();
-      if (!reader) { setAiLoading(false); return; }
-
-      setAiStreaming(true); setAiLoading(false);
-
-      const decoder = new TextDecoder();
-      let buffer = "";
-      let fullText = "";
-
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split("\n");
-          buffer = lines.pop() ?? "";
-          for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              try {
-                const parsed = JSON.parse(line.slice(6));
-                if (parsed.text) {
-                  fullText += parsed.text;
-                  setAiAnalysis(fullText);
-                }
-              } catch {}
-            }
-          }
-        }
-      } finally {
-        setAiStreaming(false);
-      }
-      if (!fullText) setAiAnalysis("No se pudo generar el análisis. Intente nuevamente.");
-    } catch (err) {
-      if ((err as Error)?.name !== "AbortError") {
-        toast({ title: "Error de conexión", variant: "destructive" });
-        setShowAI(false);
-      }
-    } finally {
-      setAiLoading(false); setAiStreaming(false);
-    }
-  }, [toast, kpi, aiAbortRef]);
-
-  const runForensicAudit = async () => {
-    setIsAuditing(true);
-    toast({ title: "Iniciando auditoría", description: "Escaneando el Ledger central VEN-NIF..." });
-    try {
-      const res = await fetch("/api/solicitudes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ categoria: "contabilidad", subcategoria: "auditoria_forense", descripcion: "Auditoría forense del Ledger central VEN-NIF" }),
-      });
-      if (res.ok) {
-        toast({ title: "Análisis completado", description: "Auditoría forense registrada. Resultados disponibles en el panel." });
-      } else {
-        toast({ variant: "destructive", title: "Error", description: "No se pudo iniciar la auditoría." });
-      }
-    } catch {
-      toast({ variant: "destructive", title: "Error de conexión" });
-    } finally {
-      setIsAuditing(false);
-    }
-  };
-
-  const kpiCards = [
-    { label: "Liquidez", val: kpi ? formatCurrency(kpi.liquidez, "Bs.") : "—", color: "text-emerald-600", icon: Wallet },
-    { label: "Cuentas por Cobrar", val: kpi ? formatCurrency(kpi.cuentasCobrar, "Bs.") : "—", color: "text-primary", icon: TrendingUp },
-    { label: "Cuentas por Pagar", val: kpi ? formatCurrency(kpi.cuentasPagar, "Bs.") : "—", color: "text-rose-600", icon: HandCoins },
-    { label: "Facturas Activas", val: kpi ? String(kpi.facturasActivas) : "—", color: "text-amber-600", icon: Receipt },
-  ];
 
   return (
     <div className="p-6 md:p-10 space-y-10 min-h-screen bg-background">
@@ -307,20 +197,6 @@ export default function ContabilidadPage() {
 
       <div className="grid lg:grid-cols-12 gap-8">
         <div className="lg:col-span-4 space-y-6">
-          <Card className="border rounded-2xl shadow-sm p-8">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <Bot className="h-6 w-6 text-primary" />
-                <h3 className="text-lg font-semibold uppercase tracking-tight">Asistente IA</h3>
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Análisis contable automatizado con inteligencia artificial sobre los datos reales del período actual.
-              </p>
-              <Button variant="secondary" className="w-full rounded-xl" onClick={handleAIAnalysis}>
-                <Sparkles className="mr-2 h-4 w-4" /> Analizar Dashboard
-              </Button>
-            </div>
-          </Card>
         </div>
 
         <div className="lg:col-span-8 space-y-8">
@@ -431,55 +307,7 @@ export default function ContabilidadPage() {
         </div>
       </section>
 
-      <Dialog open={showAI} onOpenChange={setShowAI}>
-        <DialogContent className="max-w-3xl max-h-[85vh] flex flex-col rounded-2xl">
-          <DialogHeader>
-            <DialogTitle className="text-sm font-bold flex items-center gap-2">
-              <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-md shadow-cyan-500/20">
-                <Sparkles className="h-3.5 w-3.5 text-white" />
-              </div>
-              <div>
-                <span>KYRON Analytics — Contabilidad</span>
-                <p className="text-[11px] font-normal text-muted-foreground/50 mt-0.5">Análisis contable VEN-NIF en tiempo real</p>
-              </div>
-            </DialogTitle>
-          </DialogHeader>
-          <div className="flex-1 overflow-y-auto py-2 min-h-0">
-            {aiLoading && !aiAnalysis ? (
-              <div className="flex items-center justify-center py-12 gap-3 text-muted-foreground">
-                <Loader2 className="h-5 w-5 animate-spin" />
-                <span className="text-sm font-medium">Procesando análisis contable...</span>
-              </div>
-            ) : aiAnalysis ? (
-              <div className="space-y-3">
-                <div className="p-5 bg-gradient-to-br from-cyan-500/[0.02] to-blue-500/[0.02] rounded-xl border border-cyan-500/8">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-cyan-400">Análisis Ejecutivo</span>
-                    {aiStreaming && <span className="text-[11px] text-muted-foreground/40 animate-pulse ml-auto">● Generando...</span>}
-                  </div>
-                  <div className="prose prose-sm dark:prose-invert max-w-none prose-headings:text-sm prose-headings:font-bold prose-p:text-xs prose-p:leading-relaxed prose-li:text-xs prose-li:leading-relaxed prose-strong:text-foreground">
-                    <MarkdownRenderer content={aiAnalysis} />
-                  </div>
-                </div>
-                {!aiLoading && !aiStreaming && (
-                  <p className="text-[11px] text-muted-foreground/30 px-1">Powered by KYRON AI</p>
-                )}
-              </div>
-            ) : (
-              <p className="text-muted-foreground text-sm text-center py-8">No se pudo generar el análisis.</p>
-            )}
-          </div>
-          <DialogFooter className="flex-row gap-2">
-            {(aiAnalysis && !aiLoading && !aiStreaming) && (
-              <Button variant="outline" onClick={handleAIAnalysis} disabled={aiLoading || aiStreaming} className="rounded-xl text-xs h-8 mr-auto">
-                <RefreshCw className="mr-1.5 h-3 w-3" /> Regenerar
-              </Button>
-            )}
-            <Button variant="outline" className="rounded-xl text-xs h-8" onClick={() => setShowAI(false)}>Cerrar</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+
     </div>
   );
 }
