@@ -140,7 +140,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                 <SheetContent side="left" className="w-[85vw] max-w-[340px] p-0 bg-background border-r border-border/30 flex flex-col">
                     <SheetHeader className="p-5 border-b border-border/20 bg-muted/5 flex flex-row items-center justify-between shrink-0 space-y-0">
                         <div className="flex items-center gap-3">
-                            <Logo className="h-7 w-7" />
+                            <Logo className="h-12 w-12" />
                             <div className="flex flex-col">
                                 <SheetTitle className="text-[11px] font-semibold uppercase tracking-[0.15em] italic leading-none">System Kyron</SheetTitle>
                                 <p className="text-[7px] font-bold uppercase tracking-wide mt-0.5 kyron-gradient-text">Control Corporativo</p>
@@ -291,7 +291,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
             </Sheet>
 
             <Link href={dashboardHref as any} className="flex items-center gap-2.5 group shrink-0">
-                <Logo className="h-7 w-7 transition-transform duration-200 group-hover:scale-105" /> 
+                <Logo className="h-12 w-12 transition-transform duration-200 group-hover:scale-105" /> 
                 <div className="flex-col hidden sm:flex">
                     <span className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground italic leading-none">System Kyron</span>
                     <p className="text-[6px] font-bold uppercase tracking-[0.15em] mt-0.5 kyron-gradient-text opacity-70">Portal Corporativo</p>

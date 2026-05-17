@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useTheme } from "next-themes";
@@ -19,7 +18,7 @@ export function Logo({ className, id, variant }: LogoProps) {
   }, []);
 
   // Determine logo source based on variant or theme
-   let logoSrc = "/images/logo-kyron.png";
+  let logoSrc = "/images/logo-kyron.png";
 
   if (variant === 'dark') {
     logoSrc = "/images/logo-kyron.png";
@@ -33,7 +32,7 @@ export function Logo({ className, id, variant }: LogoProps) {
     <div
       id={id}
       className={cn(
-        "relative flex items-center justify-center shrink-0",
+        "relative flex items-center justify-center shrink-0 aspect-square",
         className
       )}
     >

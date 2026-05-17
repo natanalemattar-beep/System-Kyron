@@ -62,62 +62,76 @@ async function extractPptxText(base64Data: string): Promise<string> {
 export async function POST(req: NextRequest) {
   try {
     const { image, type, messages } = await req.json();
+    const maxAttempts = 3;
+    let lastError: any;
 
-     const model = createModel("gemini-2.0-flash", {
-      temperature: 0.7,
-      maxOutputTokens: 2048,
-    });
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        const model = createModel("gemini-2.0-flash");
+        if (!model) {
+          return NextResponse.json({ error: 'API key no configurada en Vercel' }, { status: 500 });
+        }
 
-    if (!model) {
-      return NextResponse.json({ error: 'API key no configurada en Vercel' }, { status: 500 });
+        if (type === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' && image) {
+          const base64Data = image.split(',')[1];
+          const text = await extractPptxText(base64Data);
+
+          const result = await model.generateContent([
+            { text: SYSTEM_PROMPT + '\n\nAnaliza el contenido de esta presentación (texto extraído de las diapositivas): ' + text },
+          ]);
+          const response = await result.response;
+          return NextResponse.json({ content: response.text() });
+        }
+
+        if (image) {
+          const base64Data = image.split(',')[1];
+          const mimeType = image.split(',')[0].split(':')[1].split(';')[0];
+
+          const result = await model.generateContent([
+            {
+              inlineData: {
+                data: base64Data,
+                mimeType,
+              },
+            },
+            { text: SYSTEM_PROMPT + '\n\nAnaliza esta diapositiva/presentación y proporciona un análisis detallado.' },
+          ]);
+
+          const response = await result.response;
+          return NextResponse.json({ content: response.text() });
+        }
+
+        if (messages && messages.length > 0) {
+          const chat = model.startChat({
+            history: messages.slice(0, -1).map((m: { role: string; content: string }) => ({
+              role: m.role === 'user' ? 'user' : 'model',
+              parts: [{ text: m.content }],
+            })),
+            systemInstruction: SYSTEM_PROMPT,
+          });
+
+          const lastMessage = messages[messages.length - 1].content;
+          const result = await chat.sendMessage(lastMessage);
+          const response = await result.response;
+          return NextResponse.json({ content: response.text() });
+        }
+
+        return NextResponse.json({ error: 'Se requiere una imagen o mensajes' }, { status: 400 });
+
+      } catch (error: any) {
+        lastError = error;
+        if (error.message?.includes('429') || error.message?.includes('quota') || error.message?.includes('RESOURCE_EXHAUSTED')) {
+          console.warn(`[pitch-analyze-retry] Attempt ${attempt + 1} failed due to quota. Retrying with next key...`);
+          await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+          continue;
+        }
+        break;
+      }
     }
 
-    if (type === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' && image) {
-      const base64Data = image.split(',')[1];
-      const text = await extractPptxText(base64Data);
+    throw lastError;
 
-      const result = await model.generateContent([
-        { text: SYSTEM_PROMPT + '\n\nAnaliza el contenido de esta presentación (texto extraído de las diapositivas): ' + text },
-      ]);
-      const response = await result.response;
-      return NextResponse.json({ content: response.text() });
-    }
-
-    if (image) {
-      const base64Data = image.split(',')[1];
-      const mimeType = image.split(',')[0].split(':')[1].split(';')[0];
-
-      const result = await model.generateContent([
-        {
-          inlineData: {
-            data: base64Data,
-            mimeType,
-          },
-        },
-        { text: SYSTEM_PROMPT + '\n\nAnaliza esta diapositiva/presentación y proporciona un análisis detallado.' },
-      ]);
-
-      const response = await result.response;
-      return NextResponse.json({ content: response.text() });
-    }
-
-    if (messages && messages.length > 0) {
-      const chat = model.startChat({
-        history: messages.slice(0, -1).map((m: { role: string; content: string }) => ({
-          role: m.role === 'user' ? 'user' : 'model',
-          parts: [{ text: m.content }],
-        })),
-        systemInstruction: SYSTEM_PROMPT,
-      });
-
-      const lastMessage = messages[messages.length - 1].content;
-      const result = await chat.sendMessage(lastMessage);
-      const response = await result.response;
-      return NextResponse.json({ content: response.text() });
-    }
-
-    return NextResponse.json({ error: 'Se requiere una imagen o mensajes' }, { status: 400 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('[pitch-analyze] Critical Error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Error inesperado en el servicio de IA';
     return NextResponse.json({

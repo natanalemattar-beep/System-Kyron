@@ -98,7 +98,7 @@ export function LandingHeader() {
                     {/* Logo Section */}
                     <Link href="/" prefetch={false} className="flex items-center gap-3.5 group shrink-0">
                         <div className="relative">
-                            <Logo className="h-9 w-9 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 drop-shadow-glow shrink-0" />
+                            <Logo className="h-12 w-12 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 drop-shadow-glow shrink-0" />
                             <div className="absolute -inset-2 bg-cyan-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
                         <div className="flex flex-col leading-none">
