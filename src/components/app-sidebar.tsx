@@ -41,6 +41,7 @@ export function AppSidebar() {
     if (userModules.includes('telecom')) groups.push(telecomNavGroups);
     
     if (groups.length === 0) groups.push(asesoriaContableNavGroups);
+    return groups;
   };
 
   const currentGroups = [...globalNavGroups, ...getAuthorizedGroups()];
