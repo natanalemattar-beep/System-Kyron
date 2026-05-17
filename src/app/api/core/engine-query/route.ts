@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     }
 
     const lastMessage = messages[messages.length - 1].content;
-    const maxAttempts = 3;
+    const maxAttempts = 4;
     let lastError: any;
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
