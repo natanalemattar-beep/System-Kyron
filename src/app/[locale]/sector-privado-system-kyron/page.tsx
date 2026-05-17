@@ -23,7 +23,11 @@ import {
     Globe,
     Package,
     Instagram,
-    Sparkles
+    Sparkles,
+    Leaf,
+    Recycle,
+    PhoneCall,
+    Scale
 } from 'lucide-react';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
 import { Link } from '@/navigation';
@@ -519,92 +523,459 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 {/* P5 (C2-Center, Inside Center): EL ECOSISTEMA (Ancho: 3.69in) */}
                 <div className="w-[3.69in] border-r border-zinc-800 p-6 flex flex-col relative z-10 bg-[#09090b] min-h-0">
                     <div className="mb-4">
-                        <span className="inline-block px-2 py-1 bg-cyan-950 rounded-md text-[9px] font-black uppercase tracking-widest text-cyan-400 mb-2 border border-cyan-900 shadow-lg">Herramientas Base</span>
+                        <span className="inline-block px-2 py-1 bg-cyan-950 rounded-md text-[9px] font-black uppercase tracking-widest text-cyan-400 mb-2 border border-cyan-900 shadow-lg">Todo Integrado</span>
                         <h3 className="text-[20px] font-black uppercase tracking-tighter text-white leading-tight">El Ecosistema<br/><span className="text-cyan-400 font-medium">Funcional.</span></h3>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 flex-1 content-start mt-1">
                         {[
-                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas."},
-                            {I:Package, t:"Inventario", d:"Control de stock."},
-                            {I:Users, t:"Recursos Humanos", d:"Nómina y control."},
-                            {I:Calculator, t:"Finanzas", d:"Cuentas al día."},
-                            {I:FileText, t:"Facturación", d:"Manejo de IGTF."},
-                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas."},
-                            {I:Lock, t:"Seguridad", d:"Permisos y roles."},
-                            {I:Leaf, t:"Cero Papel", d:"Impacto Ambiental."},
-                            {I:Recycle, t:"Smart Bins", d:"Alianza Ameru."}
+                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas y facturación fiscal."},
+                            {I:Package, t:"Inventario", d:"Control de stock en tiempo real."},
+                            {I:Users, t:"Recursos Humanos", d:"Nómina, LOTTT y bienestar."},
+                            {I:Calculator, t:"Finanzas", d:"Cuentas por cobrar y pagar."},
+                            {I:FileText, t:"Facturación", d:"Manejo automático de IGTF/IVA."},
+                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas y dashboards."},
+                            {I:Lock, t:"Seguridad", d:"Roles, permisos y auditoría."},
+                            {I:Leaf, t:"Cero Papel", d:"Digitalización total de procesos."},
+                            {I:Recycle, t:"Smart Bins", d:"Alianza estratégica con Ameru AI."}
                         ].map(({I,t,d},i)=>(
                             <motion.div 
                                 key={i} 
-                                whileHover={{ scale: 1.02, backgroundColor: "rgba(39, 39, 42, 0.8)" }}
-                                transition={{ type: "spring", stiffness: 400, damping: 35 }}
-                                className="flex flex-col p-2 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0"
+                                whileHover={{ scale: 1.03, backgroundColor: "rgba(6, 182, 212, 0.05)" }}
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                className="flex flex-col p-2.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0 group"
                             >
-                                <I className="h-5 w-5 text-cyan-400 mb-1" />
-                                <h4 className="font-black text-white uppercase text-[9px] tracking-widest mb-0.5">{t}</h4>
-                                <p className="text-[9px] text-zinc-400 font-bold leading-tight">{d}</p>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="p-1 bg-zinc-800 rounded-md group-hover:bg-cyan-900/30 transition-colors">
+                                        <I className="h-3.5 w-3.5 text-cyan-400" />
+                                    </div>
+                                    <h4 className="font-black text-white uppercase text-[9px] tracking-widest">{t}</h4>
+                                </div>
+                                <p className="text-[8px] text-zinc-500 group-hover:text-zinc-300 font-bold leading-tight pl-7">{d}</p>
                             </motion.div>
                         ))}
                     </div>
 
-                    <div className="mt-4 p-3 bg-zinc-900 rounded-xl border border-zinc-800 text-center">
-                        <p className="text-[12px] text-white font-black leading-tight italic">
-                            "Módulos interconectados en armonía."
+                    <div className="mt-4 p-3 bg-gradient-to-r from-cyan-950/20 to-blue-950/20 rounded-xl border border-cyan-500/10 text-center">
+                        <p className="text-[10px] text-cyan-400 font-black uppercase tracking-widest mb-1">¿Por qué System Kyron?</p>
+                        <p className="text-[9px] text-zinc-300 font-bold leading-tight">
+                            Somos el único ERP venezolano que integra <span className="text-white">Contabilidad + Legal + Telecom + Sostenibilidad</span> en una sola plataforma.
                         </p>
                     </div>
                 </div>
 
-                {/* P6 (C2-Right, Inside Right): LA INNOVACIÓN (Ancho: 3.62in) */}
-                <div className="w-[3.62in] p-6 flex flex-col relative z-10 bg-[#09090b] min-h-0">
-                    <div className="mb-4">
-                        <span className="inline-block px-2 py-1 bg-zinc-800 rounded-md text-[9px] font-black uppercase tracking-widest text-zinc-300 mb-2 border border-zinc-700 shadow-lg">Ventaja Competitiva</span>
-                        <h3 className="text-[20px] font-black uppercase tracking-tighter text-white leading-tight">La Innovación<br/><span className="text-zinc-500 font-medium">detrás del sistema.</span></h3>
+                    <div className="grid grid-cols-2 gap-2 flex-1 content-start mt-1">
+                        {[
+                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas y facturación fiscal."},
+                            {I:Package, t:"Inventario", d:"Control de stock en tiempo real."},
+                            {I:Users, t:"Recursos Humanos", d:"Nómina, LOTTT y bienestar."},
+                            {I:Calculator, t:"Finanzas", d:"Cuentas por cobrar y pagar."},
+                            {I:FileText, t:"Facturación", d:"Manejo automático de IGTF/IVA."},
+                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas y dashboards."},
+                            {I:Lock, t:"Seguridad", d:"Roles, permisos y auditoría."},
+                            {I:Leaf, t:"Cero Papel", d:"Digitalización total de procesos."},
+                            {I:Recycle, t:"Smart Bins", d:"Alianza estratégica con Ameru AI."}
+                        ].map(({I,t,d},i)=>(
+                            <motion.div 
+                                key={i} 
+                                whileHover={{ scale: 1.03, backgroundColor: "rgba(6, 182, 212, 0.05)" }}
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                className="flex flex-col p-2.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0 group"
+                            >
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="p-1 bg-zinc-800 rounded-md group-hover:bg-cyan-900/30 transition-colors">
+                                        <I className="h-3.5 w-3.5 text-cyan-400" />
+                                    </div>
+                                    <h4 className="font-black text-white uppercase text-[9px] tracking-widest">{t}</h4>
+                                </div>
+                                <p className="text-[8px] text-zinc-500 group-hover:text-zinc-300 font-bold leading-tight pl-7">{d}</p>
+                            </motion.div>
+                        ))}
                     </div>
 
-                    <div className="space-y-4 flex-1 mt-2">
-                        <div className="relative pl-5 border-l-[2px] border-cyan-500 pb-2">
-                            <div className="absolute left-[-9px] top-0 h-4 w-4 rounded-full bg-cyan-500 border-2 border-cyan-500 flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.5)]">
-                                <div className="h-1.5 w-1.5 bg-white rounded-full" />
+                    <div className="mt-4 p-3 bg-gradient-to-r from-cyan-950/20 to-blue-950/20 rounded-xl border border-cyan-500/10 text-center">
+                        <p className="text-[10px] text-cyan-400 font-black uppercase tracking-widest mb-1">¿Por qué System Kyron?</p>
+                        <p className="text-[9px] text-zinc-300 font-bold leading-tight">
+                            Somos el único ERP venezolano que integra <span className="text-white">Contabilidad + Legal + Telecom + Sostenibilidad</span> en una sola plataforma.
+                        </p>
+                    </div>
+                </div>
+
+                    <div className="grid grid-cols-2 gap-2 flex-1 content-start mt-1">
+                        {[
+                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas y facturación fiscal."},
+                            {I:Package, t:"Inventario", d:"Control de stock en tiempo real."},
+                            {I:Users, t:"Recursos Humanos", d:"Nómina, LOTTT y bienestar."},
+                            {I:Calculator, t:"Finanzas", d:"Cuentas por cobrar y pagar."},
+                            {I:FileText, t:"Facturación", d:"Manejo automático de IGTF/IVA."},
+                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas y dashboards."},
+                            {I:Lock, t:"Seguridad", d:"Roles, permisos y auditoría."},
+                            {I:Leaf, t:"Cero Papel", d:"Digitalización total de procesos."},
+                            {I:Recycle, t:"Smart Bins", d:"Alianza estratégica con Ameru AI."}
+                        ].map(({I,t,d},i)=>(
+                            <motion.div 
+                                key={i} 
+                                whileHover={{ scale: 1.03, backgroundColor: "rgba(6, 182, 212, 0.05)" }}
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                className="flex flex-col p-2.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0 group"
+                            >
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="p-1 bg-zinc-800 rounded-md group-hover:bg-cyan-900/30 transition-colors">
+                                        <I className="h-3.5 w-3.5 text-cyan-400" />
+                                    </div>
+                                    <h4 className="font-black text-white uppercase text-[9px] tracking-widest">{t}</h4>
+                                </div>
+                                <p className="text-[8px] text-zinc-500 group-hover:text-zinc-300 font-bold leading-tight pl-7">{d}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="mt-4 p-3 bg-gradient-to-r from-cyan-950/20 to-blue-950/20 rounded-xl border border-cyan-500/10 text-center">
+                        <p className="text-[10px] text-cyan-400 font-black uppercase tracking-widest mb-1">¿Por qué System Kyron?</p>
+                        <p className="text-[9px] text-zinc-300 font-bold leading-tight">
+                            Somos el único ERP venezolano que integra <span className="text-white">Contabilidad + Legal + Telecom + Sostenibilidad</span> en una sola plataforma.
+                        </p>
+                    </div>
+                </div>
+
+                    <div className="grid grid-cols-2 gap-2 flex-1 content-start mt-1">
+                        {[
+                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas y facturación fiscal."},
+                            {I:Package, t:"Inventario", d:"Control de stock en tiempo real."},
+                            {I:Users, t:"Recursos Humanos", d:"Nómina, LOTTT y bienestar."},
+                            {I:Calculator, t:"Finanzas", d:"Cuentas por cobrar y pagar."},
+                            {I:FileText, t:"Facturación", d:"Manejo automático de IGTF/IVA."},
+                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas y dashboards."},
+                            {I:Lock, t:"Seguridad", d:"Roles, permisos y auditoría."},
+                            {I:Leaf, t:"Cero Papel", d:"Digitalización total de procesos."},
+                            {I:Recycle, t:"Smart Bins", d:"Alianza estratégica con Ameru AI."}
+                        ].map(({I,t,d},i)=>(
+                            <motion.div 
+                                key={i} 
+                                whileHover={{ scale: 1.03, backgroundColor: "rgba(6, 182, 212, 0.05)" }}
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                className="flex flex-col p-2.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0 group"
+                            >
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="p-1 bg-zinc-800 rounded-md group-hover:bg-cyan-900/30 transition-colors">
+                                        <I className="h-3.5 w-3.5 text-cyan-400" />
+                                    </div>
+                                    <h4 className="font-black text-white uppercase text-[9px] tracking-widest">{t}</h4>
+                                </div>
+                                <p className="text-[8px] text-zinc-500 group-hover:text-zinc-300 font-bold leading-tight pl-7">{d}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="mt-4 p-3 bg-gradient-to-r from-cyan-950/20 to-blue-950/20 rounded-xl border border-cyan-500/10 text-center">
+                        <p className="text-[10px] text-cyan-400 font-black uppercase tracking-widest mb-1">¿Por qué System Kyron?</p>
+                        <p className="text-[9px] text-zinc-300 font-bold leading-tight">
+                            Somos el único ERP venezolano que integra <span className="text-white">Contabilidad + Legal + Telecom + Sostenibilidad</span> en una sola plataforma.
+                        </p>
+                    </div>
+                </div>
+
+                    <div className="grid grid-cols-2 gap-2 flex-1 content-start mt-1">
+                        {[
+                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas y facturación fiscal."},
+                            {I:Package, t:"Inventario", d:"Control de stock en tiempo real."},
+                            {I:Users, t:"Recursos Humanos", d:"Nómina, LOTTT y bienestar."},
+                            {I:Calculator, t:"Finanzas", d:"Cuentas por cobrar y pagar."},
+                            {I:FileText, t:"Facturación", d:"Manejo automático de IGTF/IVA."},
+                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas y dashboards."},
+                            {I:Lock, t:"Seguridad", d:"Roles, permisos y auditoría."},
+                            {I:Leaf, t:"Cero Papel", d:"Digitalización total de procesos."},
+                            {I:Recycle, t:"Smart Bins", d:"Alianza estratégica con Ameru AI."}
+                        ].map(({I,t,d},i)=>(
+                            <motion.div 
+                                key={i} 
+                                whileHover={{ scale: 1.03, backgroundColor: "rgba(6, 182, 212, 0.05)" }}
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                className="flex flex-col p-2.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0 group"
+                            >
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="p-1 bg-zinc-800 rounded-md group-hover:bg-cyan-900/30 transition-colors">
+                                        <I className="h-3.5 w-3.5 text-cyan-400" />
+                                    </div>
+                                    <h4 className="font-black text-white uppercase text-[9px] tracking-widest">{t}</h4>
+                                </div>
+                                <p className="text-[8px] text-zinc-500 group-hover:text-zinc-300 font-bold leading-tight pl-7">{d}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="mt-4 p-3 bg-gradient-to-r from-cyan-950/20 to-blue-950/20 rounded-xl border border-cyan-500/10 text-center">
+                        <p className="text-[10px] text-cyan-400 font-black uppercase tracking-widest mb-1">¿Por qué System Kyron?</p>
+                        <p className="text-[9px] text-zinc-300 font-bold leading-tight">
+                            Somos el único ERP venezolano que integra <span className="text-white">Contabilidad + Legal + Telecom + Sostenibilidad</span> en una sola plataforma.
+                        </p>
+                    </div>
+                </div>
+
+                    <div className="grid grid-cols-2 gap-2 flex-1 content-start mt-1">
+                        {[
+                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas y facturación fiscal."},
+                            {I:Package, t:"Inventario", d:"Control de stock en tiempo real."},
+                            {I:Users, t:"Recursos Humanos", d:"Nómina, LOTTT y bienestar."},
+                            {I:Calculator, t:"Finanzas", d:"Cuentas por cobrar y pagar."},
+                            {I:FileText, t:"Facturación", d:"Manejo automático de IGTF/IVA."},
+                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas y dashboards."},
+                            {I:Lock, t:"Seguridad", d:"Roles, permisos y auditoría."},
+                            {I:Leaf, t:"Cero Papel", d:"Digitalización total de procesos."},
+                            {I:Recycle, t:"Smart Bins", d:"Alianza estratégica con Ameru AI."}
+                        ].map(({I,t,d},i)=>(
+                            <motion.div 
+                                key={i} 
+                                whileHover={{ scale: 1.03, backgroundColor: "rgba(6, 182, 212, 0.05)" }}
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                className="flex flex-col p-2.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0 group"
+                            >
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="p-1 bg-zinc-800 rounded-md group-hover:bg-cyan-900/30 transition-colors">
+                                        <I className="h-3.5 w-3.5 text-cyan-400" />
+                                    </div>
+                                    <h4 className="font-black text-white uppercase text-[9px] tracking-widest">{t}</h4>
+                                </div>
+                                <p className="text-[8px] text-zinc-500 group-hover:text-zinc-300 font-bold leading-tight pl-7">{d}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="mt-4 p-3 bg-gradient-to-r from-cyan-950/20 to-blue-950/20 rounded-xl border border-cyan-500/10 text-center">
+                        <p className="text-[10px] text-cyan-400 font-black uppercase tracking-widest mb-1">¿Por qué System Kyron?</p>
+                        <p className="text-[9px] text-zinc-300 font-bold leading-tight">
+                            Somos el único ERP venezolano que integra <span className="text-white">Contabilidad + Legal + Telecom + Sostenibilidad</span> en una sola plataforma.
+                        </p>
+                    </div>
+                </div>
+
+                    <div className="grid grid-cols-2 gap-2 flex-1 content-start mt-1">
+                        {[
+                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas y facturación fiscal."},
+                            {I:Package, t:"Inventario", d:"Control de stock en tiempo real."},
+                            {I:Users, t:"Recursos Humanos", d:"Nómina, LOTTT y bienestar."},
+                            {I:Calculator, t:"Finanzas", d:"Cuentas por cobrar y pagar."},
+                            {I:FileText, t:"Facturación", d:"Manejo automático de IGTF/IVA."},
+                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas y dashboards."},
+                            {I:Lock, t:"Seguridad", d:"Roles, permisos y auditoría."},
+                            {I:Leaf, t:"Cero Papel", d:"Digitalización total de procesos."},
+                            {I:Recycle, t:"Smart Bins", d:"Alianza estratégica con Ameru AI."}
+                        ].map(({I,t,d},i)=>(
+                            <motion.div 
+                                key={i} 
+                                whileHover={{ scale: 1.03, backgroundColor: "rgba(6, 182, 212, 0.05)" }}
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                className="flex flex-col p-2.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0 group"
+                            >
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="p-1 bg-zinc-800 rounded-md group-hover:bg-cyan-900/30 transition-colors">
+                                        <I className="h-3.5 w-3.5 text-cyan-400" />
+                                    </div>
+                                    <h4 className="font-black text-white uppercase text-[9px] tracking-widest">{t}</h4>
+                                </div>
+                                <p className="text-[8px] text-zinc-500 group-hover:text-zinc-300 font-bold leading-tight pl-7">{d}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="mt-4 p-3 bg-gradient-to-r from-cyan-950/20 to-blue-950/20 rounded-xl border border-cyan-500/10 text-center">
+                        <p className="text-[10px] text-cyan-400 font-black uppercase tracking-widest mb-1">¿Por qué System Kyron?</p>
+                        <p className="text-[9px] text-zinc-300 font-bold leading-tight">
+                            Somos el único ERP venezolano que integra <span className="text-white">Contabilidad + Legal + Telecom + Sostenibilidad</span> en una sola plataforma.
+                        </p>
+                    </div>
+                </div>
+
+                    <div className="grid grid-cols-2 gap-2 flex-1 content-start mt-1">
+                        {[
+                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas y facturación fiscal."},
+                            {I:Package, t:"Inventario", d:"Control de stock en tiempo real."},
+                            {I:Users, t:"Recursos Humanos", d:"Nómina, LOTTT y bienestar."},
+                            {I:Calculator, t:"Finanzas", d:"Cuentas por cobrar y pagar."},
+                            {I:FileText, t:"Facturación", d:"Manejo automático de IGTF/IVA."},
+                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas y dashboards."},
+                            {I:Lock, t:"Seguridad", d:"Roles, permisos y auditoría."},
+                            {I:Leaf, t:"Cero Papel", d:"Digitalización total de procesos."},
+                            {I:Recycle, t:"Smart Bins", d:"Alianza estratégica con Ameru AI."}
+                        ].map(({I,t,d},i)=>(
+                            <motion.div 
+                                key={i} 
+                                whileHover={{ scale: 1.03, backgroundColor: "rgba(6, 182, 212, 0.05)" }}
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                className="flex flex-col p-2.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0 group"
+                            >
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="p-1 bg-zinc-800 rounded-md group-hover:bg-cyan-900/30 transition-colors">
+                                        <I className="h-3.5 w-3.5 text-cyan-400" />
+                                    </div>
+                                    <h4 className="font-black text-white uppercase text-[9px] tracking-widest">{t}</h4>
+                                </div>
+                                <p className="text-[8px] text-zinc-500 group-hover:text-zinc-300 font-bold leading-tight pl-7">{d}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="mt-4 p-3 bg-gradient-to-r from-cyan-950/20 to-blue-950/20 rounded-xl border border-cyan-500/10 text-center">
+                        <p className="text-[10px] text-cyan-400 font-black uppercase tracking-widest mb-1">¿Por qué System Kyron?</p>
+                        <p className="text-[9px] text-zinc-300 font-bold leading-tight">
+                            Somos el único ERP venezolano que integra <span className="text-white">Contabilidad + Legal + Telecom + Sostenibilidad</span> en una sola plataforma.
+                        </p>
+                    </div>
+                </div>
+
+                    <div className="grid grid-cols-2 gap-2 flex-1 content-start mt-1">
+                        {[
+                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas y facturación fiscal."},
+                            {I:Package, t:"Inventario", d:"Control de stock en tiempo real."},
+                            {I:Users, t:"Recursos Humanos", d:"Nómina, LOTTT y bienestar."},
+                            {I:Calculator, t:"Finanzas", d:"Cuentas por cobrar y pagar."},
+                            {I:FileText, t:"Facturación", d:"Manejo automático de IGTF/IVA."},
+                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas y dashboards."},
+                            {I:Lock, t:"Seguridad", d:"Roles, permisos y auditoría."},
+                            {I:Leaf, t:"Cero Papel", d:"Digitalización total de procesos."},
+                            {I:Recycle, t:"Smart Bins", d:"Alianza estratégica con Ameru AI."}
+                        ].map(({I,t,d},i)=>(
+                            <motion.div 
+                                key={i} 
+                                whileHover={{ scale: 1.03, backgroundColor: "rgba(6, 182, 212, 0.05)" }}
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                className="flex flex-col p-2.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0 group"
+                            >
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="p-1 bg-zinc-800 rounded-md group-hover:bg-cyan-900/30 transition-colors">
+                                        <I className="h-3.5 w-3.5 text-cyan-400" />
+                                    </div>
+                                    <h4 className="font-black text-white uppercase text-[9px] tracking-widest">{t}</h4>
+                                </div>
+                                <p className="text-[8px] text-zinc-500 group-hover:text-zinc-300 font-bold leading-tight pl-7">{d}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="mt-4 p-3 bg-gradient-to-r from-cyan-950/20 to-blue-950/20 rounded-xl border border-cyan-500/10 text-center">
+                        <p className="text-[10px] text-cyan-400 font-black uppercase tracking-widest mb-1">¿Por qué System Kyron?</p>
+                        <p className="text-[9px] text-zinc-300 font-bold leading-tight">
+                            Somos el único ERP venezolano que integra <span className="text-white">Contabilidad + Legal + Telecom + Sostenibilidad</span> en una sola plataforma.
+                        </p>
+                    </div>
+                </div>
+
+                    <div className="grid grid-cols-2 gap-2 flex-1 content-start mt-1">
+                        {[
+                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas y facturación fiscal."},
+                            {I:Package, t:"Inventario", d:"Control de stock en tiempo real."},
+                            {I:Users, t:"Recursos Humanos", d:"Nómina, LOTTT y bienestar."},
+                            {I:Calculator, t:"Finanzas", d:"Cuentas por cobrar y pagar."},
+                            {I:FileText, t:"Facturación", d:"Manejo automático de IGTF/IVA."},
+                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas y dashboards."},
+                            {I:Lock, t:"Seguridad", d:"Roles, permisos y auditoría."},
+                            {I:Leaf, t:"Cero Papel", d:"Digitalización total de procesos."},
+                            {I:Recycle, t:"Smart Bins", d:"Alianza estratégica con Ameru AI."}
+                        ].map(({I,t,d},i)=>(
+                            <motion.div 
+                                key={i} 
+                                whileHover={{ scale: 1.03, backgroundColor: "rgba(6, 182, 212, 0.05)" }}
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                className="flex flex-col p-2.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0 group"
+                            >
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="p-1 bg-zinc-800 rounded-md group-hover:bg-cyan-900/30 transition-colors">
+                                        <I className="h-3.5 w-3.5 text-cyan-400" />
+                                    </div>
+                                    <h4 className="font-black text-white uppercase text-[9px] tracking-widest">{t}</h4>
+                                </div>
+                                <p className="text-[8px] text-zinc-500 group-hover:text-zinc-300 font-bold leading-tight pl-7">{d}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="mt-4 p-3 bg-gradient-to-r from-cyan-950/20 to-blue-950/20 rounded-xl border border-cyan-500/10 text-center">
+                        <p className="text-[10px] text-cyan-400 font-black uppercase tracking-widest mb-1">¿Por qué System Kyron?</p>
+                        <p className="text-[9px] text-zinc-300 font-bold leading-tight">
+                            Somos el único ERP venezolano que integra <span className="text-white">Contabilidad + Legal + Telecom + Sostenibilidad</span> en una sola plataforma.
+                        </p>
+                    </div>
+                </div>
+
+                {/* P6 (C2-Right, Inside Right): SOLUCIONES PREMIUM (Ancho: 3.62in) */}
+                <div className="w-[3.62in] p-6 flex flex-col relative z-10 bg-[#09090b] min-h-0">
+                    <div className="mb-4">
+                        <span className="inline-block px-2 py-1 bg-cyan-950 rounded-md text-[9px] font-black uppercase tracking-widest text-cyan-400 mb-2 border border-cyan-900 shadow-lg">Tecnología de Punta</span>
+                        <h3 className="text-[20px] font-black uppercase tracking-tighter text-white leading-tight">Soluciones<br/><span className="text-cyan-400 font-medium">de Alto Impacto.</span></h3>
+                    </div>
+
+                    <div className="space-y-3 flex-1 mt-1">
+                        {/* Kyron Shield Card */}
+                        <div className="p-3 bg-zinc-900/60 rounded-xl border border-zinc-800 hover:border-cyan-500/40 transition-all group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-cyan-500/5 rounded-full blur-xl group-hover:bg-cyan-500/10 transition-all" />
+                            <div className="flex items-start gap-3 relative z-10">
+                                <div className="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                    <Scale className="h-4 w-4 text-cyan-400" />
+                                </div>
+                                <div>
+                                    <h4 className="font-black text-white uppercase text-[11px] tracking-widest mb-1">Kyron Shield</h4>
+                                    <p className="text-[10px] text-zinc-400 font-bold leading-tight mb-2">Blindaje Legal con IA</p>
+                                    <ul className="space-y-1">
+                                        <li className="flex items-center gap-1.5 text-[9px] text-zinc-300 font-medium">
+                                            <CircleCheck className="h-3 w-3 text-cyan-500" /> Generación automática de contratos.
+                                        </li>
+                                        <li className="flex items-center gap-1.5 text-[9px] text-zinc-300 font-medium">
+                                            <CircleCheck className="h-3 w-3 text-cyan-500" /> Auditoría preventiva de riesgos.
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1">Conectividad Híbrida</h4>
-                            <p className="text-[11px] text-zinc-300 font-bold leading-snug text-justify">
-                                ¿Sin internet? Sigue facturando localmente. Todo se <span className="text-cyan-400">sincroniza automáticamente</span> al recuperar la conexión.
-                            </p>
                         </div>
 
-                        <div className="relative pl-5 border-l-[2px] border-zinc-700 pb-2">
-                            <div className="absolute left-[-9px] top-0 h-4 w-4 rounded-full bg-[#09090b] border-2 border-zinc-700" />
-                            <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1">Actualización Autónoma</h4>
-                            <p className="text-[11px] text-zinc-300 font-bold leading-snug text-justify">
-                                Normas del SENIAT al día automáticamente. Cumples la ley sin esfuerzo y sin parches manuales.
-                            </p>
-                        </div>
-
-                        <div className="relative pl-5 border-l-[2px] border-zinc-700 pb-2">
-                            <div className="absolute left-[-9px] top-0 h-4 w-4 rounded-full bg-[#09090b] border-2 border-zinc-700" />
-                            <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1">Métricas Dinámicas</h4>
-                            <p className="text-[11px] text-zinc-300 font-bold leading-snug text-justify">
-                                Gráficos interactivos en tiempo real. Analiza qué vendes y a qué hora para tomar decisiones inteligentes.
-                            </p>
-                        </div>
-
-                        <div className="relative pl-5 border-l-[2px] border-emerald-500 pb-2">
-                            <div className="absolute left-[-9px] top-0 h-4 w-4 rounded-full bg-emerald-500 border-2 border-emerald-500 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.5)]">
-                                <div className="h-1.5 w-1.5 bg-white rounded-full" />
+                        {/* Mi Línea 5G Card */}
+                        <div className="p-3 bg-zinc-900/60 rounded-xl border border-zinc-800 hover:border-indigo-500/40 transition-all group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-500/5 rounded-full blur-xl group-hover:bg-indigo-500/10 transition-all" />
+                            <div className="flex items-start gap-3 relative z-10">
+                                <div className="h-8 w-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                    <PhoneCall className="h-4 w-4 text-indigo-400" />
+                                </div>
+                                <div>
+                                    <h4 className="font-black text-white uppercase text-[11px] tracking-widest mb-1">Mi Línea 5G</h4>
+                                    <p className="text-[10px] text-zinc-400 font-bold leading-tight mb-2">Conectividad Corporativa</p>
+                                    <ul className="space-y-1">
+                                        <li className="flex items-center gap-1.5 text-[9px] text-zinc-300 font-medium">
+                                            <CircleCheck className="h-3 w-3 text-indigo-500" /> Activación eSIM inmediata.
+                                        </li>
+                                        <li className="flex items-center gap-1.5 text-[9px] text-zinc-300 font-medium">
+                                            <CircleCheck className="h-3 w-3 text-indigo-500" /> Gestión centralizada de flotas.
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1">Impacto Ambiental</h4>
-                            <p className="text-[11px] text-emerald-400 font-bold leading-snug text-justify">
-                                Digitalización total: eliminamos la huella de carbono administrativa con nuestro modelo "Cero Papel".
-                            </p>
                         </div>
-                        <div className="relative pl-5 border-l-[2px] border-transparent">
-                            <div className="absolute left-[-9px] top-0 h-4 w-4 rounded-full bg-[#09090b] border-2 border-zinc-700" />
-                            <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1">Escalabilidad Total</h4>
-                            <p className="text-[11px] text-zinc-300 font-bold leading-snug text-justify">
-                                Crece de una a cien sucursales. Gestiona inventarios centrales desde un único panel.
-                            </p>
+
+                        {/* Sostenibilidad Ameru Card */}
+                        <div className="p-3 bg-zinc-900/60 rounded-xl border border-zinc-800 hover:border-emerald-500/40 transition-all group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/5 rounded-full blur-xl group-hover:bg-emerald-500/10 transition-all" />
+                            <div className="flex items-start gap-3 relative z-10">
+                                <div className="h-8 w-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                    <Recycle className="h-4 w-4 text-emerald-400" />
+                                </div>
+                                <div>
+                                    <h4 className="font-black text-white uppercase text-[11px] tracking-widest mb-1">Sostenibilidad Ameru</h4>
+                                    <p className="text-[10px] text-zinc-400 font-bold leading-tight mb-2">Inteligencia Verde</p>
+                                    <ul className="space-y-1">
+                                        <li className="flex items-center gap-1.5 text-[9px] text-zinc-300 font-medium">
+                                            <CircleCheck className="h-3 w-3 text-emerald-500" /> Gestión de Eco-Créditos.
+                                        </li>
+                                        <li className="flex items-center gap-1.5 text-[9px] text-zinc-300 font-medium">
+                                            <CircleCheck className="h-3 w-3 text-emerald-500" /> Integración con Smart Bins IA.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-zinc-800">
+                        <p className="text-[10px] text-zinc-500 font-black uppercase tracking-widest text-center">
+                            Hardware Partners: Star Micronics, Bixolon, OKI, Dascom
+                        </p>
                     </div>
                 </div>
             </motion.div>
