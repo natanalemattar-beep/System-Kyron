@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     }
 
     const lastMessage = messages[messages.length - 1].content;
-    const model = createModel("gemini-1.5-flash");
+     const model = createModel("gemini-2.0-flash");
 
     if (!model) {
       return NextResponse.json({ content: "La IA de Kyron no está configurada. Contacta al administrador.", status: 'error' });
@@ -62,11 +62,11 @@ export async function POST(req: NextRequest) {
         SYSTEM_PROMPT + "\n\nUsuario: " + lastMessage
       );
       const response = await result.response;
-      return NextResponse.json({ content: response.text(), provider: 'gemini-1.5-flash', status: 'success' });
+       return NextResponse.json({ content: response.text(), provider: 'gemini-2.0-flash', status: 'success' });
     }
 
   } catch (error) {
     console.error('[AI-Engine-Critical-Error]', error);
-    return NextResponse.json({ content: "Hubo un error al conectar con la IA. Por favor, intenta de nuevo.", status: 'offline' });
+    return NextResponse.json({ content: `Hubo un error al conectar con la IA. Error: ${error instanceof Error ? error.message : String(error)}`, status: 'offline' });
   }
 }

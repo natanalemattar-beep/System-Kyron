@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
   try {
     const { module, stream = false, data = {}, context = "" } = await req.json();
 
-    const model = createModel("gemini-1.5-flash", {
+     const model = createModel("gemini-2.0-flash", {
       temperature: 0.3,
       topP: 0.7,
       topK: 30,
@@ -76,7 +76,7 @@ Genera un análisis ejecutivo con:
     } else {
       const result = await model.generateContent(prompt);
       const response = await result.response;
-      return NextResponse.json({ content: response.text(), provider: 'gemini-1.5-flash' });
+       return NextResponse.json({ content: response.text(), provider: 'gemini-2.0-flash' });
     }
   } catch (error) {
     console.error('[analyze-dashboard-error]', error);

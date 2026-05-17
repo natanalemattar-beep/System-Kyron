@@ -4,7 +4,7 @@ import { createModel } from "@/lib/ai-client";
 import { KYRON_SYSTEM_PROMPT } from "@/lib/ai-context";
 
 export async function chatWithKyron(messages: { role: string; content: string }[]) {
-    const model = createModel("gemini-1.5-flash", {
+    const model = createModel("gemini-2.0-flash", {
         temperature: 0.2,
         topP: 0.6,
         topK: 20,
@@ -45,7 +45,7 @@ export async function chatWithKyron(messages: { role: string; content: string }[
 }
 
 export async function generateEngineeringInsights(params: any) {
-    const model = createModel("gemini-1.5-flash", {
+    const model = createModel("gemini-2.0-flash", {
         temperature: 0.2,
         maxOutputTokens: 1024,
     });

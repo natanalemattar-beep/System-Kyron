@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Imagen requerida' }, { status: 400 });
         }
 
-        const model = createModel("gemini-1.5-flash");
+        const model = createModel("gemini-2.0-flash");
         if (!model) {
             return NextResponse.json({ error: 'API de IA no configurada' }, { status: 500 });
         }

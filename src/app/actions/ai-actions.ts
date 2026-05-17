@@ -4,7 +4,7 @@ import { createModel } from "@/lib/ai-client";
 import { KYRON_SYSTEM_PROMPT } from "@/lib/ai-context";
 
 export async function getPitchAdvice(slideTitle: string, slideBody: string, slideContext: string) {
-    const model = createModel("gemini-1.5-flash", {
+    const model = createModel("gemini-2.0-flash", {
         temperature: 0.4,
         maxOutputTokens: 1024,
     });

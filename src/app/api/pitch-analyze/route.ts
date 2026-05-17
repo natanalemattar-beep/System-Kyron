@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
   try {
     const { image, type, messages } = await req.json();
 
-    const model = createModel("gemini-1.5-flash", {
+     const model = createModel("gemini-2.0-flash", {
       temperature: 0.7,
       maxOutputTokens: 2048,
     });
