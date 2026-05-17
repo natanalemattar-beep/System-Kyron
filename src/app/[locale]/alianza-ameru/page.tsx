@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowLeft, Mail, Phone, Globe, Printer, Languages } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, Globe, Printer, FileDown, Languages, Loader2 } from 'lucide-react';
 import { Link } from '@/navigation';
 
 type Lang = 'en' | 'bg';
@@ -11,7 +11,8 @@ type Lang = 'en' | 'bg';
 const COPY = {
   en: {
     backLabel: 'Back to Brand Kit',
-    printLabel: 'Print / PDF',
+    printLabel: 'Print',
+    pdfLabel: 'Download PDF',
     langLabel: 'Български',
     dateLabel: 'Date of Issue',
     recipientLabel: 'To',
@@ -39,7 +40,8 @@ const COPY = {
   },
   bg: {
     backLabel: 'Обратно към Brand Kit',
-    printLabel: 'Принтирай / PDF',
+    printLabel: 'Принтирай',
+    pdfLabel: 'Изтегли PDF',
     langLabel: 'English',
     dateLabel: 'Дата на издаване',
     recipientLabel: 'До',
@@ -69,10 +71,67 @@ const COPY = {
 
 export default function AlianzaAmeruPage() {
   const [lang, setLang] = useState<Lang>('en');
+  const [isExporting, setIsExporting] = useState(false);
+  const letterRef = useRef<HTMLDivElement>(null);
   const t = COPY[lang];
 
   const handlePrint = () => window.print();
   const toggleLang = () => setLang(prev => prev === 'en' ? 'bg' : 'en');
+
+  const handleExportPDF = async () => {
+    if (isExporting) return;
+    setIsExporting(true);
+
+    try {
+      const html2canvas = (await import('html2canvas')).default;
+      const { jsPDF } = await import('jspdf');
+
+      const element = letterRef.current;
+      if (!element) return;
+
+      const canvas = await html2canvas(element, {
+        scale: 3,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+        imageTimeout: 15000,
+      });
+
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'in',
+        format: 'letter',
+      });
+
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 0.5;
+      const imgWidth = pageWidth - margin * 2;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      let heightLeft = imgHeight;
+      let position = margin;
+
+      pdf.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight - margin * 2;
+
+      while (heightLeft > 0) {
+        position = margin - (pageHeight - margin * 2 - heightLeft);
+        pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight - margin * 2;
+      }
+
+      pdf.save(`System-Kyron-Alliance-Letter-${lang.toUpperCase()}.pdf`);
+    } catch (error) {
+      console.error('PDF Error:', error);
+      alert('Error al generar el PDF. Intenta de nuevo.');
+    } finally {
+      setIsExporting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-zinc-100 text-zinc-900 font-sans selection:bg-cyan-100">
@@ -96,8 +155,21 @@ export default function AlianzaAmeruPage() {
           </button>
 
           <button
+            onClick={handleExportPDF}
+            disabled={isExporting}
+            className="flex items-center gap-2 px-3 py-1.5 bg-cyan-700 text-white rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-cyan-600 transition-colors shadow-sm disabled:opacity-50"
+          >
+            {isExporting ? (
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+            ) : (
+              <FileDown className="h-3.5 w-3.5" />
+            )}
+            <span className="hidden sm:inline">{isExporting ? '...' : t.pdfLabel}</span>
+          </button>
+
+          <button
             onClick={handlePrint}
-            className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 text-white rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-cyan-600 transition-colors shadow-sm"
+            className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 text-white rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-colors shadow-sm"
           >
             <Printer className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">{t.printLabel}</span>
@@ -109,6 +181,7 @@ export default function AlianzaAmeruPage() {
         <AnimatePresence mode="wait">
           <motion.div
             key={lang}
+            ref={letterRef}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}

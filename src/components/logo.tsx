@@ -18,14 +18,14 @@ export function Logo({ className, id, variant }: LogoProps) {
   }, []);
 
   // Determine logo source based on variant or theme
-  let logoSrc = "/images/logo-kyron.png";
+  let logoSrc = "/images/logo-transparent.png";
 
   if (variant === 'dark') {
-    logoSrc = "/images/logo-kyron.png";
+    logoSrc = "/images/logo-black.png";
   } else if (variant === 'light' || variant === 'normal') {
-    logoSrc = "/images/logo-kyron.png";
+    logoSrc = "/images/logo-transparent.png";
   } else if (mounted) {
-    logoSrc = "/images/logo-kyron.png";
+    logoSrc = resolvedTheme === 'dark' ? "/images/logo-transparent.png" : "/images/logo-black.png";
   }
 
   return (

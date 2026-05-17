@@ -29,7 +29,7 @@ body::after {
     --popover: 222 47% 4%;
     --popover-foreground: 213 31% 91%;
     
-    --primary: 191 91% 50%; /* Neon Cyan */
+    --primary: 191 95% 55%; /* Brighter Neon Cyan */
     --primary-foreground: 222 47% 4%;
     
     --secondary: 217 33% 17%;
@@ -38,7 +38,7 @@ body::after {
     --muted: 217 33% 12%;
     --muted-foreground: 215 20% 65%;
     
-    --accent: 156 72% 45%; /* Emerald */
+    --accent: 156 85% 50%; /* Brighter Emerald */
     --accent-foreground: 222 47% 4%;
     
     --destructive: 0 84% 60%;
@@ -52,11 +52,11 @@ body::after {
     
     /* Kyron Custom Palette */
     --kyron-deep: 222 47% 4%;
-    --kyron-cyan: 191 91% 50%;
-    --kyron-emerald: 156 72% 45%;
-    --kyron-indigo: 239 84% 67%;
-    --kyron-gold: 45 93% 47%;
-    --kyron-violet: 270 80% 60%;
+    --kyron-cyan: 191 95% 55%;
+    --kyron-emerald: 156 85% 50%;
+    --kyron-indigo: 239 84% 70%;
+    --kyron-gold: 45 95% 55%;
+    --kyron-violet: 270 85% 65%;
     
     --glass-bg: rgba(15, 23, 42, 0.6);
     --glass-border: rgba(34, 211, 238, 0.2);
@@ -107,7 +107,7 @@ body::after {
   }
 
   .kyron-gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-primary to-emerald-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-emerald-400;
   }
 
   .shadow-glow {
