@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Download, Mail, Phone, Globe, Printer, Languages } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowLeft, Mail, Phone, Globe, Printer, Languages } from 'lucide-react';
 import { Link } from '@/navigation';
 
 type Lang = 'en' | 'bg';
@@ -17,7 +18,7 @@ const COPY = {
     subject: 'Subject: Strategic Partnership Proposal',
     salutation: 'Dear Team at Ameru AI,',
     intro: `I am writing to you on behalf of System Kyron, a corporate intelligence ecosystem based in Venezuela. We specialize in SaaS/ERP solutions for business management, legal compliance, and sustainability. Our platform integrates artificial intelligence to help small and medium-sized businesses across Latin America operate more efficiently.`,
-    synergy: `After a thorough review of Ameru AI's technology and market position, I am convinced there is real synergia between our companies. System Kyron has already built a dedicated module called Sostenibilidad Ameru. The module manages Eco-Credits, carbon footprint tracking, and corporate recycling analytics. It reflects our shared vision of using technology for measurable environmental impact.`,
+    synergy: `After a thorough review of Ameru AI's technology and market position, I am convinced there is real synergy between our companies. System Kyron has already built a dedicated module called Sostenibilidad Ameru. The module manages Eco-Credits, carbon footprint tracking, and corporate recycling analytics. It reflects our shared vision of using technology for measurable environmental impact.`,
     proposal: `Through this letter, I formally propose a strategic alliance under the following terms:`,
     terms: [
       { title: 'Technology Integration', desc: 'Connect Ameru AI smart bin data and waste classification intelligence directly into the System Kyron platform.' },
@@ -32,8 +33,8 @@ const COPY = {
     name: 'Carlos Mattar',
     role: 'Chief Executive Officer',
     company: 'System Kyron',
-    contactWebsite: 'systemkyron.com',
-    contactEmail: 'info@systemkyron.com',
+    contactWebsite: 'system-kyron.vercel.app',
+    contactEmail: 'systemkyronofficial@gmail.com',
     contactPhone: '+58 424-184-6016',
   },
   bg: {
@@ -60,8 +61,8 @@ const COPY = {
     name: 'Карлос Матар',
     role: 'Главен изпълнителен директор',
     company: 'System Kyron',
-    contactWebsite: 'systemkyron.com',
-    contactEmail: 'info@systemkyron.com',
+    contactWebsite: 'system-kyron.vercel.app',
+    contactEmail: 'systemkyronofficial@gmail.com',
     contactPhone: '+58 424-184-6016',
   },
 };
@@ -71,7 +72,6 @@ export default function AlianzaAmeruPage() {
   const t = COPY[lang];
 
   const handlePrint = () => window.print();
-
   const toggleLang = () => setLang(prev => prev === 'en' ? 'bg' : 'en');
 
   return (
@@ -116,15 +116,27 @@ export default function AlianzaAmeruPage() {
             className="bg-white shadow-xl sm:shadow-2xl rounded-none sm:rounded-xl overflow-hidden border border-zinc-200 print:shadow-none print:border-none"
           >
             <div className="p-6 sm:p-12 border-b border-zinc-100 flex flex-col sm:flex-row justify-between items-start gap-6">
-              <div>
-                <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-zinc-900 uppercase">System Kyron</h1>
-                <p className="text-xs sm:text-sm text-cyan-600 font-bold uppercase tracking-widest mt-1">
-                  {lang === 'en' ? 'Corporate Intelligence' : 'Корпоративен интелект'}
-                </p>
+              <div className="flex items-center gap-4">
+                <div className="h-14 w-14 sm:h-20 sm:w-20 rounded-2xl bg-zinc-900 flex items-center justify-center p-2 sm:p-3 overflow-hidden shadow-md">
+                  <Image
+                    src="/images/logo-kyron-hq.png"
+                    alt="System Kyron"
+                    width={80}
+                    height={80}
+                    className="w-full h-full object-contain"
+                    priority
+                  />
+                </div>
+                <div>
+                  <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-zinc-900">System Kyron</h1>
+                  <p className="text-xs sm:text-sm text-cyan-700 font-bold uppercase tracking-widest mt-0.5">
+                    {lang === 'en' ? 'Corporate Intelligence' : 'Корпоративен интелект'}
+                  </p>
+                </div>
               </div>
               <div className="text-left sm:text-right">
-                <p className="text-xs text-zinc-400 font-bold uppercase tracking-widest mb-1">{t.dateLabel}</p>
-                <p className="text-sm sm:text-base font-medium text-zinc-600">
+                <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest mb-1">{t.dateLabel}</p>
+                <p className="text-sm sm:text-base font-semibold text-zinc-800">
                   {new Date().toLocaleDateString(lang === 'en' ? 'en-US' : 'bg-BG', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
               </div>
@@ -132,70 +144,81 @@ export default function AlianzaAmeruPage() {
 
             <div className="p-6 sm:p-12 space-y-8">
               <div className="space-y-1">
-                <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest">{t.recipientLabel}</p>
+                <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest">{t.recipientLabel}</p>
                 <p className="text-lg font-bold text-zinc-900">Ameru AI Team</p>
-                <p className="text-sm text-zinc-500">Munich, Germany</p>
-                <p className="text-sm text-cyan-600 font-medium">contact@ameru.ai</p>
+                <p className="text-sm text-zinc-600">Munich, Germany</p>
+                <p className="text-sm text-cyan-700 font-semibold">contact@ameru.ai</p>
               </div>
 
-              <div className="bg-zinc-50 p-4 rounded-lg border-l-4 border-cyan-500">
+              <div className="bg-zinc-50 p-4 rounded-lg border-l-4 border-cyan-600">
                 <p className="text-sm font-bold text-zinc-900 uppercase tracking-wide">
                   {t.subject}
                 </p>
               </div>
 
-              <div className="space-y-6 text-zinc-600 leading-relaxed text-sm sm:text-base">
+              <div className="space-y-6 text-zinc-800 leading-relaxed text-sm sm:text-base">
                 <p>{t.salutation}</p>
-                <p className="font-medium">{t.intro}</p>
-                <p className="font-medium">{t.synergy}</p>
-                <p className="font-medium">{t.proposal}</p>
+                <p>{t.intro}</p>
+                <p>{t.synergy}</p>
+                <p>{t.proposal}</p>
 
                 <div className="grid gap-4 sm:gap-6">
                   {t.terms.map((item, i) => (
-                    <div key={i} className="flex gap-4 p-4 bg-zinc-50 rounded-lg border border-zinc-100">
-                      <span className="h-6 w-6 shrink-0 bg-cyan-100 text-cyan-700 rounded-full flex items-center justify-center font-bold text-xs">
+                    <div key={i} className="flex gap-4 p-4 bg-zinc-50 rounded-lg border border-zinc-200">
+                      <span className="h-7 w-7 shrink-0 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-sm">
                         {i + 1}
                       </span>
                       <div>
                         <h4 className="font-bold text-zinc-900 text-sm mb-1">{item.title}</h4>
-                        <p className="text-xs sm:text-sm text-zinc-500 leading-snug">{item.desc}</p>
+                        <p className="text-xs sm:text-sm text-zinc-600 leading-snug">{item.desc}</p>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <p className="font-medium">{t.impact}</p>
-                <p className="font-medium">{t.meeting}</p>
-                <p className="font-medium">{t.thanks}</p>
+                <p>{t.impact}</p>
+                <p>{t.meeting}</p>
+                <p>{t.thanks}</p>
               </div>
 
-              <div className="pt-8 border-t border-zinc-100 mt-8">
+              <div className="pt-8 border-t border-zinc-200 mt-8">
                 <p className="text-zinc-900 font-bold mb-6">{t.closing}</p>
                 <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 sm:h-16 sm:w-16 bg-zinc-100 rounded-full flex items-center justify-center text-xl sm:text-2xl font-black text-zinc-400 border-2 border-white shadow-sm">
+                  <div className="h-14 w-14 sm:h-20 sm:w-20 bg-zinc-800 rounded-full flex items-center justify-center text-lg sm:text-2xl font-black text-white shadow-md">
                     CM
                   </div>
                   <div>
-                    <p className="text-lg sm:text-xl font-black text-zinc-900">{t.name}</p>
-                    <p className="text-xs sm:text-sm text-cyan-600 font-bold uppercase tracking-widest">{t.role}</p>
+                    <p className="text-lg sm:text-2xl font-black text-zinc-900">{t.name}</p>
+                    <p className="text-xs sm:text-sm text-cyan-700 font-bold uppercase tracking-widest mt-0.5">{t.role}</p>
                     <p className="text-xs sm:text-sm text-zinc-500 font-medium">{t.company}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-zinc-50 p-4 sm:p-6 rounded-lg flex flex-wrap gap-4 sm:gap-8 justify-center text-xs sm:text-sm font-medium text-zinc-500 border border-zinc-100">
-                <div className="flex items-center gap-2">
-                  <Globe className="h-4 w-4 text-cyan-500" />
+              <div className="bg-zinc-100 p-4 sm:p-6 rounded-lg flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-6 justify-center items-center text-xs sm:text-sm font-medium text-zinc-700 border border-zinc-200">
+                <a
+                  href={`https://${t.contactWebsite}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-cyan-700 transition-colors"
+                >
+                  <Globe className="h-4 w-4 text-cyan-600" />
                   {t.contactWebsite}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-cyan-500" />
+                </a>
+                <a
+                  href={`mailto:${t.contactEmail}`}
+                  className="flex items-center gap-2 hover:text-cyan-700 transition-colors"
+                >
+                  <Mail className="h-4 w-4 text-cyan-600" />
                   {t.contactEmail}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-cyan-500" />
+                </a>
+                <a
+                  href={`tel:${t.contactPhone}`}
+                  className="flex items-center gap-2 hover:text-cyan-700 transition-colors"
+                >
+                  <Phone className="h-4 w-4 text-cyan-600" />
                   {t.contactPhone}
-                </div>
+                </a>
               </div>
             </div>
           </motion.div>
