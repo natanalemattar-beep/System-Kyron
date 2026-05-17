@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query, queryOne } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logger';
+import { decryptIfEncrypted, encryptIfNotEmpty, generateSearchHash } from '@/lib/encryption';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,6 +18,13 @@ export async function GET() {
      ORDER BY porcentaje_participacion DESC`,
     [session.user.id]
   );
+
+  const sociosClean = (socios ?? []).map((s: any) => ({
+    ...s,
+    cedula_rif: s.cedula_rif ? decryptIfEncrypted(s.cedula_rif) : null,
+    telefono: s.telefono ? decryptIfEncrypted(s.telefono) : null,
+    email: s.email || null,
+  }));
 
   const actas = await query(
     `SELECT id, numero_acta, tipo, fecha_asamblea, lugar,
@@ -44,7 +52,7 @@ export async function GET() {
   );
 
   return NextResponse.json({
-    socios,
+    socios: sociosClean,
     actas,
     stats: stats ?? { total_socios: 0, socios_activos: 0, total_actas: 0, actas_registradas: 0 },
   });
@@ -61,13 +69,18 @@ export async function POST(req: NextRequest) {
     const { nombre, cedula_rif, tipo, porcentaje_participacion, cargo, fecha_ingreso, email, telefono } = body;
     if (!nombre) return NextResponse.json({ error: 'Nombre es requerido' }, { status: 400 });
 
+    const encCedulaRif = encryptIfNotEmpty(cedula_rif);
+    const encTelefono = encryptIfNotEmpty(telefono);
+    const cedulaHash = tipo === 'natural' ? generateSearchHash(cedula_rif) : '';
+    const rifHash = tipo === 'juridico' ? generateSearchHash(cedula_rif) : '';
+
     const [socio] = await query(
-      `INSERT INTO socios (user_id, nombre, cedula_rif, tipo, porcentaje_participacion, cargo, fecha_ingreso, email, telefono)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+      `INSERT INTO socios (user_id, nombre, cedula_rif, cedula_hash, rif_hash, tipo, porcentaje_participacion, cargo, fecha_ingreso, email, telefono)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
        RETURNING id, nombre, porcentaje_participacion::text, cargo`,
-      [session.user.id, nombre, cedula_rif ?? null, tipo ?? 'natural',
+      [session.user.id, nombre, encCedulaRif || null, cedulaHash || null, rifHash || null, tipo ?? 'natural',
        parseFloat(porcentaje_participacion || '0'), cargo ?? null,
-       fecha_ingreso ?? null, email ?? null, telefono ?? null]
+       fecha_ingreso ?? null, email ?? null, encTelefono || null]
     );
 
     await logActivity({
@@ -118,20 +131,27 @@ export async function PATCH(req: NextRequest) {
   if (!id) return NextResponse.json({ error: 'ID requerido' }, { status: 400 });
 
   if (entity === 'socio') {
-    const { nombre, cedula_rif, porcentaje_participacion, cargo, activo, email, telefono } = body;
+    const { nombre, cedula_rif, tipo, porcentaje_participacion, cargo, activo, email, telefono } = body;
+    const encCedulaRif = cedula_rif != null ? encryptIfNotEmpty(cedula_rif) : undefined;
+    const encTelefono = telefono != null ? encryptIfNotEmpty(telefono) : undefined;
+    const socioTipo = tipo || 'natural';
+    const cedulaHash = cedula_rif != null && socioTipo === 'natural' ? generateSearchHash(cedula_rif) : undefined;
+    const rifHash = cedula_rif != null && socioTipo === 'juridico' ? generateSearchHash(cedula_rif) : undefined;
     await query(
       `UPDATE socios SET
          nombre = COALESCE($1, nombre),
          cedula_rif = COALESCE($2, cedula_rif),
-         porcentaje_participacion = COALESCE($3, porcentaje_participacion),
-         cargo = COALESCE($4, cargo),
-         activo = COALESCE($5, activo),
-         email = COALESCE($6, email),
-         telefono = COALESCE($7, telefono)
-       WHERE id = $8 AND user_id = $9`,
-      [nombre ?? null, cedula_rif ?? null,
+         cedula_hash = COALESCE($3, cedula_hash),
+         rif_hash = COALESCE($4, rif_hash),
+         porcentaje_participacion = COALESCE($5, porcentaje_participacion),
+         cargo = COALESCE($6, cargo),
+         activo = COALESCE($7, activo),
+         email = COALESCE($8, email),
+         telefono = COALESCE($9, telefono)
+       WHERE id = $10 AND user_id = $11`,
+      [nombre ?? null, encCedulaRif ?? null, cedulaHash ?? null, rifHash ?? null,
        porcentaje_participacion != null ? parseFloat(porcentaje_participacion) : null,
-       cargo ?? null, activo ?? null, email ?? null, telefono ?? null,
+       cargo ?? null, activo ?? null, email ?? null, encTelefono ?? null,
        id, session.user.id]
     );
     return NextResponse.json({ success: true });

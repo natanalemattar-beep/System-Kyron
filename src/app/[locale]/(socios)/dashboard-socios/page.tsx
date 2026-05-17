@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Users, DollarSign, Briefcase, ArrowRight, ShieldCheck, Handshake, Scale, FileText, Activity, CirclePercent, Clock, Landmark, Plus, Loader2, Pencil, Trash2, Leaf } from "lucide-react";
 import { Link } from "@/navigation";
-import { cn } from "@/lib/utils";
+import { cn, maskIdentity } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
@@ -234,7 +234,7 @@ export default function DashboardSociosPage() {
                       </div>
                       <div className="flex items-center gap-4 shrink-0">
                         <div className="text-right hidden sm:block">
-                          <p className="text-[11px] text-muted-foreground/40 uppercase">{socio.cedula_rif || '—'}</p>
+                          <p className="text-[11px] text-muted-foreground/40 uppercase" title={socio.cedula_rif || ''}>{maskIdentity(socio.cedula_rif)}</p>
                         </div>
                         <div className="text-right">
                           <div className="flex items-center gap-2">

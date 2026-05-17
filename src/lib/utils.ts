@@ -84,3 +84,12 @@ export function formatPercentage(value: number, locale?: string): string {
     maximumFractionDigits: 1
   }).format(value);
 };
+
+export function maskIdentity(value: string | null | undefined): string {
+  if (!value) return '—';
+  const cleaned = value.replace(/[\s\-\(\)\.]/g, '');
+  if (cleaned.length <= 4) return '•'.repeat(cleaned.length);
+  const visible = cleaned.slice(-4);
+  const masked = '•'.repeat(Math.min(cleaned.length - 4, 8));
+  return masked + visible;
+};

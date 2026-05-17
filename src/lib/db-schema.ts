@@ -916,6 +916,8 @@ async function createLegalTables() {
       user_id                  INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       nombre                   TEXT NOT NULL,
       cedula_rif               TEXT,
+      cedula_hash              TEXT,
+      rif_hash                 TEXT,
       tipo                     TEXT NOT NULL DEFAULT 'natural'
                                CHECK (tipo IN ('natural','juridico')),
       porcentaje_participacion NUMERIC(7,4) NOT NULL DEFAULT 0,
@@ -2850,6 +2852,10 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_proveedores_rif_hash ON proveedores(rif_hash)`);
   await safeQuery(`ALTER TABLE empleados ADD COLUMN IF NOT EXISTS cedula_hash TEXT`);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_empleados_cedula_hash ON empleados(cedula_hash)`);
+  await safeQuery(`ALTER TABLE socios ADD COLUMN IF NOT EXISTS cedula_hash TEXT`);
+  await safeQuery(`ALTER TABLE socios ADD COLUMN IF NOT EXISTS rif_hash TEXT`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_socios_cedula_hash ON socios(cedula_hash)`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_socios_rif_hash ON socios(rif_hash)`);
 
   await query(`CREATE TABLE IF NOT EXISTS email_automaticos (
     id             SERIAL PRIMARY KEY,

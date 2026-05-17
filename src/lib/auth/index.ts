@@ -68,7 +68,6 @@ export function setSessionCookie(token: string): {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
-            maxAge: EXPIRES_IN,
             path: '/',
         },
     };

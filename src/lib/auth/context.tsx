@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef, ReactNode } from 'react';
 import { useRouter, usePathname } from '@/navigation';
 
 export interface AuthUser {
@@ -54,13 +54,15 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
     const pathname = usePathname();
+    const isLoggingOut = useRef(false);
 
     const refreshUser = useCallback(async () => {
+        if (isLoggingOut.current) return null;
         try {
             const res = await fetch('/api/auth/me');
             if (res.ok) {
                 const data = await res.json();
-                setUser(data.user);
+                if (!isLoggingOut.current) setUser(data.user);
                 return data.user;
             } else {
                 setUser(null);
@@ -76,14 +78,12 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
         refreshUser().finally(() => setIsLoading(false));
     }, [refreshUser]);
 
-    // Re-check user on pathname change when user is null (e.g. after login redirect)
     useEffect(() => {
-        if (!isLoading && !user) {
+        if (!isLoading && !user && !isLoggingOut.current) {
             refreshUser();
         }
     }, [pathname, isLoading, user, refreshUser]);
 
-    // Redirect to module-specific dashboard if on a generic page
     useEffect(() => {
         if (isLoading || !user?.modules) return;
         if (user.modules.length === 0) return;
@@ -117,10 +117,15 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
     }, []);
 
     const logout = useCallback(async () => {
-        await fetch('/api/auth/logout', { method: 'POST' });
+        isLoggingOut.current = true;
+        try {
+            await fetch('/api/auth/logout', { method: 'POST' });
+        } catch {
+            // Intenta limpiar sesión aunque falle la API
+        }
         setUser(null);
-        router.push('/login');
-    }, [router]);
+        window.location.href = '/login';
+    }, []);
 
     return (
         <AuthContext.Provider value={{ user, isLoading, login, logout, refreshUser }}>
