@@ -3,6 +3,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { useState, useEffect } from 'react';
 
 const CEDULA_PREFIXES = [
     { value: 'V', label: 'V — Venezolano', short: 'V' },
@@ -32,27 +33,43 @@ export function DocumentInput({ type, value, onChange, error, className, default
     const prefixes = type === 'cedula' ? CEDULA_PREFIXES : RIF_PREFIXES;
     const fallbackPrefix = defaultPrefix || prefixes[0].value;
 
-    const parts = value?.match(/^([A-Z])-(.*)$/);
-    const currentPrefix = parts ? parts[1] : fallbackPrefix;
-    const currentNumber = parts ? parts[2] : (value?.replace(/^[A-Z]-/, '') || '');
+    const [prefix, setPrefix] = useState(fallbackPrefix);
+    const [number, setNumber] = useState('');
 
-    const handlePrefixChange = (prefix: string) => {
-        onChange(`${prefix}-${currentNumber}`);
+    useEffect(() => {
+        if (value) {
+            const parts = value.match(/^([A-Z])-(.*)$/);
+            if (parts) {
+                setPrefix(parts[1]);
+                setNumber(parts[2]);
+            } else {
+                setNumber(value);
+            }
+        } else {
+            setPrefix(fallbackPrefix);
+            setNumber('');
+        }
+    }, [value, fallbackPrefix]);
+
+    const handlePrefixChange = (newPrefix: string) => {
+        setPrefix(newPrefix);
+        onChange(`${newPrefix}-${number}`);
     };
 
     const handleNumberChange = (num: string) => {
         const cleaned = type === 'rif' ? num.replace(/[^0-9-]/g, '') : num.replace(/[^0-9]/g, '');
-        onChange(`${currentPrefix}-${cleaned}`);
+        setNumber(cleaned);
+        onChange(`${prefix}-${cleaned}`);
     };
 
     return (
         <div className={cn("flex gap-2 items-center", className)}>
-            <Select value={currentPrefix} onValueChange={handlePrefixChange}>
+            <Select value={prefix} onValueChange={handlePrefixChange}>
                 <SelectTrigger className={cn(
-                    "w-[64px] shrink-0 font-bold text-base bg-muted/50 border-input",
+                    "w-[64px] shrink-0 font-bold text-base bg-white/5 border-white/10 text-white",
                     error && 'border-destructive'
                 )}>
-                    <span className="text-foreground font-bold">{currentPrefix}</span>
+                    <span className="text-white font-bold">{prefix}</span>
                 </SelectTrigger>
                 <SelectContent>
                     {prefixes.map(p => (
@@ -60,12 +77,12 @@ export function DocumentInput({ type, value, onChange, error, className, default
                     ))}
                 </SelectContent>
             </Select>
-            <div className="text-muted-foreground font-bold text-lg select-none">–</div>
+            <div className="text-white/30 font-bold text-lg select-none">–</div>
             <Input
-                value={currentNumber}
+                value={number}
                 onChange={e => handleNumberChange(e.target.value)}
                 placeholder={type === 'cedula' ? '18745632' : '12345678-9'}
-                className={cn("flex-1 bg-background border-input", error && 'border-destructive')}
+                className={cn("flex-1 bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:ring-2 focus:ring-cyan-500/20", error && 'border-destructive')}
             />
         </div>
     );
