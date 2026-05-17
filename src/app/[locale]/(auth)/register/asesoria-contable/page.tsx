@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import {
     Loader2, CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
     Calculator, Check, Star, Mail, Lock, TrendingUp, Shield,
-    Zap, Building, CreditCard, Package, Users, Globe,
+    Zap, Building, CreditCard, Package, Users, Globe, User,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
