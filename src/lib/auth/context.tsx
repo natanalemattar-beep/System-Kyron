@@ -119,7 +119,8 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
     const logout = useCallback(async () => {
         await fetch('/api/auth/logout', { method: 'POST' });
         setUser(null);
-    }, []);
+        router.push('/login');
+    }, [router]);
 
     return (
         <AuthContext.Provider value={{ user, isLoading, login, logout, refreshUser }}>
