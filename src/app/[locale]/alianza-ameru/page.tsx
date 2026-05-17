@@ -177,7 +177,7 @@ export default function AlianzaAmeruPage() {
         </div>
       </div>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
+      <main className="flex justify-center py-8 sm:py-12">
         <AnimatePresence mode="wait">
           <motion.div
             key={lang}
@@ -186,36 +186,36 @@ export default function AlianzaAmeruPage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="bg-white shadow-xl sm:shadow-2xl rounded-none sm:rounded-xl overflow-hidden border border-zinc-200 print:shadow-none print:border-none"
+            className="w-full max-w-[8.5in] bg-white shadow-xl sm:shadow-2xl overflow-hidden border border-zinc-200 print:shadow-none print:border-none print:w-full print:max-w-none"
           >
-            <div className="p-6 sm:p-12 border-b border-zinc-100 flex flex-col sm:flex-row justify-between items-start gap-6">
-              <div className="flex items-center gap-4">
-                <div className="h-14 w-14 sm:h-20 sm:w-20 rounded-2xl bg-zinc-900 flex items-center justify-center p-2 sm:p-3 overflow-hidden shadow-md">
+            <div className="p-8 sm:p-12 border-b border-zinc-100 flex flex-row justify-between items-start gap-6">
+              <div className="flex items-center gap-5">
+                <div className="h-16 w-16 rounded-xl bg-zinc-900 flex items-center justify-center p-2 shadow-md shrink-0">
                   <Image
                     src="/images/logo-kyron-hq.png"
                     alt="System Kyron"
-                    width={80}
-                    height={80}
+                    width={64}
+                    height={64}
                     className="w-full h-full object-contain"
                     priority
                   />
                 </div>
-                <div>
-                  <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-zinc-900">System Kyron</h1>
-                  <p className="text-xs sm:text-sm text-cyan-700 font-bold uppercase tracking-widest mt-0.5">
+                <div className="flex flex-col justify-center">
+                  <h1 className="text-2xl font-black tracking-tight text-zinc-900">System Kyron</h1>
+                  <p className="text-xs text-cyan-700 font-bold uppercase tracking-widest mt-0.5">
                     {lang === 'en' ? 'Corporate Intelligence' : 'Корпоративен интелект'}
                   </p>
                 </div>
               </div>
-              <div className="text-left sm:text-right">
+              <div className="text-right shrink-0">
                 <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest mb-1">{t.dateLabel}</p>
-                <p className="text-sm sm:text-base font-semibold text-zinc-800">
+                <p className="text-sm font-semibold text-zinc-800">
                   {new Date().toLocaleDateString(lang === 'en' ? 'en-US' : 'bg-BG', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
               </div>
             </div>
 
-            <div className="p-6 sm:p-12 space-y-8">
+            <div className="p-8 sm:p-12 space-y-8">
               <div className="space-y-1">
                 <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest">{t.recipientLabel}</p>
                 <p className="text-lg font-bold text-zinc-900">Ameru AI Team</p>
@@ -297,6 +297,14 @@ export default function AlianzaAmeruPage() {
           </motion.div>
         </AnimatePresence>
       </main>
+
+      <style jsx global>{`
+        @media print {
+          @page { size: letter; margin: 0; }
+          body { background: white !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+          .print\\:shadow-none { box-shadow: none !important; }
+        }
+      `}</style>
     </div>
   );
 }
