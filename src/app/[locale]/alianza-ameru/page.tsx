@@ -192,7 +192,7 @@ export default function AlianzaAmeruPage() {
               <div className="flex items-center gap-5">
                 <div className="h-16 w-16 rounded-xl bg-zinc-900 flex items-center justify-center p-2 shadow-md shrink-0">
                   <Image
-                    src="/images/logo-kyron-hq.png"
+                    src="/images/logo-transparent.png"
                     alt="System Kyron"
                     width={64}
                     height={64}
