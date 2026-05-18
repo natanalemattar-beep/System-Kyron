@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   FileText, ShieldCheck, FileDown, Leaf, Recycle, Globe, Banknote,
@@ -13,6 +13,59 @@ import { LandingHeader } from '@/components/landing/landing-header';
 import Image from 'next/image';
 
 type ViewMode = 'screen' | 'print';
+
+function useLazySection(threshold = 0.05, rootMargin = '400px') {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold, rootMargin }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold, rootMargin]);
+
+  return { ref, isVisible };
+}
+
+const LazySection = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => {
+  const { ref, isVisible } = useLazySection();
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{ contentVisibility: isVisible ? 'visible' : 'auto', containIntrinsicSize: '0 500px' }}
+    >
+      {isVisible ? children : <div className="h-32" />}
+    </div>
+  );
+};
+
+const Section = ({ number, title, icon: Icon, children, className = '' }: any) => {
+  const { ref, isVisible } = useLazySection(0.02, '300px');
+  
+  return (
+    <section
+      ref={ref}
+      className={`rounded-2xl border border-white/10 bg-zinc-900/60 p-6 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'} ${className}`}
+      style={{ contentVisibility: 'auto', containIntrinsicSize: '0 400px' }}
+    >
+      <h3 className="mb-5 flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary">
+        <Icon className="h-4 w-4" /> {number}. {title}
+      </h3>
+      {isVisible && children}
+    </section>
+  );
+};
 
 export default function ResumenEjecutivoPage() {
   const [isExporting, setIsExporting] = useState(false);
@@ -164,7 +217,7 @@ ${content}
       {/* Header con logo */}
       <div className="flex items-center gap-4 mb-6 pb-5 border-b border-gray-200">
         <div className="relative h-14 w-14 shrink-0">
-          <Image src="/images/logo-kyron-hq.png" alt="System Kyron" fill className="object-contain" unoptimized />
+          <Image src="/images/logo-kyron-hq.png" alt="System Kyron" fill className="object-contain" unoptimized loading="lazy" />
         </div>
         <div>
           <h1 className="text-2xl font-black tracking-tight text-[#0A2472] m-0">SYSTEM KYRON</h1>
@@ -450,7 +503,7 @@ ${content}
 
       <div className="mx-auto w-full max-w-6xl px-6 py-12">
         {/* Encabezado con controles */}
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-8 flex items-start justify-between gap-6 max-md:flex-col">
+        <div className="mb-8 flex items-start justify-between gap-6 max-md:flex-col">
           <div>
             <div className="mb-1 flex items-center gap-2 text-primary">
               <FileText className="h-4 w-4" />
@@ -483,14 +536,14 @@ ${content}
               <FileDown className="mr-2 h-4 w-4" /> Word
             </Button>
           </div>
-        </motion.div>
+        </div>
 
         {viewMode === 'screen' ? (
           /* VISTA PANTALLA (dark mode original) */
           <div className="space-y-5">
             <div className="flex items-center gap-5 rounded-2xl border border-white/10 bg-zinc-900/60 p-6">
               <div className="relative h-16 w-16 shrink-0">
-                <Image src="/images/logo-kyron-hq.png" alt="System Kyron" fill className="object-contain" unoptimized />
+                <Image src="/images/logo-kyron-hq.png" alt="System Kyron" fill className="object-contain" unoptimized priority />
               </div>
               <div>
                 <h2 className="text-2xl font-black tracking-tight text-white">SYSTEM KYRON</h2>
@@ -788,11 +841,4 @@ ${content}
   );
 }
 
-const Section = ({ number, title, icon: Icon, children, className = '', accent = 'primary' }: any) => (
-  <section className={`rounded-2xl border border-white/10 bg-zinc-900/60 p-6 ${className}`}>
-    <h3 className="mb-5 flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary">
-      <Icon className="h-4 w-4" /> {number}. {title}
-    </h3>
-    {children}
-  </section>
-);
+
