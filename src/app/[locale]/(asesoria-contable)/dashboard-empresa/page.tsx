@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@/navigation";
 import dynamic from "next/dynamic";
-import { cn, isNetworkError } from "@/lib/utils";
+import { cn, isNetworkError, parseSafeNumber } from "@/lib/utils";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { useToast } from "@/hooks/use-toast";
 import { ModuleTutorial } from "@/components/module-tutorial";
@@ -27,7 +27,7 @@ import { useCurrency } from "@/lib/currency-context";
 import { CurrencySelector } from "@/components/currency-selector";
 import { moduleTutorials } from "@/lib/module-tutorials";
 import { useAuth } from "@/lib/auth/context";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { SeasonalBanner } from "@/components/seasonal-decorations";
 import { useSeasonalTheme } from "@/components/seasonal-theme-provider";
 import { ActivityTimeline } from "@/components/activity-timeline";
@@ -127,6 +127,7 @@ export default function DashboardEmpresaPage() {
   const { toast } = useToast();
   const { user } = useAuth();
   const currentLocale = useLocale();
+  const t = useTranslations('Dashboard');
   const { activeEvent } = useSeasonalTheme();
   const { format: fmtCur, convert, config: curConfig, formatRaw } = useCurrency();
   const [showAI, setShowAI] = useState(false);
@@ -326,10 +327,10 @@ export default function DashboardEmpresaPage() {
                   <div>
                     <div className="flex flex-col">
                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-white uppercase leading-none mb-3">
-                        {activeEvent ? activeEvent.saludo : (greeting?.text ?? "Hola")}{user?.nombre ? `, ${user.nombre.split(" ")[0]}` : ""}
+                        {activeEvent ? activeEvent.saludo : (greeting?.text ?? t('greeting_fallback'))}{user?.nombre ? `, ${user.nombre.split(" ")[0]}` : ""}
                       </h1>
                       <div className="flex items-center gap-3">
-                        <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-semibold tracking-[0.15em] text-white/45 uppercase">STATUS: OPERATIVO</span>
+                        <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-semibold tracking-[0.15em] text-white/45 uppercase">{t('status_operativo')}</span>
                         <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
                       </div>
                     </div>
@@ -383,10 +384,10 @@ export default function DashboardEmpresaPage() {
           {(() => {
             const utilSpark = sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0));
             return [
-              { label: "Ingresos", value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones?.ingresos, icon: TrendingUp, color: "text-emerald-500", glow: "shadow-emerald-500/10", sparkData: sparklineData.ingresos },
-              { label: "Gastos", value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones?.gastos, invertVariacion: true, icon: TrendingDown, color: "text-rose-500", glow: "shadow-rose-500/10", sparkData: sparklineData.gastos },
-              { label: "Utilidad", value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones?.utilidad, icon: Zap, color: "text-amber-500", glow: "shadow-amber-500/10", sparkData: utilSpark },
-              { label: "Liquidez", value: data ? fmtCur(data.liquidezTotal) : "—", icon: Wallet, color: "text-primary", glow: "shadow-primary/10", sparkData: [] },
+              { label: t('kpi_ingresos'), value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones?.ingresos, icon: TrendingUp, color: "text-emerald-500", glow: "shadow-emerald-500/10", sparkData: sparklineData.ingresos },
+              { label: t('kpi_gastos'), value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones?.gastos, invertVariacion: true, icon: TrendingDown, color: "text-rose-500", glow: "shadow-rose-500/10", sparkData: sparklineData.gastos },
+              { label: t('kpi_utilidad'), value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones?.utilidad, icon: Zap, color: "text-amber-500", glow: "shadow-amber-500/10", sparkData: utilSpark },
+              { label: t('kpi_liquidez'), value: data ? fmtCur(data.liquidezTotal) : "—", icon: Wallet, color: "text-primary", glow: "shadow-primary/10", sparkData: [] },
             ];
           })().map((kpi, i) => (
             <motion.div
@@ -417,7 +418,7 @@ export default function DashboardEmpresaPage() {
                     {loading ? <div className="h-9 w-36 bg-muted/20 rounded-lg animate-pulse" /> : kpi.value}
                   </h3>
                   <div className="flex items-center justify-between">
-                    <p className="text-[11px] font-medium text-muted-foreground/50">Flujo Mensual</p>
+                    <p className="text-[11px] font-medium text-muted-foreground/50">{t('flujo_mensual')}</p>
                     <div className="opacity-50 group-hover:opacity-100 transition-opacity">
                       {kpi.sparkData && kpi.sparkData.length > 1 && <MiniSparkline data={kpi.sparkData} color="currentColor" />}
                     </div>
@@ -651,7 +652,7 @@ export default function DashboardEmpresaPage() {
                       <p className="text-[11px] text-muted-foreground/40">{mov.fecha_operacion}{mov.categoria ? ` · ${mov.categoria}` : ""}</p>
                     </div>
                     <span className={cn("text-sm font-bold tabular-nums shrink-0", mov.tipo === "credito" ? "text-emerald-400" : "text-rose-400")}>
-                      {mov.tipo === "credito" ? "+" : "-"}{fmtCur(parseFloat(mov.monto))}
+                      {mov.tipo === "credito" ? "+" : "-"}{fmtCur(parseSafeNumber(mov.monto))}
                     </span>
                   </div>
                 ))}

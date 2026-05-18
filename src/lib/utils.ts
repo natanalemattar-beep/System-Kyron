@@ -93,3 +93,11 @@ export function maskIdentity(value: string | null | undefined): string {
   const masked = '•'.repeat(Math.min(cleaned.length - 4, 8));
   return masked + visible;
 };
+
+export function parseSafeNumber(value: string | number | null | undefined): number {
+  if (value === null || value === undefined) return 0;
+  if (typeof value === 'number') return isNaN(value) ? 0 : value;
+  const cleaned = value.replace(/[^0-9,.\-]/g, '').replace(/\.(?=.*\.)/g, '').replace(',', '.');
+  const num = parseFloat(cleaned);
+  return isNaN(num) ? 0 : num;
+};
