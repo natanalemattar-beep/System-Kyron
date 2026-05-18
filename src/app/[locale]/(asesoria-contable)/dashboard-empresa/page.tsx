@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import {
-  TrendingUp, TrendingDown, Activity, Zap, ArrowRight, ArrowUpRight, ArrowDownRight,
-  BookOpen, Landmark, Users, History, Box, Receipt, Loader as Loader2,
+  TrendingUp, TrendingDown, Activity, Zap, ArrowUpRight, ArrowDownRight,
+  Landmark, Users, History, Box, Receipt, Loader as Loader2,
   RefreshCw, Calendar, Lock, Search, FileText, Sparkles,
   Shield, Scale, Briefcase, Leaf, Globe, TriangleAlert, Wifi,
   PercentCircle, Building2, Gavel, Wallet, CreditCard, Banknote,
@@ -33,7 +33,7 @@ import { useSeasonalTheme } from "@/components/seasonal-theme-provider";
 import { ActivityTimeline } from "@/components/activity-timeline";
 import {
   Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid,
-  PieChart as RPieChart, Pie, Cell, Tooltip,
+  PieChart as RPieChart, Pie, Cell,
 } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { ChartErrorBoundary } from "@/components/chart-error-boundary";
@@ -244,14 +244,14 @@ export default function DashboardEmpresaPage() {
       const json = await res.json();
       if (res.ok) { setClosingData(json.cierre); toast({ title: "PERIODO FISCAL CERRADO", description: `${closingForm.periodo} — Utilidad: ${fmtCur(json.cierre?.utilidad ?? 0)}` }); setShowCierre(false); fetchDashboard(); }
       else toast({ title: "Error", description: json.error ?? "No se pudo cerrar", variant: "destructive" });
-    } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
+    } catch (e) { toast({ title: "Error de conexión", description: e instanceof Error ? e.message : undefined, variant: "destructive" }); }
     setIsClosing(false);
   };
 
   const handleAuditoria = async () => {
     setShowAuditoria(true); setAuditLoading(true);
-    try { const res = await fetch("/api/activity-log?limit=100"); if (res.ok) { const json = await res.json(); setAuditLogs(json.logs ?? []); } }
-    catch {} finally { setAuditLoading(false); }
+    try { const res = await fetch("/api/activity-log?limit=100"); if (res.ok) { const json = await res.json(); setAuditLogs(json.logs ?? []); } else { toast({ title: "Error", description: "No se pudo cargar el historial de actividad", variant: "destructive" }); } }
+    catch { toast({ title: "Error de conexión", description: "No se pudo cargar el historial de actividad", variant: "destructive" }); } finally { setAuditLoading(false); }
   };
 
   const filteredLogs = auditLogs.filter(l => !auditSearch || l.evento.toLowerCase().includes(auditSearch.toLowerCase()) || (l.descripcion ?? "").toLowerCase().includes(auditSearch.toLowerCase()) || l.categoria.toLowerCase().includes(auditSearch.toLowerCase()));

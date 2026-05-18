@@ -9,7 +9,7 @@ export function usePopularPlan(category: string) {
     fetch(`/api/plan-popularity?category=${encodeURIComponent(category)}`)
       .then(r => r.json())
       .then(data => setPopularPlan(data.popularPlan ?? null))
-      .catch(() => {});
+      .catch(() => { /* silencioso intencionalmente */ });
   }, [category]);
 
   const recordSelection = async (planId: string) => {
@@ -19,7 +19,7 @@ export function usePopularPlan(category: string) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ category, planId }),
       });
-    } catch {}
+    } catch { /* silencioso intencionalmente */ }
   };
 
   return { popularPlan, recordSelection };

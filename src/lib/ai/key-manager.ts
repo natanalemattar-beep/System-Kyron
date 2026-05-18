@@ -37,7 +37,7 @@ function resetCountersIfNeeded() {
   });
 }
 
-export function getNextKey(): GoogleGenAI {
+export function getNextKey(): { client: GoogleGenAI; index: number } {
   resetCountersIfNeeded();
 
   const now = Date.now();
@@ -46,11 +46,12 @@ export function getNextKey(): GoogleGenAI {
 
   while (attempts < maxAttempts) {
     const key = keyPool[currentIndex];
+    const idx = currentIndex;
     currentIndex = (currentIndex + 1) % keyPool.length;
 
     if (now >= key.cooldownUntil && key.requestCount < 4) {
       key.requestCount++;
-      return key.client;
+      return { client: key.client, index: idx };
     }
     attempts++;
   }
@@ -60,14 +61,14 @@ export function getNextKey(): GoogleGenAI {
   throw new Error(`All keys rate limited. Retry in ${Math.ceil(waitTime / 1000)}s`);
 }
 
-export function markKeyRateLimited() {
-  const idx = (currentIndex - 1 + keyPool.length) % keyPool.length;
-  keyPool[idx].cooldownUntil = Date.now() + 30000;
-  keyPool[idx].requestCount = 5;
+export function markKeyRateLimited(keyIndex: number) {
+  if (keyIndex < 0 || keyIndex >= keyPool.length) return;
+  keyPool[keyIndex].cooldownUntil = Date.now() + 30000;
+  keyPool[keyIndex].requestCount = 5;
 }
 
 export function getAiClient(): GoogleGenAI {
-  return getNextKey();
+  return getNextKey().client;
 }
 
 export function getKeyCount(): number {

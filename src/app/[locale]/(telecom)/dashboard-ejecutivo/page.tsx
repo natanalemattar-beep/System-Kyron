@@ -251,7 +251,7 @@ export default function DashboardEjecutivoPage() {
                 </div>
               ))}
             </div>
-            {data?.tendencia.every(m => m.costo === 0) && (
+            {data?.tendencia?.every(m => m.costo === 0) && (
               <p className="text-[10px] text-muted-foreground/50 text-center mt-3">Sin datos de costos registrados</p>
             )}
           </CardContent>

@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, Receipt, TrendingDown, TrendingUp } from "lucide-react";
+import { DollarSign, Receipt, TrendingDown, TrendingUp, TriangleAlert } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "@/hooks/use-toast";
 
 interface DashboardData {
   ingresos: number;
@@ -17,12 +18,13 @@ interface DashboardData {
 export function StatsCards() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetch('/api/dashboard', { cache: 'no-store' })
       .then(r => r.ok ? r.json() : null)
-      .then(json => { if (json) setData(json); })
-      .catch(() => {})
+      .then(json => { if (json) setData(json); else setError(true); })
+      .catch(() => { setError(true); toast({ title: "Error de conexión", description: "No se pudieron cargar las estadísticas", variant: "destructive" }); })
       .finally(() => setLoading(false));
   }, []);
 
@@ -56,6 +58,15 @@ export function StatsCards() {
       positive: data ? (data.facturas?.vencidas ?? 0) === 0 : true,
     },
   ];
+
+  if (error) {
+    return (
+      <div className="flex items-center gap-3 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 w-full">
+        <TriangleAlert className="h-5 w-5 text-rose-400 shrink-0" />
+        <p className="text-sm text-rose-300">Error al cargar estadísticas</p>
+      </div>
+    );
+  }
 
   return (
     <div className="grid gap-6 grid-cols-2 lg:grid-cols-4 w-full">
