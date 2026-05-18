@@ -1,4 +1,4 @@
-import { query } from './src/lib/db';
+import { query } from '../src/lib/db';
 import * as dotenv from 'dotenv';
 dotenv.config();
 

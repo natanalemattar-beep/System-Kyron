@@ -7,7 +7,7 @@ export async function register() {
       console.error('[instrumentation] Database initialization failed — app will continue without DB:', err);
     }
 
-    const getBaseUrl = () => process.env.NEXT_PUBLIC_APP_URL || `http://localhost:${process.env.PORT || 5000}`;
+    const getBaseUrl = () => process.env.NEXT_PUBLIC_APP_URL || `https://system-kyron.vercel.app`;
 
     setTimeout(async () => {
       try {

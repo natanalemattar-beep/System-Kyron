@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import {
-  TrendingUp, TrendingDown, Activity, Zap, ArrowUpRight, ArrowDownRight,
-  Landmark, Users, History, Box, Receipt, Loader as Loader2,
+  TrendingUp, TrendingDown, Activity, Zap, ArrowRight, ArrowUpRight, ArrowDownRight,
+  BookOpen, Landmark, Users, History, Box, Receipt, Loader as Loader2,
   RefreshCw, Calendar, Lock, Search, FileText, Sparkles,
   Shield, Scale, Briefcase, Leaf, Globe, TriangleAlert, Wifi,
   PercentCircle, Building2, Gavel, Wallet, CreditCard, Banknote,
@@ -33,7 +33,7 @@ import { useSeasonalTheme } from "@/components/seasonal-theme-provider";
 import { ActivityTimeline } from "@/components/activity-timeline";
 import {
   Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid,
-  PieChart as RPieChart, Pie, Cell,
+  PieChart as RPieChart, Pie, Cell, Tooltip,
 } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { ChartErrorBoundary } from "@/components/chart-error-boundary";
@@ -78,9 +78,9 @@ function getGreeting(hour: number): { text: string; icon: typeof Sun } {
 function getHealthScore(data: DashboardData): { score: number; label: string; color: string } {
   let score = 50;
   if (data.utilidadNeta > 0) score += 15;
-  if (data.variaciones.ingresos > 0) score += 10;
-  if (data.variaciones.gastos < 0) score += 5;
-  if (data.facturas.vencidas === 0) score += 10;
+  if (data.variaciones?.ingresos > 0) score += 10;
+  if (data.variaciones?.gastos < 0) score += 5;
+  if (data.facturas?.vencidas === 0) score += 10;
   if (data.liquidezTotal > 0) score += 5;
   if (data.inventarioBajoStock === 0) score += 5;
   score = Math.min(100, Math.max(0, score));
@@ -231,7 +231,7 @@ export default function DashboardEmpresaPage() {
         const json = await res.json();
         if (json.cierres && json.cierres.length === 0) {
           const ing = data?.ingresos ?? 0; const gas = data?.gastos ?? 0;
-          setClosingData({ periodo: closingForm.periodo, ingresos: ing, gastos: gas, utilidad: ing - gas, facturas_emitidas: data?.facturas.emitidas ?? 0, facturas_cobradas: data?.facturas.cobradas ?? 0 });
+          setClosingData({ periodo: closingForm.periodo, ingresos: ing, gastos: gas, utilidad: ing - gas, facturas_emitidas: data?.facturas?.emitidas ?? 0, facturas_cobradas: data?.facturas?.cobradas ?? 0 });
         }
       }
     } finally { setIsClosing(false); }
@@ -244,14 +244,14 @@ export default function DashboardEmpresaPage() {
       const json = await res.json();
       if (res.ok) { setClosingData(json.cierre); toast({ title: "PERIODO FISCAL CERRADO", description: `${closingForm.periodo} — Utilidad: ${fmtCur(json.cierre?.utilidad ?? 0)}` }); setShowCierre(false); fetchDashboard(); }
       else toast({ title: "Error", description: json.error ?? "No se pudo cerrar", variant: "destructive" });
-    } catch (e) { toast({ title: "Error de conexión", description: e instanceof Error ? e.message : undefined, variant: "destructive" }); }
+    } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
     setIsClosing(false);
   };
 
   const handleAuditoria = async () => {
     setShowAuditoria(true); setAuditLoading(true);
-    try { const res = await fetch("/api/activity-log?limit=100"); if (res.ok) { const json = await res.json(); setAuditLogs(json.logs ?? []); } else { toast({ title: "Error", description: "No se pudo cargar el historial de actividad", variant: "destructive" }); } }
-    catch { toast({ title: "Error de conexión", description: "No se pudo cargar el historial de actividad", variant: "destructive" }); } finally { setAuditLoading(false); }
+    try { const res = await fetch("/api/activity-log?limit=100"); if (res.ok) { const json = await res.json(); setAuditLogs(json.logs ?? []); } }
+    catch {} finally { setAuditLoading(false); }
   };
 
   const filteredLogs = auditLogs.filter(l => !auditSearch || l.evento.toLowerCase().includes(auditSearch.toLowerCase()) || (l.descripcion ?? "").toLowerCase().includes(auditSearch.toLowerCase()) || l.categoria.toLowerCase().includes(auditSearch.toLowerCase()));
@@ -844,7 +844,7 @@ export default function DashboardEmpresaPage() {
               <span className="text-sm font-bold text-foreground/70">Cuentas por Cobrar</span>
             </div>
           </div>
-          {data && (data.cuentasCobrar.count > 0 || data.cuentasPagar.count > 0) ? (
+          {data?.cuentasCobrar && data?.cuentasPagar && (data.cuentasCobrar.count > 0 || data.cuentasPagar.count > 0) ? (
             <div className="space-y-3">
               <div className="flex items-center justify-between p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
                 <span className="text-sm font-medium text-foreground/65">Por cobrar</span>
