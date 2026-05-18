@@ -16,31 +16,41 @@ export interface CustomerContext {
 export class CustomerServiceAgent {
   async analyzeCustomer(context: CustomerContext): Promise<CustomerServiceAction[]> {
     const actions = await ai.generateJson<CustomerServiceAction[]>(
-      `Contexto del cliente:
+      `CONTEXTO DEL CLIENTE:
+- ID: ${context.customerId}
 - Nombre: ${context.customerName}
-- Estado: ${context.accountStatus}
+- Estado cuenta: ${context.accountStatus}
 - Facturas pendientes: ${context.pendingInvoices}
 - Facturas vencidas: ${context.overdueInvoices}
 - Documentos pendientes: ${context.pendingDocuments}
 - Última actividad: ${context.lastActivity}
 - Plan: ${context.plan}
+${context.advisorId ? `- Asesor asignado: ${context.advisorId}` : ""}
 
-Analiza el contexto y genera acciones proactivas. Reglas:
-- Si hay facturas vencidas (>0): generar email de recordatorio (priority: high)
-- Si hay documentos pendientes (>0): generar nota interna para el asesor (priority: medium)
-- Si el estado es "trial" y última actividad > 7 días: generar email de re-engagement (priority: medium)
-- Si hay facturas vencidas > 3: generar alerta al asesor (priority: critical)
-- Siempre incluir al menos una acción si hay algo pendiente
+REGLAS DE ACCIÓN:
+1. Si hay facturas vencidas (>0): generar email de recordatorio con priority "high"
+2. Si hay documentos pendientes (>0): generar nota interna con priority "medium"
+3. Si estado es "trial" y última actividad > 7 días: generar email re-engagement con priority "medium"
+4. Si facturas vencidas > 3: generar alerta al asesor con priority "critical"
+5. Si estado es "suspended": generar email de reactivación con priority "critical"
+6. Siempre incluir al menos una acción si hay algo pendiente
 
-Responde solo con JSON array de acciones.`,
+FORMATO DE RESPUESTA (JSON array):
+[
+  {"type": "email", "priority": "high", "content": "...", "reason": "..."},
+  {"type": "internal_note", "priority": "medium", "content": "...", "reason": "..."}
+]
+
+Responde SOLO con el JSON array.`,
       {
         systemInstruction:
-          "Eres un agente de atención al cliente proactivo. Detectas situaciones que requieren acción y generas comunicaciones o alertas automáticas. No eres un chatbot.",
-        temperature: 0.4,
-      }
+          "Eres un agente de atención al cliente proactivo que detecta situaciones requiring acción inmediata y genera comunicaciones o alertas automáticas. No eres un chatbot conversacional.",
+        temperature: 0.3,
+      },
+      []
     );
 
-    return actions;
+    return Array.isArray(actions) ? actions : [];
   }
 
   async generateEmail(
@@ -48,16 +58,26 @@ Responde solo con JSON array de acciones.`,
     purpose: string
   ): Promise<string> {
     return ai.generateText(
-      `Genera un email profesional para:
-Cliente: ${context.customerName}
-Propósito: ${purpose}
-Estado: ${context.accountStatus}
-Plan: ${context.plan}
+      `GENERAR EMAIL PROFESIONAL
 
-El email debe ser cordial, directo y con un call-to-action claro.`,
+DATOS DEL CLIENTE:
+- Nombre: ${context.customerName}
+- Estado: ${context.accountStatus}
+- Plan: ${context.plan}
+
+PROPÓSITO DEL EMAIL:
+${purpose}
+
+REQUISITOS:
+- Tono profesional pero cercano
+- Máximo 150 palabras
+- Incluir asunto
+- Incluir call-to-action claro
+- Firmar como "Equipo System Kyron"`,
       {
         systemInstruction:
-          "Eres un redactor de emails corporativos. Estilo profesional pero cercano. Máximo 150 palabras.",
+          "Eres un redactor de emails corporativos experto. Estilo profesional, directo y empático.",
+        temperature: 0.5,
       }
     );
   }
@@ -67,15 +87,41 @@ El email debe ser cordial, directo y con un call-to-action claro.`,
     issue: string
   ): Promise<string> {
     return ai.generateText(
-      `Genera una nota interna para el asesor sobre:
-Cliente: ${context.customerName} (ID: ${context.customerId})
-Problema: ${issue}
-Contexto adicional: ${context.pendingInvoices} facturas pendientes, ${context.overdueInvoices} vencidas
+      `GENERAR NOTA INTERNA PARA ASESOR
 
-La nota debe ser concisa y accionable.`,
+CLIENTE: ${context.customerName} (ID: ${context.customerId})
+PROBLEMA: ${issue}
+CONTEXTO: ${context.pendingInvoices} facturas pendientes, ${context.overdueInvoices} vencidas, ${context.pendingDocuments} documentos pendientes
+ESTADO: ${context.accountStatus}
+
+La nota debe ser concisa, accionable y profesional. Máximo 100 palabras.`,
       {
         systemInstruction:
           "Eres un asistente que redacta notas internas para asesores. Estilo directo y profesional.",
+        temperature: 0.4,
+      }
+    );
+  }
+
+  async generateDraftResponse(
+    context: CustomerContext,
+    customerInquiry: string
+  ): Promise<string> {
+    return ai.generateText(
+      `GENERAR BORRADOR DE RESPUESTA AL CLIENTE
+
+CLIENTE: ${context.customerName}
+PLAN: ${context.plan}
+ESTADO: ${context.accountStatus}
+
+CONSULTA DEL CLIENTE:
+${customerInquiry}
+
+Genera una respuesta profesional, completa y útil. Incluye información relevante basada en el contexto del cliente.`,
+      {
+        systemInstruction:
+          "Eres un agente de soporte que genera borradores de respuesta para asesores. Respuestas completas, profesionales y accionables.",
+        temperature: 0.5,
       }
     );
   }

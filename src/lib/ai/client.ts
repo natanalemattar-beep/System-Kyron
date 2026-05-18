@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import { getAiClient, getNextKey } from "./key-manager";
+import { getAiClient, markKeyRateLimited } from "./key-manager";
 
 export interface AiGenerateOptions {
   model?: string;
@@ -10,6 +10,65 @@ export interface AiGenerateOptions {
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isRateLimitError(error: any): boolean {
+  if (!error) return false;
+  const msg = error.message || error.error?.message || "";
+  return (
+    error.code === 429 ||
+    error.status === "RESOURCE_EXHAUSTED" ||
+    msg.includes("quota") ||
+    msg.includes("429") ||
+    msg.includes("rate limit") ||
+    msg.includes("RESOURCE_EXHAUSTED")
+  );
+}
+
+function extractRetryDelay(error: any): number {
+  const msg = error.message || error.error?.message || "";
+  const match = msg.match(/retry in (\d+(?:\.\d+)?)s/i);
+  if (match) return parseFloat(match[1]) * 1000;
+  const details = error.error?.details || [];
+  for (const d of details) {
+    if (d.retryDelay) {
+      const m = d.retryDelay.match(/(\d+)s/);
+      if (m) return parseInt(m[1]) * 1000;
+    }
+  }
+  return 15000;
+}
+
+function cleanJsonResponse(text: string): string {
+  let cleaned = text.trim();
+  cleaned = cleaned.replace(/^```json\s*/i, "").replace(/\s*```$/i, "");
+  cleaned = cleaned.replace(/^```\s*/i, "").replace(/\s*```$/i, "");
+  return cleaned.trim();
+}
+
+function safeJsonParse<T>(text: string, fallback: T): T {
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    const cleaned = cleanJsonResponse(text);
+    try {
+      return JSON.parse(cleaned) as T;
+    } catch {
+      const bracketMatch = cleaned.match(/\{[\s\S]*\}/);
+      if (bracketMatch) {
+        try {
+          return JSON.parse(bracketMatch[0]) as T;
+        } catch {
+          // eslint-disable-next-line no-console
+          console.warn("[AI] JSON parse failed, returning fallback");
+          return fallback;
+        }
+      }
+      // eslint-disable-next-line no-console
+      console.warn("[AI] JSON parse failed, returning fallback");
+      return fallback;
+    }
+  }
 }
 
 export class AiClient {
@@ -27,15 +86,11 @@ export class AiClient {
       try {
         return await fn();
       } catch (error: any) {
-        const isRateLimit =
-          error?.code === 429 ||
-          error?.status === "RESOURCE_EXHAUSTED" ||
-          error?.message?.includes("quota") ||
-          error?.message?.includes("429");
-
-        if (isRateLimit && attempt < maxRetries - 1) {
-          const delay = 15000 + attempt * 10000;
-          console.warn(`[AI] Rate limit hit, retrying in ${delay}ms (attempt ${attempt + 1}/${maxRetries})`);
+        if (isRateLimitError(error) && attempt < maxRetries - 1) {
+          markKeyRateLimited();
+          const delay = extractRetryDelay(error) + attempt * 5000;
+          // eslint-disable-next-line no-console
+          console.warn(`[AI] Rate limit, retrying in ${delay}ms (attempt ${attempt + 1}/${maxRetries})`);
           await sleep(delay);
           this.client = getAiClient();
           continue;
@@ -43,7 +98,7 @@ export class AiClient {
         throw error;
       }
     }
-    throw new Error("Max retries exceeded");
+    throw new Error("Max retries exceeded for AI request");
   }
 
   async generateText(
@@ -75,7 +130,8 @@ export class AiClient {
 
   async generateJson<T>(
     prompt: string,
-    options: AiGenerateOptions = {}
+    options: AiGenerateOptions = {},
+    fallback?: T
   ): Promise<T> {
     const {
       model = "gemini-2.5-flash",
@@ -83,7 +139,9 @@ export class AiClient {
       systemInstruction,
     } = options;
 
-    const jsonPrompt = `${systemInstruction || ""}\n\nResponde SOLO con JSON válido, sin markdown ni texto adicional.\n\n${prompt}`;
+    const defaultFallback = (fallback || {}) as T;
+
+    const jsonPrompt = `${systemInstruction ? systemInstruction + "\n\n" : ""}Responde SOLO con JSON válido. Sin markdown, sin explicaciones, sin texto adicional.\n\n${prompt}`;
 
     return this.retryWithBackoff(async () => {
       const response = await this.client.models.generateContent({
@@ -95,30 +153,15 @@ export class AiClient {
         },
       });
 
-      let rawText = response.text || "{}";
-      rawText = rawText.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
-
-      try {
-        return JSON.parse(rawText) as T;
-      } catch {
-        throw new Error(`Failed to parse AI response as JSON: ${rawText.substring(0, 200)}`);
-      }
+      return safeJsonParse<T>(response.text || "{}", defaultFallback);
     });
   }
 
-  async analyzeDocument(
-    content: string,
-    analysisType: string,
+  async generateWithRetry(
+    prompt: string,
     options: AiGenerateOptions = {}
   ): Promise<string> {
-    return this.generateText(
-      `Analiza el siguiente documento tipo "${analysisType}":\n\n${content}`,
-      {
-        systemInstruction:
-          "Eres un experto en análisis documental. Proporciona análisis detallado y estructurado.",
-        ...options,
-      }
-    );
+    return this.generateText(prompt, options);
   }
 }
 

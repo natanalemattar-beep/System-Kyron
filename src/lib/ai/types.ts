@@ -50,3 +50,34 @@ export interface AnalysisResult {
   summary: string;
   nextSteps: string[];
 }
+
+export interface SwotResult {
+  strengths: string[];
+  weaknesses: string[];
+  opportunities: string[];
+  threats: string[];
+}
+
+export interface ComplianceResult {
+  compliant: boolean;
+  issues: string[];
+  score: number;
+}
+
+export interface ComparisonResult {
+  differences: string[];
+  similarity: number;
+}
+
+export interface EmailCampaignResult {
+  subject: string;
+  body: string;
+  preview: string;
+}
+
+export interface SeoResult {
+  title: string;
+  metaDescription: string;
+  content: string;
+  headings: string[];
+}

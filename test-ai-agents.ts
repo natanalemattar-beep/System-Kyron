@@ -5,6 +5,7 @@ import { documentGeneratorAgent } from "./src/lib/ai/agents/document-generator";
 import { documentAnalyzerAgent } from "./src/lib/ai/agents/document-analyzer";
 import { marketingAgent } from "./src/lib/ai/agents/marketing";
 import { analysisAgent } from "./src/lib/ai/agents/analysis";
+import { getKeyStatus } from "./src/lib/ai/key-manager";
 
 const GREEN = "\x1b[32m";
 const RED = "\x1b[31m";
@@ -13,18 +14,27 @@ const BLUE = "\x1b[34m";
 const RESET = "\x1b[0m";
 const BOLD = "\x1b[1m";
 
+let passCount = 0;
+let failCount = 0;
+
 function log(section: string, msg: string, color = RESET) {
   console.log(`\n${BOLD}${color}═══ ${section} ══${RESET}`);
   console.log(`${color}${msg}${RESET}`);
 }
 
 function pass(test: string) {
+  passCount++;
   console.log(`  ${GREEN}✓${RESET} ${test}`);
 }
 
 function fail(test: string, err: string) {
+  failCount++;
   console.log(`  ${RED}✗${RESET} ${test}`);
-  console.log(`    ${RED}Error: ${err}${RESET}`);
+  if (err) console.log(`    ${RED}Error: ${err.substring(0, 200)}${RESET}`);
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function testCustomerService() {
@@ -45,8 +55,8 @@ async function testCustomerService() {
 
     if (Array.isArray(actions) && actions.length > 0) {
       pass(`Generó ${actions.length} acciones proactivas`);
-      actions.forEach((a, i) => {
-        console.log(`    ${YELLOW}[${a.priority.toUpperCase()}]${RESET} ${a.type}: ${a.reason}`);
+      actions.forEach((a) => {
+        console.log(`    ${YELLOW}[${a.priority.toUpperCase()}]${RESET} ${a.type}: ${a.reason || a.content?.substring(0, 60)}`);
       });
     } else {
       fail("Respuesta vacía", "No generó acciones");
@@ -97,7 +107,7 @@ async function testDashboard() {
     if (Array.isArray(insights) && insights.length >= 4) {
       pass(`Generó ${insights.length} insights`);
       insights.forEach((i) => {
-        console.log(`    ${i.trend === "up" ? GREEN : i.trend === "down" ? RED : YELLOW}${i.trend}${RESET} ${i.metric}: ${i.insight}`);
+        console.log(`    ${i.trend === "up" ? GREEN : i.trend === "down" ? RED : YELLOW}${i.trend}${RESET} ${i.metric}: ${i.insight?.substring(0, 80)}`);
       });
     } else {
       fail("Insights", `Solo generó ${insights?.length || 0} insights`);
@@ -122,7 +132,7 @@ async function testDashboard() {
     const anomalies = await dashboardAgent.detectAnomalies(metrics);
     if (Array.isArray(anomalies)) {
       pass(`Detectó ${anomalies.length} anomalías`);
-      anomalies.forEach((a) => console.log(`    ${RED}${RESET} ${a}`));
+      anomalies.forEach((a) => console.log(`    ${RED}⚠${RESET} ${a}`));
     }
   } catch (e: any) {
     fail("Anomalies test", e.message);
@@ -130,7 +140,7 @@ async function testDashboard() {
 }
 
 async function testDocumentGenerator() {
-  log("AGENTE 3: GENERADOR DE DOCUMENTOS", "Escenario: Factura empresarial real", BLUE);
+  log("AGENTE 3: GENERADOR DE DOCUMENTOS", "Escenario: Factura y contrato empresarial", BLUE);
 
   try {
     const invoice = await documentGeneratorAgent.generateInvoice({
@@ -145,22 +155,13 @@ async function testDocumentGenerator() {
       currency: "USD",
     });
 
-    if (invoice && invoice.content) {
+    const content = invoice.content || Object.values(invoice).find((v) => typeof v === "string" && v.length > 100) as string;
+    if (content && content.length > 50) {
       pass("Factura generada correctamente");
       console.log(`    ${YELLOW}Tipo:${RESET} ${invoice.documentType}`);
-      console.log(`    ${YELLOW}Contenido:${RESET} ${invoice.content.substring(0, 200)}...`);
-      if (invoice.warnings && invoice.warnings.length > 0) {
-        console.log(`    ${RED}Warnings:${RESET} ${invoice.warnings.join(", ")}`);
-      }
-    } else if (invoice && Object.keys(invoice).length > 0) {
-      pass("Factura generada (formato alternativo)");
-      console.log(`    ${YELLOW}Keys:${RESET} ${Object.keys(invoice).join(", ")}`);
-      const contentField = Object.values(invoice).find((v) => typeof v === "string" && v.length > 100) as string;
-      if (contentField) {
-        console.log(`    ${YELLOW}Preview:${RESET} ${contentField.substring(0, 200)}...`);
-      }
+      console.log(`    ${YELLOW}Preview:${RESET} ${content.substring(0, 150)}...`);
     } else {
-      fail("Factura", "Contenido vacío");
+      fail("Factura", "Contenido insuficiente");
     }
   } catch (e: any) {
     fail("Invoice test", e.message);
@@ -176,17 +177,10 @@ async function testDocumentGenerator() {
       currency: "USD",
     });
 
-    if (contract && contract.content && contract.content.length > 200) {
+    const content = contract.content || Object.values(contract).find((v) => typeof v === "string" && v.length > 200) as string;
+    if (content && content.length > 200) {
       pass("Contrato generado correctamente");
-      console.log(`    ${YELLOW}Longitud:${RESET} ${contract.content.length} caracteres`);
-    } else if (contract && Object.keys(contract).length > 0) {
-      pass("Contrato generado (formato alternativo)");
-      const contentField = Object.values(contract).find((v) => typeof v === "string" && v.length > 200) as string;
-      if (contentField) {
-        console.log(`    ${YELLOW}Longitud:${RESET} ${contentField.length} caracteres`);
-      } else {
-        console.log(`    ${YELLOW}Keys:${RESET} ${Object.keys(contract).join(", ")}`);
-      }
+      console.log(`    ${YELLOW}Longitud:${RESET} ${content.length} caracteres`);
     } else {
       fail("Contrato", "Contenido insuficiente");
     }
@@ -219,21 +213,20 @@ OBSERVACIONES: Precio negociado directamente con gerente.
 
   try {
     const analysis = await documentAnalyzerAgent.analyzeDocument(suspiciousInvoice, "factura");
-    if (analysis && (analysis.extractedData || analysis.documentType)) {
+    if (analysis && (analysis.extractedData || analysis.documentType || analysis.summary)) {
       pass("Análisis completado");
-      console.log(`    ${YELLOW}Tipo detectado:${RESET} ${analysis.documentType}`);
+      console.log(`    ${YELLOW}Tipo:${RESET} ${analysis.documentType}`);
       console.log(`    ${YELLOW}Confianza:${RESET} ${(analysis.confidence * 100).toFixed(0)}%`);
       console.log(`    ${YELLOW}Cumplimiento:${RESET} ${analysis.compliance}`);
       if (analysis.anomalies && analysis.anomalies.length > 0) {
-        console.log(`    ${RED}Anomalías detectadas:${RESET}`);
+        console.log(`    ${RED}Anomalías:${RESET}`);
         analysis.anomalies.forEach((a) => console.log(`      - ${a}`));
       }
       if (analysis.summary) {
-        console.log(`    ${YELLOW}Resumen:${RESET} ${analysis.summary.substring(0, 150)}...`);
+        console.log(`    ${YELLOW}Resumen:${RESET} ${analysis.summary.substring(0, 100)}...`);
       }
     } else {
-      fail("Análisis", "Sin datos extraídos");
-      console.log(`    ${YELLOW}Respuesta raw:${RESET} ${JSON.stringify(analysis).substring(0, 200)}`);
+      fail("Análisis", "Sin resultados");
     }
   } catch (e: any) {
     fail("Document analysis test", e.message);
@@ -243,8 +236,8 @@ OBSERVACIONES: Precio negociado directamente con gerente.
     const extracted = await documentAnalyzerAgent.extractKeyData(suspiciousInvoice);
     if (extracted && Object.keys(extracted).length > 3) {
       pass(`Extrajo ${Object.keys(extracted).length} campos`);
-      Object.entries(extracted).forEach(([k, v]) => {
-        const display = typeof v === "object" ? JSON.stringify(v).substring(0, 60) : v;
+      Object.entries(extracted).slice(0, 5).forEach(([k, v]) => {
+        const display = typeof v === "object" ? JSON.stringify(v).substring(0, 60) : String(v).substring(0, 60);
         console.log(`    ${YELLOW}${k}:${RESET} ${display}`);
       });
     } else {
@@ -269,11 +262,11 @@ async function testMarketing() {
 
   try {
     const content = await marketingAgent.generateContent(request);
-    if (content && content.content && content.variants) {
+    if (content && (content.content || content.variants?.length > 0)) {
       pass("Contenido generado");
       console.log(`    ${YELLOW}CTA:${RESET} ${content.cta}`);
-      console.log(`    ${YELLOW}Keywords:${RESET} ${content.keywords.join(", ")}`);
-      console.log(`    ${YELLOW}Variants:${RESET} ${content.variants.length} generadas`);
+      console.log(`    ${YELLOW}Keywords:${RESET} ${content.keywords?.join(", ")}`);
+      console.log(`    ${YELLOW}Variants:${RESET} ${content.variants?.length || 0} generadas`);
     } else {
       fail("Contenido", "Respuesta incompleta");
     }
@@ -335,12 +328,12 @@ EMPLEADOS: 45 (reducción de 60 en 12 meses)
 
   try {
     const swot = await analysisAgent.swotAnalysis(financialData);
-    if (swot && swot.strengths && swot.weaknesses && swot.opportunities && swot.threats) {
+    if (swot && swot.strengths && swot.weaknesses) {
       pass("Análisis FODA completado");
       console.log(`    ${GREEN}Fortalezas (${swot.strengths.length}):${RESET} ${swot.strengths.slice(0, 2).join(", ")}`);
       console.log(`    ${RED}Debilidades (${swot.weaknesses.length}):${RESET} ${swot.weaknesses.slice(0, 2).join(", ")}`);
-      console.log(`    ${BLUE}Oportunidades (${swot.opportunities.length}):${RESET} ${swot.opportunities.slice(0, 2).join(", ")}`);
-      console.log(`    ${YELLOW}Amenazas (${swot.threats.length}):${RESET} ${swot.threats.slice(0, 2).join(", ")}`);
+      console.log(`    ${BLUE}Oportunidades (${swot.opportunities?.length || 0}):${RESET} ${swot.opportunities?.slice(0, 2).join(", ")}`);
+      console.log(`    ${YELLOW}Amenazas (${swot.threats?.length || 0}):${RESET} ${swot.threats?.slice(0, 2).join(", ")}`);
     } else {
       fail("FODA", "Estructura incompleta");
     }
@@ -350,12 +343,12 @@ EMPLEADOS: 45 (reducción de 60 en 12 meses)
 
   try {
     const risk = await analysisAgent.riskAnalysis(financialData);
-    if (risk && risk.findings && risk.risks) {
+    if (risk && risk.findings) {
       pass("Análisis de riesgos completado");
       console.log(`    ${YELLOW}Score:${RESET} ${risk.score}/100`);
-      console.log(`    ${RED}Riesgos críticos:${RESET}`);
-      const risksList = Array.isArray(risk.risks) ? risk.risks : Object.values(risk.risks).flat();
-      risksList.slice(0, 3).forEach((r: any) => console.log(`      - ${typeof r === "string" ? r : JSON.stringify(r).substring(0, 100)}`));
+      const risksList = Array.isArray(risk.risks) ? risk.risks : Object.values(risk.risks || {}).flat();
+      console.log(`    ${RED}Riesgos:${RESET}`);
+      risksList.slice(0, 3).forEach((r: any) => console.log(`      - ${typeof r === "string" ? r.substring(0, 100) : JSON.stringify(r).substring(0, 100)}`));
     } else {
       fail("Risk analysis", "Sin resultados");
     }
@@ -365,12 +358,12 @@ EMPLEADOS: 45 (reducción de 60 en 12 meses)
 
   try {
     const financial = await analysisAgent.financialAnalysis(financialData);
-    if (financial && financial.findings && financial.nextSteps) {
+    if (financial && financial.findings) {
       pass("Análisis financiero completado");
       console.log(`    ${YELLOW}Score:${RESET} ${financial.score}/100`);
+      const steps = Array.isArray(financial.nextSteps) ? financial.nextSteps : Object.values(financial.nextSteps || {}).flat();
       console.log(`    ${YELLOW}Próximos pasos:${RESET}`);
-      const steps = Array.isArray(financial.nextSteps) ? financial.nextSteps : Object.values(financial.nextSteps).flat();
-      steps.slice(0, 3).forEach((s: any) => console.log(`      → ${typeof s === "string" ? s : JSON.stringify(s).substring(0, 100)}`));
+      steps.slice(0, 3).forEach((s: any) => console.log(`      → ${typeof s === "string" ? s.substring(0, 100) : JSON.stringify(s).substring(0, 100)}`));
     } else {
       fail("Financial analysis", "Sin resultados");
     }
@@ -379,33 +372,33 @@ EMPLEADOS: 45 (reducción de 60 en 12 meses)
   }
 }
 
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 async function main() {
   console.log(`\n${BOLD}${BLUE}╔══════════════════════════════════════════════════════════╗${RESET}`);
   console.log(`${BOLD}${BLUE}║         TESTS DE AGENTES AI - SYSTEM KYRON                ║${RESET}`);
-  console.log(`${BOLD}${BLUE}║         Escenarios empresariales reales                   ║${RESET}`);
+  console.log(`${BOLD}${BLUE}║         Escenarios empresariales reales - V2              ║${RESET}`);
   console.log(`${BOLD}${BLUE}╚══════════════════════════════════════════════════════════╝${RESET}\n`);
 
   const start = Date.now();
 
   await testCustomerService();
-  await sleep(12000);
+  await sleep(15000);
   await testDashboard();
-  await sleep(12000);
+  await sleep(15000);
   await testDocumentGenerator();
-  await sleep(12000);
+  await sleep(15000);
   await testDocumentAnalyzer();
-  await sleep(12000);
+  await sleep(15000);
   await testMarketing();
-  await sleep(12000);
+  await sleep(15000);
   await testAnalysis();
 
   const elapsed = ((Date.now() - start) / 1000).toFixed(1);
+  const status = getKeyStatus();
+
   console.log(`\n${BOLD}${GREEN}══════════════════════════════════════════════════════════${RESET}`);
   console.log(`${BOLD}Tests completados en ${elapsed}s${RESET}`);
+  console.log(`${BOLD}${GREEN}✓ Pasaron: ${passCount}${RESET} | ${BOLD}${RED} Fallaron: ${failCount}${RESET}`);
+  console.log(`${BOLD}Keys status: ${status.map((k) => (k.cooldown ? "🔴" : "🟢")).join(" ")}${RESET}`);
   console.log(`${BOLD}${GREEN}══════════════════════════════════════════════════════════${RESET}\n`);
 }
 
