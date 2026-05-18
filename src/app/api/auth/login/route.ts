@@ -107,6 +107,16 @@ export async function POST(req: NextRequest) {
 
         clearLoginFailures(`bf:${user.email}`);
 
+        const displayName = user.tipo === 'juridico'
+            ? (user.razon_social ?? user.nombre)
+            : user.nombre;
+
+        const userModules = await query<{ module_id: string }>(
+            `SELECT module_id FROM user_modules WHERE user_id = $1 AND activo = true`,
+            [user.id]
+        );
+        const moduleIds = userModules.map(m => m.module_id);
+
         // Check if device is trusted to skip 2FA
         let isTrustedDevice = false;
         if (deviceFingerprint && typeof deviceFingerprint === 'string' && deviceFingerprint.length > 5) {
@@ -181,16 +191,6 @@ export async function POST(req: NextRequest) {
                 { status: 403 }
             );
         }
-
-        const displayName = user.tipo === 'juridico'
-            ? (user.razon_social ?? user.nombre)
-            : user.nombre;
-
-        const userModules = await query<{ module_id: string }>(
-            `SELECT module_id FROM user_modules WHERE user_id = $1 AND activo = true`,
-            [user.id]
-        );
-        const moduleIds = userModules.map(m => m.module_id);
 
         if (accessKey && typeof accessKey === 'string' && accessKey.trim().length >= 6 && user.access_key_hash) {
             const accessKeyValid = await bcrypt.compare(accessKey.trim(), user.access_key_hash);

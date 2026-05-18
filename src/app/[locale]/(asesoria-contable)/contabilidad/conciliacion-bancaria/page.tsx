@@ -109,7 +109,7 @@ export default function ConciliacionBancariaPage() {
       banco: b.banco || '',
       codigo_banco: '',
       numero_cuenta: b.cuenta || '',
-      tipo_cuenta: b.tipo || 'corriente',
+      tipo_cuenta: b.tipo_cuenta || 'corriente',
       titular: '',
       saldo_actual: String(b.saldo || ''),
     });

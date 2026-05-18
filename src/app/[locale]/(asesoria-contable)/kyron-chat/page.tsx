@@ -108,12 +108,11 @@ function renderMarkdown(text: string) {
       let firstMatch: InlineMatch | null = null;
 
       if (boldMatch && typeof boldMatch.index === 'number') {
-        const candidate: InlineMatch = { idx: boldMatch.index, len: boldMatch[0].length, node: <strong key={key++} className="font-bold text-foreground">{boldMatch[1]}</strong> };
-        if (!firstMatch || candidate.idx < firstMatch.idx) firstMatch = candidate;
+        firstMatch = { idx: boldMatch.index, len: boldMatch[0].length, node: <strong key={key++} className="font-bold text-foreground">{boldMatch[1]}</strong> };
       }
       if (codeMatch && typeof codeMatch.index === 'number') {
-        const candidate: InlineMatch = { idx: codeMatch.index, len: codeMatch[0].length, node: <code key={key++} className="px-1.5 py-0.5 rounded-md bg-muted text-sm font-mono text-primary">{codeMatch[1]}</code> };
-        if (!firstMatch || candidate.idx < firstMatch.idx) firstMatch = candidate;
+        const candidate = { idx: codeMatch.index, len: codeMatch[0].length, node: <code key={key++} className="px-1.5 py-0.5 rounded-md bg-muted text-sm font-mono text-primary">{codeMatch[1]}</code> } as InlineMatch;
+        if (!firstMatch || candidate.idx < (firstMatch as InlineMatch).idx) firstMatch = candidate;
       }
 
       if (firstMatch) {

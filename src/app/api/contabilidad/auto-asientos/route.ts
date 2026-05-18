@@ -100,7 +100,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const pendientesMovimientos = await query(
+    const pendientesMovimientos = await query<{ count: string }>(
       `SELECT COUNT(*) AS count FROM movimientos_bancarios mb
        WHERE mb.user_id = $1
        AND NOT EXISTS (
@@ -110,7 +110,7 @@ export async function GET(request: NextRequest) {
       [session.user.id]
     );
 
-    const pendientesFacturas = await query(
+    const pendientesFacturas = await query<{ count: string }>(
       `SELECT COUNT(*) AS count FROM facturas f
        WHERE f.user_id = $1
        AND NOT EXISTS (
@@ -120,7 +120,7 @@ export async function GET(request: NextRequest) {
       [session.user.id]
     );
 
-    const planCount = await query('SELECT COUNT(*) AS count FROM plan_cuentas WHERE user_id = $1 AND activa = true', [session.user.id]);
+    const planCount = await query<{ count: string }>('SELECT COUNT(*) AS count FROM plan_cuentas WHERE user_id = $1 AND activa = true', [session.user.id]);
 
     return NextResponse.json({
       pendientes: {
@@ -158,7 +158,7 @@ export async function POST(request: NextRequest) {
     let errores: string[] = [];
 
     if (fuente === 'movimientos' || fuente === 'todo') {
-      const movimientos = await query(
+      const movimientos = await query<{ id: number; fecha: string; concepto: string; monto: string; tipo: string; referencia: string; banco: string }>(
         `SELECT mb.id, mb.fecha_operacion::text AS fecha, mb.concepto, mb.monto::text, mb.tipo, mb.referencia,
                 COALESCE(cb.banco, '') AS banco
          FROM movimientos_bancarios mb
@@ -231,7 +231,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (fuente === 'facturas' || fuente === 'todo') {
-      const facturas = await query(
+      const facturas = await query<{ id: number; fecha: string; numero_factura: string; tipo: string; subtotal: string; iva: string; total: string; cliente: string }>(
         `SELECT f.id, f.fecha_emision::text AS fecha, f.numero_factura, f.tipo,
                 f.subtotal::text, f.monto_iva::text AS iva, f.total::text,
                 COALESCE(c.razon_social, c.nombre_contacto, 'Cliente') AS cliente

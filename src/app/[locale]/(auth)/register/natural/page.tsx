@@ -58,6 +58,13 @@ const fullSchema = z.object({
     .regex(/[0-9]/, 'Debe tener al menos un número.')
     .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/, 'Debe tener al menos un carácter especial (!@#$%...).'),
   confirmPassword: z.string().min(8, 'Confirma tu contraseña.'),
+  estado_residencia: z.string().optional(),
+  municipio: z.string().optional(),
+  ciudad: z.string().optional(),
+  genero: z.string().optional(),
+  estado_civil: z.string().optional(),
+  telefono_alt: z.string().optional(),
+  direccion: z.string().optional(),
 }).refine(d => d.password === d.confirmPassword, {
   message: 'Las contraseñas no coinciden.',
   path: ['confirmPassword'],

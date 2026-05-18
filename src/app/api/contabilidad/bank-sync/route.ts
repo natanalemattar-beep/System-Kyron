@@ -216,7 +216,7 @@ export async function POST(request: NextRequest) {
       }
 
       const existingRefs = new Set<string>();
-      const existingRows = await query(
+      const existingRows = await query<{ referencia: string }>(
         'SELECT referencia FROM movimientos_bancarios WHERE user_id = $1 AND referencia IS NOT NULL AND referencia != \'\'',
         [session.user.id]
       );

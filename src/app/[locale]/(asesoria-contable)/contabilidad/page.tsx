@@ -13,8 +13,10 @@ import {
 } from "lucide-react";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { formatCurrency } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
 
 const frequentAccess = [
   { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", icon: Receipt, color: "text-primary" },
@@ -129,6 +131,27 @@ export default function ContabilidadPage() {
   const [isAuditing, setIsAuditing] = useState(false);
   const [kpi, setKpi] = useState<DashboardKPI | null>(null);
   const [kpiLoading, setKpiLoading] = useState(true);
+
+  const runForensicAudit = async () => {
+    setIsAuditing(true);
+    try {
+      const res = await fetch('/api/contabilidad/forensic-audit');
+      if (!res.ok) throw new Error('Error en auditoría');
+      const data = await res.json();
+      toast({ title: 'Auditoría Forense', description: `Completada: ${data.alertas ?? 0} alertas encontradas.` });
+    } catch (e: any) {
+      toast({ variant: 'destructive', title: 'Error', description: e.message });
+    } finally {
+      setIsAuditing(false);
+    }
+  };
+
+  const kpiCards = [
+    { label: 'Liquidez', val: kpi ? formatCurrency(kpi.liquidez) : '$0', color: 'text-emerald-600', icon: Wallet },
+    { label: 'Por Cobrar', val: kpi ? formatCurrency(kpi.cuentasCobrar) : '$0', color: 'text-blue-600', icon: TrendingUp },
+    { label: 'Por Pagar', val: kpi ? formatCurrency(kpi.cuentasPagar) : '$0', color: 'text-rose-600', icon: Activity },
+    { label: 'Facturas Activas', val: kpi ? String(kpi.facturasActivas) : '0', color: 'text-amber-600', icon: Receipt },
+  ];
 
   useEffect(() => {
     fetch("/api/dashboard")

@@ -286,7 +286,7 @@ async function registerJuridico(body: Record<string, unknown>) {
     const encRif = encryptIfNotEmpty(rifClean);
 
 
-    const results = await query<{ id: string; email: string }>(
+    const results = await query<{ id: number; email: string }>(
         `INSERT INTO users (
             email, password_hash, tipo,
             nombre, razon_social, rif, tipo_empresa, actividad_economica, codigo_ciiu,
