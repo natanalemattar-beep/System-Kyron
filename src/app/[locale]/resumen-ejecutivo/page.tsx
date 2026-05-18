@@ -804,6 +804,11 @@ ${content}
           </div>
         )}
 
+        {/* PrintContent siempre renderizado (oculto en screen) para que PDF funcione */}
+        <div className={viewMode === 'screen' ? 'hidden' : ''} aria-hidden={viewMode === 'screen'}>
+          <PrintContent />
+        </div>
+
         {/* Footer general */}
         {viewMode === 'screen' && (
           <div className="mt-8 text-center">
