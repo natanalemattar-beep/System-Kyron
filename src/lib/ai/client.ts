@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import { getAiClient } from "./key-manager";
+import { getAiClient, getNextKey } from "./key-manager";
 
 export interface AiGenerateOptions {
   model?: string;
@@ -8,11 +8,42 @@ export interface AiGenerateOptions {
   systemInstruction?: string;
 }
 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export class AiClient {
   private client: GoogleGenAI;
 
   constructor() {
     this.client = getAiClient();
+  }
+
+  private async retryWithBackoff<T>(
+    fn: () => Promise<T>,
+    maxRetries = 3
+  ): Promise<T> {
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      try {
+        return await fn();
+      } catch (error: any) {
+        const isRateLimit =
+          error?.code === 429 ||
+          error?.status === "RESOURCE_EXHAUSTED" ||
+          error?.message?.includes("quota") ||
+          error?.message?.includes("429");
+
+        if (isRateLimit && attempt < maxRetries - 1) {
+          const delay = 15000 + attempt * 10000;
+          console.warn(`[AI] Rate limit hit, retrying in ${delay}ms (attempt ${attempt + 1}/${maxRetries})`);
+          await sleep(delay);
+          this.client = getAiClient();
+          continue;
+        }
+        throw error;
+      }
+    }
+    throw new Error("Max retries exceeded");
   }
 
   async generateText(
@@ -26,19 +57,20 @@ export class AiClient {
       systemInstruction,
     } = options;
 
-    const response = await this.client.models.generateContent({
-      model,
-      contents: prompt,
-      config: {
-        temperature,
-        maxOutputTokens: maxTokens,
-        systemInstruction: systemInstruction
-          ? { text: systemInstruction }
-          : undefined,
-      },
+    return this.retryWithBackoff(async () => {
+      const response = await this.client.models.generateContent({
+        model,
+        contents: prompt,
+        config: {
+          temperature,
+          maxOutputTokens: maxTokens,
+          systemInstruction: systemInstruction
+            ? { text: systemInstruction }
+            : undefined,
+        },
+      });
+      return response.text || "";
     });
-
-    return response.text || "";
   }
 
   async generateJson<T>(
@@ -53,20 +85,25 @@ export class AiClient {
 
     const jsonPrompt = `${systemInstruction || ""}\n\nResponde SOLO con JSON válido, sin markdown ni texto adicional.\n\n${prompt}`;
 
-    const response = await this.client.models.generateContent({
-      model,
-      contents: jsonPrompt,
-      config: {
-        temperature,
-        responseMimeType: "application/json",
-      },
-    });
+    return this.retryWithBackoff(async () => {
+      const response = await this.client.models.generateContent({
+        model,
+        contents: jsonPrompt,
+        config: {
+          temperature,
+          responseMimeType: "application/json",
+        },
+      });
 
-    try {
-      return JSON.parse(response.text || "{}") as T;
-    } catch {
-      throw new Error("Failed to parse AI response as JSON");
-    }
+      let rawText = response.text || "{}";
+      rawText = rawText.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
+
+      try {
+        return JSON.parse(rawText) as T;
+      } catch {
+        throw new Error(`Failed to parse AI response as JSON: ${rawText.substring(0, 200)}`);
+      }
+    });
   }
 
   async analyzeDocument(

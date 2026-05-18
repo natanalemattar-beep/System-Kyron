@@ -3,7 +3,6 @@
 
 import { AIPredictiveShield } from './ai-predictive-shield';
 import { ContinuousAudit } from './continuous-audit';
-import { ExecutiveAnalytics } from './executive-analytics';
 import { FiscalAlerts } from './fiscal-alerts';
 import { QuantumVerification } from './quantum-verification';
 import { ZeroRiskCertification } from './zero-risk-certification';
@@ -61,7 +60,6 @@ export const AbsoluteZeroRiskDashboard = () => {
             <ZeroRiskGuarantees />
             <ZeroRiskCertification />
           </div>
-          <ExecutiveAnalytics />
         </div>
 
         {/* Sello de Certificación Final */}
