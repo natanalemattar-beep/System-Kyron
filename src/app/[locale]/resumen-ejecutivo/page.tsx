@@ -70,7 +70,6 @@ const Section = ({ number, title, icon: Icon, children, className = '' }: any) =
 export default function ResumenEjecutivoPage() {
   const [isExporting, setIsExporting] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>('screen');
-  const printableRef = useRef<HTMLDivElement>(null);
 
   const LETTER_WIDTH_PX = 816;
 
@@ -79,6 +78,7 @@ export default function ResumenEjecutivoPage() {
       @page { size: 8.5in 11in; margin: 0.75in; }
       body { font-family: 'Segoe UI', Arial, sans-serif; padding: 0; color: #0f172a; background: #fff; font-size: 11pt; line-height: 1.5; }
       .page-break { page-break-after: always; }
+      .page-break-before { page-break-before: always; }
       .kyron-header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #0A2472; padding-bottom: 20px; }
       h1 { color: #0A2472; font-size: 24pt; font-weight: 900; text-transform: uppercase; margin: 0 0 8px 0; }
       h2 { color: #0A2472; font-size: 14pt; font-weight: 900; text-transform: uppercase; border-bottom: 2px solid #0A2472; padding-bottom: 6px; margin: 28px 0 14px 0; }
@@ -132,66 +132,42 @@ ${content}
       const html2canvas = (await import('html2canvas')).default;
       const { jsPDF } = await import('jspdf');
 
-      const printEl = document.getElementById('print-content');
-      if (!printEl) return;
+      const page1El = document.getElementById('print-page-1');
+      const page2El = document.getElementById('print-page-2');
+      if (!page1El || !page2El) return;
 
-      const wrapper = document.createElement('div');
-      wrapper.style.cssText = 'position:absolute;top:-9999px;left:0;width:816px;background:#fff;color:#0f172a;font-size:11pt;padding:72px 72px 60px 72px;font-family:"Segoe UI",Arial,sans-serif;line-height:1.5;';
-      wrapper.innerHTML = printEl.innerHTML;
-
-      const imgs = wrapper.querySelectorAll('img');
-      imgs.forEach((img) => {
-        img.style.width = '56px';
-        img.style.height = '56px';
-        img.style.objectFit = 'contain';
-      });
-
-      document.body.appendChild(wrapper);
-
-      await new Promise((r) => setTimeout(r, 500));
-
-      const canvas = await html2canvas(wrapper, {
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#ffffff',
-        logging: false,
-        imageTimeout: 15000,
-        windowWidth: 816,
-      });
-
-      document.body.removeChild(wrapper);
-
-      const imgData = canvas.toDataURL('image/jpeg', 0.95);
       const pdf = new jsPDF({ orientation: 'portrait', unit: 'px', format: [816, 1056] });
 
-      const pageWidth = 816;
-      const pageHeight = 1056;
-      const contentHeight = (canvas.height * pageWidth) / canvas.width;
+      for (const [idx, el] of [page1El, page2El].entries()) {
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = 'position:absolute;top:-9999px;left:0;width:816px;background:#fff;color:#0f172a;font-size:11pt;padding:72px 72px 60px 72px;font-family:"Segoe UI",Arial,sans-serif;line-height:1.5;';
+        wrapper.innerHTML = el.innerHTML;
 
-      let yOffset = 0;
-      let pageNum = 0;
+        const imgs = wrapper.querySelectorAll('img');
+        imgs.forEach((img) => {
+          img.style.width = '56px';
+          img.style.height = '56px';
+          img.style.objectFit = 'contain';
+        });
 
-      while (yOffset < contentHeight) {
-        if (pageNum > 0) pdf.addPage([816, 1056], 'portrait');
+        document.body.appendChild(wrapper);
+        await new Promise((r) => setTimeout(r, 300));
 
-        const sliceHeight = Math.min(pageHeight, contentHeight - yOffset);
-        const sliceCanvas = document.createElement('canvas');
-        sliceCanvas.width = canvas.width;
-        sliceCanvas.height = Math.round((sliceHeight * canvas.width) / pageWidth);
+        const canvas = await html2canvas(wrapper, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          logging: false,
+          imageTimeout: 15000,
+          windowWidth: 816,
+        });
 
-        const ctx = sliceCanvas.getContext('2d');
-        if (ctx) {
-          const sourceY = Math.round((yOffset * canvas.height) / contentHeight);
-          const sourceH = Math.round((sliceHeight * canvas.height) / contentHeight);
-          ctx.drawImage(canvas, 0, sourceY, canvas.width, sourceH, 0, 0, sliceCanvas.width, sliceCanvas.height);
-        }
+        document.body.removeChild(wrapper);
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
 
-        const sliceImgData = sliceCanvas.toDataURL('image/jpeg', 0.95);
-        pdf.addImage(sliceImgData, 'JPEG', 0, 0, pageWidth, sliceHeight);
-
-        yOffset += pageHeight;
-        pageNum++;
+        if (idx > 0) pdf.addPage([816, 1056], 'portrait');
+        pdf.addImage(imgData, 'JPEG', 0, 0, 816, (canvas.height * 816) / canvas.width);
       }
 
       pdf.save('System_Kyron_Resumen_Ejecutivo.pdf');
@@ -213,7 +189,8 @@ ${content}
   );
 
   const PrintContent = () => (
-    <div id="print-content" ref={printableRef}>
+    <div id="print-content">
+      <div id="print-page-1">
       {/* Header con logo */}
       <div className="flex items-center gap-4 mb-6 pb-5 border-b border-gray-200">
         <div className="relative h-14 w-14 shrink-0">
@@ -331,7 +308,9 @@ ${content}
           </div>
         </div>
       </PrintSection>
+      </div>
 
+      <div id="print-page-2">
       {/* 5 */}
       <PrintSection number="5" title="Modelo de Negocio" icon={Banknote}>
         <p className="text-xs text-gray-700 mb-4">Generamos ingresos a través de <strong className="text-[#0f172a]">tres vías escalables</strong>:</p>
@@ -398,6 +377,7 @@ ${content}
           </div>
         </div>
       </PrintSection>
+      </div>
 
       {/* 6 */}
       <PrintSection number="6" title="Estrategia de Marketing y Ventas" icon={Megaphone}>
@@ -493,6 +473,7 @@ ${content}
         <p className="mt-0.5 text-[8px] font-bold uppercase tracking-wider text-gray-400 m-0">
           Emprendimiento Carlos Mattar &middot; RIF: J-50832149-9 &middot; infosystemkyron@gmail.com
         </p>
+      </div>
       </div>
     </div>
   );
