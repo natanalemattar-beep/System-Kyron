@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { Zap, Gauge, Timer, Shield, TrendingUp, ChartColumn, ArrowRight } from 'lucide-react';
+import { Zap, Gauge, Timer, Shield, TrendingUp, ChartColumn, ArrowRight, Headphones, MessageSquare, Brain, FileSearch } from 'lucide-react';
 import { Link } from '@/navigation';
 import { ScrollReveal } from './scroll-reveal';
 import { AnimatedNumber } from '@/components/animations/animated-number';
@@ -97,6 +97,49 @@ export function FeaturesSection() {
                         </ScrollReveal>
                     ))}
                 </div>
+
+                {/* AI Features - Agentes Inteligentes */}
+                <ScrollReveal className="md:col-span-12 mt-8">
+                    <div className="rounded-[3.5rem] bg-white/[0.02] border border-white/5 p-10 md:p-14">
+                        <div className="flex flex-col md:flex-row items-start md:items-center gap-8 mb-10">
+                            <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                                <Brain className="h-7 w-7" />
+                            </div>
+                            <div>
+                                <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter italic">
+                                    Agentes AI <span className="text-glow-cyan not-italic">Inteligentes</span>
+                                </h3>
+                                <p className="text-base text-white/30 mt-1">6 agentes especializados que trabajan para tu empresa</p>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {[
+                                { icon: Headphones, title: "Atención al Cliente", desc: "Agente proactivo que detecta situaciones y genera acciones automáticas", color: "cyan" },
+                                { icon: ChartColumn, title: "Dashboard AI", desc: "Insights automáticos, detección de anomalías y pronósticos", color: "blue" },
+                                { icon: FileSearch, title: "Análisis Documental", desc: "Extracción, validación y análisis de cumplimiento normativo", color: "emerald" },
+                                { icon: MessageSquare, title: "Marketing AI", desc: "Generación de contenido, campañas, SEO y copy para anuncios", color: "violet" },
+                                { icon: TrendingUp, title: "Análisis Financiero", desc: "FODA, riesgos, análisis de mercado y recomendaciones", color: "amber" },
+                                { icon: Shield, title: "Generador de Documentos", desc: "Facturas, contratos y documentos profesionales automáticos", color: "rose" },
+                            ].map((agent, i) => (
+                                <Link key={i} href="/soporte" className="group relative overflow-hidden rounded-[2rem] bg-white/[0.02] border border-white/5 p-6 hover:border-white/15 transition-all duration-500 hover:-translate-y-1 block">
+                                    <div className={cn(
+                                        "h-10 w-10 rounded-xl flex items-center justify-center mb-4 transition-all duration-500",
+                                        agent.color === "cyan" && "bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover:bg-cyan-500/20",
+                                        agent.color === "blue" && "bg-blue-500/10 border border-blue-500/20 text-blue-400 group-hover:bg-blue-500/20",
+                                        agent.color === "emerald" && "bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500/20",
+                                        agent.color === "violet" && "bg-violet-500/10 border border-violet-500/20 text-violet-400 group-hover:bg-violet-500/20",
+                                        agent.color === "amber" && "bg-amber-500/10 border border-amber-500/20 text-amber-400 group-hover:bg-amber-500/20",
+                                        agent.color === "rose" && "bg-rose-500/10 border border-rose-500/20 text-rose-400 group-hover:bg-rose-500/20",
+                                    )}>
+                                        <agent.icon className="h-5 w-5" />
+                                    </div>
+                                    <h4 className="text-sm font-black text-white uppercase tracking-tight mb-1">{agent.title}</h4>
+                                    <p className="text-xs text-white/25 font-medium leading-relaxed">{agent.desc}</p>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </ScrollReveal>
 
                 {/* METRICS STRIP OVERHAUL */}
                 <div className="mt-24 grid grid-cols-2 lg:grid-cols-4 gap-12 border-y border-white/5 py-16">

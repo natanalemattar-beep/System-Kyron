@@ -203,13 +203,22 @@ export default function DashboardEmpresaPage() {
   useEffect(() => { fetchDashboard(); }, [fetchDashboard]);
 
   useEffect(() => {
-    fetch("/api/semaforo-alertas").then(r => r.ok ? r.json() : null).then(d => { if (d) setSemaforo(d); }).catch((err) => { console.warn('[semaforo-alertas]', err.message); });
+    fetch("/api/semaforo-alertas").then(r => r.ok ? r.json() : null).then(d => {
+      if (d && typeof d === 'object') {
+        setSemaforo({
+          global: d.global || { level: "verde", vencidos: 0, urgentes: 0, proximos: 0 },
+          alertas: Array.isArray(d.alertas) ? d.alertas : []
+        });
+      }
+    }).catch((err) => { console.warn('[semaforo-alertas]', err.message); });
   }, []);
 
   const healthScore = useMemo(() => data ? getHealthScore(data) : null, [data]);
   const sparklineData = useMemo(() => {
     if (!data?.chartMensual?.length || !Array.isArray(data.chartMensual)) return { ingresos: [], gastos: [] };
-    return { ingresos: data.chartMensual.map(d => d.ingresos), gastos: data.chartMensual.map(d => d.gastos) };
+    const ingresos = data.chartMensual.map(d => d.ingresos ?? 0);
+    const gastos = data.chartMensual.map(d => d.gastos ?? 0);
+    return { ingresos, gastos };
   }, [data]);
 
   const handlePreviewCierre = async () => {
@@ -251,12 +260,13 @@ export default function DashboardEmpresaPage() {
   const facturasPie = useMemo(() => {
     if (!data?.facturas || typeof data.facturas !== 'object') return [];
     const f = data.facturas as Record<string, unknown>;
-    return [
+    const result = [
       { name: "Cobradas", value: Number(f.cobradas) || 0 },
       { name: "Emitidas", value: Number(f.emitidas) || 0 },
       { name: "Pagadas", value: Number(f.pagadas) || 0 },
       { name: "Vencidas", value: Number(f.vencidas) || 0 }
     ].filter(d => d.value > 0);
+    return Array.isArray(result) ? result : [];
   }, [data]);
   const GreetingIcon = greeting?.icon ?? Sun;
 
@@ -369,13 +379,16 @@ export default function DashboardEmpresaPage() {
         </motion.header>
 
         {/* KPIs Grid - Glass Style */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[
-            { label: "INGRESOS", value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones.ingresos, icon: TrendingUp, color: "text-emerald-500", glow: "shadow-emerald-500/10", sparkData: sparklineData.ingresos },
-            { label: "GASTOS", value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones.gastos, invertVariacion: true, icon: TrendingDown, color: "text-rose-500", glow: "shadow-rose-500/10", sparkData: sparklineData.gastos },
-            { label: "UTILIDAD", value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones.utilidad, icon: Zap, color: "text-amber-500", glow: "shadow-amber-500/10", sparkData: sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0)) },
-            { label: "LIQUIDEZ", value: data ? fmtCur(data.liquidezTotal) : "—", icon: Wallet, color: "text-primary", glow: "shadow-primary/10", sparkData: [] },
-          ].map((kpi, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {(() => {
+            const utilSpark = sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0));
+            return [
+              { label: "Ingresos", value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones?.ingresos, icon: TrendingUp, color: "text-emerald-500", glow: "shadow-emerald-500/10", sparkData: sparklineData.ingresos },
+              { label: "Gastos", value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones?.gastos, invertVariacion: true, icon: TrendingDown, color: "text-rose-500", glow: "shadow-rose-500/10", sparkData: sparklineData.gastos },
+              { label: "Utilidad", value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones?.utilidad, icon: Zap, color: "text-amber-500", glow: "shadow-amber-500/10", sparkData: utilSpark },
+              { label: "Liquidez", value: data ? fmtCur(data.liquidezTotal) : "—", icon: Wallet, color: "text-primary", glow: "shadow-primary/10", sparkData: [] },
+            ];
+          })().map((kpi, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -384,27 +397,27 @@ export default function DashboardEmpresaPage() {
               whileHover={{ y: -5 }}
               className="relative group cursor-pointer"
             >
-              <div className={cn("kyron-surface p-5 h-full border-border/30 hover:border-primary/20 transition-all duration-500", kpi.glow)}>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <div className={cn("p-2 rounded-lg bg-opacity-10 bg-current", kpi.color)}>
-                      <kpi.icon className="h-4 w-4" />
+              <div className={cn("kyron-surface p-6 h-full border-border/30 hover:border-primary/20 transition-all duration-500", kpi.glow)}>
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex items-center gap-3">
+                    <div className={cn("p-2.5 rounded-xl bg-opacity-10 bg-current", kpi.color)}>
+                      <kpi.icon className="h-5 w-5" />
                     </div>
-                    <span className="text-[10px] font-black tracking-widest text-muted-foreground/60 uppercase">{kpi.label}</span>
+                    <span className="text-[11px] font-bold tracking-wide text-muted-foreground/70">{kpi.label}</span>
                   </div>
                   {kpi.variacion !== undefined && (
-                    <div className={cn("text-[10px] font-black px-2 py-0.5 rounded-full bg-opacity-10 bg-current", variacionColor(kpi.variacion, kpi.invertVariacion))}>
+                    <div className={cn("text-[11px] font-bold px-2.5 py-1 rounded-full bg-opacity-10 bg-current", variacionColor(kpi.variacion, kpi.invertVariacion))}>
                       {kpi.variacion > 0 ? "+" : ""}{kpi.variacion}%
                     </div>
                   )}
                 </div>
                 
-                <div className="space-y-1">
-                  <h3 className="text-2xl font-bold tracking-tight text-foreground tabular-nums">
-                    {loading ? <div className="h-8 w-32 bg-muted/20 rounded-lg animate-pulse" /> : kpi.value}
+                <div className="space-y-2">
+                  <h3 className="text-3xl font-bold tracking-tight text-foreground tabular-nums">
+                    {loading ? <div className="h-9 w-36 bg-muted/20 rounded-lg animate-pulse" /> : kpi.value}
                   </h3>
                   <div className="flex items-center justify-between">
-                    <p className="text-[10px] font-medium text-muted-foreground/40 uppercase tracking-wider">Flujo Mensual</p>
+                    <p className="text-[11px] font-medium text-muted-foreground/50">Flujo Mensual</p>
                     <div className="opacity-50 group-hover:opacity-100 transition-opacity">
                       {kpi.sparkData && kpi.sparkData.length > 1 && <MiniSparkline data={kpi.sparkData} color="currentColor" />}
                     </div>
@@ -421,13 +434,16 @@ export default function DashboardEmpresaPage() {
         </div>
 
         {/* Secondary Stats - Interactive Strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { label: "Clientes", value: data?.clientesActivos ?? 0, icon: Users, color: "text-cyan-500", href: "/fidelizacion-clientes" },
-            { label: "Empleados", value: data?.empleados ?? 0, icon: Briefcase, color: "text-emerald-500", href: "/dashboard-rrhh" },
-            { label: "Facturas", value: data?.facturasEsteMes?.count ?? 0, icon: Receipt, color: "text-amber-500", extra: data?.facturasEsteMes?.monto ? formatRaw(convert(data.facturasEsteMes.monto)) : null, href: "/facturacion" },
-            { label: "Alertas", value: data?.notificacionesNoLeidas ?? 0, icon: Bell, color: "text-indigo-500", href: "/notificaciones", alert: (data?.notificacionesNoLeidas ?? 0) > 0 },
-          ].map((stat, i) => (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          {(() => {
+            const unread = data?.notificacionesNoLeidas ?? 0;
+            return [
+              { label: "Clientes", value: data?.clientesActivos ?? 0, icon: Users, color: "text-cyan-500", href: "/fidelizacion-clientes" },
+              { label: "Empleados", value: data?.empleados ?? 0, icon: Briefcase, color: "text-emerald-500", href: "/dashboard-rrhh" },
+              { label: "Facturas", value: data?.facturasEsteMes?.count ?? 0, icon: Receipt, color: "text-amber-500", extra: data?.facturasEsteMes?.monto ? formatRaw(convert(data.facturasEsteMes.monto)) : null, href: "/facturacion" },
+              { label: "Alertas", value: unread, icon: Bell, color: "text-indigo-500", href: "/notificaciones", alert: unread > 0 },
+            ];
+          })().map((stat, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -435,18 +451,18 @@ export default function DashboardEmpresaPage() {
               transition={{ delay: 0.4 + i * 0.05 }}
             >
               <Link href={stat.href as never}>
-                <div className="liquid-glass-subtle p-4 rounded-2xl flex items-center gap-4 hover:bg-background/40 transition-all group overflow-hidden relative">
-                  <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform", 
+                <div className="liquid-glass-subtle p-5 rounded-2xl flex items-center gap-4 hover:bg-background/40 transition-all group overflow-hidden relative border border-border/20 hover:border-border/40">
+                  <div className={cn("h-12 w-12 rounded-xl flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform", 
                     "bg-opacity-10 bg-current", stat.color
                   )}>
-                    <stat.icon className="h-5 w-5" />
+                    <stat.icon className="h-6 w-6" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xl font-bold tracking-tight">{loading ? "—" : stat.value}</p>
-                    <p className="text-[11px] font-bold text-muted-foreground/40 uppercase tracking-wider">{stat.label}</p>
+                    <p className="text-2xl font-bold tracking-tight">{loading ? "—" : stat.value}</p>
+                    <p className="text-[12px] font-semibold text-muted-foreground/50">{stat.label}</p>
                   </div>
-                  {stat.extra && <div className="ml-auto text-[10px] font-bold text-muted-foreground/20 hidden xl:block">{curConfig.symbol}{stat.extra}</div>}
-                  {stat.alert && <span className="absolute top-3 right-3 w-2 h-2 rounded-full bg-rose-500 shadow-lg shadow-rose-500/50 animate-pulse" />}
+                  {stat.extra && <div className="ml-auto text-[11px] font-bold text-muted-foreground/30 hidden xl:block">{curConfig.symbol}{stat.extra}</div>}
+                  {stat.alert && <span className="absolute top-3 right-3 w-2.5 h-2.5 rounded-full bg-rose-500 shadow-lg shadow-rose-500/50 animate-pulse" />}
                 </div>
               </Link>
             </motion.div>
@@ -467,7 +483,7 @@ export default function DashboardEmpresaPage() {
               <div className="h-[260px] w-full">
                 {loading ? (
                   <div className="h-full flex items-center justify-center"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground/20" /></div>
-                ) : (data?.chartMensual?.length ?? 0) === 0 ? (
+                ) : !Array.isArray(data?.chartMensual) || data.chartMensual.length === 0 ? (
                   <div className="h-full flex flex-col items-center justify-center gap-2 text-muted-foreground/20">
                     <ChartColumn className="h-10 w-10" />
                     <p className="text-[10px] font-semibold">Sin datos históricos</p>
@@ -476,7 +492,7 @@ export default function DashboardEmpresaPage() {
                   <ChartErrorBoundary fallbackLabel="Error al cargar flujo financiero">
                     <ChartContainer config={chartConfig} className="w-full h-full">
                       <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={data!.chartMensual} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+                        <AreaChart data={data.chartMensual} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
                           <defs>
                             <linearGradient id="gIng" x1="0" y1="0" x2="0" y2="1">
                               <stop offset="5%" stopColor="var(--color-ingresos)" stopOpacity={0.4}/>
@@ -623,7 +639,7 @@ export default function DashboardEmpresaPage() {
             </div>
             {loading ? (
               <div className="space-y-2">{[1, 2, 3, 4].map(n => <div key={n} className="h-10 bg-muted/10 rounded-lg animate-pulse" />)}</div>
-            ) : Array.isArray(data?.movimientosRecientes) && data.movimientosRecientes.length ? (
+            ) : Array.isArray(data?.movimientosRecientes) && data.movimientosRecientes.length > 0 ? (
               <div className="space-y-1">
                 {data.movimientosRecientes.slice(0, 6).map((mov) => (
                   <div key={mov.id} className="flex items-center gap-3 py-2.5 px-2 rounded-lg hover:bg-muted/10 transition-all">
@@ -799,7 +815,7 @@ export default function DashboardEmpresaPage() {
           <div className="space-y-1.5">
             {!Array.isArray(fiscalDeadlines) || fiscalDeadlines.length === 0 ? (
               <div className="py-4 text-center"><p className="text-[10px] text-muted-foreground/30">Cargando calendario...</p></div>
-            ) : fiscalDeadlines.map((d, i) => {
+            ) : (fiscalDeadlines || []).map((d, i) => {
               const FISCAL_ICONS: Record<string, typeof PercentCircle> = { iva: PercentCircle, ret: Receipt, islr: Landmark, para: Users, faov: Building2 };
               const IconComp = FISCAL_ICONS[d.iconKey] ?? Calendar;
               return (
@@ -857,7 +873,7 @@ export default function DashboardEmpresaPage() {
         </Card>
       </motion.div>
 
-      {semaforo && (
+      {semaforo && semaforo.global && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62 }}>
           <Card className="border border-border/30 rounded-xl bg-card/80 overflow-hidden">
             <div className="flex flex-col lg:flex-row">
@@ -912,22 +928,22 @@ export default function DashboardEmpresaPage() {
                     <span className="text-[11px] font-semibold text-foreground/60">Vencimientos y Plazos</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    {semaforo.global.vencidos > 0 && (
+                    {(semaforo.global.vencidos ?? 0) > 0 && (
                       <Badge className="bg-rose-500/10 text-rose-400 border-rose-500/15 text-[10px] font-bold h-5 rounded-md border">
-                        {semaforo.global.vencidos} vencido{semaforo.global.vencidos !== 1 ? "s" : ""}
+                        {semaforo.global.vencidos} vencido{(semaforo.global.vencidos ?? 0) !== 1 ? "s" : ""}
                       </Badge>
                     )}
-                    {semaforo.global.urgentes > 0 && (
+                    {(semaforo.global.urgentes ?? 0) > 0 && (
                       <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/15 text-[10px] font-bold h-5 rounded-md border">
-                        {semaforo.global.urgentes} urgente{semaforo.global.urgentes !== 1 ? "s" : ""}
+                        {semaforo.global.urgentes} urgente{(semaforo.global.urgentes ?? 0) !== 1 ? "s" : ""}
                       </Badge>
                     )}
-                    {semaforo.global.proximos > 0 && (
+                    {(semaforo.global.proximos ?? 0) > 0 && (
                       <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/15 text-[10px] font-bold h-5 rounded-md border">
-                        {semaforo.global.proximos} próximo{semaforo.global.proximos !== 1 ? "s" : ""}
+                        {semaforo.global.proximos} próximo{(semaforo.global.proximos ?? 0) !== 1 ? "s" : ""}
                       </Badge>
                     )}
-                    {semaforo.alertas.length === 0 && (
+                    {(!semaforo.alertas || semaforo.alertas.length === 0) && (
                       <Badge className="bg-emerald-500/8 text-emerald-400 border-emerald-500/15 text-[10px] font-bold h-5 rounded-md border">
                         Sin vencimientos
                       </Badge>
@@ -935,14 +951,14 @@ export default function DashboardEmpresaPage() {
                   </div>
                 </div>
 
-                {!Array.isArray(semaforo.alertas) || semaforo.alertas.length === 0 ? (
+                {!Array.isArray(semaforo?.alertas) || semaforo.alertas.length === 0 ? (
                   <div className="py-6 text-center">
                     <CircleCheck className="h-8 w-8 text-emerald-400/20 mx-auto mb-2" />
                     <p className="text-[10px] text-muted-foreground/40">No hay vencimientos próximos ni pendientes</p>
                   </div>
                 ) : (
                   <div className="space-y-1 max-h-[220px] overflow-y-auto pr-1">
-                    {semaforo.alertas.map((alerta, idx) => (
+                    {(semaforo.alertas || []).map((alerta, idx) => (
                       <Link key={idx} href={alerta.href as never}>
                         <div className={cn(
                           "flex items-center gap-3 p-2.5 rounded-lg border transition-all hover:shadow-sm cursor-pointer group",

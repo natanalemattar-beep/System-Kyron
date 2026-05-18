@@ -66,7 +66,7 @@ export function DemoBannerProvider({ children }: { children: ReactNode }) {
               <div className="flex items-center gap-2 text-amber-400">
                 <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                 <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-amber-200/90 whitespace-nowrap">
-                  {t('message')}
+                  Página en construcción
                 </p>
               </div>
 

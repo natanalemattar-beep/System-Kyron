@@ -14,7 +14,8 @@ import {
     Globe,
     Zap,
     Cpu,
-    Lock
+    Lock,
+    Headphones,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import {
@@ -155,6 +156,18 @@ export function LandingHeader() {
                                             <ArrowRight className="h-5 w-5 ml-auto text-white/20 group-hover:text-emerald-400 group-hover:translate-x-2 transition-all" />
                                         </Link>
                                     </DropdownMenuItem>
+                                    <DropdownMenuItem asChild className="rounded-[1.5rem] p-4 flex items-center gap-5 hover:bg-white/5 transition-all group cursor-pointer border border-transparent hover:border-white/5">
+                                        <Link href="/soporte">
+                                            <div className="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                                                <Headphones className="h-6 w-6" />
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-black uppercase tracking-tight text-white">Atención al Cliente</p>
+                                                <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest">Soporte con AI</p>
+                                            </div>
+                                            <ArrowRight className="h-5 w-5 ml-auto text-white/20 group-hover:text-cyan-400 group-hover:translate-x-2 transition-all" />
+                                        </Link>
+                                    </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         </div>
@@ -256,6 +269,17 @@ export function LandingHeader() {
 
                                     <div className="space-y-2">
                                         <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-4 px-4">Soluciones</p>
+                                        <SheetClose asChild>
+                                            <Link href="/soporte" className="flex items-center justify-between p-4 rounded-[1.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 transition-all group">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center">
+                                                        <Headphones className="h-5 w-5 text-zinc-500 group-hover:text-emerald-400 transition-colors" />
+                                                    </div>
+                                                    <span className="text-sm font-black uppercase tracking-widest text-white/70 group-hover:text-white transition-colors">Atención al Cliente</span>
+                                                </div>
+                                                <ChevronRight className="h-4 w-4 text-zinc-800 group-hover:text-emerald-400 transition-all" />
+                                            </Link>
+                                        </SheetClose>
                                         <SheetClose asChild>
                                             <Link href="/login-linea?type=personal" className="flex items-center justify-between p-4 rounded-[1.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 transition-all group">
                                                 <div className="flex items-center gap-4">

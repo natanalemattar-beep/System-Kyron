@@ -124,22 +124,29 @@ export function HeroSectionOptimized() {
              </div>
 
 
-            {/* Actions */}
-             <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start pt-8">
-               <Button asChild className="h-16 px-12 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 shadow-[0_0_40px_rgba(6,182,212,0.3)] hover:shadow-[0_0_60px_rgba(6,182,212,0.5)] hover:-translate-y-1 transition-all duration-500 group border-none">
-                 <Link href="/register" className="flex items-center gap-4">
-                   {t('cta_main')} 
-                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1.5 transition-transform" />
-                 </Link>
-               </Button>
-               
-               <Button variant="outline" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl border-white/10 bg-white/[0.03] backdrop-blur-3xl text-white/50 hover:bg-white/[0.08] hover:text-white transition-all duration-500 hover:scale-[1.02] hover:border-white/20">
-                 <span className="flex items-center gap-3">
-                   <Play className="h-3.5 w-3.5 fill-current" />
-                   {t('cta_secondary')}
-                 </span>
-               </Button>
-             </div>
+             {/* Actions */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-8">
+                <Button asChild className="h-16 px-12 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 shadow-[0_0_40px_rgba(6,182,212,0.3)] hover:shadow-[0_0_60px_rgba(6,182,212,0.5)] hover:-translate-y-1 transition-all duration-500 group border-none">
+                  <Link href="/register" className="flex items-center gap-4">
+                    {t('cta_main')} 
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1.5 transition-transform" />
+                  </Link>
+                </Button>
+                
+                <Button variant="outline" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl border-white/10 bg-white/[0.03] backdrop-blur-3xl text-white/50 hover:bg-white/[0.08] hover:text-white transition-all duration-500 hover:scale-[1.02] hover:border-white/20">
+                  <span className="flex items-center gap-3">
+                    <Play className="h-3.5 w-3.5 fill-current" />
+                    {t('cta_secondary')}
+                  </span>
+                </Button>
+
+                <Button asChild variant="ghost" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl border border-emerald-500/20 bg-emerald-500/5 text-emerald-400/70 hover:bg-emerald-500/10 hover:text-emerald-300 hover:border-emerald-500/40 transition-all duration-500 hover:scale-[1.02] group">
+                  <Link href="/soporte" className="flex items-center gap-3">
+                    <Headphones className="h-4 w-4 group-hover:scale-110 transition-transform" />
+                    Atención al Cliente
+                  </Link>
+                </Button>
+              </div>
 
           </div>
 
