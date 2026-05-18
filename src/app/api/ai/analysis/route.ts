@@ -43,9 +43,13 @@ export async function POST(req: NextRequest) {
         const swot = await analysisAgent.swotAnalysis(data);
         return NextResponse.json(swot);
 
+      case "competitive":
+        const competitive = await analysisAgent.competitiveAnalysis(data);
+        return NextResponse.json(competitive);
+
       default:
         return NextResponse.json(
-          { error: "Acción no válida. Use: general, financial, market, operational, risk, swot" },
+          { error: "Acción no válida. Use: general, financial, market, operational, risk, swot, competitive" },
           { status: 400 }
         );
     }

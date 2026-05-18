@@ -49,9 +49,16 @@ export async function POST(req: NextRequest) {
         const comparison = await documentAnalyzerAgent.compareDocuments(doc1, doc2);
         return NextResponse.json(comparison);
 
+      case "validate":
+        const validation = await documentAnalyzerAgent.validateDocument(
+          content,
+          documentType || "general"
+        );
+        return NextResponse.json(validation);
+
       default:
         return NextResponse.json(
-          { error: "Acción no válida. Use: analyze, extract, compliance, compare" },
+          { error: "Acción no válida. Use: analyze, extract, compliance, compare, validate" },
           { status: 400 }
         );
     }

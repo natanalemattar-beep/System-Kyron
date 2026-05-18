@@ -44,7 +44,7 @@ FORMATO DE RESPUESTA (JSON array):
 Responde SOLO con el JSON array.`,
       {
         systemInstruction:
-          "Eres un agente de atención al cliente proactivo que detecta situaciones requiring acción inmediata y genera comunicaciones o alertas automáticas. No eres un chatbot conversacional.",
+          "Eres un agente de atención al cliente proactivo que detecta situaciones que requieren acción inmediata y genera comunicaciones o alertas automáticas. No eres un chatbot conversacional.",
         temperature: 0.3,
       },
       []

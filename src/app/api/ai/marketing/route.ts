@@ -45,9 +45,19 @@ export async function POST(req: NextRequest) {
         const seoContent = await marketingAgent.generateSEOContent(request, keywords);
         return NextResponse.json(seoContent);
 
+      case "adcopy":
+        if (!body.platform) {
+          return NextResponse.json(
+            { error: "Falta plataforma (google_ads, facebook_ads, linkedin_ads)" },
+            { status: 400 }
+          );
+        }
+        const adCopy = await marketingAgent.generateAdCopy(request, body.platform);
+        return NextResponse.json(adCopy);
+
       default:
         return NextResponse.json(
-          { error: "Acción no válida. Use: content, social, email, seo" },
+          { error: "Acción no válida. Use: content, social, email, seo, adcopy" },
           { status: 400 }
         );
     }

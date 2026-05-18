@@ -79,6 +79,14 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
     }, [refreshUser]);
 
     useEffect(() => {
+        const handleBeforeUnload = () => {
+            navigator.sendBeacon('/api/auth/logout');
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, []);
+
+    useEffect(() => {
         if (!isLoading && !user && !isLoggingOut.current) {
             refreshUser();
         }

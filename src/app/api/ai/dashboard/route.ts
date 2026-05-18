@@ -29,9 +29,13 @@ export async function POST(req: NextRequest) {
         const anomalies = await dashboardAgent.detectAnomalies(metricData);
         return NextResponse.json({ anomalies });
 
+      case "forecast":
+        const forecast = await dashboardAgent.generateForecast(metricData, body.periods || 3);
+        return NextResponse.json({ forecast });
+
       default:
         return NextResponse.json(
-          { error: "Acción no válida. Use: insights, summary, anomalies" },
+          { error: "Acción no válida. Use: insights, summary, anomalies, forecast" },
           { status: 400 }
         );
     }

@@ -29,9 +29,19 @@ export async function POST(req: NextRequest) {
         const note = await customerServiceAgent.generateAdvisorNote(customerContext, body.issue);
         return NextResponse.json({ note });
 
+      case "draft":
+        if (!body.inquiry) {
+          return NextResponse.json(
+            { error: "Falta la consulta del cliente (inquiry)" },
+            { status: 400 }
+          );
+        }
+        const draft = await customerServiceAgent.generateDraftResponse(customerContext, body.inquiry);
+        return NextResponse.json({ draft });
+
       default:
         return NextResponse.json(
-          { error: "Acción no válida. Use: analyze, email, note" },
+          { error: "Acción no válida. Use: analyze, email, note, draft" },
           { status: 400 }
         );
     }
