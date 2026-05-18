@@ -115,7 +115,7 @@ export function LandingHeader() {
                             {navItems.map((item) => (
                                 <Link
                                     key={item.labelKey}
-                                    href={item.href}
+                                    href={item.href as any}
                                     onClick={(e) => handleAnchorClick(e, item.href)}
                                     className="px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-white transition-all duration-500 rounded-xl hover:bg-white/5 relative group"
                                 >
@@ -133,8 +133,8 @@ export function LandingHeader() {
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="center" className="w-80 p-4 rounded-[2.5rem] border border-white/10 bg-[#0c1120]/95 backdrop-blur-3xl shadow-2xl mt-6 space-y-1">
                                     <DropdownMenuItem asChild className="rounded-[1.5rem] p-4 flex items-center gap-5 hover:bg-white/5 transition-all group cursor-pointer border border-transparent hover:border-white/5">
-                                        <Link href="/login-linea?type=personal">
-                                            <div className="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+<Link href={"/login-linea?type=personal" as any}>
+                                             <div className="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
                                                 <Cpu className="h-6 w-6" />
                                             </div>
                                             <div>
@@ -281,7 +281,7 @@ export function LandingHeader() {
                                             </Link>
                                         </SheetClose>
                                         <SheetClose asChild>
-                                            <Link href="/login-linea?type=personal" className="flex items-center justify-between p-4 rounded-[1.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 transition-all group">
+                                            <Link href={"/login-linea?type=personal" as any} className="flex items-center justify-between p-4 rounded-[1.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 transition-all group">
                                                 <div className="flex items-center gap-4">
                                                     <div className="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center">
                                                         <Cpu className="h-5 w-5 text-zinc-500 group-hover:text-cyan-400 transition-colors" />

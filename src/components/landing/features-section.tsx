@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Zap, Gauge, Timer, Shield, TrendingUp, ChartColumn, ArrowRight, Headphones, MessageSquare, Brain, FileSearch } from 'lucide-react';
 import { Link } from '@/navigation';
 import { ScrollReveal } from './scroll-reveal';
+import { cn } from '@/lib/utils';
 import { AnimatedNumber } from '@/components/animations/animated-number';
 
 export function FeaturesSection() {

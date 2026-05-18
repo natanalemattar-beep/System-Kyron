@@ -377,7 +377,6 @@ ${content}
           </div>
         </div>
       </PrintSection>
-      </div>
 
       {/* 6 */}
       <PrintSection number="6" title="Estrategia de Marketing y Ventas" icon={Megaphone}>
