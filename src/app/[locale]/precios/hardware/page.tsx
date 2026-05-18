@@ -10,7 +10,7 @@ export default function HardwarePricingPage() {
     <div className="relative min-h-screen selection:bg-primary/20 w-full bg-transparent">
       <LandingClientWrapper>
         <main className="w-full pt-20">
-            <PricingSection category="hardware" />
+            <PricingSection />
         </main>
         <LazySection fallbackHeight="200px">
             <Footer />

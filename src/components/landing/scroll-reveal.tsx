@@ -21,7 +21,7 @@ export function ScrollReveal({
   margin = "-15% 0px -15% 0px",
 }: ScrollRevealProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once, margin });
+  const isInView = useInView(ref, { once, margin: margin as any });
 
   return (
     <div

@@ -6,15 +6,14 @@ import { moduleTutorials } from "@/lib/module-tutorials";
 import { Card, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  Clock, User, FileText, Stethoscope, Scale, History, ChevronRight,
-  Search, Lock, LifeBuoy, Bell, CircleCheck as CircleCheck, Fingerprint,
-  Shield, Sparkles, Folder, TriangleAlert, ArrowRight, Eye, Leaf,
+  Clock, User, FileText, Stethoscope, Scale, ChevronRight,
+  Lock, Bell, CircleCheck as CircleCheck, Fingerprint,
+  Shield, Sparkles, TriangleAlert, ArrowRight, Leaf,
   Sun, Moon, Sunrise, Heart, BadgeCheck, Trophy
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
 import { useAuth } from "@/lib/auth/context";
 import { useLocale } from "next-intl";
 import { cn } from "@/lib/utils";
@@ -48,7 +47,6 @@ export default function DashboardPersonalPage() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
-  const [clientTimeStr, setClientTimeStr] = useState<string | null>(null);
   const [clientDateStr, setClientDateStr] = useState<string | null>(null);
 
   useEffect(() => {
@@ -73,8 +71,7 @@ export default function DashboardPersonalPage() {
   useEffect(() => { fetchData(); }, [fetchData]);
 
   const verif = getVerificationLevel(data?.documentos ?? 0);
-  const GreetingIcon = greeting?.icon ?? Sun;
-
+  
   const kpiCards = [
     {
       title: "Expediente Civil",

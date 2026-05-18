@@ -58,7 +58,7 @@ export function ResourceHeader() {
                         return (
                             <Link
                                 key={item.href}
-                                href={item.href}
+                                href={item.href as any}
                                 className={cn(
                                     "relative flex items-center gap-2 px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.1em] transition-colors duration-500",
                                     isActive ? "text-black" : "text-zinc-500 hover:text-zinc-200"

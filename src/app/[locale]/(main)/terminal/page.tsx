@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { 
   Download, Zap, ShieldCheck, 
-  Lock, Printer, BrainCircuit, Network, Cpu, Database, 
-  Sparkles, Activity, Terminal as TerminalIcon, Smartphone
+  Lock, Printer, Network, Cpu, Database, 
+  Activity, Terminal as TerminalIcon, Smartphone
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, cn } from "@/lib/utils";

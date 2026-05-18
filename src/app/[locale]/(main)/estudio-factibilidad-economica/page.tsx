@@ -2,13 +2,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatPercentage } from "@/lib/utils";
-import { Download, Printer, TrendingUp, ChartBar as BarChart, CircleCheck as CircleCheck, Zap, FileText, ShieldCheck, Activity, Target, ChartBar as ChartColumn } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-import { Logo } from "@/components/logo";
+import { Download, Printer, TrendingUp, CircleCheck as CircleCheck, Activity, Target, ChartBar as ChartColumn } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const indicators = [
@@ -27,7 +25,6 @@ const projections = [
 ];
 
 export default function EstudioFactibilidadPage() {
-    const { toast } = useToast();
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {

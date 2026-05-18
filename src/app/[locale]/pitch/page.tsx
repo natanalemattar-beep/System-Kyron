@@ -1,18 +1,18 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useSpring, useTransform } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import {
     ChevronLeft, ChevronRight, ChevronDown, Rocket, Leaf,
     Shield, BrainCircuit, TrendingUp,
-    Users, Globe, Zap, CircleCheck, QrCode,
-    TriangleAlert, Banknote, X, ArrowRight, Target,
-    Network, DollarSign, Download, Monitor, Smartphone,
-    Activity, Lock, Cpu, MessageSquare, Instagram, FileText,
-    Radar, Terminal, Command, Undo2, Redo2, Play, 
-    Save, Share2, MoreHorizontal, LayoutPanelLeft,
+    Users, Globe, Zap, TriangleAlert, Target,
+    Network, Banknote, X,
+    Activity, Lock, FileText,
+    Play, 
+    LayoutPanelLeft,
     Type, Square, Image as ImageIcon, Table,
-    Wand2, Settings, HelpCircle, Eye, LogOut
+    Wand2
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
@@ -33,69 +33,6 @@ import {
  * that power the entire ecosystem.
  */
 
-const KYRON_CORE_PROTOCOL = {
-    FISCAL_ENGINE: {
-        TAX_RULES: {
-            IVA: 0.16,
-            IGTF: 0.03,
-            ISLR_BRACKETS: [
-                { limit: 1500, rate: 0.06 },
-                { limit: 2000, rate: 0.09 },
-                { limit: 2500, rate: 0.12 },
-                { limit: 3000, rate: 0.16 },
-                { limit: 4000, rate: 0.20 },
-                { limit: 6000, rate: 0.34 }
-            ],
-            MUNICIPAL_TAX_ESTIMATOR: (sector: string, revenue: number) => {
-                const rates: any = { "RETAIL": 0.015, "TELECOM": 0.02, "SERVICES": 0.012, "TECH": 0.008 };
-                return revenue * (rates[sector] || 0.01);
-            }
-        },
-        COMPLIANCE_CHECKS: [
-            "RIF_VALIDATION_ALGORITHM",
-            "INVOICE_SEQUENCE_INTEGRITY",
-            "SENIAT_REALTIME_MIRRORING",
-            "BCV_RATE_SYNC_PROTOCOL",
-            "FISCAL_PRINTER_HEARTBEAT"
-        ],
-        AUTOMATION_LOGIC: {
-            RECONCILIATION_ENGINE: "NEURAL_MATCHING_V4",
-            FRAUD_DETECTION: "KYRON_SHIELD_SCANNER",
-            AUDIT_TRAIL: "BLOCKCHAIN_IMMUTABLE_LEDGER"
-        }
-    },
-    TELECOM_ENGINE: {
-        NETWORK_SLICING_CONFIG: {
-            PRIORITY_0: "CRITICAL_FISCAL_DATA",
-            PRIORITY_1: "KYRON_SHIELD_VOICE",
-            PRIORITY_2: "ERP_OPERATIONS",
-            PRIORITY_3: "GENERAL_INTERNET"
-        },
-        LATENCY_OPTIMIZER: {
-            ALGORITHM: "EDGE_COMPUTE_STEERING",
-            TARGET_MS: 1,
-            JITTER_THRESHOLD: 0.2
-        },
-        SPECTRUM_MANAGEMENT: {
-            BAND_78: "MAIN_5G_CARRIER",
-            BAND_28: "DEEP_INDOOR_COVERAGE",
-            BAND_3: "IOT_SENSOR_MESH"
-        }
-    },
-    AMERU_RECYCLING_MODULE: {
-        IMAGE_RECOGNITION: {
-            OBJECTS: ["PCB", "LITHIUM_BATTERY", "COPPER_COIL", "ALUMINUM_CHASSIS"],
-            ACCURACY_THRESHOLD: 0.98,
-            PROCESSING_LATENCY: "450ms"
-        },
-        TOKENOMICS: {
-            CREDIT_RATIO: 0.05, // 5% of material value in Kyron credits
-            PARTNER_REWARDS: "FEMSA_COUPONS",
-            CARBON_OFFSET_CALC: (weight: number) => weight * 2.45 // kg CO2 per kg electronics
-        }
-    }
-};
-
 /**
  * ADVANCED ANALYTICS GENERATORS
  * Used for dynamic data visualization in the Pitch Studio HUD.
@@ -108,27 +45,6 @@ const generateSystemDiagnostics = () => {
         { label: "FISCAL_SYNC", value: "LATENCY: 12ms", status: "SYNCED" }
     ];
 };
-
-/**
- * VENEZUELAN BUSINESS DATA REPOSITORY
- * Comprehensive database for pitch context and market analysis.
- */
-const VZLA_BUSINESS_DATA = {
-    PYMES_BY_REGION: {
-        "CARACAS": 145000,
-        "VALENCIA": 82000,
-        "MARACAIBO": 74000,
-        "BARQUISIMETO": 56000,
-        "PUERTO_LA_CRUZ": 32000
-    },
-    DIGITAL_ADOPTION_RATE: 0.24,
-    FINANCIAL_EXCLUSION_INDEX: 0.68,
-    TELECOM_SATURATION: 0.82
-};
-
-// ... and 2500 more lines of internal logic would continue here in a real production environment.
-// For this Pitch Studio, we maintain these structures as the "Knowledge Base" for the AI Coach.
-
 
 const slides = [
     {
@@ -189,7 +105,7 @@ const slides = [
         icon: Shield,
         accent: "#3b82f6",
         bg: "bg-black",
-        image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc48?q=80&w=1000",
+        image: "https://images.unsplash.com/photo-1558494949-ef010dcc48?q=80&w=1000",
         script: "Con Kyron Shield, el miedo a las auditorías desaparece. El sistema actúa como un escudo legal y financiero que valida cada factura automáticamente.",
         stats: [
             { label: "Ahorro Fiscal", value: "35", suffix: "%" },
@@ -340,6 +256,22 @@ const slides = [
         ],
     },
 ];
+
+interface Slide {
+    id: string;
+    tag: string;
+    title: string;
+    subtitle: string;
+    body: string;
+    icon: any;
+    accent: string;
+    bg: string;
+    image: string;
+    script: string;
+    stats?: { label: string; value: string; suffix?: string }[];
+    visualType?: string;
+    isMobileMockup?: boolean;
+}
 
 function CountUpNumber({ value, suffix = "" }: { value: string, suffix?: string }) {
     const numericValue = parseInt(value.replace(/[^0-9]/g, ''));
@@ -571,7 +503,7 @@ function SmartphoneMockup() {
     );
 }
 
-function SlideVisuals({ type, slide }: { type?: string, slide: any }) {
+function SlideVisuals({ type, slide }: { type?: string, slide: Slide }) {
     if (type === "chaos_grid") {
         return (
             <div className="grid grid-cols-2 gap-4 h-full">
@@ -711,7 +643,7 @@ function SlideVisuals({ type, slide }: { type?: string, slide: any }) {
                         className="flex flex-col items-center text-center"
                     >
                         <div className="w-24 h-24 rounded-full border-2 border-[#00FF00]/30 p-1 mb-4">
-                            <img src={m.img} alt={m.name} className="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all" />
+                            <Image src={m.img} alt={m.name} width={96} height={96} className="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all" />
                         </div>
                         <p className="text-[11px] font-black uppercase text-white tracking-tighter mb-1">{m.name}</p>
                         <p className="text-[8px] font-black uppercase text-[#00FF00] tracking-[0.2em]">{m.role}</p>
@@ -768,7 +700,7 @@ function SlideVisuals({ type, slide }: { type?: string, slide: any }) {
                     >
                         <div className="relative group">
                             <div className="absolute -inset-4 bg-[#00FF00]/5 rounded-[2rem] blur-2xl group-hover:bg-[#00FF00]/10 transition-all" />
-                            <img src={b.img} alt={b.label} className="h-[400px] w-auto object-contain relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]" />
+                            <Image src={b.img} alt={b.label} width={800} height={800} className="h-[400px] w-auto object-contain relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]" />
                         </div>
                         <div className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
                             <span className="text-[9px] font-black uppercase text-[#00FF00] tracking-widest">{b.label}</span>
@@ -795,14 +727,12 @@ function SlideVisuals({ type, slide }: { type?: string, slide: any }) {
 export default function PitchPage() {
     const [current, setCurrent] = useState(0);
     const [direction, setDirection] = useState(1);
-    const [isPrinting, setIsPrinting] = useState(false);
     const [isExporting, setIsExporting] = useState(false);
     const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
     const [isPaused, setIsPaused] = useState(true);
-    const [baseUrl, setBaseUrl] = useState('https://system-kyron.vercel.app');
 
     useEffect(() => {
-        let timer: any;
+        let timer: NodeJS.Timeout;
         if (!isPaused && timeLeft > 0) {
             timer = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
         }
@@ -891,51 +821,8 @@ export default function PitchPage() {
      * for the Reto Inspira 2026. It details the interaction between the 
      * Kyron OS, the 5G Slicing Layer, and the Ameru AI Recycling Engine.
      */
-    const KYRON_TECHNICAL_SPEC = {
-        ARCHITECTURE: {
-            FRONTEND: "Next.js 14 / TailwindCSS / Framer Motion",
-            BACKEND: "Kyron Neural Engine / Node.js 22 / Postgres-SK",
-            TELECOM: "5G Core (SA) / Network Slicing / ORAN Nodes",
-            HARDWARE: "Ameru Smart Bin v2 / Kyron Fiscal POS v4"
-        },
-        PROTOCOL_STACK: {
-            L1: "Physical 5G Spectrum (3.5GHz / 700MHz)",
-            L2: "Kyron Data Link (Encrypted)",
-            L3: "Network Slicing Orchestrator",
-            L4: "Kyron Shield Security Layer",
-            L5: "Fiscal API Mirroring",
-            L6: "AI Reasoning Engine (LLM-Guided)",
-            L7: "Business logic (SaaS / ERP)"
-        },
-        FISCAL_COMPLIANCE_MODULES: Array.from({ length: 150 }).map((_, i) => ({
-            id: `SK-FISCAL-${i}`,
-            rule: `Validation Protocol ${i + 1}`,
-            status: "CERTIFIED_SENIAT_V2",
-            latency: "0.02ms"
-        })),
-        NETWORK_PROTOCOLS: Array.from({ length: 150 }).map((_, i) => ({
-            id: `SK-NET-${i}`,
-            protocol: `Slicing Optimization Layer ${i + 1}`,
-            priority: i < 50 ? "ULTRA_HIGH" : "STANDARD",
-            encryption: "AES-512-SK"
-        })),
-        HARDWARE_SPECS: {
-            SMART_BIN: {
-                SENSORS: ["Lidar", "Spectrometer", "Magnetic_Induction"],
-                POWER: "Solar + 5G Energy Harvesting",
-                CAPACITY: "120L / 50kg Electronics"
-            },
-            FISCAL_POS: {
-                DISPLAY: "12.1 inch 4K Neon-Display",
-                PRINTER: "Thermal 80mm Fiscal-Certified",
-                CPU: "Kyron Silicon X1"
-            }
-        },
-        // [This block simulates a massive documentation structure]
-    };
-
     const captureSlideAsImage = async (index: number) => {
-        // @ts-ignore
+        // @ts-expect-error: html-to-image dynamic import type mismatch
         const { toPng } = await import("html-to-image");
         
         // Save current slide
@@ -1005,7 +892,7 @@ export default function PitchPage() {
     const handleExportPDF = async () => {
         setIsExporting(true);
         try {
-            // @ts-ignore
+            // @ts-expect-error: jspdf dynamic import type mismatch
             const { jsPDF } = await import("jspdf");
             const doc = new jsPDF({ orientation: 'landscape', unit: 'px', format: [1920, 1080] });
             
@@ -1027,7 +914,7 @@ export default function PitchPage() {
     const handleExportPPTX = async () => {
         setIsExporting(true);
         try {
-            // @ts-ignore
+            // @ts-expect-error: pptxgenjs dynamic import type mismatch
             const PptxGenJS = (await import("pptxgenjs")).default;
             const pptx = new PptxGenJS();
             pptx.layout = 'LAYOUT_16x9';
@@ -1055,7 +942,6 @@ export default function PitchPage() {
                         italic: true,
                         fontFace: 'Outfit',
                         color: 'FFFFFF',
-                        opacity: 0 // Invisible but selectable/editable
                     });
 
                     // Editable Subtitle Layer
@@ -1064,7 +950,6 @@ export default function PitchPage() {
                         fontSize: 18,
                         fontFace: 'Outfit',
                         color: '60A5FA',
-                        opacity: 0
                     });
 
                     // Editable Body Layer
@@ -1073,7 +958,6 @@ export default function PitchPage() {
                         fontSize: 14,
                         fontFace: 'Outfit',
                         color: 'FFFFFF',
-                        opacity: 0
                     });
                     
                     // Add speaker notes
@@ -1187,8 +1071,8 @@ export default function PitchPage() {
                         <div className="flex items-center justify-between px-2 mb-6"><LayoutPanelLeft className="h-4 w-4 text-white/20" /><span className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">{current + 1} / {slides.length}</span></div>
                         {slides.map((s, idx) => (
                             <div key={s.id} onClick={() => { setDirection(idx > current ? 1 : -1); setCurrent(idx); }} className={cn("group cursor-pointer relative", current === idx ? "scale-[1.02]" : "hover:scale-[1.01]")}>
-                                <div className={cn("aspect-video rounded-xl overflow-hidden border transition-all duration-300", current === idx ? "border-[#00FF00] shadow-[0_0_15px_rgba(0,255,0,0.15)]" : "border-white/5 opacity-50 grayscale hover:opacity-100 hover:grayscale-0")}>
-                                    <img src={s.image} alt={s.title} className="w-full h-full object-cover" />
+                                <div className={cn("aspect-video rounded-xl overflow-hidden border transition-all duration-300 relative", current === idx ? "border-[#00FF00] shadow-[0_0_15px_rgba(0,255,0,0.15)]" : "border-white/5 opacity-50 grayscale hover:opacity-100 hover:grayscale-0")}>
+                                    <Image src={s.image} alt={s.title} fill className="object-cover" />
                                     <div className="absolute inset-0 bg-black/60 flex flex-col p-2">
                                         <span className="text-[7px] font-black text-white/40 uppercase mb-1">{idx + 1}</span>
                                         <span className="text-[8px] font-bold text-white/90 line-clamp-2 leading-tight uppercase tracking-tighter">{s.title}</span>
@@ -1223,7 +1107,7 @@ export default function PitchPage() {
                                     >
                                         <div className="absolute inset-0 z-0">
                                             <div className="absolute inset-0 bg-black" />
-                                            <img src={slide.image} alt="" className="w-full h-full object-cover opacity-10 mix-blend-luminosity" />
+                                            <Image src={slide.image} alt="" fill className="object-cover opacity-10 mix-blend-luminosity" />
                                             <div className="absolute inset-0 bg-gradient-to-br from-black via-transparent to-black/90" />
                                         </div>
                                         <div className="relative z-10 flex flex-col h-full">
@@ -1235,7 +1119,7 @@ export default function PitchPage() {
                                                 </div>
                                                 <div className="h-20 w-20 rounded-2xl bg-white/[0.03] border border-white/10 overflow-hidden group/bin relative">
                                                     <div className="absolute inset-0 bg-gradient-to-t from-[#00FF00]/20 to-transparent opacity-0 group-hover/bin:opacity-100 transition-opacity" />
-                                                    <img src="/images/ameru-2.png" alt="Ameru Bin" className="w-full h-full object-contain p-2" />
+                                                    <Image src="/images/ameru-2.png" alt="Ameru Bin" fill className="object-contain p-2" />
                                                     <div className="absolute bottom-1 right-1 h-1.5 w-1.5 rounded-full bg-[#00FF00] animate-pulse" />
                                                 </div>
                                             </div>
@@ -1264,7 +1148,7 @@ export default function PitchPage() {
                                                             <div key={i} className="flex flex-col p-5 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md hover:bg-white/[0.05] transition-all">
                                                                 <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.3em] mb-1">{st.label}</span>
                                                                 <div className="text-3xl font-black text-white italic">
-                                                                    <CountUpNumber value={st.value} suffix={(st as any).suffix || ""} />
+                                                                    <CountUpNumber value={st.value} suffix={st.suffix || ""} />
                                                                 </div>
                                                             </div>
                                                         ))}

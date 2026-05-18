@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Mail, Send, Shield, CircleCheck, XCircle, Loader2, Lock, Plus, Trash2, Eye, Pencil, ArrowRight, FileEdit } from 'lucide-react';
+import { Mail, Send, Shield, CircleCheck, XCircle, Loader2, Lock, Plus, Trash2, ArrowRight, FileEdit } from 'lucide-react';
 
 const TEMPLATES = [
   { id: 'personalizado', label: 'Personalizado' },

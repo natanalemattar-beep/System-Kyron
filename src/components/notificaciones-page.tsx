@@ -211,7 +211,7 @@ export function NotificacionesPageContent() {
 
   return (
     <div className="max-w-3xl mx-auto space-y-8 pb-12">
-      <Link href={backHref} className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
+      <Link href={backHref as any} className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
         <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
       </Link>
 
@@ -492,39 +492,41 @@ export function NotificacionesPageContent() {
                   </p>
                   {noti.metadata?.riesgo_multa && (
                     <div className="mt-2 p-3 bg-muted/30 rounded-lg border border-border/30 space-y-2">
-                      {(noti.metadata.riesgo_multa as { descripcion?: string; monto?: string; base_legal?: string }).descripcion && (
+                      {(() => { const rm = noti.metadata?.riesgo_multa as { descripcion?: string; monto?: string; base_legal?: string } | undefined; if (!rm) return null; return (<>
+                      {rm.descripcion && (
                         <div className="flex items-start gap-2">
                           <TriangleAlert className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
                           <p className="text-[11px] text-amber-400/90 font-semibold leading-snug">
-                            {(noti.metadata.riesgo_multa as { descripcion: string }).descripcion}
+                            {rm.descripcion}
                           </p>
                         </div>
                       )}
-                      {(noti.metadata.riesgo_multa as { monto?: string }).monto && (
+                      {rm.monto && (
                         <div className="flex items-start gap-2">
                           <CreditCard className="h-3.5 w-3.5 text-red-400 mt-0.5 shrink-0" />
                           <p className="text-[11px] text-muted-foreground leading-snug">
                             <span className="font-semibold text-red-400/80">Multa:</span>{' '}
-                            {(noti.metadata.riesgo_multa as { monto: string }).monto}
+                            {rm.monto}
                           </p>
                         </div>
                       )}
-                      {(noti.metadata.riesgo_multa as { base_legal?: string }).base_legal && (
+                      {rm.base_legal && (
                         <div className="flex items-start gap-2">
                           <FileText className="h-3.5 w-3.5 text-blue-400 mt-0.5 shrink-0" />
                           <p className="text-[11px] text-muted-foreground leading-snug">
                             <span className="font-semibold text-blue-400/80">Base Legal:</span>{' '}
-                            {(noti.metadata.riesgo_multa as { base_legal: string }).base_legal}
+                            {rm.base_legal}
                           </p>
                         </div>
                       )}
+                      </>); })()}
                     </div>
                   )}
-                  {Boolean(noti.metadata?.ente) && (
+                  {noti.metadata?.ente && (
                     <div className="flex items-center gap-1.5 mt-1.5">
                       <ShieldCheck className="h-3 w-3 text-muted-foreground/50" />
                       <span className="text-[10px] text-muted-foreground/60 font-medium">
-                        {(noti.metadata.ente_nombre as string) || (noti.metadata.ente as string)}
+                        {String(noti.metadata.ente_nombre || noti.metadata.ente)}
                       </span>
                     </div>
                   )}

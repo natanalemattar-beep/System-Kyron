@@ -20,7 +20,6 @@ import {
     Fingerprint,
     Layers,
     ExternalLink,
-    Rocket,
 } from 'lucide-react';
 import { PasswordGate } from '@/components/password-gate';
 import Image from 'next/image';

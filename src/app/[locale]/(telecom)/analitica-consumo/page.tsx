@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ChartColumn, TrendingUp, BrainCircuit, Wifi, Bell, Zap, Target, Loader2, Inbox } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -22,7 +21,6 @@ export default function AnaliticaConsumoPage() {
   const { toast } = useToast();
   const [linea, setLinea] = useState<Linea | null>(null);
   const [loading, setLoading] = useState(true);
-  const [periodo, setPeriodo] = useState<"semana" | "mes" | "trimestre">("mes");
 
   const loadData = useCallback(() => {
     setLoading(true);

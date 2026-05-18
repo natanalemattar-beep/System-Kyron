@@ -158,7 +158,7 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: "ViÃ¡tico no encontrado" }, { status: 404 });
     }
 
-    const estadoActual = current[0].estado;
+    const estadoActual = String(current[0].estado);
     const allowed = TRANSITIONS[estadoActual] || [];
     if (!allowed.includes(estado)) {
       return NextResponse.json({ error: `No se puede cambiar de '${estadoActual}' a '${estado}'. Transiciones vÃ¡lidas: ${allowed.join(", ") || "ninguna"}` }, { status: 400 });

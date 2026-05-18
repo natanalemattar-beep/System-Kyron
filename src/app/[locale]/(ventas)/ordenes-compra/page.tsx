@@ -11,24 +11,46 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import {Loader2, Plus, Search, Trash2, ArrowLeft, ShoppingCart, Clock, CircleCheck, DollarSign, TriangleAlert, XCircle, FileText, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, Car, Heart, Globe, Package, Building, UserCheck, Receipt, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark} from "lucide-react";
+  import {Loader2, Plus, Search, Trash2, ArrowLeft, ShoppingCart, Clock, CircleCheck, DollarSign, Activity} from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";
 
+  interface OrdenCompra {
+    id: number;
+    numero_orden: string;
+    proveedor_nombre: string;
+    proveedor_rif: string;
+    fecha_emision: string;
+    fecha_entrega_esperada: string;
+    moneda: string;
+    departamento: string;
+    condiciones: string;
+    notas: string;
+    estado: string;
+    total: string;
+  }
+
+  interface OrdenesStats {
+    total: number;
+    pendientes: number;
+    recibidas: number;
+    monto_total: number;
+  }
+
   const estadoColors: Record<string, string> = {
     borrador: "bg-gray-500/20 text-gray-400 border-gray-500/30",
-  enviada: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  confirmada: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
-  en_transito: "bg-amber-500/20 text-amber-400 border-amber-500/30",
-  recibida: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-  cancelada: "bg-rose-500/20 text-rose-400 border-rose-500/30"
+    enviada: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+    confirmada: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
+    en_transito: "bg-amber-500/20 text-amber-400 border-amber-500/30",
+    recibida: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+    cancelada: "bg-rose-500/20 text-rose-400 border-rose-500/30"
   };
 
   export default function ÓrdenesdeCompraPage() {
     const { toast } = useToast();
-    const [data, setData] = useState<any[]>([]);
-    const [stats, setStats] = useState<any>({});
+    const [data, setData] = useState<OrdenCompra[]>([]);
+    const [stats, setStats] = useState<OrdenesStats>({});
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -253,7 +275,7 @@
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filtered.map((row: any) => (
+                    {filtered.map((row: OrdenCompra) => (
                       <TableRow key={row.id} className="hover:bg-muted/30 transition">
                         <TableCell className="text-xs font-medium">{row.numero_orden || "—"}</TableCell>
                       <TableCell className="text-xs font-medium">{row.proveedor_nombre || "—"}</TableCell>

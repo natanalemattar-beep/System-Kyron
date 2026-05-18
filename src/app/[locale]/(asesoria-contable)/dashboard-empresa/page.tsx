@@ -244,7 +244,7 @@ export default function DashboardEmpresaPage() {
       const json = await res.json();
       if (res.ok) { setClosingData(json.cierre); toast({ title: "PERIODO FISCAL CERRADO", description: `${closingForm.periodo} — Utilidad: ${fmtCur(json.cierre?.utilidad ?? 0)}` }); setShowCierre(false); fetchDashboard(); }
       else toast({ title: "Error", description: json.error ?? "No se pudo cerrar", variant: "destructive" });
-    } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
+    } catch (e) { toast({ title: "Error de conexión", description: e instanceof Error ? e.message : undefined, variant: "destructive" }); }
     setIsClosing(false);
   };
 

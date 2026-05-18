@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Gavel, Signature as FileSignature, ShieldCheck, Clock, TriangleAlert as TriangleAlert, CircleCheck, CirclePlus as PlusCircle, Download, Eye, FileText, Search, Scale, Activity, Lock, Wand as Wand2, ArrowRight, Sparkles, Loader as Loader2, RefreshCw, Trash2 } from "lucide-react";
+import { Gavel, Signature as FileSignature, ShieldCheck, Clock, TriangleAlert, CircleCheck, CirclePlus as PlusCircle, Eye, FileText, Search, Activity, Lock, Wand as Wand2, ArrowRight, Sparkles, Loader as Loader2, RefreshCw, Trash2 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -127,11 +127,7 @@ export default function EscritorioJuridicoPage() {
     d.tipo.toLowerCase().includes(search.toLowerCase())
   );
 
-  const porVencer = documentos.filter(d => {
-    if (!d.fecha_vencimiento || d.estado === 'archivado') return false;
-    const dias = Math.floor((new Date(d.fecha_vencimiento).getTime() - Date.now()) / 86400000);
-    return dias >= 0 && dias <= 30;
-  });
+  // porVencer removed as it was unused
 
   const kpiData = [
     { title: "Contratos Activos", value: stats.contratos_activos, icon: FileSignature, color: "text-blue-400", bg: "bg-blue-400/5" },

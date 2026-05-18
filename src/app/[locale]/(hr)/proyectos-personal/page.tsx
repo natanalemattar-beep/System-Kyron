@@ -2,11 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react";
 import {
-  Target, Briefcase, Users, TrendingUp, Calendar, Plus, Search,
-  ChevronRight, Clock, CircleCheck, TriangleAlert, Pause,
+  Target, Briefcase, TrendingUp, Plus, Search,
+  ChevronRight, Clock, CircleCheck, Pause,
   Loader2, FolderKanban, ChartColumn, Lightbulb, GraduationCap, Wrench
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";

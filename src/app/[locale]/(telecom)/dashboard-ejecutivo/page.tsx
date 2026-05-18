@@ -4,10 +4,10 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  LayoutDashboard, TrendingUp, DollarSign, Users,
-  Signal, Shield, Wifi, TriangleAlert, CircleCheck,
+  LayoutDashboard, DollarSign, Users,
+  Signal, Wifi, TriangleAlert,
   ChartColumn, PieChart, Download, BrainCircuit,
-  ArrowUp, ArrowDown, Loader2, Inbox
+  Loader2, Inbox
 } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -32,12 +32,6 @@ interface TelecomDashboardData {
   }>;
   tendencia: Array<{ mes: string; costo: number; lineas: number }>;
 }
-
-const ALERTA_COLOR_MAP = {
-  warning: "text-amber-500 bg-amber-500/10 border-amber-500/20",
-  info: "text-blue-500 bg-blue-500/10 border-blue-500/20",
-  success: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
-};
 
 export default function DashboardEjecutivoPage() {
   const currentLocale = useLocale();

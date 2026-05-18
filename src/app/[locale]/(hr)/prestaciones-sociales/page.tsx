@@ -6,14 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Calculator, CircleCheck as CircleCheck, Download, Printer, Activity, ShieldCheck, Terminal, Scale, History, FileText, Zap, TrendingUp, Loader as Loader2 } from "lucide-react";
-import { formatCurrency, formatDate, cn } from "@/lib/utils";
+import { Calculator, CircleCheck as CircleCheck, Printer, Activity, Terminal, Scale, History, Zap, Loader as Loader2 } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
-import { Logo } from "@/components/logo";
-import Image from "next/image";
 
 interface Empleado {
     id: number;
@@ -22,6 +18,16 @@ interface Empleado {
     ingreso: string;
     salario: number;
     fondo: number;
+}
+
+interface EmpleadoApi {
+    id: number;
+    nombre?: string;
+    apellido?: string;
+    cedula?: string;
+    fecha_ingreso?: string;
+    salario_base?: string;
+    fondo_prestaciones?: string;
 }
 
 export default function PrestacionesSocialesPage() {
@@ -36,7 +42,7 @@ export default function PrestacionesSocialesPage() {
             const res = await fetch('/api/empleados');
             if (res.ok) {
                 const data = await res.json();
-                const mapped = (data.empleados || []).map((e: any) => ({
+                const mapped = (data.empleados || []).map((e: EmpleadoApi) => ({
                     id: e.id,
                     nombre: ((e.nombre || '') + ' ' + (e.apellido || '')).trim(),
                     ci: e.cedula || '',

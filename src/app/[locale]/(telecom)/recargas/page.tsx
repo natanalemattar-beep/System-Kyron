@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
   CreditCard, Smartphone, Zap, Wallet, History, CircleCheck,
-  Signal, ArrowRight, Star, Clock
+  ArrowRight, Star, Clock
 } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";

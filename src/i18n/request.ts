@@ -1,6 +1,6 @@
 
 import {getRequestConfig} from 'next-intl/server';
-import {locales} from '../navigation';
+import {locales} from '../config';
 
 /**
  * @fileOverview Configuración i18n asíncrona para Next.js 15.

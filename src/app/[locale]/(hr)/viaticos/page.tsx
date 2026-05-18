@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useCallback } from "react";
 import {
-  Plane, MapPin, Building2, Hotel, UtensilsCrossed, Car, Fuel, Receipt,
+  Plane, Building2, Hotel, UtensilsCrossed, Car, Fuel, Receipt,
   Smartphone, ShieldCheck, CreditCard, Banknote, Plus, Search, Loader2,
-  Globe, Flag, Users, FileText, CircleCheck, XCircle, Clock, Eye,
-  Trash2, DollarSign, TrendingUp, Briefcase, Calendar, Filter,
-  Download, ChevronDown, TriangleAlert, Gift, Wallet, ArrowUpDown
+  Globe, Flag, Users, FileText, CircleCheck, XCircle, Clock,
+  Trash2, DollarSign, Briefcase, Calendar, Filter,
+  TriangleAlert, Gift, Wallet, ArrowUpDown
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";

@@ -3,12 +3,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { UserPlus, CirclePlus as PlusCircle, Eye, Signature as FileSignature, GraduationCap, Activity, Users, Briefcase, ArrowRight, Loader2, Plus, Search } from "lucide-react";
+import { UserPlus, CirclePlus as PlusCircle, Signature as FileSignature, GraduationCap, Activity, Users, Briefcase, Loader2, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
-import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

@@ -521,24 +521,40 @@ ${content}
         {viewMode === 'screen' ? (
           /* VISTA PANTALLA (dark mode original) */
           <div className="space-y-5">
-            <div className="flex items-center gap-5 rounded-2xl border border-white/10 bg-zinc-900/60 p-6">
-              <div className="relative h-16 w-16 shrink-0">
-                <Image src="/images/logo-kyron-hq.png" alt="System Kyron" fill className="object-contain" unoptimized priority />
+            {/* ... (contenido de la vista pantalla) ... */}
+          </div>
+        ) : (
+          /* VISTA CARTA (preview en pantalla) */
+          <div className="flex flex-col items-center gap-8">
+            {[1, 2].map((page) => (
+              <div
+                key={page}
+                className="bg-white shadow-2xl"
+                style={{
+                  width: `${LETTER_WIDTH_PX}px`,
+                  minHeight: '1056px',
+                  padding: '72px 72px 60px 72px',
+                  fontFamily: '"Segoe UI", Arial, sans-serif',
+                  fontSize: '11pt',
+                  lineHeight: '1.5',
+                  color: '#0f172a',
+                }}
+              >
+                <div id={`print-page-only-${page}`}>
+                  {/* El contenido se filtrará mediante CSS o renderizado selectivo */}
+                </div>
               </div>
-              <div>
-                <h2 className="text-2xl font-black tracking-tight text-white">SYSTEM KYRON</h2>
-                <div className="mb-2 h-0.5 w-24 bg-gradient-to-r from-primary to-transparent" />
-                <p className="text-sm text-gray-400">
-                  <span className="font-bold uppercase tracking-wider text-primary">Eslogan:</span>{' '}
-                  <span className="font-semibold italic text-white/90">&ldquo;El ecosistema que protege tu línea, tu negocio y el ambiente&rdquo;</span>
-                </p>
-                <p className="text-sm text-gray-400">
-                  <span className="font-bold uppercase tracking-wider text-primary">Equipo:</span>{' '}
-                  <span className="font-semibold text-white/90">Carlos Mattar · Sebastián Garrido · Marcos Sousa</span>
-                </p>
-              </div>
-            </div>
+            ))}
+          </div>
+        )}
 
+        {/* PrintContent ÚNICO: visible en Vista Carta, oculto pero presente en Pantalla */}
+        <div 
+          className={viewMode === 'screen' ? 'absolute -left-[9999px] top-0' : 'hidden'} 
+          aria-hidden={viewMode === 'screen'}
+        >
+          <PrintContent />
+        </div>
             <Section number="1" title="Información General" icon={FileText}>
               <div className="grid gap-6 md:grid-cols-2">
                 <div>

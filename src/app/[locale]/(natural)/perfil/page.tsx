@@ -1,10 +1,9 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { User, ShieldCheck, KeyRound, Mail, Smartphone, MapPin, LogOut, ShieldAlert, Pencil, Building2, Loader2 } from "lucide-react";
+import { User, ShieldCheck, KeyRound, Mail, LogOut, ShieldAlert, Building2, Loader2 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/auth/context";
 import { useRouter } from "next/navigation";

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Globe, Users, Heart, Share2, Eye, Calendar, Loader2, Plus } from "lucide-react";
+import { Globe, Users, Heart, Share2, Eye, Loader2, Plus } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { File, Download, Eye, Search, Lock, Upload, Loader2, Trash2, Plus, FileText, Image, FileSpreadsheet, Fingerprint } from "lucide-react";
+import { File, Download, Eye, Search, Lock, Upload, Loader2, Trash2, Plus, FileText, Image, FileSpreadsheet } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";

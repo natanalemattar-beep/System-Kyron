@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { 
   Gavel, FileCheck, Search, Scale, 
-  Lightbulb, ShieldCheck, ArrowRight,
-  Info, Clock, AlertCircle, CircleCheck
+  Lightbulb, ShieldCheck,
+  Info, Clock, CircleCheck
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 

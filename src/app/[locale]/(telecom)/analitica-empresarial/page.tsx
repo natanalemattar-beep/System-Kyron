@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChartColumn, TrendingUp, DollarSign, Users, Wifi, Target, Download, Loader2, Inbox } from "lucide-react";
+import { ChartColumn, DollarSign, Users, Wifi, Target, Download, Loader2, Inbox } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";

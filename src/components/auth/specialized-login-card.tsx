@@ -424,7 +424,7 @@ export function SpecializedLoginCard({
           whatsapp: { title: 'Código enviado por WhatsApp', desc: `Revisa tu WhatsApp en ${maskedPhone}`, icon: <MessageCircle className="text-green-500 h-4 w-4" /> },
         };
         const ch = channelLabels[method];
-        toast({ title: ch.title, description: ch.desc, action: ch.icon });
+        toast({ title: ch.title, description: ch.desc });
       }
       setTimeout(() => singleInputRef.current?.focus(), 100);
     } catch (err) {

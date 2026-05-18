@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Calculator, CirclePlus as PlusCircle, CircleCheck as CircleCheck, Download, Users, Wallet, Loader as Loader2, Activity, Terminal, Calendar, Zap, TrendingUp, ShieldCheck, RefreshCw, UserPlus } from "lucide-react";
+import { Calculator, CirclePlus as PlusCircle, CircleCheck as CircleCheck, Download, Users, Wallet, Loader as Loader2, Terminal, Calendar, Zap, TrendingUp, ShieldCheck, RefreshCw, UserPlus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";

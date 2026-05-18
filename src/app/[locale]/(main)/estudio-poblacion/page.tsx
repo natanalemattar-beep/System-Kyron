@@ -2,17 +2,25 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Users, Search, MapPin, TrendingUp, ChartBar as ChartColumn, Loader as Loader2, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
+interface PoblacionData {
+    poblacion: string;
+    densidad: string;
+    crecimiento: string;
+    perfil: string;
+    potencial: string;
+}
+
 export default function EstudioPoblacionPage() {
     const [location, setLocalidad] = useState("");
     const [isAnalyzing, setIsAnalyzing] = useState(false);
-    const [data, setData] = useState<any | null>(null);
+    const [data, setData] = useState<PoblacionData | null>(null);
     const { toast } = useToast();
 
     const handleAnalyze = async () => {

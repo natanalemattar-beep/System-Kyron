@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  Sparkles, Send, Trash2, StopCircle, ArrowDown, CircleUserRound,
+  Send, Trash2, StopCircle, ArrowDown, CircleUserRound,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PageTransition } from "@/components/ui/motion";
@@ -63,11 +63,12 @@ function renderMarkdown(text: string) {
       }
 
       if (firstMatch) {
-        if (firstMatch.idx > 0) {
-          parts.push(remaining.substring(0, firstMatch.idx));
+        const fm = firstMatch;
+        if (fm.idx > 0) {
+          parts.push(remaining.substring(0, fm.idx));
         }
-        parts.push(firstMatch.node);
-        remaining = remaining.substring(firstMatch.idx + firstMatch.len);
+        parts.push(fm.node);
+        remaining = remaining.substring(fm.idx + fm.len);
       } else {
         parts.push(remaining);
         break;

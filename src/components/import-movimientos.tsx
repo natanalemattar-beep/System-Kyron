@@ -102,8 +102,9 @@ export function ImportMovimientos({ cuentas, onImportComplete }: { cuentas: Cuen
         setError(errData);
         toast({ title: "Error en importación", description: errData.error || 'Error desconocido', variant: "destructive" });
       } else {
-        setResult(data as unknown as ImportResult);
-        toast({ title: "Importación exitosa", description: `${(data as ImportResult).importados} movimientos importados` });
+        const importResult = data as unknown as ImportResult;
+        setResult(importResult);
+        toast({ title: "Importación exitosa", description: `${importResult.importados} movimientos importados` });
         onImportComplete();
       }
     } catch {

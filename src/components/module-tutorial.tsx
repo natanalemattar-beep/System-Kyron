@@ -39,13 +39,14 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
   }, [config?.moduleId]);
 
   const handleNext = useCallback(() => {
+    if (!config) return;
     if (currentStep < config.steps.length - 1) {
       setDirection(1);
       setCurrentStep(s => s + 1);
     } else {
       handleClose();
     }
-  }, [currentStep, config.steps.length]);
+  }, [currentStep, config, handleClose]);
 
   const handleBack = useCallback(() => {
     if (currentStep > 0) {
@@ -55,10 +56,11 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
   }, [currentStep]);
 
   const handleClose = useCallback(() => {
+    if (!config) return;
     localStorage.setItem(getStorageKey(config.moduleId), 'true');
     setIsOpen(false);
     setCurrentStep(0);
-  }, [config.moduleId]);
+  }, [config]);
 
   const handleStepClick = useCallback((idx: number) => {
     setDirection(idx > currentStep ? 1 : -1);

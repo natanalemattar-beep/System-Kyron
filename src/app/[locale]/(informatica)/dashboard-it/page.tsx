@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Cpu, Server, Shield, LifeBuoy, FolderArchive, FileCheck, Activity, TriangleAlert, CircleCheck, ArrowRight, Clock, HardDrive, Wifi, Users, Inbox, Loader2, RefreshCw, Zap } from "lucide-react";
+import { Cpu, Server, Shield, LifeBuoy, FolderArchive, FileCheck, Activity, TriangleAlert, ArrowRight, Users, Inbox, Loader2, RefreshCw, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
@@ -17,7 +16,17 @@ interface ITDashboardData {
   actividad_reciente: Array<{ evento: string; descripcion: string; created_at: string }>;
 }
 
-const MODULOS = [
+interface Modulo {
+  titulo: string;
+  desc: string;
+  href: string;
+  icon: React.ElementType;
+  color: string;
+  bg: string;
+  border: string;
+}
+
+const MODULOS: Modulo[] = [
   {
     titulo: "Help Desk / Soporte Técnico",
     desc: "Sistema de tickets, mesa de ayuda, SLA, escalamiento y base de conocimiento.",
@@ -235,7 +244,7 @@ export default function DashboardITPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {MODULOS.map((mod, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.04 }}>
-              <Link href={mod.href as any}>
+              <Link href={mod.href}>
                 <Card className={cn("rounded-2xl overflow-hidden border hover:shadow-lg transition-all group cursor-pointer h-full", mod.border)}>
                   <CardContent className="p-6 flex flex-col gap-4 h-full">
                     <div className="flex items-start justify-between">

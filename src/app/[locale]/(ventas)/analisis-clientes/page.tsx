@@ -7,11 +7,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Progress } from "@/components/ui/progress";
 import { BackButton } from "@/components/back-button";
-import { Users, TrendingUp, DollarSign, ChartColumn, ArrowLeft, Activity, Star, Target, Clock, TriangleAlert, Plus, Trash2, Crown, Award, PieChart } from "lucide-react";
+import { Users, TrendingUp, DollarSign, ChartColumn, Activity, Star, Target, Clock, TriangleAlert, Plus, Trash2, Crown, Award, PieChart } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Link } from "@/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 

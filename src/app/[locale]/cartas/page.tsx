@@ -4,10 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
     FileText, 
-    Download, 
     Mail, 
     Printer,
-    Building2,
     Heart,
     Zap,
     Trophy,
@@ -18,13 +16,8 @@ import {
     Image,
     FileDown,
     ShieldCheck,
-    Box,
-    Workflow
 } from "lucide-react";
-import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { ResourceHeader } from "@/components/brand/ResourceHeader";
 
@@ -251,7 +244,7 @@ export default function CartasAgradecimientoPage() {
                                 <div className="flex justify-between items-start border-b-[4px] border-zinc-950 pb-12 mb-16">
                                     <div className="flex items-center gap-6">
                                         <div className="h-24 w-24 bg-zinc-950 rounded-[1.5rem] flex items-center justify-center p-5 shadow-2xl">
-                                            <img src="/images/logo.png" alt="Kyron" className="w-full h-full object-contain" />
+                                            <Image src="/images/logo.png" alt="Kyron" width={96} height={96} className="w-full h-full object-contain" />
                                         </div>
                                         <div>
                                             <h2 className="text-4xl font-black tracking-tighter uppercase leading-none">System Kyron</h2>
@@ -291,7 +284,7 @@ export default function CartasAgradecimientoPage() {
                                 <div className="mt-20 pt-16 border-t-2 border-zinc-50 flex justify-between items-end">
                                     <div className="space-y-10">
                                         <div className="relative">
-                                            <img src="/images/sign-sample.png" alt="Signature" className="h-24 opacity-30 absolute -top-16 left-0" />
+                                            <Image src="/images/sign-sample.png" alt="Signature" width={200} height={100} className="h-24 opacity-30 absolute -top-16 left-0" />
                                             <div className="h-[2px] w-64 bg-zinc-950" />
                                         </div>
                                         <div>
@@ -301,7 +294,7 @@ export default function CartasAgradecimientoPage() {
                                     </div>
                                     <div className="text-right flex flex-col items-end gap-6">
                                         <div className="relative h-28 w-28 border-2 border-zinc-100 rounded-[2rem] p-4 bg-zinc-50 shadow-inner rotate-12 group cursor-help transition-all hover:rotate-0">
-                                            <img src="/images/seal-sample.png" alt="Seal" className="w-full h-full object-contain opacity-20 grayscale" />
+                                            <Image src="/images/seal-sample.png" alt="Seal" width={112} height={112} className="w-full h-full object-contain opacity-20 grayscale" />
                                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <ShieldCheck className="h-8 w-8 text-cyan-600" />
                                             </div>
@@ -325,12 +318,13 @@ export default function CartasAgradecimientoPage() {
                             className="w-full max-w-5xl"
                         >
                             <div ref={exportRef} className="relative w-full aspect-[4/3] rounded-[3rem] overflow-hidden shadow-[0_60px_120px_-30px_rgba(0,0,0,0.9)] border border-white/10">
-                                {/* Foto del Salto Ángel */}
-                                <img
-                                    src="/images/salto-angel.jpg"
-                                    alt="Salto Ángel, Venezuela"
-                                    className="absolute inset-0 w-full h-full object-cover"
-                                />
+                                 {/* Foto del Salto Ángel */}
+                                 <Image
+                                     src="/images/salto-angel.jpg"
+                                     alt="Salto Ángel, Venezuela"
+                                     fill
+                                     className="absolute inset-0 w-full h-full object-cover"
+                                 />
                                 {/* Overlay sutil en la parte inferior para el logo */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10" />
                                 {/* Badge Venezuela top-left */}
@@ -341,7 +335,7 @@ export default function CartasAgradecimientoPage() {
                                 {/* Logo + nombre System Kyron en esquina inferior derecha */}
                                 <div className="absolute bottom-6 right-6 flex items-center gap-4 bg-black/40 backdrop-blur-xl border border-white/20 rounded-2xl px-5 py-3 shadow-2xl">
                                     <div className="h-12 w-12 bg-white/10 border border-white/20 rounded-xl flex items-center justify-center p-2 shadow-inner">
-                                        <img src="/images/logo.png" alt="System Kyron" className="w-full h-full object-contain" />
+                                        <Image src="/images/logo.png" alt="System Kyron" width={48} height={48} className="w-full h-full object-contain" />
                                     </div>
                                     <div>
                                         <p className="text-base font-black uppercase tracking-[0.15em] text-white leading-none">System Kyron</p>
@@ -373,7 +367,7 @@ export default function CartasAgradecimientoPage() {
                                         <div className="relative flex justify-between items-start">
                                             <div className="flex items-center gap-5">
                                                 <div className="h-16 w-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center p-4 shadow-inner group-hover:bg-white/10 transition-all">
-                                                    <img src="/images/logo.png" alt="Logo" className="w-full h-full object-contain" />
+                                                    <Image src="/images/logo.png" alt="Logo" width={64} height={64} className="w-full h-full object-contain" />
                                                 </div>
                                                 <div className="space-y-1.5">
                                                     <h4 className="text-xl font-black uppercase tracking-tighter italic leading-none text-white">System Kyron</h4>

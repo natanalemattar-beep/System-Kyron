@@ -69,7 +69,7 @@ function renderMarkdown(text: string) {
       const codeMatch = remaining.match(/`([^`]+)`/);
 
       type InlineMatch = { idx: number; len: number; node: React.ReactNode };
-      let firstMatch: InlineMatch | null = null as any;
+      let firstMatch: InlineMatch | null = null;
 
       if (boldMatch && typeof boldMatch.index === 'number') {
         const candidate: InlineMatch = { idx: boldMatch.index, len: boldMatch[0].length, node: <strong key={key++} className="font-bold text-foreground">{boldMatch[1]}</strong> };
@@ -200,9 +200,9 @@ export default function PitchCoachPage() {
 
         const data = await res.json();
         setMessages([{ role: 'assistant', content: data.content }]);
-      } catch (err) {
-        setMessages([{ role: 'assistant', content: 'Error al analizar la presentación. Intenta de nuevo.' }]);
-      } finally {
+       } catch {
+         setMessages([{ role: 'assistant', content: 'Error al analizar la presentación. Intenta de nuevo.' }]);
+       } finally {
         setIsAnalyzing(false);
       }
     };

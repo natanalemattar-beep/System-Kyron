@@ -7,12 +7,7 @@ import { Link } from "@/navigation";
 import { 
   ChevronLeft, 
   ShieldCheck, 
-  Download, 
   Camera, 
-  FileCode,
-  Box,
-  Monitor,
-  Printer,
   Sparkles,
   FileImage,
   FileText

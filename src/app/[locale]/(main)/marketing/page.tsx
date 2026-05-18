@@ -3,20 +3,18 @@
 import { useState, useEffect, useCallback } from "react";
 import { ModuleTutorial } from "@/components/module-tutorial";
 import { moduleTutorials } from "@/lib/module-tutorials";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { Link } from "@/navigation";
 import {
     Megaphone,
-    TrendingUp,
     ChartColumn,
-    Bell,
     RefreshCw,
     CircleCheck,
     Target,
-    DollarSign,
     Users,
     Mail,
     Globe,
@@ -80,7 +78,6 @@ export default function MarketingDashboardPage() {
     const clientesActivos = Number(data?.clientes?.activos ?? 0);
     const totalEmailEnviados = Number(data?.email?.total_enviados ?? 0);
     const totalEmailAbiertos = Number(data?.email?.total_abiertos ?? 0);
-    const totalSeguidores = Number(data?.redes?.total_seguidores ?? 0);
     const avgEngagement = Number(data?.redes?.avg_engagement ?? 0);
 
     const emailOpenRate = totalEmailEnviados > 0 ? ((totalEmailAbiertos / totalEmailEnviados) * 100).toFixed(1) + "%" : "—";
@@ -339,12 +336,12 @@ export default function MarketingDashboardPage() {
                                 </p>
                             </div>
                             <div className="flex gap-3">
-                                <Button variant="outline" size="sm" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest gap-1" asChild>
-                                    <a href="/es/marketing/crm"><Users className="h-3 w-3" /> CRM <ArrowRight className="h-3 w-3" /></a>
-                                </Button>
-                                <Button variant="outline" size="sm" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest gap-1" asChild>
-                                    <a href="/es/marketing/campanas"><Target className="h-3 w-3" /> Campañas <ArrowRight className="h-3 w-3" /></a>
-                                </Button>
+                                 <Button variant="outline" size="sm" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest gap-1" asChild>
+                                     <Link href="/es/marketing/crm"><Users className="h-3 w-3" /> CRM <ArrowRight className="h-3 w-3" /></Link>
+                                 </Button>
+                                 <Button variant="outline" size="sm" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest gap-1" asChild>
+                                     <Link href="/es/marketing/campanas"><Target className="h-3 w-3" /> Campañas <ArrowRight className="h-3 w-3" /></Link>
+                                 </Button>
                             </div>
                         </div>
                     )}

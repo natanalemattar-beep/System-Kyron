@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     ChevronLeft, ChevronRight, ShieldCheck, Zap, BarChart3,
     Globe, Users, Leaf, Cpu, Rocket, FileText, Globe2,
-    FileDown, Loader2, Download, Printer, Maximize2
+    FileDown, Loader2, Printer, Maximize2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -240,7 +241,6 @@ export default function PresentacionFinalPage() {
     const [isExportingPDF, setIsExportingPDF] = useState(false);
     const [isExportingPPTX, setIsExportingPPTX] = useState(false);
     const [enginesReady, setEnginesReady] = useState(false);
-    const [isFullscreen, setIsFullscreen] = useState(false);
 
     const slide = slides[current] as Slide;
 
@@ -283,21 +283,11 @@ export default function PresentacionFinalPage() {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
             if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
-            if (e.key === 'f') toggleFullscreen();
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
-    const toggleFullscreen = async () => {
-        if (!document.fullscreenElement) {
-            await document.documentElement.requestFullscreen();
-            setIsFullscreen(true);
-        } else {
-            await document.exitFullscreen();
-            setIsFullscreen(false);
-        }
-    };
 
     const generatePDF = async () => {
         setIsExportingPDF(true);
@@ -563,14 +553,7 @@ export default function PresentacionFinalPage() {
                             <span className="text-[9px] font-bold uppercase tracking-widest text-white/30">Iniciando...</span>
                         </div>
                     )}
-                    <button
-                        onClick={toggleFullscreen}
-                        className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-white/50 hover:text-white"
-                        title="Pantalla completa (F)"
-                    >
-                        <Maximize2 className="w-3.5 h-3.5" />
-                    </button>
-                    <div className="flex gap-1.5">
+                     <div className="flex gap-1.5">
                         <Button
                             variant="outline"
                             size="sm"
@@ -708,14 +691,13 @@ export default function PresentacionFinalPage() {
 
                             {/* Background Image */}
                             <div className="absolute inset-0 z-0">
-                                <img
-                                    src={slide.image}
-                                    alt=""
-                                    loading="eager"
-                                    decoding="async"
-                                    crossOrigin="anonymous"
-                                    className="w-full h-full object-cover opacity-[0.08]"
-                                />
+                                 <Image
+                                     src={slide.image}
+                                     alt=""
+                                     fill
+                                     crossOrigin="anonymous"
+                                     className="object-cover opacity-[0.08]"
+                                 />
                                 <div className="absolute inset-0 bg-gradient-to-r from-[#030711] via-[#030711]/90 to-transparent" />
                             </div>
 
@@ -941,12 +923,13 @@ export default function PresentacionFinalPage() {
                                     <div className="absolute inset-0 z-0 opacity-30"
                                         style={{ background: bgGradients[ps.id] }}
                                     />
-                                    <img
-                                        src={ps.image}
-                                        alt=""
-                                        crossOrigin="anonymous"
-                                        className="absolute inset-0 w-full h-full object-cover opacity-[0.06]"
-                                    />
+                                     <Image
+                                         src={ps.image}
+                                         alt=""
+                                         fill
+                                         crossOrigin="anonymous"
+                                         className="absolute inset-0 w-full h-full object-cover opacity-[0.06]"
+                                     />
                                     <div className="absolute inset-0 bg-gradient-to-r from-[#030711] via-[#030711]/90 to-transparent" />
 
                                     <div className="relative z-10 px-16 py-12">

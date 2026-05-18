@@ -111,16 +111,17 @@ function renderMarkdown(text: string) {
         firstMatch = { idx: boldMatch.index, len: boldMatch[0].length, node: <strong key={key++} className="font-bold text-foreground">{boldMatch[1]}</strong> };
       }
       if (codeMatch && typeof codeMatch.index === 'number') {
-        const candidate = { idx: codeMatch.index, len: codeMatch[0].length, node: <code key={key++} className="px-1.5 py-0.5 rounded-md bg-muted text-sm font-mono text-primary">{codeMatch[1]}</code> } as InlineMatch;
-        if (!firstMatch || candidate.idx < (firstMatch as InlineMatch).idx) firstMatch = candidate;
+        const candidate: InlineMatch = { idx: codeMatch.index, len: codeMatch[0].length, node: <code key={key++} className="px-1.5 py-0.5 rounded-md bg-muted text-sm font-mono text-primary">{codeMatch[1]}</code> };
+        if (!firstMatch || candidate.idx < firstMatch.idx) firstMatch = candidate;
       }
 
       if (firstMatch) {
-        if (firstMatch.idx > 0) {
-          parts.push(remaining.substring(0, firstMatch.idx));
+        const fm = firstMatch;
+        if (fm.idx > 0) {
+          parts.push(remaining.substring(0, fm.idx));
         }
-        parts.push(firstMatch.node);
-        remaining = remaining.substring(firstMatch.idx + firstMatch.len);
+        parts.push(fm.node);
+        remaining = remaining.substring(fm.idx + fm.len);
       } else {
         parts.push(remaining);
         break;

@@ -11,7 +11,7 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import { Loader2, Plus, Search, Trash2, ArrowLeft, Clock, CircleCheck, XCircle, Briefcase, Scale, TriangleAlert, FileText, Shield, ShieldCheck, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark } from "lucide-react";
+  import { Loader2, Plus, Search, Trash2, ArrowLeft, Clock, CircleCheck, XCircle, Briefcase, Scale, Activity } from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";
@@ -24,10 +24,35 @@
   suspendido: "bg-blue-500/20 text-blue-400 border-blue-500/30"
   };
 
-  export default function LitigiosPage() {
+  interface Litigio {
+  id: number;
+  numero_expediente: string;
+  tribunal: string;
+  tipo: string;
+  demandante: string;
+  demandado: string;
+  materia: string;
+  abogado_responsable: string;
+  monto_demanda: string;
+  moneda: string;
+  fecha_inicio: string;
+  proxima_audiencia: string;
+  prioridad: string;
+  notas: string;
+  estado: string;
+}
+
+interface LitigioStats {
+  en_curso: number;
+  ganados: number;
+  perdidos: number;
+  total: number;
+}
+
+export default function LitigiosPage() {
     const { toast } = useToast();
-    const [data, setData] = useState<any[]>([]);
-    const [stats, setStats] = useState<any>({});
+    const [data, setData] = useState<Litigio[]>([]);
+    const [stats, setStats] = useState<LitigioStats>({});
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -280,7 +305,7 @@
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filtered.map((row: any) => (
+                    {filtered.map((row: Litigio) => (
                       <TableRow key={row.id} className="hover:bg-muted/30 transition">
                         <TableCell className="text-xs font-medium">{row.numero_expediente || "—"}</TableCell>
                       <TableCell className="text-xs font-medium">{row.tribunal || "—"}</TableCell>

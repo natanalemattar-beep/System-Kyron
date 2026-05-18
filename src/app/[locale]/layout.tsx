@@ -8,7 +8,6 @@ import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
 import { Inter, Outfit, Lora } from 'next/font/google';
 
-import { Metadata } from 'next';
 import { Providers } from "@/components/providers";
 
 
@@ -52,7 +51,7 @@ interface LocaleLayoutProps {
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = await params;
 
-  if (!locales.includes(locale as any)) {
+  if (!locales.includes(locale)) {
     notFound();
   }
 

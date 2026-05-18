@@ -11,9 +11,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import {
-  Gavel, ShieldCheck, Activity, FileText, Search, Filter, Plus, Landmark,
+  Gavel, ShieldCheck, FileText, Search, Filter, Plus, Landmark,
   Calendar, ChevronRight, ArrowRight, Clock, RefreshCw, FileSignature,
-  Eye, Building2, Zap, Copy, Printer, Download, BookOpen, ClipboardList,
+  Eye, Zap, Copy, Printer, Download, BookOpen, ClipboardList,
   CircleCheck, TriangleAlert, XCircle, MapPin, Building, Flag, Scale, DollarSign,
   Lightbulb
 } from "lucide-react";
@@ -34,6 +34,17 @@ type PermisoRegistrado = {
   estado: string;
   numero: string;
 };
+
+interface ApiPermiso {
+  id: number;
+  tipo?: string;
+  organismo?: string;
+  nombre_permiso?: string;
+  numero_permiso?: string;
+  fecha_emision?: string;
+  fecha_vencimiento?: string;
+  estado?: string;
+}
 
 const estadoConfig: Record<string, { label: string; color: string; icon: typeof CircleCheck }> = {
   Vigente: { label: "VIGENTE", color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20", icon: CircleCheck },
@@ -162,7 +173,7 @@ export default function PermisosPage() {
       if (!res.ok) return;
       const data = await res.json();
       if (data.permisos) {
-        const mapped: PermisoRegistrado[] = data.permisos.map((p: any) => ({
+        const mapped: PermisoRegistrado[] = data.permisos.map((p: ApiPermiso) => ({
           id: `PERM-${String(p.id).padStart(3, "0")}`,
           dbId: p.id,
           tipo: p.tipo || "permiso",
@@ -191,7 +202,7 @@ export default function PermisosPage() {
       .map(org => ({
         org,
         permisos: getPermisosByOrganismo(org.id).filter(p => {
-          if (filterSector !== 'todos' && !p.aplica.includes(filterSector as any) && !p.aplica.includes('todos')) return false;
+            if (filterSector !== 'todos' && !p.aplica.includes(filterSector) && !p.aplica.includes('todos')) return false;
           if (q) {
             const haystack = `${p.nombre} ${p.descripcion} ${org.nombre} ${org.siglas || ''} ${p.baseLegal || ''} ${p.requisitosInscripcion.join(' ')}`.toLowerCase();
             return haystack.includes(q);
@@ -283,8 +294,8 @@ export default function PermisosPage() {
       setRegistroOpen(false);
       resetForm();
       await fetchPermisos();
-      toast({ title: "REGISTRADO", description: `"${formData.nombre.trim()}" guardado exitosamente en el sistema.` });
-    } catch (e) {
+       toast({ title: "REGISTRADO", description: `"${formData.nombre.trim()}" guardado exitosamente en el sistema.` });
+    } catch {
       toast({ title: "ERROR DE CONEXIÓN", description: "No se pudo conectar con el servidor. Intente nuevamente.", variant: "destructive" });
     } finally {
       setLoading(false);

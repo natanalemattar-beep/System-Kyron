@@ -13,11 +13,12 @@ export function ProfileCompletionNotice() {
   const [isVisible, setIsVisible] = useState(true);
   
   // Check if critical fields are missing (those we removed from registration)
-  const isProfileIncomplete = user?.tipo === 'natural' && (
-    !user.genero || 
-    !user.estado_civil || 
-    !user.estado_residencia ||
-    !user.direccion
+  const u = user as { tipo?: string; genero?: string; estado_civil?: string; estado_residencia?: string; direccion?: string } | null;
+  const isProfileIncomplete = u?.tipo === 'natural' && (
+    !u.genero || 
+    !u.estado_civil || 
+    !u.estado_residencia ||
+    !u.direccion
   );
 
   if (!isProfileIncomplete || !isVisible) return null;

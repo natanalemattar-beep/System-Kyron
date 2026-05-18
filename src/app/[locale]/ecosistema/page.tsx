@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { ChartBar as ChartColumn, Droplets, Wallet, ShieldCheck, Recycle, Fingerprint, Activity, Calendar, ShieldAlert, Lock, Zap, ArrowRight } from 'lucide-react';
+import { ChartBar as ChartColumn, Droplets, Wallet, ShieldCheck, Recycle, Fingerprint, Activity, Calendar, ShieldAlert, Lock } from 'lucide-react';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer
@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
 import { AppHeader } from "@/components/app-header";
 import { motion } from 'framer-motion';
 import { useToast } from "@/hooks/use-toast";
-import { Badge } from "@/components/ui/badge";
 
 
 export default function EcosistemaKyron() {
@@ -193,7 +192,15 @@ export default function EcosistemaKyron() {
   );
 }
 
-function StatCard({ title, value, trend, icon: Icon, variant = 'primary' }: any) {
+interface StatCardProps {
+  title: string;
+  value: string | number;
+  trend?: string;
+  icon: React.ComponentType<{ className?: string }>;
+  variant?: 'primary' | 'accent';
+}
+
+function StatCard({ title, value, trend, icon: Icon, variant = 'primary' }: StatCardProps) {
   const colorClass = variant === 'accent' ? 'text-secondary' : 'text-primary';
   const bgClass = variant === 'accent' ? 'bg-secondary/10' : 'bg-primary/10';
   

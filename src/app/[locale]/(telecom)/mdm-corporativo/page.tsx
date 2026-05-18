@@ -1,13 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   Smartphone, Shield, Lock, RefreshCw, CircleCheck,
-  TriangleAlert, Settings, Wifi, Download, Monitor,
-  Key, Eye, Fingerprint, Clock
+  TriangleAlert, Settings, Monitor,
+  Key, Clock
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";

@@ -1,17 +1,17 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { 
   Heart, 
-  MessageCircle, 
-  Send, 
-  Bookmark, 
-  MoreHorizontal, 
-  CircleCheck,
-  Share2,
-  Zap,
-  ShieldCheck,
-  Cpu
+   MessageCircle, 
+   Send, 
+   Bookmark, 
+   MoreHorizontal, 
+   CircleCheck,
+   Zap,
+   ShieldCheck,
+   Cpu
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from '@/navigation';
@@ -32,9 +32,9 @@ export default function InstagramPostPage() {
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full p-[2px] bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600">
               <div className="h-full w-full rounded-full bg-black p-[2px]">
-                <div className="h-full w-full rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden">
-                  <img src="/images/logo-black.png" alt="Kyron Logo" className="w-6 h-6 object-contain brightness-0 invert" />
-                </div>
+                 <div className="h-full w-full rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden">
+                   <Image src="/images/logo-black.png" alt="Kyron Logo" width={24} height={24} className="object-contain brightness-0 invert" />
+                 </div>
               </div>
             </div>
             <div>

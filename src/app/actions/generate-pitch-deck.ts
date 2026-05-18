@@ -204,7 +204,7 @@ export async function generatePitchDeck(
                 y: 2,
                 w: "90%",
                 fontSize: 54,
-                fontBold: true,
+                bold: true,
                 color: style.text,
             });
             slide.addText(data.subtitle || "El ecosistema integral para Venezuela", {
@@ -232,7 +232,7 @@ export async function generatePitchDeck(
                 y: 0.5,
                 w: "90%",
                 fontSize: 40,
-                fontBold: true,
+                bold: true,
                 color: style.text,
             });
             slide.addText(content.body, {
@@ -261,7 +261,7 @@ export async function generatePitchDeck(
                 w: "90%",
                 fontSize: 18,
                 color: style.subtitle,
-                fontBold: true,
+                bold: true,
             });
             slide.addText(content.body, {
                 x: 0.5,
@@ -291,6 +291,6 @@ export async function generatePitchDeck(
         });
     }
 
-    const buffer = await pres.write({ outputType: "buffer" });
+    const buffer = await pres.write({ outputType: "buffer" as const }) as unknown as Buffer;
     return buffer;
 }

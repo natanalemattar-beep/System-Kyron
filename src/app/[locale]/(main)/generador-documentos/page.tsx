@@ -4,11 +4,10 @@
 import { useState } from "react";
 import { ModuleTutorial } from "@/components/module-tutorial";
 import { moduleTutorials } from "@/lib/module-tutorials";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Wand as Wand2, Loader as Loader2, Download, Printer, ShieldCheck, Gavel, Scale } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -40,7 +39,7 @@ Cláusulas Adicionales: ${clauses}
 
 Por favor, contacte a la dirección jurídica para la redacción final mientras se completa la migración del motor.`);
             toast({ title: "SISTEMA EN AUDITORÍA", description: "Generando reporte de parámetros para revisión manual." });
-        } catch (error) {
+        } catch {
             toast({ variant: "destructive", title: "Error en el Asistente IA", description: "No se pudo generar el documento. Intenta de nuevo." });
         } finally {
             setIsLoading(false);

@@ -1,15 +1,14 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useSpring, useTransform } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-    ChevronLeft, ChevronRight, Rocket, Leaf,
+    ChevronLeft, Rocket,
     Shield, BrainCircuit, TrendingUp,
     Users, Globe, Zap, CircleCheck, QrCode,
-    TriangleAlert, Banknote, X, ArrowRight,
+    TriangleAlert, Banknote, X,
     Network, DollarSign, Download, Monitor, Smartphone,
-    Activity, Lock, Cpu, MessageSquare, Instagram,
-    Radar, Terminal, Command, Wifi, Calculator, FileText, Sparkles,
+    Activity, Lock, FileText, Sparkles,
     ShieldAlert, Target
 } from "lucide-react";
 import { Link } from "@/navigation";
@@ -272,29 +271,6 @@ const slides = [
         isQRSlide: true,
     },
 ];
-
-function CountUpNumber({ value, suffix = "" }: { value: string, suffix?: string }) {
-    const numericValue = parseInt(value.replace(/[^0-9]/g, ''));
-    if (isNaN(numericValue)) return <span>{value} {suffix}</span>;
-
-    const [count, setCount] = useState(0);
-    
-    useEffect(() => {
-        let startTime: number | null = null;
-        const duration = 1500;
-        
-        const animate = (timestamp: number) => {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / duration, 1);
-            setCount(Math.floor(progress * numericValue));
-            if (progress < 1) requestAnimationFrame(animate);
-        };
-        
-        requestAnimationFrame(animate);
-    }, [numericValue]);
-
-    return <span>{count}{suffix}</span>;
-}
 
 function KyronMockup() {
     return (
@@ -636,10 +612,10 @@ export default function PitchPage() {
 
     const handleExportPPTX = async () => {
         setIsExporting(true);
-        try {
-            // @ts-ignore
-            const PptxGenJS = (await import("pptxgenjs")).default;
-            const pptx = new PptxGenJS();
+            try {
+                // @ts-expect-error
+                const PptxGenJS = (await import("pptxgenjs")).default;
+                const pptx = new PptxGenJS();
             
             pptx.layout = 'LAYOUT_16x9';
             pptx.defineSlideMaster({
@@ -875,7 +851,7 @@ export default function PitchPage() {
                                     </div>
                                     <div className="relative">
                                         <div className="aspect-video rounded-[3rem] bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
-                                            {s.image && <img src={s.image} className="w-full h-full object-cover opacity-50" />}
+                                             {s.image && <Image src={s.image} fill className="object-cover opacity-50" alt="" />}
                                         </div>
                                     </div>
                                 </div>
@@ -897,11 +873,12 @@ export default function PitchPage() {
                         {/* Cinematic Background Layer */}
                         <div className="absolute inset-0 z-0">
                             <div className="absolute inset-0 bg-[#020617] z-10 opacity-80" />
-                            <img 
-                                src={slide.image} 
-                                className="w-full h-full object-cover blur-[100px] opacity-30 scale-110"
-                                alt=""
-                            />
+                             <Image 
+                                 src={slide.image} 
+                                 fill
+                                 className="object-cover blur-[100px] opacity-30 scale-110"
+                                 alt=""
+                             />
                             <div 
                                 className="absolute inset-0 z-20 opacity-20"
                                 style={{ background: `radial-gradient(circle at 50% 50%, ${slide.accent}44, transparent 70%)` }}
@@ -999,11 +976,13 @@ export default function PitchPage() {
                                                 className="p-8 rounded-[3rem] bg-white/[0.02] border border-white/10 backdrop-blur-3xl flex flex-col items-center text-center group hover:bg-white/[0.05] hover:border-white/20 transition-all shadow-2xl"
                                             >
                                                 <div className="w-48 h-48 bg-white rounded-[2.5rem] mb-6 flex items-center justify-center p-4 relative overflow-hidden group-hover:scale-105 transition-transform">
-                                                    <img 
-                                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qr.data)}&bgcolor=ffffff&color=000000`} 
-                                                        alt={qr.label}
-                                                        className="w-full h-full relative z-10"
-                                                    />
+                                                     <Image 
+                                                         src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qr.data)}&bgcolor=ffffff&color=000000`} 
+                                                         alt={qr.label}
+                                                         width={200}
+                                                         height={200}
+                                                         className="w-full h-full relative z-10"
+                                                     />
                                                 </div>
                                                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 mb-2">{qr.label}</span>
                                                 <p className={cn("text-[13px] font-black uppercase italic tracking-tighter", qr.color)}>{qr.sub}</p>
@@ -1093,11 +1072,12 @@ export default function PitchPage() {
                                         <div className="absolute inset-0 bg-amber-500/10 blur-[150px] rounded-full" />
                                         <div className="relative w-full max-w-sm space-y-8">
                                             <div className="aspect-[4/5] rounded-[4rem] overflow-hidden border border-white/10 relative group shadow-[0_40px_100px_rgba(0,0,0,0.6)]">
-                                                <img 
-                                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" 
-                                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
-                                                    alt="Carlos Mattar"
-                                                />
+                                                 <Image 
+                                                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" 
+                                                     fill
+                                                     className="object-cover transition-transform duration-1000 group-hover:scale-110" 
+                                                     alt="Carlos Mattar"
+                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
                                                 <div className="absolute bottom-12 left-12 right-12">
                                                     <h4 className="text-4xl font-black text-white uppercase italic tracking-tighter">Carlos Mattar</h4>
@@ -1122,11 +1102,12 @@ export default function PitchPage() {
                                         className="relative w-full aspect-video rounded-[4rem] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.6)] group border border-white/10"
                                     >
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
-                                        <img 
-                                            src={slide.image} 
-                                            alt={slide.title} 
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2000ms]" 
-                                        />
+                                         <Image 
+                                             src={slide.image} 
+                                             alt={slide.title} 
+                                             fill
+                                             className="object-cover group-hover:scale-105 transition-transform duration-[2000ms]" 
+                                         />
                                         <div className="absolute bottom-10 left-10 z-20">
                                             <div className="flex items-center gap-4">
                                                 <div className="h-12 w-12 glass-pill flex items-center justify-center rounded-2xl">

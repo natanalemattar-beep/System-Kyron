@@ -1,25 +1,21 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import {
     Printer as PrinterIcon,
     ArrowLeft,
     Download,
     Sparkles,
-    QrCode,
     Bookmark as BookmarkIcon,
     Circle,
     Contact,
     Mail,
-    Globe,
     Phone,
-    MapPin,
     ShieldCheck
 } from 'lucide-react';
 import { Link } from '@/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
 
@@ -263,19 +259,21 @@ function StickerItem({ qrCodeImage }: { qrCodeImage: string }) {
             <div className="absolute inset-0 rounded-full border-[1.5px] border-zinc-200 pointer-events-none z-20 opacity-30" />
             <div className="flex flex-col items-center w-full relative z-10 pt-1">
                 <div className="relative w-10 h-10 mb-1.5 flex items-center justify-center">
-                    <img
-                        src="/images/logo-black.png"
-                        alt="Kyron Logo"
-                        className="max-w-full max-h-full object-contain"
-                        style={{ imageRendering: 'auto' }}
-                    />
+<Image 
+    src="/images/logo-black.png" 
+    alt="Kyron Logo" 
+    width={100} 
+    height={100} 
+    className="max-w-full max-h-full object-contain" 
+    style={{ imageRendering: 'auto' }} 
+/>
                 </div>
                 <div className="flex flex-col items-center mb-3">
                     <h2 className="text-black font-black uppercase tracking-tight text-[16px] leading-none text-center">System</h2>
                     <span className="text-cyan-600 font-black uppercase text-[12px] tracking-[0.15em] leading-none mt-1">Kyron</span>
                 </div>
                 <div className="p-1.5 bg-white border border-zinc-100 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.05)]">
-                    <img src={qrCodeImage} alt="QR" className="w-12 h-12" crossOrigin="anonymous" />
+                    <Image src={qrCodeImage} alt="QR" width={48} height={48} className="w-12 h-12" crossOrigin="anonymous" />
                 </div>
                 <div className="mt-2.5 flex items-center gap-1.5 opacity-30">
                     <div className="h-[1px] w-3 bg-black" />
@@ -298,11 +296,13 @@ function BookmarkItem({ qrCodeImage }: { qrCodeImage: string }) {
             <div className="absolute right-0 top-0 bottom-0 w-2 bg-zinc-50 border-l border-zinc-100" />
             <div className="flex flex-col items-center gap-4 relative z-10 pt-4">
                 <div className="w-16 h-16 rounded-[1.5rem] bg-zinc-950 flex items-center justify-center p-3 shadow-2xl">
-                    <img 
-                        src="/images/logo-kyron-hq.png" 
-                        alt="Kyron Logo" 
-                        className="max-w-full max-h-full object-contain" 
-                    />
+<Image 
+    src="/images/logo-kyron-hq.png" 
+    alt="Kyron Logo" 
+    width={64} 
+    height={64} 
+    className="max-w-full max-h-full object-contain" 
+/>
                 </div>
                 <div className="text-center">
                     <h2 className="text-black font-black uppercase tracking-tight text-[10px] leading-none mb-1 opacity-40">System</h2>
@@ -320,7 +320,7 @@ function BookmarkItem({ qrCodeImage }: { qrCodeImage: string }) {
             </div>
             <div className="flex flex-col items-center gap-4 relative z-10">
                 <div className="p-3 bg-white border border-zinc-100 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
-                    <img src={qrCodeImage} alt="QR" className="w-14 h-14" crossOrigin="anonymous" />
+                    <Image src={qrCodeImage} alt="QR" width={56} height={56} className="w-14 h-14" crossOrigin="anonymous" />
                 </div>
                 <p className="text-[7px] font-black uppercase tracking-widest text-zinc-300">Escanear para acceso</p>
             </div>
@@ -348,7 +348,7 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
                     {/* Header Branding */}
                     <div className="flex items-center gap-3 mb-6">
                         <div className="h-10 w-10 flex items-center justify-center p-1 bg-zinc-950 rounded-xl shadow-lg">
-                            <img src="/images/logo.png" alt="Kyron" className="max-w-full max-h-full object-contain" />
+                            <Image src="/images/logo.png" alt="Kyron" width={40} height={40} className="max-w-full max-h-full object-contain" />
                         </div>
                         <div className="h-6 w-[1px] bg-zinc-100" />
                         <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-600">System Kyron</span>
@@ -387,7 +387,7 @@ function BusinessCard({ qrCodeImage }: { qrCodeImage: string }) {
                 <div className="relative mb-4">
                     <div className="absolute -inset-4 bg-zinc-400/5 blur-2xl rounded-full" />
                     <div className="p-4 bg-white border border-zinc-100 rounded-[2.5rem] shadow-[0_15px_40px_rgba(0,0,0,0.08)] relative z-10">
-                        <img src={qrCodeImage} alt="QR" className="w-20 h-20 object-contain" crossOrigin="anonymous" />
+                        <Image src={qrCodeImage} alt="QR" width={80} height={80} className="w-20 h-20 object-contain" crossOrigin="anonymous" />
                     </div>
                 </div>
                 <div className="flex items-center gap-1.5 opacity-40">

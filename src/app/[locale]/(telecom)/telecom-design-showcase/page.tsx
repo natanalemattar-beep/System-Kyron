@@ -2,7 +2,7 @@
 "use client";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Signal, Radio, Activity, Cpu, Globe, Zap, Network, Terminal } from "lucide-react";
+import { Signal, Radio, Activity, Cpu, Terminal } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function TelecomDesignShowcasePage() {

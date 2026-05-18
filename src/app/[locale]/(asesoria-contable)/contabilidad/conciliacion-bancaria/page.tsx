@@ -20,6 +20,7 @@ interface CuentaBancaria {
   banco: string;
   cuenta: string;
   tipo_cuenta: string;
+  tipo?: string;
   titular: string;
   saldo: string;
   saldo_disponible: string;
@@ -109,7 +110,7 @@ export default function ConciliacionBancariaPage() {
       banco: b.banco || '',
       codigo_banco: '',
       numero_cuenta: b.cuenta || '',
-      tipo_cuenta: b.tipo_cuenta || 'corriente',
+        tipo_cuenta: (b as any).tipo_cuenta || 'corriente',
       titular: '',
       saldo_actual: String(b.saldo || ''),
     });

@@ -2,13 +2,13 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
-import { RefreshCcw, Home, ShieldAlert, Cpu, Zap, TriangleAlert, X } from 'lucide-react';
+import { RefreshCcw, ShieldAlert, Cpu, Zap } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 const motion = {
-  div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as any,
+  div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as React.ComponentType<any>,
 };
-import { AnimatePresence } from 'framer-motion';
+
 
 export default function Error({
   error,
@@ -18,7 +18,6 @@ export default function Error({
   reset: () => void;
 }) {
   const [isRetrying, setIsRetrying] = useState(false);
-  const [retryCount, setRetryCount] = useState(0);
   const [showFullError, setShowFullError] = useState(false);
 
   useEffect(() => {

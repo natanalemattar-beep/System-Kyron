@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
             data
         );
 
-        return new NextResponse(buffer, {
+        return new NextResponse(buffer as unknown as BodyInit, {
             headers: {
                 'Content-Type': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
                 'Content-Disposition': `attachment; filename="System_Kyron_${template}_${length}.pptx"`,

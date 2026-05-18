@@ -143,25 +143,27 @@ export default function RegisterNaturalPage() {
 
   const savedData = typeof window !== 'undefined' ? getSavedFormData() : {};
 
+  const defaultFormValues: Partial<FormData> = {
+    cedula: prefilledDoc || savedData.cedula || undefined,
+    nombre: prefilledNombre || savedData.nombre || undefined,
+    apellido: prefilledApellido || savedData.apellido || undefined,
+    estado_residencia: prefilledEstado || savedData.estado_residencia || undefined,
+    municipio: prefilledMunicipio || savedData.municipio || undefined,
+    ciudad: prefilledParroquia || savedData.ciudad || undefined,
+    fecha_nacimiento: prefilledFechaNac || savedData.fecha_nacimiento || undefined,
+    genero: prefilledSexo || savedData.genero || undefined,
+    estado_civil: prefilledCivil || savedData.estado_civil || undefined,
+    telefono: savedData.telefono || undefined,
+    telefono_alt: savedData.telefono_alt || undefined,
+    direccion: savedData.direccion || undefined,
+    email: savedData.email || undefined,
+  };
+
   const { register, handleSubmit, control, getValues, watch, setValue, formState: { errors }, trigger } =
     useForm<FormData>({
       resolver: zodResolver(fullSchema),
       mode: 'onTouched',
-      defaultValues: {
-        cedula: prefilledDoc || savedData.cedula || undefined,
-        nombre: prefilledNombre || savedData.nombre || undefined,
-        apellido: prefilledApellido || savedData.apellido || undefined,
-        estado_residencia: prefilledEstado || savedData.estado_residencia || undefined,
-        municipio: prefilledMunicipio || savedData.municipio || undefined,
-        ciudad: prefilledParroquia || savedData.ciudad || undefined,
-        fecha_nacimiento: prefilledFechaNac || savedData.fecha_nacimiento || undefined,
-        genero: prefilledSexo || savedData.genero || undefined,
-        estado_civil: prefilledCivil || savedData.estado_civil || undefined,
-        telefono: savedData.telefono || undefined,
-        telefono_alt: savedData.telefono_alt || undefined,
-        direccion: savedData.direccion || undefined,
-        email: savedData.email || undefined,
-      },
+      defaultValues: defaultFormValues,
     });
 
   const startCountdown = () => {

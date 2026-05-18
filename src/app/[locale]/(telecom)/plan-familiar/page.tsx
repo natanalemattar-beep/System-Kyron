@@ -1,15 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import {
-  Users, Plus, CircleCheck, Share2, Shield, Wifi, Smartphone,
+  Users, Share2, Shield, Wifi,
   DollarSign, ArrowLeftRight, UserPlus, Settings, Crown
 } from "lucide-react";
-import { cn, formatCurrency } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 

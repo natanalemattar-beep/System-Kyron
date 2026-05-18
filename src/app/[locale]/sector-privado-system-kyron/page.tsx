@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import {
     Shield,
     Zap,
@@ -344,7 +345,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 {/* P2 (C1-Center, Back Cover): CIERRE Y ACCIÓN (Ancho: 3.69in) */}
                 <div className="w-[3.69in] border-r border-zinc-800 p-6 flex flex-col relative z-10 bg-[#09090b] min-h-0">
                     <div className="absolute -right-20 -bottom-20 opacity-[0.03] pointer-events-none">
-                        <img src="/images/logo-black.png" alt="Logo Fondo" className="w-[450px] h-[450px] object-contain opacity-20" crossOrigin="anonymous" />
+                        <Image src="/images/logo-black.png" alt="Logo Fondo" width={450} height={450} className="w-[450px] h-[450px] object-contain opacity-20" crossOrigin="anonymous" />
                     </div>
                     
                     <div className="mb-4">
@@ -380,7 +381,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                     </div>
 
                     <div className="mt-4 flex justify-between items-end pt-4 border-t border-zinc-800">
-                        <img src="/images/logo-black.png" alt="Kyron Mini" className="h-12 w-12 opacity-30 object-contain" crossOrigin="anonymous" />
+                        <Image src="/images/logo-black.png" alt="Kyron Mini" width={48} height={48} className="h-12 w-12 opacity-30 object-contain" crossOrigin="anonymous" />
                         <div className="text-right">
                             <p className="text-[12px] text-zinc-400 font-black uppercase tracking-[0.2em] mb-1">Contacto Directo</p>
                             <p className="text-[18px] text-white font-black uppercase tracking-widest">0424-1846016</p>
@@ -398,7 +399,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                     
                     <div className="relative z-10 flex flex-col h-full">
                         <div className="flex justify-between items-start mb-6">
-                            <img src="/images/logo-black.png" alt="Kyron" className="h-12 w-12 object-contain opacity-90" crossOrigin="anonymous" />
+                            <Image src="/images/logo-black.png" alt="Kyron" width={48} height={48} className="h-12 w-12 object-contain opacity-90" crossOrigin="anonymous" />
                             <div className="flex flex-col items-end">
                                 <span className="px-2 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-[10px] font-black uppercase tracking-widest text-white mb-1 shadow-lg">Presentación Oficial</span>
                             </div>
@@ -421,7 +422,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                                 {/* QR Principal */}
                                 <div className="flex flex-col items-center gap-1.5 group">
                                     <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(6,182,212,0.4)] border border-cyan-500/30">
-                                        <img src={QR_PRINCIPAL} alt="Portal" width={90} height={90} className="rounded-lg" crossOrigin="anonymous" />
+                                        <Image src={QR_PRINCIPAL} alt="Portal" width={90} height={90} className="rounded-lg" crossOrigin="anonymous" />
                                     </div>
                                     <p className="text-[9px] font-black uppercase tracking-[0.15em] text-cyan-400">Plataforma Principal</p>
                                 </div>
@@ -430,13 +431,13 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                                 <div className="flex justify-between w-full px-4 pt-2 border-t border-white/5">
                                     <div className="flex flex-col items-center gap-1 group">
                                         <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(236,72,153,0.3)] border border-pink-500/30">
-                                            <img src={QR_INSTAGRAM} alt="Instagram" width={55} height={55} className="rounded-lg" crossOrigin="anonymous" />
+                                            <Image src={QR_INSTAGRAM} alt="Instagram" width={55} height={55} className="rounded-lg" crossOrigin="anonymous" />
                                         </div>
                                         <p className="text-[8px] font-black uppercase tracking-[0.15em] text-pink-500">Instagram</p>
                                     </div>
                                     <div className="flex flex-col items-center gap-1 group">
                                         <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(251,191,36,0.3)] border border-amber-500/30">
-                                            <img src={QR_FEEDBACK} alt="Encuesta" width={55} height={55} className="rounded-lg" crossOrigin="anonymous" />
+                                            <Image src={QR_FEEDBACK} alt="Encuesta" width={55} height={55} className="rounded-lg" crossOrigin="anonymous" />
                                         </div>
                                         <p className="text-[8px] font-black uppercase tracking-[0.15em] text-amber-400">Tu Encuesta</p>
                                     </div>

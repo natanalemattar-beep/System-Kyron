@@ -5,23 +5,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/back-button";
 import { FileMinus, Shield, Plus, Trash2, TriangleAlert, Loader2, BadgeCheck, ArrowRight, ArrowLeft, FileText, Building2, UserCheck, Link2, ListChecks, Calculator, Zap, CircleCheck } from "lucide-react";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
-import { motion, AnimatePresence } from "framer-motion";
-import { useCurrency } from "@/lib/currency-context";
-import { CurrencySelectorCompact } from "@/components/currency-selector";
+  import { useState } from "react";
+  import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+  import { Button } from "@/components/ui/button";
+  import { Input } from "@/components/ui/input";
+  import { BackButton } from "@/components/back-button";
+  import { FileMinus, Shield, Plus, Trash2, Loader2, ArrowRight, ArrowLeft, Building2, UserCheck, Link2, ListChecks, Calculator, Zap, CircleCheck } from "lucide-react";
+  import { cn } from "@/lib/utils";
+  import { useToast } from "@/hooks/use-toast";
+  import { motion, AnimatePresence } from "framer-motion";
+  import { useCurrency } from "@/lib/currency-context";
+  import { CurrencySelectorCompact } from "@/components/currency-selector";
 
-const steps = [
-  { id: 1, label: "Emisor", icon: Building2, desc: "Datos fiscales" },
-  { id: 2, label: "Receptor", icon: UserCheck, desc: "Cliente" },
-  { id: 3, label: "Referencia", icon: Link2, desc: "Factura original" },
-  { id: 4, label: "Items", icon: ListChecks, desc: "Ajustes" },
-  { id: 5, label: "Resumen", icon: Calculator, desc: "Totales" },
-];
+  interface NotaDebitoItem {
+    descripcion: string;
+    cantidad: number;
+    precio_unitario: number;
+    tipo_gravamen: 'gravado' | 'exento';
+  }
 
-export default function NotaDebitoPage() {
-  const { toast } = useToast();
+  export default function NotaDebitoPage() {
+    const { toast } = useToast();
   const { format: fmtCur, config: curConfig } = useCurrency();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -107,8 +111,8 @@ export default function NotaDebitoPage() {
       setItems([{ descripcion: '', cantidad: 1, precio_unitario: 0, tipo_gravamen: 'gravado' }]);
       setMotivo('');
       setFacturaRef('');
-    } catch (err: any) {
-      toast({ title: 'Error', description: err.message, variant: 'destructive' });
+    } catch (err: unknown) {
+      toast({ title: 'Error', description: (err as Error).message, variant: 'destructive' });
     } finally {
       setIsSubmitting(false);
     }

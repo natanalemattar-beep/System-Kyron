@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   Ban, Shield, CircleCheck, Clock, Plus, Settings,
-  Smartphone, AppWindow, TriangleAlert, Lock, Eye
+  AppWindow
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";

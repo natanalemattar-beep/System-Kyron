@@ -5,7 +5,7 @@ import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { TabletSmartphone, Plus, Minus, X, CircleCheck as CircleCheck, Smartphone, Landmark, CreditCard, Banknote, Loader as Loader2, Search, Radio, Wallet, Lock, Clock, Calendar, ShieldAlert, History, SquareCheck as CheckSquare, Settings2, ChevronRight, ArrowRight } from "lucide-react";
+import { TabletSmartphone, Plus, Minus, CircleCheck as CircleCheck, Smartphone, Landmark, CreditCard, Banknote, Loader as Loader2, Search, Wallet, Lock, SquareCheck as CheckSquare } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { 
     Dialog, 
@@ -13,16 +13,11 @@ import {
     DialogHeader, 
     DialogTitle, 
     DialogDescription, 
-    DialogFooter,
-    DialogTrigger
+    DialogFooter
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
 const products = [
@@ -244,56 +239,56 @@ export default function PuntoDeVentaPage() {
                         </div>
                         
                         <div className="w-full grid grid-cols-2 gap-3">
-                            <Select value={currency} onValueChange={(val) => setCurrency(val as any)}>
-                                <SelectTrigger className="rounded-xl h-14 font-bold bg-white/5 border-white/10 text-xs text-white">
-                                    <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent className="bg-black/95 border-white/10">
-                                    <SelectItem value="Bs." className="text-xs font-bold uppercase">🇻🇪 VES</SelectItem>
-                                    <SelectItem value="USD" className="text-xs font-bold uppercase">🇺🇸 USD</SelectItem>
-                                </SelectContent>
-                            </Select>
-                            <Button className="w-full h-14 rounded-xl text-xs font-bold shadow-lg btn-3d-primary uppercase tracking-widest italic" onClick={handleCheckout} disabled={cart.length === 0 || !activeCashier}>
-                                COBRAR AHORA
-                            </Button>
-                        </div>
-                    </CardFooter>
-                </Card>
-            </div>
-            
-            <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
-                <DialogContent className="rounded-2xl bg-black/95 backdrop-blur-3xl border-white/10 p-10">
-                    <DialogHeader className="mb-8">
-                        <div className="p-3 bg-primary/10 rounded-2xl w-fit mb-4">
-                            <CheckSquare className="h-8 w-8 text-primary" />
-                        </div>
-                        <DialogTitle className="text-3xl font-bold uppercase tracking-tight text-white leading-none">Confirmar <br/> Transacción</DialogTitle>
-                        <DialogDescription className="text-[10px] font-bold uppercase tracking-widest text-primary/60">Seleccione el medio de inyección de liquidez</DialogDescription>
-                    </DialogHeader>
-                    <div className="grid grid-cols-2 gap-4 py-4">
-                        {[
-                            { id: "Punto de Venta", icon: CreditCard },
-                            { id: "Pago Móvil", icon: Smartphone },
-                            { id: "Efectivo", icon: Banknote },
-                            { id: "Transferencia", icon: Landmark },
-                            { id: "Billetera Kyron", icon: Wallet }
-                        ].map((method) => (
-                            <Button 
-                                key={method.id}
-                                variant={paymentMethod === method.id ? "default" : "outline"}
-                                className={cn(
-                                    "h-16 rounded-2xl text-[10px] font-semibold uppercase tracking-widest flex flex-col items-center justify-center gap-2 transition-all duration-300", 
-                                    paymentMethod === method.id 
-                                        ? "bg-primary text-white border-primary shadow-glow" 
-                                        : "bg-white/5 border-white/5 text-white/40 hover:bg-white/10 hover:text-white hover:border-white/20",
-                                    method.id === "Billetera Kyron" && "border-primary/40 text-primary bg-primary/5"
-                                )}
-                                onClick={() => setPaymentMethod(method.id as any)}
-                            >
-                                <method.icon className="h-5 w-5" />
-                                {method.id}
-                            </Button>
-                        ))}
+                             <Select value={currency} onValueChange={(val) => setCurrency(val as Currency)}>
+                                 <SelectTrigger className="rounded-xl h-14 font-bold bg-white/5 border-white/10 text-xs text-white">
+                                     <SelectValue />
+                                 </SelectTrigger>
+                                 <SelectContent className="bg-black/95 border-white/10">
+                                     <SelectItem value="Bs." className="text-xs font-bold uppercase">🇻🇪 VES</SelectItem>
+                                     <SelectItem value="USD" className="text-xs font-bold uppercase">🇺🇸 USD</SelectItem>
+                                 </SelectContent>
+                             </Select>
+                             <Button className="w-full h-14 rounded-xl text-xs font-bold shadow-lg btn-3d-primary uppercase tracking-widest italic" onClick={handleCheckout} disabled={cart.length === 0 || !activeCashier}>
+                                 COBRAR AHORA
+                             </Button>
+                         </div>
+                     </CardFooter>
+             </Card>
+             
+             <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
+                 <DialogContent className="rounded-2xl bg-black/95 backdrop-blur-3xl border-white/10 p-10">
+                     <DialogHeader className="mb-8">
+                         <div className="p-3 bg-primary/10 rounded-2xl w-fit mb-4">
+                             <CheckSquare className="h-8 w-8 text-primary" />
+                         </div>
+                         <DialogTitle className="text-3xl font-bold uppercase tracking-tight text-white leading-none">Confirmar <br/> Transacción</DialogTitle>
+                         <DialogDescription className="text-[10px] font-bold uppercase tracking-widest text-primary/60">Seleccione el medio de inyección de liquidez</DialogDescription>
+                     </DialogHeader>
+                     <div className="grid grid-cols-2 gap-4 py-4">
+                         {[
+                             { id: "Punto de Venta", icon: CreditCard },
+                             { id: "Pago Móvil", icon: Smartphone },
+                             { id: "Efectivo", icon: Banknote },
+                             { id: "Transferencia", icon: Landmark },
+                             { id: "Billetera Kyron", icon: Wallet }
+                         ].map((method) => (
+                             <Button 
+                                 key={method.id}
+                                 variant={paymentMethod === method.id ? "default" : "outline"}
+                                 className={cn(
+                                     "h-16 rounded-2xl text-[10px] font-semibold uppercase tracking-widest flex flex-col items-center justify-center gap-2 transition-all duration-300", 
+                                     paymentMethod === method.id 
+                                         ? "bg-primary text-white border-primary shadow-glow" 
+                                         : "bg-white/5 border-white/5 text-white/40 hover:bg-white/10 hover:text-white hover:border-white/20",
+                                     method.id === "Billetera Kyron" && "border-primary/40 text-primary bg-primary/5"
+                                 )}
+                                 onClick={() => setPaymentMethod(method.id as PaymentMethod)}
+                             >
+                                 <method.icon className="h-5 w-5" />
+                                 {method.id}
+                             </Button>
+                         ))}
+                     </div>
                     </div>
                     <DialogFooter className="mt-8 flex flex-col gap-4">
                         <Button onClick={handleFinalizeTransaction} disabled={isProcessing || !paymentMethod} className="w-full h-16 rounded-2xl font-semibold uppercase text-xs tracking-widest shadow-lg btn-3d-primary italic">

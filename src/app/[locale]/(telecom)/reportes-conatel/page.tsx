@@ -8,11 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
   FileText, Download, Calendar, CircleCheck, Clock,
-  Shield, ChartColumn, TrendingUp, FileSpreadsheet, Send
+  ChartColumn, TrendingUp, FileSpreadsheet
 } from "lucide-react";
-import { cn, formatCurrency } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import { motion } from "framer-motion";
 import { ConatelCompliancePanel } from "@/components/telecom/conatel-compliance-panel";
 import { RecertificacionPanel, FIDETELCalculator } from "@/components/telecom/recertificacion-fidetel";
 
@@ -22,12 +21,6 @@ const REPORTES_HISTORICOS = [
   { id: "R3", periodo: "Q2 2025", tipo: "Trimestral", estado: "enviado", fechaGeneracion: "03/07/2025", fechaEnvio: "07/07/2025", formato: "SIT XML", lineasReportadas: 20, ingresosBrutos: "$10,800.00", contribucionFIDETEL: "$108.00" },
   { id: "R4", periodo: "Q1 2025", tipo: "Trimestral", estado: "enviado", fechaGeneracion: "04/04/2025", fechaEnvio: "09/04/2025", formato: "SIT XML", lineasReportadas: 18, ingresosBrutos: "$9,500.00", contribucionFIDETEL: "$95.00" },
 ];
-
-const ESTADO_REPORTE = {
-  enviado: { label: "Enviado", color: "text-emerald-500", bg: "bg-emerald-500/10", border: "border-emerald-500/20" },
-  pendiente: { label: "Pendiente", color: "text-amber-500", bg: "bg-amber-500/10", border: "border-amber-500/20" },
-  borrador: { label: "Borrador", color: "text-blue-500", bg: "bg-blue-500/10", border: "border-blue-500/20" },
-};
 
 export default function ReportesConatelPage() {
   const { toast } = useToast();

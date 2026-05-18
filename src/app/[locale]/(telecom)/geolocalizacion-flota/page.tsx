@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import {
-  MapPin, Navigation, Signal, Search, RefreshCw, Eye,
-  Truck, Users, CircleCheck, TriangleAlert, Clock, Shield
+  MapPin, Navigation, Search, RefreshCw,
+  Truck, Users, CircleCheck, TriangleAlert, Shield
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";

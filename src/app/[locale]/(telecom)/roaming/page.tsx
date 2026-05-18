@@ -11,22 +11,44 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import {Loader2, Plus, Search, Trash2, ArrowLeft, Globe, CircleCheck, Clock, DollarSign, TriangleAlert, XCircle, FileText, Shield, Briefcase, Scale, ShieldCheck, FileSignature, Activity, Wallet, Users, Car, Heart, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark} from "lucide-react";
+  import {Loader2, Plus, Search, Trash2, ArrowLeft, Globe, CircleCheck, Clock, DollarSign, Activity} from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";
 
+  interface RoamingRegistro {
+    id: number;
+    numero: string;
+    pais_destino: string;
+    fecha_inicio: string;
+    fecha_fin: string;
+    plan_roaming: string;
+    costo_diario: string;
+    moneda: string;
+    datos_incluidos_mb: string;
+    minutos_incluidos: string;
+    notas: string;
+    estado: string;
+  }
+
+  interface RoamingStats {
+    total: number;
+    activos: number;
+    vigentes: number;
+    costo_total: number;
+  }
+
   const estadoColors: Record<string, string> = {
     activo: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-  inactivo: "bg-gray-500/20 text-gray-400 border-gray-500/30",
-  suspendido: "bg-amber-500/20 text-amber-400 border-amber-500/30",
-  vencido: "bg-rose-500/20 text-rose-400 border-rose-500/30"
+    inactivo: "bg-gray-500/20 text-gray-400 border-gray-500/30",
+    suspendido: "bg-amber-500/20 text-amber-400 border-amber-500/30",
+    vencido: "bg-rose-500/20 text-rose-400 border-rose-500/30"
   };
 
   export default function RoamingInternacionalPage() {
     const { toast } = useToast();
-    const [data, setData] = useState<any[]>([]);
-    const [stats, setStats] = useState<any>({});
+    const [data, setData] = useState<RoamingRegistro[]>([]);
+    const [stats, setStats] = useState<RoamingStats>({});
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -254,7 +276,7 @@
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filtered.map((row: any) => (
+                    {filtered.map((row: RoamingRegistro) => (
                       <TableRow key={row.id} className="hover:bg-muted/30 transition">
                         <TableCell className="text-xs font-medium">{row.numero || "—"}</TableCell>
                       <TableCell className="text-xs font-medium">{row.pais_destino || "—"}</TableCell>

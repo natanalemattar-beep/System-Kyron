@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Chrome as Home, Mail, Smartphone, Linkedin, Twitter, Github, Download, Share2, RefreshCcw, Briefcase, Sparkles, Globe, Printer, QrCode } from "lucide-react";
+import { Chrome as Home, Mail, Smartphone, Linkedin, Twitter, Github, Download, Share2, RefreshCcw, Briefcase, Sparkles, Globe, QrCode } from "lucide-react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const userData = {
     name: "Usuario Natural",

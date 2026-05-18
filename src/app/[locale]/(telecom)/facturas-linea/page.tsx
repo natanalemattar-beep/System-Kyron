@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
   Receipt, FileText, DollarSign, Clock, CircleCheck,
-  Download, Eye, Filter, Loader2, Calendar
+  Download, Eye, Loader2, Calendar
 } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";

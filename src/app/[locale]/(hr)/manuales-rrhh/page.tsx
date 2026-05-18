@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import {
-  BookOpen, FileText, Users, Plus, Search, ChevronRight, ChevronDown,
+  BookOpen, Users, Plus, Search, ChevronRight, ChevronDown,
   Loader2, Shield, TriangleAlert, CircleCheck, Clock, Eye,
   Building2, Briefcase, Crown, UserCog, User,
-  FileSignature, Ban, Gift, Scale, Calendar, Pen, Filter,
-  Download, Printer, Edit, Trash2, X, ArrowDown, LayoutGrid, List
+  FileSignature, Ban, Gift, Scale, Pen, Filter,
+  ArrowDown, LayoutGrid, List
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -102,55 +102,6 @@ const ESTADOS_CONTRATO: Record<string, { label: string; color: string }> = {
   rescindido: { label: "Rescindido", color: "bg-red-500/20 text-red-400 border-red-500/30" },
 };
 
-function OrgTreeNode({ nodo, children, isRoot }: { nodo: NodoOrganigrama; children?: NodoOrganigrama[]; isRoot?: boolean }) {
-  const tipoInfo = TIPOS_NODO[nodo.tipo] || TIPOS_NODO.cargo;
-  const childNodes = children || [];
-
-  return (
-    <div className="flex flex-col items-center">
-      <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3 }}>
-        <Card className={cn(
-          "glass-card border-none bg-card/60 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all w-52",
-          isRoot && "ring-2 ring-amber-500/30 shadow-amber-500/10"
-        )}>
-          <div className={cn("h-1.5", tipoInfo.color)} />
-          <CardContent className="p-4 text-center space-y-1.5">
-            <div className={cn("h-10 w-10 rounded-full mx-auto flex items-center justify-center text-white shadow-lg", tipoInfo.color)}>
-              <tipoInfo.icon className="h-5 w-5" />
-            </div>
-            <p className="font-bold text-[11px] text-foreground uppercase tracking-wide leading-tight">{nodo.nombre_cargo}</p>
-            <Badge variant="outline" className="text-[7px] mt-0.5">{nodo.departamento}</Badge>
-            <p className="text-[10px] text-muted-foreground font-bold">
-              {nodo.empleado_nombre || nodo.titular || <span className="italic text-muted-foreground/40">Vacante</span>}
-            </p>
-            <Badge className="text-[7px] font-bold bg-muted/50 text-muted-foreground">{tipoInfo.label}</Badge>
-          </CardContent>
-        </Card>
-      </motion.div>
-
-      {childNodes.length > 0 && (
-        <>
-          <div className="w-px h-6 bg-border/50" />
-          {childNodes.length > 1 && (
-            <div className="relative w-full flex justify-center">
-              <div className="absolute top-0 h-px bg-border/50" style={{
-                left: `${100 / (childNodes.length * 2)}%`,
-                right: `${100 / (childNodes.length * 2)}%`,
-              }} />
-            </div>
-          )}
-          <div className="flex gap-4 flex-wrap justify-center">
-            {childNodes.map(child => (
-              <div key={child.id} className="flex flex-col items-center">
-                {childNodes.length > 1 && <div className="w-px h-4 bg-border/50" />}
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
 
 export default function ManualesRRHHPage() {
   const { toast } = useToast();
@@ -305,8 +256,6 @@ export default function ManualesRRHHPage() {
     });
     return map;
   }, [nodos]);
-
-  const rootNodos = useMemo(() => nodos.filter(n => !n.padre_id), [nodos]);
 
   const filteredManuales = useMemo(() => {
     return manuales.filter(m => {

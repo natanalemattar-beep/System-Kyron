@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
-  FileSpreadsheet, DollarSign, Calendar, Download, CircleCheck,
+  FileSpreadsheet, Calendar, Download, CircleCheck,
   Clock, Building2, TrendingUp, FileText, CreditCard
 } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";

@@ -1,5 +1,5 @@
-'use client';
-
+import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Leaf, Recycle, Wind, ShieldCheck } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -63,11 +63,12 @@ export function SustainabilitySection() {
                         
                         <div className="relative rounded-[4rem] overflow-hidden border border-white/10 p-4 bg-white/[0.01] backdrop-blur-3xl shadow-2xl">
                             <div className="relative aspect-square w-full rounded-[3rem] overflow-hidden group/img">
-                                <img 
-                                    src="/images/salto-angel.jpg" 
-                                    alt="Kyron Sostenibilidad" 
-                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover/img:scale-105"
-                                />
+<Image 
+    src="/images/salto-angel.jpg" 
+    alt="Kyron Sostenibilidad" 
+    fill
+    className="object-cover transition-transform duration-1000 group-hover/img:scale-105"
+/>
                                 {/* Scanline Effect */}
                                 <div className="absolute inset-0 opacity-20 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(16,185,129,0.06),rgba(0,255,0,0.02),rgba(16,185,129,0.06))] bg-[length:100%_2px,3px_100%]" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 via-transparent to-transparent opacity-60" />

@@ -11,7 +11,7 @@ export type CategorizeTransactionOutput = {
     confidence: number;
 };
 
-export async function categorizeTransactionAction(input: CategorizeTransactionInput): Promise<CategorizeTransactionOutput | { error: string }> {
+export async function categorizeTransactionAction(_input: CategorizeTransactionInput): Promise<CategorizeTransactionOutput | { error: string }> {
   try {
     // MIGRACIÓN A SISTEMA DETERMINISTA: CATEGORIZACIÓN BASADA EN REGLAS FIJAS
     return {

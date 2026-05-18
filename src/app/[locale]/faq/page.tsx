@@ -224,8 +224,8 @@ export default function FaqPage() {
         ...cat,
         questions: cat.questions.filter(q =>
             searchQuery === '' ||
-            q.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            q.answer.toLowerCase().includes(searchQuery.toLowerCase())
+            (q.question || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (q.answer || '').toLowerCase().includes(searchQuery.toLowerCase())
         )
     })).filter(cat =>
         cat.questions.length > 0 &&

@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import {
   Gauge, Wifi, Signal, Activity, TrendingUp, Zap,
-  ArrowUp, ArrowDown, Clock, Globe
+  ArrowDown, Clock, Globe
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";

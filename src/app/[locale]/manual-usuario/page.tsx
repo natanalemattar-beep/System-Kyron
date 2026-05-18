@@ -1,5 +1,5 @@
-"use client";
-
+import React from 'react';
+import Image from 'next/image';
 import { motion } from "framer-motion";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
@@ -603,7 +603,7 @@ export default function ManualUsuarioPage() {
       </head>
       <body>
         <div class="header">
-          <img src="${logoBase64}" class="logo" />
+           <img src="${logoBase64}" class="logo" />
           <h1>SYSTEM KYRON</h1>
           <p class="subtitle">Manual de Usuario Unificado v3.0</p>
           <p style="font-size: 10pt; color: #94a3b8; margin-top: 15pt;">Fecha de publicaci&oacute;n: Abril 2026</p>

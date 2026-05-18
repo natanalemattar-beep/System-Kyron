@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 import {
-  Wifi, Globe, Tv, Router, Signal, Gauge, ArrowUpDown,
-  CircleCheck, Clock, TriangleAlert, CreditCard, Calendar, MapPin,
-  Plus, Search, Download, PhoneCall, Headphones, Shield, Zap,
-  ChevronRight, Star, TrendingUp, RefreshCw, FileText, DollarSign,
-  Monitor, Smartphone
+  Wifi, Globe, Tv, Gauge,
+  Plus, Search, Star,
+  Smartphone
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -19,7 +17,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Switch } from "@/components/ui/switch";
 import { motion } from "framer-motion";
 
 const PROVEEDORES_INTERNET = [

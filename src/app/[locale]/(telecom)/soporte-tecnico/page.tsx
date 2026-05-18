@@ -8,8 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
-  Headphones, Plus, CircleCheck, Clock, MessageSquare,
-  Signal, TriangleAlert, Search, RefreshCw, Send, FileText, Wifi
+  Headphones, Plus, CircleCheck, MessageSquare,
+  Signal, RefreshCw, Send, FileText, Wifi
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";

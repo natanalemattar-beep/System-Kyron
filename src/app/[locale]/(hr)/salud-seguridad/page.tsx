@@ -1,12 +1,11 @@
 
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Stethoscope, ShieldCheck, Activity, FileWarning, Terminal, Heart, Zap, CircleCheck as CircleCheck, CirclePlus as PlusCircle, Download, TriangleAlert as TriangleAlert, Users } from "lucide-react";
+import { Stethoscope, ShieldCheck, Activity, Terminal, Zap, CirclePlus as PlusCircle, Download, TriangleAlert } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { Progress } from "@/components/ui/progress";
 

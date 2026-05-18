@@ -11,10 +11,36 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import {Loader2, Plus, Search, Trash2, ArrowLeft, CircleCheck, TriangleAlert, XCircle, FileText, FileSignature, Clock, Shield, Briefcase, Scale, ShieldCheck, Activity, Wallet, Users, DollarSign, Car, Heart, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark} from "lucide-react";
+  import {Loader2, Plus, Search, Trash2, ArrowLeft, CircleCheck, TriangleAlert, XCircle, FileText, FileSignature, Clock, Activity} from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";
+  
+  interface PoderRecord {
+    id: number;
+    tipo: string;
+    titulo: string;
+    otorgante: string;
+    apoderado: string;
+    cedula_otorgante: string;
+    cedula_apoderado: string;
+    notaria: string;
+    numero_documento: string;
+    tomo: string;
+    folio: string;
+    facultades: string;
+    fecha_otorgamiento: string;
+    fecha_vencimiento: string;
+    notas: string;
+    estado: string;
+  }
+
+  interface PoderStats {
+    vigentes: number;
+    vencidos: number;
+    revocados: number;
+    total: number;
+  }
 
   const estadoColors: Record<string, string> = {
     vigente: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
@@ -25,8 +51,8 @@
 
   export default function PoderesNotariadosPage() {
     const { toast } = useToast();
-    const [data, setData] = useState<any[]>([]);
-    const [stats, setStats] = useState<any>({});
+    const [data, setData] = useState<PoderRecord[]>([]);
+    const [stats, setStats] = useState<PoderStats>({});
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -268,7 +294,7 @@
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filtered.map((row: any) => (
+                    {filtered.map((row: PoderRecord) => (
                       <TableRow key={row.id} className="hover:bg-muted/30 transition">
                         <TableCell className="text-xs font-medium">{row.titulo || "—"}</TableCell>
                       <TableCell className="text-xs font-medium">{row.otorgante || "—"}</TableCell>

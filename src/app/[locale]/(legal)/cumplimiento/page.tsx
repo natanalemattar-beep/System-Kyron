@@ -11,7 +11,7 @@
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
   import { motion } from "framer-motion";
-  import {Loader2, Plus, Search, Trash2, ArrowLeft, CircleCheck, Clock, TriangleAlert, Shield, ShieldCheck, XCircle, FileText, Briefcase, Scale, FileSignature, Activity, Wallet, Users, DollarSign, Car, Heart, Globe, Package, Building, UserCheck, Receipt, ShoppingCart, CreditCard, Stethoscope, ShieldAlert, Smartphone, MapPin, Star, Send, Eye, Calendar, Hash, Landmark} from "lucide-react";
+  import {Loader2, Plus, Search, Trash2, ArrowLeft, CircleCheck, Clock, TriangleAlert, Shield, ShieldCheck, Activity} from "lucide-react";
   import { useToast } from "@/hooks/use-toast";
   import { cn } from "@/lib/utils";
   import { Link } from "@/navigation";
@@ -24,10 +24,31 @@
   exento: "bg-gray-500/20 text-gray-400 border-gray-500/30"
   };
 
-  export default function CumplimientoNormativoPage() {
+  interface Norma {
+  id: number;
+  norma: string;
+  organismo: string;
+  categoria: string;
+  descripcion: string;
+  nivel_riesgo: string;
+  fecha_limite: string;
+  responsable: string;
+  multa_estimada: string;
+  notas: string;
+  estado: string;
+}
+
+interface CumplimientoStats {
+  cumplidos: number;
+  pendientes: number;
+  alto_riesgo: number;
+  total: number;
+}
+
+export default function CumplimientoNormativoPage() {
     const { toast } = useToast();
-    const [data, setData] = useState<any[]>([]);
-    const [stats, setStats] = useState<any>({});
+    const [data, setData] = useState<Norma[]>([]);
+    const [stats, setStats] = useState<CumplimientoStats>({});
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -253,7 +274,7 @@
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filtered.map((row: any) => (
+                    {filtered.map((row: Norma) => (
                       <TableRow key={row.id} className="hover:bg-muted/30 transition">
                         <TableCell className="text-xs font-medium">{row.norma || "—"}</TableCell>
                       <TableCell className="text-xs font-medium">{row.organismo || "—"}</TableCell>

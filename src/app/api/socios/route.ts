@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
     );
 
     await logActivity({
-      userId: session.user.id, evento: 'SOCIO_REGISTRADO', categoria: 'socios',
+      userId: session.user.id, evento: 'SOCIO_REGISTRADO', categoria: 'legal' as const,
       descripcion: `Socio registrado: ${nombre}`,
       entidadTipo: 'socio', entidadId: (socio as { id: number }).id,
       metadata: { nombre, cargo },
@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
     );
 
     await logActivity({
-      userId: session.user.id, evento: 'ACTA_ASAMBLEA_CREADA', categoria: 'socios',
+      userId: session.user.id, evento: 'ACTA_ASAMBLEA_CREADA', categoria: 'legal' as const,
       descripcion: `Acta de asamblea: ${numero_acta}`,
       entidadTipo: 'acta_asamblea', entidadId: (acta as { id: number }).id,
       metadata: { numero_acta, tipo },

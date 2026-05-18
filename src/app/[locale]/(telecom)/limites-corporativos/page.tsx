@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
-  SlidersHorizontal, Users, Shield, Save, CircleCheck,
+  SlidersHorizontal, Users, Save, CircleCheck,
   TriangleAlert, TrendingUp, Wifi, Bell, Loader2, Inbox
 } from "lucide-react";
 import { cn } from "@/lib/utils";

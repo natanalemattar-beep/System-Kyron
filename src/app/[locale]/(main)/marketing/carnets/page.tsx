@@ -26,6 +26,20 @@ const companyInfo = {
 
 const emptyEmployee = { id: "—", nombre: "Nombre", apellido: "Apellido", cedula: "—", cargo: "Cargo", departamento: "—", telefono: "—", email: "—", fechaIngreso: "—", tipoSangre: "—", foto: null };
 
+interface ApiEmployee {
+  id: number;
+  nombre?: string;
+  apellido?: string;
+  cedula?: string;
+  cargo?: string;
+  departamento?: string;
+  telefono?: string;
+  email?: string;
+  fecha_ingreso?: string;
+  tipoSangre?: string;
+  foto?: string | null;
+}
+
 function getQrUrl(data: string, size = 200) {
   return `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(data)}&bgcolor=ffffff&color=0a1628&margin=2`;
 }
@@ -35,7 +49,6 @@ function getInitials(nombre: string, apellido: string) {
 }
 
 export default function CarnetsPage() {
-  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("presentacion");
   const [employees, setEmployees] = useState<(typeof emptyEmployee)[]>([]);
   const [selectedEmployee, setSelectedEmployee] = useState(emptyEmployee);
@@ -44,7 +57,7 @@ export default function CarnetsPage() {
     fetch('/api/empleados').then(r => r.json()).then(data => {
       const list = Array.isArray(data) ? data : (data?.empleados ?? []);
       if (list.length > 0) {
-        const mapped = list.map((e: any, i: number) => ({
+        const mapped = list.map((e: ApiEmployee, i: number) => ({
           id: `EMP-${String(i + 1).padStart(3, '0')}`,
           nombre: e.nombre || 'Sin nombre',
           apellido: e.apellido || '',

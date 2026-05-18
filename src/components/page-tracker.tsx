@@ -108,7 +108,7 @@ export function PageTracker({ userId }: { userId?: number | null }) {
     lastTracked.current = pathname;
 
     const visitorId = getOrCreateVisitorId();
-    const module = getModuleFromPath(pathname);
+    const pageModule = getModuleFromPath(pathname);
 
     fetch('/api/visits', {
       method: 'POST',
@@ -117,7 +117,7 @@ export function PageTracker({ userId }: { userId?: number | null }) {
         page: pathname,
         visitor_id: visitorId,
         user_id: userId ?? null,
-        module,
+        module: pageModule,
       }),
     }).catch(() => {});
   }, [pathname, userId]);

@@ -1,5 +1,7 @@
 "use client";
 
+import React from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { Zap, Gauge, Timer, Shield, TrendingUp, ChartColumn, ArrowRight, Headphones, MessageSquare, Brain, FileSearch } from 'lucide-react';
@@ -59,7 +61,7 @@ export function FeaturesSection() {
                             </div>
                         </div>
                         <div className="absolute right-[-10%] bottom-[-10%] w-[60%] opacity-20 group-hover:opacity-40 transition-opacity duration-1000 grayscale group-hover:grayscale-0">
-                            <img src="/images/landing/features-analytics.webp" alt="Viz" className="w-full h-full object-contain" />
+                            <Image src="/images/landing/features-analytics.webp" alt="Viz" width={1200} height={800} className="w-full h-full object-contain" />
                         </div>
                     </ScrollReveal>
 

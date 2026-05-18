@@ -221,7 +221,7 @@ export async function POST(request: NextRequest) {
         [session.user.id]
       );
       for (const r of existingRows) {
-        if (r.referencia) existingRefs.add(r.referencia.toLowerCase());
+        if (r.referencia) existingRefs.add(String(r.referencia).toLowerCase());
       }
 
       const movimientos: { fecha_operacion: string; concepto: string; monto: number; tipo: string; referencia: string | null; }[] = [];

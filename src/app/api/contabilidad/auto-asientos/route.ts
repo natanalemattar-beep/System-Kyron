@@ -124,10 +124,10 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       pendientes: {
-        movimientos: parseInt(pendientesMovimientos[0]?.count || '0'),
-        facturas: parseInt(pendientesFacturas[0]?.count || '0'),
+        movimientos: parseInt(String(pendientesMovimientos[0]?.count || '0')),
+        facturas: parseInt(String(pendientesFacturas[0]?.count || '0')),
       },
-      plan_cuentas: parseInt(planCount[0]?.count || '0'),
+      plan_cuentas: parseInt(String(planCount[0]?.count || '0')),
     });
   } catch (err) {
     console.error('[auto-asientos] GET error:', err);
@@ -174,13 +174,13 @@ export async function POST(request: NextRequest) {
       );
 
       for (const mov of movimientos) {
-        const monto = parseFloat(mov.monto);
+        const monto = parseFloat(String(mov.monto));
         if (!monto || monto <= 0) {
           omitidos++;
           continue;
         }
 
-        const clasificacion = categorizarMovimiento(String(mov.concepto), mov.tipo, plan);
+        const clasificacion = categorizarMovimiento(String(mov.concepto), String(mov.tipo), plan);
         if (!clasificacion) {
           errores.push(`Mov #${mov.id}: No se encontrÃ³ cuenta contable para "${String(mov.concepto).substring(0, 40)}"`);
           omitidos++;
@@ -249,9 +249,9 @@ export async function POST(request: NextRequest) {
       );
 
       for (const fac of facturas) {
-        const total = parseFloat(fac.total);
-        const iva = parseFloat(fac.iva || '0');
-        const subtotal = parseFloat(fac.subtotal || String(total));
+        const total = parseFloat(String(fac.total));
+        const iva = parseFloat(String(fac.iva || '0'));
+        const subtotal = parseFloat(String(fac.subtotal || total));
         if (!total || total <= 0) { omitidos++; continue; }
 
         const cuentaCxC = findCuenta(plan, ['cuentas por cobrar', 'clientes', 'deudores'], 'activo')

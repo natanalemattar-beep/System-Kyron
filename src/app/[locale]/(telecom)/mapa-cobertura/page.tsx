@@ -8,7 +8,6 @@ import {
   MapPin, Signal, Wifi, Zap, Globe, Navigation
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 
 const ZONAS_COBERTURA = [
@@ -30,7 +29,6 @@ const ESTADO_CALIDAD = {
 };
 
 export default function MapaCoberturaPage() {
-  const { toast } = useToast();
   const [filtroRed, setFiltroRed] = useState<"todas" | "5G" | "4G" | "3G">("todas");
 
   const zonasFiltradas = ZONAS_COBERTURA.filter(z => {
