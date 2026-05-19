@@ -26,17 +26,22 @@ export function AIChatButton() {
       const res = await fetch('/api/ai/agent-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: input, context: 'soporte' }),
+        body: JSON.stringify({ 
+          message: input, 
+          context: 'soporte',
+          history: messages.map(m => ({ role: m.role === 'ai' ? 'assistant' : 'user', content: m.content }))
+        }),
       });
 
       if (res.ok) {
         const data = await res.json();
         setMessages(prev => [...prev, { role: 'ai', content: data.response }]);
       } else {
-        setMessages(prev => [...prev, { role: 'ai', content: 'Lo siento, tuve un problema técnico. Por favor, intenta de nuevo.' }]);
+        const errorData = await res.json().catch(() => ({}));
+        setMessages(prev => [...prev, { role: 'ai', content: errorData.error || 'Lo siento, tuve un problema técnico. Por favor, intenta de nuevo.' }]);
       }
-    } catch (error) {
-      setMessages(prev => [...prev, { role: 'ai', content: 'Error de conexión. Revisa tu internet.' }]);
+    } catch (error: any) {
+      setMessages(prev => [...prev, { role: 'ai', content: error?.message || 'Error de conexión. Revisa tu internet.' }]);
     } finally {
       setIsLoading(false);
     }

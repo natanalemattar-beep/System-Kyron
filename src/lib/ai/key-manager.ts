@@ -5,6 +5,7 @@ const API_KEYS = [
   process.env.GEMINI_API_KEY_2,
   process.env.GEMINI_API_KEY_3,
   process.env.GEMINI_API_KEY_4,
+  process.env.GOOGLE_GENERATIVE_AI_API_KEY,
 ].filter(Boolean) as string[];
 
 if (API_KEYS.length === 0) {
