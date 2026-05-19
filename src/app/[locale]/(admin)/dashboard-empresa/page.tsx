@@ -77,12 +77,12 @@ function getGreeting(hour: number): { text: string; icon: typeof Sun } {
 
 function getHealthScore(data: DashboardData): { score: number; label: string; color: string } {
   let score = 50;
-  if (data.utilidadNeta > 0) score += 15;
-  if (data.variaciones?.ingresos > 0) score += 10;
-  if (data.variaciones?.gastos < 0) score += 5;
-  if (data.facturas?.vencidas === 0) score += 10;
-  if (data.liquidezTotal > 0) score += 5;
-  if (data.inventarioBajoStock === 0) score += 5;
+  if ((data.utilidadNeta ?? 0) > 0) score += 15;
+  if ((data.variaciones?.ingresos ?? 0) > 0) score += 10;
+  if ((data.variaciones?.gastos ?? 0) < 0) score += 5;
+  if ((data.facturas?.vencidas ?? 0) === 0) score += 10;
+  if ((data.liquidezTotal ?? 0) > 0) score += 5;
+  if ((data.inventarioBajoStock ?? 0) === 0) score += 5;
   score = Math.min(100, Math.max(0, score));
   if (score >= 80) return { score, label: "Excelente", color: "text-emerald-400" };
   if (score >= 60) return { score, label: "Bueno", color: "text-blue-400" };
@@ -130,7 +130,6 @@ export default function DashboardEmpresaPage() {
   const t = useTranslations('Dashboard');
   const { activeEvent } = useSeasonalTheme();
   const { format: fmtCur, convert, config: curConfig, formatRaw } = useCurrency();
-  const [showAI, setShowAI] = useState(false);
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -233,7 +232,11 @@ export default function DashboardEmpresaPage() {
           const ing = data?.ingresos ?? 0; const gas = data?.gastos ?? 0;
           setClosingData({ periodo: closingForm.periodo, ingresos: ing, gastos: gas, utilidad: ing - gas, facturas_emitidas: data?.facturas?.emitidas ?? 0, facturas_cobradas: data?.facturas?.cobradas ?? 0 });
         }
+      } else {
+        toast({ variant: "destructive", title: "Error", description: "No se pudo previsualizar el cierre." });
       }
+    } catch (e) {
+      toast({ variant: "destructive", title: "Error de conexión", description: e instanceof Error ? e.message : "Error inesperado" });
     } finally { setIsClosing(false); }
   };
 
@@ -243,20 +246,31 @@ export default function DashboardEmpresaPage() {
       const res = await fetch("/api/periodo-cierre", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...closingForm, cerrado_por: user?.nombre ?? "Usuario" }) });
       const json = await res.json();
       if (res.ok) { setClosingData(json.cierre); toast({ title: "PERIODO FISCAL CERRADO", description: `${closingForm.periodo} — Utilidad: ${fmtCur(json.cierre?.utilidad ?? 0)}` }); setShowCierre(false); fetchDashboard(); }
-      else toast({ title: "Error", description: json.error ?? "No se pudo cerrar", variant: "destructive" });
-    } catch (e) { toast({ title: "Error de conexión", description: e instanceof Error ? e.message : undefined, variant: "destructive" }); }
+      else toast({ title: "Error", description: json.error ?? "No se pudo cerrar el periodo fiscal.", variant: "destructive" });
+    } catch (e) { toast({ title: "Error de conexión", description: e instanceof Error ? e.message : "Ocurrió un error al intentar cerrar el periodo.", variant: "destructive" }); }
     setIsClosing(false);
   };
 
   const handleAuditoria = async () => {
     setShowAuditoria(true); setAuditLoading(true);
-    try { const res = await fetch("/api/activity-log?limit=100"); if (res.ok) { const json = await res.json(); setAuditLogs(json.logs ?? []); } }
-    catch {} finally { setAuditLoading(false); }
+    try { 
+      const res = await fetch("/api/activity-log?limit=100"); 
+      if (res.ok) { 
+        const json = await res.json(); 
+        setAuditLogs(json.logs ?? []); 
+      } else {
+        toast({ variant: "destructive", title: "Error", description: "No se pudieron cargar los logs de auditoría." });
+      }
+    } catch (e) { 
+      toast({ variant: "destructive", title: "Error de conexión", description: e instanceof Error ? e.message : "Error inesperado" });
+    } finally { setAuditLoading(false); }
   };
 
-  const filteredLogs = auditLogs.filter(l => !auditSearch || l.evento.toLowerCase().includes(auditSearch.toLowerCase()) || (l.descripcion ?? "").toLowerCase().includes(auditSearch.toLowerCase()) || l.categoria.toLowerCase().includes(auditSearch.toLowerCase()));
+  const filteredLogs = useMemo(() => 
+    auditLogs.filter(l => !auditSearch || l.evento.toLowerCase().includes(auditSearch.toLowerCase()) || (l.descripcion ?? "").toLowerCase().includes(auditSearch.toLowerCase()) || l.categoria.toLowerCase().includes(auditSearch.toLowerCase())),
+    [auditLogs, auditSearch]
+  );
 
-  const variacionIcon = (v: number) => v > 0 ? <ArrowUpRight className="h-3 w-3" /> : v < 0 ? <ArrowDownRight className="h-3 w-3" /> : null;
   const variacionColor = (v: number, invert = false) => { if (v === 0) return "text-muted-foreground"; return (invert ? v < 0 : v > 0) ? "text-emerald-400" : "text-rose-400"; };
   const facturasPie = useMemo(() => {
     if (!data?.facturas || typeof data.facturas !== 'object') return [];
@@ -326,9 +340,9 @@ export default function DashboardEmpresaPage() {
 
                   <div>
                     <div className="flex flex-col">
-                       <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-white uppercase leading-none mb-3">
-                        {activeEvent ? activeEvent.saludo : (greeting?.text ?? t('greeting_fallback'))}{user?.nombre ? `, ${user.nombre.split(" ")[0]}` : ""}
-                      </h1>
+                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-white uppercase leading-none mb-3">
+                         {activeEvent ? activeEvent.saludo : (greeting?.text ?? t('greeting_fallback'))}{user?.nombre ? `, ${user.nombre.trim().split(" ")[0]}` : ""}
+                        </h1>
                       <div className="flex items-center gap-3">
                         <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-semibold tracking-[0.15em] text-white/45 uppercase">{t('status_operativo')}</span>
                         <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
@@ -574,33 +588,46 @@ export default function DashboardEmpresaPage() {
                         <span className="text-sm font-bold ml-auto">{d.value}</span>
                       </div>
                     ))}
-                    <div className="pt-2 border-t border-border/20">
-                      <span className="text-[11px] text-muted-foreground/50">Total: <span className="font-bold text-foreground">{data?.facturas.total ?? 0}</span></span>
+                      <div className="pt-2 border-t border-border/20">
+                        <span className="text-[11px] text-muted-foreground/50">Total: <span className="font-bold text-foreground">{data?.facturas?.total ?? 0}</span></span>
+                      </div>
                     </div>
-                  </div>
+                    </div>
+                  </ChartErrorBoundary>
+                 )}
+              </Card>
+            </motion.div>
+            <motion.div className="lg:col-span-4 space-y-5" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+              <Card className="border border-border/30 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-sm font-bold text-foreground/70">Cuentas</span>
+                  <Scale className="h-4 w-4 text-muted-foreground/25" />
                 </div>
-              </ChartErrorBoundary>
-            )}
-          </Card>
-
-          <Card className="border border-border/30 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-bold text-foreground/70">Cuentas</span>
-              <Scale className="h-4 w-4 text-muted-foreground/25" />
-            </div>
-            <div className="space-y-3">
-              <Link href="/cuentas-por-cobrar" className="block">
-                <div className="flex items-center justify-between p-4 rounded-xl bg-emerald-500/[0.04] border border-emerald-500/10 hover:bg-emerald-500/[0.08] transition-colors">
-                  <div className="flex items-center gap-3">
-                    <ArrowUpRight className="h-4 w-4 text-emerald-400" />
-                    <span className="text-sm font-medium text-foreground/70">Por Cobrar</span>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-bold text-emerald-400">{loading ? "—" : fmtCur(data?.cuentasCobrar.total ?? 0)}</p>
-                    <p className="text-[11px] text-muted-foreground/40">{data?.cuentasCobrar.count ?? 0} pendientes</p>
-                  </div>
-                </div>
-              </Link>
+                <div className="space-y-3">
+                  <Link href="/cuentas-por-cobrar" className="block">
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-emerald-500/[0.04] border border-emerald-500/10 hover:bg-emerald-500/[0.08] transition-colors">
+                      <div className="flex items-center gap-3">
+                        <ArrowUpRight className="h-4 w-4 text-emerald-400" />
+                        <span className="text-sm font-medium text-foreground/70">Por Cobrar</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-bold text-emerald-400">{loading ? "—" : fmtCur(data?.cuentasCobrar?.total ?? 0)}</p>
+                        <p className="text-[11px] text-muted-foreground/40">{data?.cuentasCobrar?.count ?? 0} pendientes</p>
+                      </div>
+                    </div>
+                  </Link>
+                  <Link href="/cuentas-por-pagar" className="block">
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-rose-500/[0.04] border border-rose-500/10 hover:bg-rose-500/[0.08] transition-colors">
+                      <div className="flex items-center gap-3">
+                        <ArrowDownRight className="h-4 w-4 text-rose-400" />
+                        <span className="text-sm font-medium text-foreground/70">Por Pagar</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-bold text-rose-400">{loading ? "—" : fmtCur(data?.cuentasPagar?.total ?? 0)}</p>
+                        <p className="text-[11px] text-muted-foreground/40">{data?.cuentasPagar?.count ?? 0} pendientes</p>
+                      </div>
+                    </div>
+                  </Link>
               <Link href="/cuentas-por-pagar" className="block">
                 <div className="flex items-center justify-between p-4 rounded-xl bg-rose-500/[0.04] border border-rose-500/10 hover:bg-rose-500/[0.08] transition-colors">
                   <div className="flex items-center gap-3">
@@ -691,10 +718,10 @@ export default function DashboardEmpresaPage() {
               ))}
             </div>
             <div className="mt-4 space-y-2">
-              {[
-                { text: "Declaración IVA", date: clientClosingForm ? `Vence ${String(new Date(clientClosingForm.fecha_fin).getMonth() + 2).padStart(2, "0")}/${new Date(clientClosingForm.fecha_fin).getFullYear()}` : "Vence próximo mes", color: "text-amber-400", icon: PercentCircle },
-                { text: "Conciliación bancaria", date: "Antes de cierre", color: "text-blue-400", icon: CreditCard },
-              ].map((a, i) => (
+                 {[
+                   { text: "Declaración IVA", date: clientClosingForm ? `Vence ${String(new Date(clientClosingForm.fecha_fin).getMonth() + 1).padStart(2, "0")}/${new Date(clientClosingForm.fecha_fin).getFullYear()}` : "Vence próximo mes", color: "text-amber-400", icon: PercentCircle },
+                   { text: "Conciliación bancaria", date: "Antes de cierre", color: "text-blue-400", icon: CreditCard },
+                 ].map((a, i) => (
                 <div key={i} className="flex items-center gap-2.5 p-3 rounded-xl bg-muted/5 border border-border/15">
                   <a.icon className={cn("h-4 w-4 shrink-0", a.color)} />
                   <div className="flex-1 min-w-0">

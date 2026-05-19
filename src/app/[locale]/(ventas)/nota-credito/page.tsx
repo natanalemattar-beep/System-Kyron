@@ -1,16 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/back-button";
 import { FilePlus, Shield, Plus, Trash2, Loader2, ArrowRight, ArrowLeft, Building2, UserCheck, Link2, ListChecks, Calculator, Zap, CircleCheck } from "lucide-react";
-  import { useState } from "react";
-  import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-  import { Button } from "@/components/ui/button";
-  import { Input } from "@/components/ui/input";
-  import { BackButton } from "@/components/back-button";
-  import { FilePlus, Shield, Plus, Trash2, Loader2, ArrowRight, ArrowLeft, Building2, UserCheck, Link2, ListChecks, Calculator, Zap, CircleCheck } from "lucide-react";
   import { cn } from "@/lib/utils";
   import { useToast } from "@/hooks/use-toast";
   import { motion, AnimatePresence } from "framer-motion";

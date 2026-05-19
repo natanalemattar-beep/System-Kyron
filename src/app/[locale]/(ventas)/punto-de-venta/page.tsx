@@ -253,9 +253,10 @@ export default function PuntoDeVentaPage() {
                              </Button>
                          </div>
                      </CardFooter>
-             </Card>
-             
-             <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
+              </Card>
+              </div>
+              
+              <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
                  <DialogContent className="rounded-2xl bg-black/95 backdrop-blur-3xl border-white/10 p-10">
                      <DialogHeader className="mb-8">
                          <div className="p-3 bg-primary/10 rounded-2xl w-fit mb-4">
@@ -287,8 +288,7 @@ export default function PuntoDeVentaPage() {
                                  <method.icon className="h-5 w-5" />
                                  {method.id}
                              </Button>
-                         ))}
-                     </div>
+                        ))}
                     </div>
                     <DialogFooter className="mt-8 flex flex-col gap-4">
                         <Button onClick={handleFinalizeTransaction} disabled={isProcessing || !paymentMethod} className="w-full h-16 rounded-2xl font-semibold uppercase text-xs tracking-widest shadow-lg btn-3d-primary italic">

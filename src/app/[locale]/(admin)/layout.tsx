@@ -24,7 +24,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     const { user } = useAuth();
     const { prefs } = usePreferences();
     const pathname = usePathname();
-    useSetModuleContext("asesoria-contable");
+    useSetModuleContext("admin");
     const isVentasSection = VENTAS_PATHS.some(p => pathname.startsWith(p));
     const effectiveNavGroups = isVentasSection ? ventasNavGroups : asesoriaContableNavGroups;
     const displayName = user?.tipo === 'juridico'
@@ -88,7 +88,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
     return (
-      <ModuleGuard layoutKey="asesoria-contable">
+      <ModuleGuard layoutKey="admin">
         <PreferencesProvider>
           <CurrencyProvider>
             <AdminLayoutInner>{children}</AdminLayoutInner>

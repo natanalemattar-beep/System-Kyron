@@ -518,36 +518,6 @@ ${content}
           </div>
         </div>
 
-        {viewMode === 'screen' ? (
-          /* VISTA PANTALLA (dark mode original) */
-          <div className="space-y-5">
-            {/* ... (contenido de la vista pantalla) ... */}
-          </div>
-        ) : (
-          /* VISTA CARTA (preview en pantalla) */
-          <div className="flex flex-col items-center gap-8">
-            {[1, 2].map((page) => (
-              <div
-                key={page}
-                className="bg-white shadow-2xl"
-                style={{
-                  width: `${LETTER_WIDTH_PX}px`,
-                  minHeight: '1056px',
-                  padding: '72px 72px 60px 72px',
-                  fontFamily: '"Segoe UI", Arial, sans-serif',
-                  fontSize: '11pt',
-                  lineHeight: '1.5',
-                  color: '#0f172a',
-                }}
-              >
-                <div id={`print-page-only-${page}`}>
-                  {/* El contenido se filtrará mediante CSS o renderizado selectivo */}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
         {/* PrintContent ÚNICO: visible en Vista Carta, oculto pero presente en Pantalla */}
         <div 
           className={viewMode === 'screen' ? 'absolute -left-[9999px] top-0' : 'hidden'} 
@@ -555,6 +525,9 @@ ${content}
         >
           <PrintContent />
         </div>
+
+        {viewMode === 'screen' ? (
+          <div className="space-y-5">
             <Section number="1" title="Información General" icon={FileText}>
               <div className="grid gap-6 md:grid-cols-2">
                 <div>
