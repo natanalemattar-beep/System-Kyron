@@ -106,9 +106,9 @@ export async function POST(req: NextRequest) {
 
         // 3. Generar Magic Link
         const token = generateMagicToken();
-        const host = req.headers.get('host') || 'system-kyron.vercel.app';
+        const host = req.headers.get('host') || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL || 'system-kyron.vercel.app';
         const protocol = host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https';
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`;
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`;
         
         const magicLink = `${baseUrl}/es/verify-link/${token}`;
         
