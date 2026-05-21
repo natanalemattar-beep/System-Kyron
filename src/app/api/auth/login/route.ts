@@ -241,8 +241,9 @@ export async function POST(req: NextRequest) {
         await storeMagicToken(user.email, magicToken, user.id);
 
 
-        // Forzar dominio oficial en producción
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.vercel.app';
+        const host = req.headers.get('host') || 'system-kyron.vercel.app';
+        const protocol = host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https';
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`;
         
         const magicLinkUrl = `${baseUrl}/es/verify-link/${magicToken}`;
 
@@ -271,6 +272,7 @@ export async function POST(req: NextRequest) {
                 body: `Hola <strong>${displayName}</strong>, alguien está intentando acceder a tu cuenta. Usa el código o haz clic en el botón para verificar tu identidad.`,
                 code,
                 magicLink: magicLinkUrl,
+                appUrl: baseUrl,
                 footer: 'Si no solicitaste este acceso, ignora este mensaje. Nunca compartas tu código con nadie.',
             }),
             module: 'auth',

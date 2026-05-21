@@ -106,8 +106,9 @@ export async function POST(req: NextRequest) {
 
         // 3. Generar Magic Link
         const token = generateMagicToken();
-        // Forzar dominio oficial en producción
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.vercel.app';
+        const host = req.headers.get('host') || 'system-kyron.vercel.app';
+        const protocol = host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https';
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`;
         
         const magicLink = `${baseUrl}/es/verify-link/${token}`;
         
@@ -121,6 +122,7 @@ export async function POST(req: NextRequest) {
           body: 'Has solicitado acceder a tu ecosistema Kyron. Utiliza el código a continuación o haz clic en el botón de acceso rápido.',
           code: codigo,
           magicLink,
+          appUrl: baseUrl,
           footer: 'Si no reconoces esta actividad, por favor ignora este mensaje. El código es válido por 10 minutos.',
           type: 'verification',
         });

@@ -83,6 +83,7 @@ export function buildKyronEmailTemplate(content: {
   magicLink?: string;
   footer?: string;
   type?: 'verification' | 'alert' | 'welcome' | 'reset' | 'general';
+  appUrl?: string;
 }) {
   const type = content.type ?? 'general';
 
@@ -95,7 +96,7 @@ export function buildKyronEmailTemplate(content: {
     general:      { accent: '#0EA5E9', accentDark: '#0284C7', badge: '#0EA5E9', badgeText: 'SYSTEM KYRON' },
   }[type];
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://system-kyron.vercel.app';
+  const appUrl = content.appUrl || process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://system-kyron.vercel.app';
   const plainTextPreview = content.body.replace(/<[^>]*>?/gm, '').substring(0, 120);
 
   return `<!DOCTYPE html>
