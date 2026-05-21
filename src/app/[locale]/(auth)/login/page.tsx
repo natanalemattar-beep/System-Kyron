@@ -2,12 +2,12 @@
 
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
-import { User, Building2, ArrowRight, ChevronLeft, ShieldCheck, KeyRound, Globe, Signal, Smartphone, Banknote, Gavel, ShoppingCart, Users, Recycle, Sparkles, Lock, Zap, Fingerprint, Shield, Cpu, Loader2 } from 'lucide-react';
+import { User, Building2, ArrowRight, ChevronLeft, Globe, Signal, Smartphone, Banknote, Gavel, ShoppingCart, Users, Recycle, Sparkles, Lock, Cpu, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { cn } from '@/lib/utils';
 import { Logo } from '@/components/logo';
+import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from '@/navigation';
 import { useAuth } from '@/lib/auth/context';
 
@@ -23,32 +23,23 @@ const optionKeys = [
   { key: 'it', href: '/login-informatica', icon: Cpu, category: 'corporate', color: 'from-cyan-500 to-teal-600', iconBg: 'bg-cyan-500/10', textColor: 'text-cyan-600', borderHover: 'hover:border-cyan-400/50', shadow: 'hover:shadow-cyan-500/10', glow: 'rgba(6,182,212,0.18)' },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.2 } }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 16, scale: 0.97 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }
+const MODULE_PATH_MAP: Record<string, string> = {
+  contabilidad: '/resumen-negocio',
+  juridico: '/resumen-negocio',
+  legal: '/escritorio-juridico',
+  ventas: '/ventas',
+  tpv: '/ventas',
+  socios: '/socios',
+  sostenibilidad: '/sostenibilidad',
+  telecom: '/linea',
 };
 
 export default function LoginSelectionPage() {
   const t = useTranslations('LoginPage');
-  const [hoveredKey, setHoveredKey] = useState<string | null>(null);
   const [navigatingTo, setNavigatingTo] = useState<string | null>(null);
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
-  const MODULE_PATH_MAP: Record<string, string> = {
-    contabilidad: '/resumen-negocio',
-    juridico: '/resumen-negocio',
-    legal: '/escritorio-juridico',
-    ventas: '/ventas',
-    tpv: '/ventas',
-    socios: '/socios',
-    sostenibilidad: '/sostenibilidad',
-    telecom: '/linea',
-  };
+  const handleNavClick = useCallback((href: string) => setNavigatingTo(href), []);
 
   useEffect(() => {
     if (authLoading || !user?.modules || user.modules.length === 0) return;
@@ -153,7 +144,7 @@ export default function LoginSelectionPage() {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.4 + (i * 0.1) }}
                         >
-                            <Link href={o.href as any} className="group block" onClick={() => setNavigatingTo(o.href)}>
+                            <Link href={o.href as any} className="group block" onClick={() => handleNavClick(o.href)}>
                                 <div className="glass-system-kyron-interactive p-8 rounded-[2.5rem] flex items-center gap-8 relative overflow-hidden">
                                     <div className={cn("h-16 w-16 rounded-[1.5rem] bg-gradient-to-br flex items-center justify-center shadow-xl text-white shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500", o.color)}>
                                         {navigatingTo === o.href ? <Loader2 className="h-7 w-7 animate-spin" /> : <o.icon className="h-7 w-7" />}
@@ -192,7 +183,7 @@ export default function LoginSelectionPage() {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.5 + (i * 0.05) }}
                         >
-                            <Link href={option.href as any} className="group block" onClick={() => setNavigatingTo(option.href)}>
+                            <Link href={option.href as any} className="group block" onClick={() => handleNavClick(option.href)}>
                                 <div className="glass-system-kyron-interactive p-6 rounded-[2rem] flex items-center gap-5">
                                     <div className={cn("h-12 w-12 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-lg text-white shrink-0 group-hover:scale-110 transition-all duration-500", option.color)}>
                                         {navigatingTo === option.href ? <Loader2 className="h-5 w-5 animate-spin" /> : <option.icon className="h-5 w-5" />}

@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-  Loader2, ChevronLeft, CircleCheck, ShieldCheck, ArrowRight, Shield,
+  Loader2, ChevronLeft, CircleCheck, ArrowRight, ShieldCheck, Shield,
   UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound, RotateCcw, Sparkles, Zap,
   Smartphone, MessageSquare, MessageCircle, Fingerprint, RefreshCw, Construction
 } from 'lucide-react';
@@ -49,6 +49,18 @@ interface SpecializedLoginCardProps {
   };
 }
 
+const MODULE_PATH_MAP_LOCAL: Record<string, string> = {
+  contabilidad: '/resumen-negocio',
+  juridico: '/resumen-negocio',
+  legal: '/escritorio-juridico',
+  ventas: '/punto-de-venta',
+  tpv: '/punto-de-venta',
+  socios: '/dashboard-socios',
+  sostenibilidad: '/sostenibilidad',
+  telecom: '/mi-linea',
+  rrhh: '/dashboard-rrhh',
+};
+
 export function SpecializedLoginCard({
   portalName,
   portalDescription,
@@ -69,7 +81,6 @@ export function SpecializedLoginCard({
   const [phoneMethod, setPhoneMethod] = useState<'sms' | 'whatsapp'>('sms');
   const [verificationEmail, setVerificationEmail] = useState('');
   const [maskedEmail, setMaskedEmail] = useState('');
-  const [userName, setUserName] = useState('');
   const [countdown, setCountdown] = useState(0);
   const [emailDeliveryFailed, setEmailDeliveryFailed] = useState(false);
   const [savedCredentials, setSavedCredentials] = useState<{ email: string; password: string } | null>(null);
@@ -89,27 +100,20 @@ export function SpecializedLoginCard({
   const theme = ACCENT_THEMES[accentColor] || ACCENT_THEMES['primary'];
   const cardRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const rafRef = useRef<number>();
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = undefined;
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    });
+  }, []);
 
-  const isPersonalPortal = portalName.toLowerCase().includes('personal') || portalName.toLowerCase().includes('ciudadano');
-  const isTelecomPortal = portalName.toLowerCase().includes('línea') || portalName.toLowerCase().includes('teléfono') || portalName.toLowerCase().includes('móvil');
-
-  const MODULE_PATH_MAP_LOCAL: Record<string, string> = {
-    contabilidad: '/resumen-negocio',
-    juridico: '/resumen-negocio',
-    legal: '/escritorio-juridico',
-    ventas: '/punto-de-venta',
-    tpv: '/punto-de-venta',
-    socios: '/dashboard-socios',
-    sostenibilidad: '/sostenibilidad',
-    telecom: '/mi-linea',
-    rrhh: '/dashboard-rrhh',
-  };
+  const isPersonalPortal = useMemo(() => portalName.toLowerCase().includes('personal') || portalName.toLowerCase().includes('ciudadano'), [portalName]);
+  const isTelecomPortal = useMemo(() => portalName.toLowerCase().includes('línea') || portalName.toLowerCase().includes('teléfono') || portalName.toLowerCase().includes('móvil'), [portalName]);
 
   const resolveRedirectPath = useCallback((json?: { user?: { modules?: string[] } }) => {
     if (json?.user?.modules && json.user.modules.length > 0) {
@@ -152,11 +156,10 @@ export function SpecializedLoginCard({
     if (step === 'verification') setTimeout(() => singleInputRef.current?.focus(), 200);
   }, [step]);
 
-  const attemptLogin = async (identifier: string, password: string, accessKey?: string) => {
+  const attemptLogin = useCallback(async (identifier: string, password: string, accessKey?: string) => {
     setIsLoading(true);
     setError(null);
     setEmailDeliveryFailed(false);
-    console.log('[Login] Attempting login for:', identifier, 'Portal:', portalName);
     try {
       const body: Record<string, any> = { identifier, password, portal: isPersonalPortal ? 'personal' : 'business', deviceFingerprint, trustDevice };
       if (accessKey && accessKey.trim()) body.accessKey = accessKey.trim();
@@ -168,7 +171,6 @@ export function SpecializedLoginCard({
       });
 
       const json = await res.json();
-      console.log('[Login] API Response status:', res.status, json);
 
       if (!res.ok) {
         if (json.emailDeliveryFailed) {
@@ -200,7 +202,6 @@ export function SpecializedLoginCard({
       if (json.requiresVerification) {
         setVerificationEmail(json.email || identifier);
         setMaskedEmail(json.maskedEmail || json.email || identifier);
-        setUserName(json.nombre || '');
         setHasPhone(!!json.hasPhone);
         setMaskedPhone(json.maskedPhone || '');
         setChallengeToken(json.challengeToken || '');
@@ -232,23 +233,23 @@ export function SpecializedLoginCard({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [isPersonalPortal, deviceFingerprint, trustDevice, toast, handleRedirect, portalName, setSavedCredentials, setEmailDeliveryFailed, setVerificationEmail, setMaskedEmail, setHasPhone, setMaskedPhone, setChallengeToken, setCountdown, setSingleCode, setDevCode, setStep]);
 
-  const handleAuth = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleAuth = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const identifier = (formData.get('identifier') as string || '').trim().toLowerCase();
     const password = formData.get('password') as string;
     const accessKey = formData.get('accessKey') as string || '';
     await attemptLogin(identifier, password, accessKey);
-  };
+  }, [attemptLogin]);
 
-  const handleResendEmail = async () => {
+  const handleResendEmail = useCallback(async () => {
     if (!savedCredentials) return;
     await attemptLogin(savedCredentials.email, savedCredentials.password);
-  };
+  }, [savedCredentials, attemptLogin]);
 
-  const handlePhoneLogin = async (event?: React.FormEvent<HTMLFormElement>) => {
+  const handlePhoneLogin = useCallback(async (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) event.preventDefault();
     setIsLoading(true);
     setError(null);
@@ -268,7 +269,6 @@ export function SpecializedLoginCard({
       return;
     }
 
-    console.log('[PhoneLogin] Initiating for:', phone, 'Method:', phoneMethod, event ? '(New Login)' : '(Resend)');
     
     try {
       const res = await fetch('/api/auth/login-phone', {
@@ -278,7 +278,6 @@ export function SpecializedLoginCard({
       });
       
       const json = await res.json();
-      console.log('[PhoneLogin] API Response status:', res.status, json);
       
       if (!res.ok) {
         setError(json.error || 'Error al iniciar sesión con teléfono.');
@@ -289,7 +288,6 @@ export function SpecializedLoginCard({
       if (json.requiresVerification) {
         setVerificationEmail(json.email || phone);
         setMaskedPhone(json.maskedPhone);
-        setUserName(json.nombre || '');
         setChallengeToken(json.challengeToken || '');
         setVerificationMethod(phoneMethod === 'sms' ? 'sms' : 'whatsapp');
         setStep('verification');
@@ -311,7 +309,7 @@ export function SpecializedLoginCard({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [phoneMethod, verificationEmail, toast, handleRedirect]);
 
   const submittingRef = useRef(false);
 
@@ -348,10 +346,10 @@ export function SpecializedLoginCard({
     }
   }, [verificationEmail, redirectPath, toast, router]);
 
-  const handleBackToLogin = () => { setStep('credentials'); setError(null); setSingleCode(''); setVerifVerified(false); setVerificationMethod('email'); setChallengeToken(''); setHasPhone(false); setMaskedPhone(''); setDevCode(null); submittingRef.current = false; };
+  const handleBackToLogin = useCallback(() => { setStep('credentials'); setError(null); setSingleCode(''); setVerifVerified(false); setVerificationMethod('email'); setChallengeToken(''); setHasPhone(false); setMaskedPhone(''); setDevCode(null); submittingRef.current = false; }, []);
   const formatCountdown = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
 
-  const handleResendCode = async () => {
+  const handleResendCode = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     setSingleCode('');
@@ -379,7 +377,7 @@ export function SpecializedLoginCard({
     }
     setIsLoading(false);
     setTimeout(() => singleInputRef.current?.focus(), 100);
-  };
+  }, [verificationMethod, verificationEmail, challengeToken, toast]);
 
   useEffect(() => {
     if (singleCode.length === 6 && step === 'verification' && !verifVerified) {
@@ -387,7 +385,7 @@ export function SpecializedLoginCard({
     }
   }, [singleCode, step, verifVerified, submitCode]);
 
-  const handleSwitchMethod = async (method: 'email' | 'sms' | 'whatsapp') => {
+  const handleSwitchMethod = useCallback(async (method: 'email' | 'sms' | 'whatsapp') => {
     if (method === verificationMethod || switchingMethod) return;
     if (method === 'sms' || method === 'whatsapp') {
       const channelName = method === 'sms' ? 'SMS' : 'WhatsApp';
@@ -432,7 +430,7 @@ export function SpecializedLoginCard({
     } finally {
       setSwitchingMethod(false);
     }
-  };
+  }, [verificationMethod, switchingMethod, verificationEmail, maskedEmail, maskedPhone, toast, setVerificationMethod, setDevCode, setCountdown, setError, setSingleCode, setSwitchingMethod]);
 
   const formContent = (
     <>
