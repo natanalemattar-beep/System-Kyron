@@ -1,9 +1,12 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import { useAuth } from '@/lib/auth/context';
 import { Logo } from '@/components/logo';
+import { Button } from '@/components/ui/button';
+import { TriangleAlert } from 'lucide-react';
+import { Link } from '@/navigation';
 
 const MODULE_ROUTE_MAP: Record<string, string[]> = {
   'admin': ['contabilidad', 'facturacion', 'inventario', 'nomina', 'tesoreria', 'asesoria-contable', 'contabilidad-comunal', 'rendicion-cuentas', 'presupuesto-participativo', 'contraloria-social', 'presupuesto-publico', 'sigecof', 'rendicion-cgr', 'onapre', 'transparencia'],
@@ -121,7 +124,24 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
   }
 
   if (!authorized) {
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background p-8">
+        <div className="flex flex-col items-center gap-5 max-w-md text-center">
+          <div className="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
+            <TriangleAlert className="h-8 w-8 text-rose-500" />
+          </div>
+          <div className="space-y-2">
+            <h2 className="text-lg font-bold text-foreground">Sesión no disponible</h2>
+            <p className="text-sm text-muted-foreground">
+              Tu sesión ha expirado o no tienes acceso a este módulo. Inicia sesión nuevamente para continuar.
+            </p>
+          </div>
+          <Button asChild className="rounded-xl mt-2">
+            <Link href="/login">Ir a Iniciar Sesión</Link>
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   return <>{children}</>;
