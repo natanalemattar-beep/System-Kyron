@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import {
-  TrendingUp, TrendingDown, Activity, Zap, ArrowRight, ArrowUpRight, ArrowDownRight,
-  BookOpen, Landmark, Users, History, Box, Receipt, Loader as Loader2,
+  TrendingUp, TrendingDown, Activity, Zap, ArrowUpRight, ArrowDownRight,
+  Landmark, Users, History, Box, Receipt, Loader as Loader2,
   RefreshCw, Calendar, Lock, Search, FileText, Sparkles,
   Shield, Scale, Briefcase, Leaf, Globe, TriangleAlert, Wifi,
   PercentCircle, Building2, Gavel, Wallet, CreditCard, Banknote,
   CircleCheck as CircleCheck, Calculator, Bell, Package, DollarSign,
-  ChartColumn, PieChart, Eye, ChevronRight, Sun, Moon, Sunrise, Clock
+  ChartColumn, PieChart, ChevronRight, Sun, Moon, Sunrise, Clock
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,7 @@ import { useSeasonalTheme } from "@/components/seasonal-theme-provider";
 import { ActivityTimeline } from "@/components/activity-timeline";
 import {
   Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid,
-  PieChart as RPieChart, Pie, Cell, Tooltip,
+  PieChart as RPieChart, Pie, Cell,
 } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { ChartErrorBoundary } from "@/components/chart-error-boundary";
@@ -213,7 +213,6 @@ export default function DashboardEmpresaPage() {
     }).catch((err) => { console.warn('[semaforo-alertas]', err.message); });
   }, []);
 
-  const healthScore = useMemo(() => data ? getHealthScore(data) : null, [data]);
   const sparklineData = useMemo(() => {
     if (!data?.chartMensual?.length || !Array.isArray(data.chartMensual)) return { ingresos: [], gastos: [] };
     const ingresos = data.chartMensual.map(d => d.ingresos ?? 0);
@@ -221,14 +220,20 @@ export default function DashboardEmpresaPage() {
     return { ingresos, gastos };
   }, [data]);
 
-  const handlePreviewCierre = async () => {
+  const handlePreviewCierre = useCallback(async () => {
+    if (!closingForm.periodo.trim()) {
+      toast({ variant: "destructive", title: "Campo requerido", description: "Indica el nombre del período fiscal." });
+      return;
+    }
     setIsClosing(true);
     try {
       const qs = `?periodo=${encodeURIComponent(closingForm.periodo)}&fecha_inicio=${closingForm.fecha_inicio}&fecha_fin=${closingForm.fecha_fin}&preview=true`;
       const res = await fetch(`/api/periodo-cierre${qs}`);
       if (res.ok) {
         const json = await res.json();
-        if (json.cierres && json.cierres.length === 0) {
+        if (json.cierres && json.cierres.length > 0) {
+          toast({ title: "Cierre existente", description: "Este período ya tiene un cierre registrado." });
+        } else {
           const ing = data?.ingresos ?? 0; const gas = data?.gastos ?? 0;
           setClosingData({ periodo: closingForm.periodo, ingresos: ing, gastos: gas, utilidad: ing - gas, facturas_emitidas: data?.facturas?.emitidas ?? 0, facturas_cobradas: data?.facturas?.cobradas ?? 0 });
         }
@@ -238,9 +243,13 @@ export default function DashboardEmpresaPage() {
     } catch (e) {
       toast({ variant: "destructive", title: "Error de conexión", description: e instanceof Error ? e.message : "Error inesperado" });
     } finally { setIsClosing(false); }
-  };
+  }, [closingForm, data, toast]);
 
-  const handleConfirmCierre = async () => {
+  const handleConfirmCierre = useCallback(async () => {
+    if (!closingForm.periodo.trim() || !closingForm.fecha_inicio || !closingForm.fecha_fin) {
+      toast({ variant: "destructive", title: "Campos incompletos", description: "Completa período, fecha inicio y fecha fin." });
+      return;
+    }
     setIsClosing(true);
     try {
       const res = await fetch("/api/periodo-cierre", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...closingForm, cerrado_por: user?.nombre ?? "Usuario" }) });
@@ -249,9 +258,9 @@ export default function DashboardEmpresaPage() {
       else toast({ title: "Error", description: json.error ?? "No se pudo cerrar el periodo fiscal.", variant: "destructive" });
     } catch (e) { toast({ title: "Error de conexión", description: e instanceof Error ? e.message : "Ocurrió un error al intentar cerrar el periodo.", variant: "destructive" }); }
     setIsClosing(false);
-  };
+  }, [closingForm, user, toast, fmtCur, fetchDashboard]);
 
-  const handleAuditoria = async () => {
+  const handleAuditoria = useCallback(async () => {
     setShowAuditoria(true); setAuditLoading(true);
     try { 
       const res = await fetch("/api/activity-log?limit=100"); 
@@ -264,25 +273,25 @@ export default function DashboardEmpresaPage() {
     } catch (e) { 
       toast({ variant: "destructive", title: "Error de conexión", description: e instanceof Error ? e.message : "Error inesperado" });
     } finally { setAuditLoading(false); }
-  };
+  }, [toast]);
 
   const filteredLogs = useMemo(() => 
     auditLogs.filter(l => !auditSearch || l.evento.toLowerCase().includes(auditSearch.toLowerCase()) || (l.descripcion ?? "").toLowerCase().includes(auditSearch.toLowerCase()) || l.categoria.toLowerCase().includes(auditSearch.toLowerCase())),
     [auditLogs, auditSearch]
   );
 
-  const variacionColor = (v: number, invert = false) => { if (v === 0) return "text-muted-foreground"; return (invert ? v < 0 : v > 0) ? "text-emerald-400" : "text-rose-400"; };
+  const variacionColor = useCallback((v: number, invert = false) => { if (v === 0) return "text-muted-foreground"; return (invert ? v < 0 : v > 0) ? "text-emerald-400" : "text-rose-400"; }, []);
   const facturasPie = useMemo(() => {
     if (!data?.facturas || typeof data.facturas !== 'object') return [];
     const f = data.facturas as Record<string, unknown>;
     const result = [
       { name: "Cobradas", value: Number(f.cobradas) || 0 },
-      { name: "Emitidas", value: Number(f.emitidas) || 0 },
       { name: "Pagadas", value: Number(f.pagadas) || 0 },
       { name: "Vencidas", value: Number(f.vencidas) || 0 }
     ].filter(d => d.value > 0);
     return Array.isArray(result) ? result : [];
   }, [data]);
+
   const GreetingIcon = greeting?.icon ?? Sun;
 
   return (
@@ -340,8 +349,9 @@ export default function DashboardEmpresaPage() {
 
                   <div>
                     <div className="flex flex-col">
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-white uppercase leading-none mb-3">
-                         {activeEvent ? activeEvent.saludo : (greeting?.text ?? t('greeting_fallback'))}{user?.nombre ? `, ${user.nombre.trim().split(" ")[0]}` : ""}
+                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-white uppercase leading-none mb-3 flex items-center gap-4">
+                          <GreetingIcon className="h-8 w-8 text-kyron-cyan shrink-0" />
+                          {activeEvent ? activeEvent.saludo : (greeting?.text ?? t('greeting_fallback'))}{user?.nombre ? `, ${user.nombre.trim().split(" ")[0]}` : ""}
                         </h1>
                       <div className="flex items-center gap-3">
                         <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-semibold tracking-[0.15em] text-white/45 uppercase">{t('status_operativo')}</span>
