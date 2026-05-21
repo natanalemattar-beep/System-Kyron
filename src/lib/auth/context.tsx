@@ -49,6 +49,14 @@ export function getModuleDashboardPath(modules?: string[]): string | null {
     return null;
 }
 
+function normalizeUser(raw: AuthUser | null | undefined): AuthUser | null {
+    if (!raw?.id) return null;
+    return {
+        ...raw,
+        modules: Array.isArray(raw.modules) ? raw.modules : [],
+    };
+}
+
 function AuthProviderInner({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<AuthUser | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -62,8 +70,9 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
             const res = await fetch('/api/auth/me');
             if (res.ok) {
                 const data = await res.json();
-                if (!isLoggingOut.current) setUser(data.user);
-                return data.user;
+                const normalized = normalizeUser(data.user);
+                if (!isLoggingOut.current) setUser(normalized);
+                return normalized;
             } else {
                 setUser(null);
                 return null;
@@ -77,14 +86,6 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
     useEffect(() => {
         refreshUser().finally(() => setIsLoading(false));
     }, [refreshUser]);
-
-    useEffect(() => {
-        const handleBeforeUnload = () => {
-            navigator.sendBeacon('/api/auth/logout');
-        };
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-    }, []);
 
     useEffect(() => {
         if (!isLoading && !user && !isLoggingOut.current) {
@@ -115,7 +116,7 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
             let data;
             try { data = JSON.parse(text); } catch { data = { error: 'Respuesta inválida del servidor' }; }
             if (res.ok) {
-                setUser(data.user);
+                setUser(normalizeUser(data.user));
                 return { success: true };
             }
             return { success: false, error: data.error ?? 'Error al iniciar sesión' };

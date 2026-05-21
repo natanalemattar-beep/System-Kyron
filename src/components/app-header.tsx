@@ -56,6 +56,10 @@ interface AppHeaderProps {
   compact?: boolean;
 }
 
+function getNavGroupItems(group: { items?: NavItem[] }): NavItem[] {
+  return Array.isArray(group.items) ? group.items : [];
+}
+
 export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -171,7 +175,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
 
                     <div className="flex-1 overflow-y-auto px-5 pb-6 space-y-7 custom-scrollbar">
                         {navGroups?.map((group) => {
-                            const filteredGroupItems = group.items.filter(item => 
+                            const filteredGroupItems = getNavGroupItems(group).filter(item => 
                                 item.href !== dashboardHref && 
                                 !['Inicio', 'Dashboard', 'Resumen General', 'Panel Central'].includes(item.label)
                             );
@@ -313,7 +317,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
               </Button>
             </Link>
             {navGroups?.map((group) => {
-                const filteredItems = group.items.filter(item => 
+                const filteredItems = getNavGroupItems(group).filter(item => 
                     item.href !== dashboardHref && 
                     !['Inicio', 'Dashboard', 'Resumen General', 'Panel Central'].includes(item.label)
                 );

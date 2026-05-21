@@ -225,7 +225,10 @@ export function GlobalSearch() {
   useEffect(() => {
     try {
       const stored = localStorage.getItem(RECENT_KEY);
-      if (stored) setRecentHrefs(JSON.parse(stored));
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) setRecentHrefs(parsed.filter((h): h is string => typeof h === 'string'));
+      }
     } catch {}
   }, []);
 

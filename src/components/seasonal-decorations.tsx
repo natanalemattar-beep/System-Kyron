@@ -26,7 +26,7 @@ export function SeasonalDecorations() {
   }, []);
 
   const particles = useMemo(() => {
-    if (!activeEvent) return [];
+    if (!activeEvent?.particulas?.length) return [];
     return Array.from({ length: PARTICLE_COUNT }, (_, i): Particle => ({
       id: i,
       emoji: activeEvent.particulas[i % activeEvent.particulas.length],

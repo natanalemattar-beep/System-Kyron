@@ -38,6 +38,13 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
     }
   }, [config?.moduleId]);
 
+  const handleClose = useCallback(() => {
+    if (!config) return;
+    localStorage.setItem(getStorageKey(config.moduleId), 'true');
+    setIsOpen(false);
+    setCurrentStep(0);
+  }, [config]);
+
   const handleNext = useCallback(() => {
     if (!config) return;
     if (currentStep < config.steps.length - 1) {
@@ -54,13 +61,6 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
       setCurrentStep(s => s - 1);
     }
   }, [currentStep]);
-
-  const handleClose = useCallback(() => {
-    if (!config) return;
-    localStorage.setItem(getStorageKey(config.moduleId), 'true');
-    setIsOpen(false);
-    setCurrentStep(0);
-  }, [config]);
 
   const handleStepClick = useCallback((idx: number) => {
     setDirection(idx > currentStep ? 1 : -1);

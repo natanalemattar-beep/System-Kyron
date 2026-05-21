@@ -30,17 +30,17 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   const getAuthorizedGroups = () => {
-    const groups = [];
-    const userModules = user?.modules || [];
-    
-    if (userModules.includes('contabilidad')) groups.push(asesoriaContableNavGroups);
-    if (userModules.includes('ventas') || userModules.includes('tpv')) groups.push(ventasNavGroups);
-    if (userModules.includes('sostenibilidad')) groups.push(sostenibilidadNavGroups);
-    if (userModules.includes('legal')) groups.push(legalNavGroups);
-    if (userModules.includes('socios')) groups.push(sociosNavGroups);
-    if (userModules.includes('telecom')) groups.push(telecomNavGroups);
-    
-    if (groups.length === 0) groups.push(asesoriaContableNavGroups);
+    const groups: typeof asesoriaContableNavGroups = [];
+    const userModules = user?.modules ?? [];
+
+    if (userModules.includes('contabilidad')) groups.push(...asesoriaContableNavGroups);
+    if (userModules.includes('ventas') || userModules.includes('tpv')) groups.push(...ventasNavGroups);
+    if (userModules.includes('sostenibilidad')) groups.push(...sostenibilidadNavGroups);
+    if (userModules.includes('legal')) groups.push(...legalNavGroups);
+    if (userModules.includes('socios')) groups.push(...sociosNavGroups);
+    if (userModules.includes('telecom')) groups.push(...telecomNavGroups);
+
+    if (groups.length === 0) return [...asesoriaContableNavGroups];
     return groups;
   };
 
@@ -113,11 +113,11 @@ export function AppSidebar() {
               <div className="h-[1px] w-4 bg-white/10" />
               {group.title}
             </div>
-            <div className="space-y-1.5">
-              {group.items.map((item, iIdx) => (
-                <MenuItem key={`${item.label}-${iIdx}`} item={item} />
-              ))}
-            </div>
+              <div className="space-y-1.5">
+                {group.items?.map((item, iIdx) => (
+                  <MenuItem key={`${item.label}-${iIdx}`} item={item} />
+                ))}
+              </div>
           </section>
         ))}
       </div>

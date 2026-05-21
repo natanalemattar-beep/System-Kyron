@@ -16,6 +16,7 @@ import { Logo } from '@/components/logo';
 import { cn, isNetworkError } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getDeviceFingerprint } from '@/lib/device-fingerprint';
+import { useAuth } from '@/lib/auth/context';
 
 type LayoutVariant = 'split-left' | 'split-right' | 'centered' | 'stacked' | 'minimal' | 'dark-immersive' | 'accounting-premium';
 
@@ -129,16 +130,17 @@ export function SpecializedLoginCard({
   const identifierPlaceholder = isTelecomPortal ? '04XX-XXXXXXX' : (isPersonalPortal ? 'V-12345678 o tu@correo.com' : 'tu@correo.com');
   const IdentifierIcon = isTelecomPortal ? Smartphone : (isPersonalPortal ? Fingerprint : Mail);
 
-  const handleMagicLinkVerified = useCallback(() => {
-    setVerifVerified(true);
-    toast({ title: 'Identidad verificada', description: 'Acceso verificado automáticamente.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-    router.push(redirectPath as any);
-  }, [toast, router, redirectPath]);
-
-  const handleRedirect = useCallback((json?: { user?: { modules?: string[] } }) => {
+  const handleRedirect = useCallback(async (json?: { user?: { modules?: string[] } }) => {
+    await refreshUser();
     const path = resolveRedirectPath(json);
     router.push(path as any);
-  }, [resolveRedirectPath, router]);
+  }, [resolveRedirectPath, router, refreshUser]);
+
+  const handleMagicLinkVerified = useCallback(async () => {
+    setVerifVerified(true);
+    toast({ title: 'Identidad verificada', description: 'Acceso verificado automáticamente.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+    await handleRedirect();
+  }, [toast, handleRedirect]);
 
   useVerificationPoll(
     verificationEmail,
@@ -344,7 +346,7 @@ export function SpecializedLoginCard({
       setIsLoading(false);
       submittingRef.current = false;
     }
-  }, [verificationEmail, redirectPath, toast, router]);
+  }, [verificationEmail, deviceFingerprint, trustDevice, toast, handleRedirect]);
 
   const handleBackToLogin = useCallback(() => { setStep('credentials'); setError(null); setSingleCode(''); setVerifVerified(false); setVerificationMethod('email'); setChallengeToken(''); setHasPhone(false); setMaskedPhone(''); setDevCode(null); submittingRef.current = false; }, []);
   const formatCountdown = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
@@ -714,7 +716,7 @@ export function SpecializedLoginCard({
               {footerLinks?.secondaryLinks && (
                 <div className="text-center text-xs text-muted-foreground space-y-1 mt-2">
                   {footerLinks.secondaryLinks.title && <p className="font-medium">{footerLinks.secondaryLinks.title}</p>}
-                  {footerLinks.secondaryLinks.links.map(link => (
+                  {(footerLinks.secondaryLinks.links ?? []).map(link => (
                     <Link key={link.href} href={link.href as any} className={cn("block font-medium hover:underline", theme.accent)}>{link.text}</Link>
                   ))}
                 </div>

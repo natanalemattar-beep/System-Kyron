@@ -70,7 +70,7 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
       return;
     }
 
-    const userModules = user.modules || [];
+    const userModules = user.modules ?? [];
 
     if (userModules.length === 0 && user.tipo === 'natural') {
       if (layoutKey !== 'natural' && !redirectedRef.current) {

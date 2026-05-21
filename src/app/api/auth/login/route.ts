@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
             `SELECT module_id FROM user_modules WHERE user_id = $1 AND activo = true`,
             [user.id]
         );
-        const moduleIds = userModules.map(m => m.module_id);
+        const moduleIds = (userModules ?? []).map(m => m.module_id);
 
         // Check if device is trusted to skip 2FA
         let isTrustedDevice = false;
