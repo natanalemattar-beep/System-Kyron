@@ -16,6 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { cn } from '@/lib/utils';
 import { getDeviceFingerprint } from '@/lib/device-fingerprint';
+import { useAuth } from '@/lib/auth/context';
 
 const ACCESS_TYPES = {
   personal: {
@@ -57,14 +58,15 @@ export default function LoginLineaUnifiedPage() {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
   const { toast } = useToast();
-
+  const { refreshUser } = useAuth();
   const current = useMemo(() => ACCESS_TYPES[selected], [selected]);
   const Icon = current.icon;
 
-  const handleMagicLinkVerified = useCallback(() => {
+  const handleMagicLinkVerified = useCallback(async () => {
     toast({ title: 'Identidad verificada', description: 'Acceso verificado automáticamente.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+    await refreshUser();
     router.push(current.redirectPath as any);
-  }, [toast, router, current.redirectPath]);
+  }, [toast, router, current.redirectPath, refreshUser]);
 
   useVerificationPoll(
     verificationEmail,
@@ -112,13 +114,14 @@ export default function LoginLineaUnifiedPage() {
         setIsLoading(false);
         return;
       }
-      if (json.accessKeyUsed || json.success) {
-        const title = json.trustedDevice ? 'Dispositivo confiable' : (json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido');
-        const desc = json.trustedDevice ? `Bienvenido, ${json.user?.nombre ?? ''}. Acceso automático desde dispositivo confiable.` : `Bienvenido, ${json.user?.nombre ?? ''}.`;
-        toast({ title, description: desc, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-        router.push(current.redirectPath as any);
-        return;
-      }
+       if (json.accessKeyUsed || json.success) {
+         const title = json.trustedDevice ? 'Dispositivo confiable' : (json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido');
+         const desc = json.trustedDevice ? `Bienvenido, ${json.user?.nombre ?? ''}. Acceso automático desde dispositivo confiable.` : `Bienvenido, ${json.user?.nombre ?? ''}.`;
+         toast({ title, description: desc, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+         await refreshUser();
+         router.push(current.redirectPath as any);
+         return;
+       }
       if (json.requiresVerification) {
         setVerificationEmail(json.email || identifier);
         setMaskedEmail(json.maskedEmail || json.email || identifier);
@@ -131,12 +134,13 @@ export default function LoginLineaUnifiedPage() {
 
         return;
       }
-      toast({
-        title: 'Acceso concedido',
-        description: `Bienvenido, ${json.user?.nombre ?? ''}.`,
-        action: <CircleCheck className="text-emerald-500 h-4 w-4" />,
-      });
-      router.push(current.redirectPath as any);
+       toast({
+         title: 'Acceso concedido',
+         description: `Bienvenido, ${json.user?.nombre ?? ''}.`,
+         action: <CircleCheck className="text-emerald-500 h-4 w-4" />,
+       });
+       await refreshUser();
+       router.push(current.redirectPath as any);
     } catch {
       setError('Error de conexión. Intenta de nuevo.');
       setIsLoading(false);
@@ -161,8 +165,9 @@ export default function LoginLineaUnifiedPage() {
       });
       const json = await res.json();
       if (!res.ok) { setError(json.error || 'Código incorrecto.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); setTimeout(() => inputRefs.current[0]?.focus(), 100); return; }
-      toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-      router.push(current.redirectPath as any);
+       toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+       await refreshUser();
+       router.push(current.redirectPath as any);
     } catch { setError('Error de conexión.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); }
   }, [verificationEmail, deviceFingerprint, trustDevice, toast, router, current.redirectPath]);
 

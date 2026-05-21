@@ -16,7 +16,7 @@ import { Logo } from '@/components/logo';
 import { cn, isNetworkError } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getDeviceFingerprint } from '@/lib/device-fingerprint';
-import { useAuth } from '@/lib/auth/context';
+import { useAuth, getModuleDashboardPath } from '@/lib/auth/context';
 
 type LayoutVariant = 'split-left' | 'split-right' | 'centered' | 'stacked' | 'minimal' | 'dark-immersive' | 'accounting-premium';
 
@@ -49,18 +49,6 @@ interface SpecializedLoginCardProps {
     };
   };
 }
-
-const MODULE_PATH_MAP_LOCAL: Record<string, string> = {
-  contabilidad: '/resumen-negocio',
-  juridico: '/resumen-negocio',
-  legal: '/escritorio-juridico',
-  ventas: '/punto-de-venta',
-  tpv: '/punto-de-venta',
-  socios: '/dashboard-socios',
-  sostenibilidad: '/sostenibilidad',
-  telecom: '/mi-linea',
-  rrhh: '/dashboard-rrhh',
-};
 
 export function SpecializedLoginCard({
   portalName,
@@ -98,6 +86,7 @@ export function SpecializedLoginCard({
   const singleInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const { toast } = useToast();
+  const { refreshUser } = useAuth();
   const theme = ACCENT_THEMES[accentColor] || ACCENT_THEMES['primary'];
   const cardRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
@@ -117,13 +106,8 @@ export function SpecializedLoginCard({
   const isTelecomPortal = useMemo(() => portalName.toLowerCase().includes('línea') || portalName.toLowerCase().includes('teléfono') || portalName.toLowerCase().includes('móvil'), [portalName]);
 
   const resolveRedirectPath = useCallback((json?: { user?: { modules?: string[] } }) => {
-    if (json?.user?.modules && json.user.modules.length > 0) {
-      for (const mod of json.user.modules) {
-        const p = MODULE_PATH_MAP_LOCAL[mod];
-        if (p) return p;
-      }
-    }
-    return redirectPath;
+    const path = getModuleDashboardPath(json?.user?.modules);
+    return path || redirectPath;
   }, [redirectPath]);
 
   const identifierLabel = isTelecomPortal ? 'Número de Teléfono' : (isPersonalPortal ? 'Número de Cédula / Correo' : 'Correo Electrónico');
