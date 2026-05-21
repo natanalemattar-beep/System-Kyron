@@ -628,18 +628,6 @@ export default function DashboardEmpresaPage() {
                       </div>
                     </div>
                   </Link>
-              <Link href="/cuentas-por-pagar" className="block">
-                <div className="flex items-center justify-between p-4 rounded-xl bg-rose-500/[0.04] border border-rose-500/10 hover:bg-rose-500/[0.08] transition-colors">
-                  <div className="flex items-center gap-3">
-                    <ArrowDownRight className="h-4 w-4 text-rose-400" />
-                    <span className="text-sm font-medium text-foreground/70">Por Pagar</span>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-bold text-rose-400">{loading ? "—" : fmtCur(data?.cuentasPagar.total ?? 0)}</p>
-                    <p className="text-[11px] text-muted-foreground/40">{data?.cuentasPagar.count ?? 0} pendientes</p>
-                  </div>
-                </div>
-              </Link>
               {(data?.inventarioBajoStock ?? 0) > 0 && (
                 <Link href="/inventario" className="block">
                   <div className="flex items-center justify-between p-4 rounded-xl bg-amber-500/[0.04] border border-amber-500/10 hover:bg-amber-500/[0.08] transition-colors">

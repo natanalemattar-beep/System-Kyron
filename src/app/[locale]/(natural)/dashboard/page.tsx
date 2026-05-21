@@ -48,6 +48,7 @@ export default function DashboardPersonalPage() {
   const [loadError, setLoadError] = useState(false);
   const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
   const [clientDateStr, setClientDateStr] = useState<string | null>(null);
+  const [clientTimeStr, setClientTimeStr] = useState<string | null>(null);
 
   useEffect(() => {
 

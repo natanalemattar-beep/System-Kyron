@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 5000 -H 0.0.0.0 --turbopack",
-    "build": "node --max-old-space-size=4096 node_modules/next/dist/bin/next build",
-    "start": "next start -p 5000 -H 0.0.0.0",
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
     "lint": "next lint",
-    "typecheck": "node --max-old-space-size=4096 node_modules/typescript/bin/tsc --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.9",
