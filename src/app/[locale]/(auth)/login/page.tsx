@@ -75,10 +75,6 @@ export default function LoginSelectionPage() {
         <Button variant="ghost" asChild className="rounded-full h-10 px-4 text-[10px] font-black uppercase tracking-widest text-white/30 hover:text-white hover:bg-white/5 transition-all">
           <Link href="/" className="flex items-center"><ChevronLeft className="mr-2 h-4 w-4" /> {t('back')}</Link>
         </Button>
-        <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.8)]" />
-            <span className="text-[9px] font-black text-white/40 uppercase tracking-[0.3em]">Servidores Operativos</span>
-        </div>
       </div>
 
       <motion.div

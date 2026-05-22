@@ -358,7 +358,6 @@ export default function DashboardEmpresaPage() {
                           {activeEvent ? activeEvent.saludo : (greeting?.text ?? t('greeting_fallback'))}{user?.nombre ? `, ${user.nombre.trim().split(" ")[0]}` : ""}
                         </h1>
                       <div className="flex items-center gap-3">
-                        <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-semibold tracking-[0.15em] text-white/45 uppercase">{t('status_operativo')}</span>
                         <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
                       </div>
                     </div>

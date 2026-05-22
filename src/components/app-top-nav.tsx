@@ -16,6 +16,7 @@ import {
   X
 } from "lucide-react";
 import { Logo } from "./logo";
+import { ThemeToggle } from "./theme-toggle";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/lib/auth/context";
 import { 
@@ -175,6 +176,7 @@ export function AppTopNav() {
 
           {/* Right: Actions */}
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <Link
               href="/kyron-chat"
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600/20 to-purple-600/20 border border-violet-500/20 text-violet-300 text-[10px] font-bold uppercase tracking-wider hover:from-violet-600/30 hover:to-purple-600/30 transition-all"
