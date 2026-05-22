@@ -9,7 +9,6 @@ import { notFound } from 'next/navigation';
 import { Inter, Outfit, Lora } from 'next/font/google';
 
 import { Providers } from "@/components/providers";
-import { AIChatButton } from "@/components/ui/ai-chat-button";
 import { GlobalPreloader } from "@/components/ui/global-preloader";
 
 
@@ -80,7 +79,6 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
                   <main className="flex-1">{children}</main>
                 </div>
               </DemoBannerProvider>
-              <AIChatButton />
             </div>
           </NextIntlClientProvider>
         </Providers>
