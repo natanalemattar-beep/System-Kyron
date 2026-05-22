@@ -10,6 +10,7 @@ import { Inter, Outfit, Lora } from 'next/font/google';
 
 import { Providers } from "@/components/providers";
 import { AIChatButton } from "@/components/ui/ai-chat-button";
+import { GlobalPreloader } from "@/components/ui/global-preloader";
 
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
@@ -70,6 +71,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       <body className="antialiased font-inter bg-[#030711] text-foreground selection:bg-primary/30 selection:text-white overflow-x-hidden w-full" suppressHydrationWarning>
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>
+            <GlobalPreloader />
             <DynamicBackground />
             <div className="flex flex-col min-h-screen relative">
               <DemoBannerProvider>

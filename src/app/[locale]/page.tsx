@@ -14,9 +14,9 @@ const CtaSection        = dynamic(() => import('@/components/landing/cta-section
 const Footer            = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })));
 
 const showImages = [
-  { src: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop", alt: "System Kyron Intelligence Core" },
-  { src: "https://images.unsplash.com/photo-1639322537228-f710d8463eaa?q=80&w=1200&auto=format&fit=crop", alt: "Digital Security Shield" },
-  { src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop", alt: "Technology Infrastructure" },
+  { src: "https://images.unsplash.com/photo-1550751827-4c39ad8d877c?q=80&w=1200&auto=format&fit=crop", alt: "Neural Command Center" },
+  { src: "https://images.unsplash.com/photo-1563986768609-442068323336?q=80&w=1200&auto=format&fit=crop", alt: "Corporate Intelligence" },
+  { src: "https://images.unsplash.com/photo-1485827404703-89b55f01bcbe?q=80&w=1200&auto=format&fit=crop", alt: "Cyber-Sec Infrastructure" },
 ];
 
 export default function LandingPage() {
