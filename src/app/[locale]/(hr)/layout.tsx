@@ -8,6 +8,7 @@ import { rrhhNavGroups, asesoriaContableNavGroups } from "@/components/app-sideb
 import { PageTracker } from "@/components/page-tracker";
 import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { AIChatButton } from "@/components/ui/ai-chat-button";
 import { useAuth } from "@/lib/auth/context";
 import { getModuleContext, useSetModuleContext } from "@/lib/module-context";
 import { ModuleGuard } from "@/components/module-guard";
@@ -70,6 +71,7 @@ export default function HRLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
+          <AIChatButton />
 
       </div>
       </ModuleGuard>

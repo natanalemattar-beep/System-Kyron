@@ -21,8 +21,7 @@ import {
     sociosNavGroups, 
     telecomNavGroups,
     ventasNavGroups,
-    sostenibilidadNavGroups,
-    globalNavGroups
+    sostenibilidadNavGroups
 } from "./app-sidebar-nav-items";
 
 export function AppSidebar() {
@@ -44,7 +43,7 @@ export function AppSidebar() {
     return groups;
   };
 
-  const currentGroups = [...globalNavGroups, ...getAuthorizedGroups()];
+  const currentGroups = getAuthorizedGroups();
 
   const MenuItem = ({ item }: { item: any }) => {
     const isActive = pathname.includes(item.href) && item.href !== '/';

@@ -5,6 +5,7 @@ import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { verifyLoginChallenge } from '@/lib/login-challenge';
 import { generateCode, generateMagicToken, storeMagicToken, storeCode, normalizePhone } from '@/lib/verification-codes';
+import { getBaseUrl } from '@/lib/server-url';
 
 export const dynamic = 'force-dynamic';
 
@@ -106,10 +107,7 @@ export async function POST(req: NextRequest) {
 
         // 3. Generar Magic Link
         const token = generateMagicToken();
-        const host = req.headers.get('host') || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL || 'system-kyron.vercel.app';
-        const protocol = host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https';
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`;
-        
+        const baseUrl = getBaseUrl(req);
         const magicLink = `${baseUrl}/es/verify-link/${token}`;
         
         // Guardar magic token

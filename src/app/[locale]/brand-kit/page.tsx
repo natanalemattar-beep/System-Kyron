@@ -21,12 +21,12 @@ import {
     Layers,
     ExternalLink,
 } from 'lucide-react';
-import { PasswordGate } from '@/components/password-gate';
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
 import { OfficialSeal } from '@/components/brand/OfficialSeal';
+import { InstagramPost } from '@/components/brand/InstagramPost';
 
 interface Resource {
     id: string;
@@ -120,6 +120,19 @@ const RESOURCES: Resource[] = [
         size: 'normal',
         gradient: 'from-cyan-900/40 via-blue-900/20 to-transparent',
         image: 'https://images.unsplash.com/photo-1626014303757-646c2d399b4d?q=80&w=600&auto=format'
+    },
+    {
+        id: 'instagram-post',
+        title: 'Post para Instagram',
+        description: 'Publicación institucional 1080×1080 con identidad visual System Kyron.',
+        icon: Instagram,
+        href: '#instagram-post',
+        color: 'from-fuchsia-500 to-purple-600',
+        tag: 'SOCIAL',
+        type: 'internal',
+        size: 'normal',
+        gradient: 'from-fuchsia-900/40 via-purple-900/20 to-transparent',
+        image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=600&auto=format'
     }
 ];
 
@@ -151,7 +164,6 @@ export default function BrandKitPage() {
     if (!mounted) return null;
 
     return (
-        <PasswordGate title="Brand Kit">
         <div className="min-h-screen bg-[#020617] text-white font-[family-name:var(--font-outfit)] selection:bg-cyan-500/30 overflow-x-hidden">
             <ResourceHeader />
             
@@ -295,6 +307,32 @@ export default function BrandKitPage() {
                     </AnimatePresence>
                 </div>
 
+                {/* Instagram Post Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    id="instagram-post"
+                    className="flex flex-col items-center justify-center py-20 mt-16 scroll-mt-32"
+                >
+                    <div className="max-w-2xl mx-auto text-center mb-10 space-y-4">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10">
+                            <Instagram className="h-3.5 w-3.5 text-fuchsia-400" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-fuchsia-400">@systemkyron</span>
+                        </div>
+                        <h2 className="text-4xl lg:text-5xl font-black tracking-tight">
+                            Post para{" "}
+                            <span className="bg-gradient-to-r from-fuchsia-400 to-purple-500 bg-clip-text text-transparent">
+                                Instagram
+                            </span>
+                        </h2>
+                        <p className="text-zinc-500 text-sm font-medium leading-relaxed max-w-md mx-auto">
+                            Publicación institucional 1080×1080. Descarga el PNG y publícalo directamente en tu feed.
+                        </p>
+                    </div>
+                    <InstagramPost />
+                </motion.div>
+
                 {/* Official Seal */}
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -347,7 +385,6 @@ export default function BrandKitPage() {
                 </motion.div>
             </main>
         </div>
-        </PasswordGate>
     );
 }
 

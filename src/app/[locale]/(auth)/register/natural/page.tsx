@@ -569,6 +569,24 @@ export default function RegisterNaturalPage() {
                     }}
                   />
                 </Field>
+
+                <div className="pt-4 border-t border-border/30">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Upload className="h-4 w-4 text-muted-foreground" />
+                    <p className="text-sm font-bold text-foreground">Documentos de Respaldo</p>
+                    <span className="text-[10px] text-muted-foreground font-medium">(Opcional)</span>
+                  </div>
+                  <DocumentUpload
+                    requirements={[
+                      { id: 'cedula_frontal', label: 'Cédula (Frontal)', description: 'Foto o escaneo del frente de tu cédula', required: false },
+                      { id: 'cedula_reverso', label: 'Cédula (Reverso)', description: 'Foto o escaneo del reverso de tu cédula', required: false },
+                      { id: 'rif', label: 'RIF (Opcional)', description: 'Si tienes RIF activo, adjúntalo aquí', required: false },
+                    ]}
+                    onDocumentsChange={setUploadedDocs}
+                    documents={uploadedDocs}
+                    showCamera={true}
+                  />
+                </div>
               </>
             )}
 

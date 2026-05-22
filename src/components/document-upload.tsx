@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { Upload, X, FileText, Image, Loader2, CircleCheck } from 'lucide-react';
+import { Upload, X, FileText, Image, Loader2, CircleCheck, Camera } from 'lucide-react';
 import { DocumentVerification, VerificationResult } from '@/components/document-verification';
 
 export interface UploadedDoc {
@@ -29,6 +29,7 @@ interface DocumentUploadProps {
   documents: Record<string, UploadedDoc | null>;
   className?: string;
   autoVerify?: boolean;
+  showCamera?: boolean;
 }
 
 export function DocumentUpload({
@@ -37,20 +38,31 @@ export function DocumentUpload({
   documents,
   className,
   autoVerify = true,
+  showCamera = true,
 }: DocumentUploadProps) {
   const [uploading, setUploading]   = useState<string | null>(null);
   const [errors, setErrors]         = useState<Record<string, string>>({});
   const inputRefs = useRef<Record<string, HTMLInputElement | null>>({});
+  const cameraInputRefs = useRef<Record<string, HTMLInputElement | null>>({});
 
   const handleFileSelect = async (reqId: string, file: File) => {
-    if (file.size > 10 * 1024 * 1024) {
-      setErrors(prev => ({ ...prev, [reqId]: 'El archivo excede 10 MB' }));
+    if (file.size > 25 * 1024 * 1024) {
+      setErrors(prev => ({ ...prev, [reqId]: 'El archivo excede 25 MB' }));
       return;
     }
 
-    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-    if (!allowedTypes.includes(file.type)) {
-      setErrors(prev => ({ ...prev, [reqId]: 'Solo se permiten PDF, JPG, PNG o WebP' }));
+    const allowedTypes = [
+      'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif', 'image/bmp', 'image/heic', 'image/heif',
+      'text/plain', 'text/csv',
+    ];
+    const allowedExts = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.jpg', '.jpeg', '.png', '.webp', '.gif', '.bmp', '.heic', '.heif', '.txt', '.csv'];
+    const ext = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+
+    if (!allowedTypes.includes(file.type) && !allowedExts.includes(ext)) {
+      setErrors(prev => ({ ...prev, [reqId]: 'Formato no soportado. Use PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, JPG, PNG, WEBP, HEIC, TXT o CSV' }));
       return;
     }
 
@@ -61,6 +73,7 @@ export function DocumentUpload({
       const formData = new FormData();
       formData.append('file', file);
       formData.append('docType', reqId);
+      formData.append('purpose', 'registration');
 
       const res  = await fetch('/api/upload', { method: 'POST', body: formData });
       const data = await res.json();
@@ -91,6 +104,9 @@ export function DocumentUpload({
     onDocumentsChange(updated);
     if (inputRefs.current[reqId]) {
       inputRefs.current[reqId]!.value = '';
+    }
+    if (cameraInputRefs.current[reqId]) {
+      cameraInputRefs.current[reqId]!.value = '';
     }
   };
 
@@ -158,34 +174,66 @@ export function DocumentUpload({
                 />
               </div>
             ) : (
-              <div
-                onClick={() => !isUploading && inputRefs.current[req.id]?.click()}
-                className={cn(
-                  'flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 border-dashed transition-all cursor-pointer',
-                  isUploading
-                    ? 'border-primary/40 bg-primary/5 cursor-wait'
-                    : error
-                    ? 'border-destructive/40 bg-destructive/5 hover:border-destructive/60'
-                    : 'border-border/40 bg-card/40 hover:border-primary/40 hover:bg-primary/5'
+              <div className="space-y-2">
+                <div
+                  onClick={() => !isUploading && inputRefs.current[req.id]?.click()}
+                  className={cn(
+                    'flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 border-dashed transition-all cursor-pointer',
+                    isUploading
+                      ? 'border-primary/40 bg-primary/5 cursor-wait'
+                      : error
+                      ? 'border-destructive/40 bg-destructive/5 hover:border-destructive/60'
+                      : 'border-border/40 bg-card/40 hover:border-primary/40 hover:bg-primary/5'
+                  )}
+                >
+                  <input
+                    ref={(el) => { inputRefs.current[req.id] = el; }}
+                    type="file"
+                    accept={req.accept || '.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.webp,.gif,.bmp,.heic,.heif,.txt,.csv'}
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) handleFileSelect(req.id, file);
+                    }}
+                  />
+                  {isUploading
+                    ? <Loader2 className="h-5 w-5 text-primary animate-spin" />
+                    : <Upload  className="h-5 w-5 text-muted-foreground" />
+                  }
+                  <span className="text-xs font-medium text-muted-foreground">
+                    {isUploading ? 'Subiendo...' : 'PDF, DOC, XLS, PPT, JPG, PNG, HEIC — máx. 25 MB'}
+                  </span>
+                </div>
+
+                {showCamera && (
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => !isUploading && cameraInputRefs.current[req.id]?.click()}
+                      disabled={isUploading}
+                      className={cn(
+                        'flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all',
+                        isUploading
+                          ? 'text-muted-foreground/50 cursor-wait'
+                          : 'text-muted-foreground hover:text-primary hover:bg-primary/5'
+                      )}
+                    >
+                      <Camera className="h-3.5 w-3.5" />
+                      Usar cámara
+                    </button>
+                    <input
+                      ref={(el) => { cameraInputRefs.current[req.id] = el; }}
+                      type="file"
+                      accept="image/*"
+                      capture="environment"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleFileSelect(req.id, file);
+                      }}
+                    />
+                  </div>
                 )}
-              >
-                <input
-                  ref={(el) => { inputRefs.current[req.id] = el; }}
-                  type="file"
-                  accept={req.accept || '.pdf,.jpg,.jpeg,.png,.webp'}
-                  className="hidden"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) handleFileSelect(req.id, file);
-                  }}
-                />
-                {isUploading
-                  ? <Loader2 className="h-5 w-5 text-primary animate-spin" />
-                  : <Upload  className="h-5 w-5 text-muted-foreground" />
-                }
-                <span className="text-xs font-medium text-muted-foreground">
-                  {isUploading ? 'Subiendo...' : 'PDF, JPG o PNG — máx. 10 MB'}
-                </span>
               </div>
             )}
 

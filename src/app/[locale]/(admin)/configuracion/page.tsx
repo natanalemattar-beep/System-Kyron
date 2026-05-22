@@ -380,7 +380,7 @@ export default function ConfiguracionPage() {
               />
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-border/15 pt-5">
+          <div className="border-t border-border/15 pt-5">
             <div>
               <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50">Email Verificación</Label>
               <Input
@@ -391,8 +391,13 @@ export default function ConfiguracionPage() {
                 className="mt-1.5 h-9 rounded-xl text-sm"
               />
             </div>
+          </div>
+        </SectionCard>
+
+        <SectionCard icon={Mail} title="Automatizaciones" description="Correos masivos, alertas y comunicaciones automatizadas">
+          <div className="space-y-4">
             <div>
-              <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50">Email Alertas</Label>
+              <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50">Email de Alertas</Label>
               <Input
                 type="email"
                 value={config.email_alertas}
@@ -400,6 +405,18 @@ export default function ConfiguracionPage() {
                 placeholder="alertas@empresa.com"
                 className="mt-1.5 h-9 rounded-xl text-sm"
               />
+              <p className="text-[10px] text-muted-foreground/40 mt-1">Correo donde se enviarán las alertas automáticas del sistema (vencimientos, pagos, nóminas, etc.)</p>
+            </div>
+
+            <div className="border-t border-border/15 pt-5">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50 mb-3">Comunicaciones Masivas</p>
+              <p className="text-xs text-muted-foreground/60 leading-relaxed">
+                Próximamente podrás configurar plantillas de email con logo, sello y firma digital para enviar comunicados masivos a empleados, recordatorios de nómina, y alertas fiscales automáticas.
+              </p>
+              <div className="flex items-center gap-2 mt-3 px-3 py-2 rounded-xl bg-amber-500/5 border border-amber-500/10">
+                <Construction className="h-3.5 w-3.5 text-amber-500" />
+                <span className="text-[10px] text-amber-600 dark:text-amber-400 font-medium">En desarrollo — disponible próximamente</span>
+              </div>
             </div>
           </div>
         </SectionCard>

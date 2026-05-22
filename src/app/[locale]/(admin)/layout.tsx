@@ -1,10 +1,8 @@
 'use client';
 
 import dynamic from "next/dynamic";
-import { AppHeader } from "@/components/app-header";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppTopNav } from "@/components/app-top-nav";
 import { PageTransition } from "@/components/ui/motion";
-import { asesoriaContableNavGroups, ventasNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
 import { useSetModuleContext } from "@/lib/module-context";
 import { PreferencesProvider, usePreferences } from "@/lib/preferences-context";
@@ -15,31 +13,21 @@ import { usePathname } from "@/navigation";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ModuleGuard } from "@/components/module-guard";
+import { AIChatButton } from "@/components/ui/ai-chat-button";
 
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
 
-const VENTAS_PATHS = ['/facturacion', '/punto-de-venta', '/modelo-factura', '/nota-debito', '/nota-credito', '/facturacion-credito', '/proformas', '/cotizaciones'];
-
 function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     const { user } = useAuth();
-    const { prefs } = usePreferences();
     const pathname = usePathname();
     useSetModuleContext("admin");
-    const isVentasSection = VENTAS_PATHS.some(p => pathname.startsWith(p));
-    const effectiveNavGroups = isVentasSection ? ventasNavGroups : asesoriaContableNavGroups;
     const displayName = user?.tipo === 'juridico'
       ? (user?.razon_social || user?.nombre || "Empresa")
       : `${user?.nombre || ""}${user?.apellido ? ' ' + user.apellido : ''}`.trim() || "Usuario";
     const initials = displayName.split(' ').map((w: string) => w[0]).slice(0, 2).join('').toUpperCase() || "US";
-    const headerUser = { 
-        name: displayName,
-        email: user?.email || "",
-        fallback: initials,
-        color: "bg-primary"
-    };
 
     return (
-      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(170,20%,94%)] via-background to-[hsl(210,22%,92%)] dark:from-[hsl(170,10%,10%)] dark:via-background dark:to-[hsl(210,12%,8%)] text-foreground relative">
+      <div className="min-h-screen bg-gradient-to-br from-[hsl(170,20%,94%)] via-background to-[hsl(210,22%,92%)] dark:from-[hsl(170,10%,10%)] dark:via-background dark:to-[hsl(210,12%,8%)] text-foreground relative">
           <PageTracker userId={user?.id} />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.03] hud-grid" />
@@ -48,36 +36,23 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
             <div className="absolute -bottom-[10%] right-[20%] w-[600px] h-[600px] bg-blue-400/[0.04] rounded-full blur-[200px]" />
           </div>
 
-          {prefs.nav_lateral && (
-            <div className="hidden lg:flex w-[280px] shrink-0 border-r border-border/20 bg-card/30 backdrop-blur-xl fixed inset-y-0 left-0 z-40 flex-col">
-              <AppSidebar />
-            </div>
-          )}
-
-          <div className={`flex-1 flex flex-col min-h-screen relative w-full ${prefs.nav_lateral ? 'lg:ml-[280px]' : ''}`}>
-              <AppHeader 
-                user={headerUser} 
-                dashboardHref="/dashboard-empresa" 
-                navGroups={effectiveNavGroups}
-                compact={prefs.nav_lateral}
-              />
-              
-              <main className="flex-1 w-full p-4 md:p-10 pt-24 md:pt-32 relative z-10">
-                  <PageTransition className="max-w-[1400px] mx-auto w-full">
-                    {children}
-                  </PageTransition>
-              </main>
-              
-              <footer className="p-8 md:p-12 border-t border-white/5 bg-card/40 text-center backdrop-blur-3xl mt-20 relative z-20">
-                <p className="text-[10px] font-semibold uppercase tracking-[1.2em] text-foreground/10 italic">
-                  System Kyron • Portal Empresarial • 2026
-                </p>
-              </footer>
-          </div>
+          <AppTopNav />
+          
+          <main className="w-full p-4 md:p-10 pt-24 md:pt-28 relative z-10">
+              <PageTransition className="max-w-[1400px] mx-auto w-full">
+                {children}
+              </PageTransition>
+          </main>
+          
+          <footer className="p-8 md:p-12 border-t border-white/5 bg-card/40 text-center backdrop-blur-3xl mt-20 relative z-20">
+            <p className="text-[10px] font-semibold uppercase tracking-[1.2em] text-foreground/10 italic">
+              System Kyron • Portal Empresarial • 2026
+            </p>
+          </footer>
           <ScrollToTop />
           <FinancialToolkit />
           <WelcomeTutorial />
-
+          <AIChatButton />
       </div>
     );
 }

@@ -7,6 +7,7 @@ import { ventasNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTracker } from "@/components/page-tracker";
 import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { AIChatButton } from "@/components/ui/ai-chat-button";
 import { CurrencyProvider } from "@/lib/currency-context";
 import { useAuth } from "@/lib/auth/context";
 import { useSetModuleContext } from "@/lib/module-context";
@@ -52,6 +53,7 @@ export default function VentasLayout({ children }: { children: React.ReactNode }
             </div>
             <ScrollToTop />
           <FinancialToolkit />
+          <AIChatButton />
 
         </div>
       </CurrencyProvider>

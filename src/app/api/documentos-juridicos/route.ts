@@ -136,7 +136,9 @@ export async function PATCH(req: NextRequest) {
       documentTitle: updated.titulo,
       newStatus: updated.estado,
       documentId: updated.id,
-      actionUrl: '/legal/documentos',
+      actionUrl: session.user.tipo === 'juridico' || session.user.tipo === 'admin'
+        ? '/legal/documentos'
+        : undefined,
     }).catch(() => {});
   }
 

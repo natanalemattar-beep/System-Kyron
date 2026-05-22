@@ -105,7 +105,9 @@ export async function PATCH(req: NextRequest) {
       documentTitle: `Solicitud ${updated.tipo?.replace(/_/g, ' ') ?? 'civil'}`,
       newStatus: updated.estado,
       documentId: updated.id,
-      actionUrl: '/legal/documentos-civiles',
+      actionUrl: session.user.tipo === 'juridico' || session.user.tipo === 'admin'
+        ? '/legal/documentos-civiles'
+        : undefined,
     }).catch(() => {});
   }
 

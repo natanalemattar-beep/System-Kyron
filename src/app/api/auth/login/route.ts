@@ -9,6 +9,7 @@ import { generateCode, storeCode, generateMagicToken, storeMagicToken } from '@/
 import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { createLoginChallenge } from '@/lib/login-challenge';
 import { decryptIfEncrypted, encryptIfNotEmpty, generateSearchHash } from '@/lib/encryption';
+import { getBaseUrl } from '@/lib/server-url';
 
 interface DbUser {
     id: number;
@@ -241,10 +242,7 @@ export async function POST(req: NextRequest) {
         await storeMagicToken(user.email, magicToken, user.id);
 
 
-        const host = req.headers.get('host') || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL || 'system-kyron.vercel.app';
-        const protocol = host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https';
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`;
-        
+        const baseUrl = getBaseUrl(req);
         const magicLinkUrl = `${baseUrl}/es/verify-link/${magicToken}`;
 
         const maskedEmail = user.email.replace(

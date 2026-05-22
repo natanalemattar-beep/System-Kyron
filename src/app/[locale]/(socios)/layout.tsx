@@ -4,6 +4,7 @@ import { AppHeader } from "@/components/app-header";
 
 import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { AIChatButton } from "@/components/ui/ai-chat-button";
 import { PageTransition } from "@/components/ui/motion";
 import { sociosNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
@@ -52,6 +53,7 @@ export default function SociosLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
+          <AIChatButton />
 
       </div>
       </ModuleGuard>

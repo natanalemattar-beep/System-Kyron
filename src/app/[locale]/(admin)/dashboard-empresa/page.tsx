@@ -2,13 +2,17 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import {
-  TrendingUp, TrendingDown, Activity, Zap, ArrowUpRight, ArrowDownRight,
+  ArrowUpFromLine, ArrowDownFromLine, PiggyBank, Vault,
   Landmark, Users, History, Box, Receipt, Loader as Loader2,
   RefreshCw, Calendar, Lock, Search, FileText, Sparkles,
   Shield, Scale, Briefcase, Leaf, Globe, TriangleAlert, Wifi,
-  PercentCircle, Building2, Gavel, Wallet, CreditCard, Banknote,
+  PercentCircle, Building2, Gavel, CreditCard, Banknote,
   CircleCheck as CircleCheck, Calculator, Bell, Package, DollarSign,
-  ChartColumn, PieChart, ChevronRight, Sun, Moon, Sunrise, Clock
+  ChartColumn, PieChart, ChevronRight, Sun, Moon, Sunrise, Clock,
+  Coins, TrendingUpDown, WalletCards, UsersRound, BadgeDollarSign,
+  ReceiptText, BellRing, ArrowUpRight, ArrowDownRight, Activity,
+  Warehouse, FileBarChart2, BarChartBig, Building, ShieldCheck,
+  TrendingUp, TrendingDown, Zap, Megaphone, LayoutGrid, CalendarDays
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -336,7 +340,7 @@ export default function DashboardEmpresaPage() {
                   {/* Avatar/Icon with HUD effects */}
                   <div className="relative">
                     <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-primary via-kyron-cyan to-kyron-indigo flex items-center justify-center shadow-[0_0_50px_rgba(59,130,246,0.4)] border border-white/30 relative z-10">
-                      <Building2 className="h-10 w-10 text-white" />
+                      <Building className="h-10 w-10 text-white" />
                       {/* HUD Ring */}
                       <div className="absolute -inset-3 border border-white/10 rounded-full animate-spin-slow pointer-events-none" />
                       <div className="absolute -inset-1 border border-white/20 rounded-[2rem] pointer-events-none" />
@@ -364,7 +368,7 @@ export default function DashboardEmpresaPage() {
                 {/* Meta Info Bar */}
                 <div className="flex flex-wrap items-center gap-4">
                   <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
-                    <Calendar className="h-4 w-4 text-kyron-cyan" />
+                    <CalendarDays className="h-4 w-4 text-kyron-cyan" />
                     <span className="text-[11px] font-semibold text-white/60 tracking-wide font-tech">{clientDateStr ?? ""}</span>
                   </div>
                   <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
@@ -376,7 +380,7 @@ export default function DashboardEmpresaPage() {
                     <div className="group relative">
                       <div className="absolute -inset-2 bg-emerald-500/10 blur-md rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                       <div className="relative flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-emerald-500/5 border border-emerald-500/20 text-[11px] font-semibold tracking-wide text-emerald-400 font-tech">
-                        <TrendingUp className="h-4 w-4" />
+                        <TrendingUpDown className="h-4 w-4" />
                         BCV: {data.tasaBCV.usd_ves.toFixed(2)} BS/$
                       </div>
                     </div>
@@ -395,8 +399,11 @@ export default function DashboardEmpresaPage() {
 
                 <div className="flex gap-3 w-full sm:w-auto">
                   <Button onClick={() => { setClosingData(null); setShowCierre(true); }} className="flex-1 sm:flex-none h-14 px-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] text-white font-semibold text-[12px] tracking-wide transition-all font-tech">
-                    <Lock className="h-4 w-4 mr-3 text-white/40" /> Cierre Fiscal
+                    <Vault className="h-4 w-4 mr-3 text-white/40" /> Cierre Fiscal
                   </Button>
+                  <Link href="/kyron-chat" className="flex-1 sm:flex-none h-14 px-6 rounded-2xl bg-gradient-to-r from-violet-600/20 to-purple-600/20 border border-violet-500/20 hover:from-violet-600/30 hover:to-purple-600/30 text-violet-300 font-semibold text-[12px] tracking-wide transition-all flex items-center justify-center gap-2">
+                    <Sparkles className="h-4 w-4" /> Inspección AI
+                  </Link>
                 </div>
               </div>
             </div>
@@ -408,10 +415,10 @@ export default function DashboardEmpresaPage() {
           {(() => {
             const utilSpark = sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0));
             return [
-              { label: t('kpi_ingresos'), value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones?.ingresos, icon: TrendingUp, color: "text-emerald-500", glow: "shadow-emerald-500/10", sparkData: sparklineData.ingresos },
-              { label: t('kpi_gastos'), value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones?.gastos, invertVariacion: true, icon: TrendingDown, color: "text-rose-500", glow: "shadow-rose-500/10", sparkData: sparklineData.gastos },
-              { label: t('kpi_utilidad'), value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones?.utilidad, icon: Zap, color: "text-amber-500", glow: "shadow-amber-500/10", sparkData: utilSpark },
-              { label: t('kpi_liquidez'), value: data ? fmtCur(data.liquidezTotal) : "—", icon: Wallet, color: "text-primary", glow: "shadow-primary/10", sparkData: [] },
+              { label: t('kpi_ingresos'), value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones?.ingresos, icon: ArrowUpFromLine, color: "text-emerald-500", glow: "shadow-emerald-500/10", sparkData: sparklineData.ingresos },
+              { label: t('kpi_gastos'), value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones?.gastos, invertVariacion: true, icon: ArrowDownFromLine, color: "text-rose-500", glow: "shadow-rose-500/10", sparkData: sparklineData.gastos },
+              { label: t('kpi_utilidad'), value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones?.utilidad, icon: PiggyBank, color: "text-amber-500", glow: "shadow-amber-500/10", sparkData: utilSpark },
+              { label: t('kpi_liquidez'), value: data ? fmtCur(data.liquidezTotal) : "—", icon: Vault, color: "text-primary", glow: "shadow-primary/10", sparkData: [] },
             ];
           })().map((kpi, i) => (
             <motion.div
@@ -463,10 +470,10 @@ export default function DashboardEmpresaPage() {
           {(() => {
             const unread = data?.notificacionesNoLeidas ?? 0;
             return [
-              { label: "Clientes", value: data?.clientesActivos ?? 0, icon: Users, color: "text-cyan-500", href: "/fidelizacion-clientes" },
-              { label: "Empleados", value: data?.empleados ?? 0, icon: Briefcase, color: "text-emerald-500", href: "/dashboard-rrhh" },
-              { label: "Facturas", value: data?.facturasEsteMes?.count ?? 0, icon: Receipt, color: "text-amber-500", extra: data?.facturasEsteMes?.monto ? formatRaw(convert(data.facturasEsteMes.monto)) : null, href: "/facturacion" },
-              { label: "Alertas", value: unread, icon: Bell, color: "text-indigo-500", href: "/notificaciones", alert: unread > 0 },
+              { label: "Clientes", value: data?.clientesActivos ?? 0, icon: UsersRound, color: "text-cyan-500", href: "/fidelizacion-clientes" },
+              { label: "Empleados", value: data?.empleados ?? 0, icon: BadgeDollarSign, color: "text-emerald-500", href: "/dashboard-rrhh" },
+              { label: "Facturas", value: data?.facturasEsteMes?.count ?? 0, icon: ReceiptText, color: "text-amber-500", extra: data?.facturasEsteMes?.monto ? formatRaw(convert(data.facturasEsteMes.monto)) : null, href: "/facturacion" },
+              { label: "Alertas", value: unread, icon: BellRing, color: "text-indigo-500", href: "/notificaciones", alert: unread > 0 },
             ];
           })().map((stat, i) => (
             <motion.div
@@ -502,7 +509,7 @@ export default function DashboardEmpresaPage() {
                 <CardTitle className="text-sm font-bold uppercase tracking-wide text-foreground/80">Flujo Financiero</CardTitle>
                 <p className="text-[11px] text-muted-foreground/50 mt-1">Últimos 12 meses</p>
               </div>
-              <Activity className="h-5 w-5 text-muted-foreground/25" />
+              <BarChartBig className="h-5 w-5 text-muted-foreground/25" />
             </CardHeader>
             <CardContent className="p-5 pt-0">
               <div className="h-[280px] w-full">
@@ -510,7 +517,7 @@ export default function DashboardEmpresaPage() {
                   <div className="h-full flex items-center justify-center"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground/20" /></div>
                 ) : !Array.isArray(data?.chartMensual) || data.chartMensual.length === 0 ? (
                   <div className="h-full flex flex-col items-center justify-center gap-2 text-muted-foreground/20">
-                    <ChartColumn className="h-10 w-10" />
+                    <BarChartBig className="h-10 w-10" />
                     <p className="text-[10px] font-semibold">Sin datos históricos</p>
                   </div>
                 ) : (
@@ -573,13 +580,13 @@ export default function DashboardEmpresaPage() {
           <Card className="border border-border/30 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
             <div className="flex items-center justify-between mb-4">
               <span className="text-sm font-bold text-foreground/70">Facturación</span>
-              <PieChart className="h-4 w-4 text-muted-foreground/25" />
+              <FileBarChart2 className="h-4 w-4 text-muted-foreground/25" />
             </div>
             {loading ? (
               <div className="h-32 flex items-center justify-center"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground/20" /></div>
             ) : facturasPie.length === 0 ? (
               <div className="h-32 flex flex-col items-center justify-center gap-2 text-muted-foreground/25">
-                <Receipt className="h-8 w-8" />
+                <ReceiptText className="h-8 w-8" />
                 <p className="text-[11px] font-medium">Sin facturas</p>
               </div>
             ) : (
@@ -611,13 +618,13 @@ export default function DashboardEmpresaPage() {
               <Card className="border border-border/30 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-sm font-bold text-foreground/70">Cuentas</span>
-                  <Scale className="h-4 w-4 text-muted-foreground/25" />
+                  <Coins className="h-4 w-4 text-muted-foreground/25" />
                 </div>
                 <div className="space-y-3">
                   <Link href="/cuentas-por-cobrar" className="block">
                     <div className="flex items-center justify-between p-4 rounded-xl bg-emerald-500/[0.04] border border-emerald-500/10 hover:bg-emerald-500/[0.08] transition-colors">
                       <div className="flex items-center gap-3">
-                        <ArrowUpRight className="h-4 w-4 text-emerald-400" />
+                        <TrendingUp className="h-4 w-4 text-emerald-400" />
                         <span className="text-sm font-medium text-foreground/70">Por Cobrar</span>
                       </div>
                       <div className="text-right">
@@ -629,7 +636,7 @@ export default function DashboardEmpresaPage() {
                   <Link href="/cuentas-por-pagar" className="block">
                     <div className="flex items-center justify-between p-4 rounded-xl bg-rose-500/[0.04] border border-rose-500/10 hover:bg-rose-500/[0.08] transition-colors">
                       <div className="flex items-center gap-3">
-                        <ArrowDownRight className="h-4 w-4 text-rose-400" />
+                        <TrendingDown className="h-4 w-4 text-rose-400" />
                         <span className="text-sm font-medium text-foreground/70">Por Pagar</span>
                       </div>
                       <div className="text-right">
@@ -642,7 +649,7 @@ export default function DashboardEmpresaPage() {
                 <Link href="/inventario" className="block">
                   <div className="flex items-center justify-between p-4 rounded-xl bg-amber-500/[0.04] border border-amber-500/10 hover:bg-amber-500/[0.08] transition-colors">
                     <div className="flex items-center gap-3">
-                      <Package className="h-4 w-4 text-amber-400" />
+                      <Warehouse className="h-4 w-4 text-amber-400" />
                       <span className="text-sm font-medium text-foreground/70">Stock Bajo</span>
                     </div>
                     <span className="text-sm font-bold text-amber-400">{data?.inventarioBajoStock} items</span>
@@ -670,7 +677,7 @@ export default function DashboardEmpresaPage() {
                 {data.movimientosRecientes.slice(0, 6).map((mov) => (
                   <div key={mov.id} className="flex items-center gap-3.5 py-3 px-3 rounded-xl hover:bg-muted/10 transition-all">
                     <div className={cn("h-8 w-8 rounded-lg flex items-center justify-center shrink-0", mov.tipo === "credito" ? "bg-emerald-500/10" : "bg-rose-500/10")}>
-                      {mov.tipo === "credito" ? <ArrowUpRight className="h-4 w-4 text-emerald-400" /> : <ArrowDownRight className="h-4 w-4 text-rose-400" />}
+                      {mov.tipo === "credito" ? <ArrowUpFromLine className="h-4 w-4 text-emerald-400" /> : <ArrowDownFromLine className="h-4 w-4 text-rose-400" />}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate text-foreground/75">{mov.concepto}</p>
@@ -684,7 +691,7 @@ export default function DashboardEmpresaPage() {
               </div>
             ) : (
               <div className="py-10 text-center">
-                <DollarSign className="h-10 w-10 text-muted-foreground/15 mx-auto mb-3" />
+                <Coins className="h-10 w-10 text-muted-foreground/15 mx-auto mb-3" />
                 <p className="text-[11px] text-muted-foreground/40">Sin movimientos registrados</p>
                 <Link href="/contabilidad/conciliacion-bancaria"><Button variant="outline" size="sm" className="mt-4 text-[11px] font-medium rounded-xl h-8 border-border/30">Registrar</Button></Link>
               </div>
@@ -695,7 +702,7 @@ export default function DashboardEmpresaPage() {
         <motion.div className="lg:col-span-4" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
           <Card className="border border-emerald-500/15 rounded-2xl bg-card/80 p-5 h-full shadow-lg shadow-black/[0.04]">
             <div className="flex items-center gap-3 mb-4">
-              <Shield className="h-5 w-5 text-emerald-400" />
+              <ShieldCheck className="h-5 w-5 text-emerald-400" />
               <span className="text-sm font-bold text-foreground/70">Fiscal</span>
               <Badge className="ml-auto bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[11px] font-semibold h-6 rounded-lg">OK</Badge>
             </div>
@@ -718,7 +725,7 @@ export default function DashboardEmpresaPage() {
             <div className="mt-4 space-y-2">
                  {[
                    { text: "Declaración IVA", date: clientClosingForm ? `Vence ${String(new Date(clientClosingForm.fecha_fin).getMonth() + 1).padStart(2, "0")}/${new Date(clientClosingForm.fecha_fin).getFullYear()}` : "Vence próximo mes", color: "text-amber-400", icon: PercentCircle },
-                   { text: "Conciliación bancaria", date: "Antes de cierre", color: "text-blue-400", icon: CreditCard },
+                    { text: "Conciliación bancaria", date: "Antes de cierre", color: "text-blue-400", icon: WalletCards },
                  ].map((a, i) => (
                 <div key={i} className="flex items-center gap-2.5 p-3 rounded-xl bg-muted/5 border border-border/15">
                   <a.icon className={cn("h-4 w-4 shrink-0", a.color)} />
@@ -753,7 +760,7 @@ export default function DashboardEmpresaPage() {
               <div className="space-y-2.5">
                 <Button size="sm" variant="outline" className="w-full h-11 text-[11px] font-semibold tracking-wide rounded-xl border-white/5 bg-white/[0.03] text-white/60 hover:bg-emerald-500/15 hover:border-emerald-500/20 hover:text-emerald-300 justify-start px-4 transition-all hover:translate-x-1"
                   onClick={() => { const a = data ? data.ingresos * 1.2 : 0; toast({ title: "PROYECCIÓN: VENTAS +20%", description: `Ingresos: ${fmtCur(a)} · Utilidad Estimada: ${fmtCur(a - (data?.gastos ?? 0))}` }); }}>
-                  <TrendingUp className="h-4 w-4 mr-3 text-emerald-400" /> Proyectar Ventas +20%
+                  <TrendingUpDown className="h-4 w-4 mr-3 text-emerald-400" /> Proyectar Ventas +20%
                 </Button>
                 <Button size="sm" variant="outline" className="w-full h-11 text-[11px] font-semibold tracking-wide rounded-xl border-white/5 bg-white/[0.03] text-white/60 hover:bg-rose-500/15 hover:border-rose-500/20 hover:text-rose-300 justify-start px-4 transition-all hover:translate-x-1"
                   onClick={() => { const inf = data ? data.gastos * 1.35 : 0; toast({ title: "SIMULACIÓN: INFLACIÓN 35%", description: `Gastos: ${fmtCur(inf)} · Utilidad Estimada: ${fmtCur((data?.ingresos ?? 0) - inf)}` }); }}>
@@ -780,14 +787,14 @@ export default function DashboardEmpresaPage() {
 
           <Card className="border border-primary/20 rounded-2xl bg-card/80 p-6 relative overflow-hidden group shadow-lg shadow-black/[0.06]">
             <div className="absolute top-0 right-0 p-5 opacity-5 group-hover:opacity-10 transition-opacity">
-              <Zap className="h-20 w-20 text-primary" />
+              <Building className="h-20 w-20 text-primary" />
             </div>
             <div className="flex items-center justify-between mb-6">
               <div className="space-y-1.5">
                 <span className="text-[11px] font-semibold text-foreground/50 tracking-wide">Suscripción Activa</span>
                 <h3 className="text-sm font-bold text-primary tracking-wide">Plan Professional</h3>
               </div>
-              <Sparkles className="h-5 w-5 text-primary animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+              <Sparkles className="h-5 w-5 text-primary" />
             </div>
             
             <div className="space-y-5">
@@ -833,7 +840,7 @@ export default function DashboardEmpresaPage() {
         <Card className="border border-amber-500/15 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <Calendar className="h-5 w-5 text-amber-400" />
+              <CalendarDays className="h-5 w-5 text-amber-400" />
               <span className="text-sm font-bold text-foreground/70">Calendario Fiscal SENIAT</span>
             </div>
             <Link href="/contabilidad/tributos/calendario-fiscal"><span className="text-[11px] font-medium text-amber-400/70 hover:text-amber-300 flex items-center gap-1">Ver todo <ChevronRight className="h-3.5 w-3.5" /></span></Link>
@@ -842,7 +849,7 @@ export default function DashboardEmpresaPage() {
             {!Array.isArray(fiscalDeadlines) || fiscalDeadlines.length === 0 ? (
               <div className="py-5 text-center"><p className="text-[11px] text-muted-foreground/35">Cargando calendario...</p></div>
             ) : (fiscalDeadlines || []).map((d, i) => {
-              const FISCAL_ICONS: Record<string, typeof PercentCircle> = { iva: PercentCircle, ret: Receipt, islr: Landmark, para: Users, faov: Building2 };
+              const FISCAL_ICONS: Record<string, any> = { iva: PercentCircle, ret: ReceiptText, islr: Landmark, para: UsersRound, faov: Building };
               const IconComp = FISCAL_ICONS[d.iconKey] ?? Calendar;
               return (
                 <div key={i} className="flex items-center gap-3.5 p-3 rounded-xl bg-muted/5 border border-border/10 hover:bg-muted/10 transition-colors">
@@ -865,7 +872,7 @@ export default function DashboardEmpresaPage() {
         <Card className="border border-blue-500/15 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <Clock className="h-5 w-5 text-blue-400" />
+              <WalletCards className="h-5 w-5 text-blue-400" />
               <span className="text-sm font-bold text-foreground/70">Cuentas por Cobrar</span>
             </div>
           </div>
@@ -888,7 +895,7 @@ export default function DashboardEmpresaPage() {
             </div>
           ) : (
             <div className="text-center py-8">
-              <CircleCheck className="h-8 w-8 text-emerald-400/25 mx-auto mb-3" />
+              <ShieldCheck className="h-8 w-8 text-emerald-400/25 mx-auto mb-3" />
               <p className="text-[11px] text-muted-foreground/45">Sin cuentas pendientes</p>
             </div>
           )}
@@ -945,7 +952,7 @@ export default function DashboardEmpresaPage() {
               <div className="flex-1 p-5 min-w-0">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <TriangleAlert className={cn(
+                    <BellRing className={cn(
                       "h-5 w-5",
                       semaforo.global.level === "rojo" ? "text-rose-400" :
                       semaforo.global.level === "amarillo" ? "text-amber-400" :
@@ -979,7 +986,7 @@ export default function DashboardEmpresaPage() {
 
                 {!Array.isArray(semaforo?.alertas) || semaforo.alertas.length === 0 ? (
                   <div className="py-8 text-center">
-                    <CircleCheck className="h-10 w-10 text-emerald-400/20 mx-auto mb-3" />
+                    <ShieldCheck className="h-10 w-10 text-emerald-400/20 mx-auto mb-3" />
                     <p className="text-[11px] text-muted-foreground/45">No hay vencimientos próximos ni pendientes</p>
                   </div>
                 ) : (
@@ -1033,17 +1040,17 @@ export default function DashboardEmpresaPage() {
 
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
         <div className="flex items-center gap-3 mb-4 ml-1">
-          <Globe className="h-5 w-5 text-muted-foreground/35" />
+          <LayoutGrid className="h-5 w-5 text-muted-foreground/35" />
           <span className="text-sm font-bold text-foreground/70">Módulos</span>
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-3">
           {[
-            { label: "Facturación", href: "/facturacion", icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/8" },
+            { label: "Facturación", href: "/facturacion", icon: ReceiptText, color: "text-amber-500", bg: "bg-amber-500/8" },
             { label: "Legal", href: "/escritorio-juridico", icon: Gavel, color: "text-purple-500", bg: "bg-purple-500/8" },
-            { label: "Inventario", href: "/inventario", icon: Briefcase, color: "text-amber-600", bg: "bg-amber-600/8" },
+            { label: "Inventario", href: "/inventario", icon: Warehouse, color: "text-amber-600", bg: "bg-amber-600/8" },
             { label: "Telecom", href: "/venta-linea", icon: Wifi, color: "text-teal-500", bg: "bg-teal-500/8" },
-            { label: "Reportes", href: "/reportes", icon: ChartColumn, color: "text-rose-500", bg: "bg-rose-500/8" },
-            { label: "Marketing", href: "/marketing", icon: Users, color: "text-indigo-500", bg: "bg-indigo-500/8" },
+            { label: "Reportes", href: "/reportes", icon: BarChartBig, color: "text-rose-500", bg: "bg-rose-500/8" },
+            { label: "Marketing", href: "/marketing", icon: Megaphone, color: "text-indigo-500", bg: "bg-indigo-500/8" },
             { label: "ECO", href: "/sostenibilidad", icon: Leaf, color: "text-green-500", bg: "bg-green-500/8" },
           ].map((mod, i) => (
             <Link key={i} href={mod.href as never}>
@@ -1065,7 +1072,7 @@ export default function DashboardEmpresaPage() {
       <Dialog open={showCierre} onOpenChange={setShowCierre}>
         <DialogContent className="max-w-lg rounded-2xl">
           <DialogHeader>
-            <DialogTitle className="text-sm font-bold flex items-center gap-2"><Lock className="h-4 w-4 text-amber-400" /> Cierre de Período Fiscal</DialogTitle>
+            <DialogTitle className="text-sm font-bold flex items-center gap-2"><Vault className="h-4 w-4 text-amber-400" /> Cierre de Período Fiscal</DialogTitle>
           </DialogHeader>
           {closingData ? (
             <div className="space-y-4 py-2">
@@ -1097,7 +1104,7 @@ export default function DashboardEmpresaPage() {
               </Button>
             ) : (
               <Button onClick={handlePreviewCierre} disabled={isClosing} className="rounded-xl text-xs h-8 bg-amber-500 text-black hover:bg-amber-400 font-semibold">
-                {isClosing ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Calendar className="mr-1.5 h-3.5 w-3.5" />} {isClosing ? "Calculando..." : "Calcular"}
+                {isClosing ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Calculator className="mr-1.5 h-3.5 w-3.5" />} {isClosing ? "Calculando..." : "Calcular"}
               </Button>
             )}
           </DialogFooter>
@@ -1115,7 +1122,7 @@ export default function DashboardEmpresaPage() {
             {auditLoading ? (
               <div className="space-y-1.5">{[1, 2, 3, 4, 5].map(n => <div key={n} className="h-12 bg-muted/10 rounded-lg animate-pulse" />)}</div>
             ) : filteredLogs.length === 0 ? (
-              <div className="text-center py-16"><FileText className="h-8 w-8 text-muted-foreground/10 mx-auto mb-2" /><p className="text-[10px] text-muted-foreground/30">Sin registros</p></div>
+              <div className="text-center py-16"><FileBarChart2 className="h-8 w-8 text-muted-foreground/10 mx-auto mb-2" /><p className="text-[10px] text-muted-foreground/30">Sin registros</p></div>
             ) : (
               filteredLogs.map(log => (
                 <div key={log.id} className="flex items-start gap-3 p-3 rounded-lg bg-muted/5 border border-border/10 hover:bg-muted/10 transition-all">

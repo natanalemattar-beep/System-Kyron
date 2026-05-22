@@ -7,6 +7,7 @@ import { PageTransition } from "@/components/ui/motion";
 import { PageTracker } from "@/components/page-tracker";
 import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { AIChatButton } from "@/components/ui/ai-chat-button";
 import { useAuth } from "@/lib/auth/context";
 import { asesoriaContableNavGroups } from "@/components/app-sidebar-nav-items";
 
@@ -52,6 +53,7 @@ export default function MainLayout({
           <ScrollToTop />
           <FinancialToolkit />
           <WelcomeTutorial />
+          <AIChatButton />
 
       </div>
     );

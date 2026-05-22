@@ -117,7 +117,9 @@ export async function PATCH(req: NextRequest) {
       documentTitle: `Permiso legal #${id}`,
       newStatus: estado,
       documentId: parseInt(id as string),
-      actionUrl: '/legal/permisos',
+      actionUrl: session.user.tipo === 'juridico' || session.user.tipo === 'admin'
+        ? '/legal/permisos'
+        : undefined,
     }).catch(() => {});
   }
 

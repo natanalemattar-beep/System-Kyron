@@ -2,7 +2,7 @@
 
 import { useEffect, useCallback } from "react";
 
-export type ModuleContext = "natural" | "asesoria-contable" | "ventas" | "legal" | "socios" | "informatica" | "telecom" | "hr" | "sostenibilidad";
+export type ModuleContext = "natural" | "admin" | "asesoria-contable" | "ventas" | "legal" | "socios" | "informatica" | "telecom" | "hr" | "sostenibilidad";
 
 const STORAGE_KEY = "kyron_module_context";
 

@@ -23,6 +23,7 @@ import { getModuleContext, isSharedPage, useSetModuleContext, type ModuleContext
 import { PageTracker } from "@/components/page-tracker";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { FinancialToolkit } from "@/components/financial-toolkit";
+import { AIChatButton } from "@/components/ui/ai-chat-button";
 
 const MODULE_CONFIG: Record<ModuleContext, { dashboardHref: string; navGroups: typeof naturalNavGroups; footerLabel: string; userColor: string }> = {
     natural: { dashboardHref: "/dashboard", navGroups: naturalNavGroups, footerLabel: "Portal Ciudadano", userColor: "bg-primary" },
@@ -99,6 +100,7 @@ export default function NaturalLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
+          <AIChatButton />
 
       </div>
     );
