@@ -4,7 +4,7 @@ import { ai } from "@/lib/ai/client";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { message, context, history } = body;
+    const { message, context, systemPrompt: clientPrompt, history } = body;
 
     if (!message || typeof message !== "string") {
       return NextResponse.json(
@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const systemPrompt = `Eres Kyron AI, el asistente inteligente de System Kyron. 
+    const systemPrompt = clientPrompt || `Eres Kyron AI, el asistente inteligente de System Kyron. 
 System Kyron es una plataforma integral de gestión empresarial que incluye:
 - Contabilidad VEN-NIF (libros legales, tributos, análisis fiscal)
 - Facturación fiscal SENIAT
