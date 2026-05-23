@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
             userId: session.user.id,
             evento: 'NUEVA_RED_SOCIAL',
             categoria: 'marketing',
-            descripcion: `Red social aÃ±adida: ${nombre}`,
+            descripcion: `Red social añadida: ${nombre}`,
             entidadTipo: 'red_social',
             entidadId: (red as { id: number }).id,
         });

@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
         const { banco, codigo_banco, numero_cuenta, tipo_cuenta, titular, saldo_actual } = body;
 
         if (!banco || !codigo_banco || !numero_cuenta) {
-            return NextResponse.json({ error: 'Banco, cÃ³digo y nÃºmero de cuenta son requeridos' }, { status: 400 });
+            return NextResponse.json({ error: 'Banco, código y número de cuenta son requeridos' }, { status: 400 });
         }
 
         const existing = await queryOne(
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
             [session.user.id, numero_cuenta]
         );
         if (existing) {
-            return NextResponse.json({ error: 'Ya existe una cuenta con ese nÃºmero' }, { status: 409 });
+            return NextResponse.json({ error: 'Ya existe una cuenta con ese número' }, { status: 409 });
         }
 
         const [cuenta] = await query(
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
             userId: session.user.id,
             evento: 'NUEVA_CUENTA_BANCARIA',
             categoria: 'banco',
-            descripcion: `Cuenta bancaria registrada: ${banco} NÂº ${numero_cuenta} (${tipo_cuenta ?? 'corriente'})`,
+            descripcion: `Cuenta bancaria registrada: ${banco} Nº ${numero_cuenta} (${tipo_cuenta ?? 'corriente'})`,
             entidadTipo: 'cuenta_bancaria',
             entidadId: (cuenta as { id: number }).id,
             metadata: { banco, codigo_banco, numero_cuenta, tipo_cuenta: tipo_cuenta ?? 'corriente', titular: titular ?? null },

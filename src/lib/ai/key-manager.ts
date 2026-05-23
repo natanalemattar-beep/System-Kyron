@@ -50,7 +50,7 @@ export function getNextKey(): { client: GoogleGenAI; index: number } {
     const idx = currentIndex;
     currentIndex = (currentIndex + 1) % keyPool.length;
 
-    if (now >= key.cooldownUntil && key.requestCount < 4) {
+    if (now >= key.cooldownUntil && key.requestCount < 10) {
       key.requestCount++;
       return { client: key.client, index: idx };
     }

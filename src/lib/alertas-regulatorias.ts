@@ -1,4 +1,5 @@
 import { query, queryOne } from '@/lib/db';
+import { getSmtpTransporter, getGmailSenderAddress } from '@/lib/gmail-client';
 
 export interface GacetaOficial {
   id: string;
@@ -542,6 +543,13 @@ export async function verificarAlertasRegulatorias(): Promise<number> {
   const alertas = obtenerAlertasRegulatorias();
   const alertasCriticas = alertas.filter(a => a.urgencia === 'critica' || a.urgencia === 'alta');
 
+  let transporter: ReturnType<typeof getSmtpTransporter> | null = null;
+  try {
+    transporter = getSmtpTransporter();
+  } catch {
+    // SMTP not configured — DB notifications only
+  }
+
   for (const empresa of empresas) {
     for (const alerta of alertasCriticas) {
       const yaEnviada = await query<{ count: string }>(
@@ -579,6 +587,43 @@ export async function verificarAlertasRegulatorias(): Promise<number> {
           }),
         ]
       );
+
+      if (transporter && empresa.email) {
+        try {
+          const from = await getGmailSenderAddress();
+          await transporter.sendMail({
+            from: `"System Kyron Alertas" <${from}>`,
+            to: empresa.email,
+            subject: titulo,
+            text: `${mensaje}\n\n---\nSystem Kyron — Monitoreo Regulatorio Automático`,
+            html: `
+              <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+                <div style="background: linear-gradient(135deg, #dc2626, #991b1b); padding: 24px; border-radius: 12px 12px 0 0;">
+                  <h1 style="color: white; margin: 0; font-size: 18px;">${titulo}</h1>
+                </div>
+                <div style="background: #1a1a2e; padding: 24px; border-radius: 0 0 12px 12px; color: #e2e8f0;">
+                  <p style="margin: 0 0 16px 0; line-height: 1.6;">${alerta.resumen}</p>
+                  <div style="background: #16213e; border-left: 4px solid #dc2626; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                    <strong style="color: #fca5a5;">Acción Requerida:</strong>
+                    <p style="margin: 8px 0 0 0; color: #94a3b8;">${alerta.accionRequerida}</p>
+                  </div>
+                  <div style="background: #16213e; padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+                    <strong style="color: #94a3b8;">Base Legal:</strong>
+                    <span style="color: #e2e8f0; margin-left: 8px;">${alerta.baseLegal}</span>
+                  </div>
+                  <hr style="border: none; border-top: 1px solid #334155; margin: 16px 0;" />
+                  <p style="font-size: 11px; color: #64748b;">
+                    System Kyron — Monitoreo Regulatorio Automático<br/>
+                    <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://systemkyron.com'}/notificaciones" style="color: #60a5fa;">Ver en plataforma</a>
+                  </p>
+                </div>
+              </div>
+            `,
+          });
+        } catch {
+          // Email error logged silently — notification already saved in DB
+        }
+      }
 
       alertasGeneradas++;
     }

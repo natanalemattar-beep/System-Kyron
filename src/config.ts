@@ -17,7 +17,6 @@ export const pathnames = {
   '/login-sostenibilidad': '/login-sostenibilidad',
   '/login-informatica': '/login-informatica',
   '/contabilidad/conatel': '/contabilidad/conatel',
-  '/presentacion': '/presentacion',
 
   // ÁREA MAESTRA
   '/dashboard-empresa': '/dashboard-empresa',
@@ -197,7 +196,6 @@ export const pathnames = {
   '/poderes-representacion': '/contabilidad/tributos/poderes-representacion',
   '/activos-inmobiliarios': '/activos-inmobiliarios',
   '/stickers': '/stickers',
-  '/resumen-ejecutivo': '/resumen-ejecutivo',
   '/brand-kit': '/brand-kit',
 
   // ADDITIONAL MISSING PATHS
@@ -213,7 +211,6 @@ export const pathnames = {
   '/tarjeta-reciclaje': '/tarjeta-reciclaje',
   '/registro-rif': '/registro-rif',
   '/kit-defensa': '/kit-defensa',
-  '/presentacion-final': '/presentacion-final',
   '/#contacto': '/#contacto',
   '/prueba-velocidad': '/prueba-velocidad',
   '/seguridad-personal': '/seguridad-personal',

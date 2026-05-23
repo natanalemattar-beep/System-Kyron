@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!titulo || !departamento) {
-    return NextResponse.json({ error: 'TÃ­tulo y departamento son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Título y departamento son requeridos' }, { status: 400 });
   }
 
   const [vacante] = await query<{ id: number }>(
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'NUEVA_VACANTE',
     categoria: 'rrhh',
-    descripcion: `Vacante publicada: ${titulo} â€” ${departamento}`,
+    descripcion: `Vacante publicada: ${titulo} — ${departamento}`,
     entidadTipo: 'vacante',
     entidadId: vacante.id,
   });

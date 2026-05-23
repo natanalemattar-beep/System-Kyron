@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
         if (cuentaId) {
             const cid = parseInt(cuentaId, 10);
             if (!Number.isFinite(cid)) {
-                return NextResponse.json({ error: 'cuenta_id invÃ¡lido' }, { status: 400 });
+                return NextResponse.json({ error: 'cuenta_id inválido' }, { status: 400 });
             }
             conditions.push(`m.cuenta_id = $${i++}`);
             params.push(cid);
@@ -65,12 +65,12 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
         }
         if (!['credito', 'debito'].includes(tipo)) {
-            return NextResponse.json({ error: 'Tipo invÃ¡lido. Use credito o debito' }, { status: 400 });
+            return NextResponse.json({ error: 'Tipo inválido. Use crédito o débito' }, { status: 400 });
         }
 
         const montoNum = parseFloat(monto);
         if (!Number.isFinite(montoNum) || montoNum <= 0) {
-            return NextResponse.json({ error: 'Monto invÃ¡lido â€” debe ser un nÃºmero positivo' }, { status: 400 });
+            return NextResponse.json({ error: 'Monto inválido — debe ser un número positivo' }, { status: 400 });
         }
 
         const [mov] = await query(
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
             userId: session.user.id,
             evento: 'NUEVO_MOVIMIENTO',
             categoria: 'banco',
-            descripcion: `Movimiento bancario: ${tipo === 'credito' ? 'â†‘ CrÃ©dito' : 'â†“ DÃ©bito'} ${monto} â€” ${concepto}`,
+            descripcion: `Movimiento bancario: ${tipo === 'credito' ? '↑ Crédito' : '↓ Débito'} ${monto} — ${concepto}`,
             entidadTipo: 'movimiento',
             entidadId: (mov as { id: number }).id,
             metadata: { tipo, monto, concepto, cuenta_id: cuenta_id ?? null, referencia: referencia ?? null },

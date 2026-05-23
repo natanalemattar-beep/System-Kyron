@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const { titulo, descripcion, categoria, prioridad } = await req.json();
-    if (!titulo) return NextResponse.json({ error: 'TÃ­tulo requerido' }, { status: 400 });
+    if (!titulo) return NextResponse.json({ error: 'Título requerido' }, { status: 400 });
 
     const [row] = await query(
       `INSERT INTO helpdesk_tickets (user_id, titulo, descripcion, categoria, prioridad)

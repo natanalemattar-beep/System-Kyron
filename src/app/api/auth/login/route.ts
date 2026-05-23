@@ -69,8 +69,6 @@ export async function POST(req: NextRequest) {
             `SELECT id, email, password_hash, tipo, nombre, apellido, cedula, razon_social, rif, access_key_hash, telefono, COALESCE(telefono_verificado, false) as telefono_verificado
              FROM users 
              WHERE email = $1 
-                OR cedula = $1 
-                OR telefono = $1 
                 OR telefono_hash = $2
                 OR cedula_hash = $2
                 OR rif_hash = $2`,

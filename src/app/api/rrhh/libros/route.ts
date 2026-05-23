@@ -133,7 +133,7 @@ export async function GET(req: NextRequest) {
           `SELECT m.*, e.nombre, e.apellido FROM maternidad_lactancia m JOIN empleados e ON m.empleado_id = e.id WHERE m.user_id = $1 AND m.estado IN ('prenatal','postnatal','lactancia') AND (m.fin_postnatal BETWEEN $2 AND $3 OR m.lactancia_fin BETWEEN $2 AND $3)`,
           [userId, hoy, en15]
         );
-        maternidadAlerta.forEach((m: any) => alertas.push({ tipo: 'maternidad', mensaje: `${m.nombre} ${m.apellido}: prÃ³ximo reintegro o fin de lactancia`, urgencia: 'media', data: m }));
+        maternidadAlerta.forEach((m: any) => alertas.push({ tipo: 'maternidad', mensaje: `${m.nombre} ${m.apellido}: próximo reintegro o fin de lactancia`, urgencia: 'media', data: m }));
 
         return NextResponse.json({ data: alertas });
       }
@@ -204,7 +204,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: true });
       }
       default:
-        return NextResponse.json({ error: 'AcciÃ³n no vÃ¡lida' }, { status: 400 });
+        return NextResponse.json({ error: 'Acción no válida' }, { status: 400 });
     }
   } catch (err) {
     console.error('[rrhh/libros POST] error:', err);

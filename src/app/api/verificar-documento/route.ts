@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       normalizedPath.includes('\0') ||
       /[^a-zA-Z0-9._\-\/]/.test(normalizedPath.replace('/uploads/', ''))
     ) {
-      return NextResponse.json({ error: 'Ruta de archivo no vÃ¡lida' }, { status: 400 });
+      return NextResponse.json({ error: 'Ruta de archivo no válida' }, { status: 400 });
     }
 
     const existing = await queryOne(
@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
       userId: session.user.id,
       evento: 'DOCUMENTO_VERIFICADO',
       categoria: 'documentos',
-      descripcion: `VerificaciÃ³n: ${originalName} â†’ ${resultado.veredicto.toUpperCase()} (${resultado.puntaje_total}%)`,
+      descripcion: `Verificación: ${originalName} → ${resultado.veredicto.toUpperCase()} (${resultado.puntaje_total}%)`,
       entidadTipo: 'verificacion_documento',
       entidadId: (row as { id: number }).id,
       metadata: {

@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!numero_proforma || !fecha_emision || subtotal === undefined) {
-    return NextResponse.json({ error: 'Faltan campos obligatorios: nÃºmero, fecha y subtotal' }, { status: 400 });
+    return NextResponse.json({ error: 'Faltan campos obligatorios: número, fecha y subtotal' }, { status: 400 });
   }
 
   const sub   = parseFloat(subtotal ?? '0');
@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'NUEVA_PROFORMA',
     categoria: 'contabilidad',
-    descripcion: `Proforma creada: ${proforma.numero_proforma} â€” Total: Bs. ${total.toFixed(2)}`,
+    descripcion: `Proforma creada: ${proforma.numero_proforma} — Total: Bs. ${total.toFixed(2)}`,
     entidadTipo: 'proforma',
     entidadId: proforma.id,
     metadata: { numero_proforma: proforma.numero_proforma, total, moneda: moneda ?? 'VES' },

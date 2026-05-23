@@ -30,13 +30,13 @@ export default function MainLayout({
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.02] hud-grid" />
-            <div className="absolute top-0 right-[-5%] w-[900px] h-[900px] bg-emerald-400/[0.06] rounded-full blur-[280px]" />
-            <div className="absolute bottom-[-10%] left-[-5%] w-[800px] h-[800px] bg-cyan-400/[0.05] rounded-full blur-[250px]" />
-            <div className="absolute top-[30%] left-[40%] w-[600px] h-[600px] bg-teal-300/[0.04] rounded-full blur-[200px]" />
+            <div className="absolute top-0 right-[-5%] w-[900px] h-[900px] bg-emerald-400/[0.06] rounded-full blur-[120px]" />
+            <div className="absolute bottom-[-10%] left-[-5%] w-[800px] h-[800px] bg-cyan-400/[0.05] rounded-full blur-[140px]" />
+            <div className="absolute top-[30%] left-[40%] w-[600px] h-[600px] bg-teal-300/[0.04] rounded-full blur-[100px]" />
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
-              <AppHeader user={{...user, color: "bg-primary"}} dashboardHref="/resumen-negocio" navGroups={asesoriaContableNavGroups} />
+              <AppHeader user={{...user, color: "bg-primary"}} dashboardHref="/dashboard-empresa" navGroups={asesoriaContableNavGroups} />
               
               <main className="flex-1 w-full pt-20 relative z-10">
                   <PageTransition>
@@ -53,8 +53,8 @@ export default function MainLayout({
           <ScrollToTop />
           <FinancialToolkit />
           <WelcomeTutorial />
-          <AIChatButton />
-
-      </div>
-    );
-}
+          <AIChatButton contextKey="kyron-chat" />
+ 
+       </div>
+     );
+ }

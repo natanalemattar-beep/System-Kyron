@@ -177,13 +177,6 @@ export function AppTopNav() {
           {/* Right: Actions */}
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <Link
-              href="/kyron-chat"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600/20 to-purple-600/20 border border-violet-500/20 text-violet-300 text-[10px] font-bold uppercase tracking-wider hover:from-violet-600/30 hover:to-purple-600/30 transition-all"
-            >
-              <Sparkles className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">Kyron AI</span>
-            </Link>
 
             {/* Mobile menu button */}
             <button

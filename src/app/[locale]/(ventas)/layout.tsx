@@ -53,9 +53,9 @@ export default function VentasLayout({ children }: { children: React.ReactNode }
             </div>
             <ScrollToTop />
           <FinancialToolkit />
-          <AIChatButton />
-
-        </div>
+          <AIChatButton contextKey="dashboard-asesoria-contable" />
+ 
+         </div>
       </CurrencyProvider>
       </ModuleGuard>
     );

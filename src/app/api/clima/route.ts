@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
   const encuestas = await query(
     `SELECT c.id, c.periodo, c.fecha_encuesta, c.dimension, c.puntuacion,
             c.comentario, c.anonimo, c.created_at,
-            CASE WHEN c.anonimo THEN 'AnÃ³nimo'
+            CASE WHEN c.anonimo THEN 'Anónimo'
                  ELSE e.nombre || ' ' || e.apellido END AS empleado,
             CASE WHEN c.anonimo THEN NULL
                  ELSE e.cargo END AS cargo
@@ -63,12 +63,12 @@ export async function POST(req: NextRequest) {
   const { empleado_id, periodo, dimension, puntuacion, comentario, anonimo } = body;
 
   if (!periodo || !dimension || puntuacion === undefined) {
-    return NextResponse.json({ error: 'PerÃ­odo, dimensiÃ³n y puntuaciÃ³n son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Período, dimensión y puntuación son requeridos' }, { status: 400 });
   }
 
   const puntaje = parseInt(puntuacion);
   if (puntaje < 1 || puntaje > 10) {
-    return NextResponse.json({ error: 'La puntuaciÃ³n debe estar entre 1 y 10' }, { status: 400 });
+    return NextResponse.json({ error: 'La puntuación debe estar entre 1 y 10' }, { status: 400 });
   }
 
   const [encuesta] = await query<{ id: number }>(
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'ENCUESTA_CLIMA',
     categoria: 'rrhh',
-    descripcion: `Encuesta de clima registrada: ${dimension} â€” PuntuaciÃ³n: ${puntaje}/10`,
+    descripcion: `Encuesta de clima registrada: ${dimension} — Puntuación: ${puntaje}/10`,
     entidadTipo: 'clima',
     entidadId: encuesta.id,
   });

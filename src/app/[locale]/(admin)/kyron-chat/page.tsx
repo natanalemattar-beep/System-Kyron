@@ -265,9 +265,31 @@ export default function KyronChatPage() {
     abortControllerRef.current = controller;
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 500));
-      const respuesta = "Mensaje recibido. El asistente no está disponible en este momento.";
-      setMessages(prev => [...prev, { role: 'assistant', content: respuesta }]);
+      const sysPromptMap: Record<string, string> = {
+        master: 'Eres Kyron Master, el núcleo inteligente del ecosistema System Kyron. Tienes visión COMPLETA de todos los módulos: contabilidad VEN-NIF, legal, RRHH/LOTTT, telecomunicaciones, ventas/CRM, sostenibilidad/eco-créditos, socios, informática/IT. Eres el orquestador principal.',
+        fiscal: 'Eres Kyron Fiscal, especialista en contabilidad VEN-NIF y cumplimiento SENIAT. SOLO respondes sobre: IVA, ISLR, IGTF, libros contables, estados financieros, plan de cuentas, declaraciones, facturación fiscal, retenciones, tributos municipales. Usa formato markdown.',
+        legal: 'Eres Kyron Legal, especialista en derecho corporativo venezolano. SOLO respondes sobre: contratos, SAREN, SAPI, litigios, permisos, poderes, cumplimiento normativo, actas, documentos legales. Usa formato markdown.',
+        telecom: 'Eres Kyron Telecom, especialista en telecomunicaciones. SOLO respondes sobre: venta de líneas, internet empresarial, eSIM, roaming, portabilidad, MDM corporativo, infraestructura de red, planes, diagnóstico de red. Usa formato markdown.',
+        verde: 'Eres Kyron Verde, especialista en sostenibilidad. SOLO respondes sobre: sostenibilidad empresarial, eco-créditos, huella de carbono, impacto ambiental, certificaciones verdes, mercado de eco-créditos, sector energético. Usa formato markdown.',
+        rrhh: 'Eres Kyron RRHH, especialista en recursos humanos venezolano. SOLO respondes sobre: LOTTT, LOPCYMAT, prestaciones sociales, nómina, contratos laborales, certificados, bienestar laboral, reclutamiento, IVSS, FAOV, INCES. Usa formato markdown.',
+      };
+      const systemPrompt = sysPromptMap[selectedIdentity] || sysPromptMap.master;
+      const res = await fetch('/api/ai/agent-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: messageText,
+          systemPrompt,
+          history: newMessages.slice(0, -1).map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content })),
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
+      } else {
+        const errorData = await res.json().catch(() => ({}));
+        setMessages(prev => [...prev, { role: 'assistant', content: errorData.error || 'Lo siento, tuve un problema técnico.' }]);
+      }
     } catch {
       setMessages(prev => [...prev, { role: 'assistant', content: 'Error de conexión. Inténtalo de nuevo.' }]);
     } finally {

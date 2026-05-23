@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
         const { accessKey, currentPassword } = await req.json();
 
         if (!currentPassword) {
-            return NextResponse.json({ error: 'Debes confirmar tu contraseÃ±a actual' }, { status: 400 });
+            return NextResponse.json({ error: 'Debes confirmar tu contraseña actual' }, { status: 400 });
         }
 
         const user = await queryOne<{ id: number; password_hash: string }>(
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
 
         const passwordValid = await bcrypt.compare(currentPassword, user.password_hash);
         if (!passwordValid) {
-            return NextResponse.json({ error: 'ContraseÃ±a incorrecta' }, { status: 401 });
+            return NextResponse.json({ error: 'Contraseña incorrecta' }, { status: 401 });
         }
 
         if (!accessKey || typeof accessKey !== 'string' || accessKey.trim().length < 6) {
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
         }
 
         if (accessKey.trim().length > 64) {
-            return NextResponse.json({ error: 'La llave de acceso no puede tener mÃ¡s de 64 caracteres' }, { status: 400 });
+            return NextResponse.json({ error: 'La llave de acceso no puede tener más de 64 caracteres' }, { status: 400 });
         }
 
         const accessKeyHash = await bcrypt.hash(accessKey.trim(), 10);

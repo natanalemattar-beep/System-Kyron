@@ -15,9 +15,8 @@ import { cn } from '@/lib/utils';
 
 const navItems = [
     { name: 'Hub', href: '/brand-kit', icon: Home },
-    { name: 'Presentación', href: '/presentacion', icon: Presentation },
+
     { name: 'Stickers', href: '/stickers', icon: Circle },
-    { name: 'Resumen', href: '/resumen-ejecutivo', icon: FileText },
     { name: 'Cartas', href: '/cartas', icon: Mail },
 ];
 

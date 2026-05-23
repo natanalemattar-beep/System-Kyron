@@ -20,7 +20,7 @@ export function Footer() {
         { label: t('nav_home'), href: "/#inicio" },
         { label: t('nav_platform'), href: "/#caracteristicas" },
         { label: "Planes & Precios", href: "/precios" },
-        { label: "Resumen Ejecutivo", href: "/resumen-ejecutivo" },
+        { label: "Planes & Precios", href: "/precios" },
     ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {

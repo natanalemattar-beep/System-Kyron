@@ -192,7 +192,7 @@ export async function GET(request: NextRequest) {
 
     const type = request.nextUrl.searchParams.get('type');
     if (!type || !QUERIES[type]) {
-        return NextResponse.json({ error: 'Tipo invÃ¡lido', types: Object.keys(QUERIES) }, { status: 400 });
+        return NextResponse.json({ error: 'Tipo inválido', types: Object.keys(QUERIES) }, { status: 400 });
     }
 
     try {
@@ -227,7 +227,7 @@ async function validateFkOwnership(data: Record<string, unknown>, userId: number
                 [fkValue, userId]
             );
             if (rows.length === 0) {
-                return `Referencia invÃ¡lida: ${fkField}`;
+                return `Referencia inválida: ${fkField}`;
             }
         }
     }
@@ -245,7 +245,7 @@ export async function POST(request: NextRequest) {
         const { type, data } = body;
 
         if (!type || !INSERT_CONFIGS[type]) {
-            return NextResponse.json({ error: 'Tipo invÃ¡lido para inserciÃ³n', types: Object.keys(INSERT_CONFIGS) }, { status: 400 });
+            return NextResponse.json({ error: 'Tipo inválido para inserción', types: Object.keys(INSERT_CONFIGS) }, { status: 400 });
         }
 
         const config = INSERT_CONFIGS[type];
@@ -263,12 +263,12 @@ export async function POST(request: NextRequest) {
         if (type === 'asientos') {
             const partidas = data.partidas;
             if (!partidas || !Array.isArray(partidas) || partidas.length === 0) {
-                return NextResponse.json({ error: 'El asiento debe tener al menos una lÃ­nea' }, { status: 400 });
+                return NextResponse.json({ error: 'El asiento debe tener al menos una línea' }, { status: 400 });
             }
             const totalDebe = partidas.reduce((s: number, l: { debe?: string | number }) => s + (parseFloat(String(l.debe ?? 0)) || 0), 0);
             const totalHaber = partidas.reduce((s: number, l: { haber?: string | number }) => s + (parseFloat(String(l.haber ?? 0)) || 0), 0);
             if (Math.abs(totalDebe - totalHaber) > 0.01) {
-                return NextResponse.json({ error: 'El asiento estÃ¡ desbalanceado: Debe â‰  Haber' }, { status: 400 });
+                return NextResponse.json({ error: 'El asiento está desbalanceado: Debe â‰  Haber' }, { status: 400 });
             }
 
             const result = await transaction(async (client) => {
@@ -314,7 +314,7 @@ export async function POST(request: NextRequest) {
         }
 
         if (cols.length === 0) {
-            return NextResponse.json({ error: 'No se proporcionaron datos vÃ¡lidos' }, { status: 400 });
+            return NextResponse.json({ error: 'No se proporcionaron datos válidos' }, { status: 400 });
         }
 
         const sql = `INSERT INTO ${config.table} (${cols.join(', ')}) VALUES (${placeholders.join(', ')}) RETURNING ${config.returning}`;
@@ -349,7 +349,7 @@ export async function PUT(request: NextRequest) {
         const { type, id, data } = body;
 
         if (!type || !UPDATE_TABLES[type]) {
-            return NextResponse.json({ error: 'Tipo invÃ¡lido para actualizaciÃ³n' }, { status: 400 });
+            return NextResponse.json({ error: 'Tipo inválido para actualización' }, { status: 400 });
         }
         if (!id) {
             return NextResponse.json({ error: 'ID requerido' }, { status: 400 });
@@ -408,7 +408,7 @@ export async function DELETE(request: NextRequest) {
         const id = searchParams.get('id');
 
         if (!type || !UPDATE_TABLES[type]) {
-            return NextResponse.json({ error: 'Tipo invÃ¡lido' }, { status: 400 });
+            return NextResponse.json({ error: 'Tipo inválido' }, { status: 400 });
         }
         if (!id) {
             return NextResponse.json({ error: 'ID requerido' }, { status: 400 });

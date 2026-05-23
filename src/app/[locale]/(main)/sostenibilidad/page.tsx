@@ -15,7 +15,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
-import placeholderImagesData from "@/app/lib/placeholder-images.json";
+import placeholderImagesData from "@/lib/placeholder-images.json";
 
 const PlaceHolderImages = placeholderImagesData.placeholderImages;
 

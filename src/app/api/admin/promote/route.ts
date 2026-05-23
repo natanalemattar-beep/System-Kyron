@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const { secret } = await req.json();
 
     if (!secret || secret !== ADMIN_SECRET) {
-      return NextResponse.json({ error: 'ContraseÃ±a incorrecta' }, { status: 401 });
+      return NextResponse.json({ error: 'Contraseña incorrecta' }, { status: 401 });
     }
 
     await query(
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Â¡Bienvenido CEO! Ahora eres administrador. Recarga la pÃ¡gina para que los cambios se reflejen.',
+      message: '¡Bienvenido CEO. Ahora eres administrador. Recarga la página para aplicar los cambios.',
     });
   } catch (err) {
     console.error('[admin-promote] Error:', err);

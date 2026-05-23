@@ -90,8 +90,6 @@ const PUBLIC_SEGMENTS = new Set([
   'documentacion',
   'stickers',
   'brand-kit',
-  'resumen-ejecutivo',
-  'presentacion-final',
   'cartas',
   'alianza-ameru',
 ]);

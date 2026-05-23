@@ -45,6 +45,7 @@ export async function GET() {
         user: {
             ...user,
             cedula: user.cedula ? decryptIfEncrypted(user.cedula) : null,
+            rif: user.rif ? decryptIfEncrypted(user.rif) : null,
             modules: (modules ?? []).map(m => m.module_id),
         },
     });

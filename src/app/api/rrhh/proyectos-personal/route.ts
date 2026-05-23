@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     const { titulo, departamento, tipo, descripcion, objetivo, responsable, fecha_inicio, fecha_fin_est, prioridad, presupuesto, estado, progreso } = body;
 
     if (!titulo || !departamento || !fecha_inicio) {
-      return NextResponse.json({ error: "TÃ­tulo, departamento y fecha de inicio son requeridos" }, { status: 400 });
+      return NextResponse.json({ error: "Título, departamento y fecha de inicio son requeridos" }, { status: 400 });
     }
 
     const rows = await query(

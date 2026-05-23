@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
         userId: session.user.id,
         evento: 'DECLARACION_ISLR',
         categoria: 'contabilidad',
-        descripcion: `DeclaraciÃ³n ISLR: ejercicio ${ejercicio_fiscal}`,
+        descripcion: `Declaración ISLR: ejercicio ${ejercicio_fiscal}`,
         entidadTipo: 'declaracion_islr',
         entidadId: (decl as { id: number }).id,
         metadata: { ejercicio_fiscal, estado: estado ?? 'pendiente' },
@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
     } = body;
 
     if (!periodo || !fecha_inicio || !fecha_fin) {
-      return NextResponse.json({ error: 'PerÃ­odo y fechas son requeridos' }, { status: 400 });
+      return NextResponse.json({ error: 'Período y fechas son requeridos' }, { status: 400 });
     }
 
     const debitoNum  = safeFloat(iva_debito);
@@ -142,7 +142,7 @@ export async function POST(req: NextRequest) {
       userId: session.user.id,
       evento: 'DECLARACION_IVA',
       categoria: 'contabilidad',
-      descripcion: `DeclaraciÃ³n IVA: perÃ­odo ${periodo} â€” Neto: ${netoNum}`,
+      descripcion: `Declaración IVA: período ${periodo} — Neto: ${netoNum}`,
       entidadTipo: 'declaracion_iva',
       entidadId: (decl as { id: number }).id,
       metadata: { periodo, estado: estado ?? 'pendiente', iva_neto: netoNum },
@@ -151,6 +151,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, declaracion: decl });
   } catch (err) {
     console.error('[declaraciones] POST error:', err);
-    return NextResponse.json({ error: 'Error al registrar declaraciÃ³n' }, { status: 500 });
+    return NextResponse.json({ error: 'Error al registrar declaración' }, { status: 500 });
   }
 }

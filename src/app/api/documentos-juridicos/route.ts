@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!tipo || !titulo) {
-    return NextResponse.json({ error: 'Tipo y tÃ­tulo son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Tipo y título son requeridos' }, { status: 400 });
   }
 
   const [doc] = await query(
@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'DOCUMENTO_JURIDICO_CREADO',
     categoria: 'legal',
-    descripcion: `Documento jurÃ­dico: ${titulo} (${tipo})`,
+    descripcion: `Documento jurídico: ${titulo} (${tipo})`,
     entidadTipo: 'documento_juridico',
     entidadId: (doc as { id: number }).id,
     metadata: { tipo, titulo, estado: estado ?? 'vigente' },
@@ -162,7 +162,7 @@ export async function DELETE(req: NextRequest) {
     userId: session.user.id,
     evento: 'DOCUMENTO_JURIDICO_ELIMINADO',
     categoria: 'legal',
-    descripcion: `Documento jurÃ­dico #${id} eliminado`,
+    descripcion: `Documento jurídico #${id} eliminado`,
     entidadTipo: 'documento_juridico',
     entidadId: parseInt(id),
   });

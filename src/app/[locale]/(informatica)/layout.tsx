@@ -55,9 +55,9 @@ export default function InformaticaLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
-          <AIChatButton />
-
-      </div>
-      </ModuleGuard>
-    );
-}
+          <AIChatButton contextKey="informatica" />
+ 
+          </div>
+       </ModuleGuard>
+     );
+ }

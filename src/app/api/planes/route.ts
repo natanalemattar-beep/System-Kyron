@@ -54,7 +54,7 @@ export async function GET(req: NextRequest) {
 
       const recursoRaw = searchParams.get('recurso') || '';
       if (!esRecursoValido(recursoRaw)) {
-        return NextResponse.json({ error: `Recurso no vÃ¡lido: ${recursoRaw}` }, { status: 400 });
+        return NextResponse.json({ error: `Recurso no válido: ${recursoRaw}` }, { status: 400 });
       }
 
       const check = await verificarLimite(session.user.id, recursoRaw);
@@ -69,7 +69,7 @@ export async function GET(req: NextRequest) {
             nombre: 'Kyron Core',
             recursos: [
               { key: 'consultasAI', label: 'Consultas Core', icon: 'zap' },
-              { key: 'chatAIMensajes', label: 'Consultas SistÃ©micas', icon: 'search' },
+              { key: 'chatAIMensajes', label: 'Consultas Sistémicas', icon: 'search' },
               { key: 'simuladorMultas', label: 'Simulador de Multas', icon: 'calculator' },
               { key: 'declaracionesAsistidas', label: 'Declaraciones Asistidas', icon: 'file-check' },
             ],
@@ -85,10 +85,10 @@ export async function GET(req: NextRequest) {
             nombre: 'Operaciones',
             recursos: [
               { key: 'facturasMensuales', label: 'Facturas por Mes', icon: 'file-text' },
-              { key: 'empleadosNomina', label: 'Empleados en NÃ³mina', icon: 'users' },
+              { key: 'empleadosNomina', label: 'Empleados en Nómina', icon: 'users' },
               { key: 'clientesCRM', label: 'Clientes CRM', icon: 'contact' },
               { key: 'documentosLegales', label: 'Documentos Legales', icon: 'scale' },
-              { key: 'lineasTelecom', label: 'LÃ­neas Telecom', icon: 'phone' },
+              { key: 'lineasTelecom', label: 'Líneas Telecom', icon: 'phone' },
             ],
           },
           {
@@ -96,7 +96,7 @@ export async function GET(req: NextRequest) {
             recursos: [
               { key: 'reportesMensuales', label: 'Reportes por Mes', icon: 'bar-chart' },
               { key: 'exportacionesExcel', label: 'Exportaciones Excel', icon: 'download' },
-              { key: 'consultasRIF', label: 'Consultas RIF/CÃ©dula', icon: 'search' },
+              { key: 'consultasRIF', label: 'Consultas RIF/Cédula', icon: 'search' },
               { key: 'blockchainProofs', label: 'Blockchain Proofs', icon: 'shield' },
             ],
           },
@@ -124,7 +124,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(comparacion);
     }
 
-    return NextResponse.json({ error: 'Vista no vÃ¡lida' }, { status: 400 });
+    return NextResponse.json({ error: 'Vista no válida' }, { status: 400 });
   } catch (err) {
     console.error('[planes API GET]', err);
     return NextResponse.json({ error: 'Error interno' }, { status: 500 });
@@ -142,7 +142,7 @@ export async function POST(req: NextRequest) {
     if (accion === 'usar-recurso') {
       const recursoRaw = body.recurso || '';
       if (!esRecursoValido(recursoRaw)) {
-        return NextResponse.json({ error: `Recurso no vÃ¡lido: ${recursoRaw}` }, { status: 400 });
+        return NextResponse.json({ error: `Recurso no válido: ${recursoRaw}` }, { status: 400 });
       }
       const cantidad = typeof body.cantidad === 'number' && body.cantidad > 0 ? body.cantidad : 1;
 
@@ -151,8 +151,8 @@ export async function POST(req: NextRequest) {
         const check = await verificarLimite(session.user.id, recursoRaw);
         const plan = obtenerPlan(check.plan);
         return NextResponse.json({
-          error: 'LÃ­mite alcanzado',
-          mensaje: `Has alcanzado el lÃ­mite de ${formatearLimite(check.limite)} para ${recursoRaw} en tu plan ${plan.nombre}. Actualiza a un plan superior para continuar.`,
+          error: 'Límite alcanzado',
+          mensaje: `Has alcanzado el límite de ${formatearLimite(check.limite)} para ${recursoRaw} en tu plan ${plan.nombre}. Actualiza a un plan superior para continuar.`,
           usado: check.usado,
           limite: check.limite,
           plan: check.plan,
@@ -175,7 +175,7 @@ export async function POST(req: NextRequest) {
       const ciclo: CicloFacturacion = cicloRaw === 'anual' ? 'anual' : 'mensual';
 
       if (!nuevoPlan || !PLANES_VALIDOS.includes(nuevoPlan)) {
-        return NextResponse.json({ error: 'Plan no vÃ¡lido' }, { status: 400 });
+        return NextResponse.json({ error: 'Plan no válido' }, { status: 400 });
       }
 
       await cambiarPlan(session.user.id, nuevoPlan as PlanTier, ciclo);
@@ -191,12 +191,12 @@ export async function POST(req: NextRequest) {
         ciclo,
         precios,
         mensaje: ciclo === 'anual'
-          ? `Plan actualizado a ${plan.nombreCompleto} (anual). Ahorras $${plan.ahorroAnualUSD}/aÃ±o.`
+          ? `Plan actualizado a ${plan.nombreCompleto} (anual). Ahorras $${plan.ahorroAnualUSD}/año.`
           : `Plan actualizado a ${plan.nombreCompleto} (mensual).`,
       });
     }
 
-    return NextResponse.json({ error: 'AcciÃ³n no vÃ¡lida' }, { status: 400 });
+    return NextResponse.json({ error: 'Acción no válida' }, { status: 400 });
   } catch (err) {
     console.error('[planes API POST]', err);
     return NextResponse.json({ error: 'Error interno' }, { status: 500 });

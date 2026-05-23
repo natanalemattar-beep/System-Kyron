@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
   const empresaData: EmpresaCarta = {
     denominacion: user.razon_social || `${user.nombre || ''} ${user.apellido || ''}`.trim() || 'Mi Empresa',
     rif: user.rif || 'Sin RIF registrado',
-    direccion: direccionCompleta || 'DirecciÃ³n no registrada',
+    direccion: direccionCompleta || 'Dirección no registrada',
     telefono: user.telefono || undefined,
     representante: {
       nombre: repNombre,
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'CARTA_PERMISOLOGIA',
     categoria: 'legal',
-    descripcion: `Carta de ${tipoCarta} generada: ${permiso.nombre} â€” ${getOrganismoById(permiso.organismoId)?.nombre}`,
+    descripcion: `Carta de ${tipoCarta} generada: ${permiso.nombre} — ${getOrganismoById(permiso.organismoId)?.nombre}`,
     entidadTipo: 'permiso_legal',
   });
 

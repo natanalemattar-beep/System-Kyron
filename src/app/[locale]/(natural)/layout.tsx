@@ -58,6 +58,19 @@ export default function NaturalLayout({
     const activeCtx = onSharedPage ? storedContext : "natural";
     const config = MODULE_CONFIG[activeCtx] || MODULE_CONFIG.natural;
 
+    const contextMap: Record<string, string> = {
+        natural: "dashboard",
+        admin: "dashboard-asesoria-contable",
+        ventas: "ventas",
+        legal: "legal",
+        socios: "socios",
+        informatica: "informatica",
+        telecom: "telecom",
+        hr: "rrhh",
+        sostenibilidad: "sostenibilidad",
+    };
+    const aiContext = contextMap[activeCtx] || "kyron-chat";
+
     const fullName = authUser ? `${authUser.nombre}${authUser.apellido ? ' ' + authUser.apellido : ''}` : "Usuario";
     const initials = fullName.split(' ').map((w: string) => w[0]).slice(0, 2).join('').toUpperCase() || "US";
     const user = { 
@@ -100,8 +113,8 @@ export default function NaturalLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
-          <AIChatButton />
-
-      </div>
+           <AIChatButton contextKey={aiContext} />
+ 
+       </div>
     );
 }

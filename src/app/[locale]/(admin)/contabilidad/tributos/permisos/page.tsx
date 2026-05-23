@@ -1,7 +1,7 @@
 "use client";
 import { BackButton } from "@/components/back-button";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef, memo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +19,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Logo } from "@/components/logo";
-import { organismos, tiposPermiso, getOrganismoById, getPermisosByOrganismo, type PermisoTipo, type Organismo, type OrganismoContacto } from "@/lib/permisologia-data";
+import type { PermisoTipo, Organismo, OrganismoContacto } from "@/lib/permisologia-data";
+import type { CatalogoItem } from "@/app/api/permisologia/catalogo/route";
 import { useAuth } from "@/lib/auth/context";
 import { cn } from "@/lib/utils";
 
@@ -96,6 +97,10 @@ export default function PermisologiaPage() {
   const [misPermisosStats, setMisPermisosStats] = useState<{ vigentes: number; vencidos: number; en_tramite: number; por_vencer: number } | null>(null);
   const [registroDialog, setRegistroDialog] = useState(false);
   const [pagadoIds, setPagadoIds] = useState<Set<string>>(new Set());
+  const [catalogo, setCatalogo] = useState<CatalogoItem[]>([]);
+  const [catalogoLoading, setCatalogoLoading] = useState(true);
+  const [catalogoTotal, setCatalogoTotal] = useState(0);
+  const cartasCache = useRef<Map<string, string>>(new Map());
   const [formData, setFormData] = useState({ tipo: '', nombre_permiso: '', organismo: '', numero_permiso: '', fecha_emision: '', fecha_vencimiento: '', estado: 'vigente', descripcion: '', alertar_dias_antes: '30' });
 
   const handlePagoPasarela = useCallback((permisoId: string, _planilla: string) => {
@@ -111,80 +116,122 @@ export default function PermisologiaPage() {
     fetch('/api/permisos-legales').then(r => r.json()).then(data => {
       if (data.permisos) setMisPermisos(data.permisos);
       if (data.stats) setMisPermisosStats(data.stats);
-    }).catch(() => {});
-  }, []);
+    }).catch(() => toast({ title: "ERROR", description: "No se pudieron cargar los permisos registrados", variant: "destructive" }));
+  }, [toast]);
 
   useEffect(() => {
     fetch('/api/permisologia/alertas').then(r => r.json()).then(data => {
       if (data.alertas) setAlertas(data.alertas);
       if (data.resumen) setResumen(data.resumen);
-    }).catch(() => {});
+    }).catch(() => toast({ title: "ERROR", description: "No se pudieron cargar las alertas", variant: "destructive" }));
     fetchMisPermisos();
-  }, [fetchMisPermisos]);
+  }, [fetchMisPermisos, toast]);
+
+  useEffect(() => {
+    setCatalogoLoading(true);
+    fetch('/api/permisologia/catalogo?limit=500').then(r => r.json()).then(data => {
+      setCatalogo(data.items || []);
+      setCatalogoTotal(data.total || 0);
+    }).catch(() => toast({ title: "ERROR", description: "No se pudo cargar el catálogo de permisos", variant: "destructive" })).finally(() => setCatalogoLoading(false));
+  }, [toast]);
+
+  const organismos = useMemo(() => {
+    const seen = new Set<string>();
+    const list: Organismo[] = [];
+    for (const item of catalogo) {
+      const key = item.org.id;
+      if (!seen.has(key)) { seen.add(key); list.push(item.org); }
+    }
+    return list;
+  }, [catalogo]);
+
+  const getPermisosByOrganismoFn = useCallback((orgId: string) => {
+    return catalogo.filter(c => c.permiso.organismoId === orgId).map(c => c.permiso);
+  }, [catalogo]);
+
+  const getOrganismoByIdFn = useCallback((id: string) => {
+    return organismos.find(o => o.id === id);
+  }, [organismos]);
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, { orgs: number; permisos: number }> = {};
     for (const key of Object.keys(tipoOrgConfig)) {
       counts[key] = { orgs: 0, permisos: 0 };
     }
-    organismos.forEach(org => {
-      const tipo = getOrganismoTipo(org);
+    const seenOrgs = new Set<string>();
+    for (const item of catalogo) {
+      const tipo = item.tipoOrg;
       if (counts[tipo]) {
-        counts[tipo].orgs++;
-        counts[tipo].permisos += getPermisosByOrganismo(org.id).length;
+        if (!seenOrgs.has(item.org.id)) {
+          seenOrgs.add(item.org.id);
+          counts[tipo].orgs++;
+        }
+        counts[tipo].permisos++;
       }
-    });
+    }
     return counts;
-  }, []);
+  }, [catalogo]);
 
-  const expandedCatalog = useMemo(() => {
-    const all: { org: Organismo; permiso: PermisoTipo }[] = [];
-    organismos.forEach(org => {
-      getPermisosByOrganismo(org.id).forEach(p => {
-        all.push({ org, permiso: p });
-      });
-    });
-    return all;
-  }, []);
+  const handleDescargarCatalogo = useCallback(() => {
+    const encabezados = ['Organismo', 'Siglas', 'Tipo', 'Permiso', 'Descripción', 'Base Legal', 'Aplica a'];
+    const lineas = catalogo.map(({ org, permiso: p }) => [
+      `"${org.nombre}"`,
+      `"${org.siglas || ''}"`,
+      `"${org.tipo}"`,
+      `"${p.nombre}"`,
+      `"${p.descripcion.replace(/"/g, '""')}"`,
+      `"${(p.baseLegal || '').replace(/"/g, '""')}"`,
+      `"${p.aplica.join(', ')}"`,
+    ].join(','));
+    const csv = [encabezados.join(','), ...lineas].join('\n');
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `permisologia-catalogo-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast({ title: "DESCARGADO", description: `${catalogo.length} permisos exportados a CSV` });
+  }, [catalogo, toast]);
 
-  const totalPermisosCatalogo = useMemo(() => expandedCatalog.length, [expandedCatalog]);
-  const totalOrganismos = useMemo(() => organismos.length, []);
+const filteredPermisos = useMemo((): { filtered: { org: Organismo; permiso: PermisoTipo }[]; grouped: { org: Organismo; permisos: PermisoTipo[] }[] } => {
+  if (!catalogo.length) return { filtered: [], grouped: [] };
+  const result: { org: Organismo; permiso: PermisoTipo }[] = [];
+  const groups: Record<string, { org: Organismo; permisos: PermisoTipo[] }> = {};
+  for (const item of catalogo) {
+    const { org, permiso: p, tipoOrg } = item;
+    if (filterTipoOrg !== 'todos' && tipoOrg !== filterTipoOrg) continue;
+    if (filterOrg !== 'todos' && org.id !== filterOrg) continue;
+    if (filterSector !== 'todos' && !p.aplica.includes(filterSector as any) && !p.aplica.includes('todos')) continue;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      if (!p.nombre.toLowerCase().includes(q) && !p.descripcion.toLowerCase().includes(q) && !org.nombre.toLowerCase().includes(q)) continue;
+    }
+    result.push({ org, permiso: p });
+    if (!groups[org.id]) groups[org.id] = { org, permisos: [] };
+    groups[org.id].permisos.push(p);
+  }
+  return { filtered: result, grouped: Object.values(groups) };
+}, [catalogo, filterOrg, filterSector, filterTipoOrg, searchQuery]);
 
-  const filteredPermisos = useMemo(() => {
-    return expandedCatalog.filter(({ org, permiso: p }) => {
-      if (filterTipoOrg !== 'todos' && getOrganismoTipo(org) !== filterTipoOrg) return false;
-      if (filterOrg !== 'todos' && org.id !== filterOrg) return false;
-      if (filterSector !== 'todos' && !p.aplica.includes(filterSector as any) && !p.aplica.includes('todos')) return false;
-      if (searchQuery) {
-        const q = searchQuery.toLowerCase();
-        return p.nombre.toLowerCase().includes(q) || p.descripcion.toLowerCase().includes(q) || org.nombre.toLowerCase().includes(q);
-      }
-      return true;
-    });
-  }, [expandedCatalog, filterOrg, filterSector, filterTipoOrg, searchQuery]);
-
-  const permisosByTipoOrg = useMemo(() => {
-    const groups: Record<string, { org: Organismo; permisos: PermisoTipo[] }> = {};
-    filteredPermisos.forEach(({ org, permiso: p }) => {
-      if (!groups[org.id]) groups[org.id] = { org, permisos: [] };
-      groups[org.id].permisos.push(p);
-    });
-    return Object.values(groups);
-  }, [filteredPermisos]);
+  const permisosByTipoOrg = useMemo(() => filteredPermisos.grouped, [filteredPermisos]);
 
   const [cartaText, setCartaText] = useState('');
   const [cartaLoading, setCartaLoading] = useState(false);
 
   useEffect(() => {
     if (!cartaDialog) { setCartaText(''); return; }
+    const cacheKey = `${cartaDialog.permiso.id}:${cartaDialog.tipo}`;
+    const cached = cartasCache.current.get(cacheKey);
+    if (cached) { setCartaText(cached); return; }
     setCartaLoading(true);
     fetch('/api/permisologia/carta', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tipoPermisoId: cartaDialog.permiso.id, tipoCarta: cartaDialog.tipo }),
     }).then(r => r.json()).then(data => {
-      if (data.carta) setCartaText(data.carta);
-      else setCartaText('Error al generar la carta. Verifique que su perfil de empresa esté completo.');
+      const text = data.carta || 'Error al generar la carta. Verifique que su perfil de empresa esté completo.';
+      cartasCache.current.set(cacheKey, text);
+      setCartaText(text);
     }).catch(() => {
       setCartaText('Error al generar la carta. Intente nuevamente.');
     }).finally(() => setCartaLoading(false));
@@ -215,7 +262,7 @@ export default function PermisologiaPage() {
         fetch('/api/permisologia/alertas').then(r => r.json()).then(d => {
           if (d.alertas) setAlertas(d.alertas);
           if (d.resumen) setResumen(d.resumen);
-        }).catch(() => {});
+        }).catch(() => toast({ title: "ERROR", description: "No se pudieron recargar las alertas", variant: "destructive" }));
       } else {
         toast({ title: "ERROR", description: data.error || "No se pudo registrar el permiso", variant: "destructive" });
       }
@@ -307,19 +354,31 @@ export default function PermisologiaPage() {
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-xl bg-blue-500/10"><FileText className="h-4 w-4 text-blue-400" /></div>
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-blue-400">Guía de Referencia — {totalOrganismos} Organismos · {totalPermisosCatalogo} Permisos · Catálogo Completo Venezuela</p>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-blue-400">Guía de Referencia — {organismos.length} Organismos · {catalogoTotal} Permisos · Catálogo Completo Venezuela</p>
                 <p className="text-[11px] font-bold text-muted-foreground/60 mt-0.5">Este catálogo es informativo. Los permisos aquí listados no están registrados en su cuenta. Use &quot;Registrar Permiso&quot; para agregar los que apliquen a su empresa.</p>
               </div>
             </div>
           </Card>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
+          {catalogoLoading ? (
+            <div className="flex items-center justify-center py-20">
+              <div className="flex flex-col items-center gap-3">
+                <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                <p className="text-[11px] font-semibold text-muted-foreground">Cargando catálogo...</p>
+              </div>
+            </div>
+          ) : catalogo.length === 0 ? (
+            <div className="flex items-center justify-center py-20">
+              <p className="text-sm text-muted-foreground">No se pudo cargar el catálogo de permisos.</p>
+            </div>
+          ) : (
+          <><div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
             {[{ key: 'todos', label: 'Todos', color: 'text-foreground', bg: 'bg-muted/30 border-border/30', icon: BookOpen }].concat(
               Object.entries(tipoOrgConfig).map(([key, cfg]) => ({ key, label: cfg.label, color: cfg.color, bg: cfg.bg, icon: cfg.icon }))
             ).map(cat => {
               const isActive = filterTipoOrg === cat.key;
-              const count = cat.key === 'todos' ? totalPermisosCatalogo : (categoryCounts[cat.key]?.permisos || 0);
-              const orgCount = cat.key === 'todos' ? totalOrganismos : (categoryCounts[cat.key]?.orgs || 0);
+              const count = cat.key === 'todos' ? catalogoTotal : (categoryCounts[cat.key]?.permisos || 0);
+              const orgCount = cat.key === 'todos' ? organismos.length : (categoryCounts[cat.key]?.orgs || 0);
               return (
                 <button
                   key={cat.key}
@@ -346,12 +405,15 @@ export default function PermisologiaPage() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40" />
               <Input placeholder="Buscar permiso, organismo o requisito..." className="pl-12 h-12 rounded-xl bg-white/5 border-white/10 text-sm" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
             </div>
+            <Button variant="outline" className="h-12 px-5 rounded-xl border-white/10 font-bold text-[10px] uppercase tracking-widest shrink-0" onClick={handleDescargarCatalogo}>
+              <Download className="mr-2 h-4 w-4" /> CSV
+            </Button>
             <Select value={filterOrg} onValueChange={setFilterOrg}>
               <SelectTrigger className="w-full md:w-[260px] h-12 rounded-xl bg-white/5 border-white/10 text-[10px] font-bold uppercase">
                 <Filter className="mr-2 h-3.5 w-3.5" /> <SelectValue placeholder="Organismo" />
               </SelectTrigger>
               <SelectContent className="max-h-[400px]">
-                <SelectItem value="todos">Todos los organismos ({totalOrganismos})</SelectItem>
+                <SelectItem value="todos">Todos los organismos ({organismos.length})</SelectItem>
                 {organismos.map(o => <SelectItem key={o.id} value={o.id}>{o.siglas || o.nombre}</SelectItem>)}
               </SelectContent>
             </Select>
@@ -389,7 +451,7 @@ export default function PermisologiaPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 text-[11px] font-bold text-foreground/40 uppercase tracking-widest">
               <FileText className="h-3.5 w-3.5" />
-              {permisosByTipoOrg.reduce((sum, g) => sum + g.permisos.length, 0)} permisos encontrados en {permisosByTipoOrg.length} organismos
+              {permisosByTipoOrg.reduce((sum: number, g) => sum + g.permisos.length, 0)} permisos encontrados en {permisosByTipoOrg.length} organismos
             </div>
             {(filterTipoOrg !== 'todos' || filterOrg !== 'todos' || filterSector !== 'todos' || searchQuery) && (
               <Button variant="ghost" size="sm" className="text-[10px] font-semibold uppercase text-primary h-7 px-3 rounded-lg" onClick={() => { setFilterTipoOrg('todos'); setFilterOrg('todos'); setFilterSector('todos'); setSearchQuery(''); }}>
@@ -399,10 +461,10 @@ export default function PermisologiaPage() {
           </div>
 
           <PermisosCatalogo groups={permisosByTipoOrg} onGenerarCarta={(p, t) => setCartaDialog({ permiso: p, tipo: t })} onPagado={handlePagoPasarela} pagadoIds={pagadoIds} />
-        </TabsContent>
+          </>)}</TabsContent>
 
         <TabsContent value="directorio" className="mt-6 space-y-6">
-          <DirectorioInstitucional />
+          <DirectorioInstitucional organismos={organismos} />
         </TabsContent>
 
         <TabsContent value="obligaciones" className="mt-6 space-y-6">
@@ -424,7 +486,7 @@ export default function PermisologiaPage() {
                     {cartaDialog.tipo === 'inscripcion' ? 'Carta de Solicitud de Inscripción' : 'Carta de Solicitud de Renovación'}
                   </DialogTitle>
                   <DialogDescription className="text-[10px] font-bold uppercase text-primary/60">
-                    {cartaDialog.permiso.nombre} — {getOrganismoById(cartaDialog.permiso.organismoId)?.nombre}
+                    {cartaDialog.permiso.nombre} — {getOrganismoByIdFn(cartaDialog.permiso.organismoId)?.nombre}
                   </DialogDescription>
                 </DialogHeader>
               </div>
@@ -717,13 +779,13 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
               <Badge className="text-[7px] font-semibold uppercase bg-emerald-500/15 text-emerald-400 border-emerald-500/20 px-2 shrink-0">
                 PAGADO
               </Badge>
-            </div>
-            <p className="text-[10px] text-muted-foreground/50">Planilla N° {planilla} — Pago confirmado</p>
           </div>
-        </div>
+          );
+        })}
       </div>
-    );
-  }
+    </div>
+  );
+}););
 
   return (
     <div className="border-t border-white/5 hover:bg-white/[0.02] transition-all">
@@ -901,7 +963,7 @@ function AlertasSection({ alertas }: { alertas: AlertaDB[] }) {
   );
 }
 
-function DirectorioInstitucional() {
+const DirectorioInstitucional = memo(function DirectorioInstitucional({ organismos: orgs }: { organismos: Organismo[] }) {
   const [searchDir, setSearchDir] = useState('');
   const [filterTipo, setFilterTipo] = useState<string>('todos');
 
@@ -914,7 +976,7 @@ function DirectorioInstitucional() {
     alcaldia: { label: 'Alcaldía', color: 'bg-teal-500/10 text-teal-600 border-teal-500/20' },
   };
 
-  const filtered = organismos.filter(o => {
+  const filtered = orgs.filter((o: Organismo) => {
     if (filterTipo !== 'todos' && o.tipo !== filterTipo) return false;
     if (searchDir) {
       const q = searchDir.toLowerCase();
@@ -1053,7 +1115,7 @@ function DirectorioInstitucional() {
       </div>
     </div>
   );
-}
+});
 
 const sectorPermisosObligatorios: Record<string, { nombre: string; permisos: string[] }> = {
   comercio: {

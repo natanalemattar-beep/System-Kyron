@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!numero_venta || !Array.isArray(items) || items.length === 0) {
-    return NextResponse.json({ error: 'NÃºmero de venta e items son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Número de venta e items son requeridos' }, { status: 400 });
   }
 
   let subtotal = 0;
@@ -117,7 +117,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'VENTA_POS',
     categoria: 'contabilidad',
-    descripcion: `Venta POS: ${venta.numero_venta} â€” Total: Bs. ${total.toFixed(2)} (${metodo_pago ?? 'efectivo'})`,
+    descripcion: `Venta POS: ${venta.numero_venta} — Total: Bs. ${total.toFixed(2)} (${metodo_pago ?? 'efectivo'})`,
     entidadTipo: 'venta_pos',
     entidadId: venta.id,
     metadata: { total, metodo_pago, moneda },

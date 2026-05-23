@@ -11,9 +11,9 @@ export async function GET() {
   const uid = session.user.id;
 
   const cxp = await query(
-    `SELECT COALESCE(concepto, 'Sin categorÃ­a') AS nombre, SUM(monto_original)::float AS valor
+    `SELECT COALESCE(concepto, 'Sin categoría') AS nombre, SUM(monto_original)::float AS valor
      FROM cuentas_por_pagar WHERE user_id = $1
-     GROUP BY COALESCE(concepto, 'Sin categorÃ­a')
+     GROUP BY COALESCE(concepto, 'Sin categoría')
      ORDER BY valor DESC LIMIT 6`,
     [uid]
   );

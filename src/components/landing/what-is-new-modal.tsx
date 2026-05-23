@@ -30,13 +30,6 @@ const updates = [
         color: 'text-blue-400',
         bg: 'bg-blue-500/10'
     },
-    {
-        title: 'Resumen Ejecutivo v2',
-        description: 'Nueva estructura oficial para el Reto Inspira 2026 integrada.',
-        icon: FileText,
-        color: 'text-emerald-400',
-        bg: 'bg-emerald-500/10'
-    }
 ];
 
 export function WhatIsNewModal() {

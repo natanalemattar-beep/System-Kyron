@@ -24,8 +24,8 @@ const optionKeys = [
 ];
 
 const MODULE_PATH_MAP: Record<string, string> = {
-  contabilidad: '/resumen-negocio',
-  juridico: '/resumen-negocio',
+  contabilidad: '/dashboard-empresa',
+  juridico: '/dashboard-empresa',
   legal: '/escritorio-juridico',
   ventas: '/ventas',
   tpv: '/ventas',

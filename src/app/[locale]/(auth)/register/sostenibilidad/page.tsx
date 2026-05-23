@@ -174,7 +174,10 @@ export default function RegisterSostenibilidadPage() {
                     // Details deferred
                 }),
             });
-            if (!res.ok) throw new Error('Error en el registro');
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData.error || 'Error en el registro');
+            }
             await refreshUser();
             setStep(TOTAL_STEPS);
         } catch (e: unknown) {

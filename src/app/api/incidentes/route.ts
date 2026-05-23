@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!tipo || !fecha_incidente || !descripcion) {
-    return NextResponse.json({ error: 'Tipo, fecha y descripciÃ³n son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Tipo, fecha y descripción son requeridos' }, { status: 400 });
   }
 
   const [incidente] = await query<{ id: number }>(
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'NUEVO_INCIDENTE_SST',
     categoria: 'rrhh',
-    descripcion: `Incidente SST registrado: ${tipo} â€” ${fecha_incidente}`,
+    descripcion: `Incidente SST registrado: ${tipo} — ${fecha_incidente}`,
     entidadTipo: 'incidente_sst',
     entidadId: incidente.id,
   });

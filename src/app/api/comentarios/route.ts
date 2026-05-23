@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
     try {
         const session = await getSession();
         if (!session?.user?.id) {
-            return NextResponse.json({ error: 'Debes iniciar sesiÃ³n para comentar' }, { status: 401 });
+            return NextResponse.json({ error: 'Debes iniciar sesión para comentar' }, { status: 401 });
         }
 
         const body = await req.json();
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
             [session.user.id]
         );
         if (existing.length >= 3) {
-            return NextResponse.json({ error: 'MÃ¡ximo 3 comentarios por dÃ­a' }, { status: 429 });
+            return NextResponse.json({ error: 'Máximo 3 comentarios por día' }, { status: 429 });
         }
 
         await query(

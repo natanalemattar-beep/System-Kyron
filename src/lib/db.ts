@@ -95,8 +95,11 @@ export async function query<T = Record<string, unknown>>(
             }
 
             if (cacheKey && result.rows) {
-                // Guardamos en caché y limpiamos la caché si crece demasiado
-                if (globalForDb.queryCache.size > 1000) globalForDb.queryCache.clear();
+                // LRU-like: elimina la entrada más antigua si el caché está lleno
+                if (globalForDb.queryCache.size >= 1000) {
+                    const oldestKey = globalForDb.queryCache.keys().next().value;
+                    if (oldestKey) globalForDb.queryCache.delete(oldestKey);
+                }
                 globalForDb.queryCache.set(cacheKey, {
                     data: result.rows,
                     expiry: Date.now() + (options?.ttlMs ?? 10000) // 10 segundos por defecto

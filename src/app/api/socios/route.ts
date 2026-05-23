@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
   if (entity === 'acta') {
     const { numero_acta, tipo, fecha_asamblea, lugar, quorum_pct, orden_del_dia, acuerdos, presidente, secretario, notas } = body;
     if (!numero_acta || !fecha_asamblea) {
-      return NextResponse.json({ error: 'NÃºmero de acta y fecha son requeridos' }, { status: 400 });
+      return NextResponse.json({ error: 'Número de acta y fecha son requeridos' }, { status: 400 });
     }
 
     const [acta] = await query(
@@ -119,7 +119,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, acta });
   }
 
-  return NextResponse.json({ error: 'Entidad no vÃ¡lida' }, { status: 400 });
+  return NextResponse.json({ error: 'Entidad no válida' }, { status: 400 });
 }
 
 export async function PATCH(req: NextRequest) {
@@ -169,7 +169,7 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ success: true });
   }
 
-  return NextResponse.json({ error: 'Entidad no vÃ¡lida' }, { status: 400 });
+  return NextResponse.json({ error: 'Entidad no válida' }, { status: 400 });
 }
 
 export async function DELETE(req: NextRequest) {
@@ -182,7 +182,7 @@ export async function DELETE(req: NextRequest) {
   if (!entity || !id) return NextResponse.json({ error: 'entity e id requeridos' }, { status: 400 });
 
   const table = entity === 'socio' ? 'socios' : entity === 'acta' ? 'actas_asamblea' : null;
-  if (!table) return NextResponse.json({ error: 'Entidad no vÃ¡lida' }, { status: 400 });
+  if (!table) return NextResponse.json({ error: 'Entidad no válida' }, { status: 400 });
 
   await query(`DELETE FROM ${table} WHERE id = $1 AND user_id = $2`, [parseInt(id), session.user.id]);
 

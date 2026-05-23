@@ -71,9 +71,8 @@ export default function HRLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
-          <AIChatButton />
-
-      </div>
-      </ModuleGuard>
-    );
-}
+          <AIChatButton contextKey="dashboard-asesoria-contable" />
+          </div>
+       </ModuleGuard>
+     );
+ }

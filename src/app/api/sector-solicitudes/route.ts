@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     } = body;
 
     if (!categoria) {
-        return NextResponse.json({ error: 'La categorÃ­a es requerida' }, { status: 400 });
+        return NextResponse.json({ error: 'La categoría es requerida' }, { status: 400 });
     }
 
     const [sol] = await query(

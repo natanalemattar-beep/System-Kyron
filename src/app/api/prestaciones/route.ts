@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
   const { empleado_id, periodo, fecha_inicio, fecha_corte, notas } = body;
 
   if (!empleado_id || !periodo || !fecha_inicio || !fecha_corte) {
-    return NextResponse.json({ error: 'Empleado, perÃ­odo, fecha inicio y fecha de corte son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Empleado, período, fecha inicio y fecha de corte son requeridos' }, { status: 400 });
   }
 
   const empleado = await queryOne<{ salario_base: string; fecha_ingreso: string }>(
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'CALCULO_PRESTACIONES',
     categoria: 'nomina',
-    descripcion: `Prestaciones calculadas para empleado #${empleado_id} â€” Total: Bs. ${total.toFixed(2)}`,
+    descripcion: `Prestaciones calculadas para empleado #${empleado_id} — Total: Bs. ${total.toFixed(2)}`,
     entidadTipo: 'prestacion',
     entidadId: prestacion.id,
   });

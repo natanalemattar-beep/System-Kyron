@@ -9,7 +9,7 @@ function getModuleFromPath(path: string): string {
   if (p.startsWith('/login') || p.startsWith('/register')) return 'auth';
   if (
     p.startsWith('/dashboard-empresa') ||
-    p.startsWith('/resumen-negocio') ||
+    p.startsWith('/dashboard-empresa') ||
     p.startsWith('/contabilidad') ||
     p.startsWith('/facturas') ||
     p.startsWith('/transacciones') ||

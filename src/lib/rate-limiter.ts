@@ -90,7 +90,7 @@ export function getClientIP(req: Request): string {
   const forwarded = req.headers.get('x-forwarded-for');
   if (forwarded) {
     const parts = forwarded.split(',');
-    return parts[parts.length - 1].trim();
+    return parts[0].trim();
   }
 
   return '0.0.0.0';

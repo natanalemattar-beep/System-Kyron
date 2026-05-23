@@ -61,7 +61,7 @@ export async function PATCH(req: NextRequest) {
       `UPDATE notificaciones SET leida = true WHERE user_id = $1 AND leida = false`,
       [session.user.id]
     );
-    return NextResponse.json({ success: true, message: 'Todas las notificaciones marcadas como leÃ­das' });
+    return NextResponse.json({ success: true, message: 'Todas las notificaciones marcadas como leídas' });
   }
 
   if (!id) return NextResponse.json({ error: 'ID requerido' }, { status: 400 });
@@ -70,7 +70,7 @@ export async function PATCH(req: NextRequest) {
     `SELECT id FROM notificaciones WHERE id = $1 AND user_id = $2`,
     [id, session.user.id]
   );
-  if (!existing) return NextResponse.json({ error: 'NotificaciÃ³n no encontrada' }, { status: 404 });
+  if (!existing) return NextResponse.json({ error: 'Notificación no encontrada' }, { status: 404 });
 
   await query(
     `UPDATE notificaciones SET leida = true WHERE id = $1 AND user_id = $2`,
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
   const { tipo, titulo, mensaje, accion_url, metadata } = body;
 
   if (!tipo || !titulo || !mensaje) {
-    return NextResponse.json({ error: 'Tipo, tÃ­tulo y mensaje son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Tipo, título y mensaje son requeridos' }, { status: 400 });
   }
 
   const [notif] = await query(

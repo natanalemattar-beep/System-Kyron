@@ -7,6 +7,7 @@ export interface AiGenerateOptions {
   maxTokens?: number;
   systemInstruction?: string;
   timeout?: number;
+  images?: string[];
 }
 
 function sleep(ms: number) {
@@ -50,6 +51,11 @@ function extractRetryDelay(error: any): number {
     // ignore
   }
   return 15000;
+}
+
+function detectMimeType(dataUri: string): string {
+  const match = dataUri.match(/^data:(image\/(?:jpeg|png|gif|webp));base64/);
+  return match?.[1] || "image/jpeg";
 }
 
 function cleanJsonResponse(text: string): string {
@@ -126,15 +132,28 @@ export class AiClient {
       maxTokens = 8192,
       systemInstruction,
       timeout = 60000,
+      images,
     } = options;
 
     return this.retryWithBackoff(async () => {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeout);
       try {
+        const contents = images?.length
+          ? [{
+              role: "user" as const,
+              parts: [
+                { text: prompt },
+                ...images.map((img) => ({
+                  inlineData: { mimeType: detectMimeType(img), data: img.split(",")[1] || img },
+                })),
+              ],
+            }]
+          : prompt;
+
         const response = await this.client.models.generateContent({
           model,
-          contents: prompt,
+          contents,
           config: {
             temperature,
             maxOutputTokens: maxTokens,
@@ -158,23 +177,39 @@ export class AiClient {
     const {
       model = "gemini-2.5-flash",
       temperature = 0.3,
+      maxTokens = 8192,
       systemInstruction,
       timeout = 60000,
+      images,
     } = options;
 
     const defaultFallback = (fallback || {}) as T;
-
-    const jsonPrompt = `${systemInstruction ? systemInstruction + "\n\n" : ""}Responde SOLO con JSON válido. Sin markdown, sin explicaciones, sin texto adicional.\n\n${prompt}`;
 
     return this.retryWithBackoff(async () => {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeout);
       try {
+        const contents = images?.length
+          ? [{
+              role: "user" as const,
+              parts: [
+                { text: prompt },
+                ...images.map((img) => ({
+                  inlineData: { mimeType: detectMimeType(img), data: img.split(",")[1] || img },
+                })),
+              ],
+            }]
+          : prompt;
+
         const response = await this.client.models.generateContent({
           model,
-          contents: jsonPrompt,
+          contents,
           config: {
             temperature,
+            maxOutputTokens: maxTokens,
+            systemInstruction: systemInstruction
+              ? { text: systemInstruction }
+              : undefined,
             responseMimeType: "application/json",
           },
         });

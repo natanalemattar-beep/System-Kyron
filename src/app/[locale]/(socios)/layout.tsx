@@ -53,9 +53,9 @@ export default function SociosLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
-          <AIChatButton />
-
-      </div>
-      </ModuleGuard>
-    );
-}
+          <AIChatButton contextKey="socios" />
+ 
+          </div>
+       </ModuleGuard>
+     );
+ }

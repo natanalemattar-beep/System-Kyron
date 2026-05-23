@@ -151,7 +151,6 @@ function ModuleCard({ id, mod, index, t }: { id: string; mod: any; index: number
 
   const precio = PRECIOS[id] ?? 0;
   const isFree = id === 'personal' || id === 'sostenibilidad';
-  const isIncluded = false;
 
   const acentoClasses: Record<string, string> = {
     personal: 'text-emerald-400',
@@ -197,10 +196,6 @@ function ModuleCard({ id, mod, index, t }: { id: string; mod: any; index: number
             </span>
             <span className="text-[9px] text-emerald-400/50 font-black uppercase tracking-[0.3em] mt-3 italic animate-kyron-breathe">Siempre gratis</span>
           </div>
-        ) : isIncluded ? (
-          <span className="px-5 py-2.5 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[11px] font-black uppercase tracking-[0.4em] rounded-2xl">
-            INCLUIDO
-          </span>
         ) : (
           <div className="text-right">
             <div className="flex items-baseline justify-end gap-1">

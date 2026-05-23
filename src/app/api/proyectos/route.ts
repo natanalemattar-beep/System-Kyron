@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'NUEVO_PROYECTO',
     categoria: 'sistema',
-    descripcion: `Proyecto creado: ${nombre} â€” ${tipo ?? 'interno'}`,
+    descripcion: `Proyecto creado: ${nombre} — ${tipo ?? 'interno'}`,
     entidadTipo: 'proyecto',
     entidadId: proyecto.id,
   });

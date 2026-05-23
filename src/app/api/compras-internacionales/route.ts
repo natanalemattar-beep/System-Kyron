@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
   const { proveedor, pais_origen, descripcion, referencia_orden, monto, moneda, tasa_cambio, monto_bs, flete, seguro, aranceles, iva_aduanero, fecha_orden, fecha_embarque, fecha_llegada, incoterm, estado, agente_aduanal, numero_bl, numero_dua, notas } = body;
 
   if (!proveedor || !pais_origen || !descripcion) {
-    return NextResponse.json({ error: 'Proveedor, paÃ­s de origen y descripciÃ³n son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Proveedor, país de origen y descripción son requeridos' }, { status: 400 });
   }
 
   const costoTotal = parseFloat(monto || 0) + parseFloat(flete || 0) + parseFloat(seguro || 0) + parseFloat(aranceles || 0) + parseFloat(iva_aduanero || 0);

@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
     if (accion === "manual") {
       const { titulo, departamento, cargo_destino, contenido, procedimientos, prohibiciones, version } = body;
       if (!titulo || !departamento || !contenido) {
-        return NextResponse.json({ error: "TÃ­tulo, departamento y contenido son requeridos" }, { status: 400 });
+        return NextResponse.json({ error: "Título, departamento y contenido son requeridos" }, { status: 400 });
       }
       const rows = await query(
         `INSERT INTO manuales_procedimientos (user_id, titulo, departamento, cargo_destino, contenido, procedimientos, prohibiciones, version)
@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
     if (accion === "contrato") {
       const { empleado_id, titulo, tipo_contrato, fecha_inicio, fecha_fin, cargo, departamento, salario, beneficios, prohibiciones, clausulas, horario } = body;
       if (!titulo || !fecha_inicio || !cargo || !departamento) {
-        return NextResponse.json({ error: "TÃ­tulo, fecha inicio, cargo y departamento son requeridos" }, { status: 400 });
+        return NextResponse.json({ error: "Título, fecha inicio, cargo y departamento son requeridos" }, { status: 400 });
       }
       const rows = await query(
         `INSERT INTO contratos_laborales (user_id, empleado_id, titulo, tipo_contrato, fecha_inicio, fecha_fin, cargo, departamento, salario, beneficios, prohibiciones, clausulas, horario)
@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ contrato: rows[0] });
     }
 
-    return NextResponse.json({ error: "AcciÃ³n no vÃ¡lida" }, { status: 400 });
+    return NextResponse.json({ error: "Acción no válida" }, { status: 400 });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Error desconocido";
     return NextResponse.json({ error: message }, { status: 500 });

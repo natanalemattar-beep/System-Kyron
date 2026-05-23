@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'NUEVA_CXP',
     categoria: 'contabilidad',
-    descripcion: `CÃ—P registrada: ${concepto} â€” Bs. ${monto.toFixed(2)}`,
+    descripcion: `CxP registrada: ${concepto} — Bs. ${monto.toFixed(2)}`,
     entidadTipo: 'cxp',
     entidadId: cxp.id,
   });

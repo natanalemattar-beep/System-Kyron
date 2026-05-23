@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'CIERRE_PERIODO_FISCAL',
     categoria: 'contabilidad',
-    descripcion: `PerÃ­odo fiscal cerrado: ${periodo} â€” Utilidad: Bs. ${utilidad.toFixed(2)}`,
+    descripcion: `Período fiscal cerrado: ${periodo} — Utilidad: Bs. ${utilidad.toFixed(2)}`,
     entidadTipo: 'periodo_cierre',
     entidadId: cierre.id,
     metadata: { periodo, ingresosNum, gastosNum, utilidad },

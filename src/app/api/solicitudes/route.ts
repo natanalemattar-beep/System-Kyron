@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     const { categoria, subcategoria, descripcion, metadata } = body;
 
     if (!categoria) {
-      return NextResponse.json({ error: 'CategorÃ­a requerida' }, { status: 400 });
+      return NextResponse.json({ error: 'Categoría requerida' }, { status: 400 });
     }
 
     const [row] = await query(

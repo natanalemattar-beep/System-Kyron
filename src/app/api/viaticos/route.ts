@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
 
     const parsedMonto = parseFloat(String(monto || 0));
     if (isNaN(parsedMonto) || parsedMonto < 0) {
-      return NextResponse.json({ error: "Monto invÃ¡lido" }, { status: 400 });
+      return NextResponse.json({ error: "Monto inválido" }, { status: 400 });
     }
 
     const rows = await query(
@@ -155,13 +155,13 @@ export async function PATCH(req: NextRequest) {
 
     const current = await query(`SELECT estado FROM viaticos WHERE id = $1 AND user_id = $2`, [id, uid]);
     if (current.length === 0) {
-      return NextResponse.json({ error: "ViÃ¡tico no encontrado" }, { status: 404 });
+      return NextResponse.json({ error: "Viático no encontrado" }, { status: 404 });
     }
 
     const estadoActual = String(current[0].estado);
     const allowed = TRANSITIONS[estadoActual] || [];
     if (!allowed.includes(estado)) {
-      return NextResponse.json({ error: `No se puede cambiar de '${estadoActual}' a '${estado}'. Transiciones vÃ¡lidas: ${allowed.join(", ") || "ninguna"}` }, { status: 400 });
+      return NextResponse.json({ error: `No se puede cambiar de '${estadoActual}' a '${estado}'. Transiciones válidas: ${allowed.join(", ") || "ninguna"}` }, { status: 400 });
     }
 
     const rows = await query(
@@ -171,7 +171,7 @@ export async function PATCH(req: NextRequest) {
     );
 
     if (rows.length === 0) {
-      return NextResponse.json({ error: "ViÃ¡tico no encontrado" }, { status: 404 });
+      return NextResponse.json({ error: "Viático no encontrado" }, { status: 404 });
     }
 
     return NextResponse.json({ viatico: rows[0] });
@@ -197,7 +197,7 @@ export async function DELETE(req: NextRequest) {
     );
 
     if (rows.length === 0) {
-      return NextResponse.json({ error: "Solo se pueden eliminar viÃ¡ticos en estado pendiente" }, { status: 400 });
+      return NextResponse.json({ error: "Solo se pueden eliminar viáticos en estado pendiente" }, { status: 400 });
     }
 
     return NextResponse.json({ eliminado: true });

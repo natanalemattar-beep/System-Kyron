@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
 
         const montoNum = parseFloat(monto);
         if (isNaN(montoNum) || montoNum <= 0) {
-            return NextResponse.json({ error: 'Monto invÃ¡lido' }, { status: 400 });
+            return NextResponse.json({ error: 'Monto inválido' }, { status: 400 });
         }
 
         const bcv      = parseFloat(tasa_bcv ?? '0');
@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
             userId: session.user.id,
             evento: 'NUEVA_TRANSACCION',
             categoria: 'contabilidad',
-            descripcion: `Pago registrado: ${tipo_pago} â€” ${(tx as { monto: string }).monto} ${moneda ?? 'VES'}${referencia ? ` Â· Ref: ${referencia}` : ''}`,
+            descripcion: `Pago registrado: ${tipo_pago} — ${(tx as { monto: string }).monto} ${moneda ?? 'VES'}${referencia ? ` · Ref: ${referencia}` : ''}`,
             entidadTipo: 'transaccion',
             entidadId: (tx as { id: number }).id,
             metadata: { tipo_pago, monto: (tx as { monto: string }).monto, moneda: moneda ?? 'VES', referencia: referencia ?? null, verificado: true },
@@ -102,6 +102,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: true, transaccion: tx });
     } catch (err) {
         console.error('[transacciones] POST error:', err);
-        return NextResponse.json({ error: 'Error al registrar transacciÃ³n' }, { status: 500 });
+        return NextResponse.json({ error: 'Error al registrar transacción' }, { status: 500 });
     }
 }

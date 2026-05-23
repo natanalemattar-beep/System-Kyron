@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
         userId: session.user.id,
         evento: 'SECURITY_UPDATE',
         categoria: 'security',
-        descripcion: `ConfiguraciÃ³n de seguridad actualizada: 2FA ${twoFactorEnabled ? 'Activado' : 'Desactivado'}`,
+        descripcion: `Configuración de seguridad actualizada: 2FA ${twoFactorEnabled ? 'Activado' : 'Desactivado'}`,
         metadata: { twoFactorEnabled, notificationMethod }
     });
 

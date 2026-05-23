@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
       userId: session.user.id,
       evento: 'NUEVA_RETENCION',
       categoria: 'contabilidad',
-      descripcion: `RetenciÃ³n ${tipo.toUpperCase()} registrada â€” ${proveedor_nombre ?? proveedor_rif ?? 'Sin proveedor'} Â· Monto: ${monto}`,
+      descripcion: `Retención ${tipo.toUpperCase()} registrada — ${proveedor_nombre ?? proveedor_rif ?? 'Sin proveedor'} · Monto: ${monto}`,
       entidadTipo: 'retencion',
       entidadId: (ret as { id: number }).id,
       metadata: { tipo, base_imponible: base, porcentaje: pct, monto_retenido: monto },
@@ -103,6 +103,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, retencion: ret });
   } catch (err) {
     console.error('[retenciones] POST error:', err);
-    return NextResponse.json({ error: 'Error al registrar retenciÃ³n' }, { status: 500 });
+    return NextResponse.json({ error: 'Error al registrar retención' }, { status: 500 });
   }
 }

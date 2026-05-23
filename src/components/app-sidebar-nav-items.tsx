@@ -24,7 +24,6 @@ export const globalNavGroups = [
         icon: LayoutGrid,
         items: [
             { href: "/precios", label: "Planes y Precios", icon: Banknote },
-            { href: "/resumen-ejecutivo", label: "Resumen Ejecutivo", icon: FileText, badge: "PDF" },
         ]
     }
 ];
@@ -172,7 +171,6 @@ export const asesoriaContableNavGroups = [
       icon: Sparkles,
       items: [
           { href: "/kyron-chat", label: "Kyron Chat", icon: MessageSquare },
-          { href: "/resumen-ejecutivo", label: "Resumen Ejecutivo", icon: FileText, badge: "OFICIAL" },
           { href: "/automatizaciones", label: "Automatizaciones", icon: Zap },
       ],
     },

@@ -41,12 +41,12 @@ function categorizarMovimiento(concepto: string, tipo: string, plan: PlanCuenta[
 
     if (lower.includes('venta') || lower.includes('factura') || lower.includes('cobro')) {
       contrapartida = findCuenta(plan, ['ventas', 'ingresos por ventas', 'ingreso'], 'ingreso');
-    } else if (lower.includes('interes') || lower.includes('interÃ©s') || lower.includes('rendimiento')) {
+    } else if (lower.includes('interes') || lower.includes('interés') || lower.includes('rendimiento')) {
       contrapartida = findCuenta(plan, ['intereses', 'ingresos financieros', 'rendimientos'], 'ingreso');
-    } else if (lower.includes('deposito') || lower.includes('depÃ³sito') || lower.includes('transferencia recibida')) {
+    } else if (lower.includes('deposito') || lower.includes('depósito') || lower.includes('transferencia recibida')) {
       contrapartida = findCuenta(plan, ['cuentas por cobrar', 'clientes', 'deudores'], 'activo');
-    } else if (lower.includes('prestamo') || lower.includes('prÃ©stamo')) {
-      contrapartida = findCuenta(plan, ['prÃ©stamos', 'prestamos', 'obligaciones'], 'pasivo');
+    } else if (lower.includes('prestamo') || lower.includes('préstamo')) {
+      contrapartida = findCuenta(plan, ['préstamos', 'prestamos', 'obligaciones'], 'pasivo');
     }
 
     if (!contrapartida) {
@@ -61,22 +61,22 @@ function categorizarMovimiento(concepto: string, tipo: string, plan: PlanCuenta[
   } else {
     let contrapartida: PlanCuenta | null = null;
 
-    if (lower.includes('nomina') || lower.includes('nÃ³mina') || lower.includes('salario') || lower.includes('sueldo')) {
-      contrapartida = findCuenta(plan, ['sueldos', 'salarios', 'gastos de personal', 'nÃ³mina'], 'gasto');
+    if (lower.includes('nomina') || lower.includes('nómina') || lower.includes('salario') || lower.includes('sueldo')) {
+      contrapartida = findCuenta(plan, ['sueldos', 'salarios', 'gastos de personal', 'nómina'], 'gasto');
     } else if (lower.includes('alquiler') || lower.includes('arriendo')) {
       contrapartida = findCuenta(plan, ['alquiler', 'arrendamiento', 'gastos de alquiler'], 'gasto');
     } else if (lower.includes('servicio') || lower.includes('luz') || lower.includes('agua') || lower.includes('telefon') || lower.includes('internet')) {
-      contrapartida = findCuenta(plan, ['servicios', 'servicios pÃºblicos', 'gastos generales'], 'gasto');
-    } else if (lower.includes('compra') || lower.includes('proveedor') || lower.includes('mercancia') || lower.includes('mercancÃ­a') || lower.includes('inventario')) {
-      contrapartida = findCuenta(plan, ['compras', 'costo de venta', 'mercancÃ­a', 'inventario'], 'costo')
+      contrapartida = findCuenta(plan, ['servicios', 'servicios públicos', 'gastos generales'], 'gasto');
+    } else if (lower.includes('compra') || lower.includes('proveedor') || lower.includes('mercancia') || lower.includes('mercancía') || lower.includes('inventario')) {
+      contrapartida = findCuenta(plan, ['compras', 'costo de venta', 'mercancía', 'inventario'], 'costo')
         || findCuenta(plan, ['compras', 'costo de venta'], 'gasto');
     } else if (lower.includes('impuesto') || lower.includes('iva') || lower.includes('islr') || lower.includes('seniat') || lower.includes('tributo')) {
       contrapartida = findCuenta(plan, ['impuestos', 'tributos', 'iva', 'islr'], 'gasto')
         || findCuenta(plan, ['impuestos por pagar', 'iva por pagar'], 'pasivo');
-    } else if (lower.includes('comision') || lower.includes('comisiÃ³n') || lower.includes('banco')) {
+    } else if (lower.includes('comision') || lower.includes('comisión') || lower.includes('banco')) {
       contrapartida = findCuenta(plan, ['comisiones bancarias', 'gastos bancarios', 'gastos financieros'], 'gasto');
-    } else if (lower.includes('seguro') || lower.includes('pÃ³liza')) {
-      contrapartida = findCuenta(plan, ['seguros', 'gastos de seguros', 'pÃ³lizas'], 'gasto');
+    } else if (lower.includes('seguro') || lower.includes('póliza')) {
+      contrapartida = findCuenta(plan, ['seguros', 'gastos de seguros', 'pólizas'], 'gasto');
     } else if (lower.includes('transferencia enviada') || lower.includes('pago')) {
       contrapartida = findCuenta(plan, ['cuentas por pagar', 'proveedores', 'acreedores'], 'pasivo');
     }
@@ -148,7 +148,7 @@ export async function POST(request: NextRequest) {
     const plan = await getPlanCuentas(session.user.id);
     if (plan.length < 2) {
       return NextResponse.json({
-        error: 'Necesita al menos 2 cuentas en su Plan de Cuentas para generar asientos automÃ¡ticos. Configure su catÃ¡logo contable primero.',
+        error: 'Necesita al menos 2 cuentas en su Plan de Cuentas para generar asientos automáticos. Configure su catálogo contable primero.',
         requiere_plan: true,
       }, { status: 400 });
     }
@@ -182,7 +182,7 @@ export async function POST(request: NextRequest) {
 
         const clasificacion = categorizarMovimiento(String(mov.concepto), String(mov.tipo), plan);
         if (!clasificacion) {
-          errores.push(`Mov #${mov.id}: No se encontrÃ³ cuenta contable para "${String(mov.concepto).substring(0, 40)}"`);
+          errores.push(`Mov #${mov.id}: No se encontró cuenta contable para "${String(mov.concepto).substring(0, 40)}"`);
           omitidos++;
           continue;
         }
@@ -258,7 +258,7 @@ export async function POST(request: NextRequest) {
           || plan.find(c => c.tipo === 'activo' && c.nombre.toLowerCase().includes('cobrar'));
         const cuentaIngreso = findCuenta(plan, ['ventas', 'ingresos por ventas', 'ingreso'], 'ingreso')
           || plan.find(c => c.tipo === 'ingreso');
-        const cuentaIva = iva > 0 ? (findCuenta(plan, ['iva', 'iva por pagar', 'dÃ©bito fiscal'], 'pasivo') || null) : null;
+        const cuentaIva = iva > 0 ? (findCuenta(plan, ['iva', 'iva por pagar', 'débito fiscal'], 'pasivo') || null) : null;
 
         if (!cuentaCxC || !cuentaIngreso) {
           errores.push(`Factura ${fac.numero_factura}: No se encontraron cuentas CxC o Ingresos en el plan`);
@@ -269,7 +269,7 @@ export async function POST(request: NextRequest) {
         try {
           await transaction(async (client) => {
             const numero = `AUTO-F-${Date.now().toString(36).toUpperCase()}-${fac.id}`;
-            const concepto = `Factura ${fac.numero_factura} â€” ${fac.cliente} (${fac.tipo || 'venta'})`;
+            const concepto = `Factura ${fac.numero_factura} — ${fac.cliente} (${fac.tipo || 'venta'})`;
             const refDoc = `factura:${fac.id}`;
 
             const existing = await client.query(
@@ -295,12 +295,12 @@ export async function POST(request: NextRequest) {
               await client.query(
                 `INSERT INTO libro_diario_lineas (asiento_id, cuenta_codigo, cuenta_nombre, descripcion, debe, haber)
                  VALUES ($1, $2, $3, $4, $5, $6)`,
-                [asientoId, cuentaIngreso.codigo, cuentaIngreso.nombre, `Venta neta â€” ${fac.numero_factura}`, 0, subtotal]
+                [asientoId, cuentaIngreso.codigo, cuentaIngreso.nombre, `Venta neta — ${fac.numero_factura}`, 0, subtotal]
               );
               await client.query(
                 `INSERT INTO libro_diario_lineas (asiento_id, cuenta_codigo, cuenta_nombre, descripcion, debe, haber)
                  VALUES ($1, $2, $3, $4, $5, $6)`,
-                [asientoId, cuentaIva.codigo, cuentaIva.nombre, `IVA â€” ${fac.numero_factura}`, 0, iva]
+                [asientoId, cuentaIva.codigo, cuentaIva.nombre, `IVA — ${fac.numero_factura}`, 0, iva]
               );
             } else {
               await client.query(
@@ -327,6 +327,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (err: any) {
     console.error('[auto-asientos] POST error:', err);
-    return NextResponse.json({ error: 'Error al generar asientos automÃ¡ticos' }, { status: 500 });
+    return NextResponse.json({ error: 'Error al generar asientos automáticos' }, { status: 500 });
   }
 }

@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'ECO_RECICLAJE',
     categoria: 'eco',
-    descripcion: `Reciclaje registrado: ${tipo_material} ${peso} kg â†’ +${creditos} ECR`,
+    descripcion: `Reciclaje registrado: ${tipo_material} ${peso} kg → +${creditos} ECR`,
     entidadTipo: 'eco_transaccion',
     entidadId: (tx as { id: number }).id,
     metadata: { tipo_material, peso_kg: peso, eco_creditos: creditos, punto_ameru: punto_ameru ?? null },

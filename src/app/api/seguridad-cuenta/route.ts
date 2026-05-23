@@ -114,7 +114,7 @@ export async function GET(req: NextRequest) {
   const sesionesFormateadas = [
     {
       id: 0,
-      dispositivo: `${navegador} â€” ${sistema}`,
+      dispositivo: `${navegador} — ${sistema}`,
       ip: maskIp(currentIp),
       creada: new Date().toISOString(),
       actual: true,
@@ -131,7 +131,7 @@ export async function GET(req: NextRequest) {
         const parsed = parseUserAgent(l.user_agent);
         return {
           id: idx + 1,
-          dispositivo: `${parsed.navegador} â€” ${parsed.sistema}`,
+          dispositivo: `${parsed.navegador} — ${parsed.sistema}`,
           ip: maskIp(l.ip_address),
           creada: l.created_at,
           actual: false,
@@ -143,19 +143,19 @@ export async function GET(req: NextRequest) {
   const historialFormateado = historial.map(h => {
     let accion = h.operacion;
     const tabla = h.tabla_afectada;
-    if (h.operacion === 'LOGIN') accion = 'Inicio de sesiÃ³n';
-    else if (h.operacion === 'LOGOUT') accion = 'Cierre de sesiÃ³n';
-    else if (h.operacion === 'UPDATE' && tabla === 'users') accion = 'ActualizaciÃ³n de datos de cuenta';
-    else if (h.operacion === 'UPDATE' && tabla === 'configuracion_usuario') accion = 'Cambio de configuraciÃ³n';
+    if (h.operacion === 'LOGIN') accion = 'Inicio de sesión';
+    else if (h.operacion === 'LOGOUT') accion = 'Cierre de sesión';
+    else if (h.operacion === 'UPDATE' && tabla === 'users') accion = 'Actualización de datos de cuenta';
+    else if (h.operacion === 'UPDATE' && tabla === 'configuracion_usuario') accion = 'Cambio de configuración';
     else if (h.operacion === 'INSERT' && tabla === 'facturas') accion = 'Factura emitida';
     else if (h.operacion === 'UPDATE' && tabla === 'facturas') accion = 'Factura actualizada';
-    else if (h.operacion === 'DELETE') accion = `EliminaciÃ³n de registro (${tabla})`;
-    else if (h.operacion === 'INSERT' && tabla === 'notificaciones') accion = 'NotificaciÃ³n generada';
+    else if (h.operacion === 'DELETE') accion = `Eliminación de registro (${tabla})`;
+    else if (h.operacion === 'INSERT' && tabla === 'notificaciones') accion = 'Notificación generada';
     else if (h.operacion === 'INSERT' && tabla === 'clientes') accion = 'Nuevo cliente registrado';
     else if (h.operacion === 'INSERT') accion = `Nuevo registro (${tabla})`;
-    else if (h.operacion === 'UPDATE') accion = `ActualizaciÃ³n (${tabla})`;
-    else if (h.operacion === 'EXPORT') accion = `ExportaciÃ³n de datos (${tabla})`;
-    else if (h.operacion === 'IMPORT') accion = `ImportaciÃ³n de datos (${tabla})`;
+    else if (h.operacion === 'UPDATE') accion = `Actualización (${tabla})`;
+    else if (h.operacion === 'EXPORT') accion = `Exportación de datos (${tabla})`;
+    else if (h.operacion === 'IMPORT') accion = `Importación de datos (${tabla})`;
     else if (h.operacion === 'SELECT') accion = `Consulta de datos (${tabla})`;
 
     return {
@@ -242,7 +242,7 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ success: true, mensaje: 'Todas las sesiones han sido cerradas' });
   }
 
-  return NextResponse.json({ error: 'ParÃ¡metros invÃ¡lidos' }, { status: 400 });
+  return NextResponse.json({ error: 'Parámetros inválidos' }, { status: 400 });
 }
 
 export async function PATCH(req: NextRequest) {
@@ -263,5 +263,5 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: 'Dispositivo no encontrado' }, { status: 404 });
   }
 
-  return NextResponse.json({ error: 'AcciÃ³n no vÃ¡lida' }, { status: 400 });
+  return NextResponse.json({ error: 'Acción no válida' }, { status: 400 });
 }

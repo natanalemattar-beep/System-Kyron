@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ nominas });
   } catch (err) {
     console.error('[nomina] GET error:', err);
-    return NextResponse.json({ error: 'Error al obtener nÃ³minas' }, { status: 500 });
+    return NextResponse.json({ error: 'Error al obtener nóminas' }, { status: 500 });
   }
 }
 
@@ -58,14 +58,14 @@ export async function POST(req: NextRequest) {
     } = body;
 
     if (!periodo || !fecha_inicio || !fecha_fin) {
-      return NextResponse.json({ error: 'PerÃ­odo, fecha inicio y fecha fin son requeridos' }, { status: 400 });
+      return NextResponse.json({ error: 'Período, fecha inicio y fecha fin son requeridos' }, { status: 400 });
     }
 
     const asignaciones = parseFloat(total_asignaciones ?? '0');
     const deducciones = parseFloat(total_deducciones ?? '0');
     const neto = parseFloat(total_neto ?? '0');
     if (!Number.isFinite(asignaciones) || !Number.isFinite(deducciones) || !Number.isFinite(neto)) {
-      return NextResponse.json({ error: 'Montos de nÃ³mina invÃ¡lidos' }, { status: 400 });
+      return NextResponse.json({ error: 'Montos de nómina inválidos' }, { status: 400 });
     }
 
     const [nomina] = await query<{ id: number; periodo: string }>(
@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
       userId: session.user.id,
       evento: 'NOMINA_CREADA',
       categoria: 'nomina',
-      descripcion: `NÃ³mina creada: ${nomina.periodo} â€” Tipo: ${tipo ?? 'quincenal'}`,
+      descripcion: `Nómina creada: ${nomina.periodo} — Tipo: ${tipo ?? 'quincenal'}`,
       entidadTipo: 'nomina',
       entidadId: nomina.id,
       metadata: { periodo, tipo: tipo ?? 'quincenal', estado: estado ?? 'pendiente' },
@@ -136,7 +136,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, nomina });
   } catch (err) {
     console.error('[nomina] POST error:', err);
-    return NextResponse.json({ error: 'Error al crear nÃ³mina' }, { status: 500 });
+    return NextResponse.json({ error: 'Error al crear nómina' }, { status: 500 });
   }
 }
 
@@ -158,14 +158,14 @@ export async function PATCH(req: NextRequest) {
     );
 
     if (!nomina) {
-      return NextResponse.json({ error: 'NÃ³mina no encontrada' }, { status: 404 });
+      return NextResponse.json({ error: 'Nómina no encontrada' }, { status: 404 });
     }
 
     await logActivity({
       userId: session.user.id,
       evento: 'NOMINA_ACTUALIZADA',
       categoria: 'nomina',
-      descripcion: `NÃ³mina ${(nomina as { periodo: string }).periodo} â†’ estado: ${estado}`,
+      descripcion: `Nómina ${(nomina as { periodo: string }).periodo} → estado: ${estado}`,
       entidadTipo: 'nomina',
       entidadId: id,
     });
@@ -173,6 +173,6 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ success: true, nomina });
   } catch (err) {
     console.error('[nomina] PATCH error:', err);
-    return NextResponse.json({ error: 'Error al actualizar nÃ³mina' }, { status: 500 });
+    return NextResponse.json({ error: 'Error al actualizar nómina' }, { status: 500 });
   }
 }

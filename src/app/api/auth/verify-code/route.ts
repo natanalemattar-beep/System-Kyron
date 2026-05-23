@@ -42,7 +42,6 @@ export async function POST(req: NextRequest) {
 
     const normalizedDestino = destino.includes('@') ? sanitizeEmail(destino) : normalizePhone(destino);
 
-    
     console.log(`[verify-code] Iniciando validación para: ${normalizedDestino}`);
 
     const verification = await verifyCode(normalizedDestino, codigo, proposito);
@@ -52,14 +51,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: verification.error }, { status: isRateLimited ? 429 : 401 });
     }
 
-    // Prepare search hash for lookup
-    const searchHash = generateSearchHash(destino);
+    const searchHash = generateSearchHash(normalizedDestino);
 
     const user = await queryOne<DbUser>(
       `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif
        FROM users 
        WHERE email = $1 
-          OR telefono = $1 
           OR telefono_hash = $2
           OR cedula_hash = $2
           OR rif_hash = $2`,

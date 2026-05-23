@@ -21,7 +21,7 @@ export async function GET() {
         return NextResponse.json({ campaigns, lists });
     } catch (err) {
         console.error('[marketing/email-campaigns] GET error:', err);
-        return NextResponse.json({ error: 'Error al obtener campaÃ±as de email' }, { status: 500 });
+        return NextResponse.json({ error: 'Error al obtener campañas de email' }, { status: 500 });
     }
 }
 
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
             userId: session.user.id,
             evento: 'NUEVA_EMAIL_CAMPAIGN',
             categoria: 'marketing',
-            descripcion: `CampaÃ±a email creada: ${nombre}`,
+            descripcion: `Campaña email creada: ${nombre}`,
             entidadTipo: 'email_campaign',
             entidadId: (campaign as { id: number }).id,
         });
@@ -83,6 +83,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: true, campaign });
     } catch (err) {
         console.error('[marketing/email-campaigns] POST error:', err);
-        return NextResponse.json({ error: 'Error al crear campaÃ±a de email' }, { status: 500 });
+        return NextResponse.json({ error: 'Error al crear campaña de email' }, { status: 500 });
     }
 }

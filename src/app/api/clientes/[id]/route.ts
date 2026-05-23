@@ -11,7 +11,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
 
     try {
         const { id } = await params;
-        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
+        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
         const idNum = parseInt(id);
         const cliente = await queryOne(
             `SELECT * FROM clientes WHERE id = $1 AND user_id = $2`,
@@ -30,7 +30,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
     const idNum = parseInt(id);
 
     const existing = await queryOne(`SELECT id FROM clientes WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
@@ -92,7 +92,7 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
     const idNum = parseInt(id);
 
     const existing = await queryOne<{ razon_social?: string; nombre_contacto?: string }>(`SELECT razon_social, nombre_contacto FROM clientes WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);

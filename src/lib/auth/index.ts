@@ -5,7 +5,10 @@ const jwtSecret = process.env.JWT_SECRET;
 
 function getSecret() {
   if (!jwtSecret) {
-    console.error('[auth] JWT_SECRET not configured — authentication will fail');
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('JWT_SECRET no configurado — la autenticación no puede funcionar en producción');
+    }
+    console.error('[auth] JWT_SECRET not configured — using fallback (DEV ONLY)');
     return new TextEncoder().encode('fallback_only_dev_no_prod');
   }
   return new TextEncoder().encode(jwtSecret);

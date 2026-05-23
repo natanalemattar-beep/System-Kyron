@@ -27,8 +27,8 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 // Priority-ordered: first matching module wins
 const MODULE_PATH_MAP: Record<string, string> = {
-    contabilidad: '/resumen-negocio',
-    juridico: '/resumen-negocio',
+    contabilidad: '/dashboard-empresa',
+    juridico: '/dashboard-empresa',
     legal: '/escritorio-juridico',
     ventas: '/punto-de-venta',
     tpv: '/punto-de-venta',
@@ -110,7 +110,7 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
             const res = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ identifier: email, password, portal: 'personal' }),
             });
             const text = await res.text();
             let data;

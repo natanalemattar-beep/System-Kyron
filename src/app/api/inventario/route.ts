@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
 
         if (codigo) {
             const exists = await queryOne(`SELECT id FROM inventario WHERE user_id = $1 AND codigo = $2`, [session.user.id, codigo]);
-            if (exists) return NextResponse.json({ error: 'Ya existe un producto con ese cÃ³digo' }, { status: 409 });
+            if (exists) return NextResponse.json({ error: 'Ya existe un producto con ese código' }, { status: 409 });
         }
 
         const [item] = await query(
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
             userId: session.user.id,
             evento: 'NUEVO_PRODUCTO_INVENTARIO',
             categoria: 'sistema',
-            descripcion: `Producto registrado: ${nombre} â€” CÃ³digo: ${codigo || 'N/A'}`,
+            descripcion: `Producto registrado: ${nombre} — Código: ${codigo || 'N/A'}`,
             entidadTipo: 'inventario',
             entidadId: (item as { id: number }).id,
             metadata: { codigo, nombre, categoria, stock_actual },
@@ -123,7 +123,7 @@ export async function PATCH(req: NextRequest) {
         const { id, stock_actual, precio_costo, precio_venta, stock_minimo } = body;
 
         const parsedId = safeInt(id);
-        if (parsedId <= 0) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
+        if (parsedId <= 0) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
 
         const [item] = await query(
             `UPDATE inventario
@@ -159,7 +159,7 @@ export async function DELETE(req: NextRequest) {
         if (!id) return NextResponse.json({ error: 'ID requerido' }, { status: 400 });
 
         const parsedId = safeInt(id);
-        if (parsedId <= 0) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
+        if (parsedId <= 0) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
 
         await query(
             `UPDATE inventario SET activo = false, updated_at = NOW() WHERE id = $1 AND user_id = $2`,

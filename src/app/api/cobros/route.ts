@@ -52,7 +52,7 @@ import { NextRequest, NextResponse } from "next/server";
       if (!session?.user?.id) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
       const { id, ...updates } = await req.json();
       const safeKeys = Object.keys(updates).filter(k => ALLOWED_FIELDS.has(k));
-      if (!safeKeys.length) return NextResponse.json({ error: "Sin campos vÃ¡lidos" }, { status: 400 });
+      if (!safeKeys.length) return NextResponse.json({ error: "Sin campos válidos" }, { status: 400 });
       const sets = safeKeys.map((k, i) => `${k} = $${i + 3}`).join(', ');
       const vals = safeKeys.map(k => updates[k]);
       const result = await query(

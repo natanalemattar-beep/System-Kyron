@@ -55,9 +55,8 @@ export default function TelecomLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
-          <AIChatButton />
-
-      </div>
-      </ModuleGuard>
-    );
-}
+          <AIChatButton contextKey="telecom" />
+          </div>
+       </ModuleGuard>
+     );
+ }

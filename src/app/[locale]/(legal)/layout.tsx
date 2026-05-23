@@ -71,9 +71,8 @@ export default function LegalLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
-          <AIChatButton />
-
-      </div>
-      </ModuleGuard>
-    );
-}
+          <AIChatButton contextKey={fromAdmin ? "dashboard-asesoria-contable" : "legal"} />
+          </div>
+        </ModuleGuard>
+      );
+  }

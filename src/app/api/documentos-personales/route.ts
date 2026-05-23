@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (!nombre || !categoria) {
-    return NextResponse.json({ error: 'Nombre y categorÃ­a son requeridos' }, { status: 400 });
+    return NextResponse.json({ error: 'Nombre y categoría son requeridos' }, { status: 400 });
   }
 
   const [doc] = await query(

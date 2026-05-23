@@ -11,17 +11,17 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
 
     try {
         const { id } = await params;
-        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
+        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
         const idNum = parseInt(id);
         const campaign = await queryOne(
             `SELECT * FROM email_campaigns WHERE id = $1 AND user_id = $2`,
             [idNum, session.user.id]
         );
-        if (!campaign) return NextResponse.json({ error: 'CampaÃ±a no encontrada' }, { status: 404 });
+        if (!campaign) return NextResponse.json({ error: 'Campaña no encontrada' }, { status: 404 });
         return NextResponse.json({ campaign });
     } catch (err) {
         console.error('[marketing/email-campaigns] GET by id error:', err);
-        return NextResponse.json({ error: 'Error al obtener campaÃ±a' }, { status: 500 });
+        return NextResponse.json({ error: 'Error al obtener campaña' }, { status: 500 });
     }
 }
 
@@ -30,11 +30,11 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
     const idNum = parseInt(id);
 
     const existing = await queryOne(`SELECT id FROM email_campaigns WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
-    if (!existing) return NextResponse.json({ error: 'CampaÃ±a no encontrada' }, { status: 404 });
+    if (!existing) return NextResponse.json({ error: 'Campaña no encontrada' }, { status: 404 });
 
     try {
         const body = await req.json();
@@ -68,7 +68,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
             userId: session.user.id,
             evento: 'ACTUALIZAR_EMAIL_CAMPAIGN',
             categoria: 'marketing',
-            descripcion: `CampaÃ±a email actualizada: ${(updated as { nombre: string }).nombre}`,
+            descripcion: `Campaña email actualizada: ${(updated as { nombre: string }).nombre}`,
             entidadTipo: 'email_campaign',
             entidadId: idNum,
         });
@@ -76,7 +76,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         return NextResponse.json({ success: true, campaign: updated });
     } catch (err) {
         console.error('[marketing/email-campaigns] PUT error:', err);
-        return NextResponse.json({ error: 'Error al actualizar campaÃ±a' }, { status: 500 });
+        return NextResponse.json({ error: 'Error al actualizar campaña' }, { status: 500 });
     }
 }
 
@@ -85,11 +85,11 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
-    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID invÃ¡lido' }, { status: 400 });
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
     const idNum = parseInt(id);
 
     const existing = await queryOne<{ nombre: string }>(`SELECT nombre FROM email_campaigns WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
-    if (!existing) return NextResponse.json({ error: 'CampaÃ±a no encontrada' }, { status: 404 });
+    if (!existing) return NextResponse.json({ error: 'Campaña no encontrada' }, { status: 404 });
 
     try {
         await query(`DELETE FROM email_campaigns WHERE id = $1 AND user_id = $2`, [idNum, session.user.id]);
@@ -98,7 +98,7 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
             userId: session.user.id,
             evento: 'ELIMINAR_EMAIL_CAMPAIGN',
             categoria: 'marketing',
-            descripcion: `CampaÃ±a email eliminada: ${existing.nombre}`,
+            descripcion: `Campaña email eliminada: ${existing.nombre}`,
             entidadTipo: 'email_campaign',
             entidadId: idNum,
         });
@@ -106,6 +106,6 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
         return NextResponse.json({ success: true });
     } catch (err) {
         console.error('[marketing/email-campaigns] DELETE error:', err);
-        return NextResponse.json({ error: 'Error al eliminar campaÃ±a' }, { status: 500 });
+        return NextResponse.json({ error: 'Error al eliminar campaña' }, { status: 500 });
     }
 }

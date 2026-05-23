@@ -11,6 +11,8 @@ export async function GET(req: NextRequest) {
   if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
   const organismoFilter = req.nextUrl.searchParams.get('organismo');
+  const limit = Math.min(parseInt(req.nextUrl.searchParams.get('limit') || '200', 10), 500);
+  const offset = parseInt(req.nextUrl.searchParams.get('offset') || '0', 10);
 
   const permisos = await query(
     `SELECT id, tipo, nombre_permiso, numero_permiso, organismo,
@@ -21,7 +23,14 @@ export async function GET(req: NextRequest) {
                  ELSE NULL END AS dias_para_vencer
      FROM permisos_legales
      WHERE user_id = $1${organismoFilter ? ' AND UPPER(organismo) = UPPER($2)' : ''}
-     ORDER BY estado ASC, fecha_vencimiento ASC NULLS LAST`,
+     ORDER BY estado ASC, fecha_vencimiento ASC NULLS LAST
+     LIMIT ${limit} OFFSET ${offset}`,
+    organismoFilter ? [session.user.id, organismoFilter] : [session.user.id]
+  );
+
+  const [countResult] = await query<{ total: number }>(
+    `SELECT COUNT(*)::int AS total
+     FROM permisos_legales WHERE user_id = $1${organismoFilter ? ' AND UPPER(organismo) = UPPER($2)' : ''}`,
     organismoFilter ? [session.user.id, organismoFilter] : [session.user.id]
   );
 
@@ -37,7 +46,7 @@ export async function GET(req: NextRequest) {
     organismoFilter ? [session.user.id, organismoFilter] : [session.user.id]
   );
 
-  return NextResponse.json({ permisos, stats: stats[0] ?? {} });
+  return NextResponse.json({ permisos, stats: stats[0] ?? {}, total: countResult?.total ?? 0 });
 }
 
 export async function POST(req: NextRequest) {
@@ -80,7 +89,7 @@ export async function POST(req: NextRequest) {
     userId: session.user.id,
     evento: 'NUEVO_PERMISO_LEGAL',
     categoria: 'legal',
-    descripcion: `Permiso legal registrado: ${nombre_permiso} â€” ${organismo}`,
+    descripcion: `Permiso legal registrado: ${nombre_permiso} — ${organismo}`,
     entidadTipo: 'permiso_legal',
     entidadId: permiso.id,
   });

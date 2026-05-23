@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ai } from "@/lib/ai/client";
 
+const MAX_INPUT_LENGTH = 4000;
+const MAX_HISTORY_LENGTH = 8000;
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { message, context, systemPrompt: clientPrompt, history } = body;
+    const { message, systemPrompt: clientPrompt, history } = body;
 
     if (!message || typeof message !== "string") {
       return NextResponse.json(
@@ -13,27 +16,40 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const systemPrompt = clientPrompt || `Eres Kyron AI, el asistente inteligente de System Kyron. 
-System Kyron es una plataforma integral de gestión empresarial que incluye:
-- Contabilidad VEN-NIF (libros legales, tributos, análisis fiscal)
-- Facturación fiscal SENIAT
-- Asesoría Legal (contratos, permisos, litigios)
-- Telecomunicaciones (Mi Línea personal y corporativa)
-- Sostenibilidad y eco-créditos
-- RRHH y nómina
-- CRM y ventas
+    if (message.length > MAX_INPUT_LENGTH) {
+      return NextResponse.json(
+        { error: `Mensaje demasiado largo (máx. ${MAX_INPUT_LENGTH} caracteres)` },
+        { status: 400 }
+      );
+    }
 
-Responde de forma concisa, profesional y en español. Si no sabes algo, dilo honestamente.`;
+    const systemPrompt = clientPrompt || `Eres Kyron Core, la IA central del ecosistema System Kyron. Eres el orquestador principal del sistema. Tienes conocimiento AMPLIO sobre TODOS los módulos:
+
+- Contabilidad VEN-NIF y cumplimiento SENIAT
+- Asesoría Legal y derecho corporativo venezolano
+- RRHH y nómina LOTTT
+- Telecomunicaciones (Mi Línea personal y corporativa)
+- Ventas y CRM
+- Sostenibilidad y eco-créditos
+- Portal de Socios
+- Informática e IT
+- Soporte técnico
+
+Si una consulta requiere una especialidad profunda, indícalo claramente. Responde de forma concisa, profesional y en español. Usa formato markdown. Si no sabes algo, dilo honestamente.`;
 
     const conversationHistory = history || [];
-    const fullPrompt = conversationHistory
+    let historyText = conversationHistory
       .map((m: { role: string; content: string }) => 
         `${m.role === 'user' ? 'Usuario' : 'Asistente'}: ${m.content}`
       )
       .join('\n');
 
-    const finalPrompt = fullPrompt 
-      ? `${fullPrompt}\nUsuario: ${message}`
+    if (historyText.length > MAX_HISTORY_LENGTH) {
+      historyText = historyText.slice(-MAX_HISTORY_LENGTH);
+    }
+
+    const finalPrompt = historyText 
+      ? `${historyText}\nUsuario: ${message}`
       : message;
 
     const response = await ai.generateText(finalPrompt, {

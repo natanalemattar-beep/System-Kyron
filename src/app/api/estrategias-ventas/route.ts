@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const { titulo, descripcion, impacto, plazo, icono } = await req.json();
-    if (!titulo) return NextResponse.json({ error: 'TÃ­tulo requerido' }, { status: 400 });
+    if (!titulo) return NextResponse.json({ error: 'Título requerido' }, { status: 400 });
 
     const [row] = await query(
       `INSERT INTO estrategias_ventas (user_id, titulo, descripcion, impacto, plazo, icono) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,

@@ -1,7 +1,8 @@
 'use client';
 
 import dynamic from "next/dynamic";
-import { AppTopNav } from "@/components/app-top-nav";
+import { AppHeader } from "@/components/app-header";
+import { asesoriaContableNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTransition } from "@/components/ui/motion";
 import { useAuth } from "@/lib/auth/context";
 import { useSetModuleContext } from "@/lib/module-context";
@@ -25,18 +26,19 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
       ? (user?.razon_social || user?.nombre || "Empresa")
       : `${user?.nombre || ""}${user?.apellido ? ' ' + user.apellido : ''}`.trim() || "Usuario";
     const initials = displayName.split(' ').map((w: string) => w[0]).slice(0, 2).join('').toUpperCase() || "US";
+    const userObj = { name: displayName, email: user?.email || "", fallback: initials, color: "bg-primary shadow-glow" };
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-[hsl(170,20%,94%)] via-background to-[hsl(210,22%,92%)] dark:from-[hsl(170,10%,10%)] dark:via-background dark:to-[hsl(210,12%,8%)] text-foreground relative">
           <PageTracker userId={user?.id} />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.03] hud-grid" />
-            <div className="absolute top-0 right-[-10%] w-[900px] h-[900px] bg-emerald-400/[0.06] rounded-full blur-[250px]" />
-            <div className="absolute top-[30%] left-[-5%] w-[700px] h-[700px] bg-cyan-400/[0.05] rounded-full blur-[280px]" />
-            <div className="absolute -bottom-[10%] right-[20%] w-[600px] h-[600px] bg-blue-400/[0.04] rounded-full blur-[200px]" />
+            <div className="absolute top-0 right-[-10%] w-[900px] h-[900px] bg-emerald-400/[0.06] rounded-full blur-[120px]" />
+            <div className="absolute top-[30%] left-[-5%] w-[700px] h-[700px] bg-cyan-400/[0.05] rounded-full blur-[140px]" />
+            <div className="absolute -bottom-[10%] right-[20%] w-[600px] h-[600px] bg-blue-400/[0.04] rounded-full blur-[100px]" />
           </div>
 
-          <AppTopNav />
+          <AppHeader user={userObj} dashboardHref="/dashboard-empresa" navGroups={asesoriaContableNavGroups} />
           
           <main className="w-full p-4 md:p-10 pt-24 md:pt-28 relative z-10">
               <PageTransition className="max-w-[1400px] mx-auto w-full">
@@ -52,10 +54,10 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
           <ScrollToTop />
           <FinancialToolkit />
           <WelcomeTutorial />
-          <AIChatButton />
-      </div>
-    );
-}
+          <AIChatButton contextKey="dashboard-asesoria-contable" />
+          </div>
+     );
+ }
 
 export default function AdminLayout({
   children,

@@ -143,8 +143,8 @@ export async function GET() {
     for (const r of nomRows) {
       const d = diasHasta(r.fecha_pago);
       alertas.push({
-        categoria: "NÃ³mina",
-        label: `${r.tipo} â€” ${r.periodo}`,
+        categoria: "Nómina",
+        label: `${r.tipo} — ${r.periodo}`,
         item: "Pendiente de pago",
         dias: d,
         nivel: d < 0 ? "vencido" : d <= 3 ? "urgente" : "proximo",

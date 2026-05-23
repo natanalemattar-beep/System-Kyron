@@ -24,10 +24,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@/navigation";
 import dynamic from "next/dynamic";
 import { cn, isNetworkError, parseSafeNumber } from "@/lib/utils";
-import { ErrorBoundary } from "@/components/error-boundary";
 import { useToast } from "@/hooks/use-toast";
 import { ModuleTutorial } from "@/components/module-tutorial";
 import { useCurrency } from "@/lib/currency-context";
+import { AiInspectionDropdown } from "@/components/ai-inspection-dropdown";
 import { CurrencySelector } from "@/components/currency-selector";
 import { moduleTutorials } from "@/lib/module-tutorials";
 import { useAuth } from "@/lib/auth/context";
@@ -400,9 +400,7 @@ export default function DashboardEmpresaPage() {
                   <Button onClick={() => { setClosingData(null); setShowCierre(true); }} className="flex-1 sm:flex-none h-14 px-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] text-white font-semibold text-[12px] tracking-wide transition-all font-tech">
                     <Vault className="h-4 w-4 mr-3 text-white/40" /> Cierre Fiscal
                   </Button>
-                  <Link href="/kyron-chat" className="flex-1 sm:flex-none h-14 px-6 rounded-2xl bg-gradient-to-r from-violet-600/20 to-purple-600/20 border border-violet-500/20 hover:from-violet-600/30 hover:to-purple-600/30 text-violet-300 font-semibold text-[12px] tracking-wide transition-all flex items-center justify-center gap-2">
-                    <Sparkles className="h-4 w-4" /> Inspección AI
-                  </Link>
+                  <AiInspectionDropdown />
                 </div>
               </div>
             </div>
@@ -665,7 +663,7 @@ export default function DashboardEmpresaPage() {
           <Card className="border border-border/30 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
             <div className="flex items-center justify-between mb-4">
               <span className="text-sm font-bold text-foreground/70">Últimos Movimientos</span>
-              <Link href="/contabilidad/conciliacion-bancaria">
+              <Link href="/contabilidad/libros">
                 <span className="text-[11px] font-medium text-cyan-400 hover:text-cyan-300 flex items-center gap-1">Ver todos <ChevronRight className="h-3.5 w-3.5" /></span>
               </Link>
             </div>
