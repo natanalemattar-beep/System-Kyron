@@ -619,7 +619,7 @@ const filteredPermisos = useMemo((): { filtered: { org: Organismo; permiso: Perm
 function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; onRegistrar: () => void }) {
   if (permisos.length === 0) {
     return (
-      <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 overflow-hidden">
+      <Card className="rounded-2xl shadow-lg bg-card/40 overflow-hidden">
         <div className="flex flex-col items-center justify-center py-20 px-8 text-center">
           <div className="h-20 w-20 rounded-3xl bg-primary/10 flex items-center justify-center mb-6">
             <ShieldCheck className="h-10 w-10 text-primary/30" />
@@ -656,7 +656,7 @@ function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; 
         const StatusIcon = config.icon;
 
         return (
-          <Card key={p.id} className="rounded-2xl shadow-lg rounded-2xl bg-card/40 overflow-hidden hover:bg-card/60 transition-colors">
+          <Card key={p.id} className="rounded-2xl shadow-lg bg-card/40 overflow-hidden hover:bg-card/60 transition-colors">
             <CardContent className="p-6 flex items-center gap-5">
               <div className={`p-3 rounded-xl ${config.color.split(' ')[0]}`}>
                 <StatusIcon className={`h-5 w-5 ${config.color.split(' ')[1]}`} />
@@ -694,7 +694,7 @@ function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; 
 function PermisosCatalogo({ groups, onGenerarCarta, onPagado, pagadoIds }: { groups: { org: Organismo; permisos: PermisoTipo[] }[]; onGenerarCarta: (p: PermisoTipo, t: 'inscripcion' | 'renovacion') => void; onPagado?: (permisoId: string, planilla: string) => void; pagadoIds?: Set<string> }) {
   if (groups.length === 0) {
     return (
-      <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 p-16 text-center">
+      <Card className="rounded-2xl shadow-lg bg-card/40 p-16 text-center">
         <Search className="h-12 w-12 text-muted-foreground/20 mx-auto mb-4" />
         <p className="text-sm font-bold text-muted-foreground/40 uppercase">No se encontraron permisos con los filtros seleccionados</p>
       </Card>
@@ -779,13 +779,12 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
               <Badge className="text-[7px] font-semibold uppercase bg-emerald-500/15 text-emerald-400 border-emerald-500/20 px-2 shrink-0">
                 PAGADO
               </Badge>
+            </div>
           </div>
-          );
-        })}
+        </div>
       </div>
-    </div>
-  );
-}););
+    );
+  }
 
   return (
     <div className="border-t border-white/5 hover:bg-white/[0.02] transition-all">
@@ -920,7 +919,7 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
 function AlertasSection({ alertas }: { alertas: AlertaDB[] }) {
   if (alertas.length === 0) {
     return (
-      <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 p-16 text-center">
+      <Card className="rounded-2xl shadow-lg bg-card/40 p-16 text-center">
         <CircleCheck className="h-12 w-12 text-emerald-400/30 mx-auto mb-4" />
         <p className="text-lg font-bold text-foreground/60 uppercase">Sin Alertas Pendientes</p>
         <p className="text-[10px] text-muted-foreground/40 mt-2">Todos los permisos registrados están al día. Registre sus permisos para activar el sistema de alertas.</p>
@@ -987,7 +986,7 @@ const DirectorioInstitucional = memo(function DirectorioInstitucional({ organism
 
   return (
     <div className="space-y-6">
-      <Card className="rounded-2xl shadow-lg rounded-2xl bg-blue-500/5 p-5 border border-blue-500/10">
+      <Card className="rounded-2xl shadow-lg bg-blue-500/5 p-5 border border-blue-500/10">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-blue-500/10"><Building2 className="h-4 w-4 text-blue-500" /></div>
           <div>
@@ -1025,7 +1024,7 @@ const DirectorioInstitucional = memo(function DirectorioInstitucional({ organism
           const tc = tipoConfig[org.tipo] || tipoConfig.instituto;
           const c = org.contacto;
           return (
-            <Card key={org.id} className="rounded-2xl shadow-lg rounded-2xl bg-card/40 overflow-hidden hover:bg-card/60 transition-all">
+            <Card key={org.id} className="rounded-2xl shadow-lg bg-card/40 overflow-hidden hover:bg-card/60 transition-all">
               <CardContent className="p-6 space-y-4">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-start gap-4">
@@ -1186,7 +1185,7 @@ function PermisosRequeridosPorSector() {
 
   return (
     <div className="space-y-6">
-      <Card className="rounded-2xl shadow-lg rounded-2xl bg-violet-500/5 p-5 border border-violet-500/10">
+      <Card className="rounded-2xl shadow-lg bg-violet-500/5 p-5 border border-violet-500/10">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-violet-500/10"><Scale className="h-4 w-4 text-violet-500" /></div>
           <div>
@@ -1211,7 +1210,7 @@ function PermisosRequeridosPorSector() {
       </div>
 
       {sectorData && (
-        <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 overflow-hidden">
+        <Card className="rounded-2xl shadow-lg bg-card/40 overflow-hidden">
           <div className="p-6 border-b border-white/5 bg-violet-500/5">
             <p className="font-semibold uppercase text-lg text-foreground/90">Sector: {sectorData.nombre}</p>
             <p className="text-[11px] font-bold text-muted-foreground/50 mt-1 uppercase tracking-widest">{sectorData.permisos.length} permiso(s) obligatorio(s) identificado(s)</p>
@@ -1291,7 +1290,7 @@ Fecha: _____ / _____ / _____`;
 
   return (
     <div className="space-y-6">
-      <Card className="rounded-2xl shadow-lg rounded-2xl bg-rose-500/5 p-5 border border-rose-500/10">
+      <Card className="rounded-2xl shadow-lg bg-rose-500/5 p-5 border border-rose-500/10">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-rose-500/10"><FileWarning className="h-4 w-4 text-rose-500" /></div>
           <div>
@@ -1301,7 +1300,7 @@ Fecha: _____ / _____ / _____`;
         </div>
       </Card>
 
-      <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 overflow-hidden">
+      <Card className="rounded-2xl shadow-lg bg-card/40 overflow-hidden">
         <div className="bg-white m-6 rounded-2xl shadow-inner p-10 font-serif text-slate-900 whitespace-pre-wrap text-sm leading-relaxed text-justify">
           {clausulaTexto}
         </div>
@@ -1330,7 +1329,7 @@ Fecha: _____ / _____ / _____`;
         </div>
       </Card>
 
-      <Card className="rounded-2xl shadow-lg rounded-2xl bg-amber-500/5 p-5 border border-amber-500/10">
+      <Card className="rounded-2xl shadow-lg bg-amber-500/5 p-5 border border-amber-500/10">
         <div className="flex items-start gap-3">
           <TriangleAlert className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
           <div>

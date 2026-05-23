@@ -20,6 +20,7 @@ import {
     Fingerprint,
     Layers,
     ExternalLink,
+    TrendingUp,
 } from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
@@ -27,6 +28,7 @@ import { cn } from '@/lib/utils';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
 import { OfficialSeal } from '@/components/brand/OfficialSeal';
 import { InstagramPost } from '@/components/brand/InstagramPost';
+import { PasswordGate } from '@/components/password-gate';
 
 interface Resource {
     id: string;
@@ -133,11 +135,24 @@ const RESOURCES: Resource[] = [
         size: 'normal',
         gradient: 'from-fuchsia-900/40 via-purple-900/20 to-transparent',
         image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=600&auto=format'
+    },
+    {
+        id: 'permisos',
+        title: 'Permisos Requeridos',
+        description: 'Matriz completa de permisos, licencias y habilitaciones que System Kyron debe gestionar en Venezuela.',
+        icon: ShieldCheck,
+        href: '/brand-kit/permisos-system-kyron',
+        color: 'from-cyan-500 to-blue-600',
+        tag: 'CUMPLIMIENTO',
+        type: 'internal',
+        size: 'normal',
+        gradient: 'from-cyan-900/40 via-blue-900/20 to-transparent',
+        image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format'
     }
 ];
 
 const METRICS = [
-    { label: 'Recursos', value: '6', icon: Layers },
+    { label: 'Recursos', value: '8', icon: Layers },
     { label: 'Estado', value: 'Verificado', icon: ShieldCheck },
     { label: 'Core', value: 'v2.8', icon: Cpu },
     { label: 'Latencia', value: '<1ms', icon: Zap },
@@ -164,6 +179,7 @@ export default function BrandKitPage() {
     if (!mounted) return null;
 
     return (
+        <PasswordGate title="Brand Kit System Kyron">
         <div className="min-h-screen bg-[#020617] text-white font-[family-name:var(--font-outfit)] selection:bg-cyan-500/30 overflow-x-hidden">
             <ResourceHeader />
             
@@ -385,6 +401,7 @@ export default function BrandKitPage() {
                 </motion.div>
             </main>
         </div>
+        </PasswordGate>
     );
 }
 
