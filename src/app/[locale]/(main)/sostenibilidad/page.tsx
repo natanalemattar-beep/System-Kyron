@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ModuleTutorial } from "@/components/module-tutorial";
-import { moduleTutorials } from "@/lib/module-tutorials";
-import { Recycle, Leaf, MapPin, Coins, ShieldCheck, Zap, Cpu, Battery, Wifi, Download, Activity, Terminal, Loader2, Plus } from "lucide-react";
+import { Recycle, Leaf, MapPin, Coins, ShieldCheck, Zap, Cpu, Battery, Wifi, Download, Activity, Terminal, Loader2, Plus, Home, TreePine, Droplets } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,11 +9,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 import placeholderImagesData from "@/lib/placeholder-images.json";
+import { getModuleContext } from "@/lib/module-context";
 
 const PlaceHolderImages = placeholderImagesData.placeholderImages;
 
@@ -42,6 +40,8 @@ const MATERIALES = [
   { value: 'aluminio', label: 'Aluminio' },
   { value: 'carton', label: 'Cartón' },
   { value: 'organico', label: 'Orgánico' },
+  { value: 'ropa', label: 'Ropa / Textil' },
+  { value: 'electronico', label: 'Electrónicos' },
 ];
 
 const NIVEL_COLORS: Record<string, string> = {
@@ -61,7 +61,11 @@ export default function SostenibilidadPage() {
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState(emptyForm);
+  const [mode, setMode] = useState<'personal' | 'empresa'>(() => {
+    try { return getModuleContext() === 'natural' ? 'personal' : 'empresa'; } catch { return 'empresa'; }
+  });
   const ameruImage = PlaceHolderImages.find(img => img.id === "ameru-ia-bin");
+  const esPersonal = mode === 'personal';
 
   const fetchData = useCallback(async () => {
     try {
@@ -114,7 +118,7 @@ export default function SostenibilidadPage() {
       <div className="flex items-center justify-center min-h-[50vh]">
         <div className="text-center space-y-3">
           <Loader2 className="h-8 w-8 text-secondary animate-spin mx-auto" />
-          <p className="text-xs text-muted-foreground">Cargando datos ambientales...</p>
+          <p className="text-xs text-muted-foreground">{esPersonal ? 'Cargando tu huella ecológica...' : 'Cargando datos ambientales...'}</p>
         </div>
       </div>
     );
@@ -122,18 +126,26 @@ export default function SostenibilidadPage() {
 
   return (
     <div className="space-y-10 pb-20">
-      <ModuleTutorial config={moduleTutorials["sostenibilidad"]} />
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-secondary/10 border border-secondary/20 text-[11px] font-semibold uppercase tracking-wide text-secondary mb-4">
-            <Leaf className="h-3 w-3" /> ÁREA SUSTENTABLE
+          <div className="flex items-center gap-3 mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-secondary/10 border border-secondary/20 text-[11px] font-semibold uppercase tracking-wide text-secondary">
+              <Leaf className="h-3 w-3" /> {esPersonal ? 'MI HUELLA VERDE' : 'ÁREA SUSTENTABLE'}
+            </div>
+            <button
+              onClick={() => setMode(esPersonal ? 'empresa' : 'personal')}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[9px] font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
+            >
+              <ShieldCheck className="h-3 w-3" />
+              {esPersonal ? 'Versión Empresa' : 'Versión Personal'}
+            </button>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase">Impacto <span className="text-secondary italic">Ambiental</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">Gestión de Activos Verdes • Ameru IA Ecosystem 2026</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase">{esPersonal ? 'Sostenibilidad' : 'Impacto'} <span className="text-secondary italic">{esPersonal ? 'Personal' : 'Ambiental'}</span></h1>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">{esPersonal ? 'Tu impacto ambiental • Eco-Créditos • Ameru IA 2026' : 'Gestión de Activos Verdes • Ameru IA Ecosystem 2026'}</p>
         </div>
         <div className="flex gap-3">
           <Button onClick={() => { setForm(emptyForm); setShowForm(true); }} size="sm" className="h-9 px-4 rounded-xl text-xs font-semibold bg-secondary hover:bg-secondary/90 text-white">
-            <Plus className="mr-1.5 h-3.5 w-3.5" /> Registrar Reciclaje
+            <Plus className="mr-1.5 h-3.5 w-3.5" /> {esPersonal ? 'Reciclar' : 'Registrar Reciclaje'}
           </Button>
           <Button variant="outline" className="h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-wider" onClick={() => window.print()}>
             <Download className="mr-2 h-3.5 w-3.5" /> Exportar
@@ -141,54 +153,81 @@ export default function SostenibilidadPage() {
         </div>
       </header>
 
-      <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden group">
-        <div className="p-6 md:p-10 grid lg:grid-cols-2 gap-10 items-center">
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <Badge className="bg-secondary text-white border-none text-[10px] font-bold px-3 py-1 uppercase tracking-wide">Hardware 3ra Gen</Badge>
-              <h2 className="text-2xl md:text-4xl font-bold tracking-tight uppercase text-foreground leading-none">AMERU <span className="text-secondary">IA</span></h2>
-              <p className="text-sm text-muted-foreground leading-relaxed">La papelera inteligente definitiva para el sector privado. Clasificación autónoma con IA edge.</p>
+      {esPersonal ? (
+        <Card className="glass-card border-none bg-card/50 rounded-2xl">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 rounded-xl bg-primary/10"><Leaf className="h-4 w-4 text-primary" /></div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-foreground">Consejos para tu hogar</p>
+                <p className="text-[10px] text-muted-foreground">Pequeñas acciones, gran impacto ambiental</p>
+              </div>
             </div>
-
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
               {[
-                { icon: Zap, label: "Inducción Magnética", desc: "Clasificación síncrona de metales y polímeros." },
-                { icon: Cpu, label: "Inferencia Edge", desc: "Visión artificial para validación en tiempo real." },
-              ].map((feat, i) => (
-                <div key={i} className="space-y-1.5">
-                  <div className="flex items-center gap-2 text-secondary">
-                    <feat.icon className="h-3.5 w-3.5" />
-                    <span className="text-[10px] font-semibold uppercase tracking-wider">{feat.label}</span>
+                { icon: Home, text: 'Separa tus residuos en casa: orgánico, vidrio, plástico y papel.' },
+                { icon: Zap, text: 'Apaga los equipos eléctricos que no uses. Ahorra energía y dinero.' },
+                { icon: Droplets, text: 'Recolecta agua de lluvia para regar plantas y limpiar.' },
+                { icon: TreePine, text: 'Planta un árbol por cada 10 kg reciclados. Kyron te dona uno.' },
+                { icon: Recycle, text: 'Lleva tus electrónicos en desuso a puntos Ameru autorizados.' },
+              ].map((c, i) => (
+                <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-muted/30 border border-border/10">
+                  <div className="p-1.5 rounded-lg bg-primary/10 shrink-0">
+                    <c.icon className="h-3.5 w-3.5 text-primary" />
                   </div>
-                  <p className="text-[11px] text-muted-foreground/50 leading-snug">{feat.desc}</p>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">{c.text}</p>
                 </div>
               ))}
             </div>
-
-            <div className="flex gap-3">
-              <Button className="h-11 px-6 rounded-xl font-bold text-xs uppercase tracking-wider bg-secondary hover:bg-secondary/90 text-white">ORDENAR DISPOSITIVO</Button>
-              <Button variant="outline" className="h-11 px-6 rounded-xl font-bold text-[10px] uppercase tracking-wider">FICHA TÉCNICA</Button>
+          </CardContent>
+        </Card>
+      ) : (
+        <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden group">
+          <div className="p-6 md:p-10 grid lg:grid-cols-2 gap-10 items-center">
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <Badge className="bg-secondary text-white border-none text-[10px] font-bold px-3 py-1 uppercase tracking-wide">Hardware 3ra Gen</Badge>
+                <h2 className="text-2xl md:text-4xl font-bold tracking-tight uppercase text-foreground leading-none">AMERU <span className="text-secondary">IA</span></h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">La papelera inteligente definitiva para el sector privado. Clasificación autónoma con IA edge.</p>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { icon: Zap, label: "Inducción Magnética", desc: "Clasificación síncrona de metales y polímeros." },
+                  { icon: Cpu, label: "Inferencia Edge", desc: "Visión artificial para validación en tiempo real." },
+                ].map((feat, i) => (
+                  <div key={i} className="space-y-1.5">
+                    <div className="flex items-center gap-2 text-secondary">
+                      <feat.icon className="h-3.5 w-3.5" />
+                      <span className="text-[10px] font-semibold uppercase tracking-wider">{feat.label}</span>
+                    </div>
+                    <p className="text-[11px] text-muted-foreground/50 leading-snug">{feat.desc}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-3">
+                <Button className="h-11 px-6 rounded-xl font-bold text-xs uppercase tracking-wider bg-secondary hover:bg-secondary/90 text-white">ORDENAR DISPOSITIVO</Button>
+                <Button variant="outline" className="h-11 px-6 rounded-xl font-bold text-[10px] uppercase tracking-wider">FICHA TÉCNICA</Button>
+              </div>
+            </div>
+            <div className="relative aspect-video rounded-2xl overflow-hidden border border-border/20 bg-muted/10 flex items-center justify-center group-hover:border-secondary/20 transition-all duration-500">
+              {ameruImage && (
+                <Image
+                  src={ameruImage.imageUrl}
+                  alt={ameruImage.description}
+                  fill
+                  className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
+                  data-ai-hint={ameruImage.imageHint}
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+              <div className="relative z-10 flex gap-6 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/70 bg-background/60 backdrop-blur-md px-5 py-2 rounded-full border border-border/20">
+                <span className="flex items-center gap-2"><Battery className="h-3 w-3 text-secondary" /> 100% SOLAR</span>
+                <span className="flex items-center gap-2"><Wifi className="h-3 w-3 text-secondary" /> 5G NATIVE</span>
+              </div>
             </div>
           </div>
-
-          <div className="relative aspect-video rounded-2xl overflow-hidden border border-border/20 bg-muted/10 flex items-center justify-center group-hover:border-secondary/20 transition-all duration-500">
-            {ameruImage && (
-              <Image
-                src={ameruImage.imageUrl}
-                alt={ameruImage.description}
-                fill
-                className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
-                data-ai-hint={ameruImage.imageHint}
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
-            <div className="relative z-10 flex gap-6 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/70 bg-background/60 backdrop-blur-md px-5 py-2 rounded-full border border-border/20">
-              <span className="flex items-center gap-2"><Battery className="h-3 w-3 text-secondary" /> 100% SOLAR</span>
-              <span className="flex items-center gap-2"><Wifi className="h-3 w-3 text-secondary" /> 5G NATIVE</span>
-            </div>
-          </div>
-        </div>
-      </Card>
+        </Card>
+      )}
 
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         {[
@@ -297,6 +336,16 @@ export default function SostenibilidadPage() {
           </Card>
         </div>
       </div>
+
+      {esPersonal && (
+        <div className="flex items-center justify-center p-8 rounded-2xl bg-primary/5 border border-primary/10">
+          <div className="text-center space-y-2">
+            <TreePine className="h-8 w-8 text-primary mx-auto" />
+            <p className="text-sm font-semibold text-foreground">Por cada 10 kg reciclados, System Kyron planta un árbol</p>
+            <p className="text-[10px] text-muted-foreground">Acumula {10 - (totalKg % 10)} kg más para tu próximo árbol</p>
+          </div>
+        </div>
+      )}
 
       <Dialog open={showForm} onOpenChange={setShowForm}>
         <DialogContent className="sm:max-w-md rounded-2xl">
