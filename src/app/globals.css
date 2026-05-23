@@ -20,7 +20,53 @@ body::after {
 
 @layer base {
   :root {
-    /* Kyron Dark Palette - Standardized */
+    /* Kyron Light Palette */
+    --background: 210 20% 98%;
+    --foreground: 222 20% 18%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 222 20% 18%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 20% 18%;
+    
+    --primary: 191 85% 42%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 210 16% 93%;
+    --secondary-foreground: 222 20% 18%;
+    
+    --muted: 210 14% 95%;
+    --muted-foreground: 215 14% 46%;
+    
+    --accent: 156 70% 40%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 214 16% 86%;
+    --input: 214 16% 86%;
+    --ring: 191 85% 42%;
+    
+    --radius: 1rem;
+    
+    /* Kyron Custom Palette - Light Mode */
+    --kyron-deep: 222 20% 18%;
+    --kyron-cyan: 191 85% 42%;
+    --kyron-emerald: 156 70% 40%;
+    --kyron-indigo: 239 70% 55%;
+    --kyron-gold: 45 85% 45%;
+    --kyron-violet: 270 70% 55%;
+    
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(34, 211, 238, 0.3);
+    --glass-shadow: rgba(0, 0, 0, 0.08);
+    --glass-highlight: rgba(255, 255, 255, 0.9);
+  }
+
+  .dark {
+    /* Kyron Dark Palette */
     --background: 222 47% 4%;
     --foreground: 213 31% 91%;
     
@@ -30,7 +76,7 @@ body::after {
     --popover: 222 47% 4%;
     --popover-foreground: 213 31% 91%;
     
-    --primary: 191 95% 55%; /* Brighter Neon Cyan */
+    --primary: 191 95% 55%;
     --primary-foreground: 222 47% 4%;
     
     --secondary: 217 33% 17%;
@@ -39,7 +85,7 @@ body::after {
     --muted: 217 33% 12%;
     --muted-foreground: 215 20% 65%;
     
-    --accent: 156 85% 50%; /* Brighter Emerald */
+    --accent: 156 85% 50%;
     --accent-foreground: 222 47% 4%;
     
     --destructive: 0 84% 60%;
@@ -51,7 +97,7 @@ body::after {
     
     --radius: 1rem;
     
-    /* Kyron Custom Palette */
+    /* Kyron Custom Palette - Dark Mode */
     --kyron-deep: 222 47% 4%;
     --kyron-cyan: 191 95% 55%;
     --kyron-emerald: 156 85% 50%;
@@ -63,12 +109,6 @@ body::after {
     --glass-border: rgba(34, 211, 238, 0.2);
     --glass-shadow: rgba(0, 0, 0, 0.4);
     --glass-highlight: rgba(255, 255, 255, 0.05);
-  }
-
-  /* Force Dark Mode globally */
-  .dark {
-    --background: 222 47% 4%;
-    --foreground: 213 31% 91%;
   }
 
   html {

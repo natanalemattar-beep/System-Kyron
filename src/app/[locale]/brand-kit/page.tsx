@@ -29,6 +29,7 @@ import { ResourceHeader } from '@/components/brand/ResourceHeader';
 import { OfficialSeal } from '@/components/brand/OfficialSeal';
 import { InstagramPost } from '@/components/brand/InstagramPost';
 import { PasswordGate } from '@/components/password-gate';
+import { useTheme } from "next-themes";
 
 interface Resource {
     id: string;
@@ -163,6 +164,7 @@ export default function BrandKitPage() {
     const [search, setSearch] = useState('');
     const [baseUrl, setBaseUrl] = useState('');
     const [activeHover, setActiveHover] = useState<string | null>(null);
+    const { resolvedTheme } = useTheme();
 
     useEffect(() => {
         setMounted(true);
@@ -178,18 +180,20 @@ export default function BrandKitPage() {
 
     if (!mounted) return null;
 
+    const isDark = resolvedTheme === "dark";
+
     return (
         <PasswordGate title="Brand Kit System Kyron">
-        <div className="min-h-screen bg-[#020617] text-white font-[family-name:var(--font-outfit)] selection:bg-cyan-500/30 overflow-x-hidden">
+        <div className="min-h-screen bg-background text-foreground font-[family-name:var(--font-outfit)] selection:bg-cyan-500/30 overflow-x-hidden">
             <ResourceHeader />
             
             {/* Background - Grid + Glows */}
             <div className="fixed inset-0 pointer-events-none z-0">
-                <div className="absolute inset-0 opacity-[0.03]"
-                     style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
-                <div className="absolute top-[-5%] left-[-5%] w-[700px] h-[700px] bg-blue-600/8 blur-[200px] rounded-full" />
-                <div className="absolute bottom-[5%] right-[-5%] w-[600px] h-[600px] bg-cyan-500/5 blur-[180px] rounded-full" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-600/3 blur-[250px] rounded-full" />
+                <div className="absolute inset-0"
+                     style={{ backgroundImage: `linear-gradient(${isDark ? 'rgba(255,255,255,.1)' : 'rgba(0,0,0,.04)'} 1px, transparent 1px), linear-gradient(90deg, ${isDark ? 'rgba(255,255,255,.1)' : 'rgba(0,0,0,.04)'} 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
+                <div className="absolute top-[-5%] left-[-5%] w-[700px] h-[700px] bg-blue-600/8 dark:bg-blue-600/8 bg-blue-200/40 blur-[200px] rounded-full" />
+                <div className="absolute bottom-[5%] right-[-5%] w-[600px] h-[600px] bg-cyan-500/5 dark:bg-cyan-500/5 bg-cyan-200/30 blur-[180px] rounded-full" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-600/3 dark:bg-indigo-600/3 bg-indigo-200/20 blur-[250px] rounded-full" />
             </div>
 
             <main className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-24">
@@ -201,8 +205,8 @@ export default function BrandKitPage() {
                             animate={{ opacity: 1, x: 0 }}
                             className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 backdrop-blur-md"
                         >
-                            <Sparkles className="h-4 w-4 text-cyan-400" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400">Resource Vault — Kyron Engine</span>
+                            <Sparkles className="h-4 w-4 text-cyan-500 dark:text-cyan-400" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500 dark:text-cyan-400">Resource Vault — Kyron Engine</span>
                         </motion.div>
                         
                         <motion.h1 
@@ -210,15 +214,15 @@ export default function BrandKitPage() {
                             animate={{ opacity: 1, y: 0 }}
                             className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-[0.85]"
                         >
-                            <span className="text-white">Ecosistema de</span><br />
-                            <span className="bg-gradient-to-r from-white via-blue-400 to-cyan-300 bg-clip-text text-transparent">Alta Fidelidad.</span>
+                            <span className="text-foreground">Ecosistema de</span><br />
+                            <span className="bg-gradient-to-r from-foreground via-blue-500 to-cyan-500 dark:from-white dark:via-blue-400 dark:to-cyan-300 bg-clip-text text-transparent">Alta Fidelidad.</span>
                         </motion.h1>
 
                             <motion.p 
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 }}
-                                className="text-zinc-400 text-base lg:text-lg font-medium leading-relaxed max-w-xl"
+                                className="text-muted-foreground text-base lg:text-lg font-medium leading-relaxed max-w-xl"
                             >
                                 Infraestructura centralizada de activos estratégicos System Kyron para la defensa del Reto InspiraVe 2026.
                             </motion.p>
@@ -238,13 +242,13 @@ export default function BrandKitPage() {
                             transition={{ delay: 0.2 }}
                             className="relative max-w-md group"
                         >
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600 group-focus-within:text-cyan-400 transition-colors" />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/60 group-focus-within:text-cyan-500 transition-colors" />
                             <input 
                                 type="text"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 placeholder="Buscar recurso..."
-                                className="w-full h-12 pl-11 pr-4 bg-white/[0.03] border border-white/10 rounded-xl focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/10 text-sm font-bold transition-all placeholder:text-zinc-700"
+                                className="w-full h-12 pl-11 pr-4 bg-muted dark:bg-white/[0.03] border border-border dark:border-white/10 rounded-xl focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/10 text-sm font-bold transition-all placeholder:text-muted-foreground/40"
                             />
                         </motion.div>
                     </div>
@@ -256,28 +260,28 @@ export default function BrandKitPage() {
                         transition={{ delay: 0.3 }}
                         className="relative shrink-0 w-full lg:w-80"
                     >
-                        <div className="absolute -inset-4 bg-gradient-to-br from-blue-600/10 to-cyan-500/10 blur-3xl rounded-[3rem]" />
-                        <div className="relative bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[2rem] p-8 space-y-6">
-                            <div className="text-center space-y-2 pb-6 border-b border-white/5">
+                        <div className="absolute -inset-4 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 blur-3xl rounded-[3rem]" />
+                        <div className="relative bg-card dark:bg-white/[0.03] backdrop-blur-3xl border border-border dark:border-white/10 rounded-[2rem] p-8 space-y-6">
+                            <div className="text-center space-y-2 pb-6 border-b border-border dark:border-white/5">
                                 <div className="inline-flex p-3 bg-cyan-500/10 rounded-2xl border border-cyan-500/20">
-                                    <ShieldCheck className="h-6 w-6 text-cyan-400" />
+                                    <ShieldCheck className="h-6 w-6 text-cyan-500 dark:text-cyan-400" />
                                 </div>
-                                <h3 className="text-lg font-black tracking-tight">System Kyron</h3>
-                                <p className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest">Verificado · Core Activo</p>
+                                <h3 className="text-lg font-black tracking-tight text-foreground">System Kyron</h3>
+                                <p className="text-[10px] font-bold text-cyan-500 dark:text-cyan-400 uppercase tracking-widest">Verificado · Core Activo</p>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 {METRICS.map((m) => (
-                                    <div key={m.label} className="text-center p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                                        <m.icon className="h-4 w-4 text-zinc-600 mx-auto mb-1.5" />
-                                        <p className="text-lg font-black text-white">{m.value}</p>
-                                        <p className="text-[9px] font-bold uppercase tracking-widest text-zinc-500">{m.label}</p>
+                                    <div key={m.label} className="text-center p-3 rounded-xl bg-muted dark:bg-white/[0.02] border border-border dark:border-white/5">
+                                        <m.icon className="h-4 w-4 text-muted-foreground/60 mx-auto mb-1.5" />
+                                        <p className="text-lg font-black text-foreground">{m.value}</p>
+                                        <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">{m.label}</p>
                                     </div>
                                 ))}
                             </div>
                             {baseUrl && (
                                 <div className="flex items-center justify-center gap-2 pt-1">
                                     <Lock className="h-3 w-3 text-emerald-500" />
-                                    <span className="text-[9px] font-bold text-emerald-500/70 uppercase tracking-widest">Conexión Segura</span>
+                                    <span className="text-[9px] font-bold text-emerald-600 dark:text-emerald-500/70 uppercase tracking-widest">Conexión Segura</span>
                                 </div>
                             )}
                         </div>
@@ -311,11 +315,11 @@ export default function BrandKitPage() {
                                 exit={{ opacity: 0 }}
                                 className="col-span-full flex flex-col items-center justify-center py-24 text-center"
                             >
-                                <Search className="h-12 w-12 text-zinc-700 mb-4" />
-                                <h3 className="text-2xl font-black tracking-tight text-zinc-500 italic">
+                                <Search className="h-12 w-12 text-muted-foreground/30 mb-4" />
+                                <h3 className="text-2xl font-black tracking-tight text-muted-foreground italic">
                                     Sin resultados
                                 </h3>
-                                <p className="text-zinc-600 text-sm font-medium mt-2">
+                                <p className="text-muted-foreground/60 text-sm font-medium mt-2">
                                     No hay recursos que coincidan con &ldquo;{search}&rdquo;
                                 </p>
                             </motion.div>
@@ -332,17 +336,17 @@ export default function BrandKitPage() {
                     className="flex flex-col items-center justify-center py-20 mt-16 scroll-mt-32"
                 >
                     <div className="max-w-2xl mx-auto text-center mb-10 space-y-4">
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10">
-                            <Instagram className="h-3.5 w-3.5 text-fuchsia-400" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-fuchsia-400">@systemkyron</span>
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-muted dark:bg-white/5 border border-border dark:border-white/10">
+                            <Instagram className="h-3.5 w-3.5 text-fuchsia-500 dark:text-fuchsia-400" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-fuchsia-500 dark:text-fuchsia-400">@systemkyron</span>
                         </div>
-                        <h2 className="text-4xl lg:text-5xl font-black tracking-tight">
+                        <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-foreground">
                             Post para{" "}
-                            <span className="bg-gradient-to-r from-fuchsia-400 to-purple-500 bg-clip-text text-transparent">
+                            <span className="bg-gradient-to-r from-fuchsia-500 to-purple-500 dark:from-fuchsia-400 dark:to-purple-500 bg-clip-text text-transparent">
                                 Instagram
                             </span>
                         </h2>
-                        <p className="text-zinc-500 text-sm font-medium leading-relaxed max-w-md mx-auto">
+                        <p className="text-muted-foreground text-sm font-medium leading-relaxed max-w-md mx-auto">
                             Publicación institucional 1080×1080. Descarga el PNG y publícalo directamente en tu feed.
                         </p>
                     </div>
@@ -357,14 +361,14 @@ export default function BrandKitPage() {
                     className="flex flex-col items-center justify-center py-20 mt-16"
                 >
                     <div className="max-w-2xl mx-auto text-center mb-10 space-y-4">
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10">
-                            <Fingerprint className="h-3.5 w-3.5 text-cyan-400" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400">Autenticación Oficial</span>
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-muted dark:bg-white/5 border border-border dark:border-white/10">
+                            <Fingerprint className="h-3.5 w-3.5 text-cyan-500 dark:text-cyan-400" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500 dark:text-cyan-400">Autenticación Oficial</span>
                         </div>
-                        <h2 className="text-4xl lg:text-5xl font-black tracking-tight">
-                            Sello <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Oficial</span>
+                        <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-foreground">
+                            Sello <span className="bg-gradient-to-r from-cyan-500 to-blue-500 dark:from-cyan-400 dark:to-blue-500 bg-clip-text text-transparent">Oficial</span>
                         </h2>
-                        <p className="text-zinc-500 text-sm font-medium leading-relaxed max-w-md mx-auto">
+                        <p className="text-muted-foreground text-sm font-medium leading-relaxed max-w-md mx-auto">
                             Certificación notarial digital para autenticación de documentos, contratos y comunicaciones institucionales.
                         </p>
                     </div>
@@ -376,22 +380,22 @@ export default function BrandKitPage() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8 }}
-                    className="mt-20 pt-10 border-t border-white/5 flex flex-col lg:flex-row justify-between items-center gap-8"
+                    className="mt-20 pt-10 border-t border-border dark:border-white/5 flex flex-col lg:flex-row justify-between items-center gap-8"
                 >
                     <div className="flex items-center gap-5">
-                        <div className="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
-                            <Eye className="h-5 w-5 text-cyan-400" />
+                        <div className="h-12 w-12 rounded-xl bg-muted dark:bg-white/5 flex items-center justify-center border border-border dark:border-white/10">
+                            <Eye className="h-5 w-5 text-cyan-500 dark:text-cyan-400" />
                         </div>
                         <div>
-                            <p className="text-base font-black tracking-tight">Confidencialidad</p>
-                            <p className="text-sm font-medium text-zinc-500">Activos optimizados para entornos de alta demanda.</p>
+                            <p className="text-base font-black tracking-tight text-foreground">Confidencialidad</p>
+                            <p className="text-sm font-medium text-muted-foreground">Activos optimizados para entornos de alta demanda.</p>
                         </div>
                     </div>
                     <div className="flex flex-wrap justify-center gap-3">
                         {METRICS.map((m) => (
-                            <div key={m.label} className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10">
-                                <m.icon className="h-3.5 w-3.5 text-zinc-500" />
-                                <span className="text-[9px] font-black uppercase tracking-widest text-zinc-400">{m.value} {m.label}</span>
+                            <div key={m.label} className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-muted dark:bg-white/5 border border-border dark:border-white/10">
+                                <m.icon className="h-3.5 w-3.5 text-muted-foreground" />
+                                <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">{m.value} {m.label}</span>
                             </div>
                         ))}
                         <Link href="/sector-privado-system-kyron" className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl text-[9px] font-black uppercase tracking-widest transition-all shadow-lg shadow-cyan-600/20">
@@ -418,7 +422,7 @@ function ResourceCard({ resource: res, isActive }: { resource: Resource; isActiv
                 res.color
             )} />
             
-            <div className="h-full relative rounded-[2rem] overflow-hidden border border-white/[0.06] group-hover:border-white/20 transition-all duration-500 bg-white/[0.02]">
+            <div className="h-full relative rounded-[2rem] overflow-hidden border border-border dark:border-white/[0.06] group-hover:border-border/80 dark:group-hover:border-white/20 transition-all duration-500 bg-card dark:bg-white/[0.02]">
                 {/* Background Image */}
                 <div className={cn(
                     "absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700",
@@ -441,18 +445,18 @@ function ResourceCard({ resource: res, isActive }: { resource: Resource; isActiv
                                 "h-14 w-14 rounded-2xl flex items-center justify-center border transition-all duration-500",
                                 isActive 
                                     ? "bg-cyan-500/20 border-cyan-500/40 shadow-lg shadow-cyan-500/20" 
-                                    : "bg-white/5 border-white/10"
+                                    : "bg-muted dark:bg-white/5 border-border dark:border-white/10"
                             )}>
                                 <Icon className={cn(
                                     "h-7 w-7 transition-all duration-500",
-                                    isActive ? "text-cyan-300 scale-110" : "text-white"
+                                    isActive ? "text-cyan-500 dark:text-cyan-300 scale-110" : "text-foreground"
                                 )} />
                             </div>
                             <span className={cn(
                                 "px-3 py-1 rounded-full border text-[9px] font-black uppercase tracking-widest transition-all duration-500",
                                 isActive 
-                                    ? "bg-cyan-500/15 border-cyan-500/30 text-cyan-300" 
-                                    : "bg-white/5 border-white/10 text-zinc-500"
+                                    ? "bg-cyan-500/15 border-cyan-500/30 text-cyan-500 dark:text-cyan-300" 
+                                    : "bg-muted dark:bg-white/5 border-border dark:border-white/10 text-muted-foreground"
                             )}>
                                 {res.tag}
                             </span>
@@ -461,37 +465,37 @@ function ResourceCard({ resource: res, isActive }: { resource: Resource; isActiv
                         <div className="space-y-3">
                             <h3 className={cn(
                                 "text-2xl lg:text-3xl font-black tracking-tight leading-tight transition-colors duration-500",
-                                isActive ? "text-cyan-200" : "text-white"
+                                isActive ? "text-cyan-500 dark:text-cyan-200" : "text-foreground"
                             )}>
                                 {res.title}
                             </h3>
-                            <p className="text-zinc-500 text-sm font-medium leading-relaxed">
+                            <p className="text-muted-foreground text-sm font-medium leading-relaxed">
                                 {res.description}
                             </p>
                         </div>
                     </div>
 
-                    <div className="mt-10 pt-6 border-t border-white/5">
+                    <div className="mt-10 pt-6 border-t border-border dark:border-white/5">
                         {res.type === 'internal' ? (
                             <Link href={res.href as unknown as Parameters<typeof Link>[0]['href']} className="flex items-center justify-between w-full group/link">
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 group-hover/link:text-cyan-400 transition-colors">Abrir recurso</span>
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground group-hover/link:text-cyan-500 dark:group-hover/link:text-cyan-400 transition-colors">Abrir recurso</span>
                                 <div className={cn(
                                     "h-10 w-10 rounded-xl flex items-center justify-center transition-all shadow-xl",
                                     isActive 
                                         ? "bg-cyan-500 text-white" 
-                                        : "bg-white/10 group-hover/link:bg-white group-hover/link:text-black"
+                                        : "bg-muted dark:bg-white/10 group-hover/link:bg-cyan-500 group-hover/link:text-white"
                                 )}>
                                     <ArrowRight className="h-4 w-4" />
                                 </div>
                             </Link>
                         ) : (
                             <a href={res.href} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between w-full group/link">
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 group-hover/link:text-cyan-400 transition-colors">Recurso externo</span>
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground group-hover/link:text-cyan-500 dark:group-hover/link:text-cyan-400 transition-colors">Recurso externo</span>
                                 <div className={cn(
                                     "h-10 w-10 rounded-xl flex items-center justify-center transition-all shadow-xl",
                                     isActive 
                                         ? "bg-cyan-500 text-white" 
-                                        : "bg-white/10 group-hover/link:bg-cyan-500 group-hover/link:text-white"
+                                        : "bg-muted dark:bg-white/10 group-hover/link:bg-cyan-500 group-hover/link:text-white"
                                 )}>
                                     {res.id === 'instagram' ? <Instagram className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />}
                                 </div>
