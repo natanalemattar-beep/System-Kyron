@@ -99,7 +99,7 @@ export default function IvssSeguroSocialPage() {
         setAiMessages(prev => [...prev, { role: "ai", content: json.respuesta || "Procesado correctamente." }]);
         if (json.exito) fetchData();
       } else {
-        setAiMessages(prev => [...prev, { role: "ai", content: "No pude procesar tu solicitud. Intenta de nuevo." }]);
+        setAiMessages(prev => [...prev, { role: "ai", content: json.error || "No pude procesar tu solicitud. Intenta de nuevo." }]);
       }
     } catch {
       setAiMessages(prev => [...prev, { role: "ai", content: "Error de conexión. Revisa tu señal." }]);
