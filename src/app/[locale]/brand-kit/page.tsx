@@ -49,7 +49,7 @@ const RESOURCES: Resource[] = [
         title: 'Sector Privado',
         description: 'Manual corporativo del ecosistema System Kyron: módulos, servicios, estructura legal, cumplimiento normativo y proyecciones.',
         icon: Building2,
-        href: '/sector-privado-system-kyron',
+        href: '/triptico',
         color: 'from-cyan-500 to-blue-600',
         tag: 'MANUAL',
         type: 'internal',
@@ -383,7 +383,7 @@ export default function BrandKitPage() {
                                 <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">{m.value} {m.label}</span>
                             </div>
                         ))}
-                        <Link href="/sector-privado-system-kyron" className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl text-[9px] font-black uppercase tracking-widest transition-all shadow-lg shadow-cyan-600/20">
+                        <Link href="/triptico" className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl text-[9px] font-black uppercase tracking-widest transition-all shadow-lg shadow-cyan-600/20">
                             Manual <ArrowRight className="h-3.5 w-3.5" />
                         </Link>
                     </div>

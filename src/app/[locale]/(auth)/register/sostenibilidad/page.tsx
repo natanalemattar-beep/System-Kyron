@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useState, useEffect, useCallback } from 'react';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter } from '@/navigation';
@@ -11,21 +11,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
     Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
-    Leaf, Check, ShieldCheck, Mail, RefreshCw, Smartphone, Building, User, Lock,
-    Recycle, CloudSun, Globe, TreePine, Sparkles,
+    Leaf, Check, ShieldCheck, Mail, User, Lock, Recycle, Globe,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { useAuth } from '@/lib/auth/context';
-import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
-import { DocumentInput } from '@/components/document-input';
 
 const schema = z.object({
-    razonSocial: z.string().min(3, 'Ingrese la razón social'),
-    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50832149-9'),
     nombre: z.string().min(2, 'Ingrese su nombre'),
     apellido: z.string().min(2, 'Ingrese su apellido'),
+    cedula: z.string().min(6, 'Cédula inválida').max(10, 'Cédula inválida'),
     email: z.string().email('Correo inválido'),
     telefono: z.string().min(7, 'Teléfono inválido'),
     password: z.string()
@@ -43,8 +39,8 @@ type FormData = z.infer<typeof schema>;
 const TOTAL_STEPS = 4;
 
 const stepConfig = [
-    { title: 'Empresa', desc: 'Identidad Verde', icon: Leaf },
-    { title: 'Representante', desc: 'Gestion de Impacto', icon: User },
+    { title: 'Datos', desc: 'Identidad Verde', icon: User },
+    { title: 'Acceso', desc: 'Tu Portal', icon: Lock },
     { title: 'Verificar', desc: 'Confirmación', icon: Mail },
     { title: 'Listo', desc: 'Activado', icon: CircleCheck },
 ];
@@ -71,12 +67,13 @@ export default function RegisterSostenibilidadPage() {
 
     useVerificationPoll(verifDestino, verifSent && !verifVerified, onMagicLinkVerified);
 
-    const { register, handleSubmit, control, watch, setValue, trigger, getValues, formState: { errors } } = useForm<FormData>({
+    const { register, handleSubmit, trigger, getValues, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
         mode: 'onChange',
         defaultValues: {
-            rif: searchParams.get('doc') || '',
-            razonSocial: searchParams.get('razon') || '',
+            nombre: searchParams.get('nombre') || '',
+            apellido: searchParams.get('apellido') || '',
+            cedula: searchParams.get('doc') || '',
         },
     });
 
@@ -137,12 +134,12 @@ export default function RegisterSostenibilidadPage() {
 
     const nextStep = async () => {
         if (step === 1) {
-            const valid = await trigger(['razonSocial', 'rif']);
+            const valid = await trigger(['nombre', 'apellido', 'cedula']);
             if (valid) setStep(2);
             return;
         }
         if (step === 2) {
-            const valid = await trigger(['nombre', 'apellido', 'email', 'telefono', 'password', 'confirmPassword']);
+            const valid = await trigger(['email', 'telefono', 'password', 'confirmPassword']);
             if (!valid) return;
             if (!acceptTerms) {
                 toast({ title: 'Términos requeridos', variant: 'destructive' });
@@ -163,7 +160,7 @@ export default function RegisterSostenibilidadPage() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    tipo: 'juridico',
+                    tipo: 'natural',
                     ...data,
                     modules: [
                         { id: 'sostenibilidad', label: 'Sostenibilidad' },
@@ -171,7 +168,6 @@ export default function RegisterSostenibilidadPage() {
                         { id: 'ameru-ia', label: 'Ameru IA' }
                     ],
                     plan: 'personal',
-                    // Details deferred
                 }),
             });
             if (!res.ok) {
@@ -189,23 +185,20 @@ export default function RegisterSostenibilidadPage() {
 
     return (
         <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-emerald-50 via-green-50/30 to-slate-50 dark:from-slate-950 dark:via-emerald-900/10 dark:to-slate-950">
-            {/* Ambient Background Elements */}
             <div className="absolute top-[-200px] left-[-100px] w-[600px] h-[600px] rounded-full opacity-30 pointer-events-none" style={{ background: 'radial-gradient(circle, #10b98120 0%, transparent 70%)' }} />
             <div className="absolute bottom-[-200px] right-[-100px] w-[700px] h-[700px] rounded-full opacity-30 pointer-events-none" style={{ background: 'radial-gradient(circle, #05966920 0%, transparent 70%)' }} />
 
             <div className="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center min-h-screen max-w-xl">
-                {/* Header Branding */}
                 <div className="flex items-center gap-4 mb-8">
                     <div className="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 shadow-lg shadow-emerald-500/30 text-white">
                         <Leaf className="h-7 w-7" />
                     </div>
                     <div>
                         <h1 className="text-2xl font-bold uppercase tracking-[0.1em] text-slate-800 dark:text-slate-100 italic">Sostenibilidad</h1>
-                        <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600">System Kyron • Green Impact</p>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600">System Kyron • Personal</p>
                     </div>
                 </div>
 
-                {/* Progress Steps */}
                 {step < TOTAL_STEPS && (
                     <div className="flex items-center gap-0 mb-10 w-full max-w-md mx-auto">
                         {stepConfig.slice(0, 3).map((s, i) => {
@@ -239,37 +232,36 @@ export default function RegisterSostenibilidadPage() {
                             {step === 1 && (
                                 <div className="space-y-6">
                                     <div className="text-center space-y-1 mb-4">
-                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 italic">Compromiso Ambiental</h2>
-                                        <p className="text-sm text-slate-500 font-medium">Registra tu empresa para comenzar a certificar tu impacto.</p>
+                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 italic">Tus Datos</h2>
+                                        <p className="text-sm text-slate-500 font-medium">Tu identidad en el ecosistema verde.</p>
                                     </div>
 
                                     <div className="space-y-4">
-                                        <div className="space-y-1.5 px-1">
-                                            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Razón Social</Label>
-                                            <div className="relative">
-                                                <Building className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-300" />
-                                                <Input {...register('razonSocial')} placeholder="Nombre de la empresa" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none pl-11 focus:ring-2 focus:ring-emerald-500/20" />
+                                        <div className="grid grid-cols-2 gap-4 px-1">
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Nombre</Label>
+                                                <Input {...register('nombre')} placeholder="Tu nombre" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-emerald-500/20" />
+                                                {errors.nombre && <p className="text-xs text-red-500 ml-1">{errors.nombre.message}</p>}
                                             </div>
-                                            {errors.razonSocial && <p className="text-xs text-red-500 ml-1">{errors.razonSocial.message}</p>}
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Apellido</Label>
+                                                <Input {...register('apellido')} placeholder="Tu apellido" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-emerald-500/20" />
+                                                {errors.apellido && <p className="text-xs text-red-500 ml-1">{errors.apellido.message}</p>}
+                                            </div>
                                         </div>
 
                                         <div className="space-y-1.5 px-1">
-                                            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">RIF</Label>
-                                            <Controller name="rif" control={control} render={({ field }) => (
-                                                <DocumentInput type="rif" value={field.value} onChange={field.onChange} error={!!errors.rif} />
-                                            )} />
+                                            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Cédula</Label>
+                                            <Input {...register('cedula')} placeholder="V-12345678" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-emerald-500/20" />
+                                            {errors.cedula && <p className="text-xs text-red-500 ml-1">{errors.cedula.message}</p>}
                                         </div>
 
                                         <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 space-y-2">
                                             <div className="flex items-center gap-2">
-                                                <TreePine className="h-4 w-4 text-emerald-600" />
-                                                <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Módulos Activos</p>
+                                                <Recycle className="h-4 w-4 text-emerald-600" />
+                                                <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Tu Huella Personal</p>
                                             </div>
-                                            <div className="flex flex-wrap gap-2">
-                                                {['Eco-Créditos', 'Trazabilidad', 'ESG IA'].map(m => (
-                                                    <span key={m} className="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-[9px] font-black uppercase tracking-widest border border-emerald-500/10">{m}</span>
-                                                ))}
-                                            </div>
+                                            <p className="text-[11px] text-slate-500 font-medium">Mide y compensa tu impacto ambiental desde tu perfil personal.</p>
                                         </div>
 
                                         <Button type="button" onClick={nextStep} className="w-full h-14 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base shadow-xl shadow-emerald-500/20 transition-all active:scale-[0.98] mt-4">
@@ -282,30 +274,21 @@ export default function RegisterSostenibilidadPage() {
                             {step === 2 && (
                                 <div className="space-y-6">
                                     <div className="text-center space-y-1 mb-4">
-                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 italic">Acceso de Gestión</h2>
-                                        <p className="text-sm text-slate-500 font-medium">Datos del responsable ambiental.</p>
+                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 italic">Tu Portal</h2>
+                                        <p className="text-sm text-slate-500 font-medium">Acceso a tu perfil sostenible.</p>
                                     </div>
 
                                     <div className="space-y-4">
                                         <div className="grid grid-cols-2 gap-4 px-1">
                                             <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Nombre</Label>
-                                                <Input {...register('nombre')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-emerald-500/20" />
-                                            </div>
-                                            <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Apellido</Label>
-                                                <Input {...register('apellido')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-emerald-500/20" />
-                                            </div>
-                                        </div>
-
-                                        <div className="grid grid-cols-2 gap-4 px-1">
-                                            <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Email Corporativo</Label>
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Email</Label>
                                                 <Input {...register('email')} type="email" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-emerald-500/20" />
+                                                {errors.email && <p className="text-xs text-red-500 ml-1">{errors.email.message}</p>}
                                             </div>
                                             <div className="space-y-1.5">
                                                 <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Teléfono</Label>
                                                 <Input {...register('telefono')} type="tel" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-emerald-500/20" />
+                                                {errors.telefono && <p className="text-xs text-red-500 ml-1">{errors.telefono.message}</p>}
                                             </div>
                                         </div>
 
@@ -318,10 +301,12 @@ export default function RegisterSostenibilidadPage() {
                                                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                                     </button>
                                                 </div>
+                                                {errors.password && <p className="text-xs text-red-500 ml-1">{errors.password.message}</p>}
                                             </div>
                                             <div className="space-y-1.5">
                                                 <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Confirmar</Label>
                                                 <Input type="password" {...register('confirmPassword')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-emerald-500/20" />
+                                                {errors.confirmPassword && <p className="text-xs text-red-500 ml-1">{errors.confirmPassword.message}</p>}
                                             </div>
                                         </div>
 
@@ -350,13 +335,13 @@ export default function RegisterSostenibilidadPage() {
                                         <div className="inline-flex p-4 rounded-[1.5rem] bg-emerald-500/10 mb-2">
                                             <ShieldCheck className="h-8 w-8 text-emerald-600" />
                                         </div>
-                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Cifrado de Acceso</h2>
-                                        <p className="text-sm text-slate-500 font-medium">Validación de seguridad ambiental enviada a <span className="text-emerald-600 font-bold">{getValues('email')}</span></p>
+                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Verifica tu Identidad</h2>
+                                        <p className="text-sm text-slate-500 font-medium">Código enviado a <span className="text-emerald-600 font-bold">{getValues('email')}</span></p>
                                     </div>
 
                                     {!verifSent ? (
                                         <Button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="w-full h-14 rounded-2xl bg-emerald-500 hover:bg-emerald-600 shadow-lg shadow-emerald-500/20 font-bold text-base">
-                                            {verifLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Sincronizar con la Red'}
+                                            {verifLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Enviar Código de Verificación'}
                                         </Button>
                                     ) : (
                                         <div className="space-y-6">
@@ -367,7 +352,7 @@ export default function RegisterSostenibilidadPage() {
                                                 {countdown > 0 ? (
                                                     <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Reintento en <span className="text-emerald-500">{countdown}s</span></p>
                                                 ) : (
-                                                    <button type="button" onClick={sendVerificationCode} className="text-[11px] font-bold uppercase tracking-widest text-emerald-500 hover:underline">Reenviar llave</button>
+                                                    <button type="button" onClick={sendVerificationCode} className="text-[11px] font-bold uppercase tracking-widest text-emerald-500 hover:underline">Reenviar código</button>
                                                 )}
                                             </div>
                                             <Button type="submit" disabled={verifCode.length < 6 || verifLoading} className="w-full h-14 rounded-2xl bg-emerald-500 hover:bg-emerald-600 shadow-xl shadow-emerald-500/20 font-bold text-base">
@@ -384,23 +369,12 @@ export default function RegisterSostenibilidadPage() {
                                         <Globe className="h-12 w-12 text-white stroke-[3px]" />
                                     </div>
                                     <div className="space-y-2">
-                                        <h2 className="text-3xl font-black italic tracking-tight text-slate-800 dark:text-slate-100">Eco-Portal Listo</h2>
-                                        <p className="text-sm text-slate-500 font-medium px-8">Bienvenido al ecosistema de regeneración de System Kyron. Tu empresa ya está en línea.</p>
-                                    </div>
-                                    
-                                    <div className="grid grid-cols-2 gap-3 pt-4">
-                                        <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 text-left">
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Impacto</p>
-                                            <p className="text-sm font-bold text-slate-800 dark:text-slate-100">Zero Target</p>
-                                        </div>
-                                        <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 text-left">
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Status</p>
-                                            <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">Verificado</p>
-                                        </div>
+                                        <h2 className="text-3xl font-black italic tracking-tight text-slate-800 dark:text-slate-100">Eco-Perfil Listo</h2>
+                                        <p className="text-sm text-slate-500 font-medium px-8">Bienvenido al ecosistema de regeneración de System Kyron. Tu huella ya está en línea.</p>
                                     </div>
 
-                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-emerald-600 hover:bg-slate-800 dark:hover:bg-emerald-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => router.push('/dashboard-empresa' as any)}>
-                                        Gestionar Sostenibilidad <ArrowRight className="ml-2 h-5 w-5" />
+                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-emerald-600 hover:bg-slate-800 dark:hover:bg-emerald-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => router.push('/dashboard' as any)}>
+                                        Ir a mi Perfil <ArrowRight className="ml-2 h-5 w-5" />
                                     </Button>
                                 </div>
                             )}
@@ -410,12 +384,12 @@ export default function RegisterSostenibilidadPage() {
 
                 <div className="mt-12 flex items-center justify-center gap-10 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
                     <div className="flex items-center gap-2">
-                        <CloudSun className="h-4 w-4" />
-                        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Carbon Audit IA</span>
-                    </div>
-                    <div className="flex items-center gap-2">
                         <Recycle className="h-4 w-4" />
                         <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Circular Economy</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Globe className="h-4 w-4" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Carbon Audit IA</span>
                     </div>
                 </div>
             </div>

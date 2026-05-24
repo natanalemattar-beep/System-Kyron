@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, BrainCircuit } from 'lucide-react';
+import { X, Send, BrainCircuit, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { usePathname } from '@/navigation';
@@ -12,13 +12,13 @@ const DASHBOARD_CONTEXTS: Record<string, { name: string; icon: any; systemPrompt
   'kyron-chat': {
     name: 'Kyron Core',
     icon: BrainCircuit,
-    systemPrompt: 'Eres Kyron Core, la IA central del ecosistema System Kyron. Tienes conocimiento AMPLIO sobre TODOS los módulos. Eres el orquestador principal que conecta cada especialidad.',
+    systemPrompt: 'Eres Kyron Core, la IA del ecosistema System Kyron. Responde SOLO sobre el módulo en el que te encuentras. No menciones otros módulos. Si te preguntan sobre otro módulo, responde: "Esa consulta pertenece a otro módulo. Por favor accede a ese módulo para recibir asistencia especializada."',
     color: 'from-violet-600 to-purple-600',
   },
   'dashboard-asesoria-contable': {
-    name: 'Kyron Core Empresarial',
+    name: 'Kyron Contable',
     icon: BrainCircuit,
-    systemPrompt: 'Eres Kyron Core Empresarial, el núcleo inteligente del portal de Asesoría Contable. Cubres TODAS las áreas del portal empresarial:\n\n1. CONTABILIDAD Y FISCAL: SENIAT, VEN-NIF, IVA, ISLR, IGTF, libros contables, estados financieros, plan de cuentas, declaraciones, facturación fiscal, retenciones, tributos municipales, cálculo de UT.\n2. RRHH Y NÓMINA: LOTTT, LOPCYMAT, prestaciones sociales, nómina, contratos laborales, certificados, bienestar laboral, reclutamiento, viáticos, IVSS, FAOV, INCES.\n3. MARKETING Y VENTAS: CRM, estrategias comerciales, embudos de venta, campañas, redes sociales, email marketing, fidelización, análisis de rentabilidad.\n4. LEGAL: contratos, SAREN, SAPI, permisos, poderes, actas, cumplimiento normativo.\n\nRespondes de forma CONCISA y PROFESIONAL en español. Usa formato markdown (**negrita**, *cursiva*, `código`, listas).',
+    systemPrompt: 'Eres Kyron Contable, la IA experta SOLO en contabilidad y fiscalidad venezolana. Conoces ÚNICAMENTE sobre:\n\nCONTABILIDAD VEN-NIF: plan de cuentas, libros contables, estados financieros, partida doble, cierre contable, conciliación bancaria, cuentas por cobrar/pagar.\nFISCAL SENIAT: IVA (declaraciones, retenciones, crédito fiscal, débito fiscal), ISLR (declaración definitiva, anticipos, retenciones), IGTF (cálculo, exenciones), facturación fiscal (documentos electrónicos, NFC), retenciones de IVA/ISLR.\nTRIBUTOS MUNICIPALES: licencias, patentes.\nCERTIFICACIÓN: Gaceta 6952, cumplimiento SENIAT.\n\nREGLAS:\n- Responde SOLO sobre contabilidad y fiscal. Si preguntan sobre RRHH, Legal, Marketing u otros módulos, responde: "Esa consulta pertenece a otro módulo. Por favor accede al módulo correspondiente para recibir asistencia."\n- Sé conciso, profesional, en español. Usa formato markdown.',
     color: 'from-emerald-600 to-teal-600',
   },
   'dashboard': {
@@ -27,10 +27,22 @@ const DASHBOARD_CONTEXTS: Record<string, { name: string; icon: any; systemPrompt
     systemPrompt: 'Eres Kyron Core Personal, el núcleo inteligente para ciudadanos venezolanos. Respondes sobre: trámites civiles (SAIME, SAREN), documentos personales, salud, gestión personal, finanzas personales, presupuesto, y cualquier consulta sobre los servicios de System Kyron para personas naturales. Usa formato markdown (**negrita**, *cursiva*, listas).',
     color: 'from-sky-600 to-blue-600',
   },
-  'legal': {
-    name: 'Kyron Core Jurídico',
+  'ventas': {
+    name: 'Kyron Ventas',
     icon: BrainCircuit,
-    systemPrompt: 'Eres Kyron Core Jurídico, el núcleo inteligente del Escritorio Jurídico. Respondes sobre: contratos, SAREN, SAPI, litigios, permisos, poderes, cumplimiento normativo, actas, documentos legales, y cualquier consulta jurídica empresarial venezolana. Usa formato markdown (**negrita**, *cursiva*, listas).',
+    systemPrompt: 'Eres Kyron Ventas, la IA experta SOLO en ventas, marketing y CRM. Conoces ÚNICAMENTE sobre:\n\nCRM: gestión de clientes, leads, oportunidades, pipeline de ventas, embudos de conversión, seguimiento.\nMARKETING: campañas, email marketing, redes sociales, automatización comercial, segmentación.\nESTRATEGIAS: análisis de rentabilidad, fidelización, embudos de venta, KPIs comerciales.\n\nREGLAS:\n- Responde SOLO sobre ventas y marketing. Si preguntan sobre contabilidad, RRHH, legal u otros módulos, responde: "Esa consulta pertenece a otro módulo. Por favor accede al módulo correspondiente."\n- Sé conciso, profesional, en español. Usa formato markdown.',
+    color: 'from-emerald-600 to-teal-600',
+  },
+  'rrhh': {
+    name: 'Kyron RRHH',
+    icon: BrainCircuit,
+    systemPrompt: 'Eres Kyron RRHH, la IA experta SOLO en recursos humanos y nómina venezolana. Conoces ÚNICAMENTE sobre:\n\nNÓMINA LOTTT: cálculo de nómina, prestaciones sociales (antigüedad, intereses), utilidades, vacaciones, bono vacacional, horas extras, días feriados.\nSEGURIDAD SOCIAL: IVSS (cotizaciones, historial), FAOV (aportes), INCES.\nLOPCYMAT: riesgos laborales, condiciones de trabajo, comités de seguridad.\nCONTRATOS: contratos laborales, registros, recibos de pago.\nGESTIÓN: reclutamiento, selección, expedientes digitales, control de asistencia.\nVIÁTICOS: cálculo de viáticos nacionales e internacionales.\n\nREGLAS:\n- Responde SOLO sobre RRHH y nómina. Si preguntan sobre otros módulos, responde: "Esa consulta pertenece a otro módulo. Por favor accede al módulo correspondiente."\n- Sé conciso, profesional, en español. Usa formato markdown.',
+    color: 'from-pink-600 to-rose-600',
+  },
+  'legal': {
+    name: 'Kyron Jurídico',
+    icon: BrainCircuit,
+    systemPrompt: 'Eres Kyron Jurídico, la IA experta SOLO en derecho corporativo venezolano. Conoces ÚNICAMENTE sobre:\n\nSAREN: registro mercantil, actas constitutivas, asambleas, nombramientos.\nSAPI: propiedad intelectual, marcas, patentes.\nCONTRATOS: elaboración y revisión de contratos comerciales, civiles y laborales.\nPODERES: poderes especiales y generales.\nCUMPLIMIENTO: compliance corporativo, actas, documentos legales.\n\nREGLAS:\n- Responde SOLO sobre temas legales. Si preguntan sobre otros módulos, responde: "Esa consulta pertenece a otro módulo. Por favor accede al módulo correspondiente."\n- Sé conciso, profesional, en español. Usa formato markdown.',
     color: 'from-purple-600 to-indigo-600',
   },
   'telecom': {
@@ -63,6 +75,26 @@ const DASHBOARD_CONTEXTS: Record<string, { name: string; icon: any; systemPrompt
     systemPrompt: 'Eres Kyron Soporte, el asistente de soporte técnico de System Kyron. Respondes sobre: problemas técnicos, errores del sistema, consultas de uso, guías de solución, actualizaciones, mantenimiento y asistencia al usuario. Usa formato markdown (**negrita**, *cursiva*, listas).',
     color: 'from-indigo-600 to-blue-600',
   },
+  'system-kyron-soporte': {
+    name: 'Kyron Asistente',
+    icon: BrainCircuit,
+    systemPrompt: 'Eres el asistente de soporte de System Kyron. Respondes sobre todo el contenido de la plataforma:\n\n1. ¿QUÉ ES SYSTEM KYRON?: Plataforma empresarial venezolana que unifica ERP, POS, RRHH, Legal, Telecomunicaciones, Marketing, Sostenibilidad en un sistema cloud inteligente.\n2. PLANES Y PRECIOS: Plan Solo (1 usuario, 4 módulos), Pro (3 usuarios), Comerciante (5 usuarios, POS), Negocio (10 usuarios, POS), Total (20+ usuarios, todo incluido). Precios en USD con conversión BCV. Prueba gratuita disponible.\n3. MÓDULOS: Contabilidad VEN-NIF (IVA, ISLR, IGTF, SENIAT), RRHH y Nómina (LOTTT, prestaciones, IVSS, FAOV), Marketing y Ventas (CRM, email, redes), Legal (SAREN, SAPI, contratos), IT (infraestructura, ciberseguridad), E-commerce (tienda online, pagos), Sostenibilidad (ESG, huella de carbono), Telecomunicaciones (NetUno, eSIM, internet empresarial).\n4. CARACTERÍSTICAS: IA integrada, nube, cifrado AES-256, multimoneda (USD/BS), backup automático, notificaciones en tiempo real, API REST, certificación Gaceta 6952.\n5. PRUEBA GRATUITA: Demo de 7 días sin tarjeta de crédito.\n6. ATENCIÓN AL CLIENTE: Disponible vía WhatsApp, email (systemkyronofficial@gmail.com), Instagram (@systemkyron).\n7. SOSTENIBILIDAD: Cero Papel, huella de carbono, Eco-Créditos, Smart Bins con IA.\n\nREGLAS:\n- Sé conciso, profesional, en español.\n- Usa formato markdown (**negrita**, listas).\n- Si no sabes algo, indícalo y sugiere contacto por email o WhatsApp.',
+    color: 'from-violet-600 to-indigo-600',
+  },
+};
+
+const QUICK_SUGGESTIONS: Record<string, string[]> = {
+  'kyron-chat': ['¿Qué módulos tiene mi plan?', '¿Cómo resetear mi contraseña?', '¿Dónde veo mis facturas?'],
+  'dashboard-asesoria-contable': ['¿Cómo calcular IVA?', '¿Cuándo vence ISLR?', '¿Cómo declarar IGTF?', '¿Estado de mi declaración?'],
+  'dashboard': ['¿Cómo actualizar mis datos?', '¿Solicitar certificado?', '¿Estado de trámite?'],
+  'ventas': ['¿Cómo crear un lead?', '¿Reporte de ventas?', '¿Embudo de conversión?'],
+  'rrhh': ['¿Cómo calcular prestaciones?', '¿Certificado de trabajo?', '¿Control de asistencia?', '¿Solicitar vacaciones?'],
+  'legal': ['¿Cómo crear un contrato?', '¿Registro SAREN?', '¿Estado de poder?'],
+  'telecom': ['¿Activar eSIM?', '¿Estado de mi línea?', '¿Portabilidad?', '¿Solicitar internet?'],
+  'sostenibilidad': ['¿Mi huella de carbono?', '¿Cómo reciclar?', '¿Eco-créditos?', '¿Reporte ESG?'],
+  'socios': ['¿Registrar socio?', '¿Acuerdo comercial?', '¿Directorio corporativo?'],
+  'informatica': ['¿Ticket de soporte?', '¿Estado del servidor?', '¿Licencias activas?'],
+  'soporte': ['¿Problema técnico?', '¿Error en el sistema?', '¿Actualización pendiente?'],
 };
 
 function getDashboardContext(pathname: string) {
@@ -72,33 +104,38 @@ function getDashboardContext(pathname: string) {
   return { key: 'default', ...DASHBOARD_CONTEXTS['kyron-chat'] };
 }
 
-export function AIChatButton({ contextKey }: { contextKey?: string }) {
+export function AIChatButton({ contextKey, className, chatClassName }: { contextKey?: string; className?: string; chatClassName?: string }) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Array<{ role: string; content: string }>>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const context = contextKey 
     ? { key: contextKey, ...DASHBOARD_CONTEXTS[contextKey] ?? DASHBOARD_CONTEXTS['kyron-chat'] } 
     : getDashboardContext(pathname);
   const ContextIcon = context.icon;
+  const suggestions = QUICK_SUGGESTIONS[contextKey || context.key] || [];
 
   useEffect(() => {
     setMessages([{
       role: 'ai',
       content: `¡Hola! Soy **${context.name}**. ¿En qué puedo ayudarte?`
     }]);
+    setShowSuggestions(true);
   }, [context.key]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const handleSend = async () => {
-    const trimmed = input.trim();
+  const handleSend = useCallback(async (customMessage?: string) => {
+    const trimmed = (customMessage || input).trim();
     if (!trimmed) return;
 
+    setShowSuggestions(false);
     const userMsg = { role: 'user', content: trimmed };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
@@ -121,14 +158,23 @@ export function AIChatButton({ contextKey }: { contextKey?: string }) {
       if (res.ok) {
         const data = await res.json();
         setMessages(prev => [...prev, { role: 'ai', content: data.response }]);
+      } else if (res.status === 429) {
+        setMessages(prev => [...prev, { role: 'ai', content: 'Estoy procesando muchas solicitudes. Espera un momento y vuelve a intentar.' }]);
       } else {
-        const errorData = await res.json().catch(() => ({}));
-        setMessages(prev => [...prev, { role: 'ai', content: errorData.error || 'Lo siento, tuve un problema técnico. Por favor, intenta de nuevo.' }]);
+        setMessages(prev => [...prev, { role: 'ai', content: 'No pude procesar tu consulta. Intenta de nuevo con otras palabras.' }]);
       }
-    } catch (error: any) {
-      setMessages(prev => [...prev, { role: 'ai', content: error?.message || 'Error de conexión. Revisa tu internet.' }]);
+    } catch {
+      setMessages(prev => [...prev, { role: 'ai', content: 'Hubo un problema de conexión. Revisa tu señal e intenta de nuevo.' }]);
     } finally {
       setIsLoading(false);
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
+  }, [input, messages, context]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
     }
   };
 
@@ -142,7 +188,8 @@ export function AIChatButton({ contextKey }: { contextKey?: string }) {
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full p-0.5 shadow-2xl group",
+          "fixed z-50 h-14 w-14 rounded-full p-0.5 shadow-2xl group",
+          className || "bottom-6 right-6",
           `bg-gradient-to-br ${context.color}`
         )}
       >
@@ -152,8 +199,8 @@ export function AIChatButton({ contextKey }: { contextKey?: string }) {
             <span className="relative inline-flex h-4 w-4 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.6)]" />
           </span>
         )}
-        <div className="flex h-full w-full items-center justify-center rounded-full bg-zinc-950/80 backdrop-blur-xl border border-white/20 transition-all group-hover:bg-zinc-950/60 group-hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]">
-          {isOpen ? <X className="h-6 w-6 text-white" /> : <ContextIcon className="h-6 w-6 text-white" />}
+        <div className="flex h-full w-full items-center justify-center rounded-full bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border border-gray-200 dark:border-white/20 transition-all group-hover:bg-gray-100 dark:group-hover:bg-zinc-950/60 group-hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]">
+          {isOpen ? <X className="h-6 w-6 text-gray-700 dark:text-white" /> : <ContextIcon className="h-6 w-6 text-gray-700 dark:text-white" />}
         </div>
       </motion.button>
 
@@ -168,64 +215,95 @@ export function AIChatButton({ contextKey }: { contextKey?: string }) {
             className={cn(
               "fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-48px)] max-h-[600px] rounded-3xl overflow-hidden flex flex-col",
               "shadow-[0_0_80px_rgba(0,0,0,0.6)] shadow-black/50",
-              "border border-white/10",
-              "bg-zinc-950/95 backdrop-blur-3xl"
+              "border border-gray-200 dark:border-white/10",
+              "bg-white/95 dark:bg-zinc-950/95 backdrop-blur-3xl",
+              chatClassName
             )}
           >
             {/* Ambient glow behind header */}
             <div className={cn("absolute top-0 left-0 right-0 h-24 opacity-20 blur-3xl pointer-events-none", context.color)} />
 
             {/* Header */}
-            <div className={cn("relative p-4 bg-gradient-to-r border-b border-white/5 flex items-center justify-between", context.color, "bg-opacity-10")}>
+            <div className={cn("relative p-4 bg-gradient-to-r border-b border-gray-200/50 dark:border-white/5 flex items-center justify-between", context.color, "bg-opacity-10")}>
               <div className="flex items-center gap-3">
                 <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center bg-gradient-to-br shadow-lg", context.color)}>
                   <ContextIcon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white">{context.name}</h3>
-                  <p className="text-[8px] text-white/40 font-black uppercase tracking-[0.2em]">Asistente Especializado</p>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white">{context.name}</h3>
+                  <p className="text-[8px] text-gray-500 dark:text-white/40 font-black uppercase tracking-[0.2em]">Asistente Especializado</p>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl hover:bg-white/10 text-white/40 hover:text-white transition-all group">
+              <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 dark:text-white/40 hover:text-gray-900 dark:hover:text-white transition-all group">
                 <X className="h-4 w-4 group-hover:scale-110 transition-transform" />
               </button>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[280px] max-h-[420px] scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[280px] max-h-[420px] scrollbar-thin scrollbar-thumb-gray-200/50 dark:scrollbar-thumb-white/10 scrollbar-track-transparent">
               {messages.map((msg, i) => (
                 <motion.div
-                  initial={{ opacity: 0, x: msg.role === 'user' ? 15 : -15 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ type: "spring", damping: 20, stiffness: 300 }}
                   key={i}
-                  className={cn("flex w-full", msg.role === 'user' ? "justify-end" : "justify-start")}
+                  className={cn("flex w-full flex-col", msg.role === 'user' ? "items-end" : "items-start")}
                 >
-                  {msg.role === 'ai' && (
-                    <div className={cn("h-6 w-6 rounded-lg flex items-center justify-center bg-gradient-to-br mr-2 mt-1 shrink-0", context.color, "shadow-lg")}>
-                      <ContextIcon className="h-3 w-3 text-white" />
+                  <div className={cn("flex w-full", msg.role === 'user' ? "justify-end" : "justify-start")}>
+                    {msg.role === 'ai' && (
+                      <div className={cn("h-6 w-6 rounded-lg flex items-center justify-center bg-gradient-to-br mr-2 mt-1 shrink-0", context.color, "shadow-lg")}>
+                        <ContextIcon className="h-3 w-3 text-white" />
+                      </div>
+                    )}
+                    <div className={cn(
+                      "max-w-[88%] p-3.5 rounded-2xl text-[13px] leading-relaxed",
+                      msg.role === 'user' 
+                        ? "bg-primary text-white rounded-tr-sm shadow-lg shadow-primary/20" 
+                        : "bg-gray-100 dark:bg-white/[0.06] text-gray-800 dark:text-white/90 backdrop-blur-md border border-gray-200 dark:border-white/[0.06] rounded-tl-sm shadow-lg"
+                    )}>
+                      {msg.role === 'ai' ? <MarkdownRenderer content={msg.content} /> : msg.content}
                     </div>
-                  )}
-                  <div className={cn(
-                    "max-w-[88%] p-3.5 rounded-2xl text-[13px] leading-relaxed",
-                    msg.role === 'user' 
-                      ? "bg-primary text-white rounded-tr-sm shadow-lg shadow-primary/20" 
-                      : "bg-white/[0.06] text-white/90 backdrop-blur-md border border-white/[0.06] rounded-tl-sm shadow-lg"
-                  )}>
-                    {msg.role === 'ai' ? <MarkdownRenderer content={msg.content} /> : msg.content}
                   </div>
                 </motion.div>
               ))}
+
+              {/* Quick Suggestions (only after greeting, before first user message) */}
+              {showSuggestions && messages.length === 1 && suggestions.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                  className="flex flex-wrap gap-1.5 px-1"
+                >
+                  {suggestions.map((q, i) => (
+                    <motion.button
+                      key={q}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.4 + i * 0.08, duration: 0.25 }}
+                      onClick={() => handleSend(q)}
+                      className="text-[11px] px-3 py-1.5 rounded-xl bg-gray-100 dark:bg-white/[0.06] border border-gray-200 dark:border-white/[0.08] text-gray-600 dark:text-white/60 hover:bg-gray-200 dark:hover:bg-white/[0.1] hover:text-gray-900 dark:hover:text-white transition-all active:scale-95 whitespace-nowrap"
+                    >
+                      <Sparkles className="h-3 w-3 inline mr-1 -mt-0.5 opacity-60" />
+                      {q}
+                    </motion.button>
+                  ))}
+                </motion.div>
+              )}
+
               {isLoading && (
                 <div className="flex justify-start">
                   <div className={cn("h-6 w-6 rounded-lg flex items-center justify-center bg-gradient-to-br mr-2 mt-1 shrink-0", context.color, "shadow-lg")}>
                     <ContextIcon className="h-3 w-3 text-white" />
                   </div>
-                  <div className="bg-white/[0.06] p-3.5 rounded-2xl rounded-tl-sm backdrop-blur-md border border-white/[0.06] shadow-lg">
-                    <div className="flex gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-white/30 animate-bounce [animation-delay:-0.3s]"></span>
-                      <span className="h-2 w-2 rounded-full bg-white/30 animate-bounce [animation-delay:-0.15s]"></span>
-                      <span className="h-2 w-2 rounded-full bg-white/30 animate-bounce"></span>
+                  <div className="bg-gray-100 dark:bg-white/[0.06] p-3.5 rounded-2xl rounded-tl-sm backdrop-blur-md border border-gray-200 dark:border-white/[0.06] shadow-lg">
+                    <div className="flex items-center gap-2">
+                      <div className="flex gap-1">
+                        <span className="h-2 w-2 rounded-full bg-gray-300 dark:bg-white/30 animate-bounce [animation-delay:-0.3s]"></span>
+                        <span className="h-2 w-2 rounded-full bg-gray-300 dark:bg-white/30 animate-bounce [animation-delay:-0.15s]"></span>
+                        <span className="h-2 w-2 rounded-full bg-gray-300 dark:bg-white/30 animate-bounce"></span>
+                      </div>
+                      <span className="text-[10px] text-gray-400 dark:text-white/20 font-medium animate-pulse">Pensando...</span>
                     </div>
                   </div>
                 </div>
@@ -234,18 +312,24 @@ export function AIChatButton({ contextKey }: { contextKey?: string }) {
             </div>
 
             {/* Input */}
-            <div className="p-3.5 bg-white/[0.03] border-t border-white/5">
+            <div className="p-3.5 bg-gray-50 dark:bg-white/[0.03] border-t border-gray-200 dark:border-white/5">
               <form 
                 onSubmit={(e) => { e.preventDefault(); handleSend(); }}
                 className="relative flex items-center gap-2"
               >
                 <div className="flex-1 relative">
                   <input
+                    ref={inputRef}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
                     placeholder="Escribe tu consulta..."
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/30 transition-all"
+                    className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-3 pr-12 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/30 transition-all"
+                    autoFocus
                   />
+                  <kbd className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-[9px] text-gray-400 dark:text-white/20 font-mono">
+                    ↵
+                  </kbd>
                 </div>
                 <Button 
                   type="submit" 
@@ -260,6 +344,9 @@ export function AIChatButton({ contextKey }: { contextKey?: string }) {
                   <Send className="h-4 w-4 text-white" />
                 </Button>
               </form>
+              <p className="text-[8px] text-gray-400 dark:text-white/10 text-center mt-1.5 font-medium tracking-wide">
+                Enter para enviar · Shift+Enter para nueva línea
+              </p>
             </div>
           </motion.div>
         )}

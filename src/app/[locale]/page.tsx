@@ -21,7 +21,7 @@ const showImages = [
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-screen selection:bg-cyan-500/30 w-full bg-[#030712] text-white font-outfit">
+    <div className="relative min-h-screen selection:bg-cyan-500/30 w-full bg-white dark:bg-[#030712] text-gray-900 dark:text-white font-outfit">
       <LandingClientWrapper>
         <main className="w-full">
 
@@ -35,7 +35,7 @@ export default function LandingPage() {
             <div className="max-w-7xl mx-auto px-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                 {showImages.map((img, i) => (
-                  <div key={i} className="relative group overflow-hidden rounded-3xl aspect-[4/3] bg-slate-900/50 border border-white/5">
+                  <div key={i} className="relative group overflow-hidden rounded-3xl aspect-[4/3] bg-gray-100 dark:bg-slate-900/50 border border-gray-200 dark:border-white/5">
                     <Image
                       src={img.src}
                       alt={img.alt}

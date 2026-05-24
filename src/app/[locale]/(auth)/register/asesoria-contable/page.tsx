@@ -13,7 +13,7 @@ import {
     Loader2, CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
     Calculator, Check, Star, Lock, TrendingUp, Shield,
     Zap, Building, CreditCard, Package, Globe, User,
-    Mail, Phone, Building2, FileText, KeyRound,
+    Mail, Phone, Building2, FileText, KeyRound, X,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
@@ -160,6 +160,31 @@ export default function RegisterContabilidadPage() {
             email: searchParams.get('email') || '',
         },
     });
+
+    const [rifSearching, setRifSearching] = useState(false);
+    const [rifFound, setRifFound] = useState(false);
+    const rifValue = watch('rif');
+    useEffect(() => {
+        const doc = searchParams.get('doc');
+        if (!rifValue || rifValue === doc) { return; }
+        if (!/^[JGCVEPF]-\d{8}-\d$/.test(rifValue)) { setRifFound(false); return; }
+        setRifSearching(true);
+        setRifFound(false);
+        const controller = new AbortController();
+        const timeout = setTimeout(async () => {
+            try {
+                const res = await fetch(`/api/rif/consulta?rif=${encodeURIComponent(rifValue)}`, { signal: controller.signal });
+                const data = await res.json();
+                if (data.found && data.data?.razonSocial) {
+                    setValue('razonSocial', data.data.razonSocial, { shouldValidate: true });
+                    setRifFound(true);
+                }
+            } catch {} finally {
+                setRifSearching(false);
+            }
+        }, 500);
+        return () => { clearTimeout(timeout); controller.abort(); setRifSearching(false); };
+    }, [rifValue, setValue, searchParams]);
 
     useEffect(() => {
         const sub = watch((value, { name }) => {
@@ -362,8 +387,9 @@ export default function RegisterContabilidadPage() {
                         </div>
                     )}
 
-                    <Link href="/" className="text-[10px] font-bold text-white/30 hover:text-white/60 uppercase tracking-widest transition-colors">
-                        ← Inicio
+                    <Link href="/" className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white/50 hover:text-white transition-all group">
+                        <X className="h-4 w-4" />
+                        <span className="hidden sm:inline text-[10px] font-bold uppercase tracking-widest">Cerrar</span>
                     </Link>
                 </div>
             </nav>
@@ -551,6 +577,16 @@ export default function RegisterContabilidadPage() {
                                                         <DocumentInput type="rif" value={field.value} onChange={field.onChange} error={!!errors.rif} />
                                                     )} />
                                                     {errors.rif && <p className="text-[10px] text-red-400">{errors.rif.message}</p>}
+                                                    {rifSearching && (
+                                                        <div className="flex items-center gap-2 mt-1.5 text-[11px] text-cyan-400/60">
+                                                            <Loader2 className="h-3 w-3 animate-spin" /> Buscando en SENIAT...
+                                                        </div>
+                                                    )}
+                                                    {rifFound && !rifSearching && (
+                                                        <div className="flex items-center gap-2 mt-1.5 text-[11px] text-emerald-400 font-medium">
+                                                            <CircleCheck className="h-3 w-3" /> Razón social auto-completada
+                                                        </div>
+                                                    )}
                                                 </div>
                                                 <div className="space-y-2">
                                                     <Label className="text-[10px] font-bold uppercase tracking-wider text-white/40">Razón Social</Label>
@@ -690,14 +726,46 @@ export default function RegisterContabilidadPage() {
                                         </Button>
                                     ) : (
                                         <div className="space-y-6">
-                                            <div className="flex justify-center">
-                                                <Input
-                                                    maxLength={6}
-                                                    value={verifCode}
-                                                    onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                                    className="h-20 text-center text-4xl font-black font-mono tracking-[0.4em] rounded-2xl bg-white/5 border-white/10 focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/10 text-white placeholder:text-white/15 transition-all"
-                                                    placeholder="000000"
-                                                />
+                                            <div className="flex justify-center gap-2 sm:gap-3">
+                                                {(() => {
+                                                    const digits = [];
+                                                    for (let i = 0; i < 6; i++) {
+                                                        digits.push(
+                                                            <input
+                                                                key={i}
+                                                                type="text"
+                                                                inputMode="numeric"
+                                                                maxLength={1}
+                                                                value={verifCode[i] || ''}
+                                                                onChange={e => {
+                                                                    const val = e.target.value.replace(/\D/g, '');
+                                                                    if (!val) return;
+                                                                    const arr = verifCode.split('');
+                                                                    arr[i] = val;
+                                                                    const next = arr.join('').slice(0, 6);
+                                                                    setVerifCode(next);
+                                                                    if (i < 5) {
+                                                                        document.querySelector<HTMLInputElement>(`[data-digit="${i + 1}"]`)?.focus();
+                                                                    }
+                                                                }}
+                                                                onKeyDown={e => {
+                                                                    if (e.key === 'Backspace' && !verifCode[i] && i > 0) {
+                                                                        document.querySelector<HTMLInputElement>(`[data-digit="${i - 1}"]`)?.focus();
+                                                                    }
+                                                                }}
+                                                                onPaste={e => {
+                                                                    e.preventDefault();
+                                                                    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+                                                                    setVerifCode(pasted);
+                                                                    document.querySelector<HTMLInputElement>(`[data-digit="${Math.min(pasted.length, 5)}"]`)?.focus();
+                                                                }}
+                                                                data-digit={i}
+                                                                className="w-11 h-12 sm:w-14 sm:h-16 text-center text-lg sm:text-2xl font-black font-mono rounded-xl bg-white/5 border border-white/10 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/10 text-white transition-all outline-none"
+                                                            />
+                                                        );
+                                                    }
+                                                    return digits;
+                                                })()}
                                             </div>
                                             <div className="text-center">
                                                 {countdown > 0 ? (

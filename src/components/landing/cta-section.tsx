@@ -28,7 +28,7 @@ export function CtaSection() {
     const containerRef = useRef<HTMLDivElement>(null);
 
     return (
-        <section id="contacto" ref={containerRef} className="relative overflow-hidden scroll-mt-20 bg-[#030712]">
+        <section id="contacto" ref={containerRef} className="relative overflow-hidden scroll-mt-20 bg-white dark:bg-[#030712]">
             <div className="relative py-32 md:py-48">
                 <div className="absolute inset-0 -z-10">
                     <div className="absolute top-[20%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-cyan-600/[0.05] blur-[160px] animate-mesh-drift" />
@@ -45,7 +45,7 @@ export function CtaSection() {
                             </ScrollReveal>
 
                             <ScrollReveal delay={0.2} y={30} blur={15}>
-                                <h2 className="text-[clamp(3rem,6vw,5.5rem)] font-black tracking-tighter leading-[0.9] text-white uppercase italic">
+                                    <h2 className="text-[clamp(3rem,6vw,5.5rem)] font-black tracking-tighter leading-[0.9] text-gray-900 dark:text-white uppercase italic">
                                     {t('title_highlight')}<br/>
                                     <span className="text-glow-cyan not-italic">
                                         {t('title_rest')}
@@ -54,7 +54,7 @@ export function CtaSection() {
                             </ScrollReveal>
 
                             <ScrollReveal delay={0.3} y={15}>
-                                <p className="text-lg md:text-xl text-white/30 max-w-md mx-auto lg:ml-0 leading-relaxed font-medium">
+                                <p className="text-lg md:text-xl text-gray-900/30 dark:text-white/30 max-w-md mx-auto lg:ml-0 leading-relaxed font-medium">
                                     {t('subtitle')}
                                 </p>
                             </ScrollReveal>
@@ -63,7 +63,7 @@ export function CtaSection() {
                                 {checks.map((label, i) => (
                                     <div key={i} className="flex items-center gap-3 px-5 py-2.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-3xl">
                                         <CircleCheck className="h-4 w-4 text-emerald-400" />
-                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60">{label}</span>
+                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-900/60 dark:text-white/60">{label}</span>
                                     </div>
                                 ))}
                             </ScrollReveal>
@@ -74,10 +74,10 @@ export function CtaSection() {
                                         key={i}
                                         delay={0.5 + i * 0.1}
                                         y={15}
-                                        className="flex items-center gap-3 px-5 py-3 rounded-2xl border border-white/5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300"
+                                        className="flex items-center gap-3 px-5 py-3 rounded-2xl border border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-white/[0.03] hover:bg-gray-100 dark:hover:bg-white/[0.05] transition-all duration-300"
                                     >
                                         <g.icon className={cn("h-4 w-4", g.color)} />
-                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">{t(g.labelKey)}</span>
+                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-900/40 dark:text-white/40">{t(g.labelKey)}</span>
                                     </ScrollReveal>
                                 ))}
                             </div>
@@ -88,8 +88,8 @@ export function CtaSection() {
                                 y={40}
                             >
                                 <div className="absolute -inset-20 rounded-[4rem] bg-gradient-to-br from-cyan-500/10 to-blue-500/10 blur-[100px] -z-[1] animate-mesh-drift" />
-                                <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl bg-white/[0.01] backdrop-blur-3xl p-4">
-                                    <div className="relative rounded-[2.5rem] overflow-hidden border border-white/5">
+                                <div className="relative rounded-[3rem] overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl bg-gray-50 dark:bg-white/[0.01] backdrop-blur-3xl p-4">
+                                    <div className="relative rounded-[2.5rem] overflow-hidden border border-gray-200 dark:border-white/5">
                                         <Image
                                             src="/images/landing/hero-dashboard-dark.jpg"
                                             alt="Ecosystem Dashboard"

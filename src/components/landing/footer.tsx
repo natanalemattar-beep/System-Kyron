@@ -31,7 +31,7 @@ export function Footer() {
     };
 
     return (
-        <footer id="footer" className="relative overflow-hidden bg-[#030712] border-t border-white/5">
+        <footer id="footer" className="relative overflow-hidden bg-gray-50 dark:bg-[#030712] border-t border-gray-200 dark:border-white/5">
             {/* Neural Background */}
             <div className="absolute inset-0 pointer-events-none -z-10">
                 <div className="absolute bottom-0 left-1/4 w-[500px] h-[300px] rounded-full bg-cyan-600/[0.03] blur-[150px]" />
@@ -40,7 +40,7 @@ export function Footer() {
 
             <div className="h-[2px] bg-gradient-to-r from-cyan-500 via-blue-500 via-violet-500 to-pink-500" />
 
-            <div className="border-b border-white/[0.04] py-3 overflow-hidden">
+            <div className="border-b border-gray-200 dark:border-white/[0.04] py-3 overflow-hidden">
                 <div className="flex gap-8 animate-marquee whitespace-nowrap">
                     {[...modules, ...modules].map((m, i) => (
                         <span key={i} className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/40 shrink-0 flex items-center gap-3">
@@ -55,13 +55,13 @@ export function Footer() {
 
                     <div className="md:col-span-4 space-y-6">
                         <div className="flex items-center gap-4">
-                            <Logo className="h-12 w-12 drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]" />
+                            <Logo className="h-12 w-12 drop-shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]" />
                             <div className="flex flex-col">
-                                <span className="text-xl font-black uppercase tracking-tighter text-white leading-none italic">System Kyron</span>
+                                <span className="text-xl font-black uppercase tracking-tighter text-gray-900 dark:text-white leading-none italic">System Kyron</span>
                                 <span className="text-[10px] font-bold uppercase tracking-[0.4em] mt-2 text-glow-cyan">{tHero('slogan')}</span>
                             </div>
                         </div>
-                        <p className="text-sm text-white/40 font-medium leading-relaxed max-w-sm">
+                        <p className="text-sm text-gray-500 dark:text-white/40 font-medium leading-relaxed max-w-sm">
                             {t('description')}
                         </p>
                         <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl border border-emerald-500/20 bg-emerald-500/5">
@@ -98,17 +98,17 @@ export function Footer() {
                     </div>
 
                     <div className="md:col-span-3 space-y-5">
-                        <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20 mb-6">{t('contact')}</h4>
+                        <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 dark:text-white/20 mb-6">{t('contact')}</h4>
                         <div className="space-y-6">
                             <a href="mailto:infosystemkyron@gmail.com"
-                                className="flex items-center gap-4 group text-white/40 hover:text-white transition-all">
-                                <div className="h-10 w-10 rounded-xl border border-white/5 bg-white/5 flex items-center justify-center shrink-0 group-hover:border-cyan-500/30 group-hover:bg-cyan-500/10 transition-all">
+                                className="flex items-center gap-4 group text-gray-500 dark:text-white/40 hover:text-gray-900 dark:hover:text-white transition-all">
+                                <div className="h-10 w-10 rounded-xl border border-gray-200 dark:border-white/5 bg-gray-100 dark:bg-white/5 flex items-center justify-center shrink-0 group-hover:border-cyan-500/30 group-hover:bg-cyan-500/10 transition-all">
                                     <Mail className="h-5 w-5 text-cyan-400" />
                                 </div>
                                 <span className="text-[11px] font-black uppercase tracking-widest">infosystemkyron@gmail.com</span>
                             </a>
-                            <div className="flex items-center gap-4 text-white/30">
-                                <div className="h-10 w-10 rounded-xl border border-white/5 bg-white/5 flex items-center justify-center shrink-0">
+                            <div className="flex items-center gap-4 text-gray-500 dark:text-white/30">
+                                <div className="h-10 w-10 rounded-xl border border-gray-200 dark:border-white/5 bg-gray-100 dark:bg-white/5 flex items-center justify-center shrink-0">
                                     <MapPin className="h-5 w-5 text-emerald-400" />
                                 </div>
                                 <span className="text-[11px] font-black uppercase tracking-widest">{t('location')}</span>
@@ -117,7 +117,7 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-white/[0.04]">
+                <div className="mt-12 pt-8 border-t border-gray-200 dark:border-white/[0.04]">
                     <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
                         {["SENIAT", "BCV", "VEN-NIF", "LOTTT", "CONATEL", "SUDEBAN"].map(ent => (
                             <span key={ent} className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/35 flex items-center gap-1.5 hover:text-foreground/55 transition-colors cursor-default">
@@ -141,16 +141,16 @@ export function Footer() {
                             </div>
                         </div>
                         <div className="flex items-center gap-4">
-                            <a href="https://instagram.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-foreground/20 hover:text-pink-500 hover:border-pink-500/20 hover:bg-pink-500/[0.06] transition-all duration-300">
+                            <a href="https://instagram.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-gray-200 dark:border-white/[0.06] bg-gray-100 dark:bg-white/[0.02] flex items-center justify-center text-foreground/20 hover:text-pink-500 hover:border-pink-500/20 hover:bg-pink-500/[0.06] transition-all duration-300">
                                 <Instagram className="h-3.5 w-3.5" />
                             </a>
-                            <a href="https://twitter.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-foreground/20 hover:text-cyan-400 hover:border-cyan-500/20 hover:bg-cyan-500/[0.06] transition-all duration-300">
+                            <a href="https://twitter.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-gray-200 dark:border-white/[0.06] bg-gray-100 dark:bg-white/[0.02] flex items-center justify-center text-foreground/20 hover:text-cyan-400 hover:border-cyan-500/20 hover:bg-cyan-500/[0.06] transition-all duration-300">
                                 <Twitter className="h-3.5 w-3.5" />
                             </a>
-                            <a href="https://linkedin.com/company/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-foreground/20 hover:text-blue-400 hover:border-blue-500/20 hover:bg-blue-500/[0.06] transition-all duration-300">
+                            <a href="https://linkedin.com/company/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-gray-200 dark:border-white/[0.06] bg-gray-100 dark:bg-white/[0.02] flex items-center justify-center text-foreground/20 hover:text-blue-400 hover:border-blue-500/20 hover:bg-blue-500/[0.06] transition-all duration-300">
                                 <Linkedin className="h-3.5 w-3.5" />
                             </a>
-                            <a href="https://github.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-foreground/20 hover:text-foreground/60 hover:border-white/[0.12] hover:bg-white/[0.04] transition-all duration-300">
+                            <a href="https://github.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-gray-200 dark:border-white/[0.06] bg-gray-100 dark:bg-white/[0.02] flex items-center justify-center text-foreground/20 hover:text-foreground/60 hover:border-gray-300 dark:hover:border-white/[0.12] hover:bg-gray-200 dark:hover:bg-white/[0.04] transition-all duration-300">
                                 <Github className="h-3.5 w-3.5" />
                             </a>
                         </div>
@@ -162,11 +162,11 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-white/[0.03]">
+                <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/[0.03]">
                     <div className="flex flex-col items-center gap-2">
                         <div className="flex items-center gap-2 mt-2">
                             {["AES-256", "JWT", "HTTPS", "VEN-NIF"].map((tech, i) => (
-                                <span key={i} className="text-[8px] font-bold uppercase tracking-[0.2em] text-foreground/10 px-2 py-0.5 rounded-full border border-white/[0.04]">
+                                <span key={i} className="text-[8px] font-bold uppercase tracking-[0.2em] text-foreground/10 px-2 py-0.5 rounded-full border border-gray-200 dark:border-white/[0.04]">
                                     {tech}
                                 </span>
                             ))}

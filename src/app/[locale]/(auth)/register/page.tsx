@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
     User, Building2, ArrowRight, ChevronLeft, ShieldCheck,
-    Search, CircleCheck as CircleCheck, TriangleAlert as TriangleAlert, Fingerprint, Loader2,
+    RefreshCw, CircleCheck as CircleCheck, TriangleAlert as TriangleAlert, Fingerprint, Loader2,
     Signal, Gavel, ArrowLeft, Scan,
     ChevronDown, Globe, Landmark, FileSignature, Building, UserCircle,
     ShoppingCart, Lock, Recycle,
@@ -135,11 +135,13 @@ const MODULES: ModuleOption[] = [
         id: "sostenibilidad",
         route: "sostenibilidad",
         icon: Recycle,
-        title: "Sostenibilidad & ESG",
-        description: "Gestión ambiental, reciclaje, huella de carbono, reportes ESG y economía circular",
+        title: "Sostenibilidad Personal",
+        description: "Huella de carbono personal, reciclaje, eco-créditos y perfil verde individual",
         gradient: "from-green-500/20 via-lime-500/10 to-transparent",
         iconBg: "bg-green-500/15 text-green-400 ring-green-500/20",
-        forPrefixes: ["V", "E", "J", "G", "C", "F"],
+        forPrefixes: ["V", "E", "P"],
+        badge: "PERSONAL",
+        badgeColor: "text-green-400 bg-green-500/10",
     },
 ];
 
@@ -439,6 +441,7 @@ export default function RegisterSelectionPage() {
     const [navigatingModule, setNavigatingModule] = useState<string | null>(null);
 
     const inputRef = useRef<HTMLInputElement>(null);
+    const scannerProvidedRef = useRef<string | null>(null);
     const fullDocument = `${prefix}-${docNumber}`;
 
     useEffect(() => {
@@ -461,6 +464,10 @@ export default function RegisterSelectionPage() {
             return;
         }
         const doc = `${prefix}-${docNumber}`;
+        if (scannerProvidedRef.current === doc) {
+            setCedulaSearching(false);
+            return;
+        }
         setCedulaSearching(true);
         const controller = new AbortController();
         const timeout = setTimeout(async () => {
@@ -493,6 +500,46 @@ export default function RegisterSelectionPage() {
             clearTimeout(timeout);
             controller.abort();
             setCedulaSearching(false);
+        };
+    }, [detected.valid, detected.type, prefix, docNumber]);
+
+    useEffect(() => {
+        if (!detected.valid || detected.type !== "juridico") {
+            setRifLookup(null);
+            setRifSearched(false);
+            return;
+        }
+        const doc = `${prefix}-${docNumber}`;
+        if (scannerProvidedRef.current === doc) {
+            setRifSearching(false);
+            return;
+        }
+        if (!doc.includes('-') || doc.split('-')[1]?.length < 8) return;
+        setRifSearching(true);
+        const controller = new AbortController();
+        const timeout = setTimeout(async () => {
+            try {
+                const res = await fetch(`/api/rif/consulta?rif=${encodeURIComponent(doc)}`, { signal: controller.signal });
+                const data = await res.json();
+                if (res.ok && data.found && data.data) {
+                    setRifLookup(data.data);
+                    setRifValidationError(null);
+                } else {
+                    setRifLookup(null);
+                    if (data.error) setRifValidationError(data.error);
+                }
+                setRifSearched(true);
+            } catch {
+                setRifLookup(null);
+                setRifSearched(true);
+            } finally {
+                setRifSearching(false);
+            }
+        }, 500);
+        return () => {
+            clearTimeout(timeout);
+            controller.abort();
+            setRifSearching(false);
         };
     }, [detected.valid, detected.type, prefix, docNumber]);
 
@@ -561,13 +608,24 @@ export default function RegisterSelectionPage() {
         }
     };
 
-    const handleScanComplete = useCallback((number: string, prefix: string) => {
+    const handleScanComplete = useCallback((number: string, prefix: string, data?: any) => {
+        const doc = `${prefix}-${number}`;
         setPrefix(prefix);
         setShowScanner(false);
         if (["J", "G", "C", "F"].includes(prefix) && number.length >= 8) {
             setDocNumber(`${number.slice(0, 8)}-${number.slice(8, 9)}`);
         } else {
             setDocNumber(number);
+        }
+        scannerProvidedRef.current = doc;
+        if (data) {
+            if (data.nombre || data.apellido) {
+                setCedulaLookup({ nombre: data.nombre, apellido: data.apellido, fechaNacimiento: data.fechaNacimiento, sexo: data.sexo, estadoCivil: data.estadoCivil, nacionalidad: data.nacionalidad });
+            }
+            if (data.razonSocial) {
+                setRifLookup({ razonSocial: data.razonSocial, tipoEmpresa: data.tipoEmpresa, direccion: data.direccion });
+                setRifSearched(true);
+            }
         }
     }, []);
 
@@ -925,7 +983,7 @@ export default function RegisterSelectionPage() {
                                                                 {rifSearching ? (
                                                                     <Loader2 className="h-4 w-4 animate-spin" />
                                                                 ) : (
-                                                                    <><Search className="h-4 w-4 mr-1.5" /> SENIAT</>
+                                                                    <><RefreshCw className="h-4 w-4 mr-1.5" /> SENIAT</>
                                                                 )}
                                                             </Button>
                                                         </motion.div>

@@ -144,7 +144,7 @@ export default function IdentityAssetsPage() {
                         </button>
                     </div>
 
-                    <Link href="/sector-privado-system-kyron" className="flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/10 text-zinc-300 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border border-white/5">
+                    <Link href="/triptico" className="flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/10 text-zinc-300 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border border-white/5">
                         <ArrowLeft className="h-3.5 w-3.5" /> Volver
                     </Link>
 

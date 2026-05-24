@@ -155,50 +155,58 @@ export default function DashboardSociosPage() {
 
   return (
     <div className="space-y-10 pb-20">
-      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-10">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-[11px] font-black uppercase tracking-[0.2em] text-indigo-500 mb-4 font-tech">
-            <Briefcase className="h-3 w-3" /> CENTRO SOCIETARIO
+      <header className="rounded-2xl border border-border bg-card px-6 py-6 md:px-8 md:py-7">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-xs font-black uppercase tracking-[0.2em] text-indigo-500 mb-4 font-tech">
+              <Briefcase className="h-3 w-3" /> CENTRO SOCIETARIO
+            </div>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-none font-impact">Gestión de <span className="text-indigo-500 italic font-tech">Socios</span></h1>
+            <p className="text-muted-foreground text-xs font-bold uppercase tracking-[0.3em] opacity-40 mt-3 font-tech">Estructura Accionaria • Gobernanza Corporativa 2026</p>
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-none font-impact">Gestión de <span className="text-indigo-500 italic font-tech">Socios</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.3em] opacity-40 mt-3 font-tech">Estructura Accionaria • Gobernanza Corporativa 2026</p>
+          <Button onClick={() => { setEditId(null); setForm(emptySocio); setShowForm(true); }} size="sm" className="h-11 px-6 rounded-xl text-xs font-black uppercase tracking-[0.15em] bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg font-tech">
+            <Plus className="mr-2 h-4 w-4" /> Registrar Socio
+          </Button>
         </div>
-        <Button onClick={() => { setEditId(null); setForm(emptySocio); setShowForm(true); }} size="sm" className="h-11 px-6 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg font-tech">
-          <Plus className="mr-2 h-4 w-4" /> Registrar Socio
-        </Button>
       </header>
 
-      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
-        {[
-          { label: "Total Socios", val: String(stats.total_socios), icon: Users, color: "text-blue-500", bgColor: "bg-blue-500/10 border-blue-500/15", sub: `${stats.socios_activos} activos` },
-          { label: "Participación Asignada", val: `${totalParticipacion.toFixed(2)}%`, icon: DollarSign, color: "text-emerald-500", bgColor: "bg-emerald-500/10 border-emerald-500/15", sub: totalParticipacion === 100 ? "Completo" : `${(100 - totalParticipacion).toFixed(2)}% disponible` },
-          { label: "Actas Registradas", val: String(stats.total_actas), icon: FileText, color: "text-violet-500", bgColor: "bg-violet-500/10 border-violet-500/15", sub: `${stats.actas_registradas} formalizadas` },
-          { label: "Gobernanza", val: stats.socios_activos > 0 ? "Activa" : "Sin socios", icon: Clock, color: "text-amber-500", bgColor: "bg-amber-500/10 border-amber-500/15", sub: stats.socios_activos > 0 ? "Al día" : "Registre socios" },
-        ].map((kpi, i) => (
-          <Card key={i} className="glass-card border-none bg-card/50 p-5 rounded-2xl group hover:scale-[1.01] transition-all">
-            <div className="flex justify-between items-start mb-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/40">{kpi.label}</p>
-              <div className={cn("p-1.5 rounded-lg border", kpi.bgColor)}>
-                <kpi.icon className={cn("h-3.5 w-3.5", kpi.color)} />
+      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+        <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+          {[
+            { label: "Total Socios", val: String(stats.total_socios), icon: Users, color: "text-blue-500", bgColor: "bg-blue-500/10 border-blue-500/15", sub: `${stats.socios_activos} activos` },
+            { label: "Participación Asignada", val: `${totalParticipacion.toFixed(2)}%`, icon: DollarSign, color: "text-emerald-500", bgColor: "bg-emerald-500/10 border-emerald-500/15", sub: totalParticipacion === 100 ? "Completo" : `${(100 - totalParticipacion).toFixed(2)}% disponible` },
+            { label: "Actas Registradas", val: String(stats.total_actas), icon: FileText, color: "text-violet-500", bgColor: "bg-violet-500/10 border-violet-500/15", sub: `${stats.actas_registradas} formalizadas` },
+            { label: "Gobernanza", val: stats.socios_activos > 0 ? "Activa" : "Sin socios", icon: Clock, color: "text-amber-500", bgColor: "bg-amber-500/10 border-amber-500/15", sub: stats.socios_activos > 0 ? "Al día" : "Registre socios" },
+          ].map((kpi, i) => (
+            <Card key={i} className={cn("rounded-xl border border-border bg-card p-5 transition-all hover:shadow-md shadow-sm shadow-black/[0.02]", `border-t-2 ${kpi.color.replace('text-', 'border-t-')}/30`)}>
+              <div className="flex justify-between items-start mb-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground/40">{kpi.label}</p>
+                <div className={cn("p-2 rounded-lg bg-current/10", kpi.color)}>
+                  <kpi.icon className={cn("h-3.5 w-3.5", kpi.color)} />
+                </div>
               </div>
-            </div>
-            <p className="text-2xl font-bold text-foreground tracking-tight">{kpi.val}</p>
-            <p className="text-[10px] text-muted-foreground/50 font-bold mt-1">{kpi.sub}</p>
-          </Card>
-        ))}
+              <p className="text-2xl font-bold text-foreground tracking-tight">{kpi.val}</p>
+              <p className="text-xs text-muted-foreground/50 font-bold mt-1">{kpi.sub}</p>
+            </Card>
+          ))}
+        </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-12">
-        <Card className="lg:col-span-8 glass-card border-none bg-card/50 rounded-2xl overflow-hidden">
-          <CardHeader className="p-6 border-b border-border/30">
+      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+        <div className="grid gap-6 lg:grid-cols-12">
+        <Card className="lg:col-span-8 rounded-xl border border-border bg-card overflow-hidden shadow-sm shadow-black/[0.02]">
+          <CardHeader className="p-6 border-b border-border">
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground">Composición Accionaria</CardTitle>
-                <CardDescription className="text-[10px] mt-1">
+                <div className="flex items-center gap-2">
+                  <div className="h-6 w-1 rounded-full bg-primary/40" />
+                  <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground">Composición Accionaria</CardTitle>
+                </div>
+                <CardDescription className="text-xs mt-1">
                   {socios.length === 0 ? 'Sin socios registrados' : `${socios.length} socio${socios.length !== 1 ? 's' : ''} registrado${socios.length !== 1 ? 's' : ''}`}
                 </CardDescription>
               </div>
-              <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider border-emerald-500/20 text-emerald-500 bg-emerald-500/5">
+              <Badge variant="outline" className="text-xs font-bold uppercase tracking-wider border-emerald-500/20 text-emerald-500 bg-emerald-500/5">
                 <ShieldCheck className="h-2.5 w-2.5 mr-1" /> Reg. Mercantil
               </Badge>
             </div>
@@ -206,7 +214,7 @@ export default function DashboardSociosPage() {
           <CardContent className="p-0">
             {socios.length === 0 ? (
               <div className="py-12 px-6 text-center space-y-3">
-                <div className="mx-auto w-12 h-12 rounded-xl bg-muted/30 flex items-center justify-center">
+                <div className="mx-auto w-12 h-12 rounded-xl bg-muted flex items-center justify-center">
                   <Users className="h-5 w-5 text-muted-foreground/30" />
                 </div>
                 <p className="text-sm font-medium text-muted-foreground/60">No hay socios registrados</p>
@@ -216,7 +224,7 @@ export default function DashboardSociosPage() {
                 </Button>
               </div>
             ) : (
-              <div className="divide-y divide-border/20">
+                <div className="divide-y divide-border">
                 {socios.map((socio) => {
                   const pct = parseFloat(socio.porcentaje_participacion || '0');
                   return (
@@ -227,18 +235,18 @@ export default function DashboardSociosPage() {
                         </div>
                         <div className="min-w-0">
                           <p className="text-xs font-bold text-foreground truncate">{socio.nombre}</p>
-                          <p className="text-[10px] text-muted-foreground">
+                          <p className="text-xs text-muted-foreground">
                             {socio.cargo || socio.tipo}{socio.fecha_ingreso ? ` · Desde ${new Date(socio.fecha_ingreso).getFullYear()}` : ''}
                           </p>
                         </div>
                       </div>
                       <div className="flex items-center gap-4 shrink-0">
                         <div className="text-right hidden sm:block">
-                          <p className="text-[11px] text-muted-foreground/40 uppercase" title={socio.cedula_rif || ''}>{maskIdentity(socio.cedula_rif)}</p>
+                          <p className="text-xs text-muted-foreground/40 uppercase" title={socio.cedula_rif || ''}>{maskIdentity(socio.cedula_rif)}</p>
                         </div>
                         <div className="text-right">
                           <div className="flex items-center gap-2">
-                            <div className="w-16 h-1.5 bg-muted/30 rounded-full overflow-hidden">
+                            <div className="w-16 h-1.5 bg-muted rounded-full overflow-hidden">
                               <div className="h-full bg-indigo-500 rounded-full" style={{ width: `${Math.min(pct, 100)}%` }} />
                             </div>
                             <span className="text-sm font-bold text-indigo-500 tabular-nums w-14 text-right">{pct.toFixed(2)}%</span>
@@ -262,9 +270,10 @@ export default function DashboardSociosPage() {
         </Card>
 
         <div className="lg:col-span-4 space-y-6">
-          <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden">
-            <CardHeader className="p-5 border-b border-border/30">
+          <Card className="rounded-xl border border-border bg-card overflow-hidden shadow-sm shadow-black/[0.02]">
+            <CardHeader className="p-5 border-b border-border">
               <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground flex items-center gap-2">
+                <div className="h-6 w-1 rounded-full bg-primary/40" />
                 <Activity className="h-3.5 w-3.5 text-indigo-500" /> Actas Recientes
               </CardTitle>
             </CardHeader>
@@ -274,18 +283,18 @@ export default function DashboardSociosPage() {
                   <p className="text-xs text-muted-foreground/50">Sin actas de asamblea registradas.</p>
                 </div>
               ) : (
-                <div className="divide-y divide-border/20">
+              <div className="divide-y divide-border">
                   {actas.slice(0, 5).map((acta) => (
                     <div key={acta.id} className="px-5 py-3.5 hover:bg-muted/20 transition-colors">
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
-                          <p className="text-[11px] font-bold text-foreground truncate">Acta #{acta.numero_acta}</p>
-                          <p className="text-[11px] text-muted-foreground mt-0.5">
+                          <p className="text-xs font-bold text-foreground truncate">Acta #{acta.numero_acta}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">
                             {new Date(acta.fecha_asamblea).toLocaleDateString(currentLocale || 'es')} · {acta.tipo.charAt(0).toUpperCase() + acta.tipo.slice(1)}
                           </p>
                         </div>
                         <Badge variant="outline" className={cn(
-                          "text-[10px] font-bold uppercase shrink-0",
+                          "text-xs font-bold uppercase shrink-0",
                           acta.estado === "registrada" ? "border-emerald-500/20 text-emerald-500 bg-emerald-500/5" :
                           acta.estado === "firmada" ? "border-amber-500/20 text-amber-500 bg-amber-500/5" :
                           acta.estado === "archivada" ? "border-blue-500/20 text-blue-500 bg-blue-500/5" :
@@ -303,8 +312,8 @@ export default function DashboardSociosPage() {
             <div className="absolute top-0 right-0 p-4 opacity-10"><Handshake className="h-24 w-24" /></div>
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <h3 className="text-sm font-black uppercase tracking-widest mb-2 font-tech">Pacto Parasocial</h3>
-            <p className="text-[11px] font-bold opacity-80 leading-relaxed mb-5 font-inter">Gestione cláusulas de prelación, derecho de tag-along, drag-along y resolución de conflictos.</p>
-            <Button variant="secondary" size="sm" className="bg-white text-indigo-700 font-black text-[9px] uppercase tracking-widest rounded-xl h-9 px-5 hover:bg-white/90 font-tech">
+            <p className="text-xs font-bold opacity-80 leading-relaxed mb-5 font-inter">Gestione cláusulas de prelación, derecho de tag-along, drag-along y resolución de conflictos.</p>
+            <Button variant="secondary" size="sm" className="bg-white text-indigo-700 font-black text-xs uppercase tracking-widest rounded-xl h-9 px-5 hover:bg-white/90 font-tech">
               Ver Documento
             </Button>
           </Card>
@@ -317,46 +326,49 @@ export default function DashboardSociosPage() {
                 <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
                   <Leaf className="h-4 w-4 text-emerald-500" />
                 </div>
-                <Badge className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 text-[8px] font-black tracking-widest uppercase font-tech">Impacto ESG</Badge>
+                <Badge className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 text-xs font-black tracking-widest uppercase font-tech">Impacto ESG</Badge>
               </div>
               <h3 className="text-sm font-black uppercase tracking-widest text-white mb-2 font-tech">Radar <span className="text-emerald-500">Kyron Core</span></h3>
-              <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-6 font-tech">Monitoreo Algorítmico de Sostenibilidad.</p>
+              <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-6 font-tech">Monitoreo Algorítmico de Sostenibilidad.</p>
               
               <div className="space-y-3">
                 <div className="flex justify-between items-center p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                  <span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest font-tech">Carbono Evitado</span>
-                  <span className="text-[10px] font-black text-emerald-400 font-impact tracking-widest">1.4 Tn / Mes</span>
+                  <span className="text-xs font-black text-zinc-400 uppercase tracking-widest font-tech">Carbono Evitado</span>
+                  <span className="text-xs font-black text-emerald-400 font-impact tracking-widest">1.4 Tn / Mes</span>
                 </div>
                 <div className="flex justify-between items-center p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                  <span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest font-tech">Eficiencia SK-360</span>
-                  <span className="text-[10px] font-black text-white font-impact tracking-widest">94.2%</span>
+                  <span className="text-xs font-black text-zinc-400 uppercase tracking-widest font-tech">Eficiencia SK-360</span>
+                  <span className="text-xs font-black text-white font-impact tracking-widest">94.2%</span>
                 </div>
               </div>
             </div>
           </Card>
         </div>
       </div>
+      </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {modules.map((module) => (
           <Link key={module.title} href={module.href as never} className="group block">
-            <Card className="glass-card border-none bg-card/50 p-5 rounded-2xl h-full flex flex-col justify-between hover:scale-[1.01] transition-all">
+            <Card className="rounded-xl border border-border bg-card/50 p-5 h-full flex flex-col justify-between transition-all hover:shadow-md shadow-sm shadow-black/[0.02]">
               <div className="space-y-3">
-                <div className={cn("p-2.5 rounded-xl border w-fit transition-transform group-hover:scale-110 duration-300", module.bgColor)}>
+                <div className={cn("p-2.5 rounded-xl border w-fit", module.bgColor)}>
                   <module.icon className={cn("h-4 w-4", module.color)} />
                 </div>
                 <div>
                   <CardTitle className="text-xs font-semibold uppercase tracking-tight text-foreground mb-1.5 group-hover:text-indigo-500 transition-colors">{module.title}</CardTitle>
-                  <CardDescription className="text-[10px] text-muted-foreground leading-relaxed">{module.description}</CardDescription>
+                  <CardDescription className="text-xs text-muted-foreground leading-relaxed">{module.description}</CardDescription>
                 </div>
               </div>
-              <div className="pt-4 mt-auto flex items-center justify-between text-[11px] font-bold text-muted-foreground/30 group-hover:text-indigo-500 transition-colors uppercase tracking-wider">
+              <div className="pt-4 mt-auto flex items-center justify-between text-xs font-bold text-muted-foreground/30 group-hover:text-indigo-500 transition-colors uppercase tracking-wider">
                 <span>Acceder</span>
                 <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
               </div>
             </Card>
           </Link>
         ))}
+      </div>
       </div>
 
       <Dialog open={showForm} onOpenChange={setShowForm}>
@@ -369,17 +381,17 @@ export default function DashboardSociosPage() {
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold uppercase">Nombre *</Label>
+                <Label className="text-xs font-bold uppercase">Nombre *</Label>
                 <Input value={form.nombre} onChange={e => setForm(f => ({ ...f, nombre: e.target.value }))} placeholder="Nombre completo" className="rounded-lg text-xs h-9" />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold uppercase">Cédula / RIF</Label>
+                <Label className="text-xs font-bold uppercase">Cédula / RIF</Label>
                 <Input value={form.cedula_rif} onChange={e => setForm(f => ({ ...f, cedula_rif: e.target.value }))} placeholder="V-12345678" className="rounded-lg text-xs h-9" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold uppercase">Tipo</Label>
+                <Label className="text-xs font-bold uppercase">Tipo</Label>
                 <Select value={form.tipo} onValueChange={v => setForm(f => ({ ...f, tipo: v }))}>
                   <SelectTrigger className="rounded-lg text-xs h-9"><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -389,27 +401,27 @@ export default function DashboardSociosPage() {
                 </Select>
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold uppercase">Participación %</Label>
+                <Label className="text-xs font-bold uppercase">Participación %</Label>
                 <Input type="number" step="0.01" min="0" max="100" value={form.porcentaje_participacion} onChange={e => setForm(f => ({ ...f, porcentaje_participacion: e.target.value }))} className="rounded-lg text-xs h-9" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold uppercase">Cargo</Label>
+                <Label className="text-xs font-bold uppercase">Cargo</Label>
                 <Input value={form.cargo} onChange={e => setForm(f => ({ ...f, cargo: e.target.value }))} placeholder="Presidente, Director..." className="rounded-lg text-xs h-9" />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold uppercase">Fecha Ingreso</Label>
+                <Label className="text-xs font-bold uppercase">Fecha Ingreso</Label>
                 <Input type="date" value={form.fecha_ingreso} onChange={e => setForm(f => ({ ...f, fecha_ingreso: e.target.value }))} className="rounded-lg text-xs h-9" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold uppercase">Email</Label>
+                <Label className="text-xs font-bold uppercase">Email</Label>
                 <Input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} className="rounded-lg text-xs h-9" />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[10px] font-bold uppercase">Teléfono</Label>
+                <Label className="text-xs font-bold uppercase">Teléfono</Label>
                 <Input value={form.telefono} onChange={e => setForm(f => ({ ...f, telefono: e.target.value }))} className="rounded-lg text-xs h-9" />
               </div>
             </div>

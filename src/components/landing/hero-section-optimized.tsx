@@ -87,7 +87,7 @@ export function HeroSectionOptimized() {
         
         {/* Very subtle grid */}
         <div className="absolute inset-0 opacity-[0.01]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)', backgroundSize: '100px 100px' }} />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#02040a_90%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#f8fafc_90%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,#02040a_90%)]" />
       </div>
 
       <div className="relative z-10 w-full container mx-auto px-6 max-w-7xl">
@@ -109,8 +109,8 @@ export function HeroSectionOptimized() {
             {/* Headline */}
              <div className="space-y-5">
                <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] font-black leading-[0.85] tracking-tighter uppercase">
-                 <span className="block text-[0.3em] tracking-[0.6em] mb-4 not-italic font-medium text-white/30 uppercase">SISTEMA DE MANDO ÚNICO</span>
-                 <span className="block bg-gradient-to-br from-white via-cyan-100 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,255,255,0.15)]">
+                  <span className="block text-[0.3em] tracking-[0.6em] mb-4 not-italic font-medium text-gray-600 dark:text-white/30 uppercase">SISTEMA DE MANDO ÚNICO</span>
+                  <span className="block bg-gradient-to-br from-gray-900 via-cyan-600 to-blue-700 dark:from-white dark:via-cyan-100 dark:to-blue-400 bg-clip-text text-transparent dark:drop-shadow-[0_0_30px_rgba(255,255,255,0.15)]">
                    {t('title_line2')}
                  </span>
                  <span className="block text-[0.75em] mt-4 text-cyan-400/60 font-light not-italic tracking-wide italic">
@@ -118,7 +118,7 @@ export function HeroSectionOptimized() {
                  </span>
                </h1>
                
-               <p className="text-lg md:text-xl text-white/40 max-w-xl font-medium leading-relaxed mx-auto lg:mx-0 border-l-2 border-cyan-500/30 pl-6">
+                <p className="text-lg md:text-xl text-gray-600/80 dark:text-white/40 max-w-xl font-medium leading-relaxed mx-auto lg:mx-0 border-l-2 border-cyan-500/30 pl-6">
                  {t('subtitle')}
                </p>
              </div>
@@ -133,14 +133,14 @@ export function HeroSectionOptimized() {
                   </Link>
                 </Button>
                 
-                <Button variant="outline" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl border-white/10 bg-white/[0.03] backdrop-blur-3xl text-white/50 hover:bg-white/[0.08] hover:text-white transition-all duration-500 hover:scale-[1.02] hover:border-white/20">
+                <Button variant="outline" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl border-gray-200 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] backdrop-blur-3xl text-gray-700/70 dark:text-white/50 hover:bg-black/[0.06] dark:hover:bg-white/[0.08] hover:text-gray-900 dark:hover:text-white transition-all duration-500 hover:scale-[1.02] hover:border-gray-300 dark:hover:border-white/20">
                   <span className="flex items-center gap-3">
                     <Play className="h-3.5 w-3.5 fill-current" />
                     {t('cta_secondary')}
                   </span>
                 </Button>
 
-                <Button asChild variant="ghost" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl border border-emerald-500/20 bg-emerald-500/5 text-emerald-400/70 hover:bg-emerald-500/10 hover:text-emerald-300 hover:border-emerald-500/40 transition-all duration-500 hover:scale-[1.02] group">
+                <Button asChild variant="ghost" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl border border-emerald-500/20 bg-emerald-500/5 text-emerald-600/80 dark:text-emerald-400/70 hover:bg-emerald-500/10 hover:text-emerald-700 dark:hover:text-emerald-300 hover:border-emerald-500/40 transition-all duration-500 hover:scale-[1.02] group">
                   <Link href="/soporte" className="flex items-center gap-3">
                     <Headphones className="h-4 w-4 group-hover:scale-110 transition-transform" />
                     Atención al Cliente
@@ -154,12 +154,12 @@ export function HeroSectionOptimized() {
            <div className="flex-1 relative hidden lg:block">
              <div className="relative aspect-square w-full max-w-[500px] mx-auto flex items-center justify-center">
                {/* Single, elegant rotating ring */}
-               <div className="absolute inset-0 border border-white/5 rounded-full animate-[spin_100s_linear_infinite]" />
-               <div className="absolute inset-12 border border-white/10 rounded-full animate-[spin_60s_linear_infinite_reverse]" />
+                <div className="absolute inset-0 border border-gray-200/80 dark:border-white/5 rounded-full animate-[spin_100s_linear_infinite]" />
+                <div className="absolute inset-12 border border-gray-200/80 dark:border-white/10 rounded-full animate-[spin_60s_linear_infinite_reverse]" />
                
                {/* Central Core */}
-               <div className="relative z-10 w-40 h-40 rounded-full bg-white/[0.02] backdrop-blur-3xl border border-white/10 shadow-[0_0_80px_rgba(6,182,212,0.1)] flex items-center justify-center animate-float">
-                 <Logo className="w-16 h-16 text-white opacity-90" />
+                <div className="relative z-10 w-40 h-40 rounded-full bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-3xl border border-gray-200/80 dark:border-white/10 shadow-[0_0_80px_rgba(6,182,212,0.1)] flex items-center justify-center animate-float">
+                  <Logo className="w-16 h-16 text-gray-900 dark:text-white opacity-90" />
                </div>
              </div>
            </div>
@@ -168,7 +168,7 @@ export function HeroSectionOptimized() {
       </div>
 
       {/* Cinematic Trust Bar */}
-      <div className="w-full py-16 mt-28 relative border-t border-white/[0.03] bg-white/[0.01] backdrop-blur-md">
+      <div className="w-full py-16 mt-28 relative border-t border-gray-200/40 dark:border-white/[0.03] bg-black/[0.01] dark:bg-white/[0.01] backdrop-blur-md">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16">
             {[
@@ -178,11 +178,11 @@ export function HeroSectionOptimized() {
               { val: '100%', label: t('legal'), icon: ShieldCheck, color: 'text-violet-400' }
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center group">
-                <div className={cn("h-12 w-12 rounded-xl bg-white/[0.03] flex items-center justify-center mb-5 border border-white/[0.06] group-hover:scale-105 transition-all duration-500")}>
+                <div className={cn("h-12 w-12 rounded-xl bg-black/[0.03] dark:bg-white/[0.03] flex items-center justify-center mb-5 border border-gray-200/50 dark:border-white/[0.06] group-hover:scale-105 transition-all duration-500")}>
                   <stat.icon className={cn("h-5 w-5", stat.color)} />
                 </div>
-                <p className="text-[9px] font-black uppercase tracking-[0.35em] text-white/25 mb-2">{stat.label}</p>
-                <p className="text-3xl font-black text-white/80 tracking-tighter">{stat.val}</p>
+                <p className="text-[9px] font-black uppercase tracking-[0.35em] text-gray-500/60 dark:text-white/25 mb-2">{stat.label}</p>
+                <p className="text-3xl font-black text-gray-900 dark:text-white/80 tracking-tighter">{stat.val}</p>
               </div>
             ))}
           </div>

@@ -23,19 +23,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const systemPrompt = clientPrompt || `Eres Kyron Core, la IA central del ecosistema System Kyron. Eres el orquestador principal del sistema. Tienes conocimiento AMPLIO sobre TODOS los módulos:
-
-- Contabilidad VEN-NIF y cumplimiento SENIAT
-- Asesoría Legal y derecho corporativo venezolano
-- RRHH y nómina LOTTT
-- Telecomunicaciones (Mi Línea personal y corporativa)
-- Ventas y CRM
-- Sostenibilidad y eco-créditos
-- Portal de Socios
-- Informática e IT
-- Soporte técnico
-
-Si una consulta requiere una especialidad profunda, indícalo claramente. Responde de forma concisa, profesional y en español. Usa formato markdown. Si no sabes algo, dilo honestamente.`;
+    const systemPrompt = clientPrompt || `Eres un asistente de System Kyron. Responde SOLO sobre el contexto actual. Si no tienes contexto específico, indícalo. No menciones módulos fuera del alcance de la consulta actual.`;
 
     const conversationHistory = history || [];
     let historyText = conversationHistory

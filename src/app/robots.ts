@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: ['/es/', '/en/', '/api/stats', '/sitemap.xml', '/es/sector-privado-system-kyron'],
+        allow: ['/es/', '/en/', '/api/stats', '/sitemap.xml', '/es/triptico'],
         disallow: [
           '/api/',
           '/es/dashboard-',
@@ -23,7 +23,7 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: ['GPTBot', 'ChatGPT-User', 'Claude-Web', 'ClaudeBot', 'Google-Extended'],
-        allow: ['/es/', '/en/', '/es/sector-privado-system-kyron', '/es/faq'],
+        allow: ['/es/', '/en/', '/es/triptico', '/es/faq'],
       }
     ],
     sitemap: `${BASE_URL}/sitemap.xml`,

@@ -89,9 +89,21 @@ export function DocumentScanner({ onScanComplete, onClose, type }: DocumentScann
             const aiData = json.ai || json;
             if (aiData.number) {
                 const fullDoc = `${aiData.prefix}-${aiData.number}`;
-                setResult({ ...aiData, db: json.db, fullDocument: fullDoc });
+                const personData = type === "cedula" ? {
+                    nombre: [aiData.primerNombre, aiData.segundoNombre].filter(Boolean).join(" "),
+                    apellido: [aiData.primerApellido, aiData.segundoApellido].filter(Boolean).join(" "),
+                    fechaNacimiento: aiData.fechaNacimiento,
+                    sexo: aiData.sexo,
+                    estadoCivil: aiData.estadoCivil,
+                    nacionalidad: aiData.nacionalidad,
+                } : {
+                    razonSocial: aiData.razonSocial,
+                    tipoEmpresa: aiData.tipoEmpresa,
+                    direccion: aiData.direccion,
+                };
+                setResult({ ...aiData, db: personData, fullDocument: fullDoc });
                 setStep("result");
-                onScanComplete(aiData.number, aiData.prefix, aiData);
+                onScanComplete(aiData.number, aiData.prefix, { ...aiData, ...personData });
             } else {
                 setError(json.error || "No se pudo leer el documento.");
                 setStep("select");

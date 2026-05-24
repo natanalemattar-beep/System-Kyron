@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Clock, User, FileText, Stethoscope, Scale, ChevronRight,
   Lock, Bell, CircleCheck as CircleCheck, Fingerprint,
-  Shield, Sparkles, TriangleAlert, ArrowRight, Leaf,
+  Shield, TriangleAlert, ArrowRight, Leaf,
   Sun, Moon, Sunrise, Heart, BadgeCheck, Trophy
 } from "lucide-react";
 import { Link } from "@/navigation";
@@ -122,162 +122,133 @@ export default function DashboardPersonalPage() {
       <ModuleTutorial config={moduleTutorials["ciudadano"]} />
       <ProfileCompletionNotice />
       
-      {/* Header System Kyron con Efecto de Cristal Sagrado */}
+      {/* Header */}
       <motion.header
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="relative overflow-hidden rounded-[2rem] bg-slate-950 border border-white/10 p-8 md:p-12 text-white mt-6 group shadow-2xl shadow-blue-500/10"
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mt-6"
       >
-        <div className="absolute inset-0">
-          <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-600/[0.1] blur-[140px] group-hover:bg-blue-600/[0.15] transition-colors duration-1000" />
-          <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-indigo-600/[0.08] blur-[120px]" />
-          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light pointer-events-none" />
-        </div>
-
-        <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-          <div className="space-y-6">
+        <div className="rounded-2xl border border-border bg-card px-6 py-6 md:px-8 md:py-7 shadow-sm shadow-black/[0.02]">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <div className="flex items-center gap-4">
-              <div className="h-20 w-20 rounded-[2rem] bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 flex items-center justify-center shadow-[0_0_50px_rgba(59,130,246,0.4)] border border-white/20">
-                <Shield className="h-10 w-10 text-white animate-pulse" />
+              <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Shield className="h-7 w-7 text-primary" />
               </div>
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-blue-400" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400/80 font-tech">Identidad Digital SK-Core</span>
-                </div>
-                <h1 className="text-4xl md:text-7xl font-black tracking-tighter leading-none font-impact uppercase">
+              <div>
+                <p className="text-xs font-medium text-muted-foreground">Portal Ciudadano</p>
+                <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mt-0.5">
                   {greeting?.text ?? "Hola"}{firstName ? `, ${firstName}` : ""}
                 </h1>
               </div>
             </div>
-            
-            <div className="flex flex-wrap items-center gap-4 pt-4">
-              <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl font-tech">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.6)] animate-pulse" />
-                <span className="text-[11px] font-black uppercase tracking-widest text-emerald-400">Sistema en Vivo</span>
-              </div>
-              <div className={cn("text-[11px] px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl font-black uppercase tracking-widest flex items-center gap-2 font-tech", verif.color)}>
-                <Trophy className="h-4 w-4" /> {verif.label}
-              </div>
-            </div>
-          </div>
 
-          <div className="flex flex-col gap-3 min-w-[200px]">
-             <Button asChild size="lg" className="h-12 px-8 rounded-2xl text-[12px] font-black uppercase tracking-widest bg-white text-slate-950 hover:bg-white/90 hover:scale-[1.02] transition-all shadow-xl shadow-white/10">
-              <Link href="/tarjeta-digital">ID DIGITAL 3.0</Link>
-            </Button>
-            <p className="text-[10px] text-center text-white/30 font-bold uppercase tracking-widest">Nivel de Acceso: 0{verif.level}</p>
+            <div className="flex items-center gap-3">
+              <div className={cn("flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-semibold", verif.color, "bg-current/5 border-current/20")}>
+                <Trophy className="h-3.5 w-3.5" /> {verif.label}
+              </div>
+              <Button asChild size="sm" className="rounded-lg text-xs font-semibold">
+                <Link href="/tarjeta-digital">ID Digital</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </motion.header>
 
       {!loading && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="rounded-xl border border-border/30 bg-card/60 backdrop-blur-sm p-4"
-        >
+        <div className="rounded-xl border border-border bg-card p-4 shadow-sm shadow-black/[0.02]">
           <div className="flex items-center justify-between mb-2.5">
             <div className="flex items-center gap-2">
               <BadgeCheck className={cn("h-4 w-4", verif.color)} />
-              <span className="text-[11px] font-semibold text-foreground/60">Nivel de Verificación</span>
+              <span className="text-xs font-medium text-muted-foreground">Nivel de Verificación</span>
             </div>
-            <span className={cn("text-xs font-bold", verif.color)}>{verif.percent}%</span>
+            <span className={cn("text-xs font-semibold", verif.color)}>{verif.percent}%</span>
           </div>
-          <div className="w-full h-2 rounded-full bg-muted/20 overflow-hidden">
-            <motion.div
-              className={cn("h-full rounded-full bg-gradient-to-r", verif.gradient)}
-              initial={{ width: 0 }}
-              animate={{ width: `${verif.percent}%` }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+          <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
+            <div
+              className={cn("h-full rounded-full", verif.color.replace('text-', 'bg-'))}
+              style={{ width: `${verif.percent}%` }}
             />
           </div>
-          <p className="text-[10px] text-muted-foreground/40 mt-1.5">{verif.next}</p>
-        </motion.div>
+          <p className="text-xs text-muted-foreground/40 mt-1.5">{verif.next}</p>
+        </div>
       )}
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {kpiCards.map((kpi, i) => (
-          <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 + i * 0.06, duration: 0.4 }}>
-            {kpi.href ? (
-              <Link href={kpi.href as never}>
-                <Card className={cn("group border border-border/30 rounded-xl overflow-hidden h-full bg-card/80 transition-all hover:shadow-lg hover:shadow-black/[0.03] hover:-translate-y-0.5 duration-300 cursor-pointer ring-0 hover:ring-4", kpi.ring)}>
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-[10px] font-semibold text-muted-foreground/60">{kpi.title}</span>
-                      <div className={cn("h-8 w-8 rounded-lg flex items-center justify-center relative group-hover:scale-110 transition-transform duration-300", kpi.bg)}>
-                        <kpi.icon className={cn("h-4 w-4", kpi.color)} />
-                        {kpi.alert && <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-rose-500 animate-pulse" />}
-                      </div>
-                    </div>
-                    {loading ? (
-                      <div className="h-6 w-20 bg-muted/20 rounded-lg animate-pulse mb-1" />
-                    ) : (
-                      <p className="text-lg font-bold tracking-tight text-foreground">{kpi.value}</p>
-                    )}
-                    {loading ? (
-                      <div className="h-3 w-28 bg-muted/10 rounded animate-pulse mt-1.5" />
-                    ) : (
-                      <p className="text-[10px] text-muted-foreground/50 mt-1">{kpi.desc}</p>
-                    )}
-                  </CardContent>
-                </Card>
-              </Link>
-            ) : (
-              <Card className={cn("group border border-border/30 rounded-xl overflow-hidden h-full bg-card/80 transition-all hover:shadow-lg hover:shadow-black/[0.03] hover:-translate-y-0.5 duration-300", kpi.ring)}>
+          kpi.href ? (
+            <Link href={kpi.href as never} key={i}>
+              <Card className={cn("border border-border bg-card rounded-xl overflow-hidden h-full transition-all hover:shadow-md shadow-sm shadow-black/[0.02] border-t-2 " + kpi.color.replace("text-", "border-t-") + "/30", kpi.ring)}>
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-semibold text-muted-foreground/60">{kpi.title}</span>
+                    <span className="text-xs font-medium text-muted-foreground">{kpi.title}</span>
                     <div className={cn("h-8 w-8 rounded-lg flex items-center justify-center", kpi.bg)}>
                       <kpi.icon className={cn("h-4 w-4", kpi.color)} />
+                      {kpi.alert && <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-rose-500" />}
                     </div>
                   </div>
                   {loading ? (
-                    <div className="h-6 w-20 bg-muted/20 rounded-lg animate-pulse mb-1" />
+                    <div className="h-6 w-20 bg-muted rounded-lg animate-pulse mb-1" />
                   ) : (
                     <p className="text-lg font-bold tracking-tight text-foreground">{kpi.value}</p>
                   )}
                   {loading ? (
-                    <div className="h-3 w-28 bg-muted/10 rounded animate-pulse mt-1.5" />
+                    <div className="h-3 w-28 bg-muted rounded animate-pulse mt-1.5" />
                   ) : (
-                    <p className="text-[10px] text-muted-foreground/50 mt-1">{kpi.desc}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{kpi.desc}</p>
                   )}
                 </CardContent>
               </Card>
-            )}
-          </motion.div>
+            </Link>
+          ) : (
+            <Card key={i} className={cn("border border-border bg-card rounded-xl overflow-hidden h-full transition-all hover:shadow-md shadow-sm shadow-black/[0.02] border-t-2 " + kpi.color.replace("text-", "border-t-") + "/30", kpi.ring)}>
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-medium text-muted-foreground">{kpi.title}</span>
+                  <div className={cn("h-8 w-8 rounded-lg flex items-center justify-center", kpi.bg)}>
+                    <kpi.icon className={cn("h-4 w-4", kpi.color)} />
+                  </div>
+                </div>
+                {loading ? (
+                  <div className="h-6 w-20 bg-muted rounded-lg animate-pulse mb-1" />
+                ) : (
+                  <p className="text-lg font-bold tracking-tight text-foreground">{kpi.value}</p>
+                )}
+                {loading ? (
+                  <div className="h-3 w-28 bg-muted rounded animate-pulse mt-1.5" />
+                ) : (
+                  <p className="text-xs text-muted-foreground mt-1">{kpi.desc}</p>
+                )}
+              </CardContent>
+            </Card>
+          )
         ))}
       </div>
+      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        <motion.div
-          className="lg:col-span-8"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.4 }}
-        >
-          <Card className="border border-border/30 rounded-xl bg-card/80 overflow-hidden">
-            <div className="p-5 pb-3 flex items-center justify-between border-b border-border/15">
+      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div className="lg:col-span-8">
+          <Card className="border border-border bg-card rounded-xl overflow-hidden shadow-sm shadow-black/[0.02]">
+            <div className="p-5 pb-3 flex items-center justify-between border-b border-border">
               <div>
                 <CardTitle className="text-xs font-bold uppercase tracking-wider text-foreground/70">Solicitudes Institucionales</CardTitle>
-                <p className="text-[10px] text-muted-foreground/40 mt-0.5">
+                <p className="text-xs text-muted-foreground/40 mt-0.5">
                   Trámites ante registros y notarías
                   {data && data.solicitudes.total > 0 && (
                     <span className="ml-2 text-emerald-500/60">· {data.solicitudes.total} registradas</span>
                   )}
                 </p>
               </div>
-              <Button variant="ghost" size="sm" className="h-7 text-[10px] font-semibold text-muted-foreground/50 rounded-lg">Histórico</Button>
+              <Button variant="ghost" size="sm" className="h-7 text-xs font-semibold text-muted-foreground/50 rounded-lg">Histórico</Button>
             </div>
             <div className="p-0">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-muted/5 border-none">
-                    <TableHead className="pl-5 text-[10px] font-semibold uppercase tracking-wider">Referencia</TableHead>
-                    <TableHead className="text-[10px] font-semibold uppercase tracking-wider">Servicio</TableHead>
-                    <TableHead className="text-right pr-5 text-[10px] font-semibold uppercase tracking-wider">Estatus</TableHead>
+                  <TableRow className="border-none">
+                    <TableHead className="pl-5 text-xs font-semibold uppercase tracking-wider">Referencia</TableHead>
+                    <TableHead className="text-xs font-semibold uppercase tracking-wider">Servicio</TableHead>
+                    <TableHead className="text-right pr-5 text-xs font-semibold uppercase tracking-wider">Estatus</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -285,79 +256,71 @@ export default function DashboardPersonalPage() {
                     <>
                       {[1, 2, 3].map(n => (
                         <TableRow key={n}>
-                          <TableCell className="pl-5"><div className="h-3 w-24 bg-muted/20 rounded animate-pulse" /></TableCell>
-                          <TableCell><div className="h-3 w-32 bg-muted/20 rounded animate-pulse" /></TableCell>
-                          <TableCell className="text-right pr-5"><div className="h-5 w-16 bg-muted/20 rounded-lg animate-pulse ml-auto" /></TableCell>
+                          <TableCell className="pl-5"><div className="h-3 w-24 bg-muted animate-pulse rounded animate-pulse" /></TableCell>
+                          <TableCell><div className="h-3 w-32 bg-muted animate-pulse rounded animate-pulse" /></TableCell>
+                          <TableCell className="text-right pr-5"><div className="h-5 w-16 bg-muted animate-pulse rounded-lg animate-pulse ml-auto" /></TableCell>
                         </TableRow>
                       ))}
                     </>
                   ) : (
                     <TableRow>
                       <TableCell colSpan={3} className="py-12 text-center">
-                        <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 flex items-center gap-4">
-                          <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                            <CircleCheck className="h-5 w-5 text-emerald-500" />
+                          <div className="p-4 rounded-xl bg-muted/30 border border-border flex items-center gap-4">
+                            <div className="h-10 w-10 rounded-full bg-muted-foreground/10 flex items-center justify-center">
+                              <CircleCheck className="h-5 w-5 text-muted-foreground/30" />
+                            </div>
+                            <div>
+                              <p className="text-xs font-medium text-muted-foreground">Sin solicitudes registradas</p>
+                              <p className="text-xs text-muted-foreground/50">Inicia un trámite para verlo aquí</p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="text-[11px] font-medium text-muted-foreground/35">Sin solicitudes registradas</p>
-                            <p className="text-[10px] text-muted-foreground/20">Inicia un trámite para verlo aquí</p>
-                          </div>
-                        </div>
-                      </TableCell>
+                        </TableCell>
                     </TableRow>
                   )}
                 </TableBody>
               </Table>
             </div>
           </Card>
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="lg:col-span-4 space-y-4"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.4 }}
-        >
-          <Card className="border border-border/30 rounded-xl bg-gradient-to-br from-primary/[0.04] via-card to-card p-5 overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-blue-500/[0.06] blur-[50px]" />
-            <div className="relative z-10">
-              <div className="flex items-center gap-2 mb-2">
-                <Scale className="h-3.5 w-3.5 text-blue-500" />
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-500/60">Escritorio Jurídico</span>
-              </div>
-              <h3 className="text-sm font-bold text-foreground/90 mb-1">Asistencia Legal</h3>
-              <p className="text-[10px] text-muted-foreground/60 mb-4 leading-relaxed">
-                Gestión de trámites sucesorales, mercantiles y civiles ante entes públicos.
-              </p>
-              <Button 
-                asChild
-                size="sm" 
-                className="w-full h-8 text-[10px] font-semibold rounded-lg bg-primary/10 border border-primary/20 text-primary hover:bg-primary/15"
-              >
-                <Link href="/documentos">Gestionar Documentos</Link>
-              </Button>
+        <div className="lg:col-span-4 space-y-4">
+          <Card className="border border-border bg-card rounded-xl p-5 shadow-sm shadow-black/[0.02]">
+            <div className="flex items-center gap-2 mb-2">
+              <Scale className="h-4 w-4 text-primary" />
+              <span className="text-xs font-semibold text-primary">Escritorio Jurídico</span>
             </div>
+            <h3 className="text-sm font-bold text-foreground mb-1">Asistencia Legal</h3>
+            <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
+              Gestión de trámites sucesorales, mercantiles y civiles ante entes públicos.
+            </p>
+            <Button 
+              asChild
+              size="sm" 
+              className="w-full h-8 text-xs font-semibold rounded-lg"
+            >
+              <Link href="/documentos">Gestionar Documentos</Link>
+            </Button>
           </Card>
 
-          <Card className="border border-border/30 rounded-xl bg-card/80 p-5">
+          <Card className="border border-border bg-card rounded-xl p-5 shadow-sm shadow-black/[0.02]">
             <div className="flex items-center gap-2 mb-3">
               <Bell className="h-4 w-4 text-muted-foreground/35" />
-              <span className="text-[11px] font-semibold text-foreground/60">Notificaciones</span>
+              <span className="text-xs font-semibold text-foreground/60">Notificaciones</span>
               {data && data.notificaciones > 0 && (
-                <Badge className="ml-auto bg-rose-500/8 text-rose-400 border-rose-500/15 text-[11px] font-semibold h-5 rounded-md">{data.notificaciones}</Badge>
+                <Badge className="ml-auto bg-rose-500/8 text-rose-400 border-rose-500/15 text-xs font-semibold h-5 rounded-md">{data.notificaciones}</Badge>
               )}
             </div>
             {loading ? (
               <div className="space-y-2 py-2">
-                {[1, 2].map(n => <div key={n} className="h-9 bg-muted/10 rounded-lg animate-pulse" />)}
+                {[1, 2].map(n => <div key={n} className="h-9 bg-muted animate-pulse rounded-lg animate-pulse" />)}
               </div>
             ) : data && data.notificaciones > 0 ? (
               <Link href="/notificaciones" className="block">
                 <div className="flex items-center gap-3 p-3 rounded-lg bg-rose-500/[0.03] border border-rose-500/10 hover:bg-rose-500/[0.06] transition-colors">
                   <Bell className="h-4 w-4 text-rose-400 shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-[11px] font-semibold">{data.notificaciones} sin leer</p>
-                    <p className="text-[11px] text-muted-foreground/40">Revisa tu bandeja</p>
+                    <p className="text-xs font-semibold">{data.notificaciones} sin leer</p>
+                    <p className="text-xs text-muted-foreground/40">Revisa tu bandeja</p>
                   </div>
                   <ChevronRight className="h-4 w-4 text-muted-foreground/20" />
                 </div>
@@ -365,226 +328,191 @@ export default function DashboardPersonalPage() {
             ) : (
               <div className="flex flex-col items-center py-4 gap-1.5">
                 <CircleCheck className="h-6 w-6 text-muted-foreground/10" />
-                <p className="text-[10px] text-muted-foreground/25">Sin notificaciones</p>
+                <p className="text-xs text-muted-foreground/25">Sin notificaciones</p>
               </div>
             )}
           </Card>
-        </motion.div>
+        </div>
+      </div>
       </div>
 
-      <motion.div
-        className="grid grid-cols-1 lg:grid-cols-2 gap-4"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.45, duration: 0.4 }}
-      >
-        <Card className="border border-amber-500/10 rounded-xl bg-card/80 p-4">
+      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <Card className="border border-border bg-card rounded-xl p-4 shadow-sm shadow-black/[0.02]">
           <div className="flex items-center gap-2 mb-3">
             <TriangleAlert className="h-4 w-4 text-amber-400" />
-            <span className="text-[11px] font-semibold text-foreground/60">Vencimiento de Documentos</span>
+            <span className="text-xs font-semibold text-foreground/60">Vencimiento de Documentos</span>
           </div>
           <div className="flex flex-col items-center justify-center py-6 gap-2">
             <FileText className="h-8 w-8 opacity-15" />
-            <p className="text-[10px] text-muted-foreground/40 text-center">Accede a tu expediente para ver las fechas de vencimiento</p>
+            <p className="text-xs text-muted-foreground/40 text-center">Accede a tu expediente para ver las fechas de vencimiento</p>
             <Link href="/documentos">
-              <span className="text-[10px] font-medium text-primary/70 hover:text-primary flex items-center gap-1">Ver documentos <ArrowRight className="h-3 w-3" /></span>
+              <span className="text-xs font-medium text-primary/70 hover:text-primary flex items-center gap-1">Ver documentos <ArrowRight className="h-3 w-3" /></span>
             </Link>
           </div>
         </Card>
 
-        <Card className="border border-green-500/10 rounded-xl bg-card/80 p-4">
+        <Card className="border border-border bg-card rounded-xl p-4 shadow-sm shadow-black/[0.02]">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Leaf className="h-4 w-4 text-green-400" />
-              <span className="text-[11px] font-semibold text-foreground/60">Eco-Créditos</span>
+              <span className="text-xs font-semibold text-foreground/60">Eco-Créditos</span>
             </div>
-            <Link href="/tarjeta-reciclaje"><span className="text-[10px] font-medium text-green-400/70 hover:text-green-300 flex items-center gap-1">Ver <ChevronRight className="h-3 w-3" /></span></Link>
+            <Link href="/tarjeta-reciclaje"><span className="text-xs font-medium text-green-400/70 hover:text-green-300 flex items-center gap-1">Ver <ChevronRight className="h-3 w-3" /></span></Link>
           </div>
           <div className="flex flex-col items-center justify-center py-6 gap-2">
             <Leaf className="h-8 w-8 opacity-15 text-green-500" />
-            <p className="text-[11px] font-bold text-foreground/60">0 créditos</p>
-            <p className="text-[10px] text-muted-foreground/40 text-center">Recicla materiales para acumular eco-créditos</p>
+            <p className="text-xs font-bold text-foreground/60">0 créditos</p>
+            <p className="text-xs text-muted-foreground/40 text-center">Recicla materiales para acumular eco-créditos</p>
           </div>
         </Card>
-      </motion.div>
+      </div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.4 }}
-      >
-        <span className="text-[11px] font-semibold text-muted-foreground/40 ml-1 mb-3 block">Accesos Rápidos</span>
+      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="h-6 w-1 rounded-full bg-primary/40" />
+          <span className="text-xs font-semibold text-muted-foreground">Accesos Rápidos</span>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
-            { title: "Carnet Personal", icon: User, href: "/carnet-personal", desc: "Identificación digital", color: "text-blue-500", bg: "bg-blue-500/8", ring: "ring-blue-500/10" },
-            { title: "Tarjeta Reciclaje", icon: Leaf, href: "/tarjeta-reciclaje", desc: "Eco-créditos activos", color: "text-green-500", bg: "bg-green-500/8", ring: "ring-green-500/10" },
-            { title: "Registro RIF", icon: FileText, href: "/registro-rif", desc: "Actualización RIF", color: "text-amber-500", bg: "bg-amber-500/8", ring: "ring-amber-500/10" },
-            { title: "Seguridad", icon: Lock, href: "/seguridad", desc: "Contraseña y 2FA", color: "text-purple-500", bg: "bg-purple-500/8", ring: "ring-purple-500/10" },
+            { title: "Carnet Personal", icon: User, href: "/carnet-personal", desc: "Identificación digital", color: "text-blue-500", bg: "bg-blue-500/10", ring: "" },
+            { title: "Tarjeta Reciclaje", icon: Leaf, href: "/tarjeta-reciclaje", desc: "Eco-créditos activos", color: "text-green-500", bg: "bg-green-500/10", ring: "" },
+            { title: "Registro RIF", icon: FileText, href: "/registro-rif", desc: "Actualización RIF", color: "text-amber-500", bg: "bg-amber-500/10", ring: "" },
+            { title: "Seguridad", icon: Lock, href: "/seguridad", desc: "Contraseña y 2FA", color: "text-purple-500", bg: "bg-purple-500/10", ring: "" },
           ].map((item, i) => (
-            <Link key={i} href={item.href as never} className="group">
-              <div className={cn("flex items-center gap-3 p-3.5 rounded-xl border border-border/30 bg-card/60 hover:bg-card hover:shadow-md hover:shadow-black/[0.03] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer ring-0 hover:ring-4", item.ring)}>
-                <div className={cn("h-9 w-9 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300", item.bg)}>
+            <Link key={i} href={item.href as never}>
+              <div className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card transition-all hover:shadow-md shadow-sm shadow-black/[0.02]">
+                <div className={cn("h-9 w-9 rounded-lg flex items-center justify-center shrink-0", item.bg)}>
                   <item.icon className={cn("h-4 w-4", item.color)} />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[11px] font-semibold text-foreground/70 group-hover:text-foreground transition-colors">{item.title}</p>
-                  <p className="text-[11px] text-muted-foreground/35">{item.desc}</p>
+                  <p className="text-xs font-semibold text-foreground">{item.title}</p>
+                  <p className="text-xs text-muted-foreground">{item.desc}</p>
                 </div>
-                <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/10 group-hover:text-foreground/30 group-hover:translate-x-0.5 transition-all shrink-0" />
+                <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/30" />
               </div>
             </Link>
           ))}
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.55, duration: 0.4 }}
-      >
-        <span className="text-[11px] font-semibold text-muted-foreground/40 ml-1 mb-3 block">Módulos Especializados</span>
+      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="h-6 w-1 rounded-full bg-primary/40" />
+          <span className="text-xs font-semibold text-muted-foreground">Módulos Especializados</span>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {[
             { title: "Directorio Médico", icon: Stethoscope, href: "/directorio-medico", desc: "Red de salud afiliada", color: "text-cyan-500", bg: "bg-cyan-500/8", ring: "ring-cyan-500/10" },
             { title: "LOPNNA Sync", icon: Scale, href: "/manutencion", desc: "Obligación de manutención", color: "text-purple-500", bg: "bg-purple-500/8", ring: "ring-purple-500/10" },
             { title: "Bóveda Civil", icon: Lock, href: "/documentos", desc: "Resguardo de documentos", color: "text-amber-500", bg: "bg-amber-500/8", ring: "ring-amber-500/10" },
           ].map((serv, i) => (
-            <Link key={i} href={serv.href as never} className="group">
-              <Card className={cn("border border-border/30 rounded-xl p-4 bg-card/60 hover:bg-card hover:shadow-md hover:shadow-black/[0.03] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer ring-0 hover:ring-4", serv.ring)}>
+            <Link key={i} href={serv.href as never}>
+              <Card className={cn("border border-border bg-card/50 hover:bg-card hover:border-primary/30 rounded-xl p-4 transition-all hover:shadow-md shadow-sm shadow-black/[0.02]", serv.ring)}>
                 <div className="flex items-center gap-3">
-                  <div className={cn("h-10 w-10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-300", serv.bg)}>
+                  <div className={cn("h-10 w-10 rounded-lg flex items-center justify-center shrink-0", serv.bg)}>
                     <serv.icon className={cn("h-[18px] w-[18px]", serv.color)} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-[12px] font-bold text-foreground/70 group-hover:text-foreground transition-colors">{serv.title}</h4>
-                    <p className="text-[10px] text-muted-foreground/40">{serv.desc}</p>
+                    <h4 className="text-xs font-semibold text-foreground">{serv.title}</h4>
+                    <p className="text-xs text-muted-foreground">{serv.desc}</p>
                   </div>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground/10 group-hover:text-foreground/30 group-hover:translate-x-0.5 transition-all shrink-0" />
+                  <ChevronRight className="h-4 w-4 text-muted-foreground/30" />
                 </div>
               </Card>
             </Link>
           ))}
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.4 }}
-      >
-        <span className="text-[11px] font-semibold text-muted-foreground/40 ml-1 mb-3 block">Hub de Entes de Validez Nacional</span>
+      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="h-6 w-1 rounded-full bg-primary/40" />
+          <span className="text-xs font-semibold text-muted-foreground">Entes de Validez Nacional</span>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* SAIME Card */}
-          <Card className="border border-border/30 rounded-xl bg-card/80 p-5 overflow-hidden relative group">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-bl-full group-hover:bg-blue-500/10 transition-colors" />
-            <div className="flex items-center gap-3 mb-4 relative z-10">
-              <div className="h-10 w-10 rounded-xl bg-slate-900 border border-border/40 flex items-center justify-center p-2 shadow-sm">
-                 <Fingerprint className="w-5 h-5 text-blue-400" />
+          <Card className="border border-border bg-card rounded-xl p-5 shadow-sm shadow-black/[0.02]">
+            <div className="flex items-center gap-3 mb-4">
+              <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center", "bg-blue-500/10")}>
+                 <Fingerprint className="w-5 h-5 text-blue-500" />
               </div>
               <div>
-                <h4 className="text-[11px] font-bold text-foreground">SAIME</h4>
-                <p className="text-[9px] text-muted-foreground uppercase tracking-wider">Identidad Ciudadana</p>
+                <h4 className="text-xs font-bold text-foreground">SAIME</h4>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider">Identidad Ciudadana</p>
               </div>
-              <Badge className="ml-auto bg-emerald-500/10 text-emerald-500 border-none rounded hover:bg-emerald-500/10 text-[9px]">Sincronizado</Badge>
+              <Badge className="ml-auto bg-emerald-500/10 text-emerald-500 border-none rounded text-xs">Sincronizado</Badge>
             </div>
-            <div className="space-y-2 mb-4 relative z-10">
-              <div className="flex justify-between items-center text-[10px]">
+            <div className="space-y-2 mb-4">
+              <div className="flex justify-between items-center text-xs">
                 <span className="text-muted-foreground">Estatus de Cédula</span>
                 <span className="font-semibold text-foreground">Vigente</span>
               </div>
-              <div className="flex justify-between items-center text-[10px]">
+              <div className="flex justify-between items-center text-xs">
                 <span className="text-muted-foreground">Última validación</span>
                 <span className="font-medium text-foreground">{clientDateStr?.split(' ')[1] || 'Hoy'}</span>
               </div>
             </div>
-            <Button 
-              asChild
-              variant="outline" 
-              size="sm" 
-              className="w-full h-8 text-[10px] bg-background/50 border-border/40 shadow-none hover:bg-blue-500/5 hover:text-blue-500 relative z-10"
-            >
+            <Button asChild variant="outline" size="sm" className="w-full h-8 text-xs">
               <Link href="/tarjeta-digital">Ver datos biométricos</Link>
             </Button>
-
           </Card>
 
-          {/* SENIAT Card */}
-          <Card className="border border-border/30 rounded-xl bg-card/80 p-5 overflow-hidden relative group">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-bl-full group-hover:bg-amber-500/10 transition-colors" />
-            <div className="flex items-center gap-3 mb-4 relative z-10">
-               <div className="h-10 w-10 rounded-xl bg-slate-900 border border-border/40 flex items-center justify-center p-2 shadow-sm">
-                 <FileText className="w-5 h-5 text-amber-400" />
+          <Card className="border border-border bg-card rounded-xl p-5 shadow-sm shadow-black/[0.02]">
+            <div className="flex items-center gap-3 mb-4">
+              <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center", "bg-amber-500/10")}>
+                 <FileText className="w-5 h-5 text-amber-500" />
               </div>
               <div>
-                <h4 className="text-[11px] font-bold text-foreground">SENIAT</h4>
-                <p className="text-[9px] text-muted-foreground uppercase tracking-wider">Perfil Tributario</p>
+                <h4 className="text-xs font-bold text-foreground">SENIAT</h4>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider">Perfil Tributario</p>
               </div>
-               <Badge className="ml-auto bg-amber-500/10 text-amber-500 border-none rounded hover:bg-amber-500/10 text-[9px]">Revisión</Badge>
+              <Badge className="ml-auto bg-amber-500/10 text-amber-500 border-none rounded text-xs">Revisión</Badge>
             </div>
-            <div className="space-y-2 mb-4 relative z-10">
-              <div className="flex justify-between items-center text-[10px]">
+            <div className="space-y-2 mb-4">
+              <div className="flex justify-between items-center text-xs">
                 <span className="text-muted-foreground">Registro de RIF</span>
                 <span className="font-semibold text-foreground">Actualizado</span>
               </div>
-              <div className="flex justify-between items-center text-[10px]">
+              <div className="flex justify-between items-center text-xs">
                 <span className="text-muted-foreground">Declaración ISLR</span>
                 <span className="font-medium text-amber-500">Pendiente</span>
               </div>
             </div>
-            <Button 
-              asChild
-              variant="outline" 
-              size="sm" 
-              className="w-full h-8 text-[10px] bg-background/50 border-border/40 shadow-none hover:bg-amber-500/5 hover:text-amber-500 relative z-10"
-            >
+            <Button asChild variant="outline" size="sm" className="w-full h-8 text-xs">
               <Link href="/registro-rif">Consultar RIF Digital</Link>
             </Button>
-
           </Card>
 
-          {/* IVSS/BANAVIH Card */}
-          <Card className="border border-border/30 rounded-xl bg-card/80 p-5 overflow-hidden relative group">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-rose-500/5 rounded-bl-full group-hover:bg-rose-500/10 transition-colors" />
-            <div className="flex items-center gap-3 mb-4 relative z-10">
-               <div className="h-10 w-10 rounded-xl bg-slate-900 border border-border/40 flex items-center justify-center p-2 shadow-sm">
-                 <Heart className="w-5 h-5 text-rose-400" />
+          <Card className="border border-border bg-card rounded-xl p-5 shadow-sm shadow-black/[0.02]">
+            <div className="flex items-center gap-3 mb-4">
+              <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center", "bg-rose-500/10")}>
+                 <Heart className="w-5 h-5 text-rose-500" />
               </div>
               <div>
-                <h4 className="text-[11px] font-bold text-foreground">IVSS & FAOV</h4>
-                <p className="text-[9px] text-muted-foreground uppercase tracking-wider">Seguridad Social</p>
+                <h4 className="text-xs font-bold text-foreground">IVSS & FAOV</h4>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider">Seguridad Social</p>
               </div>
-              <Badge className="ml-auto bg-emerald-500/10 text-emerald-500 border-none rounded hover:bg-emerald-500/10 text-[9px]">Al día</Badge>
+              <Badge className="ml-auto bg-emerald-500/10 text-emerald-500 border-none rounded text-xs">Al día</Badge>
             </div>
-            <div className="space-y-2 mb-4 relative z-10">
-              <div className="flex justify-between items-center text-[10px]">
+            <div className="space-y-2 mb-4">
+              <div className="flex justify-between items-center text-xs">
                 <span className="text-muted-foreground">Cotizaciones IVSS</span>
                 <span className="font-semibold text-foreground">12 Activas</span>
               </div>
-              <div className="flex justify-between items-center text-[10px]">
+              <div className="flex justify-between items-center text-xs">
                 <span className="text-muted-foreground">Aportes FAOV</span>
                 <span className="font-medium text-foreground">Solvente</span>
               </div>
             </div>
-             <Button 
-              asChild
-              variant="outline" 
-              size="sm" 
-              className="w-full h-8 text-[10px] bg-background/50 border-border/40 shadow-none hover:bg-rose-500/5 hover:text-rose-500 relative z-10"
-             >
+            <Button asChild variant="outline" size="sm" className="w-full h-8 text-xs">
               <Link href="/documentos">Descargar Solvencias</Link>
             </Button>
-
           </Card>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.65, duration: 0.4 }}
-      >
-        <ActivityTimeline limit={8} />
-      </motion.div>
+      <ActivityTimeline limit={8} />
 
     </div>
   );

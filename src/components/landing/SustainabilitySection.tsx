@@ -27,31 +27,31 @@ export function SustainabilitySection() {
                         </div>
                         
                         <div className="space-y-8">
-                            <h2 className="text-[clamp(3rem,8vw,5.5rem)] font-black text-white leading-[0.9] tracking-tighter uppercase italic">
+                            <h2 className="text-[clamp(3rem,8vw,5.5rem)] font-black text-gray-900 dark:text-white leading-[0.9] tracking-tighter uppercase italic">
                                 {t('title_main')}<br/>
                                 <span className="text-glow-emerald not-italic">{t('title_highlight')}</span>
                             </h2>
                             
-                            <p className="text-xl md:text-2xl text-white/30 max-w-2xl font-medium leading-relaxed font-outfit">
+                            <p className="text-xl md:text-2xl text-gray-900/30 dark:text-white/30 max-w-2xl font-medium leading-relaxed font-outfit">
                                 {t('description')}
                             </p>
                         </div>
 
                         <div className="grid sm:grid-cols-2 gap-8 pt-6">
-                            <div className="group/card p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all duration-700 hover:-translate-y-2">
+                            <div className="group/card p-10 rounded-[3rem] bg-black/[0.02] dark:bg-white/[0.02] border border-gray-200/5 dark:border-white/5 hover:border-emerald-500/30 transition-all duration-700 hover:-translate-y-2">
                                 <div className="h-14 w-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-8 group-hover/card:scale-110 group-hover/card:rotate-12 transition-all">
                                     <Recycle className="h-7 w-7" />
                                 </div>
-                                <h4 className="text-xl font-black text-white uppercase tracking-tighter mb-4 italic">{t('smart_bins_title')}</h4>
-                                <p className="text-base text-white/30 font-medium leading-relaxed">{t('smart_bins_desc')}</p>
+                                <h4 className="text-xl font-black text-gray-900 dark:text-white uppercase tracking-tighter mb-4 italic">{t('smart_bins_title')}</h4>
+                                <p className="text-base text-gray-900/30 dark:text-white/30 font-medium leading-relaxed">{t('smart_bins_desc')}</p>
                             </div>
                             
-                            <div className="group/card p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all duration-700 hover:-translate-y-2">
+                            <div className="group/card p-10 rounded-[3rem] bg-black/[0.02] dark:bg-white/[0.02] border border-gray-200/5 dark:border-white/5 hover:border-emerald-500/30 transition-all duration-700 hover:-translate-y-2">
                                 <div className="h-14 w-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-8 group-hover/card:scale-110 group-hover/card:rotate-12 transition-all">
                                     <Wind className="h-7 w-7" />
                                 </div>
-                                <h4 className="text-xl font-black text-white uppercase tracking-tighter mb-4 italic">{t('eco_credits_title')}</h4>
-                                <p className="text-base text-white/30 font-medium leading-relaxed">{t('eco_credits_desc')}</p>
+                                <h4 className="text-xl font-black text-gray-900 dark:text-white uppercase tracking-tighter mb-4 italic">{t('eco_credits_title')}</h4>
+                                <p className="text-base text-gray-900/30 dark:text-white/30 font-medium leading-relaxed">{t('eco_credits_desc')}</p>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@ export function SustainabilitySection() {
                         {/* Aurora Glow */}
                         <div className="absolute inset-0 bg-emerald-500/20 blur-[120px] rounded-full opacity-30 group-hover:opacity-60 transition-opacity" />
                         
-                        <div className="relative rounded-[4rem] overflow-hidden border border-white/10 p-4 bg-white/[0.01] backdrop-blur-3xl shadow-2xl">
+                        <div className="relative rounded-[4rem] overflow-hidden border border-gray-200/10 dark:border-white/10 p-4 bg-black/[0.01] dark:bg-white/[0.01] backdrop-blur-3xl shadow-2xl">
                             <div className="relative aspect-square w-full rounded-[3rem] overflow-hidden group/img">
 <Image 
     src="/images/salto-angel.jpg" 
@@ -75,13 +75,13 @@ export function SustainabilitySection() {
                             </div>
                             
                             {/* Floating Metadata Card */}
-                            <div className="absolute top-12 left-12 p-8 rounded-[2.5rem] bg-black/60 backdrop-blur-2xl border border-white/20 shadow-2xl animate-float transition-all hover:scale-105">
+                            <div className="absolute top-12 left-12 p-8 rounded-[2.5rem] bg-white/60 dark:bg-black/60 backdrop-blur-2xl border border-gray-200/20 dark:border-white/20 shadow-2xl animate-float transition-all hover:scale-105">
                                 <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.4em] mb-2">{t('overlay_label')}</p>
                                 <div className="flex items-baseline gap-2">
-                                    <h3 className="text-4xl font-black text-white tracking-tighter italic">{t('overlay_value')}</h3>
+                                    <h3 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter italic">{t('overlay_value')}</h3>
                                     <div className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
                                 </div>
-                                <p className="text-[9px] text-white/40 font-black uppercase tracking-[0.2em] mt-3">{t('overlay_sublabel')}</p>
+                                <p className="text-[9px] text-gray-900/40 dark:text-white/40 font-black uppercase tracking-[0.2em] mt-3">{t('overlay_sublabel')}</p>
                             </div>
 
                             {/* Certification Link */}
@@ -90,7 +90,7 @@ export function SustainabilitySection() {
                                     <div className="h-12 w-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
                                         <ShieldCheck className="h-6 w-6" />
                                     </div>
-                                    <p className="text-[11px] font-black text-white uppercase tracking-[0.3em] leading-tight">
+                                    <p className="text-[11px] font-black text-gray-900 dark:text-white uppercase tracking-[0.3em] leading-tight">
                                         {t('certification_label')}<br/>
                                         <span className="text-emerald-400/60">Verified Active</span>
                                     </p>

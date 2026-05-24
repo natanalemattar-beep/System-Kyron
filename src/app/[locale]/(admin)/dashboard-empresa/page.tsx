@@ -301,221 +301,156 @@ export default function DashboardEmpresaPage() {
   return (
     <ErrorBoundary>
     <div className="relative min-h-screen pb-20">
-      {/* Background Orbs and Mesh */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="bg-orb bg-orb--primary opacity-[0.05] dark:opacity-[0.08]" />
-        <div className="bg-orb bg-orb--cyan opacity-[0.04] dark:opacity-[0.06]" />
-        <div className="bg-orb bg-orb--emerald opacity-[0.03] dark:opacity-[0.05]" />
-        <div className="absolute inset-0 bg-mesh-light dark:bg-mesh-dark opacity-40" />
-        <div className="absolute inset-0 hud-grid opacity-[0.03] dark:opacity-[0.05]" />
-      </div>
-
-      <div className="relative z-10 space-y-6 max-w-7xl mx-auto px-4 md:px-6">
+      <div className="space-y-6 max-w-7xl mx-auto px-4 md:px-6">
         <ModuleTutorial config={moduleTutorials["dashboard-empresa"]} />
         <SeasonalBanner />
 
         {/* Header */}
         <motion.header
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative mt-8 group"
+          className="pt-6"
         >
-          {/* Advanced Glow Layer */}
-          <div className="absolute -inset-2 bg-gradient-to-r from-kyron-cyan/30 via-primary/20 to-kyron-emerald/30 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-          
-          <div className="relative liquid-glass-apple p-8 md:p-12 rounded-[2.5rem] overflow-hidden border-white/[0.08] shadow-[0_32px_64px_-15px_rgba(0,0,0,0.8)] shadow-xl">
-            {/* Animated Scanner Effect */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden">
-              <div className="absolute inset-0 bg-scanline opacity-[0.03] animate-scanline" />
-              <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent animate-scanner-y shadow-[0_0_15px_rgba(6,182,212,0.5)]" />
+          <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 rounded-2xl border border-border bg-card px-6 py-5 md:px-8 md:py-6 shadow-sm shadow-black/[0.02] border-t-2 border-t-primary/20">
+            <div className="flex items-center gap-4">
+              <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Building className="h-7 w-7 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
+                  <GreetingIcon className="h-6 w-6 text-primary inline-block mr-2 -mt-0.5" />
+                  {activeEvent ? activeEvent.saludo : (greeting?.text ?? t('greeting_fallback'))}{user?.nombre ? `, ${user.nombre.trim().split(" ")[0]}` : ""}
+                </h1>
+                <div className="flex items-center gap-3 mt-1">
+                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <CalendarDays className="h-3.5 w-3.5" />
+                    {clientDateStr ?? ""}
+                  </div>
+                  <span className="text-muted-foreground/30">·</span>
+                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <Clock className="h-3.5 w-3.5" />
+                    {clientTimeStr ?? ""}
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Background Holographic Orbs */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 blur-[140px] -mr-80 -mt-80 animate-pulse-slow" />
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-500/5 blur-[120px] -ml-60 -mb-60" />
-
-            <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-10">
-              <div className="space-y-6">
-                <div className="flex items-center gap-6">
-                  {/* Avatar/Icon with HUD effects */}
-                  <div className="relative">
-                    <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-primary via-kyron-cyan to-kyron-indigo flex items-center justify-center shadow-[0_0_50px_rgba(59,130,246,0.4)] border border-white/30 relative z-10">
-                      <Building className="h-10 w-10 text-white" />
-                      {/* HUD Ring */}
-                      <div className="absolute -inset-3 border border-white/10 rounded-full animate-spin-slow pointer-events-none" />
-                      <div className="absolute -inset-1 border border-white/20 rounded-[2rem] pointer-events-none" />
-                    </div>
-                    {/* Status Indicator */}
-                    <div className="absolute -bottom-1 -right-1 h-7 w-7 rounded-full bg-emerald-500 border-[3px] border-background flex items-center justify-center z-20 shadow-lg shadow-emerald-500/30">
-                      <div className="h-2.5 w-2.5 rounded-full bg-white animate-pulse" />
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex flex-col">
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-white uppercase leading-none mb-3 flex items-center gap-4">
-                          <GreetingIcon className="h-8 w-8 text-kyron-cyan shrink-0" />
-                          {activeEvent ? activeEvent.saludo : (greeting?.text ?? t('greeting_fallback'))}{user?.nombre ? `, ${user.nombre.trim().split(" ")[0]}` : ""}
-                        </h1>
-                      <div className="flex items-center gap-3">
-                        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-                      </div>
-                    </div>
-                  </div>
+            <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto">
+              {data?.tasaBCV && (
+                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                  <TrendingUpDown className="h-3.5 w-3.5" />
+                  BCV: {data.tasaBCV.usd_ves.toFixed(2)} BS/$
                 </div>
-                
-                {/* Meta Info Bar */}
-                <div className="flex flex-wrap items-center gap-4">
-                  <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
-                    <CalendarDays className="h-4 w-4 text-kyron-cyan" />
-                    <span className="text-[11px] font-semibold text-white/60 tracking-wide font-tech">{clientDateStr ?? ""}</span>
-                  </div>
-                  <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-md">
-                    <Clock className="h-4 w-4 text-kyron-cyan" />
-                    <span className="text-[11px] font-semibold text-white/60 tracking-wide font-tech">{clientTimeStr ?? ""}</span>
-                  </div>
-                  <div className="h-4 w-[1px] bg-white/10 mx-1 hidden md:block" />
-                  {data?.tasaBCV && (
-                    <div className="group relative">
-                      <div className="absolute -inset-2 bg-emerald-500/10 blur-md rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <div className="relative flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-emerald-500/5 border border-emerald-500/20 text-[11px] font-semibold tracking-wide text-emerald-400 font-tech">
-                        <TrendingUpDown className="h-4 w-4" />
-                        BCV: {data.tasaBCV.usd_ves.toFixed(2)} BS/$
-                      </div>
-                    </div>
-                  )}
-                </div>
+              )}
+              <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/30 px-2 py-1">
+                <CurrencySelector className="border-none bg-transparent h-9 rounded-lg text-xs font-semibold px-3" />
+                <div className="h-5 w-px bg-border" />
+                <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg" onClick={() => fetchDashboard(true)} disabled={refreshing}>
+                  <RefreshCw className={cn("h-4 w-4", refreshing && "animate-spin")} />
+                </Button>
               </div>
-
-              <div className="flex flex-wrap gap-4 items-center w-full xl:w-auto">
-                <div className="flex items-center gap-3 p-1.5 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-xl">
-                  <CurrencySelector className="border-none bg-transparent hover:bg-white/5 h-12 rounded-xl font-tech text-[11px] font-semibold px-4" />
-                  <div className="h-6 w-[1px] bg-white/10" />
-                  <Button variant="ghost" size="icon" className="h-12 w-12 rounded-xl hover:bg-white/5 text-white/40 hover:text-white transition-all" onClick={() => fetchDashboard(true)} disabled={refreshing}>
-                    <RefreshCw className={cn("h-5 w-5", refreshing && "animate-spin")} />
-                  </Button>
-                </div>
-
-                <div className="flex gap-3 w-full sm:w-auto">
-                  <Button onClick={() => { setClosingData(null); setShowCierre(true); }} className="flex-1 sm:flex-none h-14 px-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] text-white font-semibold text-[12px] tracking-wide transition-all font-tech">
-                    <Vault className="h-4 w-4 mr-3 text-white/40" /> Cierre Fiscal
-                  </Button>
-                  <AiInspectionDropdown />
-                </div>
-              </div>
+              <Button onClick={() => { setClosingData(null); setShowCierre(true); }} variant="outline" size="sm" className="h-9 rounded-lg text-xs font-semibold gap-2">
+                <Vault className="h-4 w-4" /> Cierre Fiscal
+              </Button>
+              <AiInspectionDropdown />
             </div>
           </div>
         </motion.header>
 
-        {/* KPIs Grid - Glass Style */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {(() => {
-            const utilSpark = sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0));
-            return [
-              { label: t('kpi_ingresos'), value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones?.ingresos, icon: ArrowUpFromLine, color: "text-emerald-500", glow: "shadow-emerald-500/10", sparkData: sparklineData.ingresos },
-              { label: t('kpi_gastos'), value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones?.gastos, invertVariacion: true, icon: ArrowDownFromLine, color: "text-rose-500", glow: "shadow-rose-500/10", sparkData: sparklineData.gastos },
-              { label: t('kpi_utilidad'), value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones?.utilidad, icon: PiggyBank, color: "text-amber-500", glow: "shadow-amber-500/10", sparkData: utilSpark },
-              { label: t('kpi_liquidez'), value: data ? fmtCur(data.liquidezTotal) : "—", icon: Vault, color: "text-primary", glow: "shadow-primary/10", sparkData: [] },
-            ];
-          })().map((kpi, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="relative group cursor-pointer"
-            >
-              <div className={cn("kyron-surface p-6 h-full border-border/30 hover:border-primary/20 transition-all duration-500", kpi.glow)}>
-                <div className="flex items-center justify-between mb-5">
-                  <div className="flex items-center gap-3">
-                    <div className={cn("p-2.5 rounded-xl bg-opacity-10 bg-current", kpi.color)}>
-                      <kpi.icon className="h-5 w-5" />
+        {/* KPIs Grid */}
+        <div className="rounded-2xl bg-muted/20 p-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {(() => {
+              const utilSpark = sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0));
+              return [
+                { label: t('kpi_ingresos'), value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones?.ingresos, icon: ArrowUpFromLine, color: "text-emerald-500", border: "border-t-emerald-500/30", sparkData: sparklineData.ingresos },
+                { label: t('kpi_gastos'), value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones?.gastos, invertVariacion: true, icon: ArrowDownFromLine, color: "text-rose-500", border: "border-t-rose-500/30", sparkData: sparklineData.gastos },
+                { label: t('kpi_utilidad'), value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones?.utilidad, icon: PiggyBank, color: "text-amber-500", border: "border-t-amber-500/30", sparkData: utilSpark },
+                { label: t('kpi_liquidez'), value: data ? fmtCur(data.liquidezTotal) : "—", icon: Vault, color: "text-primary", border: "border-t-primary/30", sparkData: [] },
+              ];
+            })().map((kpi, i) => (
+              <div key={i}>
+                <div className={cn("rounded-xl border border-border bg-card p-5 h-full shadow-sm shadow-black/[0.02] border-t-2 transition-shadow hover:shadow-md", kpi.border)}>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2.5">
+                      <div className={cn("p-2 rounded-lg bg-current/10", kpi.color)}>
+                        <kpi.icon className={cn("h-4 w-4", kpi.color)} />
+                      </div>
+                      <span className="text-xs font-semibold text-muted-foreground">{kpi.label}</span>
                     </div>
-                    <span className="text-[11px] font-bold tracking-wide text-muted-foreground/70">{kpi.label}</span>
+                    {kpi.variacion !== undefined && (
+                      <div className={cn("text-xs font-semibold px-2 py-0.5 rounded-md bg-current/10", variacionColor(kpi.variacion, kpi.invertVariacion))}>
+                        {kpi.variacion > 0 ? "+" : ""}{kpi.variacion}%
+                      </div>
+                    )}
                   </div>
-                  {kpi.variacion !== undefined && (
-                    <div className={cn("text-[11px] font-bold px-2.5 py-1 rounded-full bg-opacity-10 bg-current", variacionColor(kpi.variacion, kpi.invertVariacion))}>
-                      {kpi.variacion > 0 ? "+" : ""}{kpi.variacion}%
-                    </div>
-                  )}
-                </div>
-                
-                <div className="space-y-2">
-                  <h3 className="text-3xl font-bold tracking-tight text-foreground tabular-nums">
-                    {loading ? <div className="h-9 w-36 bg-muted/20 rounded-lg animate-pulse" /> : kpi.value}
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <p className="text-[11px] font-medium text-muted-foreground/50">{t('flujo_mensual')}</p>
-                    <div className="opacity-50 group-hover:opacity-100 transition-opacity">
-                      {kpi.sparkData && kpi.sparkData.length > 1 && <MiniSparkline data={kpi.sparkData} color="currentColor" />}
+                  
+                  <div className="space-y-1.5">
+                    <h3 className="text-2xl font-bold tracking-tight text-foreground tabular-nums">
+                      {loading ? <div className="h-8 w-28 rounded bg-muted animate-pulse" /> : kpi.value}
+                    </h3>
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs text-muted-foreground/60">{t('flujo_mensual')}</p>
+                      {kpi.sparkData && kpi.sparkData.length > 1 && <MiniSparkline data={kpi.sparkData} color={kpi.color.includes('emerald') ? '#10b981' : kpi.color.includes('rose') ? '#f43f5e' : kpi.color.includes('amber') ? '#f59e0b' : '#3b82f6'} />}
                     </div>
                   </div>
-                </div>
-                
-                {/* Decorative background element */}
-                <div className={cn("absolute bottom-0 right-0 w-16 h-16 opacity-[0.03] -mr-4 -mb-4 transition-transform group-hover:scale-150 duration-700", kpi.color)}>
-                  <kpi.icon className="w-full h-full" />
                 </div>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* Secondary Stats - Interactive Strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-          {(() => {
-            const unread = data?.notificacionesNoLeidas ?? 0;
-            return [
-              { label: "Clientes", value: data?.clientesActivos ?? 0, icon: UsersRound, color: "text-cyan-500", href: "/fidelizacion-clientes" },
-              { label: "Empleados", value: data?.empleados ?? 0, icon: BadgeDollarSign, color: "text-emerald-500", href: "/dashboard-rrhh" },
-              { label: "Facturas", value: data?.facturasEsteMes?.count ?? 0, icon: ReceiptText, color: "text-amber-500", extra: data?.facturasEsteMes?.monto ? formatRaw(convert(data.facturasEsteMes.monto)) : null, href: "/facturacion" },
-              { label: "Alertas", value: unread, icon: BellRing, color: "text-indigo-500", href: "/notificaciones", alert: unread > 0 },
-            ];
-          })().map((stat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 + i * 0.05 }}
-            >
-              <Link href={stat.href as never}>
-                <div className="liquid-glass-subtle p-5 rounded-2xl flex items-center gap-4 hover:bg-background/40 transition-all group overflow-hidden relative border border-border/20 hover:border-border/40">
-                  <div className={cn("h-12 w-12 rounded-xl flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform", 
-                    "bg-opacity-10 bg-current", stat.color
-                  )}>
-                    <stat.icon className="h-6 w-6" />
+        {/* Secondary Stats */}
+        <div className="rounded-2xl bg-muted/20 p-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {(() => {
+              const unread = data?.notificacionesNoLeidas ?? 0;
+              return [
+                { label: "Clientes", value: data?.clientesActivos ?? 0, icon: UsersRound, color: "text-cyan-500", href: "/fidelizacion-clientes" },
+                { label: "Empleados", value: data?.empleados ?? 0, icon: BadgeDollarSign, color: "text-emerald-500", href: "/dashboard-rrhh" },
+                { label: "Facturas", value: data?.facturasEsteMes?.count ?? 0, icon: ReceiptText, color: "text-amber-500", extra: data?.facturasEsteMes?.monto ? formatRaw(convert(data.facturasEsteMes.monto)) : null, href: "/facturacion" },
+                { label: "Alertas", value: unread, icon: BellRing, color: "text-indigo-500", href: "/notificaciones", alert: unread > 0 },
+              ];
+            })().map((stat, i) => (
+              <Link key={i} href={stat.href as never}>
+                <div className="rounded-xl border border-border bg-card p-4 flex items-center gap-3 shadow-sm shadow-black/[0.02] transition-all hover:shadow-md hover:-translate-y-0.5 group">
+                  <div className={cn("h-10 w-10 rounded-lg flex items-center justify-center shrink-0 bg-current/10 group-hover:bg-current/20 transition-colors", stat.color)}>
+                    <stat.icon className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-2xl font-bold tracking-tight">{loading ? "—" : stat.value}</p>
-                    <p className="text-[12px] font-semibold text-muted-foreground/50">{stat.label}</p>
+                    <p className="text-xl font-bold tracking-tight text-foreground">{loading ? "—" : stat.value}</p>
+                    <p className="text-xs font-medium text-muted-foreground">{stat.label}</p>
                   </div>
-                  {stat.extra && <div className="ml-auto text-[11px] font-bold text-muted-foreground/30 hidden xl:block">{curConfig.symbol}{stat.extra}</div>}
-                  {stat.alert && <span className="absolute top-3 right-3 w-2.5 h-2.5 rounded-full bg-rose-500 shadow-lg shadow-rose-500/50 animate-pulse" />}
+                  {stat.extra && <span className="ml-auto text-xs font-semibold text-muted-foreground/40 hidden xl:block">{curConfig.symbol}{stat.extra}</span>}
+                  {stat.alert && <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />}
                 </div>
               </Link>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <motion.div className="lg:col-span-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.6, ease: "easeOut" }} whileHover={{ y: -2 }}>
-          <Card className="border border-border/30 rounded-2xl overflow-hidden bg-card/80 transition-all duration-500 hover:shadow-xl hover:shadow-black/[0.12] shadow-lg shadow-black/[0.06]">
-            <CardHeader className="p-6 pb-3 flex flex-row items-center justify-between">
-              <div>
-                <CardTitle className="text-sm font-bold uppercase tracking-wide text-foreground/80">Flujo Financiero</CardTitle>
-                <p className="text-[11px] text-muted-foreground/50 mt-1">Últimos 12 meses</p>
+      <div className="rounded-2xl bg-muted/20 p-5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div className="lg:col-span-8">
+          <div className="rounded-xl border border-border bg-card overflow-hidden shadow-sm shadow-black/[0.02]">
+            <div className="px-5 py-4 flex items-center justify-between border-b border-border">
+              <div className="flex items-center gap-3">
+                <div className="h-8 w-1 rounded-full bg-primary/40" />
+                <div>
+                  <h3 className="text-sm font-semibold text-foreground">Flujo Financiero</h3>
+                  <p className="text-xs text-muted-foreground mt-0.5">Últimos 12 meses</p>
+                </div>
               </div>
-              <BarChartBig className="h-5 w-5 text-muted-foreground/25" />
-            </CardHeader>
-            <CardContent className="p-5 pt-0">
+              <BarChartBig className="h-5 w-5 text-muted-foreground/30" />
+            </div>
+            <div className="p-5">
               <div className="h-[280px] w-full">
                 {loading ? (
                   <div className="h-full flex items-center justify-center"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground/20" /></div>
                 ) : !Array.isArray(data?.chartMensual) || data.chartMensual.length === 0 ? (
-                  <div className="h-full flex flex-col items-center justify-center gap-2 text-muted-foreground/20">
+                  <div className="h-full flex flex-col items-center justify-center gap-2 text-muted-foreground/30">
                     <BarChartBig className="h-10 w-10" />
-                    <p className="text-[10px] font-semibold">Sin datos históricos</p>
+                    <p className="text-xs font-medium">Sin datos históricos</p>
                   </div>
                 ) : (
                   <ChartErrorBoundary fallbackLabel="Error al cargar flujo financiero">
@@ -524,67 +459,45 @@ export default function DashboardEmpresaPage() {
                         <AreaChart data={data.chartMensual} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
                           <defs>
                             <linearGradient id="gIng" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="var(--color-ingresos)" stopOpacity={0.4}/>
+                              <stop offset="5%" stopColor="var(--color-ingresos)" stopOpacity={0.3}/>
                               <stop offset="95%" stopColor="var(--color-ingresos)" stopOpacity={0}/>
                             </linearGradient>
                             <linearGradient id="gGas" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="var(--color-gastos)" stopOpacity={0.3}/>
+                              <stop offset="5%" stopColor="var(--color-gastos)" stopOpacity={0.2}/>
                               <stop offset="95%" stopColor="var(--color-gastos)" stopOpacity={0}/>
                             </linearGradient>
-                            <filter id="glow">
-                              <feGaussianBlur stdDeviation="2" result="blur" />
-                              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                            </filter>
                           </defs>
-                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
-                          <XAxis dataKey="mes" stroke="#475569" fontSize={9} fontWeight="600" axisLine={false} tickLine={false} tickMargin={10} />
-                          <YAxis stroke="#475569" fontSize={9} fontWeight="600" axisLine={false} tickLine={false} tickFormatter={(v) => `${curConfig.symbol} ${formatRaw(convert(v as number))}`} width={55} />
+                          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                          <XAxis dataKey="mes" stroke="hsl(var(--muted-foreground))" fontSize={10} fontWeight="500" axisLine={false} tickLine={false} tickMargin={8} opacity={0.5} />
+                          <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} fontWeight="500" axisLine={false} tickLine={false} tickFormatter={(v) => `${curConfig.symbol}${formatRaw(convert(v as number))}`} width={50} opacity={0.5} />
                           <ChartTooltip 
-                            cursor={{ stroke: "rgba(255,255,255,0.06)", strokeWidth: 1 }} 
+                            cursor={{ stroke: "hsl(var(--border))", strokeWidth: 1 }} 
                             content={<ChartTooltipContent indicator="line" formatter={(v) => fmtCur(v as number)} />} 
                           />
-                          <Area 
-                            type="monotone" 
-                            dataKey="ingresos" 
-                            stroke="var(--color-ingresos)" 
-                            strokeWidth={3} 
-                            fillOpacity={1} 
-                            fill="url(#gIng)" 
-                            filter="url(#glow)"
-                            activeDot={{ r: 6, fill: "var(--color-ingresos)", stroke: "#fff", strokeWidth: 2, className: "shadow-lg shadow-emerald-500/50" }}
-                          />
-                          <Area 
-                            type="monotone" 
-                            dataKey="gastos" 
-                            stroke="var(--color-gastos)" 
-                            strokeWidth={3} 
-                            fillOpacity={1} 
-                            fill="url(#gGas)" 
-                            filter="url(#glow)"
-                            activeDot={{ r: 6, fill: "var(--color-gastos)", stroke: "#fff", strokeWidth: 2, className: "shadow-lg shadow-rose-500/50" }}
-                          />
+                          <Area type="monotone" dataKey="ingresos" stroke="var(--color-ingresos)" strokeWidth={2} fillOpacity={1} fill="url(#gIng)" activeDot={{ r: 5, fill: "var(--color-ingresos)", stroke: "hsl(var(--background))", strokeWidth: 2 }} />
+                          <Area type="monotone" dataKey="gastos" stroke="var(--color-gastos)" strokeWidth={2} fillOpacity={1} fill="url(#gGas)" activeDot={{ r: 5, fill: "var(--color-gastos)", stroke: "hsl(var(--background))", strokeWidth: 2 }} />
                         </AreaChart>
                       </ResponsiveContainer>
                     </ChartContainer>
                   </ChartErrorBoundary>
                 )}
               </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+            </div>
+          </div>
+        </div>
 
-        <motion.div className="lg:col-span-4 space-y-5" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-          <Card className="border border-border/30 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
+        <div className="lg:col-span-4 space-y-4">
+          <div className="rounded-xl border border-border bg-card p-5">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-bold text-foreground/70">Facturación</span>
-              <FileBarChart2 className="h-4 w-4 text-muted-foreground/25" />
+              <span className="text-sm font-semibold text-foreground">Facturación</span>
+              <FileBarChart2 className="h-4 w-4 text-muted-foreground/30" />
             </div>
             {loading ? (
               <div className="h-32 flex items-center justify-center"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground/20" /></div>
             ) : facturasPie.length === 0 ? (
-              <div className="h-32 flex flex-col items-center justify-center gap-2 text-muted-foreground/25">
+              <div className="h-32 flex flex-col items-center justify-center gap-2 text-muted-foreground/30">
                 <ReceiptText className="h-8 w-8" />
-                <p className="text-[11px] font-medium">Sin facturas</p>
+                <p className="text-xs font-medium">Sin facturas</p>
               </div>
             ) : (
               <ChartErrorBoundary fallbackLabel="Error al cargar facturación">
@@ -598,24 +511,24 @@ export default function DashboardEmpresaPage() {
                     {facturasPie.map((d, idx) => (
                       <div key={idx} className="flex items-center gap-2.5">
                         <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: DONUT_COLORS[idx % DONUT_COLORS.length] }} />
-                        <span className="text-[11px] text-muted-foreground/60 truncate">{d.name}</span>
-                        <span className="text-sm font-bold ml-auto">{d.value}</span>
+                        <span className="text-xs text-muted-foreground truncate">{d.name}</span>
+                        <span className="text-sm font-semibold ml-auto">{d.value}</span>
                       </div>
                     ))}
-                      <div className="pt-2 border-t border-border/20">
-                        <span className="text-[11px] text-muted-foreground/50">Total: <span className="font-bold text-foreground">{data?.facturas?.total ?? 0}</span></span>
+                      <div className="pt-2 border-t border-border">
+                        <span className="text-xs text-muted-foreground">Total: <span className="font-semibold text-foreground">{data?.facturas?.total ?? 0}</span></span>
                       </div>
                     </div>
                     </div>
                   </ChartErrorBoundary>
                  )}
-              </Card>
-            </motion.div>
-            <motion.div className="lg:col-span-4 space-y-5" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-              <Card className="border border-border/30 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
+              </div>
+            </div>
+            <div className="lg:col-span-4 space-y-4">
+              <div className="rounded-xl border border-border bg-card p-5">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm font-bold text-foreground/70">Cuentas</span>
-                  <Coins className="h-4 w-4 text-muted-foreground/25" />
+                  <span className="text-sm font-semibold text-foreground">Cuentas</span>
+                  <Coins className="h-4 w-4 text-muted-foreground/30" />
                 </div>
                 <div className="space-y-3">
                   <Link href="/cuentas-por-cobrar" className="block">
@@ -654,33 +567,34 @@ export default function DashboardEmpresaPage() {
                 </Link>
               )}
             </div>
-          </Card>
-        </motion.div>
+          </div>
+        </div>
+      </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <motion.div className="lg:col-span-5" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}>
-          <Card className="border border-border/30 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-bold text-foreground/70">Últimos Movimientos</span>
-              <Link href="/contabilidad/libros">
-                <span className="text-[11px] font-medium text-cyan-400 hover:text-cyan-300 flex items-center gap-1">Ver todos <ChevronRight className="h-3.5 w-3.5" /></span>
-              </Link>
+      <div className="rounded-2xl bg-muted/20 p-5">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div className="lg:col-span-5">
+          <div className="rounded-xl border border-border bg-card p-5 shadow-sm shadow-black/[0.02]">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-8 w-1 rounded-full bg-primary/40" />
+              <span className="text-sm font-semibold text-foreground">Últimos Movimientos</span>
+              <Link href="/contabilidad/libros" className="ml-auto text-xs font-medium text-primary hover:text-primary/80 flex items-center gap-1">Ver todos <ChevronRight className="h-3.5 w-3.5" /></Link>
             </div>
             {loading ? (
-              <div className="space-y-2">{[1, 2, 3, 4].map(n => <div key={n} className="h-12 bg-muted/10 rounded-xl animate-pulse" />)}</div>
+              <div className="space-y-2">{[1, 2, 3, 4].map(n => <div key={n} className="h-12 rounded-lg bg-muted animate-pulse" />)}</div>
             ) : Array.isArray(data?.movimientosRecientes) && data.movimientosRecientes.length > 0 ? (
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 {data.movimientosRecientes.slice(0, 6).map((mov) => (
-                  <div key={mov.id} className="flex items-center gap-3.5 py-3 px-3 rounded-xl hover:bg-muted/10 transition-all">
-                    <div className={cn("h-8 w-8 rounded-lg flex items-center justify-center shrink-0", mov.tipo === "credito" ? "bg-emerald-500/10" : "bg-rose-500/10")}>
-                      {mov.tipo === "credito" ? <ArrowUpFromLine className="h-4 w-4 text-emerald-400" /> : <ArrowDownFromLine className="h-4 w-4 text-rose-400" />}
+                  <div key={mov.id} className="flex items-center gap-3 py-2.5 px-2.5 rounded-lg hover:bg-accent/50 transition-colors">
+                    <div className={cn("h-7 w-7 rounded-md flex items-center justify-center shrink-0", mov.tipo === "credito" ? "bg-emerald-500/10" : "bg-rose-500/10")}>
+                      {mov.tipo === "credito" ? <ArrowUpFromLine className="h-3.5 w-3.5 text-emerald-500" /> : <ArrowDownFromLine className="h-3.5 w-3.5 text-rose-500" />}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate text-foreground/75">{mov.concepto}</p>
-                      <p className="text-[11px] text-muted-foreground/40">{mov.fecha_operacion}{mov.categoria ? ` · ${mov.categoria}` : ""}</p>
+                      <p className="text-sm font-medium truncate text-foreground">{mov.concepto}</p>
+                      <p className="text-xs text-muted-foreground">{mov.fecha_operacion}{mov.categoria ? ` · ${mov.categoria}` : ""}</p>
                     </div>
-                    <span className={cn("text-sm font-bold tabular-nums shrink-0", mov.tipo === "credito" ? "text-emerald-400" : "text-rose-400")}>
+                    <span className={cn("text-sm font-semibold tabular-nums shrink-0", mov.tipo === "credito" ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400")}>
                       {mov.tipo === "credito" ? "+" : "-"}{fmtCur(parseSafeNumber(mov.monto))}
                     </span>
                   </div>
@@ -688,20 +602,20 @@ export default function DashboardEmpresaPage() {
               </div>
             ) : (
               <div className="py-10 text-center">
-                <Coins className="h-10 w-10 text-muted-foreground/15 mx-auto mb-3" />
-                <p className="text-[11px] text-muted-foreground/40">Sin movimientos registrados</p>
-                <Link href="/contabilidad/conciliacion-bancaria"><Button variant="outline" size="sm" className="mt-4 text-[11px] font-medium rounded-xl h-8 border-border/30">Registrar</Button></Link>
+                <Coins className="h-10 w-10 text-muted-foreground/20 mx-auto mb-3" />
+                <p className="text-xs text-muted-foreground/60">Sin movimientos registrados</p>
+                <Link href="/contabilidad/conciliacion-bancaria"><Button variant="outline" size="sm" className="mt-4 text-xs rounded-lg h-8">Registrar</Button></Link>
               </div>
             )}
-          </Card>
-        </motion.div>
+          </div>
+        </div>
 
-        <motion.div className="lg:col-span-4" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-          <Card className="border border-emerald-500/15 rounded-2xl bg-card/80 p-5 h-full shadow-lg shadow-black/[0.04]">
+        <div className="lg:col-span-4">
+          <div className="rounded-xl border border-emerald-500/20 bg-card p-5 h-full">
             <div className="flex items-center gap-3 mb-4">
-              <ShieldCheck className="h-5 w-5 text-emerald-400" />
-              <span className="text-sm font-bold text-foreground/70">Fiscal</span>
-              <Badge className="ml-auto bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[11px] font-semibold h-6 rounded-lg">OK</Badge>
+              <ShieldCheck className="h-5 w-5 text-emerald-500" />
+              <span className="text-sm font-semibold text-foreground">Fiscal</span>
+              <Badge className="ml-auto bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 text-xs font-medium h-5 rounded-md">OK</Badge>
             </div>
             <div className="grid grid-cols-2 gap-2.5">
               {[
@@ -733,338 +647,277 @@ export default function DashboardEmpresaPage() {
                 </div>
               ))}
             </div>
-          </Card>
-        </motion.div>
+          </div>
+        </div>
 
-        <motion.div className="lg:col-span-3 space-y-5" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}>
-          <Card className="border border-border/30 rounded-2xl bg-gradient-to-br from-[#0a1225] via-card/90 to-card/95 p-6 text-white overflow-hidden relative group shadow-xl shadow-black/[0.15]">
-            <div className="absolute inset-0 bg-scanline opacity-[0.05] group-hover:opacity-[0.1] transition-opacity pointer-events-none" />
-            <div className="absolute top-0 left-0 w-full h-[1px] bg-cyan-500/30 animate-scanner-y pointer-events-none" />
-            <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-primary/10 blur-[60px] group-hover:bg-primary/20 transition-all duration-1000" />
-            
-            <div className="relative z-10 space-y-5">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1.5">
-                  <h3 className="text-sm font-bold tracking-tight text-white/90">Escenarios Algorítmicos</h3>
-                  <div className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_8px_rgba(6,182,212,1)]" />
-                    <span className="text-[10px] font-semibold tracking-wide text-cyan-400/60">NEXUS CORE ACTIVE</span>
-                  </div>
-                </div>
-                <Badge className="bg-primary/20 text-primary border-primary/30 text-[10px] font-semibold px-2.5 py-0.5 rounded-lg">CORE PRO</Badge>
-              </div>
-              
-              <div className="space-y-2.5">
-                <Button size="sm" variant="outline" className="w-full h-11 text-[11px] font-semibold tracking-wide rounded-xl border-white/5 bg-white/[0.03] text-white/60 hover:bg-emerald-500/15 hover:border-emerald-500/20 hover:text-emerald-300 justify-start px-4 transition-all hover:translate-x-1"
-                  onClick={() => { const a = data ? data.ingresos * 1.2 : 0; toast({ title: "PROYECCIÓN: VENTAS +20%", description: `Ingresos: ${fmtCur(a)} · Utilidad Estimada: ${fmtCur(a - (data?.gastos ?? 0))}` }); }}>
-                  <TrendingUpDown className="h-4 w-4 mr-3 text-emerald-400" /> Proyectar Ventas +20%
-                </Button>
-                <Button size="sm" variant="outline" className="w-full h-11 text-[11px] font-semibold tracking-wide rounded-xl border-white/5 bg-white/[0.03] text-white/60 hover:bg-rose-500/15 hover:border-rose-500/20 hover:text-rose-300 justify-start px-4 transition-all hover:translate-x-1"
-                  onClick={() => { const inf = data ? data.gastos * 1.35 : 0; toast({ title: "SIMULACIÓN: INFLACIÓN 35%", description: `Gastos: ${fmtCur(inf)} · Utilidad Estimada: ${fmtCur((data?.ingresos ?? 0) - inf)}` }); }}>
-                  <TriangleAlert className="h-4 w-4 mr-3 text-rose-400" /> Simular Inflación 35%
-                </Button>
-              </div>
+        <div className="lg:col-span-3 space-y-4">
+          <div className="rounded-xl border border-border bg-card p-5 shadow-sm shadow-black/[0.02]">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-semibold text-foreground">Proyecciones</h3>
+              <TrendingUp className="h-4 w-4 text-muted-foreground/40" />
+            </div>
+            <div className="space-y-2.5">
+              <Button size="sm" variant="outline" className="w-full justify-start text-xs font-medium rounded-lg h-10 gap-3"
+                onClick={() => { const a = data ? data.ingresos * 1.2 : 0; toast({ title: "Proyección: Ventas +20%", description: `Ingresos: ${fmtCur(a)} · Utilidad: ${fmtCur(a - (data?.gastos ?? 0))}` }); }}>
+                <TrendingUp className="h-4 w-4 text-emerald-500" /> Proyectar Ventas +20%
+              </Button>
+              <Button size="sm" variant="outline" className="w-full justify-start text-xs font-medium rounded-lg h-10 gap-3"
+                onClick={() => { const inf = data ? data.gastos * 1.35 : 0; toast({ title: "Simulación: Inflación 35%", description: `Gastos: ${fmtCur(inf)} · Utilidad: ${fmtCur((data?.ingresos ?? 0) - inf)}` }); }}>
+                <TriangleAlert className="h-4 w-4 text-amber-500" /> Simular Inflación 35%
+              </Button>
+            </div>
+          </div>
 
-              <div className="pt-3">
-                <div className="flex items-center justify-between text-[9px] font-semibold tracking-wide text-white/25 mb-2.5">
-                  <span>Procesamiento Algorítmico</span>
-                  <span>98.2% Accuracy</span>
-                </div>
-                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    animate={{ width: "98.2%" }}
-                    transition={{ duration: 2, ease: "easeOut" }}
-                    className="h-full bg-gradient-to-r from-primary to-cyan-400 shadow-[0_0_10px_rgba(59,130,246,0.5)]" 
-                  />
-                </div>
+          <div className="rounded-xl border border-border bg-card p-5">
+            <div className="flex items-center justify-between mb-5">
+              <div>
+                <p className="text-xs text-muted-foreground">Suscripción</p>
+                <h3 className="text-sm font-semibold text-foreground mt-0.5">Plan Professional</h3>
               </div>
+              <Sparkles className="h-5 w-5 text-primary/60" />
             </div>
-          </Card>
-
-          <Card className="border border-primary/20 rounded-2xl bg-card/80 p-6 relative overflow-hidden group shadow-lg shadow-black/[0.06]">
-            <div className="absolute top-0 right-0 p-5 opacity-5 group-hover:opacity-10 transition-opacity">
-              <Building className="h-20 w-20 text-primary" />
-            </div>
-            <div className="flex items-center justify-between mb-6">
-              <div className="space-y-1.5">
-                <span className="text-[11px] font-semibold text-foreground/50 tracking-wide">Suscripción Activa</span>
-                <h3 className="text-sm font-bold text-primary tracking-wide">Plan Professional</h3>
-              </div>
-              <Sparkles className="h-5 w-5 text-primary" />
-            </div>
-            
-            <div className="space-y-5">
+            <div className="space-y-4">
               {[
                 { label: "Empleados", current: data?.empleados ?? 0, total: 15, color: "bg-primary" },
-                { label: "Consultas Core", current: 124, total: 250, color: "bg-kyron-cyan" },
+                { label: "Consultas Core", current: 124, total: 250, color: "bg-cyan-500" },
                 { label: "Almacenamiento", current: 4.2, total: 25, color: "bg-emerald-500", suffix: " GB" }
               ].map((stat, idx) => (
-                <div key={idx} className="space-y-2.5">
-                  <div className="flex justify-between text-[10px] font-semibold tracking-wide">
-                    <span className="text-muted-foreground/60">{stat.label}</span>
-                    <span className="text-foreground">{stat.current} / {stat.total}{stat.suffix}</span>
+                <div key={idx} className="space-y-1.5">
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <span>{stat.label}</span>
+                    <span className="text-foreground font-medium">{stat.current} / {stat.total}{stat.suffix}</span>
                   </div>
-                  <div className="h-2 w-full bg-white/[0.03] rounded-full overflow-hidden border border-white/[0.05]">
-                    <motion.div 
-                      initial={{ width: 0 }}
-                      animate={{ width: `${Math.min((stat.current / stat.total) * 100, 100)}%` }}
-                      transition={{ duration: 1.5, delay: 0.5 + idx * 0.1, ease: "easeOut" }}
-                      className={cn("h-full relative", stat.color)}
-                    >
-                      <div className="absolute inset-0 bg-white/20 animate-pulse" />
-                      <div className="absolute top-0 right-0 h-full w-4 bg-white/40 blur-sm" />
-                    </motion.div>
+                  <div className="h-2 rounded-full bg-muted overflow-hidden">
+                    <div className={cn("h-full rounded-full transition-all duration-700", stat.color)} style={{ width: `${Math.min((stat.current / stat.total) * 100, 100)}%` }} />
                   </div>
                 </div>
               ))}
             </div>
-          </Card>
+          </div>
 
-
-          <Card className="border border-border/30 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
-            <span className="text-sm font-bold text-foreground/70 mb-3 block">Nómina</span>
+          <div className="rounded-xl border border-border bg-card p-5">
+            <p className="text-sm font-semibold text-foreground mb-3">Nómina</p>
             <div className="flex items-baseline gap-1 mb-1.5">
               <span className="text-xl font-bold tracking-tight">{loading ? "—" : fmtCur(data?.nominaMensual ?? 0)}</span>
             </div>
             <p className="text-[11px] text-muted-foreground/45">{data?.empleados ?? 0} empleados activos</p>
             <Link href="/contabilidad/libros/nomina"><Button variant="outline" size="sm" className="mt-3 w-full h-8 text-[11px] font-medium rounded-xl border-border/25">Ver Nómina</Button></Link>
-          </Card>
-        </motion.div>
+          </div>
+        </div>
+      </div>
       </div>
 
-      <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-5" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.58 }}>
-        <Card className="border border-amber-500/15 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="rounded-xl border border-amber-500/20 bg-card p-5 shadow-sm shadow-black/[0.02]">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <CalendarDays className="h-5 w-5 text-amber-400" />
-              <span className="text-sm font-bold text-foreground/70">Calendario Fiscal SENIAT</span>
+              <CalendarDays className="h-5 w-5 text-amber-500" />
+              <h3 className="text-sm font-semibold text-foreground">Calendario Fiscal SENIAT</h3>
             </div>
-            <Link href="/contabilidad/tributos/calendario-fiscal"><span className="text-[11px] font-medium text-amber-400/70 hover:text-amber-300 flex items-center gap-1">Ver todo <ChevronRight className="h-3.5 w-3.5" /></span></Link>
+            <Link href="/contabilidad/tributos/calendario-fiscal"><span className="text-xs font-medium text-primary hover:text-primary/80 flex items-center gap-1">Ver todo <ChevronRight className="h-3.5 w-3.5" /></span></Link>
           </div>
           <div className="space-y-2">
             {!Array.isArray(fiscalDeadlines) || fiscalDeadlines.length === 0 ? (
-              <div className="py-5 text-center"><p className="text-[11px] text-muted-foreground/35">Cargando calendario...</p></div>
+              <div className="py-5 text-center"><p className="text-xs text-muted-foreground/60">Cargando calendario...</p></div>
             ) : (fiscalDeadlines || []).map((d, i) => {
               const FISCAL_ICONS: Record<string, any> = { iva: PercentCircle, ret: ReceiptText, islr: Landmark, para: UsersRound, faov: Building };
               const IconComp = FISCAL_ICONS[d.iconKey] ?? Calendar;
               return (
-                <div key={i} className="flex items-center gap-3.5 p-3 rounded-xl bg-muted/5 border border-border/10 hover:bg-muted/10 transition-colors">
-                  <div className={cn("h-8 w-8 rounded-lg flex items-center justify-center shrink-0", d.bg)}>
-                    <IconComp className={cn("h-4 w-4", d.color)} />
+                <div key={i} className="flex items-center gap-3 p-2.5 rounded-lg bg-muted/30 border border-border/50 hover:bg-accent/50 transition-colors">
+                  <div className={cn("h-7 w-7 rounded-md flex items-center justify-center shrink-0", d.bg)}>
+                    <IconComp className={cn("h-3.5 w-3.5", d.color)} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate">{d.label}</p>
-                    <p className="text-[11px] text-muted-foreground/45">{d.dateStr}</p>
+                    <p className="text-sm font-medium truncate text-foreground">{d.label}</p>
+                    <p className="text-xs text-muted-foreground">{d.dateStr}</p>
                   </div>
-                  <Badge className={cn("text-[11px] font-bold h-6 rounded-lg border", d.diff <= 5 ? "bg-rose-500/10 text-rose-400 border-rose-500/15" : d.diff <= 15 ? "bg-amber-500/10 text-amber-400 border-amber-500/15" : "bg-emerald-500/8 text-emerald-400 border-emerald-500/15")}>
+                  <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-md", d.diff <= 5 ? "bg-rose-500/10 text-rose-600 dark:text-rose-400" : d.diff <= 15 ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400")}>
                     {d.diff < 0 ? "VENCIDO" : d.diff === 0 ? "HOY" : d.diff === 1 ? "Mañana" : `${d.diff}d`}
-                  </Badge>
+                  </span>
                 </div>
               );
             })}
           </div>
-        </Card>
 
-        <Card className="border border-blue-500/15 rounded-2xl bg-card/80 p-5 shadow-lg shadow-black/[0.04]">
+        <div className="rounded-xl border border-blue-500/20 bg-card p-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <WalletCards className="h-5 w-5 text-blue-400" />
-              <span className="text-sm font-bold text-foreground/70">Cuentas por Cobrar</span>
+              <WalletCards className="h-5 w-5 text-blue-500" />
+              <h3 className="text-sm font-semibold text-foreground">Cuentas por Cobrar</h3>
             </div>
           </div>
           {data?.cuentasCobrar && data?.cuentasPagar && (data.cuentasCobrar.count > 0 || data.cuentasPagar.count > 0) ? (
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
-                <span className="text-sm font-medium text-foreground/65">Por cobrar</span>
+              <div className="flex items-center justify-between p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
+                <span className="text-sm font-medium text-foreground/80">Por cobrar</span>
                 <div className="text-right">
-                  <span className="text-base font-bold text-emerald-400">{fmtCur(data.cuentasCobrar.total)}</span>
-                  <span className="text-[11px] text-muted-foreground/40 ml-2">{data.cuentasCobrar.count} pendientes</span>
+                  <span className="text-base font-semibold text-emerald-600 dark:text-emerald-400">{fmtCur(data.cuentasCobrar.total)}</span>
+                  <span className="text-xs text-muted-foreground ml-2">{data.cuentasCobrar.count} pendientes</span>
                 </div>
               </div>
-              <div className="flex items-center justify-between p-4 rounded-xl bg-rose-500/5 border border-rose-500/10">
-                <span className="text-sm font-medium text-foreground/65">Por pagar</span>
+              <div className="flex items-center justify-between p-3 rounded-lg bg-rose-500/5 border border-rose-500/10">
+                <span className="text-sm font-medium text-foreground/80">Por pagar</span>
                 <div className="text-right">
-                  <span className="text-base font-bold text-rose-400">{fmtCur(data.cuentasPagar.total)}</span>
-                  <span className="text-[11px] text-muted-foreground/40 ml-2">{data.cuentasPagar.count} pendientes</span>
+                  <span className="text-base font-semibold text-rose-600 dark:text-rose-400">{fmtCur(data.cuentasPagar.total)}</span>
+                  <span className="text-xs text-muted-foreground ml-2">{data.cuentasPagar.count} pendientes</span>
                 </div>
               </div>
             </div>
           ) : (
             <div className="text-center py-8">
-              <ShieldCheck className="h-8 w-8 text-emerald-400/25 mx-auto mb-3" />
-              <p className="text-[11px] text-muted-foreground/45">Sin cuentas pendientes</p>
+              <ShieldCheck className="h-8 w-8 text-emerald-500/20 mx-auto mb-3" />
+              <p className="text-xs text-muted-foreground/60">Sin cuentas pendientes</p>
             </div>
           )}
-          <div className="mt-4 pt-3 border-t border-border/15 flex items-center justify-between">
-            <span className="text-[11px] text-muted-foreground/40">Datos en tiempo real</span>
-            <Link href="/cuentas-por-cobrar"><span className="text-[11px] font-medium text-blue-400 hover:text-blue-300 flex items-center gap-1">Detalle <ChevronRight className="h-3.5 w-3.5" /></span></Link>
+          <div className="mt-4 pt-3 border-t border-border flex items-center justify-between">
+            <span className="text-xs text-muted-foreground">Datos en tiempo real</span>
+            <Link href="/cuentas-por-cobrar"><span className="text-xs font-medium text-primary hover:text-primary/80 flex items-center gap-1">Detalle <ChevronRight className="h-3.5 w-3.5" /></span></Link>
           </div>
-        </Card>
-      </motion.div>
+        </div>
+      </div>
 
       {semaforo && semaforo.global && (
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62 }}>
-          <Card className="border border-border/30 rounded-2xl bg-card/80 overflow-hidden shadow-lg shadow-black/[0.06]">
-            <div className="flex flex-col lg:flex-row">
-              <div className={cn(
-                "flex flex-row lg:flex-col items-center justify-center gap-3 p-6 lg:p-7 lg:w-[110px] shrink-0 relative",
-                semaforo.global.level === "rojo" ? "bg-gradient-to-b from-rose-950/40 to-transparent" :
-                semaforo.global.level === "amarillo" ? "bg-gradient-to-b from-amber-950/40 to-transparent" :
-                "bg-gradient-to-b from-emerald-950/30 to-transparent"
+        <div className="rounded-xl border border-border bg-card overflow-hidden">
+          <div className="flex flex-col lg:flex-row">
+            <div className={cn(
+              "flex flex-row lg:flex-col items-center justify-center gap-2 p-5 lg:p-6 lg:w-[90px] shrink-0",
+              semaforo.global.level === "rojo" ? "bg-rose-500/10" :
+              semaforo.global.level === "amarillo" ? "bg-amber-500/10" :
+              "bg-emerald-500/10"
+            )}>
+              {(["rojo", "amarillo", "verde"] as const).map((color) => {
+                const isActive = semaforo.global.level === color;
+                const colorMap: Record<string, string> = {
+                  rojo: "bg-rose-500",
+                  amarillo: "bg-amber-400",
+                  verde: "bg-emerald-500",
+                };
+                return (
+                  <div key={color} className={cn("w-5 h-5 rounded-full transition-all", isActive ? colorMap[color] : "bg-muted-foreground/20")} />
+                );
+              })}
+              <span className={cn(
+                "text-xs font-semibold",
+                semaforo.global.level === "rojo" ? "text-rose-600 dark:text-rose-400" :
+                semaforo.global.level === "amarillo" ? "text-amber-600 dark:text-amber-400" :
+                "text-emerald-600 dark:text-emerald-400"
               )}>
-                <div className="flex flex-row lg:flex-col items-center gap-3 bg-zinc-900/80 rounded-2xl p-4 border border-white/[0.06] shadow-xl">
-                  {(["rojo", "amarillo", "verde"] as const).map((color) => {
-                    const isActive = semaforo.global.level === color;
-                    const colorMap = {
-                      rojo: { bg: "bg-rose-500", shadow: "shadow-rose-500/50", dim: "bg-rose-900/40" },
-                      amarillo: { bg: "bg-amber-400", shadow: "shadow-amber-400/50", dim: "bg-amber-900/40" },
-                      verde: { bg: "bg-emerald-500", shadow: "shadow-emerald-500/50", dim: "bg-emerald-900/40" },
-                    };
-                    const c = colorMap[color];
-                    return (
-                      <div key={color} className={cn(
-                        "w-7 h-7 rounded-full transition-all duration-500",
-                        isActive ? `${c.bg} ${c.shadow} shadow-lg` : c.dim
-                      )}>
-                        {isActive && <span className={cn("block w-full h-full rounded-full animate-pulse", c.bg, "opacity-40")} />}
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="text-center lg:mt-2">
-                  <p className={cn(
-                    "text-[11px] font-bold tracking-wide",
-                    semaforo.global.level === "rojo" ? "text-rose-400" :
-                    semaforo.global.level === "amarillo" ? "text-amber-400" :
-                    "text-emerald-400"
-                  )}>
-                    {semaforo.global.level === "rojo" ? "Alerta" :
-                     semaforo.global.level === "amarillo" ? "Atención" :
-                     "OK"}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex-1 p-5 min-w-0">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <BellRing className={cn(
-                      "h-5 w-5",
-                      semaforo.global.level === "rojo" ? "text-rose-400" :
-                      semaforo.global.level === "amarillo" ? "text-amber-400" :
-                      "text-emerald-400"
-                    )} />
-                    <span className="text-sm font-bold text-foreground/70">Vencimientos y Plazos</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {(semaforo.global.vencidos ?? 0) > 0 && (
-                      <Badge className="bg-rose-500/10 text-rose-400 border-rose-500/15 text-[10px] font-bold h-5 rounded-md border">
-                        {semaforo.global.vencidos} vencido{(semaforo.global.vencidos ?? 0) !== 1 ? "s" : ""}
-                      </Badge>
-                    )}
-                    {(semaforo.global.urgentes ?? 0) > 0 && (
-                      <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/15 text-[10px] font-bold h-5 rounded-md border">
-                        {semaforo.global.urgentes} urgente{(semaforo.global.urgentes ?? 0) !== 1 ? "s" : ""}
-                      </Badge>
-                    )}
-                    {(semaforo.global.proximos ?? 0) > 0 && (
-                      <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/15 text-[10px] font-bold h-5 rounded-md border">
-                        {semaforo.global.proximos} próximo{(semaforo.global.proximos ?? 0) !== 1 ? "s" : ""}
-                      </Badge>
-                    )}
-                    {(!semaforo.alertas || semaforo.alertas.length === 0) && (
-                      <Badge className="bg-emerald-500/8 text-emerald-400 border-emerald-500/15 text-[10px] font-bold h-5 rounded-md border">
-                        Sin vencimientos
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-
-                {!Array.isArray(semaforo?.alertas) || semaforo.alertas.length === 0 ? (
-                  <div className="py-8 text-center">
-                    <ShieldCheck className="h-10 w-10 text-emerald-400/20 mx-auto mb-3" />
-                    <p className="text-[11px] text-muted-foreground/45">No hay vencimientos próximos ni pendientes</p>
-                  </div>
-                ) : (
-                  <div className="space-y-1.5 max-h-[240px] overflow-y-auto pr-1">
-                    {(semaforo.alertas || []).map((alerta, idx) => (
-                      <Link key={idx} href={alerta.href as never}>
-                        <div className={cn(
-                          "flex items-center gap-3.5 p-3 rounded-xl border transition-all hover:shadow-sm cursor-pointer group",
-                          alerta.nivel === "vencido" ? "bg-rose-500/[0.04] border-rose-500/10 hover:bg-rose-500/[0.08]" :
-                          alerta.nivel === "urgente" ? "bg-amber-500/[0.04] border-amber-500/10 hover:bg-amber-500/[0.08]" :
-                          "bg-blue-500/[0.03] border-blue-500/8 hover:bg-blue-500/[0.06]"
-                        )}>
-                          <div className={cn(
-                            "w-3 h-3 rounded-full shrink-0",
-                            alerta.nivel === "vencido" ? "bg-rose-500 shadow-sm shadow-rose-500/30" :
-                            alerta.nivel === "urgente" ? "bg-amber-500 shadow-sm shadow-amber-500/30" :
-                            "bg-blue-400 shadow-sm shadow-blue-400/30"
-                          )} />
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm font-medium text-foreground/75 truncate">{alerta.label}</span>
-                              <Badge variant="outline" className="text-[10px] font-medium border-border/20 text-muted-foreground/45 h-5 px-2 shrink-0">{alerta.categoria}</Badge>
-                            </div>
-                            <p className="text-[11px] text-muted-foreground/45 truncate">{alerta.item}</p>
-                          </div>
-                          <div className="text-right shrink-0">
-                            <p className={cn(
-                              "text-sm font-bold",
-                              alerta.nivel === "vencido" ? "text-rose-400" :
-                              alerta.nivel === "urgente" ? "text-amber-400" :
-                              "text-blue-400"
-                            )}>
-                              {alerta.dias < 0 ? `${Math.abs(alerta.dias)}d vencido` :
-                               alerta.dias === 0 ? "HOY" :
-                               alerta.dias === 1 ? "Mañana" :
-                               `${alerta.dias}d`}
-                            </p>
-                            <p className="text-[10px] text-muted-foreground/35">{alerta.fecha}</p>
-                          </div>
-                          <ChevronRight className="h-4 w-4 text-muted-foreground/15 group-hover:text-foreground/30 transition-colors shrink-0" />
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
+                {semaforo.global.level === "rojo" ? "Alerta" :
+                 semaforo.global.level === "amarillo" ? "Atención" :
+                 "OK"}
+              </span>
             </div>
-          </Card>
-        </motion.div>
-      )}
 
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-        <div className="flex items-center gap-3 mb-4 ml-1">
-          <LayoutGrid className="h-5 w-5 text-muted-foreground/35" />
-          <span className="text-sm font-bold text-foreground/70">Módulos</span>
+            <div className="flex-1 p-5 min-w-0">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <BellRing className={cn("h-4 w-4", semaforo.global.level === "rojo" ? "text-rose-500" :
+                    semaforo.global.level === "amarillo" ? "text-amber-500" : "text-emerald-500")} />
+                  <span className="text-sm font-semibold text-foreground">Vencimientos y Plazos</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  {(semaforo.global.vencidos ?? 0) > 0 && (
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400">
+                      {semaforo.global.vencidos} vencido{(semaforo.global.vencidos ?? 0) !== 1 ? "s" : ""}
+                    </span>
+                  )}
+                  {(semaforo.global.urgentes ?? 0) > 0 && (
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                      {semaforo.global.urgentes} urgente{(semaforo.global.urgentes ?? 0) !== 1 ? "s" : ""}
+                    </span>
+                  )}
+                  {(semaforo.global.proximos ?? 0) > 0 && (
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                      {semaforo.global.proximos} próximo{(semaforo.global.proximos ?? 0) !== 1 ? "s" : ""}
+                    </span>
+                  )}
+                  {(!semaforo.alertas || semaforo.alertas.length === 0) && (
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                      Sin vencimientos
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {!Array.isArray(semaforo?.alertas) || semaforo.alertas.length === 0 ? (
+                <div className="py-8 text-center">
+                  <ShieldCheck className="h-10 w-10 text-emerald-500/20 mx-auto mb-3" />
+                  <p className="text-xs text-muted-foreground/60">No hay vencimientos próximos ni pendientes</p>
+                </div>
+              ) : (
+                <div className="space-y-1 max-h-[240px] overflow-y-auto pr-1">
+                  {(semaforo.alertas || []).map((alerta, idx) => (
+                    <Link key={idx} href={alerta.href as never}>
+                      <div className={cn(
+                        "flex items-center gap-3 p-2.5 rounded-lg border transition-colors cursor-pointer",
+                        alerta.nivel === "vencido" ? "bg-rose-500/5 border-rose-500/10 hover:bg-rose-500/10" :
+                        alerta.nivel === "urgente" ? "bg-amber-500/5 border-amber-500/10 hover:bg-amber-500/10" :
+                        "bg-blue-500/5 border-blue-500/10 hover:bg-blue-500/10"
+                      )}>
+                        <div className={cn("w-2.5 h-2.5 rounded-full shrink-0",
+                          alerta.nivel === "vencido" ? "bg-rose-500" :
+                          alerta.nivel === "urgente" ? "bg-amber-500" : "bg-blue-500")} />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-medium text-foreground truncate">{alerta.label}</span>
+                            <span className="text-xs text-muted-foreground/50 border border-border/50 px-1.5 py-0.5 rounded">{alerta.categoria}</span>
+                          </div>
+                          <p className="text-xs text-muted-foreground truncate">{alerta.item}</p>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className={cn("text-sm font-semibold",
+                            alerta.nivel === "vencido" ? "text-rose-600 dark:text-rose-400" :
+                            alerta.nivel === "urgente" ? "text-amber-600 dark:text-amber-400" : "text-blue-600 dark:text-blue-400"
+                          )}>
+                            {alerta.dias < 0 ? `${Math.abs(alerta.dias)}d vencido` :
+                             alerta.dias === 0 ? "HOY" :
+                             alerta.dias === 1 ? "Mañana" :
+                             `${alerta.dias}d`}
+                          </p>
+                          <p className="text-xs text-muted-foreground/50">{alerta.fecha}</p>
+                        </div>
+                        <ChevronRight className="h-4 w-4 text-muted-foreground/30 shrink-0" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      </div>
+
+      <div className="rounded-2xl bg-muted/20 p-5">
+      <div>
+        <div className="flex items-center gap-2 mb-4">
+          <LayoutGrid className="h-4 w-4 text-muted-foreground" />
+          <h3 className="text-sm font-semibold text-foreground">Módulos</h3>
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-3">
           {[
-            { label: "Facturación", href: "/facturacion", icon: ReceiptText, color: "text-amber-500", bg: "bg-amber-500/8" },
-            { label: "Legal", href: "/escritorio-juridico", icon: Gavel, color: "text-purple-500", bg: "bg-purple-500/8" },
-            { label: "Inventario", href: "/inventario", icon: Warehouse, color: "text-amber-600", bg: "bg-amber-600/8" },
-            { label: "Telecom", href: "/venta-linea", icon: Wifi, color: "text-teal-500", bg: "bg-teal-500/8" },
-            { label: "Reportes", href: "/reportes", icon: BarChartBig, color: "text-rose-500", bg: "bg-rose-500/8" },
-            { label: "Marketing", href: "/marketing", icon: Megaphone, color: "text-indigo-500", bg: "bg-indigo-500/8" },
-            { label: "ECO", href: "/sostenibilidad", icon: Leaf, color: "text-green-500", bg: "bg-green-500/8" },
+            { label: "Facturación", href: "/facturacion", icon: ReceiptText, color: "text-amber-500" },
+            { label: "Legal", href: "/escritorio-juridico", icon: Gavel, color: "text-purple-500" },
+            { label: "Inventario", href: "/inventario", icon: Warehouse, color: "text-amber-600" },
+            { label: "Telecom", href: "/venta-linea", icon: Wifi, color: "text-teal-500" },
+            { label: "Reportes", href: "/reportes", icon: BarChartBig, color: "text-rose-500" },
+            { label: "Marketing", href: "/marketing", icon: Megaphone, color: "text-indigo-500" },
+            { label: "ECO", href: "/sostenibilidad", icon: Leaf, color: "text-green-500" },
           ].map((mod, i) => (
             <Link key={i} href={mod.href as never}>
-              <div className="flex flex-col items-center gap-2.5 p-4 rounded-xl border border-border/25 bg-card/50 hover:bg-card hover:shadow-lg hover:shadow-black/[0.05] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer">
-                <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300", mod.bg)}>
-                  <mod.icon className={cn("h-5 w-5", mod.color)} />
+              <div className="flex flex-col items-center gap-2 p-3 rounded-lg border border-border bg-card/50 hover:bg-card hover:border-primary/30 transition-all cursor-pointer">
+                <div className={cn("h-9 w-9 rounded-lg flex items-center justify-center bg-current/10", mod.color)}>
+                  <mod.icon className={cn("h-4 w-4", mod.color)} />
                 </div>
-                <p className="text-[11px] font-medium text-muted-foreground/50 group-hover:text-foreground transition-colors">{mod.label}</p>
+                <p className="text-xs font-medium text-muted-foreground">{mod.label}</p>
               </div>
             </Link>
           ))}
         </div>
-      </motion.div>
+      </div>
+      </div>
 
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 0.4 }}>
-        <ActivityTimeline limit={10} />
-      </motion.div>
+      <ActivityTimeline limit={10} />
 
       <Dialog open={showCierre} onOpenChange={setShowCierre}>
         <DialogContent className="max-w-lg rounded-2xl">

@@ -121,55 +121,72 @@ export default function DashboardITPage() {
   return (
     <div className="space-y-10 pb-20 px-4 md:px-10 bg-background min-h-screen">
       <motion.header
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-cyan-500 pl-8 py-2 mt-10"
+        className="rounded-2xl border border-border bg-card shadow-sm shadow-black/[0.02] px-6 py-6 md:px-8 md:py-7 mt-4 md:mt-6"
       >
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-[11px] font-semibold uppercase tracking-wider text-cyan-500 mb-3">
-            <Cpu className="h-3 w-3" /> DEPARTAMENTO DE INFORMÁTICA
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-3">
+              <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Cpu className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
+                  Dashboard <span className="text-primary">IT</span>
+                </h1>
+                <p className="text-xs text-muted-foreground font-bold uppercase tracking-wider mt-1">
+                  Centro de Control • Infraestructura • Seguridad • Soporte • Respaldos
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="inline-flex items-center gap-1.5 text-xs text-primary font-semibold uppercase tracking-widest">
+                <span className="w-2 h-2 rounded-full bg-primary" /> DEPARTAMENTO DE INFORMÁTICA
+              </span>
+            </div>
           </div>
-          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
-            Dashboard <span className="text-cyan-500 italic">IT</span>
-          </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
-            Centro de Control • Infraestructura • Seguridad • Soporte • Respaldos
-          </p>
-        </div>
-        <div className="flex gap-3">
-          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-semibold uppercase tracking-widest gap-2"
-            onClick={() => { load(); toast({ title: "Actualizando dashboard", description: "Recargando métricas de IT..." }); }}>
-            <RefreshCw className="h-4 w-4" /> ACTUALIZAR
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="ghost" size="sm" className="h-10 px-4 rounded-xl text-xs font-semibold uppercase tracking-widest text-muted-foreground/50 hover:text-foreground hover:bg-muted/50"
+              onClick={() => { load(); toast({ title: "Actualizando dashboard", description: "Recargando métricas de IT..." }); }}>
+              <RefreshCw className="h-4 w-4" /> ACTUALIZAR
+            </Button>
+          </div>
         </div>
       </motion.header>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {kpis.map((kpi, i) => (
-          <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}>
-            <Card className="bg-card/60 border-border/50 p-5 rounded-xl hover:shadow-lg transition-shadow">
+          <Card key={i} className={cn("border border-border rounded-xl bg-card shadow-sm shadow-black/[0.02] transition-all hover:shadow-md", kpi.color.replace('text-', 'border-t-') + '/30')}>
+            <CardContent className="p-4">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
-                <div className={cn("p-1.5 rounded-lg", kpi.bg)}>
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">{kpi.label}</span>
+                <div className="p-2 rounded-lg bg-current/10">
                   <kpi.icon className={cn("h-3.5 w-3.5", kpi.color)} />
                 </div>
               </div>
               {loading ? <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /> : (
-                <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
+                <p className={cn("text-lg md:text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
               )}
-              <p className="text-[11px] text-muted-foreground mt-1">{kpi.sub}</p>
-            </Card>
-          </motion.div>
+              <p className="text-xs text-muted-foreground mt-1">{kpi.sub}</p>
+            </CardContent>
+          </Card>
         ))}
       </div>
+      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <Card className="rounded-2xl">
-            <CardHeader className="p-5 border-b bg-muted/10">
+          <Card className="rounded-xl border border-border bg-card shadow-sm shadow-black/[0.02] transition-all hover:shadow-md">
+            <CardHeader className="p-5 border-b">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-xs font-semibold uppercase tracking-widest">Actividad Reciente</CardTitle>
-                <Link href="/helpdesk" className="text-[10px] text-primary font-bold hover:underline flex items-center gap-1">
+                <div className="flex items-center gap-2">
+                  <div className="h-6 w-1 rounded-full bg-primary/40" />
+                  <CardTitle className="text-xs font-semibold uppercase tracking-widest">Actividad Reciente</CardTitle>
+                </div>
+                <Link href="/helpdesk" className="text-xs text-primary font-bold hover:underline flex items-center gap-1">
                   Helpdesk <ArrowRight className="h-3 w-3" />
                 </Link>
               </div>
@@ -186,13 +203,13 @@ export default function DashboardITPage() {
                   <p className="text-xs font-semibold uppercase tracking-widest">Sin actividad reciente</p>
                 </div>
               ) : actividad.map((ev, i) => (
-                <div key={i} className="flex items-start gap-4 p-3.5 border-b border-border/30 last:border-none">
+                <div key={i} className="flex items-start gap-4 p-3.5 border-b border-border last:border-none">
                   <Zap className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-[11px] font-semibold">{ev.evento}</p>
-                    <p className="text-[10px] text-muted-foreground">{ev.descripcion}</p>
+                    <p className="text-xs font-semibold">{ev.evento}</p>
+                    <p className="text-xs text-muted-foreground">{ev.descripcion}</p>
                   </div>
-                  <span className="text-[11px] text-muted-foreground whitespace-nowrap">
+                  <span className="text-xs text-muted-foreground whitespace-nowrap">
                     {new Date(ev.created_at).toLocaleDateString('es-VE', { day: '2-digit', month: '2-digit' })}
                   </span>
                 </div>
@@ -201,9 +218,12 @@ export default function DashboardITPage() {
           </Card>
         </div>
 
-        <Card className="rounded-2xl">
-          <CardHeader className="p-5 border-b bg-muted/10">
-            <CardTitle className="text-xs font-semibold uppercase tracking-widest">Estado de Tickets</CardTitle>
+        <Card className="rounded-xl border border-border bg-card shadow-sm shadow-black/[0.02] transition-all hover:shadow-md">
+          <CardHeader className="p-5 border-b">
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-1 rounded-full bg-primary/40" />
+              <CardTitle className="text-xs font-semibold uppercase tracking-widest">Estado de Tickets</CardTitle>
+            </div>
           </CardHeader>
           <CardContent className="p-5 space-y-4">
             {loading ? (
@@ -214,20 +234,20 @@ export default function DashboardITPage() {
               <>
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[10px] font-semibold text-amber-500">Abiertos</span>
+                    <span className="text-xs font-semibold text-amber-500">Abiertos</span>
                     <span className="text-xs font-bold text-amber-500">{ticketsAbiertos}</span>
                   </div>
                   <Progress value={itData?.tickets.total ? (ticketsAbiertos / itData.tickets.total) * 100 : 0} className="h-1.5" />
                 </div>
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[10px] font-semibold text-primary">En Progreso</span>
+                    <span className="text-xs font-semibold text-primary">En Progreso</span>
                     <span className="text-xs font-bold text-primary">{ticketsEnProgreso}</span>
                   </div>
                   <Progress value={itData?.tickets.total ? (ticketsEnProgreso / itData.tickets.total) * 100 : 0} className="h-1.5" />
                 </div>
-                <div className="pt-2 border-t border-border/30">
-                  <p className="text-[10px] text-muted-foreground text-center">
+                <div className="pt-2 border-t border-border">
+                  <p className="text-xs text-muted-foreground text-center">
                     {itData?.tickets.total === 0 ? "No hay tickets registrados aún" : `${itData?.tickets.total} tickets en total`}
                   </p>
                 </div>
@@ -236,16 +256,20 @@ export default function DashboardITPage() {
           </CardContent>
         </Card>
       </div>
+      </div>
 
-      <div>
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-sm font-semibold uppercase tracking-widest text-foreground">Módulos IT</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {MODULOS.map((mod, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.04 }}>
-              <Link href={mod.href}>
-                <Card className={cn("rounded-2xl overflow-hidden border hover:shadow-lg transition-all group cursor-pointer h-full", mod.border)}>
+      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+        <div>
+          <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-1 rounded-full bg-primary/40" />
+              <h2 className="text-sm font-semibold uppercase tracking-widest text-foreground">Módulos IT</h2>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {MODULOS.map((mod, i) => (
+              <Link key={i} href={mod.href}>
+                <Card className={cn("rounded-xl border shadow-sm shadow-black/[0.02] transition-all hover:shadow-md cursor-pointer h-full", mod.border)}>
                   <CardContent className="p-6 flex flex-col gap-4 h-full">
                     <div className="flex items-start justify-between">
                       <div className={cn("p-3 rounded-xl", mod.bg)}>
@@ -254,16 +278,16 @@ export default function DashboardITPage() {
                     </div>
                     <div className="flex-1">
                       <p className="text-sm font-bold mb-1">{mod.titulo}</p>
-                      <p className="text-[11px] text-muted-foreground">{mod.desc}</p>
+                      <p className="text-xs text-muted-foreground">{mod.desc}</p>
                     </div>
                     <div className="flex justify-end">
-                      <ArrowRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                      <ArrowRight className="h-4 w-4 text-muted-foreground/30" />
                     </div>
                   </CardContent>
                 </Card>
               </Link>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

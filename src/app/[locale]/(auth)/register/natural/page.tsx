@@ -128,6 +128,42 @@ export default function RegisterNaturalPage() {
 
   const hasSaimeData = !!(prefilledNombre && prefilledApellido);
 
+  const [cedulaLookup, setCedulaLookup] = useState<{ nombre: string; apellido: string; estado?: string; municipio?: string; fechaNacimiento?: string; sexo?: string; estadoCivil?: string; parroquia?: string } | null>(null);
+  const [cedulaSearching, setCedulaSearching] = useState(false);
+  const cedulaValue = watch('cedula');
+  useEffect(() => {
+    if (!cedulaValue || !/^[VE]-\d{6,10}$/.test(cedulaValue)) {
+      setCedulaLookup(null);
+      return;
+    }
+    setCedulaSearching(true);
+    const controller = new AbortController();
+    const timeout = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/cedula/consulta?cedula=${encodeURIComponent(cedulaValue)}`, { signal: controller.signal });
+        const data = await res.json();
+        if (data.found && data.data) {
+          setCedulaLookup(data.data);
+          setValue('nombre', data.data.nombre, { shouldValidate: true });
+          setValue('apellido', data.data.apellido, { shouldValidate: true });
+          if (data.data.fechaNacimiento) setValue('fecha_nacimiento', data.data.fechaNacimiento.split('T')[0]);
+          if (data.data.sexo) setValue('genero', data.data.sexo === 'Masculino' ? 'M' : data.data.sexo === 'Femenino' ? 'F' : '');
+          if (data.data.estadoCivil) setValue('estado_civil', data.data.estadoCivil);
+          if (data.data.estado) setValue('estado_residencia', data.data.estado);
+          if (data.data.municipio) setValue('municipio', data.data.municipio);
+          if (data.data.parroquia) setValue('ciudad', data.data.parroquia);
+        } else {
+          setCedulaLookup(null);
+        }
+      } catch {
+        setCedulaLookup(null);
+      } finally {
+        setCedulaSearching(false);
+      }
+    }, 500);
+    return () => { clearTimeout(timeout); controller.abort(); setCedulaSearching(false); };
+  }, [cedulaValue, setValue]);
+
   const getSavedFormData = (): Partial<FormData> => {
     try {
       const saved = sessionStorage.getItem('kyron-register-natural');
@@ -509,6 +545,16 @@ export default function RegisterNaturalPage() {
                   <Controller name="cedula" control={control} render={({ field }) => (
                     <DocumentInput type="cedula" value={field.value || ''} onChange={prefilledDoc ? () => {} : field.onChange} error={!!errors.cedula} />
                   )} />
+                  {cedulaSearching && (
+                    <div className="flex items-center gap-2 mt-1.5 text-[11px] text-muted-foreground">
+                      <Loader2 className="h-3 w-3 animate-spin" /> Buscando en SAIME...
+                    </div>
+                  )}
+                  {cedulaLookup && !cedulaSearching && (
+                    <div className="flex items-center gap-2 mt-1.5 text-[11px] text-emerald-500 font-medium">
+                      <CircleCheck className="h-3 w-3" /> Datos encontrados — campos auto-completados
+                    </div>
+                  )}
                 </Field>
 
                 <Field id="fecha_nacimiento" label="Fecha de Nacimiento" error={errors.fecha_nacimiento?.message}>
