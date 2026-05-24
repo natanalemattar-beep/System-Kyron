@@ -11,6 +11,8 @@ import { Label } from '@/components/ui/label';
 import { Logo } from '@/components/logo';
 import { PageTransition } from '@/components/ui/motion';
 import { BackButton } from '@/components/back-button';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import {
   Settings,
   Zap,
@@ -198,6 +200,25 @@ export default function ConfiguracionPage() {
             </div>
           </div>
         </div>
+
+        <SectionCard icon={Globe} title="Idioma y Región" description="Personaliza el idioma y la apariencia de la plataforma">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-[12px] font-bold text-foreground">Idioma de la interfaz</p>
+              <p className="text-[10px] text-muted-foreground/50 mt-0.5">Cambia el idioma de toda la plataforma</p>
+            </div>
+            <LanguageSwitcher variant="default" align="end" />
+          </div>
+          <div className="border-t border-border/15 pt-5">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-[12px] font-bold text-foreground">Tema</p>
+                <p className="text-[10px] text-muted-foreground/50 mt-0.5">Claro, oscuro o según tu sistema</p>
+              </div>
+              <ThemeToggle />
+            </div>
+          </div>
+        </SectionCard>
 
         <SectionCard icon={Zap} title="Experiencia Visual" description="Controla la velocidad y el estilo de la interfaz">
           <ToggleRow
