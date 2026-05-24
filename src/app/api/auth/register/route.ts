@@ -93,10 +93,6 @@ async function registerNatural(body: Record<string, unknown>) {
         return NextResponse.json({ error: 'Debes proporcionar al menos un número de teléfono' }, { status: 400 });
     }
 
-    if (!fecha_nacimiento) {
-        return NextResponse.json({ error: 'La fecha de nacimiento es obligatoria' }, { status: 400 });
-    }
-
     const existing = await queryOne('SELECT id FROM users WHERE email = $1', [normalizedEmail]);
     if (existing) {
         return NextResponse.json({ error: 'Ya existe una cuenta con ese correo' }, { status: 409 });

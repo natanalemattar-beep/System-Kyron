@@ -39,6 +39,7 @@ const schema = z.object({
     nombre: z.string().min(2, 'Ingrese su nombre'),
     apellido: z.string().min(2, 'Ingrese su apellido'),
     cedula: z.string().min(6, 'Documento inválido'),
+    fecha_nacimiento: z.string().min(1, 'Fecha de nacimiento requerida'),
     email: z.string().email('Correo inválido'),
     telefono: z.string().min(7, 'Teléfono inválido'),
     password: z.string()
@@ -166,7 +167,7 @@ export default function RegisterTelecomPage() {
             return;
         }
         if (step === 2) {
-            const valid = await trigger(['nombre', 'apellido', 'cedula', 'email', 'telefono', 'password', 'confirmPassword']);
+            const valid = await trigger(['nombre', 'apellido', 'cedula', 'fecha_nacimiento', 'email', 'telefono', 'password', 'confirmPassword']);
             if (!valid) return;
             if (!acceptTerms) {
                 toast({ title: 'Términos requeridos', variant: 'destructive' });
@@ -192,6 +193,7 @@ export default function RegisterTelecomPage() {
                     nombre: data.nombre,
                     apellido: data.apellido,
                     cedula: data.cedula,
+                    fecha_nacimiento: data.fecha_nacimiento,
                     email: data.email,
                     telefono: data.telefono,
                     password: data.password,
@@ -366,6 +368,12 @@ export default function RegisterTelecomPage() {
                                                 <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Correo Electrónico</Label>
                                                 <Input {...register('email')} type="email" placeholder="usuario@email.com" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-blue-500/20" />
                                             </div>
+                                        </div>
+
+                                        <div className="space-y-1.5 px-1">
+                                            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Fecha de Nacimiento</Label>
+                                            <Input type="date" {...register('fecha_nacimiento')} max={new Date().toISOString().split('T')[0]} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-blue-500/20" />
+                                            {errors.fecha_nacimiento && <p className="text-xs text-red-500 ml-1">{errors.fecha_nacimiento.message}</p>}
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-4 px-1">

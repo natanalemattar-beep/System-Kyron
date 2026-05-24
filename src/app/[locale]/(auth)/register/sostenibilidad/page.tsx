@@ -22,6 +22,7 @@ const schema = z.object({
     nombre: z.string().min(2, 'Ingrese su nombre'),
     apellido: z.string().min(2, 'Ingrese su apellido'),
     cedula: z.string().min(6, 'Cédula inválida').max(10, 'Cédula inválida'),
+    fecha_nacimiento: z.string().min(1, 'Fecha de nacimiento requerida'),
     email: z.string().email('Correo inválido'),
     telefono: z.string().min(7, 'Teléfono inválido'),
     password: z.string()
@@ -134,7 +135,7 @@ export default function RegisterSostenibilidadPage() {
 
     const nextStep = async () => {
         if (step === 1) {
-            const valid = await trigger(['nombre', 'apellido', 'cedula']);
+            const valid = await trigger(['nombre', 'apellido', 'cedula', 'fecha_nacimiento']);
             if (valid) setStep(2);
             return;
         }
@@ -161,7 +162,13 @@ export default function RegisterSostenibilidadPage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     tipo: 'natural',
-                    ...data,
+                    nombre: data.nombre,
+                    apellido: data.apellido,
+                    cedula: data.cedula,
+                    fecha_nacimiento: data.fecha_nacimiento,
+                    email: data.email,
+                    telefono: data.telefono,
+                    password: data.password,
                     modules: [
                         { id: 'sostenibilidad', label: 'Sostenibilidad' },
                         { id: 'eco-creditos', label: 'Eco-Créditos' },
@@ -254,6 +261,12 @@ export default function RegisterSostenibilidadPage() {
                                             <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Cédula</Label>
                                             <Input {...register('cedula')} placeholder="V-12345678" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-emerald-500/20" />
                                             {errors.cedula && <p className="text-xs text-red-500 ml-1">{errors.cedula.message}</p>}
+                                        </div>
+
+                                        <div className="space-y-1.5 px-1">
+                                            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Fecha de Nacimiento</Label>
+                                            <Input type="date" {...register('fecha_nacimiento')} max={new Date().toISOString().split('T')[0]} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-emerald-500/20" />
+                                            {errors.fecha_nacimiento && <p className="text-xs text-red-500 ml-1">{errors.fecha_nacimiento.message}</p>}
                                         </div>
 
                                         <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 space-y-2">
