@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
 
     let destino: string = '';
     let tipo: 'email' | 'sms' | 'whatsapp' = 'email';
+    const redirectPath: string = body.redirect || '';
 
     // Unificación de parámetros de entrada
     if (body.destino) {
@@ -108,7 +109,8 @@ export async function POST(req: NextRequest) {
         // 3. Generar Magic Link
         const token = generateMagicToken();
         const baseUrl = getBaseUrl(req);
-        const magicLink = `${baseUrl}/es/verify-link/${token}`;
+        const redirectQuery = redirectPath ? `?redirect=${encodeURIComponent(redirectPath)}` : '';
+        const magicLink = `${baseUrl}/es/verify-link/${token}${redirectQuery}`;
         
         // Guardar magic token
         await storeMagicToken(destino, token, user?.id);

@@ -147,7 +147,7 @@ export function SpecializedLoginCard({
     setError(null);
     setEmailDeliveryFailed(false);
     try {
-      const body: Record<string, any> = { identifier, password, portal: isPersonalPortal ? 'personal' : 'business', deviceFingerprint, trustDevice };
+      const body: Record<string, any> = { identifier, password, portal: isPersonalPortal ? 'personal' : 'business', deviceFingerprint, trustDevice, redirect: redirectPath };
       if (accessKey && accessKey.trim()) body.accessKey = accessKey.trim();
 
       const res = await fetch('/api/auth/login', {
@@ -382,7 +382,7 @@ export function SpecializedLoginCard({
     setError(null);
     setSingleCode('');
     try {
-      const body: Record<string, string> = { method, destino: verificationEmail, tipo: method };
+      const body: Record<string, string> = { method, destino: verificationEmail, tipo: method, redirect: redirectPath };
       const res = await fetch('/api/auth/send-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

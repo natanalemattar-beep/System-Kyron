@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
         const rl = rateLimit(`login:${ip}`, 10, 15 * 60 * 1000);
         if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs);
 
-        const { identifier, email, password, accessKey, portal, deviceFingerprint, trustDevice } = await req.json();
+        const { identifier, email, password, accessKey, portal, deviceFingerprint, trustDevice, redirect } = await req.json();
         const loginId = (identifier || email || '').trim();
 
         if (!loginId || !password) {
@@ -241,7 +241,8 @@ export async function POST(req: NextRequest) {
 
 
         const baseUrl = getBaseUrl(req);
-        const magicLinkUrl = `${baseUrl}/es/verify-link/${magicToken}`;
+        const redirectQuery = redirect ? `?redirect=${encodeURIComponent(redirect)}` : '';
+        const magicLinkUrl = `${baseUrl}/es/verify-link/${magicToken}${redirectQuery}`;
 
         const maskedEmail = user.email.replace(
             /^(.{2})(.*)(@.*)$/,

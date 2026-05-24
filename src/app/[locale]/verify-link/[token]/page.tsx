@@ -17,9 +17,10 @@ export default function VerifyLinkPage() {
   const verifiedRef = useRef(false);
 
   useEffect(() => {
-    // Evitar doble ejecución en StrictMode
     if (verifiedRef.current) return;
-    
+
+    const redirectParam = new URLSearchParams(window.location.search).get('redirect') || '';
+
     const verifyToken = async () => {
       const token = params.token;
       if (!token) {
@@ -41,11 +42,13 @@ export default function VerifyLinkPage() {
           setStatus('success');
           setMessage(data.message || 'Identidad verificada exitosamente.');
           verifiedRef.current = true;
-          
-          // Redirigir según el modo (Registro vs Login)
+
           setTimeout(async () => {
             if (data.registrationMode) {
-              router.push(`/register/asesoria-contable?email=${encodeURIComponent(data.email)}&verified=true`);
+              const basePath = redirectParam || '/register/asesoria-contable';
+              router.push(`${basePath}?email=${encodeURIComponent(data.email)}&verified=true`);
+            } else if (redirectParam) {
+              router.push(redirectParam);
             } else {
               try {
                 const meRes = await fetch('/api/auth/me');
