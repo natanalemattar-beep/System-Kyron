@@ -1,10 +1,8 @@
 "use client";
 
 import React from 'react';
-import Image from 'next/image';
 import {
     Shield,
-    Zap,
     Users,
     Calculator,
     Smartphone,
@@ -16,11 +14,9 @@ import {
     ShoppingCart,
     ScanLine,
     Activity,
-    ShieldCheck,
     FileText,
     Printer as PrinterIcon,
     Image as ImageIcon,
-    Cloud,
     Globe,
     Package,
     Instagram,
@@ -32,12 +28,6 @@ import {
 } from 'lucide-react';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
 import { Link } from '@/navigation';
-import dynamic from 'next/dynamic';
-
-
-const motion = {
-    div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as any,
-};
 
 export default function SectorPrivadoPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = React.use(params);
@@ -76,11 +66,33 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
     const QR_PRINCIPAL = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl)}&color=000000&bgcolor=ffffff&margin=2`;
     const QR_FEEDBACK = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl + '/feedback')}&color=000000&bgcolor=ffffff&margin=2`;
     const QR_INSTAGRAM = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('https://instagram.com/systemkyron')}&color=000000&bgcolor=ffffff&margin=2`;
+    const preloadBrochureImages = async () => {
+        const imgs = document.querySelectorAll('#cara-frontal img, #cara-interior img');
+        const promises = Array.from(imgs).map(async (img) => {
+            const src = (img as HTMLImageElement).src;
+            if (!src || src.startsWith('data:')) return;
+            try {
+                const resp = await fetch(src, { mode: 'cors', credentials: 'omit' });
+                const blob = await resp.blob();
+                const dataUrl = await new Promise<string>((resolve) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result as string);
+                    reader.readAsDataURL(blob);
+                });
+                (img as HTMLImageElement).src = dataUrl;
+            } catch {
+                console.warn('Could not preload brochure image:', src);
+            }
+        });
+        await Promise.all(promises);
+    };
+
     const handleDownloadPDF = async () => {
         if (isExporting) return;
         setIsExporting(true);
 
         try {
+            await preloadBrochureImages();
             const h2c = (await import('html2canvas')).default;
             const { jsPDF } = await import('jspdf');
 
@@ -127,6 +139,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
         if (!node) { setIsExporting(false); return; }
 
         try {
+            await preloadBrochureImages();
             const h2c = (await import('html2canvas')).default;
             const canvas = await h2c(node, {
                 scale: 1.5, // 1.5x es ideal para calidad sin saturar VRAM
@@ -162,6 +175,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
         if (!frontal || !interior) { setIsExporting(false); return; }
 
         try {
+            await preloadBrochureImages();
             const h2c = (await import('html2canvas')).default;
             
             // Escala 1.0 para mantener el DOM del word ligero
@@ -234,110 +248,91 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
             <div id="folleto-content" className="w-full bg-zinc-950 p-8 flex flex-col items-center gap-12 overflow-x-auto print:bg-white print:p-0 print:gap-0 font-[family-name:var(--font-outfit)] relative">
             
             {/* Toolbar Flotante (Oculta en impresión) */}
-            <div id="folleto-toolbar" className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex gap-3 bg-zinc-900/90 backdrop-blur-3xl px-6 py-4 rounded-[2.5rem] border border-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.8)] print:hidden transition-opacity duration-300">
+            <div id="folleto-toolbar" className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex gap-2 bg-zinc-900/95 px-4 py-3 rounded-lg border border-zinc-800/60 shadow-lg print:hidden">
                 <button 
                     onClick={handleDownloadPDF}
                     disabled={isExporting}
-                    className="flex items-center gap-2 px-5 py-3 bg-cyan-600 hover:bg-cyan-500 disabled:bg-cyan-600/50 text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 group shadow-lg shadow-cyan-500/20"
+                    className="flex items-center gap-1.5 px-4 py-2 bg-cyan-700 hover:bg-cyan-600 disabled:bg-cyan-800 text-white rounded-md text-[9px] font-bold uppercase tracking-wider transition-colors"
                 >
-                    <PrinterIcon className={`h-4 w-4 ${isExporting ? 'animate-spin' : ''}`} /> {isExporting ? 'Procesando...' : 'PDF Full'}
+                    <PrinterIcon className={`h-3.5 w-3.5 ${isExporting ? 'animate-spin' : ''}`} /> {isExporting ? 'PDF...' : 'PDF'}
                 </button>
-                <div className={`flex gap-1 bg-white/5 p-1 rounded-2xl border border-zinc-800 ${isExporting ? 'opacity-50 pointer-events-none' : ''}`}>
+                <div className={`flex gap-1 ${isExporting ? 'opacity-50 pointer-events-none' : ''}`}>
                     <button 
                         onClick={() => handleDownloadPNG('cara-frontal', 'Frontal')}
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-zinc-300 rounded-xl text-[8px] font-black uppercase tracking-widest transition-all"
+                        className="flex items-center gap-1.5 px-3 py-2 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 rounded-md text-[9px] font-bold uppercase tracking-wider transition-colors"
                     >
-                        <ImageIcon className="h-3.5 w-3.5 text-cyan-500" /> Cara 1
+                        <ImageIcon className="h-3.5 w-3.5" /> Cara 1
                     </button>
                     <button 
                         onClick={() => handleDownloadPNG('cara-interior', 'Interior')}
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-zinc-300 rounded-xl text-[8px] font-black uppercase tracking-widest transition-all"
+                        className="flex items-center gap-1.5 px-3 py-2 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 rounded-md text-[9px] font-bold uppercase tracking-wider transition-colors"
                     >
-                        <ImageIcon className="h-3.5 w-3.5 text-cyan-500" /> Cara 2
+                        <ImageIcon className="h-3.5 w-3.5" /> Cara 2
                     </button>
                 </div>
                 <button 
                     onClick={handleDownloadWord}
                     disabled={isExporting}
-                    className="flex items-center gap-2 px-5 py-3 bg-zinc-800/50 hover:bg-zinc-800 disabled:bg-zinc-900/50 text-zinc-300 hover:text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all border border-zinc-700 shadow-lg hover:scale-105 active:scale-95"
+                    className="flex items-center gap-1.5 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 disabled:bg-zinc-900 text-zinc-400 hover:text-zinc-200 rounded-md text-[9px] font-bold uppercase tracking-wider transition-colors border border-zinc-700"
                 >
-                    <FileText className={`h-4 w-4 ${isExporting ? 'animate-pulse text-cyan-500' : ''}`} /> {isExporting ? 'Generando...' : 'Word Doc'}
+                    <FileText className={`h-3.5 w-3.5 ${isExporting ? 'animate-pulse' : ''}`} /> {isExporting ? 'Doc...' : 'Word'}
                 </button>
-                <div className="w-px h-8 bg-zinc-700 mx-2" />
+                <div className="w-px h-6 bg-zinc-700 mx-1" />
                 <Link 
                     href={"/brand-kit" as any}
-                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all shadow-[0_10px_30px_rgba(37,99,235,0.3)] hover:scale-105 active:scale-95"
+                    className="flex items-center gap-1.5 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white rounded-md text-[9px] font-bold uppercase tracking-wider transition-colors"
                 >
-                    <Sparkles className="h-4 w-4" /> RECURSOS System Kyron
+                    <Sparkles className="h-3.5 w-3.5" /> Recursos
                 </Link>
             </div>
 
             {/* --- CARA 1: EXTERIOR (Paneles: Qué es, Cierre, Portada) --- */}
-            <motion.div 
+            <div 
                 id="cara-frontal" 
-                style={{ pageBreakAfter: 'always' }} 
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="w-[11in] h-[8.5in] bg-[#09090b] text-zinc-300 shadow-[0_24px_60px_rgba(0,0,0,0.8)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative font-[family-name:var(--font-outfit)]"
+                className="w-[11in] h-[8.5in] bg-[#09090b] text-zinc-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative font-[family-name:var(--font-outfit)]"
             >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(6,182,212,0.04),transparent_50%)] pointer-events-none" />
-
                 {/* P1 (C1-Left, Flap): QUÉ ES SYSTEM KYRON (Ancho: 3.62in) */}
                 <div className="w-[3.62in] border-r border-zinc-800 p-6 flex flex-col relative z-10 bg-black/40 overflow-hidden min-h-0">
-                    <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
                     
                     <div className="mb-4 relative z-10">
-                        <span className="inline-block px-2 py-1 bg-cyan-950 rounded-md text-[9px] font-black uppercase tracking-widest text-cyan-400 mb-2 border border-cyan-900 shadow-lg">La Solución Integral</span>
+                        <span className="inline-block text-[9px] font-black uppercase tracking-[0.25em] text-cyan-400 mb-2">◆ El Ecosistema Completo</span>
                         <h3 className="text-[20px] font-black text-white uppercase tracking-tighter leading-tight">¿Qué es <br/><span className="text-cyan-400">System Kyron?</span></h3>
                     </div>
 
-                    <div className="space-y-2 relative z-10 mb-4">
-                        <p className="text-[13px] text-white font-black leading-tight text-justify">
-                            System Kyron es un <span className="text-cyan-400">Ecosistema Digital Unificado</span> (ERP + Punto de Venta + RRHH) diseñado para digitalizar el 100% de las operaciones de una empresa en una sola pantalla.
-                        </p>
-                        <p className="text-[12px] text-white font-bold leading-snug text-justify">
-                            En lugar de tener múltiples herramientas dispersas, centralizamos tus ventas, inventario, finanzas y empleados en <span className="text-cyan-400">una sola plataforma en la nube, rápida y segura</span>.
-                        </p>
+                    <p className="text-[12px] text-white font-black leading-snug mb-4 relative z-10">
+                        La plataforma empresarial <span className="text-cyan-400">más completa de Venezuela</span>. Un ecosistema digital que unifica ERP, POS, RRHH, Legal, Telecomunicaciones, Marketing y Sostenibilidad en un solo sistema inteligente en la nube.
+                    </p>
+
+                    <div className="flex-1 relative z-10">
+                        {[
+                            {I:ShoppingCart, t:"Punto de Venta", d:"POS táctil, facturación fiscal NFC, comandas y múltiples métodos de pago."},
+                            {I:Package, t:"Inventario & Logística", d:"Stock multicentro, alertas de reposición y escaneo de códigos de barras."},
+                            {I:Calculator, t:"Contabilidad & Finanzas", d:"CxC, CxP, conciliación bancaria, presupuestos y cierre contable."},
+                            {I:Users, t:"RRHH & Nómina LOTTT", d:"Control de asistencia, nómina, vacaciones, utilidades y expedientes digitales."},
+                            {I:FileText, t:"Facturación & Fiscal", d:"IVA, IGTF, retenciones, documentos electrónicos y reportes SENIAT."},
+                            {I:Scale, t:"Legal & Permisología", d:"Contratos inteligentes, 48+ permisos, compliance corporativo y firma digital."},
+                            {I:PhoneCall, t:"Telecomunicaciones", d:"Mi Línea 5G: eSIM corporativa, gestión de flotas y comunicación unificada."},
+                            {I:Globe, t:"Marketing & E-commerce", d:"Brand-kit, tienda online, CRM y automatización de campañas digitales."},
+                            {I:Recycle, t:"Sostenibilidad & ESG", d:"Cero Papel, huella de carbono, Eco-Créditos y Smart Bins con IA."},
+                            {I:ChartColumn, t:"IA & Automatización", d:"Dashboards predictivos, alertas inteligentes y API para integraciones."}
+                        ].map(({I,t,d},i)=>(
+                            <div key={i} className="flex items-start gap-3 py-2 border-b border-zinc-800/40 last:border-b-0">
+                                <div className="mt-0.5 shrink-0">
+                                    <I className="h-3.5 w-3.5 text-cyan-400/70" />
+                                </div>
+                                <div>
+                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest leading-tight">{t}</h5>
+                                    <p className="text-[7.5px] text-zinc-500 font-bold leading-tight">{d}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
 
-                    <div className="flex-1 flex flex-col justify-center relative z-10 p-4 bg-zinc-900/40 rounded-2xl border border-zinc-800/50 min-h-0">
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                                    <Cloud className="h-5 w-5 text-cyan-400" />
-                                </div>
-                                <div>
-                                    <h5 className="text-[12px] font-black text-white uppercase tracking-widest mb-0.5">Operación en la Nube</h5>
-                                    <p className="text-[11px] text-zinc-200 font-bold leading-tight">Acceso total desde cualquier lugar.</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                                    <Zap className="h-5 w-5 text-cyan-400" />
-                                </div>
-                                <div>
-                                    <h5 className="text-[12px] font-black text-white uppercase tracking-widest mb-0.5">Sincronización Total</h5>
-                                    <p className="text-[11px] text-zinc-200 font-bold leading-tight">Actualización en tiempo real.</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                                    <ShieldCheck className="h-5 w-5 text-cyan-400" />
-                                </div>
-                                <div>
-                                    <h5 className="text-[12px] font-black text-white uppercase tracking-widest mb-0.5">Seguridad Robusta</h5>
-                                    <p className="text-[11px] text-zinc-200 font-bold leading-tight">Copias de seguridad diarias.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="mt-4 relative z-10 pt-4 border-t border-zinc-800">
+                    <div className="mt-3 relative z-10 pt-3 border-t border-zinc-800">
                         <div className="flex justify-between items-center px-1">
-                             <div className="text-center"><p className="text-[10px] font-black tracking-widest text-zinc-400">TODO EN UNO</p></div>
-                             <div className="h-1.5 w-1.5 bg-zinc-600 rounded-full" />
-                             <div className="text-center"><p className="text-[10px] font-black tracking-widest text-cyan-400">EFICIENTE</p></div>
+                             <div className="text-center"><p className="text-[9px] font-black tracking-[0.25em] text-zinc-500">UN SISTEMA</p></div>
+                             <div className="h-px w-4 bg-zinc-700" />
+                             <div className="text-center"><p className="text-[9px] font-black tracking-[0.25em] text-cyan-400">INFINITAS SOLUCIONES</p></div>
                         </div>
                     </div>
                 </div>
@@ -345,11 +340,11 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 {/* P2 (C1-Center, Back Cover): CIERRE Y ACCIÓN (Ancho: 3.69in) */}
                 <div className="w-[3.69in] border-r border-zinc-800 p-6 flex flex-col relative z-10 bg-[#09090b] min-h-0">
                     <div className="absolute -right-20 -bottom-20 opacity-[0.03] pointer-events-none">
-                        <Image src="/images/logo-black.png" alt="Logo Fondo" width={450} height={450} className="w-[450px] h-[450px] object-contain opacity-20" crossOrigin="anonymous" />
+                        <img src="/images/logo-black.png" alt="Logo Fondo" className="w-[450px] h-[450px] object-contain opacity-20" />
                     </div>
                     
                     <div className="mb-4">
-                        <span className="inline-block px-2 py-1 bg-zinc-800 rounded-md text-[9px] font-black uppercase tracking-widest text-zinc-300 mb-2 border border-zinc-700 shadow-lg">El Siguiente Paso</span>
+                        <span className="inline-block text-[9px] font-black uppercase tracking-[0.25em] text-zinc-400 mb-2">— El Siguiente Paso</span>
                         <h3 className="text-[20px] font-black uppercase tracking-tighter text-white leading-tight">ÚNETE A LA<br/><span className="text-cyan-400">EVOLUCIÓN.</span></h3>
                     </div>
 
@@ -381,7 +376,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                     </div>
 
                     <div className="mt-4 flex justify-between items-end pt-4 border-t border-zinc-800">
-                        <Image src="/images/logo-black.png" alt="Kyron Mini" width={48} height={48} className="h-12 w-12 opacity-30 object-contain" crossOrigin="anonymous" />
+                        <img src="/images/logo-black.png" alt="Kyron Mini" className="h-12 w-12 opacity-30 object-contain" />
                         <div className="text-right">
                             <p className="text-[12px] text-zinc-400 font-black uppercase tracking-[0.2em] mb-1">Contacto Directo</p>
                             <p className="text-[18px] text-white font-black uppercase tracking-widest">0424-1846016</p>
@@ -395,11 +390,9 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
 
                 {/* P3 (C1-Right, Front Cover): PORTADA (Ancho: 3.69in) */}
                 <div className="w-[3.69in] p-6 flex flex-col relative z-10 overflow-hidden bg-black min-h-0">
-                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none" />
-                    
                     <div className="relative z-10 flex flex-col h-full">
                         <div className="flex justify-between items-start mb-6">
-                            <Image src="/images/logo-black.png" alt="Kyron" width={48} height={48} className="h-12 w-12 object-contain opacity-90" crossOrigin="anonymous" />
+                            <img src="/images/logo-black.png" alt="Kyron" className="h-12 w-12 object-contain opacity-90" />
                             <div className="flex flex-col items-end">
                                 <span className="px-2 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-[10px] font-black uppercase tracking-widest text-white mb-1 shadow-lg">Presentación Oficial</span>
                             </div>
@@ -415,14 +408,16 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                             </p>
                         </div>
 
-                        <div className="mt-auto bg-zinc-900/50 backdrop-blur-xl rounded-[1.5rem] border border-zinc-800 p-4 flex flex-col items-center shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
+                        <div className="flex-1 min-h-0" />
+
+                        <div className="bg-zinc-900/60 rounded-2xl border border-zinc-800/60 p-4 flex flex-col items-center">
                             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-3 text-center">CONOCE MÁS DE NUESTRO SISTEMA</p>
                             
                             <div className="flex flex-col gap-4 w-full items-center">
                                 {/* QR Principal */}
                                 <div className="flex flex-col items-center gap-1.5 group">
-                                    <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(6,182,212,0.4)] border border-cyan-500/30">
-                                        <Image src={QR_PRINCIPAL} alt="Portal" width={90} height={90} className="rounded-lg" crossOrigin="anonymous" />
+                                    <div className="p-1.5 bg-white rounded-xl">
+                                        <img src={QR_PRINCIPAL} alt="Portal" className="rounded-lg w-[90px] h-[90px]" />
                                     </div>
                                     <p className="text-[9px] font-black uppercase tracking-[0.15em] text-cyan-400">Plataforma Principal</p>
                                 </div>
@@ -430,14 +425,14 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                                 {/* QRs de Acción */}
                                 <div className="flex justify-between w-full px-4 pt-2 border-t border-white/5">
                                     <div className="flex flex-col items-center gap-1 group">
-                                        <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(236,72,153,0.3)] border border-pink-500/30">
-                                            <Image src={QR_INSTAGRAM} alt="Instagram" width={55} height={55} className="rounded-lg" crossOrigin="anonymous" />
+                                        <div className="p-1.5 bg-white rounded-xl">
+                                            <img src={QR_INSTAGRAM} alt="Instagram" className="rounded-lg w-[55px] h-[55px]" />
                                         </div>
                                         <p className="text-[8px] font-black uppercase tracking-[0.15em] text-pink-500">Instagram</p>
                                     </div>
                                     <div className="flex flex-col items-center gap-1 group">
-                                        <div className="p-1.5 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-[0_10px_25px_rgba(251,191,36,0.3)] border border-amber-500/30">
-                                            <Image src={QR_FEEDBACK} alt="Encuesta" width={55} height={55} className="rounded-lg" crossOrigin="anonymous" />
+                                        <div className="p-1.5 bg-white rounded-xl">
+                                            <img src={QR_FEEDBACK} alt="Encuesta" className="rounded-lg w-[55px] h-[55px]" />
                                         </div>
                                         <p className="text-[8px] font-black uppercase tracking-[0.15em] text-amber-400">Tu Encuesta</p>
                                     </div>
@@ -463,55 +458,52 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                         </div>
                     </div>
                 </div>
-            </motion.div>
+            </div>
 
             {/* --- CARA 2: INTERIOR (Paneles: Problemas, Módulos, Innovación) --- */}
-            <motion.div 
+            <div 
                 id="cara-interior" 
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="w-[11in] h-[8.5in] bg-[#09090b] text-zinc-300 shadow-[0_24px_60px_rgba(0,0,0,0.8)] flex shrink-0 overflow-hidden print:shadow-none relative font-[family-name:var(--font-outfit)]"
+                className="w-[11in] h-[8.5in] bg-[#09090b] text-zinc-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex shrink-0 overflow-hidden print:shadow-none relative font-[family-name:var(--font-outfit)]"
             >
                 
                 {/* P4 (C2-Left, Inside Left): PROBLEMAS CRÍTICOS (Ancho: 3.69in) */}
                 <div className="w-[3.69in] border-r border-zinc-800 p-6 flex flex-col relative z-10 bg-black/40 min-h-0">
                     <div className="mb-4">
-                        <span className="inline-block px-2 py-1 bg-zinc-800 rounded-md text-[9px] font-black uppercase tracking-widest text-zinc-300 mb-2 border border-zinc-700 shadow-lg">El Reto Operativo</span>
+                        <span className="inline-block text-[9px] font-black uppercase tracking-[0.25em] text-zinc-400 mb-2">— El Reto Operativo</span>
                         <h3 className="text-[20px] font-black text-white leading-tight tracking-tighter">Problemas Críticos <br/><span className="text-zinc-500 font-medium">que tu negocio enfrenta.</span></h3>
                     </div>
                     
-                    <div className="space-y-3 flex-1">
-                        <div className="p-3 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
-                            <h4 className="text-[12px] font-black text-white uppercase tracking-widest mb-1 flex items-center gap-2">
-                                <Activity className="h-4 w-4 text-rose-400 group-hover:scale-110 transition-transform" /> Fuga de Capital Oculta
+                    <div className="flex-1 space-y-2">
+                        <div className="pl-3 border-l-2 border-rose-500/50 py-1">
+                            <h4 className="text-[11px] font-black text-white uppercase tracking-widest flex items-center gap-2">
+                                <Activity className="h-3.5 w-3.5 text-rose-400 shrink-0" /> Fuga de Capital Oculta
                             </h4>
-                            <p className="text-[11px] text-zinc-300 font-bold leading-snug text-justify">
-                                La pérdida de mercancía, errores de cobro y el descontrol en los inventarios físicos generan hasta un 15% de pérdidas mensuales invisibles.
+                            <p className="text-[10px] text-zinc-400 font-bold leading-snug mt-0.5">
+                                Pérdida de mercancía, errores de cobro y descontrol en inventarios generan hasta un 15% de pérdidas mensuales invisibles.
                             </p>
                         </div>
-                        <div className="p-3 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
-                            <h4 className="text-[12px] font-black text-white uppercase tracking-widest mb-1 flex items-center gap-2">
-                                <TrendingUp className="h-4 w-4 text-rose-400 group-hover:scale-110 transition-transform" /> Caos Administrativo
+                        <div className="py-1">
+                            <h4 className="text-[11px] font-black text-white uppercase tracking-widest flex items-center gap-2">
+                                <TrendingUp className="h-3.5 w-3.5 text-rose-400 shrink-0" /> Caos Administrativo
                             </h4>
-                            <p className="text-[11px] text-zinc-300 font-bold leading-snug text-justify">
-                                Invertir cientos de horas calculando impuestos, nóminas y cierres de caja a mano o en Excel, aumentando el riesgo de costosas multas fiscales.
+                            <p className="text-[10px] text-zinc-400 font-bold leading-snug mt-0.5">
+                                Cientos de horas calculando impuestos, nóminas y cierres de caja a mano o en Excel, con riesgo de costosas multas fiscales.
                             </p>
                         </div>
-                        <div className="p-3 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
-                            <h4 className="text-[12px] font-black text-white uppercase tracking-widest mb-1 flex items-center gap-2">
-                                <Cpu className="h-4 w-4 text-rose-400 group-hover:scale-110 transition-transform" /> Sistemas Desconectados
+                        <div className="pl-3 border-l-2 border-zinc-700 py-1">
+                            <h4 className="text-[11px] font-black text-white uppercase tracking-widest flex items-center gap-2">
+                                <Cpu className="h-3.5 w-3.5 text-rose-400 shrink-0" /> Sistemas Desconectados
                             </h4>
-                            <p className="text-[11px] text-zinc-300 font-bold leading-snug text-justify">
-                                Pagar por programas de facturación y hojas de cálculo que no se comunican entre sí, duplicando el trabajo del equipo.
+                            <p className="text-[10px] text-zinc-400 font-bold leading-snug mt-0.5">
+                                Programas de facturación y hojas de cálculo que no se comunican entre sí, duplicando el trabajo del equipo.
                             </p>
                         </div>
-                        <div className="p-3 bg-zinc-900/50 rounded-xl border border-rose-900/40 hover:border-rose-500/50 transition-colors group bg-rose-950/10">
-                            <h4 className="text-[12px] font-black text-white uppercase tracking-widest mb-1 flex items-center gap-2">
-                                <Smartphone className="h-4 w-4 text-rose-400 group-hover:scale-110 transition-transform" /> Estafas Telefónicas
+                        <div className="py-1">
+                            <h4 className="text-[11px] font-black text-white uppercase tracking-widest flex items-center gap-2">
+                                <Smartphone className="h-3.5 w-3.5 text-rose-400 shrink-0" /> Estafas Telefónicas
                             </h4>
-                            <p className="text-[11px] text-zinc-300 font-bold leading-snug text-justify">
-                                Llamadas fraudulentas que suplantan a proveedores o bancos generan pérdidas económicas directas y dañan la reputación sin dejar rastro.
+                            <p className="text-[10px] text-zinc-400 font-bold leading-snug mt-0.5">
+                                Llamadas fraudulentas que suplantan proveedores o bancos, generando pérdidas económicas directas sin dejar rastro.
                             </p>
                         </div>
                     </div>
@@ -524,43 +516,35 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 {/* P5 (C2-Center, Inside Center): EL ECOSISTEMA (Ancho: 3.69in) */}
                 <div className="w-[3.69in] border-r border-zinc-800 p-6 flex flex-col relative z-10 bg-[#09090b] min-h-0">
                     <div className="mb-4">
-                        <span className="inline-block px-2 py-1 bg-cyan-950 rounded-md text-[9px] font-black uppercase tracking-widest text-cyan-400 mb-2 border border-cyan-900 shadow-lg">Todo Integrado</span>
+                        <span className="inline-block text-[9px] font-black uppercase tracking-[0.25em] text-cyan-400 mb-2">◆ Todo Integrado</span>
                         <h3 className="text-[20px] font-black uppercase tracking-tighter text-white leading-tight">El Ecosistema<br/><span className="text-cyan-400 font-medium">Funcional.</span></h3>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 flex-1 content-start mt-1">
+                    <div className="grid grid-cols-2 gap-x-3 gap-y-2 flex-1 content-start mt-1">
                         {[
-                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas y facturación fiscal."},
-                            {I:Package, t:"Inventario", d:"Control de stock en tiempo real."},
-                            {I:Users, t:"Recursos Humanos", d:"Nómina, LOTTT y bienestar."},
-                            {I:Calculator, t:"Finanzas", d:"Cuentas por cobrar y pagar."},
-                            {I:FileText, t:"Facturación", d:"Manejo automático de IGTF/IVA."},
-                            {I:ChartColumn, t:"Reportes", d:"Métricas precisas y dashboards."},
-                            {I:Lock, t:"Seguridad", d:"Roles, permisos y auditoría."},
-                            {I:Leaf, t:"Cero Papel", d:"Digitalización total de procesos."},
-                            {I:Recycle, t:"Smart Bins", d:"Alianza estratégica con Ameru AI."}
+                            {I:ShoppingCart, t:"Punto de Venta", d:"POS táctil, facturación fiscal, comandas, NFC y múltiples métodos de pago."},
+                            {I:Package, t:"Inventario", d:"Stock multicentro en tiempo real, alertas de reposición, escaneo de barras y transferencias."},
+                            {I:Users, t:"RRHH & Nómina", d:"Nómina LOTTT, asistencia biométrica, vacaciones, utilidades y expedientes digitales."},
+                            {I:Calculator, t:"Contabilidad", d:"CxC, CxP, conciliación bancaria, flujo de caja, presupuestos y cierre automatizado."},
+                            {I:FileText, t:"Facturación", d:"Doc. fiscales electrónicos, IGTF, IVA, retenciones y reportes SENIAT automatizados."},
+                            {I:Scale, t:"Legal", d:"Contratos inteligentes, 48+ permisos, compliance corporativo y firma electrónica."},
+                            {I:PhoneCall, t:"Telecomunicación", d:"Mi Línea 5G: eSIM empresarial, flotas móviles y comunicación unificada."},
+                            {I:Leaf, t:"Sostenibilidad", d:"Cero Papel, huella de carbono, Eco-Créditos y Smart Bins con IA."},
+                            {I:ChartColumn, t:"IA & Reportes", d:"Dashboards en tiempo real, KPI's, alertas predictivas y análisis de rentabilidad."}
                         ].map(({I,t,d},i)=>(
-                            <motion.div 
-                                key={i} 
-                                whileHover={{ scale: 1.03, backgroundColor: "rgba(6, 182, 212, 0.05)" }}
-                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                                className="flex flex-col p-2.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors cursor-default min-h-0 group"
-                            >
-                                <div className="flex items-center gap-2 mb-1">
-                                    <div className="p-1 bg-zinc-800 rounded-md group-hover:bg-cyan-900/30 transition-colors">
-                                        <I className="h-3.5 w-3.5 text-cyan-400" />
-                                    </div>
-                                    <h4 className="font-black text-white uppercase text-[9px] tracking-widest">{t}</h4>
+                            <div key={i} className="flex items-start gap-2 p-2">
+                                <I className="h-3.5 w-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                                <div>
+                                    <h4 className="font-black text-white uppercase text-[8px] tracking-widest leading-tight">{t}</h4>
+                                    <p className="text-[6.5px] text-zinc-500 font-bold leading-tight mt-0.5">{d}</p>
                                 </div>
-                                <p className="text-[8px] text-zinc-500 group-hover:text-zinc-300 font-bold leading-tight pl-7">{d}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
 
-                    <div className="mt-4 p-3 bg-gradient-to-r from-cyan-950/20 to-blue-950/20 rounded-xl border border-cyan-500/10 text-center">
-                        <p className="text-[10px] text-cyan-400 font-black uppercase tracking-widest mb-1">¿Por qué System Kyron?</p>
-                        <p className="text-[9px] text-zinc-300 font-bold leading-tight">
-                            Somos el único ERP venezolano que integra <span className="text-white">Contabilidad + Legal + Telecom + Sostenibilidad</span> en una sola plataforma.
+                    <div className="mt-3 pt-3 border-t border-zinc-800">
+                        <p className="text-[9px] text-zinc-500 font-black uppercase tracking-[0.2em] text-center leading-tight">
+                            El único ecosistema venezolano que integra <span className="text-white">Contabilidad + Legal + Telecom + Sostenibilidad + IA</span>.
                         </p>
                     </div>
                 </div>
@@ -572,70 +556,48 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                         <h3 className="text-[20px] font-black uppercase tracking-tighter text-white leading-tight">Soluciones<br/><span className="text-cyan-400 font-medium">de Alto Impacto.</span></h3>
                     </div>
 
-                    <div className="space-y-3 flex-1 mt-1">
+                    <div className="space-y-2 flex-1 mt-1">
                         {/* Kyron Shield Card */}
-                        <div className="p-3 bg-zinc-900/60 rounded-xl border border-zinc-800 hover:border-cyan-500/40 transition-all group relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-16 h-16 bg-cyan-500/5 rounded-full blur-xl group-hover:bg-cyan-500/10 transition-all" />
-                            <div className="flex items-start gap-3 relative z-10">
-                                <div className="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 mt-0.5">
-                                    <Scale className="h-4 w-4 text-cyan-400" />
-                                </div>
-                                <div>
-                                    <h4 className="font-black text-white uppercase text-[11px] tracking-widest mb-1">Kyron Shield</h4>
-                                    <p className="text-[10px] text-zinc-400 font-bold leading-tight mb-2">Blindaje Legal con IA</p>
-                                    <ul className="space-y-1">
-                                        <li className="flex items-center gap-1.5 text-[9px] text-zinc-300 font-medium">
-                                            <CircleCheck className="h-3 w-3 text-cyan-500" /> Generación automática de contratos.
-                                        </li>
-                                        <li className="flex items-center gap-1.5 text-[9px] text-zinc-300 font-medium">
-                                            <CircleCheck className="h-3 w-3 text-cyan-500" /> Auditoría preventiva de riesgos.
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div className="flex items-start gap-3 p-2.5 rounded-lg bg-zinc-900/30">
+                            <div className="h-7 w-7 rounded-md bg-cyan-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                                <Scale className="h-3.5 w-3.5 text-cyan-400" />
+                            </div>
+                            <div>
+                                <h4 className="font-black text-white uppercase text-[10px] tracking-widest">Kyron Shield</h4>
+                                <p className="text-[9px] text-zinc-400 font-bold leading-tight">Blindaje Legal con IA</p>
                             </div>
                         </div>
 
                         {/* Mi Línea 5G Card */}
-                        <div className="p-3 bg-zinc-900/60 rounded-xl border border-zinc-800 hover:border-indigo-500/40 transition-all group relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-500/5 rounded-full blur-xl group-hover:bg-indigo-500/10 transition-all" />
-                            <div className="flex items-start gap-3 relative z-10">
-                                <div className="h-8 w-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0 mt-0.5">
-                                    <PhoneCall className="h-4 w-4 text-indigo-400" />
-                                </div>
-                                <div>
-                                    <h4 className="font-black text-white uppercase text-[11px] tracking-widest mb-1">Mi Línea 5G</h4>
-                                    <p className="text-[10px] text-zinc-400 font-bold leading-tight mb-2">Conectividad Corporativa</p>
-                                    <ul className="space-y-1">
-                                        <li className="flex items-center gap-1.5 text-[9px] text-zinc-300 font-medium">
-                                            <CircleCheck className="h-3 w-3 text-indigo-500" /> Activación eSIM inmediata.
-                                        </li>
-                                        <li className="flex items-center gap-1.5 text-[9px] text-zinc-300 font-medium">
-                                            <CircleCheck className="h-3 w-3 text-indigo-500" /> Gestión centralizada de flotas.
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div className="flex items-start gap-3 p-2.5 rounded-lg bg-zinc-900/30">
+                            <div className="h-7 w-7 rounded-md bg-indigo-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                                <PhoneCall className="h-3.5 w-3.5 text-indigo-400" />
+                            </div>
+                            <div>
+                                <h4 className="font-black text-white uppercase text-[10px] tracking-widest">Mi Línea 5G</h4>
+                                <p className="text-[9px] text-zinc-400 font-bold leading-tight">Conectividad Corporativa</p>
                             </div>
                         </div>
 
                         {/* Sostenibilidad Ameru Card */}
-                        <div className="p-3 bg-zinc-900/60 rounded-xl border border-zinc-800 hover:border-emerald-500/40 transition-all group relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/5 rounded-full blur-xl group-hover:bg-emerald-500/10 transition-all" />
-                            <div className="flex items-start gap-3 relative z-10">
-                                <div className="h-8 w-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 mt-0.5">
-                                    <Recycle className="h-4 w-4 text-emerald-400" />
-                                </div>
-                                <div>
-                                    <h4 className="font-black text-white uppercase text-[11px] tracking-widest mb-1">Sostenibilidad Ameru</h4>
-                                    <p className="text-[10px] text-zinc-400 font-bold leading-tight mb-2">Inteligencia Verde</p>
-                                    <ul className="space-y-1">
-                                        <li className="flex items-center gap-1.5 text-[9px] text-zinc-300 font-medium">
-                                            <CircleCheck className="h-3 w-3 text-emerald-500" /> Gestión de Eco-Créditos.
-                                        </li>
-                                        <li className="flex items-center gap-1.5 text-[9px] text-zinc-300 font-medium">
-                                            <CircleCheck className="h-3 w-3 text-emerald-500" /> Integración con Smart Bins IA.
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div className="flex items-start gap-3 p-2.5 rounded-lg bg-zinc-900/30">
+                            <div className="h-7 w-7 rounded-md bg-emerald-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                                <Recycle className="h-3.5 w-3.5 text-emerald-400" />
+                            </div>
+                            <div>
+                                <h4 className="font-black text-white uppercase text-[10px] tracking-widest">Sostenibilidad Ameru</h4>
+                                <p className="text-[9px] text-zinc-400 font-bold leading-tight">Inteligencia Verde</p>
+                            </div>
+                        </div>
+
+                        {/* Kyron Permisología Card */}
+                        <div className="flex items-start gap-3 p-2.5 rounded-lg bg-zinc-900/30">
+                            <div className="h-7 w-7 rounded-md bg-violet-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                                <Lock className="h-3.5 w-3.5 text-violet-400" />
+                            </div>
+                            <div>
+                                <h4 className="font-black text-white uppercase text-[10px] tracking-widest">Kyron Permisología</h4>
+                                <p className="text-[9px] text-zinc-400 font-bold leading-tight">Gestión Documental Inteligente</p>
                             </div>
                         </div>
                     </div>
@@ -646,7 +608,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                         </p>
                     </div>
                 </div>
-            </motion.div>
+            </div>
         </div>
 
 

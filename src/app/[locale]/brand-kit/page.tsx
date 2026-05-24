@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
     FileText, 
     Image as ImageIcon, 
-    Presentation, 
     ArrowRight, 
     Sparkles, 
     Globe, 
@@ -20,7 +19,6 @@ import {
     Fingerprint,
     Layers,
     ExternalLink,
-    TrendingUp,
 } from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
@@ -47,30 +45,17 @@ interface Resource {
 
 const RESOURCES: Resource[] = [
     {
-        id: 'presentation',
-        title: 'Arquitectura de Valor',
-        description: 'Pitch Deck interactivo de alta fidelidad con visión estratégica 2026 y escalabilidad técnica.',
-        icon: Presentation,
-        href: '#',
-        color: 'from-blue-500 to-indigo-600',
-        tag: 'VALUACIÓN',
+        id: 'sector-privado',
+        title: 'Sector Privado',
+        description: 'Manual corporativo del ecosistema System Kyron: módulos, servicios, estructura legal, cumplimiento normativo y proyecciones.',
+        icon: Building2,
+        href: '/sector-privado-system-kyron',
+        color: 'from-cyan-500 to-blue-600',
+        tag: 'MANUAL',
         type: 'internal',
         size: 'large',
-        gradient: 'from-blue-900/40 via-indigo-900/20 to-transparent',
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format'
-    },
-    {
-        id: 'inversiones',
-        title: 'Proyecciones Financieras',
-        description: 'Síntesis ejecutiva con proyecciones de rentabilidad y blindaje normativo Kyron Shield.',
-        icon: TrendingUp,
-        href: '#',
-        color: 'from-cyan-500 to-blue-600',
-        tag: 'FINANZAS',
-        type: 'internal',
-        size: 'normal',
         gradient: 'from-cyan-900/40 via-blue-900/20 to-transparent',
-        image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=600&auto=format'
+        image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format'
     },
     {
         id: 'identidad',

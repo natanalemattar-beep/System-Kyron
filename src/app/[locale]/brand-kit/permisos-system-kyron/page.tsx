@@ -415,126 +415,146 @@ const EMPRESA_FIJA = {
   representanteCargo: "Fundador y Director General",
 };
 
-async function descargarCarta(permiso: PermisoEntry) {
-  const res = await fetch("/api/permisologia/kyron-carta", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id: permiso.permiso,
-      permiso: permiso.permiso,
-      organismo: permiso.organismo,
-      descripcion: permiso.descripcion,
-      baseLegal: permiso.baseLegal,
-      requisitos: permiso.requisitos,
-      tipo: "inscripcion",
-    }),
+function generarTextoCartaLocal(p: PermisoEntry): string[] {
+  const fecha = new Date().toLocaleDateString("es-VE", {
+    year: "numeric", month: "long", day: "numeric",
   });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error);
+  const out: string[] = [];
+  const add = (s: string) => out.push(s);
+  const addBold = (s: string) => out.push(`__BOLD__${s}`);
+  const addLabel = (label: string, value: string) => out.push(`__LABEL__${label}::${value}`);
 
+  add(`Caracas, ${fecha}.`);
+  add("");
+  add("Ciudadano(a)");
+  add("Director(a) General");
+  add(p.organismo);
+  add("Su Despacho.-");
+  add("");
+  addBold(`REF.: SOLICITUD DE INSCRIPCIÓN — ${p.permiso.toUpperCase()}`);
+  add("");
+  add(
+    `Yo, ${EMPRESA_FIJA.representante}, venezolano, mayor de edad, titular de la cédula de identidad N° ${EMPRESA_FIJA.representanteCedula}, actuando en mi carácter de ${EMPRESA_FIJA.representanteCargo} de "${EMPRESA_FIJA.denominacion}", emprendimiento del ciudadano ${EMPRESA_FIJA.emprendimiento}, domiciliada en ${EMPRESA_FIJA.direccion} e identificada con el RIF N° ${EMPRESA_FIJA.rif}, por medio de la presente me dirijo a usted respetuosamente para solicitar la inscripción del siguiente permiso:`
+  );
+  add("");
+  addLabel("PERMISO SOLICITADO", p.permiso);
+  addLabel("ORGANISMO EMISOR", p.organismo);
+  if (p.baseLegal) addLabel("BASE LEGAL", p.baseLegal);
+  addLabel("OBJETO SOCIAL", EMPRESA_FIJA.denominacion + " — " + EMPRESA_FIJA.emprendimiento);
+  add("");
+  add("A tal efecto, consigno los siguientes recaudos:");
+  add("");
+  p.requisitos.forEach((r, i) => add(`  ${i + 1}. ${r}`));
+  add("");
+  add("Sin otro particular al cual hacer referencia, quedo de usted.");
+  add("");
+  add("Atentamente,");
+  add("");
+  add("_________________________");
+  add(EMPRESA_FIJA.representante);
+  add(EMPRESA_FIJA.representanteCargo);
+  add(EMPRESA_FIJA.denominacion);
+  add(`RIF: ${EMPRESA_FIJA.rif}`);
+  add(`Emprendimiento: ${EMPRESA_FIJA.emprendimiento}`);
+
+  return out;
+}
+
+function descargarCarta(permiso: PermisoEntry) {
   const pdf = new jsPDF("p", "mm", "a4");
   const pw = pdf.internal.pageSize.getWidth();
   const ph = pdf.internal.pageSize.getHeight();
-  const m = 20;
+  const m = 22;
   const cw = pw - m * 2;
   let y = m;
-  const lineH = 5;
+  const lh = 5;
 
-  function np(h: number) {
-    if (y + h > ph - m) {
+  function checkPage(h: number) {
+    if (y + h > ph - m - 8) {
       pdf.addPage();
       y = m;
     }
   }
 
-  function textLn(t: string, indent = 0) {
-    np(lineH);
-    pdf.text(t, m + indent, y);
-    y += lineH;
+  function t(s: string, size: number, color: number[], style: "bold" | "normal", indent = 0) {
+    checkPage(lh);
+    pdf.setFont("helvetica", style);
+    pdf.setFontSize(size);
+    pdf.setTextColor(color[0], color[1], color[2]);
+    const lines = pdf.splitTextToSize(s, cw - indent);
+    for (const l of lines) {
+      checkPage(lh);
+      pdf.text(l, m + indent, y);
+      y += lh;
+    }
   }
 
   // Letterhead
-  pdf.setFontSize(18);
-  pdf.setTextColor(10, 10, 20);
-  pdf.setFont("helvetica", "bold");
-  textLn("SYSTEM KYRON");
-  pdf.setFontSize(8);
-  pdf.setTextColor(100, 100, 120);
-  pdf.setFont("helvetica", "normal");
-  textLn("Emprendimiento: Carlos Mattar");
-  textLn(`RIF: ${EMPRESA_FIJA.rif} | ${EMPRESA_FIJA.direccion}`);
-  textLn(`Tel: ${EMPRESA_FIJA.telefono} | Email: ${EMPRESA_FIJA.email}`);
-  y += 2;
-  pdf.setDrawColor(200, 200, 210);
-  pdf.setLineWidth(0.5);
-  np(2);
+  t("SYSTEM KYRON", 20, [10, 10, 20], "bold");
+  t(`Emprendimiento: ${EMPRESA_FIJA.emprendimiento}`, 9, [100, 100, 120], "normal");
+  t(`RIF: ${EMPRESA_FIJA.rif} | ${EMPRESA_FIJA.direccion}`, 8, [100, 100, 120], "normal");
+  t(`Tel: ${EMPRESA_FIJA.telefono} | Email: ${EMPRESA_FIJA.email}`, 8, [100, 100, 120], "normal");
+  y += 3;
+  checkPage(1);
+  pdf.setDrawColor(190, 190, 200);
+  pdf.setLineWidth(0.4);
   pdf.line(m, y, pw - m, y);
   y += 6;
 
   // Body
-  const lines = data.carta.split("\n");
-  pdf.setFontSize(10);
-  pdf.setTextColor(30, 30, 40);
-
-  let inRequisitos = false;
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed) {
-      y += 2;
-      continue;
-    }
-    if (/^\d+\.\s/.test(trimmed)) {
-      pdf.setFont("helvetica", "normal");
-      np(lineH);
-      pdf.text(trimmed, m + 5, y);
-      y += lineH;
-      continue;
-    }
-    if (trimmed.startsWith("REF.:")) {
+  const blocks = generarTextoCartaLocal(permiso);
+  for (const block of blocks) {
+    if (block.startsWith("__BOLD__")) {
+      t(block.replace("__BOLD__", ""), 10, [20, 20, 30], "bold");
+    } else if (block.startsWith("__LABEL__")) {
+      const rest = block.replace("__LABEL__", "");
+      const sep = rest.indexOf("::");
+      const label = rest.slice(0, sep);
+      const value = rest.slice(sep + 2);
+      checkPage(lh);
       pdf.setFont("helvetica", "bold");
-      np(lineH);
-      pdf.text(trimmed, m, y);
-      y += lineH + 1;
-      continue;
-    }
-    if (trimmed.startsWith("PERMISO SOLICITADO:") || trimmed.startsWith("ORGANISMO EMISOR:") || trimmed.startsWith("BASE LEGAL:") || trimmed.startsWith("OBJETO SOCIAL:")) {
-      pdf.setFont("helvetica", "bold");
-      np(lineH);
-      const [label, ...rest] = trimmed.split(":");
-      pdf.text(label + ":", m, y);
+      pdf.setFontSize(10);
+      pdf.setTextColor(20, 20, 30);
+      const ll = pdf.splitTextToSize(label + ": ", cw);
+      pdf.text(ll[0], m, y);
+      const lw = pdf.getTextWidth(label + ": ");
       pdf.setFont("helvetica", "normal");
-      pdf.text(rest.join(":").trim(), m + pdf.getTextWidth(label + ": ") + 2, y);
-      y += lineH;
-      continue;
-    }
-    if (trimmed === "Atentamente,") {
-      y += 4;
-      pdf.setFont("helvetica", "normal");
-      np(lineH);
-      pdf.text(trimmed, m, y);
-      y += 8;
-      continue;
-    }
-    if (trimmed === "_________________________") {
-      np(lineH);
-      pdf.text(trimmed, m, y);
+      pdf.setTextColor(60, 60, 70);
+      const vl = pdf.splitTextToSize(value, cw - lw);
+      if (vl.length === 1) {
+        pdf.text(vl[0], m + lw, y);
+        y += lh;
+      } else {
+        y += lh;
+        for (const v of vl) {
+          checkPage(lh);
+          pdf.text(v, m, y);
+          y += lh;
+        }
+      }
+    } else if (!block) {
+      y += 3;
+    } else if (block.trim() === "Atentamente,") {
       y += 6;
-      continue;
-    }
-    pdf.setFont("helvetica", "normal");
-    const wrapped = pdf.splitTextToSize(trimmed, cw);
-    for (const w of wrapped) {
-      np(lineH);
-      pdf.text(w, m, y);
-      y += lineH;
+      t(block, 10, [30, 30, 40], "normal");
+    } else if (block.trim() === "_________________________") {
+      y += 4;
+      checkPage(lh);
+      pdf.text(block.trim(), m, y);
+      y += 7;
+    } else if (/^\s*\d+\.\s/.test(block)) {
+      t(block.trim(), 9, [60, 60, 70], "normal", 6);
+    } else {
+      t(block, 10, [30, 30, 40], "normal");
     }
   }
 
   // Footer
-  y = ph - m - 10;
+  const footerY = ph - m - 6;
+  pdf.setFont("helvetica", "normal");
   pdf.setFontSize(7);
-  pdf.setTextColor(150, 150, 160);
-  pdf.text(`Documento generado por System Kyron — ${new Date().toLocaleDateString("es-VE")}`, m, y);
+  pdf.setTextColor(160, 160, 170);
+  pdf.text(`Documento generado por System Kyron — ${new Date().toLocaleDateString("es-VE")}`, m, footerY);
 
   const safeName = permiso.permiso.replace(/[^a-zA-Z0-9]/g, "_").substring(0, 40);
   pdf.save(`carta_${safeName}.pdf`);
@@ -629,10 +649,10 @@ export default function PermisosSystemKyronPage() {
     setMounted(true);
   }, []);
 
-  const handleDescargarCarta = async (p: PermisoEntry) => {
+  const handleDescargarCarta = (p: PermisoEntry) => {
     setDownloadingCarta(p.permiso);
     try {
-      await descargarCarta(p);
+      descargarCarta(p);
     } catch (e) {
       console.error("Error al descargar carta:", e);
     } finally {
