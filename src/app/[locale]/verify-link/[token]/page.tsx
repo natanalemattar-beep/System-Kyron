@@ -45,18 +45,18 @@ export default function VerifyLinkPage() {
           // Redirigir según el modo (Registro vs Login)
           setTimeout(async () => {
             if (data.registrationMode) {
-              router.push(`/es/register/asesoria-contable?email=${encodeURIComponent(data.email)}&verified=true`);
+              router.push(`/register/asesoria-contable?email=${encodeURIComponent(data.email)}&verified=true`);
             } else {
               try {
                 const meRes = await fetch('/api/auth/me');
                 const meData = await meRes.json();
                 if (meData?.user?.tipo === 'juridico') {
-                  router.push('/es/dashboard-empresa');
+                  router.push('/dashboard-empresa');
                 } else {
-                  router.push('/es/dashboard');
+                  router.push('/dashboard');
                 }
               } catch {
-                router.push('/es/dashboard');
+                router.push('/dashboard');
               }
             }
           }, 2000);
@@ -126,10 +126,10 @@ export default function VerifyLinkPage() {
         {status === 'error' && (
           <div className="flex flex-col gap-3">
             <Button asChild className="h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold uppercase text-[10px] tracking-widest transition-all">
-              <Link href="/es/login">Reintentar Acceso <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/login">Reintentar Acceso <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button asChild variant="ghost" className="h-10 text-white/40 hover:text-white transition-colors">
-              <Link href="/es"><Home className="mr-2 h-4 w-4" /> Volver al Inicio</Link>
+              <Link href="/"><Home className="mr-2 h-4 w-4" /> Volver al Inicio</Link>
             </Button>
           </div>
         )}

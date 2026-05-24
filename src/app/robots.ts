@@ -13,8 +13,6 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/es/dashboard-',
           '/en/dashboard-',
-          '/es/contabilidad/',
-          '/en/contabilidad/',
           '/es/nominas',
           '/en/nominas',
           '/es/reclutamiento',

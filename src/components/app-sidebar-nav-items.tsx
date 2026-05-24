@@ -85,6 +85,13 @@ export const naturalNavGroups = [
 
 export const asesoriaContableNavGroups = [
   {
+    title: "Suite Kyron",
+    icon: Briefcase,
+    items: [
+      { href: "/kyron-contable", label: "Kyron Contable", icon: Briefcase, badge: "NUEVO", section: "Suite Kyron" },
+    ],
+  },
+  {
     title: "Finanzas",
     icon: Calculator,
     items: [
@@ -112,9 +119,11 @@ export const asesoriaContableNavGroups = [
         { href: "/contabilidad/tributos/igtf", label: "IGTF 3%", icon: CreditCard, section: "Fiscal" },
         { href: "/contabilidad/tributos/aportes-parafiscales", label: "Parafiscales", icon: Landmark, section: "Fiscal" },
         { href: "/contabilidad/tributos/municipales", label: "Municipales", icon: Landmark, section: "Fiscal" },
+        { href: "/contabilidad/tributos/cierre-fiscal", label: "Cierre Fiscal", icon: Lock, badge: "MEJORADO", section: "Fiscal" },
         { href: "/contabilidad/tributos/calendario-fiscal", label: "Calendario Fiscal", icon: Calendar, section: "Fiscal" },
         { href: "/contabilidad/tributos/multas", label: "Multas y Sanciones", icon: Gavel, section: "Fiscal" },
         { href: "/contabilidad/tributos/comunicaciones", label: "Comunicaciones", icon: MailOpen, section: "Fiscal" },
+        { href: "/alertas-regulatorias", label: "Alertas Regulatorias", icon: ShieldAlert, section: "Fiscal" },
     ],
   },
   {
@@ -122,6 +131,7 @@ export const asesoriaContableNavGroups = [
     icon: Users,
     items: [
         { href: "/nominas", label: "Pago de Nómina", icon: Calculator, section: "Nómina" },
+        { href: "/ivss-seguro-social", label: "IVSS Seguro Social", icon: ShieldCheck, badge: "NUEVO", section: "Nómina" },
         { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: FileSignature, section: "Nómina" },
         { href: "/prestaciones-sociales", label: "Liquidaciones", icon: Scale, section: "Nómina" },
         { href: "/libros-laborales", label: "Libros Laborales", icon: BookOpen, section: "Nómina" },

@@ -199,8 +199,12 @@ export const pathnames = {
   '/stickers': '/stickers',
   '/brand-kit': '/brand-kit',
 
+  '/kyron-contable': '/kyron-contable',
+  '/alertas-regulatorias': '/alertas-regulatorias',
+
   // ADDITIONAL MISSING PATHS
   '/contabilidad/cierre-contable': '/contabilidad/cierre-contable',
+  '/contabilidad/tributos/cierre-fiscal': '/contabilidad/tributos/cierre-fiscal',
   '/cuentas-por-cobrar': '/cuentas-por-cobrar',
   '/cuentas-por-pagar': '/cuentas-por-pagar',
   '/inventario': '/inventario',
