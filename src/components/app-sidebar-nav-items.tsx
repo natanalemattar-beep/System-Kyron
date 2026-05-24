@@ -170,7 +170,6 @@ export const asesoriaContableNavGroups = [
       title: "IA Core",
       icon: Sparkles,
       items: [
-          { href: "/kyron-chat", label: "Kyron Chat", icon: MessageSquare },
           { href: "/automatizaciones", label: "Automatizaciones", icon: Zap },
       ],
     },

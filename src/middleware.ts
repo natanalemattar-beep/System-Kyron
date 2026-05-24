@@ -120,6 +120,7 @@ const PUBLIC_API_SET = new Set([
   '/api/rif/consulta',
   '/api/budget',
   '/api/feedback',
+  '/api/ai/agent-chat',
 ]);
 
 // Routes that handle their own header-based auth (e.g. x-admin-key)
