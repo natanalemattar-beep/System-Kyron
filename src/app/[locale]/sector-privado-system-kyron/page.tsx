@@ -138,7 +138,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
             await preloadBrochureImages();
             const h2c = (await import('html2canvas')).default;
             const canvas = await h2c(node, {
-                scale: 1.5,
+                scale: 3,
                 useCORS: true,
                 backgroundColor: '#ffffff',
                 logging: false,
