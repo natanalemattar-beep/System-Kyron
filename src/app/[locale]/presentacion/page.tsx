@@ -9,8 +9,9 @@ import {
     TriangleAlert, Banknote, X,
     Network, DollarSign, Download, Monitor, Smartphone,
     Activity, Lock, FileText, Sparkles,
-    ShieldAlert, Target
+    ShieldAlert, Target, Terminal, ArrowRight
 } from "lucide-react";
+import Image from "next/image";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { PasswordGate } from "@/components/auth/password-gate";

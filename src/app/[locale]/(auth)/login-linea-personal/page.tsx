@@ -1,9 +1,5 @@
-"use client";
-import { useEffect } from 'react';
-import { useRouter } from '@/navigation';
+import { redirect } from "next/navigation";
 
 export default function LoginLineaPersonalRedirect() {
-    const router = useRouter();
-    useEffect(() => { router.replace('/login-linea'); }, [router]);
-    return null;
+    redirect("/login-linea");
 }

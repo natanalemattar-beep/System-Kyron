@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Recycle, Leaf, MapPin, Coins, ShieldCheck, Zap, Cpu, Battery, Wifi, Download, Activity, Terminal, Loader2, Plus, Home, TreePine, Droplets } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";

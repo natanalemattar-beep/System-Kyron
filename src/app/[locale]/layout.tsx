@@ -7,6 +7,7 @@ import { DemoBannerSpacer } from "@/components/demo-banner-spacer";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
 import { Inter, Outfit, Lora } from 'next/font/google';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { Providers } from "@/components/providers";
 import { GlobalPreloader } from "@/components/ui/global-preloader";
@@ -68,6 +69,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
       </head>
       <body className="antialiased font-inter bg-[#030711] text-foreground selection:bg-primary/30 selection:text-white overflow-x-hidden w-full" suppressHydrationWarning>
+        <SpeedInsights />
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <GlobalPreloader />

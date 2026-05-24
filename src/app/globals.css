@@ -362,4 +362,14 @@ body::after {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .animate-scan-line {
+    animation: scan-line 10s linear infinite;
+    will-change: top;
+  }
+
+  @keyframes scan-line {
+    0% { top: 0%; }
+    100% { top: 100%; }
+  }
 }

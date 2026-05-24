@@ -40,6 +40,7 @@ import {
   PieChart as RPieChart, Pie, Cell,
 } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { ChartErrorBoundary } from "@/components/chart-error-boundary";
 
 const motion = {

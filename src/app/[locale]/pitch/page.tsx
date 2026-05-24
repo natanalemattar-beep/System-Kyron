@@ -9,8 +9,8 @@ import {
     Users, Globe, Zap, TriangleAlert, Target,
     Network, Banknote, X,
     Activity, Lock, FileText,
-    Play, 
-    LayoutPanelLeft,
+    Play, Smartphone,
+    LayoutPanelLeft, Undo2, Redo2, Download,
     Type, Square, Image as ImageIcon, Table,
     Wand2
 } from "lucide-react";

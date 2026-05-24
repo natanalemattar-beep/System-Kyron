@@ -717,76 +717,51 @@ export function SpecializedLoginCard({
             className="space-y-6"
           >
             <div className="text-center space-y-6">
-              {/* High-Tech Security Scanner */}
-              <div className="relative inline-flex items-center justify-center">
-                {/* Rotating Rings */}
-                <motion.div 
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                  className="absolute -inset-6 border-2 border-dashed border-blue-500/10 rounded-full"
-                />
-                <motion.div 
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                  className="absolute -inset-10 border border-blue-400/5 rounded-full"
-                />
-                
-                {/* Central Security Node */}
-                <motion.div
-                  className="relative z-10 w-24 h-24 rounded-3xl bg-slate-900 border border-blue-500/30 flex items-center justify-center shadow-[0_0_40px_rgba(37,99,235,0.15)] overflow-hidden group"
-                  initial={{ scale: 0.95, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ type: "spring", damping: 35, stiffness: 300 }}
-                >
-                  {/* Internal Glow */}
-                  <div className="absolute inset-0 bg-blue-600/5 group-hover:bg-blue-600/10 transition-colors" />
-                  
-                  {/* Scanning Bar */}
-                  <motion.div 
-                    animate={{ top: ['0%', '100%', '0%'] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute left-0 right-0 h-1 bg-blue-400/40 blur-[2px] z-20 pointer-events-none"
-                  />
-
+              <div className="inline-flex items-center justify-center">
+                <div className="w-20 h-20 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center">
                   {verificationMethod === 'whatsapp'
-                    ? <MessageCircle className="h-10 w-10 text-green-400 drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
+                    ? <MessageCircle className="h-9 w-9 text-green-400" />
                     : verificationMethod === 'sms'
-                      ? <Smartphone className="h-10 w-10 text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
-                      : <Fingerprint className="h-10 w-10 text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                      ? <Smartphone className="h-9 w-9 text-emerald-400" />
+                      : <Mail className="h-9 w-9 text-blue-400" />
                   }
-                </motion.div>
+                </div>
               </div>
 
-              <div className="space-y-1">
-                <h2 className="text-2xl font-black text-white tracking-tight uppercase">Verificación Activa</h2>
+              <div className="space-y-3">
+                <h2 className="text-xl font-black text-white tracking-tight uppercase">Verifica tu identidad</h2>
+                <p className="text-sm text-slate-400 max-w-xs mx-auto leading-relaxed">
+                  Enviamos un enlace de acceso a <span className="text-white font-semibold">{verificationMethod === 'email' ? maskedEmail : maskedPhone}</span>
+                </p>
                 <div className="flex items-center justify-center gap-2">
-                  <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-                    <div className="flex flex-col items-center">
-                      <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">
-                        {devCode ? 'Verificación Kyron' : `Enlace enviado vía ${verificationMethod === 'email' ? 'E-mail' : verificationMethod}`}
-                      </p>
-                      
-                      {devCode && (
-                        <motion.button
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          type="button"
-                          onClick={() => {
-                            setSingleCode(devCode);
-                            toast({ 
-                              title: "Clave de Acceso", 
-                              description: "Código de acceso aplicado correctamente.",
-                              icon: <Zap className="h-4 w-4 text-amber-400" /> 
-                            });
-                          }}
-                          className="mt-4 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest hover:bg-amber-500/20 transition-all flex items-center gap-2 group"
-                        >
-                          <Fingerprint className="h-3 w-3 group-hover:scale-110 transition-transform" />
-                          Auto-Completar: <span className="font-mono text-xs">{devCode}</span>
-                        </motion.button>
-                      )}
-                    </div>
+                  <Loader2 className="h-4 w-4 text-blue-400 animate-spin" />
+                  <p className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.15em]">
+                    Esperando verificación...
+                  </p>
                 </div>
+                <p className="text-xs text-slate-600 max-w-xs mx-auto">
+                  Ábrelo en este mismo navegador o en otro dispositivo. Apenas confirmes, esta pantalla avanzará automáticamente.
+                </p>
+                
+                {devCode && (
+                  <motion.button
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    type="button"
+                    onClick={() => {
+                      setSingleCode(devCode);
+                      toast({ 
+                        title: "Clave de Acceso", 
+                        description: "Código de acceso aplicado correctamente.",
+                        icon: <Zap className="h-4 w-4 text-amber-400" /> 
+                      });
+                    }}
+                    className="mt-2 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest hover:bg-amber-500/20 transition-all flex items-center gap-2 group mx-auto"
+                  >
+                    <Fingerprint className="h-3 w-3 group-hover:scale-110 transition-transform" />
+                    Auto-Completar: <span className="font-mono text-xs">{devCode}</span>
+                  </motion.button>
+                )}
               </div>
             </div>
 

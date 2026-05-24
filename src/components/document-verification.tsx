@@ -327,7 +327,7 @@ export function DocumentVerification({
   const config = VERDICT_CONFIG[result.veredicto];
   const VerdictIcon = config.icon;
   const calidad = result.analisis.calidad_imagen;
-  const nitidezCfg = NITIDEZ_CONFIG[calidad?.nivel_nitidez ?? 'media'];
+  const nitidezCfg = NITIDEZ_CONFIG[calidad?.nivel_nitidez] || NITIDEZ_CONFIG.media;
   const NitidezIcon = nitidezCfg.icon;
 
   if (compact && !expanded) {
@@ -345,13 +345,15 @@ export function DocumentVerification({
             {nitidezCfg.label}
           </div>
         )}
-        {result.consenso_algoritmico.total_motores > 0 && (
-          <div className={cn('flex items-center gap-1 px-2 py-1.5 rounded-xl border text-[10px] font-bold',
-            CONSENSO_CONFIG[result.consenso_algoritmico.nivel].bg, CONSENSO_CONFIG[result.consenso_algoritmico.nivel].border, CONSENSO_CONFIG[result.consenso_algoritmico.nivel].color)}>
-            <ShieldCheck className="h-3 w-3" />
-            {result.consenso_algoritmico.motores_coinciden}/{result.consenso_algoritmico.total_motores}
-          </div>
-        )}
+    {result.consenso_algoritmico.total_motores > 0 ? (
+      <div className={cn('flex items-center gap-1 px-2 py-1.5 rounded-xl border text-[10px] font-bold',
+        (CONSENSO_CONFIG[result.consenso_algoritmico.nivel] || CONSENSO_CONFIG.no_determinado).bg, 
+        (CONSENSO_CONFIG[result.consenso_algoritmico.nivel] || CONSENSO_CONFIG.no_determinado).border, 
+        (CONSENSO_CONFIG[result.consenso_algoritmico.nivel] || CONSENSO_CONFIG.no_determinado).color)}>
+        <ShieldCheck className="h-3 w-3" />
+        {result.consenso_algoritmico.motores_coinciden}/{result.consenso_algoritmico.total_motores}
+      </div>
+    ) : null}
       </div>
     );
   }
@@ -386,17 +388,17 @@ export function DocumentVerification({
               <span className={cn('text-[10px] font-bold tabular-nums', nitidezCfg.color)}>{calidad.puntaje}%</span>
             </div>
           )}
-          {result.consenso_algoritmico.total_motores > 0 && (() => {
-            const cCfg = CONSENSO_CONFIG[result.consenso_algoritmico.nivel];
-            return (
-              <div className={cn('flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border', cCfg.bg, cCfg.border)}>
-                <ShieldCheck className={cn('h-3.5 w-3.5', cCfg.color)} />
-                <span className={cn('text-[10px] font-bold', cCfg.color)}>
-                  {result.consenso_algoritmico.motores_coinciden}/{result.consenso_algoritmico.total_motores} Motores
-                </span>
-              </div>
-            );
-          })()}
+            {result.consenso_algoritmico.total_motores > 0 ? (() => {
+              const cCfg = CONSENSO_CONFIG[result.consenso_algoritmico.nivel] || CONSENSO_CONFIG.no_determinado;
+              return (
+                <div className={cn('flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border', cCfg.bg, cCfg.border)}>
+                  <ShieldCheck className={cn('h-3.5 w-3.5', cCfg.color)} />
+                  <span className={cn('text-[10px] font-bold', cCfg.color)}>
+                    {result.consenso_algoritmico.motores_coinciden}/{result.consenso_algoritmico.total_motores} Motores
+                  </span>
+                </div>
+              );
+            })() : null}
         </div>
 
         <p className="text-[11px] text-muted-foreground/70 leading-relaxed">{result.resumen}</p>

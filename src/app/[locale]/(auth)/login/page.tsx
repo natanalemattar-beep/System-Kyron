@@ -64,11 +64,7 @@ export default function LoginSelectionPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#02040a]/80 to-[#02040a]" />
 
         {/* Scanning Line */}
-        <motion.div 
-          animate={{ top: ['0%', '100%'] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-          className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent z-10 pointer-events-none"
-        />
+        <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent z-10 pointer-events-none animate-scan-line" />
       </div>
 
       <div className="w-full max-w-6xl px-6 py-6 flex justify-between items-center relative z-20">
