@@ -7,7 +7,7 @@ import Image from 'next/image';
 const HeroSection      = dynamic(() => import('@/components/landing/hero-section-optimized').then(m => ({ default: m.HeroSectionOptimized })), { ssr: true });
 const FeaturesSection  = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: true });
 const SustainabilitySection = dynamic(() => import('@/components/landing/SustainabilitySection').then(m => ({ default: m.SustainabilitySection })), { ssr: true });
-const ModulesSection      = dynamic(() => import('@/components/landing/modules-section').then(m => ({ default: m.ModulesSection })), { ssr: true });
+const ModulesSection      = dynamic(() => import('@/components/landing/modules-section').then(m => ({ default: m.ModulesSection })));
 
 // Below-the-fold — loaded dynamically
 const FaqSection        = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })));
@@ -59,8 +59,10 @@ export default function LandingPage() {
             <FeaturesSection />
           </section>
 
-          {/* 2.5 Todos los Módulos — Compact Grid */}
-          <ModulesSection />
+          {/* 2.5 Todos los Módulos — Compact Grid (lazy, below fold) */}
+          <LazySection fallbackHeight="500px">
+            <ModulesSection />
+          </LazySection>
 
           {/* 2.6 Sustainability — Impacto Ambiental (SSR) */}
           <SustainabilitySection />

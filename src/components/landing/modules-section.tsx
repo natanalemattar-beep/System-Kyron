@@ -1,7 +1,4 @@
-"use client";
-
-import { ScrollReveal } from './scroll-reveal';
-import { 
+import {
   User, Calculator, Landmark, Users, Megaphone, Gavel, Recycle,
   Smartphone, Server, ClipboardList, Briefcase, Sparkles,
   ArrowRight
@@ -23,32 +20,32 @@ const modules = [
   { icon: Sparkles, name: "IA & Automatización", desc: "Agentes AI, automatizaciones inteligentes", href: "/automatizaciones", count: 2, color: "purple" as const },
 ];
 
-const colorMap: Record<string, { border: string; hover: string; icon: string }> = {
-  blue:    { border: "border-blue-500/20",    hover: "hover:border-blue-500/40",    icon: "text-blue-400 bg-blue-500/10 border-blue-500/20" },
-  cyan:    { border: "border-cyan-500/20",    hover: "hover:border-cyan-500/40",    icon: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20" },
-  amber:   { border: "border-amber-500/20",   hover: "hover:border-amber-500/40",   icon: "text-amber-400 bg-amber-500/10 border-amber-500/20" },
-  emerald: { border: "border-emerald-500/20", hover: "hover:border-emerald-500/40", icon: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20" },
-  violet:  { border: "border-violet-500/20",  hover: "hover:border-violet-500/40",  icon: "text-violet-400 bg-violet-500/10 border-violet-500/20" },
-  rose:    { border: "border-rose-500/20",    hover: "hover:border-rose-500/40",    icon: "text-rose-400 bg-rose-500/10 border-rose-500/20" },
-  green:   { border: "border-green-500/20",   hover: "hover:border-green-500/40",   icon: "text-green-400 bg-green-500/10 border-green-500/20" },
-  indigo:  { border: "border-indigo-500/20",  hover: "hover:border-indigo-500/40",  icon: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20" },
-  slate:   { border: "border-slate-500/20",   hover: "hover:border-slate-500/40",   icon: "text-slate-400 bg-slate-500/10 border-slate-500/20" },
-  orange:  { border: "border-orange-500/20",  hover: "hover:border-orange-500/40",  icon: "text-orange-400 bg-orange-500/10 border-orange-500/20" },
-  teal:    { border: "border-teal-500/20",    hover: "hover:border-teal-500/40",    icon: "text-teal-400 bg-teal-500/10 border-teal-500/20" },
-  purple:  { border: "border-purple-500/20",  hover: "hover:border-purple-500/40",  icon: "text-purple-400 bg-purple-500/10 border-purple-500/20" },
+const colorMap: Record<string, string> = {
+  blue:    "border-blue-500/20 hover:border-blue-500/40 text-blue-400 bg-blue-500/10 border-blue-500/20",
+  cyan:    "border-cyan-500/20 hover:border-cyan-500/40 text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
+  amber:   "border-amber-500/20 hover:border-amber-500/40 text-amber-400 bg-amber-500/10 border-amber-500/20",
+  emerald: "border-emerald-500/20 hover:border-emerald-500/40 text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+  violet:  "border-violet-500/20 hover:border-violet-500/40 text-violet-400 bg-violet-500/10 border-violet-500/20",
+  rose:    "border-rose-500/20 hover:border-rose-500/40 text-rose-400 bg-rose-500/10 border-rose-500/20",
+  green:   "border-green-500/20 hover:border-green-500/40 text-green-400 bg-green-500/10 border-green-500/20",
+  indigo:  "border-indigo-500/20 hover:border-indigo-500/40 text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
+  slate:   "border-slate-500/20 hover:border-slate-500/40 text-slate-400 bg-slate-500/10 border-slate-500/20",
+  orange:  "border-orange-500/20 hover:border-orange-500/40 text-orange-400 bg-orange-500/10 border-orange-500/20",
+  teal:    "border-teal-500/20 hover:border-teal-500/40 text-teal-400 bg-teal-500/10 border-teal-500/20",
+  purple:  "border-purple-500/20 hover:border-purple-500/40 text-purple-400 bg-purple-500/10 border-purple-500/20",
 };
 
 export function ModulesSection() {
   return (
     <section className="py-24 md:py-32 relative overflow-hidden bg-transparent">
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[10%] right-[-5%] w-[40vw] h-[40vw] rounded-full bg-cyan-500/[0.03] blur-[120px] animate-mesh-drift" />
-        <div className="absolute bottom-[10%] left-[-5%] w-[40vw] h-[40vw] rounded-full bg-blue-500/[0.02] blur-[100px] animate-mesh-drift" style={{ animationDelay: '-8s' }} />
+        <div className="absolute top-[10%] right-[-5%] w-[40vw] h-[40vw] rounded-full bg-cyan-500/[0.03] blur-[120px]" />
+        <div className="absolute bottom-[10%] left-[-5%] w-[40vw] h-[40vw] rounded-full bg-blue-500/[0.02] blur-[100px]" />
       </div>
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <ScrollReveal className="text-center mb-16 space-y-6">
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-3xl mx-auto shadow-2xl">
+        <div className="text-center mb-16 space-y-6">
+          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 mx-auto">
             <Sparkles className="h-4 w-4 text-cyan-400" />
             <span className="text-[10px] font-black uppercase tracking-[0.5em] text-cyan-200/60">MÓDULOS</span>
           </div>
@@ -59,33 +56,28 @@ export function ModulesSection() {
           <p className="text-lg text-gray-500 dark:text-white/30 max-w-2xl mx-auto font-medium">
             Más de 100 módulos integrados — fiscal, contable, legal, RRHH, telecom, marketing, IT y más
           </p>
-        </ScrollReveal>
+        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {modules.map((mod, i) => {
-            const c = colorMap[mod.color];
-            return (
-              <Link key={i} href={mod.href}>
-                <ScrollReveal delay={i * 0.04}>
-                  <div className={"group relative overflow-hidden rounded-[2rem] bg-gray-50 dark:bg-white/[0.02] border " + c.border + " " + c.hover + " p-6 transition-all duration-500 hover:-translate-y-1 h-full"}>
-                    <div className="flex items-start gap-4">
-                      <div className={"shrink-0 h-10 w-10 rounded-xl border flex items-center justify-center " + c.icon}>
-                        <mod.icon className="h-5 w-5" />
-                      </div>
-                      <div className="min-w-0">
-                        <h3 className="text-sm font-black text-gray-900 dark:text-white uppercase tracking-tight">{mod.name}</h3>
-                        <p className="text-[11px] text-gray-400 dark:text-white/25 font-medium mt-0.5 leading-snug">{mod.desc}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-200 dark:border-white/5">
-                      <span className="text-[10px] font-black text-gray-400 dark:text-white/20 uppercase tracking-widest">{mod.count} módulos</span>
-                      <ArrowRight className="h-3.5 w-3.5 text-gray-300 dark:text-white/10 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
-                    </div>
+          {modules.map((mod, i) => (
+            <Link key={i} href={mod.href}>
+              <div className={"group relative overflow-hidden rounded-[2rem] bg-gray-50 dark:bg-white/[0.02] border p-6 transition-all duration-500 hover:-translate-y-1 h-full " + colorMap[mod.color]}>
+                <div className="flex items-start gap-4">
+                  <div className={"shrink-0 h-10 w-10 rounded-xl border flex items-center justify-center " + colorMap[mod.color]}>
+                    <mod.icon className="h-5 w-5" />
                   </div>
-                </ScrollReveal>
-              </Link>
-            );
-          })}
+                  <div className="min-w-0">
+                    <h3 className="text-sm font-black text-gray-900 dark:text-white uppercase tracking-tight">{mod.name}</h3>
+                    <p className="text-[11px] text-gray-400 dark:text-white/25 font-medium mt-0.5 leading-snug">{mod.desc}</p>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-200 dark:border-white/5">
+                  <span className="text-[10px] font-black text-gray-400 dark:text-white/20 uppercase tracking-widest">{mod.count} módulos</span>
+                  <ArrowRight className="h-3.5 w-3.5 text-gray-300 dark:text-white/10 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
