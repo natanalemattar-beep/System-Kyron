@@ -1,54 +1,71 @@
-import { Tool } from "@google/genai";
+import { Tool } from '@google/genai';
 
-// This interface defines how a tool's implementation is mapped to its declaration
 export interface ToolImplementation {
   execute: (...args: any[]) => Promise<any>;
 }
 
-// The Registry
 export const toolRegistry: Record<string, ToolImplementation> = {};
 
-// Helper to register tools
-export function registerTool(name: string, declaration: Tool, implementation: ToolImplementation) {
+export function registerTool(
+  name: string,
+  _declaration: Tool,
+  implementation: ToolImplementation
+) {
   toolRegistry[name] = implementation;
-  return declaration;
 }
 
-// Exported Tool Declarations (to be used in AiClient calls)
 export const coreTools: Tool[] = [
   {
     functionDeclarations: [
       {
-        name: "get_system_status",
-        description: "Obtiene el estado actual de los servicios del sistema (errores, uso de CPU, etc.)",
+        name: 'get_system_status',
+        description: 'Obtiene el estado actual del sistema: tasa de error, alertas, salud de BD, usuarios activos',
+        parameters: { type: 'object', properties: {} },
+      },
+      {
+        name: 'get_dashboard_metrics',
+        description: 'Obtiene métricas del dashboard financiero: ingresos, gastos, facturas pendientes, saldo, nómina mensual',
+        parameters: { type: 'object', properties: {} },
+      },
+      {
+        name: 'cerrar_periodo_fiscal',
+        description: 'Cierra un período fiscal. Calcula utilidad, actualiza saldos y registra el cierre.',
         parameters: {
-          type: "object",
-          properties: {},
+          type: 'object',
+          properties: {
+            periodo: { type: 'string', description: 'Período a cerrar en formato YYYY-MM (ej: 2025-04)' },
+            ingresos: { type: 'number', description: 'Total de ingresos del período (opcional, auto-calculado)' },
+            gastos: { type: 'number', description: 'Total de gastos del período (opcional, auto-calculado)' },
+          },
+          required: ['periodo'],
         },
       },
       {
-        name: "update_user_preference",
-        description: "Actualiza una preferencia del usuario (idioma, tema, animaciones)",
+        name: 'calcular_nomina',
+        description: 'Calcula y genera la nómina para el período y tipo indicados. Crea registros y items por empleado.',
         parameters: {
-          type: "object",
+          type: 'object',
           properties: {
-            key: { type: "string", description: "La clave de la preferencia (ej: 'idioma', 'tema', 'reducir_animaciones')" },
-            value: { type: "string", description: "El nuevo valor" },
+            periodo: { type: 'string', description: 'Período de la nómina (ej: "Mayo 2025")' },
+            tipo: { type: 'string', enum: ['quincenal', 'mensual'], description: 'Tipo de nómina' },
           },
-          required: ["key", "value"],
+          required: ['periodo', 'tipo'],
         },
       },
       {
-        name: "run_fiscal_action",
-        description: "Ejecuta una acción fiscal importante (ej: cerrar periodo, consultar tasas)",
-        parameters: {
-          type: "object",
-          properties: {
-            action: { type: "string", description: "La acción a realizar (ej: 'cierre_fiscal', 'consultar_iva')" },
-            params: { type: "object", description: "Parámetros necesarios para la acción" },
-          },
-          required: ["action"],
-        },
+        name: 'listar_empleados',
+        description: 'Lista los empleados activos con su información básica: nombre, cédula, salario, cargo',
+        parameters: { type: 'object', properties: {} },
+      },
+      {
+        name: 'get_declaraciones',
+        description: 'Obtiene las declaraciones fiscales (ISLR, IVA) del usuario',
+        parameters: { type: 'object', properties: {} },
+      },
+      {
+        name: 'get_alertas',
+        description: 'Obtiene alertas activas del sistema: vencimientos fiscales, documentos por vencer, tareas pendientes',
+        parameters: { type: 'object', properties: {} },
       },
     ],
   },
