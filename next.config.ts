@@ -11,8 +11,33 @@ const withPWA = withPWAInit({
   cacheOnFrontEndNav: true,
   aggressiveFrontEndNavCaching: true,
   reloadOnOnline: true,
+  skipWaiting: true,
+  clientsClaim: true,
+  fallbacks: {
+    document: '/~offline',
+    image: '/images/offline-placeholder.svg',
+  },
   workboxOptions: {
     disableDevLogs: true,
+    runtimeCaching: [
+      {
+        urlPattern: /\/api\/(stats|tasas-bcv|security-status|plan-popularity|visits|ping)/,
+        handler: 'NetworkFirst',
+        options: {
+          cacheName: 'kyron-api-cache',
+          expiration: { maxEntries: 50, maxAgeSeconds: 86400 },
+          networkTimeoutSeconds: 3,
+        },
+      },
+      {
+        urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|avif|ico)$/,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'kyron-image-cache',
+          expiration: { maxEntries: 100, maxAgeSeconds: 86400 * 30 },
+        },
+      },
+    ],
   },
 });
 
