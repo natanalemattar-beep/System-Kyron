@@ -75,7 +75,7 @@ export function HeroSectionOptimized() {
   ];
 
   return (
-    <section className="relative min-h-[100svh] flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden bg-background">
+    <section className="relative min-h-[100svh] flex flex-col items-center justify-center pt-20 md:pt-32 pb-16 md:pb-20 overflow-hidden bg-background">
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-background" />
         <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-primary/5 blur-[150px]" />
@@ -83,8 +83,8 @@ export function HeroSectionOptimized() {
       </div>
 
       <div className="relative z-10 w-full container mx-auto px-6 max-w-7xl">
-        <div className="flex flex-col lg:flex-row items-center gap-20">
-          <div className="flex-1 text-center lg:text-left space-y-10">
+          <div className="flex flex-col lg:flex-row items-center gap-12 md:gap-20">
+          <div className="flex-1 text-center lg:text-left space-y-6 md:space-y-10">
             <div
               className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-kyron-cyan/20 bg-kyron-cyan/5 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
               style={{ animation: 'fadeInUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards' }}
@@ -184,7 +184,7 @@ export function HeroSectionOptimized() {
         }}
       >
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-16">
             {[
               { val: '24/7', label: t('support'), color: 'text-kyron-cyan' },
               { val: '5G', label: t('network'), color: 'text-blue-400' },
@@ -214,7 +214,7 @@ export function HeroSectionOptimized() {
                     <ShieldCheck className={stat.color + ' h-5 w-5'} />
                   )}
                 </div>
-                <p className="text-[9px] font-black uppercase tracking-[0.35em] text-muted-foreground/60 mb-2">
+                <p className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.25em] md:tracking-[0.35em] text-muted-foreground/60 mb-2">
                   {stat.label}
                 </p>
                 <p className="text-3xl font-black text-foreground/80 tracking-tighter">

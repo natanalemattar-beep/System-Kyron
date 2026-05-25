@@ -64,12 +64,12 @@ export function Footer() {
 
           <div className="md:col-span-2 space-y-5">
             <h4 className="text-[10px] font-black uppercase tracking-[0.25em] bg-gradient-to-r from-kyron-cyan to-blue-400 bg-clip-text text-transparent">{t('platform')}</h4>
-            <nav className="flex flex-col gap-3">
+            <nav className="flex flex-col">
               {navItems.map((item) => (
                 <Link
                   key={item.label}
                   href={item.href as any}
-                  className="text-[10px] font-semibold text-muted-foreground/55 hover:text-foreground/90 transition-colors uppercase tracking-[0.15em] group flex items-center gap-1"
+                  className="py-2 text-xs md:text-[10px] font-semibold text-muted-foreground/55 hover:text-foreground/90 transition-colors uppercase tracking-[0.15em] group flex items-center gap-1"
                 >
                   {item.label}
                   <ArrowUpRight className="h-2.5 w-2.5 opacity-0 group-hover:opacity-70 transition-opacity" />
@@ -80,12 +80,12 @@ export function Footer() {
 
           <div className="md:col-span-3 space-y-5">
             <h4 className="text-[10px] font-black uppercase tracking-[0.25em] bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">{t('modules')}</h4>
-            <nav className="flex flex-col gap-3">
+            <nav className="flex flex-col">
               {modules.slice(0, 5).map((m) => (
                 <Link
                   key={m}
                   href="/login"
-                  className="text-[10px] font-semibold text-muted-foreground/55 hover:text-foreground/90 transition-colors uppercase tracking-[0.15em] flex items-center gap-1 group"
+                  className="py-2 text-xs md:text-[10px] font-semibold text-muted-foreground/55 hover:text-foreground/90 transition-colors uppercase tracking-[0.15em] flex items-center gap-1 group"
                 >
                   {m} <ArrowUpRight className="h-2.5 w-2.5 opacity-0 group-hover:opacity-70 transition-opacity" />
                 </Link>
@@ -136,33 +136,33 @@ export function Footer() {
                 </p>
               </div>
               <div className="flex items-center gap-3 ml-6">
-                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-kyron-cyan/50">
+                <p className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.2em] text-kyron-cyan/50">
                   Fundador: Carlos Mattar
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <a href="https://instagram.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-border dark:border-white/[0.06] bg-muted/50 dark:bg-white/[0.02] flex items-center justify-center text-muted-foreground/20 hover:text-pink-500 hover:border-pink-500/20 hover:bg-pink-500/[0.06] transition-all duration-300">
-                <Instagram className="h-3.5 w-3.5" />
+            <div className="flex items-center gap-3">
+              <a href="https://instagram.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-11 w-11 rounded-xl border border-border dark:border-white/[0.06] bg-muted/50 dark:bg-white/[0.02] flex items-center justify-center text-muted-foreground/20 hover:text-pink-500 hover:border-pink-500/20 hover:bg-pink-500/[0.06] transition-all duration-300">
+                <Instagram className="h-4 w-4" />
               </a>
-              <a href="https://twitter.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-border dark:border-white/[0.06] bg-muted/50 dark:bg-white/[0.02] flex items-center justify-center text-muted-foreground/20 hover:text-kyron-cyan hover:border-kyron-cyan/20 hover:bg-kyron-cyan/[0.06] transition-all duration-300">
-                <Twitter className="h-3.5 w-3.5" />
+              <a href="https://twitter.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-11 w-11 rounded-xl border border-border dark:border-white/[0.06] bg-muted/50 dark:bg-white/[0.02] flex items-center justify-center text-muted-foreground/20 hover:text-kyron-cyan hover:border-kyron-cyan/20 hover:bg-kyron-cyan/[0.06] transition-all duration-300">
+                <Twitter className="h-4 w-4" />
               </a>
-              <a href="https://linkedin.com/company/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-border dark:border-white/[0.06] bg-muted/50 dark:bg-white/[0.02] flex items-center justify-center text-muted-foreground/20 hover:text-blue-400 hover:border-blue-500/20 hover:bg-blue-500/[0.06] transition-all duration-300">
-                <Linkedin className="h-3.5 w-3.5" />
+              <a href="https://linkedin.com/company/systemkyron" target="_blank" rel="noopener noreferrer" className="h-11 w-11 rounded-xl border border-border dark:border-white/[0.06] bg-muted/50 dark:bg-white/[0.02] flex items-center justify-center text-muted-foreground/20 hover:text-blue-400 hover:border-blue-500/20 hover:bg-blue-500/[0.06] transition-all duration-300">
+                <Linkedin className="h-4 w-4" />
               </a>
-              <a href="https://github.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-lg border border-border dark:border-white/[0.06] bg-muted/50 dark:bg-white/[0.02] flex items-center justify-center text-muted-foreground/20 hover:text-foreground/60 hover:border-gray-300 dark:hover:border-white/[0.12] hover:bg-muted dark:hover:bg-white/[0.04] transition-all duration-300">
-                <Github className="h-3.5 w-3.5" />
+              <a href="https://github.com/systemkyron" target="_blank" rel="noopener noreferrer" className="h-11 w-11 rounded-xl border border-border dark:border-white/[0.06] bg-muted/50 dark:bg-white/[0.02] flex items-center justify-center text-muted-foreground/20 hover:text-foreground/60 hover:border-gray-300 dark:hover:border-white/[0.12] hover:bg-muted dark:hover:bg-white/[0.04] transition-all duration-300">
+                <Github className="h-4 w-4" />
               </a>
             </div>
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/20">
-              <Link href="/manual-usuario" className="hover:text-kyron-cyan transition-all flex items-center gap-1.5">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-xs md:text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/20">
+              <Link href="/manual-usuario" className="py-2 hover:text-kyron-cyan transition-all flex items-center gap-1.5">
                 <FileText className="h-3 w-3" /> {t('user_manual')}
               </Link>
-              <Link href="/terms" className="hover:text-kyron-cyan transition-all flex items-center gap-1.5">
+              <Link href="/terms" className="py-2 hover:text-kyron-cyan transition-all flex items-center gap-1.5">
                 <Gavel className="h-3 w-3" /> {t('terms')}
               </Link>
-              <Link href="/politica-privacidad" className="hover:text-kyron-cyan transition-all flex items-center gap-1.5">
+              <Link href="/politica-privacidad" className="py-2 hover:text-kyron-cyan transition-all flex items-center gap-1.5">
                 <Shield className="h-3 w-3" /> {t('privacy')}
               </Link>
             </div>
@@ -181,7 +181,7 @@ export function Footer() {
                 </span>
               ))}
             </div>
-            <p className="text-[7px] font-black uppercase tracking-[0.3em] text-muted-foreground/20 mt-8 flex items-center gap-2">
+            <p className="text-[9px] md:text-[7px] font-black uppercase tracking-[0.3em] text-muted-foreground/20 mt-8 flex items-center gap-2">
               Lucia Fernanda hermanita de carlitos{' '}
               <Heart className="h-2.5 w-2.5 text-rose-500/80 fill-rose-500/60 animate-pulse" />
             </p>

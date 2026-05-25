@@ -63,19 +63,19 @@ export function ModulesSection() {
             const c = colors[mod.color];
             return (
               <Link key={i} href={mod.href} style={{ animation: 'fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1) ' + (i * 0.04) + 's forwards', opacity: 0 }}>
-                <div className={`group relative overflow-hidden rounded-[2rem] bg-background/50 dark:bg-white/[0.02] border ${c.border} ${c.hoverBorder} p-6 transition-all duration-500 hover:-translate-y-1 h-full`}>
-                  <div className="flex items-start gap-4">
-                    <div className={`shrink-0 h-10 w-10 rounded-xl border flex items-center justify-center ${c.icon}`}>
-                      <mod.icon className="h-5 w-5" />
+                <div className={`group relative overflow-hidden rounded-2xl md:rounded-[2rem] bg-background/50 dark:bg-white/[0.02] border ${c.border} ${c.hoverBorder} p-4 md:p-6 transition-all duration-500 hover:-translate-y-1 h-full`}>
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className={`shrink-0 h-8 md:h-10 w-8 md:w-10 rounded-lg md:rounded-xl border flex items-center justify-center ${c.icon}`}>
+                      <mod.icon className="h-4 md:h-5 w-4 md:w-5" />
                     </div>
                     <div className="min-w-0">
-                      <h3 className="text-sm font-black text-foreground uppercase tracking-tight">{mod.name}</h3>
-                      <p className="text-[11px] text-muted-foreground/50 font-medium mt-0.5 leading-snug">{mod.desc}</p>
+                      <h3 className="text-xs md:text-sm font-black text-foreground uppercase tracking-tight">{mod.name}</h3>
+                      <p className="text-[10px] md:text-[11px] text-muted-foreground/50 font-medium mt-0.5 leading-snug">{mod.desc}</p>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between mt-4 pt-3 border-t border-border dark:border-white/5">
-                    <span className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">{mod.count} módulos</span>
-                    <ArrowRight className="h-3.5 w-3.5 text-muted-foreground/30 group-hover:text-kyron-cyan group-hover:translate-x-1 transition-all" />
+                  <div className="flex items-center justify-between mt-3 md:mt-4 pt-2 md:pt-3 border-t border-border dark:border-white/5">
+                    <span className="text-[9px] md:text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">{mod.count} módulos</span>
+                    <ArrowRight className="h-3 md:h-3.5 w-3 md:w-3.5 text-muted-foreground/30 group-hover:text-kyron-cyan group-hover:translate-x-1 transition-all" />
                   </div>
                 </div>
               </Link>

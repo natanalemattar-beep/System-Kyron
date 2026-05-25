@@ -167,10 +167,10 @@ export function LandingHeader() {
               <Sheet>
                 <SheetTrigger asChild>
                   <Button
-                    variant="ghost"
-                    size="icon"
-                    className="lg:hidden rounded-2xl h-11 w-11 border border-black/[0.08] dark:border-white/[0.08] text-foreground bg-black/[0.02] dark:bg-white/[0.02] active:scale-90 transition-transform"
-                  >
+        variant="ghost"
+        size="icon"
+        className="lg:hidden rounded-2xl h-12 w-12 border border-black/[0.08] dark:border-white/[0.08] text-foreground bg-black/[0.02] dark:bg-white/[0.02] active:scale-90 transition-transform"
+      >
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
@@ -184,7 +184,7 @@ export function LandingHeader() {
                     <Logo className="h-10 w-10 shrink-0 drop-shadow-glow" />
                     <div>
                       <SheetTitle className="text-[18px] font-black tracking-tight text-foreground leading-none uppercase italic">System Kyron</SheetTitle>
-                      <span className="text-[9px] font-black uppercase tracking-[0.3em] mt-2 bg-gradient-to-r from-kyron-cyan via-blue-400 to-violet-400 bg-clip-text text-transparent block">
+                      <span className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.3em] mt-2 bg-gradient-to-r from-kyron-cyan via-blue-400 to-violet-400 bg-clip-text text-transparent block">
                         {t('mobile_portal_sub')}
                       </span>
                     </div>
@@ -251,7 +251,7 @@ export function LandingHeader() {
                           </div>
                           <div className="flex flex-col items-start">
                             <span className="text-xs font-black uppercase tracking-widest">{t('login')}</span>
-                            <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-kyron-cyan/50">{t('secure_portal')}</span>
+                            <span className="text-[10px] md:text-[8px] font-bold uppercase tracking-[0.2em] text-kyron-cyan/50">{t('secure_portal')}</span>
                           </div>
                         </Button>
                       </Link>
@@ -272,7 +272,7 @@ export function LandingHeader() {
                     </div>
                     <div className="flex items-center gap-3 p-4 bg-muted/30 dark:bg-white/[0.02] border border-border dark:border-white/5 rounded-2xl">
                       <Lock className="h-4 w-4 text-kyron-emerald/50" />
-                      <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">{t('encryption_active')}</span>
+                      <span className="text-[10px] md:text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">{t('encryption_active')}</span>
                     </div>
                   </div>
                 </SheetContent>

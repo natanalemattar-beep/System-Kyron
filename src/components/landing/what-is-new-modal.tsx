@@ -169,14 +169,14 @@ export function WhatIsNewModal({ forceOpen, onClose }: { forceOpen?: boolean; on
   return (
     <div className="fixed inset-0 z-[300] flex items-center justify-center p-4">
       <div onClick={handleClose} className="absolute inset-0 bg-black/80 backdrop-blur-xl" />
-      <div className="relative w-full max-w-2xl max-h-[85vh] bg-background border border-border dark:border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col">
+      <div className="relative w-full max-w-2xl max-h-[85vh] bg-background border border-border dark:border-white/10 rounded-2xl md:rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col">
         <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-kyron-cyan/20 via-kyron-cyan/5 to-transparent pointer-events-none" />
 
         {/* Header */}
         <div className="p-6 sm:p-8 relative shrink-0">
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-muted hover:bg-muted/80 text-muted-foreground/40 hover:text-foreground transition-all"
+            className="absolute top-3 right-3 p-3 rounded-full bg-muted hover:bg-muted/80 text-muted-foreground/40 hover:text-foreground transition-all"
           >
             <X className="h-4 w-4" />
           </button>
@@ -214,7 +214,7 @@ export function WhatIsNewModal({ forceOpen, onClose }: { forceOpen?: boolean; on
                 <button
                   key={key}
                   onClick={() => setFilter(key)}
-                  className={`text-[11px] font-bold px-3 py-1.5 rounded-xl border transition-all ${
+                  className={`text-[11px] font-bold px-4 py-2.5 md:px-3 md:py-1.5 rounded-xl border transition-all ${
                     filter === key
                       ? 'bg-kyron-cyan/20 border-kyron-cyan/40 text-kyron-cyan'
                       : 'bg-muted/30 border-border dark:border-white/5 text-muted-foreground/60 hover:text-foreground'
@@ -303,12 +303,12 @@ export function ChangelogTrigger({ onOpen }: { onOpen: () => void }) {
   return (
     <button
       onClick={onOpen}
-      className="relative flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-muted-foreground/30 hover:text-kyron-cyan transition-all"
+      className="relative flex items-center gap-1.5 px-2 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/30 hover:text-kyron-cyan transition-all"
     >
       <Sparkles className="h-3 w-3" />
       v{CURRENT_VERSION}
       {hasNew && (
-        <span className="absolute -top-1 -right-2 flex h-2 w-2">
+        <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full rounded-full bg-kyron-cyan opacity-75 animate-ping" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-kyron-cyan" />
         </span>

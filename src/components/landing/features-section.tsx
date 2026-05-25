@@ -84,7 +84,7 @@ export function FeaturesSection() {
         <ScrollReveal className="text-center mb-24 md:mb-32 space-y-8">
           <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-kyron-cyan/20 bg-kyron-cyan/5 mx-auto shadow-2xl">
             <Zap className="h-4 w-4 text-kyron-cyan" />
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-kyron-cyan/60">{t('badge')}</span>
+            <span className="text-[10px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-kyron-cyan/60">{t('badge')}</span>
           </div>
           <h2 className="text-[clamp(2.5rem,7vw,5.5rem)] font-black text-foreground leading-[0.9] tracking-tighter uppercase italic">
             {t('title_highlight')}
@@ -97,21 +97,21 @@ export function FeaturesSection() {
         </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 h-full">
-          <ScrollReveal delay={0.1} className="md:col-span-8 bento-card p-12 hover:border-kyron-cyan/30 hover:shadow-2xl hover:shadow-kyron-cyan/10">
-            <div className="relative z-10 space-y-6 max-w-xl">
-              <div className="h-16 w-16 rounded-[1.5rem] bg-kyron-cyan/10 border border-kyron-cyan/20 flex items-center justify-center text-kyron-cyan group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                <Gauge className="h-8 w-8" />
+          <ScrollReveal delay={0.1} className="md:col-span-8 bento-card p-8 md:p-12 hover:border-kyron-cyan/30 hover:shadow-2xl hover:shadow-kyron-cyan/10">
+            <div className="relative z-10 space-y-4 md:space-y-6 max-w-xl">
+              <div className="h-14 md:h-16 w-14 md:w-16 rounded-[1.2rem] md:rounded-[1.5rem] bg-kyron-cyan/10 border border-kyron-cyan/20 flex items-center justify-center text-kyron-cyan group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                <Gauge className="h-6 md:h-8 w-6 md:w-8" />
               </div>
-              <h3 className="text-4xl font-black text-foreground uppercase tracking-tighter italic">{features[0].title}</h3>
-              <p className="text-lg text-muted-foreground/70 leading-relaxed font-medium">{features[0].description}</p>
-              <div className="grid grid-cols-2 gap-8 pt-8 border-t border-border dark:border-white/5">
-                <div className="space-y-2">
-                  <p className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">Sincronización</p>
-                  <p className="text-4xl font-black text-foreground tracking-tighter italic">0.2ms</p>
+              <h3 className="text-3xl md:text-4xl font-black text-foreground uppercase tracking-tighter italic">{features[0].title}</h3>
+              <p className="text-base md:text-lg text-muted-foreground/70 leading-relaxed font-medium">{features[0].description}</p>
+              <div className="grid grid-cols-2 gap-4 md:gap-8 pt-6 md:pt-8 border-t border-border dark:border-white/5">
+                <div className="space-y-1 md:space-y-2">
+                  <p className="text-[11px] md:text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">Sincronización</p>
+                  <p className="text-3xl md:text-4xl font-black text-foreground tracking-tighter italic">0.2ms</p>
                 </div>
-                <div className="space-y-2">
-                  <p className="text-[10px] font-black text-kyron-emerald/40 uppercase tracking-widest">Cumplimiento</p>
-                  <p className="text-4xl font-black text-kyron-emerald tracking-tighter italic">100%</p>
+                <div className="space-y-1 md:space-y-2">
+                  <p className="text-[11px] md:text-[10px] font-black text-kyron-emerald/40 uppercase tracking-widest">Cumplimiento</p>
+                  <p className="text-3xl md:text-4xl font-black text-kyron-emerald tracking-tighter italic">100%</p>
                 </div>
               </div>
             </div>
@@ -126,17 +126,17 @@ export function FeaturesSection() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.2} className="md:col-span-4 bento-card p-10 hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col justify-between">
-            <div className="space-y-6">
-              <div className="h-14 w-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform duration-500">
-                <Timer className="h-7 w-7" />
+          <ScrollReveal delay={0.2} className="md:col-span-4 bento-card p-6 md:p-10 hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col justify-between">
+            <div className="space-y-4 md:space-y-6">
+              <div className="h-12 md:h-14 w-12 md:w-14 rounded-xl md:rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform duration-500">
+                <Timer className="h-6 md:h-7 w-6 md:w-7" />
               </div>
-              <h3 className="text-2xl font-black text-foreground uppercase tracking-tighter italic">{features[1].title}</h3>
-              <p className="text-base text-muted-foreground/70 font-medium leading-relaxed">{features[1].description}</p>
+              <h3 className="text-xl md:text-2xl font-black text-foreground uppercase tracking-tighter italic">{features[1].title}</h3>
+              <p className="text-sm md:text-base text-muted-foreground/70 font-medium leading-relaxed">{features[1].description}</p>
             </div>
-            <div className="pt-10">
+            <div className="pt-6 md:pt-10">
               <AnimatedProgress target={90} />
-              <p className="text-[9px] font-black text-blue-400 uppercase tracking-widest mt-3">Disponibilidad de Red 99.9%</p>
+              <p className="text-[10px] md:text-[9px] font-black text-blue-400 uppercase tracking-widest mt-3">Disponibilidad de Red 99.9%</p>
             </div>
           </ScrollReveal>
 
@@ -168,8 +168,8 @@ export function FeaturesSection() {
         </div>
 
         <ScrollReveal className="md:col-span-12 mt-8">
-          <div className="rounded-[3.5rem] bg-background/50 dark:bg-white/[0.02] border border-border dark:border-white/5 p-10 md:p-14">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-8 mb-10">
+          <div className="rounded-[2rem] md:rounded-[3.5rem] bg-background/50 dark:bg-white/[0.02] border border-border dark:border-white/5 p-6 md:p-14">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 mb-6 md:mb-10">
               <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-kyron-cyan/20 to-blue-500/20 border border-kyron-cyan/30 flex items-center justify-center text-kyron-cyan">
                 <Brain className="h-7 w-7" />
               </div>
@@ -214,7 +214,7 @@ export function FeaturesSection() {
           </div>
         </ScrollReveal>
 
-        <div className="mt-24 grid grid-cols-2 lg:grid-cols-4 gap-12 border-y border-border dark:border-white/5 py-16">
+        <div className="mt-12 md:mt-24 grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12 border-y border-border dark:border-white/5 py-10 md:py-16">
           {metrics.map((metric, i) => (
             <div
               key={i}
@@ -224,13 +224,13 @@ export function FeaturesSection() {
                 opacity: 0,
               }}
             >
-              <span className="text-5xl md:text-6xl font-black text-foreground tracking-tighter italic group-hover:text-glow-cyan transition-all duration-500">
+              <span className="text-4xl md:text-6xl font-black text-foreground tracking-tighter italic group-hover:text-glow-cyan transition-all duration-500">
                 <AnimatedNumber
                   target={metric.value}
                   suffix={metric.suffix}
                 />
               </span>
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">
+              <span className="text-[10px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.4em] text-muted-foreground/40">
                 {metric.label}
               </span>
             </div>

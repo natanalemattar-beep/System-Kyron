@@ -14,7 +14,7 @@ export function SustainabilitySection() {
       </div>
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <div className="grid lg:grid-cols-2 gap-24 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 md:gap-24 items-center">
           <div className="space-y-12">
             <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-kyron-emerald/30 bg-kyron-emerald/10 backdrop-blur-sm shadow-[0_0_30px_rgba(16,185,129,0.15)] animate-fade-in-up">
               <Leaf className="h-4 w-4 text-kyron-emerald animate-pulse" />
@@ -40,9 +40,9 @@ export function SustainabilitySection() {
               ].map((card, i) => (
                 <div
                   key={i}
-                  className="group/card p-10 rounded-[3rem] bg-background/50 dark:bg-white/[0.02] border border-border/5 dark:border-white/5 hover:border-kyron-emerald/30 transition-all duration-700 hover:-translate-y-2"
+                  className="group/card p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] bg-background/50 dark:bg-white/[0.02] border border-border/5 dark:border-white/5 hover:border-kyron-emerald/30 transition-all duration-700 hover:-translate-y-2"
                 >
-                  <div className="h-14 w-14 rounded-2xl bg-kyron-emerald/10 border border-kyron-emerald/20 flex items-center justify-center text-kyron-emerald mb-8 group-hover/card:scale-110 group-hover/card:rotate-12 transition-all">
+                  <div className="h-10 md:h-14 w-10 md:w-14 rounded-xl md:rounded-2xl bg-kyron-emerald/10 border border-kyron-emerald/20 flex items-center justify-center text-kyron-emerald mb-6 md:mb-8 group-hover/card:scale-110 group-hover/card:rotate-12 transition-all">
                     <card.icon className="h-7 w-7" />
                   </div>
                   <h4 className="text-xl font-black text-foreground uppercase tracking-tighter mb-4 italic">{card.title}</h4>

@@ -24,7 +24,7 @@ export function CtaSection() {
           <div className="absolute bottom-[20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-kyron-emerald/[0.04] blur-[140px]" />
         </div>
 
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="space-y-8 text-center lg:text-left">
               <ScrollReveal delay={0.1} y={20}>
