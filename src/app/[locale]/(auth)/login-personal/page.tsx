@@ -210,13 +210,8 @@ export default function LoginPersonalPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden bg-[#02040a]">
-      {/* Background HUD / Digital Vault */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 blur-[150px] rounded-full" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-600/5 blur-[150px] rounded-full" />
-        <div className="absolute inset-0 bg-[url('/images/grid-bg.png')] opacity-[0.02] mix-blend-overlay" />
-      </div>
+    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden bg-[#0a0e1a]">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#0a0e1a] via-[#0d1525] to-[#0a0e1a]" />
 
       <div className="absolute top-8 left-8 z-50">
         <Button variant="ghost" asChild className="rounded-full h-10 px-4 text-[10px] font-black uppercase tracking-widest text-white/30 hover:text-white hover:bg-white/5 transition-all">
@@ -232,18 +227,11 @@ export default function LoginPersonalPage() {
       >
         {/* Lado Informativo - Vault Aesthetics */}
         <div className="md:col-span-4 relative overflow-hidden flex flex-col justify-between text-white bg-gradient-to-br from-blue-700 via-blue-800 to-[#02040a] p-12">
-            <div className="absolute inset-0 opacity-10">
-                <div className="absolute inset-0 bg-[url('/images/grain.png')] mix-blend-overlay" />
-                <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                    <defs><pattern id="vaultGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5"/></pattern></defs>
-                    <rect width="100%" height="100%" fill="url(#vaultGrid)"/>
-                </svg>
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-transparent" />
 
             <div className="relative z-10 space-y-12">
-                <div className="h-20 w-20 rounded-[2.5rem] bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-3xl shadow-2xl group relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <Logo className="h-12 w-12 relative z-10 drop-shadow-glow" />
+                <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center shadow-2xl shadow-blue-600/20">
+                    <Logo className="h-12 w-12 brightness-0 invert" />
                 </div>
                 <div className="space-y-4">
                     <h1 className="text-5xl font-black tracking-tight leading-[0.9] uppercase font-outfit text-white">MI CUENTA<br/><span className="text-cyan-400">DIGITAL</span></h1>
@@ -278,7 +266,7 @@ export default function LoginPersonalPage() {
           {step === 'credentials' ? (
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <div className="mb-12">
-                <h2 className="text-4xl font-black tracking-tight text-white uppercase font-outfit leading-none mb-3 text-glow-cyan">Protocolo de Acceso</h2>
+                <h2 className="text-4xl font-black tracking-tight text-white uppercase font-outfit leading-none mb-3">Protocolo de Acceso</h2>
                 <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">Autenticación de Ciudadanía Digital</p>
               </div>
 
@@ -381,22 +369,21 @@ export default function LoginPersonalPage() {
                   onClick={handleBiometric}
                   disabled={isScanning || isLoading}
                   className={cn(
-                    'flex items-center justify-center gap-4 h-16 rounded-2xl border transition-all duration-500 w-full group overflow-hidden relative',
-                    isScanning ? 'border-cyan-500/40 bg-cyan-500/5' : 'border-white/5 hover:border-cyan-500/20 hover:bg-cyan-500/5'
+                    'flex items-center justify-center gap-4 h-14 rounded-xl border transition-all w-full',
+                    isScanning ? 'border-cyan-500/40 bg-cyan-500/5' : 'border-[#1e293b] bg-[#111827] hover:border-[#334155]'
                   )}
                 >
                   {isScanning ? (
-                    <div className="flex items-center gap-4">
-                      <Scan className="h-6 w-6 text-cyan-400 animate-pulse" />
-                      <span className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.3em]">Analizando Patrones...</span>
+                    <div className="flex items-center gap-3">
+                      <Scan className="h-5 w-5 text-cyan-400" />
+                      <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider">Analizando...</span>
                     </div>
                   ) : (
                     <>
-                      <Fingerprint className="h-6 w-6 text-white/20 group-hover:text-cyan-400 transition-colors" />
-                      <span className="text-[10px] font-black text-white/30 group-hover:text-cyan-400 transition-colors uppercase tracking-[0.3em]">Acceso Biométrico Pericial</span>
+                      <Fingerprint className="h-5 w-5 text-zinc-500" />
+                      <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Acceso Biométrico</span>
                     </>
                   )}
-                  <div className="absolute bottom-0 left-0 h-[2px] bg-cyan-500/50 group-hover:w-full w-0 transition-all duration-2000" />
                 </button>
 
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -413,8 +400,7 @@ export default function LoginPersonalPage() {
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
               <div className="mb-12 text-center">
                 <div className="mx-auto w-24 h-24 rounded-[2rem] bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-8 relative">
-                    <div className="absolute inset-0 bg-blue-500/20 blur-xl animate-pulse" />
-                    <KeyRound className="h-10 w-10 text-blue-400 relative z-10" />
+                    <KeyRound className="h-10 w-10 text-blue-400" />
                 </div>
                 <h2 className="text-4xl font-black tracking-tight text-white uppercase font-outfit mb-4">Verificación</h2>
                 <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] leading-relaxed">
@@ -430,7 +416,7 @@ export default function LoginPersonalPage() {
               {devCode && (
                 <div className="p-8 rounded-3xl bg-gradient-to-br from-cyan-600/20 to-blue-600/10 border border-cyan-500/30 mb-10 text-center relative overflow-hidden">
                     <div className="absolute top-2 left-2 text-[8px] font-black text-cyan-400/40 uppercase tracking-widest">System Kyron Debug</div>
-                    <p className="text-5xl font-black font-mono tracking-[0.3em] text-white text-glow-cyan mb-2">{devCode}</p>
+                    <p className="text-5xl font-black font-mono tracking-[0.3em] text-cyan-400 mb-2">{devCode}</p>
                     <p className="text-[9px] font-bold text-cyan-400/50 uppercase tracking-[0.2em]">Copia este código pericial</p>
                 </div>
               )}
