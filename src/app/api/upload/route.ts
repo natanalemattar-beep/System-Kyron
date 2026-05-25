@@ -3,19 +3,17 @@ import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
+import { encryptFile } from '@/lib/file-crypto';
 
 export const dynamic = 'force-dynamic';
 
-const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25 MB
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
 const ALLOWED_TYPES = [
-  // Images
   'image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif', 'image/bmp', 'image/heic', 'image/heif',
-  // Documents
   'application/pdf',
   'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-  // Text
   'text/plain', 'text/csv',
 ];
 
@@ -34,7 +32,6 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData();
     const file = formData.get('file') as File | null;
     const docType = formData.get('docType') as string | null;
-    const purpose = formData.get('purpose') as string | null;
 
     if (!file) {
       return NextResponse.json({ error: 'No se proporcionó ningún archivo' }, { status: 400 });
@@ -61,18 +58,20 @@ export async function POST(req: NextRequest) {
       .replace(/_{2,}/g, '_');
     const fileName = `${uniqueId}_${sanitizedName}`;
 
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+    const encrypted = encryptFile(buffer);
+
+    const uploadDir = path.join(process.cwd(), 'data', 'uploads');
     await mkdir(uploadDir, { recursive: true });
 
     const filePath = path.join(uploadDir, fileName);
-    await writeFile(filePath, buffer);
+    await writeFile(filePath, encrypted);
 
     return NextResponse.json({
       success: true,
       file: {
         name: file.name,
         storedName: fileName,
-        url: `/uploads/${fileName}`,
+        url: `/api/files/${fileName}`,
         size: file.size,
         type: file.type || `application/${ext.replace('.', '')}`,
         docType: docType || 'general',
