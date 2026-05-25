@@ -56,19 +56,10 @@ export default function LoginSelectionPage() {
   const enterpriseOptions = optionKeys.filter(o => o.category === 'corporate');
 
   return (
-    <div className="min-h-screen flex flex-col items-center w-full relative bg-[#02040a] overflow-hidden">
-      {/* Hyper-Space / HUD Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-blue-600/10 blur-[180px] rounded-full animate-pulse-slow" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[700px] h-[700px] bg-emerald-600/5 blur-[180px] rounded-full animate-pulse" />
-        
-        {/* Animated HUD Grid */}
-        <div className="absolute inset-0 bg-[url('/images/grid-bg.png')] bg-repeat opacity-[0.03] mix-blend-overlay" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#02040a]/80 to-[#02040a]" />
-
-        {/* Scanning Line */}
-        <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent z-10 pointer-events-none animate-scan-line" />
-      </div>
+    <div className="min-h-screen flex flex-col items-center w-full relative bg-[#0a0e1a] overflow-hidden">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#0a0e1a] via-[#0d1525] to-[#0a0e1a]" />
+      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-600/5 blur-[200px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-emerald-500/4 blur-[180px] rounded-full pointer-events-none" />
 
       <div className="w-full max-w-6xl px-6 py-6 flex justify-between items-center relative z-20">
         <Button variant="ghost" asChild className="rounded-full h-10 px-4 text-[10px] font-black uppercase tracking-widest text-white/30 hover:text-white hover:bg-white/5 transition-all">
@@ -89,11 +80,8 @@ export default function LoginSelectionPage() {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.1 }}
           >
-            <div className="relative group">
-              <div className="absolute inset-0 bg-cyan-500/20 blur-3xl rounded-full scale-150 animate-kyron-breathe" />
-              <div className="relative h-20 w-20 rounded-[2rem] bg-gradient-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center backdrop-blur-xl shadow-2xl group-hover:rotate-12 transition-transform duration-500">
-                <Logo className="h-12 w-12 relative drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" />
-              </div>
+            <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center shadow-2xl shadow-blue-600/20">
+              <Logo className="h-12 w-12 brightness-0 invert" />
             </div>
           </motion.div>
           
@@ -102,13 +90,13 @@ export default function LoginSelectionPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-white/5 bg-white/[0.02] text-cyan-400 text-[10px] font-black uppercase tracking-[0.4em] backdrop-blur-md mb-2"
+                className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-[10px] font-bold uppercase tracking-[0.3em] mb-2"
             >
                 <Lock className="h-3 w-3" /> {t('badge')}
             </motion.div>
             <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] font-black tracking-tight leading-[0.9] text-white uppercase font-outfit">
                 {t('title')}<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-emerald-400 text-glow-cyan">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-emerald-400">
                     {t('title_highlight')}
                 </span>
             </h1>
@@ -121,14 +109,11 @@ export default function LoginSelectionPage() {
         <div className="grid lg:grid-cols-12 gap-12 items-start">
             {/* PORTAL CIUDADANO - Left Side / Main focus */}
             <div className="lg:col-span-5 space-y-8">
-                <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.1)]">
-                        <User className="h-5 w-5 text-blue-400" />
+                <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                        <User className="h-4 w-4 text-blue-400" />
                     </div>
-                    <div className="flex-1">
-                        <h2 className="text-xs font-black text-white uppercase tracking-[0.3em]">{t('citizen_portal')}</h2>
-                        <div className="h-[1px] w-full bg-gradient-to-r from-blue-500/30 to-transparent mt-2" />
-                    </div>
+                    <h2 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">{t('citizen_portal')}</h2>
                 </div>
 
                 <div className="grid gap-4">
@@ -140,16 +125,16 @@ export default function LoginSelectionPage() {
                             transition={{ delay: 0.4 + (i * 0.1) }}
                         >
                             <Link href={o.href as any} className="group block" onClick={() => handleNavClick(o.href)}>
-                                <div className="glass-system-kyron-interactive p-8 rounded-[2.5rem] flex items-center gap-8 relative overflow-hidden">
-                                    <div className={cn("h-16 w-16 rounded-[1.5rem] bg-gradient-to-br flex items-center justify-center shadow-xl text-white shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500", o.color)}>
-                                        {navigatingTo === o.href ? <Loader2 className="h-7 w-7 animate-spin" /> : <o.icon className="h-7 w-7" />}
+                                <div className="p-6 rounded-2xl bg-[#111827] border border-[#1e293b] hover:border-blue-500/20 hover:bg-[#151e30] transition-all duration-300 flex items-center gap-6 shadow-lg shadow-black/10">
+                                    <div className={cn("h-14 w-14 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-lg text-white shrink-0 transition-all duration-300", o.color)}>
+                                        {navigatingTo === o.href ? <Loader2 className="h-6 w-6 animate-spin" /> : <o.icon className="h-6 w-6" />}
                                     </div>
-                                    <div className="flex-1 space-y-1">
-                                        <h3 className="text-2xl font-black text-white tracking-tighter uppercase group-hover:text-cyan-400 transition-colors">{t(`options.${o.key}.label`)}</h3>
-                                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.4em] leading-relaxed line-clamp-1">{t(`options.${o.key}.description`)}</p>
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-lg font-bold text-white tracking-tight">{t(`options.${o.key}.label`)}</h3>
+                                        <p className="text-[11px] text-zinc-400 mt-0.5">{t(`options.${o.key}.description`)}</p>
                                     </div>
-                                    <div className="h-12 w-12 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-cyan-500/30 group-hover:bg-cyan-500/10 transition-all">
-                                        <ArrowRight className="h-5 w-5 text-white/20 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
+                                    <div className="h-10 w-10 rounded-lg bg-[#1e293b] flex items-center justify-center group-hover:bg-blue-500/10 group-hover:text-blue-400 transition-all text-zinc-500">
+                                        <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
                                     </div>
                                 </div>
                             </Link>
@@ -160,14 +145,11 @@ export default function LoginSelectionPage() {
 
             {/* PORTAL CORPORATIVO - Right Side / Grid of modules */}
             <div className="lg:col-span-7 space-y-8">
-                <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.1)]">
-                        <Building2 className="h-5 w-5 text-emerald-400" />
+                <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                        <Building2 className="h-4 w-4 text-emerald-400" />
                     </div>
-                    <div className="flex-1">
-                        <h2 className="text-xs font-black text-white uppercase tracking-[0.3em]">{t('corporate_portals')}</h2>
-                        <div className="h-[1px] w-full bg-gradient-to-r from-emerald-500/30 to-transparent mt-2" />
-                    </div>
+                    <h2 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">{t('corporate_portals')}</h2>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -179,13 +161,13 @@ export default function LoginSelectionPage() {
                             transition={{ delay: 0.5 + (i * 0.05) }}
                         >
                             <Link href={option.href as any} className="group block" onClick={() => handleNavClick(option.href)}>
-                                <div className="glass-system-kyron-interactive p-6 rounded-[2rem] flex items-center gap-5">
-                                    <div className={cn("h-12 w-12 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-lg text-white shrink-0 group-hover:scale-110 transition-all duration-500", option.color)}>
-                                        {navigatingTo === option.href ? <Loader2 className="h-5 w-5 animate-spin" /> : <option.icon className="h-5 w-5" />}
+                                <div className="p-4 rounded-xl bg-[#111827] border border-[#1e293b] hover:border-emerald-500/20 hover:bg-[#151e30] transition-all duration-300 flex items-center gap-4 shadow-lg shadow-black/10">
+                                    <div className={cn("h-10 w-10 rounded-lg bg-gradient-to-br flex items-center justify-center shadow-md text-white shrink-0 transition-all duration-300", option.color)}>
+                                        {navigatingTo === option.href ? <Loader2 className="h-4 w-4 animate-spin" /> : <option.icon className="h-4 w-4" />}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <h4 className="text-sm font-black text-white uppercase tracking-tight group-hover:text-cyan-400 transition-colors">{t(`options.${option.key}.label`)}</h4>
-                                        <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest mt-0.5 line-clamp-1">{t(`options.${option.key}.description`)}</p>
+                                        <h4 className="text-sm font-bold text-white">{t(`options.${option.key}.label`)}</h4>
+                                        <p className="text-[10px] text-zinc-400 mt-0.5 truncate">{t(`options.${option.key}.description`)}</p>
                                     </div>
                                 </div>
                             </Link>
@@ -198,21 +180,20 @@ export default function LoginSelectionPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1 }}
-                    className="p-8 rounded-[2.5rem] bg-gradient-to-r from-primary/10 to-cyan-500/5 border border-white/5 relative overflow-hidden group"
+                    className="p-6 rounded-2xl bg-gradient-to-r from-blue-500/5 to-emerald-500/5 border border-blue-500/10"
                 >
-                    <div className="absolute inset-0 bg-grid-white/[0.02] -z-10" />
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
-                        <div className="flex items-center gap-6">
-                            <div className="h-16 w-16 rounded-[1.5rem] bg-white/5 flex items-center justify-center border border-white/10 shadow-2xl group-hover:rotate-6 transition-transform">
-                                <Sparkles className="h-8 w-8 text-primary animate-pulse" />
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div className="flex items-center gap-4">
+                            <div className="h-12 w-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                                <Sparkles className="h-6 w-6 text-blue-400" />
                             </div>
                             <div>
-                                <h4 className="text-xl font-black text-white uppercase tracking-tighter font-outfit">{t('full_ecosystem')}</h4>
-                                <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] mt-1">{t('ecosystem_desc')}</p>
+                                <h4 className="text-base font-bold text-white">{t('full_ecosystem')}</h4>
+                                <p className="text-xs text-zinc-400 mt-0.5">{t('ecosystem_desc')}</p>
                             </div>
                         </div>
-                        <Button asChild className="h-14 px-10 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] bg-white text-black hover:bg-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-[0_20px_40px_rgba(255,255,255,0.1)]">
-                            <Link href="/register">Crear Cuenta <ArrowRight className="ml-3 h-4 w-4" /></Link>
+                        <Button asChild className="h-11 px-6 rounded-xl font-bold text-xs bg-white text-slate-900 hover:bg-blue-50 transition-all shadow-lg shadow-white/10">
+                            <Link href="/register">Crear Cuenta <ArrowRight className="ml-2 h-4 w-4" /></Link>
                         </Button>
                     </div>
                 </motion.div>
@@ -222,7 +203,7 @@ export default function LoginSelectionPage() {
         <footer className="mt-24 pt-12 border-t border-white/[0.03] flex flex-col items-center gap-8">
             <div className="flex items-center justify-center gap-4 flex-wrap opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
                 {["VEN-NIF", "SENIAT", "IGTF 3.0", "LOTTT", "SAPI", "SUDEBAN"].map((badge) => (
-                    <div key={badge} className="px-5 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-white">
+                    <div key={badge} className="px-4 py-1.5 rounded-lg bg-[#111827] border border-[#1e293b] text-[10px] font-bold tracking-wider text-zinc-500">
                         {badge}
                     </div>
                 ))}

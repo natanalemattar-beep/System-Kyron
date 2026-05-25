@@ -348,7 +348,7 @@ export default function RegisterContabilidadPage() {
             </div>
 
             {/* Nav */}
-            <nav className="relative z-20 border-b border-white/5 bg-slate-950/60 backdrop-blur-xl">
+            <nav className="relative z-20 border-b border-[#1e293b] bg-[#0a0e1a]">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3 group">
                         <div className="p-2 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/20 transition-transform group-hover:scale-105">
@@ -399,7 +399,7 @@ export default function RegisterContabilidadPage() {
                 "relative z-10 container mx-auto px-4 py-8 flex flex-col items-center min-h-[calc(100vh-4rem)]",
                 step === 1 ? "max-w-6xl" : step === 4 ? "max-w-lg" : "max-w-2xl"
             )}>
-                <div className="w-full bg-white/[0.03] backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/20 border border-white/[0.06] overflow-hidden">
+                <div className="w-full bg-[#111827] rounded-2xl shadow-2xl shadow-black/30 border border-[#1e293b] overflow-hidden">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="p-6 md:p-10">
                             {/* Step 1: Plan Selection */}
@@ -448,8 +448,8 @@ export default function RegisterContabilidadPage() {
                                                         className={cn(
                                                             "relative text-left p-5 rounded-2xl border transition-all duration-300 group",
                                                             isSelected
-                                                                ? `border-${combo.color}-500/40 bg-${combo.color}-500/5 ring-2 ring-${combo.color}-500/20 shadow-lg ${combo.glow}`
-                                                                : "border-white/10 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]"
+                                                                ? "border-cyan-500/40 bg-cyan-500/5 ring-2 ring-cyan-500/20 shadow-lg shadow-cyan-500/10"
+                                                                : "border-[#1e293b] bg-[#111827] hover:border-[#334155] hover:bg-[#151e30]"
                                                         )}
                                                     >
                                                         {combo.popular && (
@@ -460,7 +460,7 @@ export default function RegisterContabilidadPage() {
                                                         <div className="flex items-center gap-2.5 mb-4">
                                                             <div className={cn(
                                                                 "p-2 rounded-xl transition-all",
-                                                                isSelected ? `bg-gradient-to-br ${combo.gradient} text-white shadow-md` : "bg-white/10"
+                                                                isSelected ? "bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-md" : "bg-[#1e293b]"
                                                             )}>
                                                                 <Icon className="h-4 w-4" />
                                                             </div>

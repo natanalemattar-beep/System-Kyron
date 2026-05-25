@@ -33,27 +33,18 @@ export default function CartaPage() {
     if (exporting || !letterRef.current) return;
     setExporting(true);
     try {
-      const canvas = await toPng(letterRef.current, {
+      const dataUrl = await toPng(letterRef.current, {
         quality: 1,
         pixelRatio: 2,
         backgroundColor: "#ffffff",
       });
       const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
       const pdfW = pdf.internal.pageSize.getWidth();
-      const pdfH = pdf.internal.pageSize.getHeight();
-      const ratio = canvas.width / canvas.height;
-      const imgW = pdfW;
-      const imgH = pdfW / ratio;
-      pdf.addImage(canvas, "JPEG", 0, 0, imgW, imgH > pdfH ? pdfH : imgH, undefined, "FAST");
-      if (imgH > pdfH) {
-        pdf.addPage();
-        const remaining = imgH - pdfH;
-        const srcY = pdfH / imgH * canvas.height;
-        pdf.addImage(canvas, "JPEG", 0, 0, pdfW, remaining, undefined, "FAST", srcY);
-      }
+      const imgH = (pdfW * letterRef.current.offsetHeight) / letterRef.current.offsetWidth;
+      pdf.addImage(dataUrl, "PNG", 0, 0, pdfW, imgH);
       pdf.save("System-Kyron-Carta-FONACIT.pdf");
-    } catch (err) {
-      console.error("Error generating PDF:", err);
+    } catch (err: any) {
+      alert("Error al generar PDF: " + (err?.message || "desconocido"));
     } finally {
       setExporting(false);
     }
