@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
       : message;
 
     const response = await ai.generateText(finalPrompt, {
-      model: "gemini-2.5-flash",
+        model: "gemini-1.5-flash",
       temperature: 0.7,
       maxTokens: 1024,
       systemInstruction: systemPrompt,

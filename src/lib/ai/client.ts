@@ -1,5 +1,6 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, FunctionCall, FunctionResponse } from "@google/genai";
 import { getNextKey, markKeyRateLimited } from "./key-manager";
+import { toolRegistry } from "./tools";
 
 export interface AiGenerateOptions {
   model?: string;
@@ -8,6 +9,7 @@ export interface AiGenerateOptions {
   systemInstruction?: string;
   timeout?: number;
   images?: string[];
+  tools?: any[];
 }
 
 function sleep(ms: number) {
@@ -127,12 +129,13 @@ export class AiClient {
     options: AiGenerateOptions = {}
   ): Promise<string> {
     const {
-      model = "gemini-2.5-flash",
+      model = "gemini-1.5-flash",
       temperature = 0.7,
       maxTokens = 8192,
       systemInstruction,
       timeout = 60000,
       images,
+      tools,
     } = options;
 
     return this.retryWithBackoff(async () => {
@@ -160,6 +163,7 @@ export class AiClient {
             systemInstruction: systemInstruction
               ? { text: systemInstruction }
               : undefined,
+            tools,
           },
         });
         return response.text || "";
@@ -175,12 +179,13 @@ export class AiClient {
     fallback?: T
   ): Promise<T> {
     const {
-      model = "gemini-2.5-flash",
+      model = "gemini-1.5-flash",
       temperature = 0.3,
       maxTokens = 8192,
       systemInstruction,
       timeout = 60000,
       images,
+      tools,
     } = options;
 
     const defaultFallback = (fallback || {}) as T;
@@ -211,9 +216,116 @@ export class AiClient {
               ? { text: systemInstruction }
               : undefined,
             responseMimeType: "application/json",
+            tools,
           },
         });
         return safeJsonParse<T>(response.text || "{}", defaultFallback);
+      } finally {
+        clearTimeout(timer);
+      }
+    });
+  }
+
+  async agenticGenerate(
+    prompt: string,
+    options: AiGenerateOptions = {}
+  ): Promise<{ text: string; toolCalls: Array<{ name: string; args: any; result: any }> }> {
+    const {
+      model = "gemini-1.5-flash",
+      temperature = 0.3,
+      maxTokens = 8192,
+      systemInstruction,
+      timeout = 60000,
+      images,
+      tools,
+    } = options;
+
+    const history: any[] = [];
+    const toolCalls: Array<{ name: string; args: any; result: any }> = [];
+
+    return this.retryWithBackoff(async () => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeout);
+      
+      try {
+        // Initial User Message
+        const initialContent = images?.length
+          ? [{
+              role: "user" as const,
+              parts: [
+                { text: prompt },
+                ...images.map((img) => ({
+                  inlineData: { mimeType: detectMimeType(img), data: img.split(",")[1] || img },
+                })),
+              ],
+            }]
+          : prompt;
+        
+        history.push({ role: "user", parts: Array.isArray(initialContent) ? initialContent[0].parts : [{ text: initialContent }] });
+
+        let loopCount = 0;
+        const maxLoopCount = 5;
+
+        while (loopCount < maxLoopCount) {
+          loopCount++;
+          
+          const response = await this.client.models.generateContent({
+            model,
+            contents,
+            config: {
+              temperature,
+              maxOutputTokens: maxTokens,
+              systemInstruction: systemInstruction
+                ? { text: systemInstruction }
+                : undefined,
+              tools,
+            },
+          });
+
+          const candidate = response.candidates?.[0];
+          if (!candidate || !candidate.content) {
+            return { text: "No response from AI.", toolCalls };
+          }
+
+          const parts = candidate.content.parts;
+          let hasFunctionCall = false;
+
+          for (const part of parts) {
+            if (part.functionCall) {
+              hasFunctionCall = true;
+              const { name, args } = part.functionCall;
+              const implementation = toolRegistry[name];
+
+              if (!implementation) {
+                throw new Error(`Tool '${name}' not found in registry.`);
+              }
+
+              console.log(`[AI Agent] Calling tool: ${name}`, args);
+              const result = await implementation.execute(args);
+              
+              toolCalls.push({ name, args, result });
+
+              // Add function call to history
+              history.push({
+                role: "model",
+                parts: [{ functionCall: part.functionCall }]
+              });
+
+              // Add function response to history
+              history.push({
+                role: "user",
+                parts: [{ functionResponse: { name, response: result } }]
+              });
+            }
+          }
+
+          if (!hasFunctionCall) {
+            const textPart = parts.find(p => p.text);
+            return { text: textPart?.text || "No response from AI.", toolCalls };
+          }
+        }
+
+        return { text: "Agent loop limit reached.", toolCalls };
       } finally {
         clearTimeout(timer);
       }
@@ -229,3 +341,4 @@ export class AiClient {
 }
 
 export const ai = new AiClient();
+

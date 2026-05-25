@@ -105,6 +105,10 @@ async function createCoreAuthTables() {
   await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS telefono_hash TEXT`);
   await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS cedula_hash TEXT`);
   await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS rif_hash TEXT`);
+  await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS modulo_origen TEXT DEFAULT ''`);
+  await query(`ALTER TABLE users DROP CONSTRAINT IF EXISTS users_email_key`);
+  await query(`ALTER TABLE users DROP CONSTRAINT IF EXISTS users_cedula_key`);
+  await query(`ALTER TABLE users DROP CONSTRAINT IF EXISTS users_rif_key`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS user_modules (

@@ -93,32 +93,26 @@ async function registerNatural(body: Record<string, unknown>) {
         return NextResponse.json({ error: 'Debes proporcionar al menos un número de teléfono' }, { status: 400 });
     }
 
-    const existing = await queryOne('SELECT id FROM users WHERE email = $1', [normalizedEmail]);
-    if (existing) {
-        return NextResponse.json({ error: 'Ya existe una cuenta con ese correo' }, { status: 409 });
-    }
-
-    const cedulaHash = generateSearchHash(cedula);
-    const cedulaExisting = await queryOne('SELECT id FROM users WHERE cedula_hash = $1', [cedulaHash]);
-    if (cedulaExisting) {
-        return NextResponse.json({ error: 'Ya existe una cuenta con esa cédula' }, { status: 409 });
-    }
-
     const password_hash = await bcrypt.hash(password, 12);
+    const cedulaHash = generateSearchHash(cedula);
 
     const encCedula = encryptIfNotEmpty(cedula);
     const encTelefono = encryptIfNotEmpty(telefono);
     const encTelefonoAlt = encryptIfNotEmpty(telefono_alt);
     const telefonoHash = generateSearchHash(telefono);
 
+    const moduloNatural = (Array.isArray(modules) && modules.length > 0)
+        ? String((modules[0] as { id: string }).id) : '';
+
     const [user] = await query<{ id: number; email: string }>(
         `INSERT INTO users (
             email, password_hash, nombre, apellido, cedula, telefono, telefono_alt,
             fecha_nacimiento, genero, estado_civil,
             estado_residencia, municipio, ciudad, direccion, tipo,
-            verificado, email_verificado, telefono_verificado, telefono_hash, cedula_hash
+            verificado, email_verificado, telefono_verificado, telefono_hash, cedula_hash,
+            modulo_origen
          )
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'natural', $15, $16, $17, $18, $19)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'natural', $15, $16, $17, $18, $19, $20)
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
@@ -130,7 +124,8 @@ async function registerNatural(body: Record<string, unknown>) {
             emailVerified,
             phoneVerified,
             telefonoHash,
-            cedulaHash
+            cedulaHash,
+            moduloNatural
         ]
     );
 
@@ -172,6 +167,36 @@ async function registerNatural(body: Record<string, unknown>) {
             );
         } catch (planErr) {
             console.error('[register] Fallo al actualizar plan para natural:', planErr);
+        }
+    }
+
+    const documentos = body.documentos as Record<string, { name: string; storedName: string; url: string; size: number; type: string; docType: string }> | undefined;
+    if (documentos && typeof documentos === 'object' && Object.keys(documentos).length > 0) {
+        const CATEGORY_MAP: Record<string, string> = {
+            cedula_frontal: 'identidad',
+            cedula_reverso: 'identidad',
+            rif: 'fiscal',
+        };
+        try {
+            for (const [docId, doc] of Object.entries(documentos)) {
+                if (!doc) continue;
+                await query(
+                    `INSERT INTO documentos_personales
+                     (user_id, categoria, nombre, tipo_archivo, tamano_kb, url_storage, descripcion)
+                     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+                    [
+                        user.id,
+                        CATEGORY_MAP[docId] || 'otro',
+                        doc.name || docId,
+                        doc.type?.startsWith('image/') ? 'IMAGEN' : 'PDF',
+                        Math.round((doc.size || 0) / 1024),
+                        doc.url || '',
+                        `Subido durante registro — ${docId}`,
+                    ]
+                );
+            }
+        } catch (docErr) {
+            console.error('[register] Fallo al insertar documentos personales:', docErr);
         }
     }
 
@@ -260,19 +285,9 @@ async function registerJuridico(body: Record<string, unknown>) {
         return NextResponse.json({ error: pwCheck.reason }, { status: 400 });
     }
 
-    const existing = await queryOne('SELECT id FROM users WHERE email = $1', [normalizedEmail]);
-    if (existing) {
-        return NextResponse.json({ error: 'Ya existe una cuenta con ese correo' }, { status: 409 });
-    }
-
+    const password_hash = await bcrypt.hash(password as string, 12);
     const rifClean = (rif as string).trim();
     const rifHash = generateSearchHash(rifClean);
-    const rifExisting = await queryOne('SELECT id FROM users WHERE rif_hash = $1', [rifHash]);
-    if (rifExisting) {
-        return NextResponse.json({ error: 'Ya existe una empresa registrada con ese RIF' }, { status: 409 });
-    }
-
-    const password_hash = await bcrypt.hash(password as string, 12);
     const sanitizedRazonSocial = sanitizeString(razonSocial as string, 200);
     const sanitizedCapitalSocial = capital_social ? sanitizeString(String(capital_social), 50) : '';
     const sanitizedCodigoCiiu = codigo_ciiu ? sanitizeString(String(codigo_ciiu), 10) : '';
@@ -281,6 +296,9 @@ async function registerJuridico(body: Record<string, unknown>) {
     const repCedulaHash = generateSearchHash(repCedula as string);
     const encRif = encryptIfNotEmpty(rifClean);
 
+
+    const moduloJuridico = (Array.isArray(modules) && modules.length > 0)
+        ? String((modules[0] as { id: string }).id) : '';
 
     const results = await query<{ id: number; email: string }>(
         `INSERT INTO users (
@@ -291,7 +309,8 @@ async function registerJuridico(body: Record<string, unknown>) {
             rep_nombre, rep_cedula, rep_email, rep_cargo, rep_telefono,
             plan, plan_monto,
             verificado, email_verificado, telefono_verificado,
-            telefono_hash, rif_hash, rep_cedula_hash
+            telefono_hash, rif_hash, rep_cedula_hash,
+            modulo_origen
          )
          VALUES ($1, $2, 'juridico',
                  $3, $4, $5, $6, $7, $8,
@@ -300,7 +319,7 @@ async function registerJuridico(body: Record<string, unknown>) {
                  $17, $18, $19, $20, $21,
                  $22, $23,
                  $24, $25, $26,
-                 $27, $28, $29)
+                 $27, $28, $29, $30)
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
@@ -330,7 +349,8 @@ async function registerJuridico(body: Record<string, unknown>) {
             phoneVerified,
             telefonoHash,
             rifHash,
-            repCedulaHash
+            repCedulaHash,
+            moduloJuridico
         ]
     );
 

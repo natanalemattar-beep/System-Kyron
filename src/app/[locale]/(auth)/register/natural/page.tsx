@@ -359,6 +359,9 @@ export default function RegisterNaturalPage() {
           direccion: data.direccion || '',
           modules: [{ id: 'personal', label: 'Cuenta Personal' }],
           plan: 'personal',
+          documentos: Object.fromEntries(
+            Object.entries(uploadedDocs).filter(([_, v]) => v !== null)
+          ),
         }),
       });
       const json = await res.json();
@@ -639,6 +642,7 @@ export default function RegisterNaturalPage() {
                     onDocumentsChange={setUploadedDocs}
                     documents={uploadedDocs}
                     showCamera={true}
+                    autoVerify={false}
                   />
                 </div>
               </>

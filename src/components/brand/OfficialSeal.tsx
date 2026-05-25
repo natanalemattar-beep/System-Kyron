@@ -109,8 +109,7 @@ export function OfficialSeal({ className }: { className?: string }) {
             <div ref={sealRef}
                 className={cn(
                     "relative w-80 h-80 lg:w-96 lg:h-96",
-                    "bg-white",
-                    "shadow-[0_20px_60px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.04)]",
+                    "shadow-[0_20px_60px_rgba(0,0,0,0.08)]",
                     className
                 )}
             >
@@ -118,7 +117,7 @@ export function OfficialSeal({ className }: { className?: string }) {
                     <defs>
                         <clipPath id="circleClip"><circle cx="200" cy="200" r="195" /></clipPath>
                     </defs>
-                    <circle cx="200" cy="200" r="195" fill="#f8fafc" />
+                    <circle cx="200" cy="200" r="195" fill="none" />
                     <circle cx="200" cy="200" r="192" fill="none" stroke="#0f172a" strokeWidth="3" />
                     <circle cx="200" cy="200" r="185" fill="none" stroke="#0f172a" strokeWidth="1" />
                     <circle cx="200" cy="200" r="178" fill="none" stroke="#0f172a" strokeWidth="0.5" />

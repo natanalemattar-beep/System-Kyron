@@ -79,7 +79,7 @@ Responde EXACTAMENTE este JSON, sin texto adicional:
 }`;
 
     const text = await ai.generateText(prompt, {
-      model: "gemini-2.5-flash",
+      model: "gemini-1.5-flash",
       temperature: 0.05,
       systemInstruction: "Eres un perito forense documentológico experto en documentos de identidad venezolanos. Tu trabajo es analizar con máxima precisión y rigor. Responde SOLO con JSON válido.",
       images: [image],
