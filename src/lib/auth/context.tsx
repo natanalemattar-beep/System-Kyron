@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef, ReactNode } from 'react';
 import { useRouter, usePathname } from '@/navigation';
+import { getDashboardPath } from '@/lib/module-paths';
 
 export interface AuthUser {
     id: number;
@@ -25,30 +26,7 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-// Priority-ordered: first matching module wins
-const MODULE_PATH_MAP: Record<string, string> = {
-    contabilidad: '/dashboard-empresa',
-    juridico: '/dashboard-empresa',
-    legal: '/escritorio-juridico',
-    ventas: '/dashboard-empresa',
-    tpv: '/dashboard-empresa',
-    socios: '/dashboard-socios',
-    sostenibilidad: '/sostenibilidad',
-    telecom: '/mi-linea',
-    rrhh: '/dashboard-rrhh',
-    nomina: '/dashboard-rrhh',
-    talento: '/dashboard-rrhh',
-    informatica: '/dashboard-it',
-};
 
-export function getModuleDashboardPath(modules?: string[]): string | null {
-    if (!modules || modules.length === 0) return null;
-    for (const mod of modules) {
-        const path = MODULE_PATH_MAP[mod];
-        if (path) return path;
-    }
-    return null;
-}
 
 function normalizeUser(raw: AuthUser | null | undefined): AuthUser | null {
     if (!raw?.id) return null;

@@ -17,6 +17,7 @@ import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { getDeviceFingerprint } from '@/lib/device-fingerprint';
+import { getDashboardPath } from '@/lib/module-paths';
 
 export default function LoginPersonalPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -101,28 +102,7 @@ export default function LoginPersonalPage() {
         setIsLoading(false);
         return;
       }
-      const MODULE_PATH_MAP: Record<string, string> = {
-        contabilidad: '/dashboard-empresa',
-        juridico: '/dashboard-empresa',
-        legal: '/escritorio-juridico',
-        ventas: '/dashboard-empresa',
-        tpv: '/dashboard-empresa',
-        sostenibilidad: '/sostenibilidad',
-        telecom: '/mi-linea',
-        socios: '/dashboard-socios',
-        rrhh: '/dashboard-empresa',
-        nomina: '/dashboard-empresa',
-        talento: '/dashboard-empresa',
-        informatica: '/dashboard-it',
-      };
-      const modules = json.user?.modules;
-      let dashboardPath = '/dashboard';
-      if (modules && modules.length > 0) {
-        for (const mod of modules) {
-          const p = MODULE_PATH_MAP[mod];
-          if (p) { dashboardPath = p; break; }
-        }
-      }
+      const dashboardPath = getDashboardPath(json.user?.modules ?? []);
       if (json.accessKeyUsed || json.success) {
         const title = json.trustedDevice ? 'Dispositivo confiable' : (json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido');
         const desc = json.trustedDevice ? `Bienvenido, ${json.user?.nombre ?? ''}. Acceso automático desde dispositivo confiable.` : `Bienvenido, ${json.user?.nombre ?? ''}.`;
@@ -192,10 +172,7 @@ export default function LoginPersonalPage() {
       const json = await res.json();
       if (!res.ok) { setError(json.error || 'Código incorrecto.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); setTimeout(() => inputRefs.current[0]?.focus(), 100); return; }
       toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-      const modPathMap: Record<string, string> = { contabilidad: '/dashboard-empresa', juridico: '/dashboard-empresa', legal: '/escritorio-juridico', ventas: '/dashboard-empresa', tpv: '/dashboard-empresa', sostenibilidad: '/sostenibilidad', telecom: '/mi-linea', socios: '/dashboard-socios', rrhh: '/dashboard-empresa', nomina: '/dashboard-empresa', talento: '/dashboard-empresa', informatica: '/dashboard-it' };
-      let dest = '/dashboard';
-      for (const mod of (json.user?.modules ?? [])) { const p = modPathMap[mod]; if (p) { dest = p; break; } }
-      router.push(dest as any);
+      router.push(getDashboardPath(json.user?.modules ?? []) as any);
     } catch { setError('Error de conexión.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); }
   };
 

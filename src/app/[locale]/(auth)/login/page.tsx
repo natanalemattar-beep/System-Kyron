@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from '@/navigation';
 import { useAuth } from '@/lib/auth/context';
+import { MODULE_PATH_MAP } from '@/lib/module-paths';
 
 const optionKeys = [
   { key: 'personal', href: '/login-personal', icon: User, category: 'citizen', color: 'from-blue-500 to-indigo-600', iconBg: 'bg-blue-500/10', textColor: 'text-blue-600', borderHover: 'hover:border-blue-400/50', shadow: 'hover:shadow-blue-500/10', glow: 'rgba(59,130,246,0.18)' },
@@ -21,21 +22,6 @@ const optionKeys = [
   { key: 'sustainability', href: '/login-sostenibilidad', icon: Recycle, category: 'corporate', color: 'from-green-500 to-emerald-600', iconBg: 'bg-green-500/10', textColor: 'text-green-600', borderHover: 'hover:border-green-400/50', shadow: 'hover:shadow-green-500/10', glow: 'rgba(34,197,94,0.18)' },
   { key: 'it', href: '/login-informatica', icon: Cpu, category: 'corporate', color: 'from-cyan-500 to-teal-600', iconBg: 'bg-cyan-500/10', textColor: 'text-cyan-600', borderHover: 'hover:border-cyan-400/50', shadow: 'hover:shadow-cyan-500/10', glow: 'rgba(6,182,212,0.18)' },
 ];
-
-const MODULE_PATH_MAP: Record<string, string> = {
-  contabilidad: '/dashboard-empresa',
-  juridico: '/dashboard-empresa',
-  legal: '/escritorio-juridico',
-  ventas: '/dashboard-empresa',
-  tpv: '/dashboard-empresa',
-  socios: '/dashboard-socios',
-  sostenibilidad: '/sostenibilidad',
-  telecom: '/mi-linea',
-  rrhh: '/dashboard-empresa',
-  nomina: '/dashboard-empresa',
-  talento: '/dashboard-empresa',
-  informatica: '/dashboard-it',
-};
 
 export default function LoginSelectionPage() {
   const t = useTranslations('LoginPage');
