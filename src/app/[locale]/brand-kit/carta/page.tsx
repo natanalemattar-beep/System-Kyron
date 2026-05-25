@@ -6,7 +6,7 @@ import { ShieldCheck, Lock, ArrowLeft, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const ACCESS_CODE = "kyron2026";
+const ACCESS_CODE = "Carlos123";
 
 export default function CartaPage() {
   const [code, setCode] = useState("");
