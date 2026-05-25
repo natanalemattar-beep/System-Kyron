@@ -101,27 +101,39 @@ export class AiClient {
   }
 
   private async retryWithBackoff<T>(
-    fn: () => Promise<T>,
+    fn: (signal?: AbortSignal) => Promise<T>,
     maxRetries = 3
   ): Promise<T> {
-    for (let attempt = 0; attempt < maxRetries; attempt++) {
-      try {
-        return await fn();
-      } catch (error: any) {
-        if (isRateLimitError(error) && attempt < maxRetries - 1) {
-          markKeyRateLimited(this.keyIndex);
-          const delay = extractRetryDelay(error) + attempt * 5000;
-          console.warn(`[AI] Rate limit, retrying in ${delay}ms (attempt ${attempt + 1}/${maxRetries})`);
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 60000);
+
+    try {
+      for (let attempt = 0; attempt < maxRetries; attempt++) {
+        try {
+          const result = await fn(controller.signal);
+          return result;
+        } catch (error: any) {
+          if (attempt === maxRetries - 1) throw error;
+          if (isRateLimitError(error)) {
+            markKeyRateLimited(this.keyIndex);
+            const delay = extractRetryDelay(error) + attempt * 5000;
+            console.warn(`[AI] Rate limit, retrying in ${delay}ms (attempt ${attempt + 1}/${maxRetries})`);
+            await sleep(delay);
+            const next = getNextKey();
+            this.client = next.client;
+            this.keyIndex = next.index;
+            continue;
+          }
+          if (controller.signal.aborted) throw error;
+          const delay = Math.min(1000 * Math.pow(2, attempt), 10000);
+          console.warn(`[AI] Transient error, retrying in ${delay}ms (attempt ${attempt + 1}/${maxRetries})`);
           await sleep(delay);
-          const next = getNextKey();
-          this.client = next.client;
-          this.keyIndex = next.index;
-          continue;
         }
-        throw error;
       }
+      throw new Error("Max retries exceeded for AI request");
+    } finally {
+      clearTimeout(timer);
     }
-    throw new Error("Max retries exceeded for AI request");
   }
 
   async generateText(
@@ -138,38 +150,32 @@ export class AiClient {
       tools,
     } = options;
 
-    return this.retryWithBackoff(async () => {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), timeout);
-      try {
-        const contents = images?.length
-          ? [{
-              role: "user" as const,
-              parts: [
-                { text: prompt },
-                ...images.map((img) => ({
-                  inlineData: { mimeType: detectMimeType(img), data: img.split(",")[1] || img },
-                })),
-              ],
-            }]
-          : prompt;
+    return this.retryWithBackoff(async (signal) => {
+      const contents = images?.length
+        ? [{
+            role: "user" as const,
+            parts: [
+              { text: prompt },
+              ...images.map((img) => ({
+                inlineData: { mimeType: detectMimeType(img), data: img.split(",")[1] || img },
+              })),
+            ],
+          }]
+        : prompt;
 
-        const response = await this.client.models.generateContent({
-          model,
-          contents,
-          config: {
-            temperature,
-            maxOutputTokens: maxTokens,
-            systemInstruction: systemInstruction
-              ? { text: systemInstruction }
-              : undefined,
-            tools,
-          },
-        });
-        return response.text || "";
-      } finally {
-        clearTimeout(timer);
-      }
+      const response = await this.client.models.generateContent({
+        model,
+        contents,
+        config: {
+          temperature,
+          maxOutputTokens: maxTokens,
+          systemInstruction: systemInstruction
+            ? { text: systemInstruction }
+            : undefined,
+          tools,
+        },
+      }, { abortSignal: signal });
+      return response.text || "";
     });
   }
 
@@ -190,39 +196,33 @@ export class AiClient {
 
     const defaultFallback = (fallback || {}) as T;
 
-    return this.retryWithBackoff(async () => {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), timeout);
-      try {
-        const contents = images?.length
-          ? [{
-              role: "user" as const,
-              parts: [
-                { text: prompt },
-                ...images.map((img) => ({
-                  inlineData: { mimeType: detectMimeType(img), data: img.split(",")[1] || img },
-                })),
-              ],
-            }]
-          : prompt;
+    return this.retryWithBackoff(async (signal) => {
+      const contents = images?.length
+        ? [{
+            role: "user" as const,
+            parts: [
+              { text: prompt },
+              ...images.map((img) => ({
+                inlineData: { mimeType: detectMimeType(img), data: img.split(",")[1] || img },
+              })),
+            ],
+          }]
+        : prompt;
 
-        const response = await this.client.models.generateContent({
-          model,
-          contents,
-          config: {
-            temperature,
-            maxOutputTokens: maxTokens,
-            systemInstruction: systemInstruction
-              ? { text: systemInstruction }
-              : undefined,
-            responseMimeType: "application/json",
-            tools,
-          },
-        });
-        return safeJsonParse<T>(response.text || "{}", defaultFallback);
-      } finally {
-        clearTimeout(timer);
-      }
+      const response = await this.client.models.generateContent({
+        model,
+        contents,
+        config: {
+          temperature,
+          maxOutputTokens: maxTokens,
+          systemInstruction: systemInstruction
+            ? { text: systemInstruction }
+            : undefined,
+          responseMimeType: "application/json",
+          tools,
+        },
+      }, { abortSignal: signal });
+      return safeJsonParse<T>(response.text || "{}", defaultFallback);
     });
   }
 
@@ -243,92 +243,82 @@ export class AiClient {
     const history: any[] = [];
     const toolCalls: Array<{ name: string; args: any; result: any }> = [];
 
-    return this.retryWithBackoff(async () => {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), timeout);
+    return this.retryWithBackoff(async (signal) => {
+      const initialContent = images?.length
+        ? [{
+            role: "user" as const,
+            parts: [
+              { text: prompt },
+              ...images.map((img) => ({
+                inlineData: { mimeType: detectMimeType(img), data: img.split(",")[1] || img },
+              })),
+            ],
+          }]
+        : prompt;
       
-      try {
-        // Initial User Message
-        const initialContent = images?.length
-          ? [{
-              role: "user" as const,
-              parts: [
-                { text: prompt },
-                ...images.map((img) => ({
-                  inlineData: { mimeType: detectMimeType(img), data: img.split(",")[1] || img },
-                })),
-              ],
-            }]
-          : prompt;
+      history.push({ role: "user", parts: Array.isArray(initialContent) ? initialContent[0].parts : [{ text: initialContent }] });
+
+      let loopCount = 0;
+      const maxLoopCount = 5;
+
+      while (loopCount < maxLoopCount) {
+        loopCount++;
         
-        history.push({ role: "user", parts: Array.isArray(initialContent) ? initialContent[0].parts : [{ text: initialContent }] });
+        const response = await this.client.models.generateContent({
+          model,
+          contents: history,
+          config: {
+            temperature,
+            maxOutputTokens: maxTokens,
+            systemInstruction: systemInstruction
+              ? { text: systemInstruction }
+              : undefined,
+            tools,
+          },
+        }, { abortSignal: signal });
 
-        let loopCount = 0;
-        const maxLoopCount = 5;
+        const candidate = response.candidates?.[0];
+        if (!candidate || !candidate.content) {
+          return { text: "No response from AI.", toolCalls };
+        }
 
-        while (loopCount < maxLoopCount) {
-          loopCount++;
-          
-          const response = await this.client.models.generateContent({
-            model,
-            contents: history,
-            config: {
-              temperature,
-              maxOutputTokens: maxTokens,
-              systemInstruction: systemInstruction
-                ? { text: systemInstruction }
-                : undefined,
-              tools,
-            },
-          });
+        const parts = candidate.content.parts;
+        let hasFunctionCall = false;
 
-          const candidate = response.candidates?.[0];
-          if (!candidate || !candidate.content) {
-            return { text: "No response from AI.", toolCalls };
-          }
+        for (const part of parts) {
+          if (part.functionCall) {
+            hasFunctionCall = true;
+            const { name, args } = part.functionCall;
+            const implementation = toolRegistry[name];
 
-          const parts = candidate.content.parts;
-          let hasFunctionCall = false;
-
-          for (const part of parts) {
-            if (part.functionCall) {
-              hasFunctionCall = true;
-              const { name, args } = part.functionCall;
-              const implementation = toolRegistry[name];
-
-              if (!implementation) {
-                throw new Error(`Tool '${name}' not found in registry.`);
-              }
-
-              console.log(`[AI Agent] Calling tool: ${name}`, args);
-              const result = await implementation.execute(args);
-              
-              toolCalls.push({ name, args, result });
-
-              // Add function call to history
-              history.push({
-                role: "model",
-                parts: [{ functionCall: part.functionCall }]
-              });
-
-              // Add function response to history
-              history.push({
-                role: "user",
-                parts: [{ functionResponse: { name, response: result } }]
-              });
+            if (!implementation) {
+              throw new Error(`Tool '${name}' not found in registry.`);
             }
-          }
 
-          if (!hasFunctionCall) {
-            const textPart = parts.find(p => p.text);
-            return { text: textPart?.text || "No response from AI.", toolCalls };
+            console.log(`[AI Agent] Calling tool: ${name}`, args);
+            const result = await implementation.execute(args);
+            
+            toolCalls.push({ name, args, result });
+
+            history.push({
+              role: "model",
+              parts: [{ functionCall: part.functionCall }]
+            });
+
+            history.push({
+              role: "user",
+              parts: [{ functionResponse: { name, response: result } }]
+            });
           }
         }
 
-        return { text: "Agent loop limit reached.", toolCalls };
-      } finally {
-        clearTimeout(timer);
+        if (!hasFunctionCall) {
+          const textPart = parts.find(p => p.text);
+          return { text: textPart?.text || "No response from AI.", toolCalls };
+        }
       }
+
+      return { text: "Agent loop limit reached.", toolCalls };
     });
   }
 

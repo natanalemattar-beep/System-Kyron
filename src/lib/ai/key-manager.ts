@@ -26,7 +26,13 @@ const keyPool: KeyStatus[] = API_KEYS.map((key) => ({
   lastReset: Date.now(),
 }));
 
-let currentIndex = 0;
+let nextIndex = 0;
+
+function acquireNextIndex(): number {
+  const idx = nextIndex;
+  nextIndex = (nextIndex + 1) % keyPool.length;
+  return idx;
+}
 
 function resetCountersIfNeeded() {
   const now = Date.now();
@@ -46,9 +52,8 @@ export function getNextKey(): { client: GoogleGenAI; index: number } {
   const maxAttempts = keyPool.length;
 
   while (attempts < maxAttempts) {
-    const key = keyPool[currentIndex];
-    const idx = currentIndex;
-    currentIndex = (currentIndex + 1) % keyPool.length;
+    const idx = acquireNextIndex();
+    const key = keyPool[idx];
 
     if (now >= key.cooldownUntil && key.requestCount < 10) {
       key.requestCount++;

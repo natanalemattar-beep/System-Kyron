@@ -78,7 +78,7 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
         const genericPaths = ['/', '/login'];
         const isGeneric = genericPaths.some(p => pathname === p || pathname.endsWith(p) || pathname === `${p}`);
         if (!isGeneric) return;
-        const dashboardPath = getModuleDashboardPath(user.modules);
+        const dashboardPath = getDashboardPath(user.modules);
         if (dashboardPath) {
             router.replace(dashboardPath as any);
         }

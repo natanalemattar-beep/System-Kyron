@@ -41,18 +41,23 @@ export async function POST(req: NextRequest) {
       : message;
 
     const response = await ai.generateText(finalPrompt, {
-        model: "gemini-1.5-flash",
+      model: "gemini-1.5-flash",
       temperature: 0.7,
       maxTokens: 1024,
       systemInstruction: systemPrompt,
+      timeout: 45000,
     });
 
     return NextResponse.json({ response });
   } catch (error: any) {
-    console.error("[agent-chat] Error:", error?.message || error);
+    const msg = error?.message || '';
+    const isKeyExhausted = msg.includes('All keys rate limited');
+    const isQuota = msg.includes('quota') || msg.includes('429') || msg.includes('RESOURCE_EXHAUSTED');
+    const status = isKeyExhausted ? 503 : isQuota ? 429 : 500;
+    console.warn(`[agent-chat] ${status}`, msg);
     return NextResponse.json(
-      { error: error?.message || "Error interno del agente" },
-      { status: 500 }
+      { error: isKeyExhausted ? 'Agente temporalmente no disponible. Intenta de nuevo en unos segundos.' : msg || 'Error interno del agente' },
+      { status }
     );
   }
 }

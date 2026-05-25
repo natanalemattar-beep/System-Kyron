@@ -35,15 +35,15 @@ const Footer = dynamic(() =>
 
 const showcaseImages = [
   {
-    src: 'https://images.unsplash.com/photo-1550751827-4c39ad8d877c?q=80&w=1200&auto=format&fit=crop',
+    src: '/images/landing/hero-dashboard.webp',
     alt: 'Neural Command Center',
   },
   {
-    src: 'https://images.unsplash.com/photo-1563986768609-442068323336?q=80&w=1200&auto=format&fit=crop',
+    src: '/images/landing/features-analytics.webp',
     alt: 'Corporate Intelligence',
   },
   {
-    src: 'https://images.unsplash.com/photo-1485827404703-89b55f01bcbe?q=80&w=1200&auto=format&fit=crop',
+    src: '/images/landing/hero-bg.webp',
     alt: 'Cyber-Sec Infrastructure',
   },
 ];
