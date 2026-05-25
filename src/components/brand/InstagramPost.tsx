@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState, useCallback, useEffect } from "react";
-import Image from "next/image";
 import { Download } from "lucide-react";
 import html2canvas from "html2canvas";
 
@@ -15,12 +14,16 @@ const FEATURES = [
 export function InstagramPost() {
   const postRef = useRef<HTMLDivElement>(null);
   const [downloading, setDownloading] = useState(false);
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const [logoDataUrl, setLogoDataUrl] = useState("");
 
   useEffect(() => {
-    const img = new Image();
-    img.onload = () => setImgLoaded(true);
-    img.src = "/images/logo-kyron-hq.png";
+    fetch("/images/logo-kyron-hq.png")
+      .then((r) => r.blob())
+      .then((blob) => {
+        const reader = new FileReader();
+        reader.onloadend = () => setLogoDataUrl(reader.result as string);
+        reader.readAsDataURL(blob);
+      });
   }, []);
 
   const handleDownload = useCallback(async () => {
@@ -64,14 +67,15 @@ export function InstagramPost() {
         <div className="absolute inset-0 flex flex-col p-10">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/25">
-              <Image
-                src="/images/logo-kyron-hq.png"
-                alt=""
-                width={24}
-                height={24}
-                className="object-contain brightness-0 invert"
-                unoptimized
-              />
+              {logoDataUrl && (
+                <img
+                  src={logoDataUrl}
+                  alt=""
+                  width={24}
+                  height={24}
+                  className="object-contain brightness-0 invert"
+                />
+              )}
             </div>
             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-500">
               System Kyron

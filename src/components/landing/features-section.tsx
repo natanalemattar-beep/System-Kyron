@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
 import {
   Zap,
   Gauge,
@@ -36,6 +35,39 @@ const agentColorMap: Record<string, string> = {
   rose: 'border-rose-500/20 bg-rose-500/10 text-rose-400 group-hover:bg-rose-500/20',
 };
 
+function AnimatedProgress({ target = 90 }: { target?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '-50px 0px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="h-2 w-full bg-muted rounded-full overflow-hidden">
+      <div
+        className="h-full bg-blue-500"
+        style={{
+          width: inView ? `${target}%` : '0%',
+          transition: 'width 1.5s cubic-bezier(0.16,1,0.3,1) 0.3s',
+        }}
+      />
+    </div>
+  );
+}
+
 export function FeaturesSection() {
   const t = useTranslations('FeaturesSection');
   const metrics = t.raw('metrics') as { value: number; suffix: string; label: string }[];
@@ -50,7 +82,7 @@ export function FeaturesSection() {
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <ScrollReveal className="text-center mb-24 md:mb-32 space-y-8">
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-kyron-cyan/20 bg-kyron-cyan/5 backdrop-blur-sm mx-auto shadow-2xl">
+          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-kyron-cyan/20 bg-kyron-cyan/5 mx-auto shadow-2xl">
             <Zap className="h-4 w-4 text-kyron-cyan" />
             <span className="text-[10px] font-black uppercase tracking-[0.5em] text-kyron-cyan/60">{t('badge')}</span>
           </div>
@@ -103,14 +135,7 @@ export function FeaturesSection() {
               <p className="text-base text-muted-foreground/70 font-medium leading-relaxed">{features[1].description}</p>
             </div>
             <div className="pt-10">
-              <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-blue-500"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: '90%' }}
-                  transition={{ duration: 1.5, delay: 0.5 }}
-                />
-              </div>
+              <AnimatedProgress target={90} />
               <p className="text-[9px] font-black text-blue-400 uppercase tracking-widest mt-3">Disponibilidad de Red 99.9%</p>
             </div>
           </ScrollReveal>
@@ -164,6 +189,10 @@ export function FeaturesSection() {
                   key={i}
                   href="/soporte"
                   className="bento-card rounded-[2rem] p-6 hover:border-border/80 dark:hover:border-white/15 hover:-translate-y-1 block"
+                  style={{
+                    animation: 'fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1) ' + (i * 0.08) + 's forwards',
+                    opacity: 0,
+                  }}
                 >
                   <div
                     className={
@@ -187,7 +216,14 @@ export function FeaturesSection() {
 
         <div className="mt-24 grid grid-cols-2 lg:grid-cols-4 gap-12 border-y border-border dark:border-white/5 py-16">
           {metrics.map((metric, i) => (
-            <div key={i} className="flex flex-col items-center text-center space-y-3 group">
+            <div
+              key={i}
+              className="flex flex-col items-center text-center space-y-3 group"
+              style={{
+                animation: 'slideUp 0.5s cubic-bezier(0.16,1,0.3,1) ' + (i * 0.1) + 's forwards',
+                opacity: 0,
+              }}
+            >
               <span className="text-5xl md:text-6xl font-black text-foreground tracking-tighter italic group-hover:text-glow-cyan transition-all duration-500">
                 <AnimatedNumber
                   target={metric.value}

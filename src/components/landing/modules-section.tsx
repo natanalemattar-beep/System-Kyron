@@ -62,7 +62,7 @@ export function ModulesSection() {
           {modules.map((mod, i) => {
             const c = colors[mod.color];
             return (
-              <Link key={i} href={mod.href}>
+              <Link key={i} href={mod.href} style={{ animation: 'fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1) ' + (i * 0.04) + 's forwards', opacity: 0 }}>
                 <div className={`group relative overflow-hidden rounded-[2rem] bg-background/50 dark:bg-white/[0.02] border ${c.border} ${c.hoverBorder} p-6 transition-all duration-500 hover:-translate-y-1 h-full`}>
                   <div className="flex items-start gap-4">
                     <div className={`shrink-0 h-10 w-10 rounded-xl border flex items-center justify-center ${c.icon}`}>
