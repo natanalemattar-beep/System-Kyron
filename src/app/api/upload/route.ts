@@ -4,6 +4,8 @@ import path from 'path';
 import crypto from 'crypto';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { encryptFile } from '@/lib/file-crypto';
+import { getSession } from '@/lib/auth';
+import { registerUpload, processDocument } from '@/lib/documents';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,6 +27,9 @@ const ALLOWED_EXTENSIONS = [
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getSession();
+    if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+
     const ip = getClientIP(req);
     const rl = rateLimit(`upload:${ip}`, 20, 60 * 1000);
     if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs);
@@ -66,8 +71,24 @@ export async function POST(req: NextRequest) {
     const filePath = path.join(uploadDir, fileName);
     await writeFile(filePath, encrypted);
 
+    const hash = crypto.createHash('sha256').update(buffer).digest('hex');
+
+    const docRecord = await registerUpload({
+      userId: session.user.id,
+      originalName: file.name,
+      storedName: fileName,
+      mimeType: file.type || `application/${ext.replace('.', '')}`,
+      size: file.size,
+      hash,
+    });
+
+    processDocument(docRecord.id).catch(err =>
+      console.error(`[upload] Background processing error for doc ${docRecord.id}:`, err)
+    );
+
     return NextResponse.json({
       success: true,
+      documentId: docRecord.id,
       file: {
         name: file.name,
         storedName: fileName,

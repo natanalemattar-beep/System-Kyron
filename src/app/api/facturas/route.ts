@@ -3,6 +3,7 @@ import { getSession } from '@/lib/auth';
 import { query, batchInsert } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logger';
 import { createHash } from 'crypto';
+import { emit } from '@/lib/event-bus';
 
 export const dynamic = 'force-dynamic';
 
@@ -334,6 +335,20 @@ export async function POST(req: NextRequest) {
                 hash_fiscal: factura.hash_fiscal,
             },
         });
+
+        if (esEmitida) {
+          emit('factura:emitida', {
+            userId: session.user.id,
+            facturaId: factura.id,
+            numero: factura.numero_factura,
+            tipo: tipoDoc,
+            total,
+            baseImponible,
+            iva,
+            moneda: moneda ?? 'VES',
+            items: Array.isArray(items) ? items : [],
+          });
+        }
 
         if (esEmitida && tipoDoc === 'NOTA_CREDITO' && factura_referencia_id) {
             try {

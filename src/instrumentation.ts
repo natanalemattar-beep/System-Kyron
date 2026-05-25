@@ -35,6 +35,14 @@ export async function register() {
       } catch (err) {
         console.warn('[automation-engine] Error en ejecución inicial:', err);
       }
+
+      try {
+        const { initAutoAsientos } = await import('@/lib/auto-asientos');
+        initAutoAsientos();
+        console.log('[auto-asientos] Hooks de contabilidad automática registrados');
+      } catch (err) {
+        console.warn('[auto-asientos] Error al inicializar:', err);
+      }
     }, 15_000);
 
     const UNA_HORA = 60 * 60 * 1000;

@@ -1128,6 +1128,30 @@ async function createDocumentosTables() {
   await query(`CREATE INDEX IF NOT EXISTS idx_verif_docs_user ON verificaciones_documentos(user_id)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_verif_docs_hash ON verificaciones_documentos(hash_sha256)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_verif_docs_path ON verificaciones_documentos(archivo_path)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS documentos_recibidos (
+      id                SERIAL PRIMARY KEY,
+      user_id           INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre_original   TEXT NOT NULL,
+      nombre_almacenado TEXT NOT NULL,
+      tipo_mime         TEXT NOT NULL,
+      tamano_bytes      INT NOT NULL,
+      hash_sha256       TEXT NOT NULL,
+      estatus           TEXT NOT NULL DEFAULT 'pendiente'
+                        CHECK (estatus IN ('pendiente','procesando','clasificado','analizado','error')),
+      clasificacion     TEXT,
+      metadata          JSONB DEFAULT '{}',
+      datos_extraidos   JSONB DEFAULT '{}',
+      modulo_origen     TEXT,
+      entidad_id        INT,
+      entidad_tipo      TEXT,
+      created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      processed_at      TIMESTAMPTZ
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_docs_recibidos_user ON documentos_recibidos(user_id)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_docs_recibidos_estatus ON documentos_recibidos(estatus)`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
