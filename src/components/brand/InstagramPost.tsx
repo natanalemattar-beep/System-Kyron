@@ -2,7 +2,7 @@
 
 import { useRef, useState, useCallback, useEffect } from "react";
 import { Download } from "lucide-react";
-import html2canvas from "html2canvas";
+import { toPng } from "html-to-image";
 
 const FEATURES = [
   { icon: "⚡", label: "Contabilidad Automatizada" },
@@ -27,19 +27,18 @@ export function InstagramPost() {
   }, []);
 
   const handleDownload = useCallback(async () => {
-    if (downloading) return;
+    if (downloading || !postRef.current) return;
     setDownloading(true);
     try {
       await new Promise(r => setTimeout(r, 500));
-      const canvas = await html2canvas(postRef.current!, {
-        scale: 3,
-        useCORS: true,
+      const dataUrl = await toPng(postRef.current, {
+        quality: 1,
+        pixelRatio: 3,
         backgroundColor: "#020617",
-        logging: false,
       });
       const link = document.createElement("a");
       link.download = "system-kyron-post.png";
-      link.href = canvas.toDataURL("image/png");
+      link.href = dataUrl;
       link.click();
     } catch (err) {
       console.error("Error capturing post:", err);
