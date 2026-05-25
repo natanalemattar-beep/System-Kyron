@@ -17,10 +17,11 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { useTranslations } from 'next-intl';
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useBannerVisible } from "@/components/demo-banner";
-import { WhatIsNewModal } from "./what-is-new-modal";
+import { WhatIsNewModal, ChangelogTrigger } from "./what-is-new-modal";
 
 export function LandingHeader() {
   const [scrolled, setScrolled] = useState(false);
+  const [showWhatsNew, setShowWhatsNew] = useState(false);
   const t = useTranslations('LandingHeader');
   const bannerVisible = useBannerVisible();
 
@@ -47,7 +48,7 @@ export function LandingHeader() {
 
   return (
     <>
-      <WhatIsNewModal />
+      <WhatIsNewModal forceOpen={showWhatsNew} onClose={() => setShowWhatsNew(false)} />
       <header
         className="fixed left-0 right-0 z-[150] transition-all duration-700 ease-out"
         style={{
@@ -132,6 +133,7 @@ export function LandingHeader() {
 
             <div className="flex items-center gap-3 shrink-0">
               <div className="hidden lg:flex items-center gap-2 mr-4">
+                <ChangelogTrigger onOpen={() => setShowWhatsNew(true)} />
                 <LanguageSwitcher variant="default" align="end" />
                 <ThemeToggle />
               </div>
