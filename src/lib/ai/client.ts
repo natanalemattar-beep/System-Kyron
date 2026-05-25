@@ -271,7 +271,7 @@ export class AiClient {
           
           const response = await this.client.models.generateContent({
             model,
-            contents,
+            contents: history,
             config: {
               temperature,
               maxOutputTokens: maxTokens,
