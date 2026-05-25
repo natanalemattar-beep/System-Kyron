@@ -9,14 +9,14 @@ export function SustainabilitySection() {
   return (
     <section className="py-32 relative overflow-hidden bg-transparent">
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-kyron-emerald/[0.08] blur-[160px] animate-mesh-drift" />
-        <div className="absolute bottom-[20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-green-600/[0.04] blur-[140px] animate-mesh-drift" style={{ animationDelay: '-10s' }} />
+        <div className="absolute top-[20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-kyron-emerald/[0.08] blur-[160px]" />
+        <div className="absolute bottom-[20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-green-600/[0.04] blur-[140px]" />
       </div>
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <div className="grid lg:grid-cols-2 gap-24 items-center">
           <div className="space-y-12">
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-kyron-emerald/30 bg-kyron-emerald/10 backdrop-blur-3xl shadow-[0_0_30px_rgba(16,185,129,0.15)] animate-fade-in-up">
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-kyron-emerald/30 bg-kyron-emerald/10 backdrop-blur-sm shadow-[0_0_30px_rgba(16,185,129,0.15)] animate-fade-in-up">
               <Leaf className="h-4 w-4 text-kyron-emerald animate-pulse" />
               <span className="text-[10px] font-black uppercase tracking-[0.5em] text-kyron-emerald/80">
                 {t('badge')}
@@ -54,7 +54,7 @@ export function SustainabilitySection() {
 
           <div className="relative group">
             <div className="absolute inset-0 bg-kyron-emerald/20 blur-[120px] rounded-full opacity-30 group-hover:opacity-60 transition-opacity" />
-            <div className="relative rounded-[4rem] overflow-hidden border border-border/10 dark:border-white/10 p-4 bg-background/50 dark:bg-white/[0.01] backdrop-blur-3xl shadow-2xl">
+            <div className="relative rounded-[4rem] overflow-hidden border border-border/10 dark:border-white/10 p-4 bg-background/50 dark:bg-white/[0.01] backdrop-blur-md shadow-2xl">
               <div className="relative aspect-square w-full rounded-[3rem] overflow-hidden group/img">
                 <Image
                   src="/images/salto-angel.jpg"
@@ -66,7 +66,7 @@ export function SustainabilitySection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 via-transparent to-transparent opacity-60" />
               </div>
 
-              <div className="absolute top-12 left-12 p-8 rounded-[2.5rem] bg-background/60 dark:bg-black/60 backdrop-blur-2xl border border-border/20 dark:border-white/20 shadow-2xl animate-float transition-all hover:scale-105">
+              <div className="absolute top-12 left-12 p-8 rounded-[2.5rem] bg-background/60 dark:bg-black/60 backdrop-blur-sm border border-border/20 dark:border-white/20 shadow-2xl animate-float transition-all hover:scale-105">
                 <p className="text-[10px] font-black text-kyron-emerald uppercase tracking-[0.4em] mb-2">{t('overlay_label')}</p>
                 <div className="flex items-baseline gap-2">
                   <h3 className="text-4xl font-black text-foreground tracking-tighter italic">{t('overlay_value')}</h3>
@@ -75,7 +75,7 @@ export function SustainabilitySection() {
                 <p className="text-[9px] text-muted-foreground/60 font-black uppercase tracking-[0.2em] mt-3">{t('overlay_sublabel')}</p>
               </div>
 
-              <div className="absolute bottom-12 right-12 p-6 rounded-[1.5rem] bg-kyron-emerald/10 backdrop-blur-xl border border-kyron-emerald/20 shadow-2xl transition-all hover:bg-kyron-emerald/20">
+              <div className="absolute bottom-12 right-12 p-6 rounded-[1.5rem] bg-kyron-emerald/10 backdrop-blur-sm border border-kyron-emerald/20 shadow-2xl transition-all hover:bg-kyron-emerald/20">
                 <div className="flex items-center gap-5">
                   <div className="h-12 w-12 rounded-xl bg-kyron-emerald/20 flex items-center justify-center text-kyron-emerald">
                     <ShieldCheck className="h-6 w-6" />

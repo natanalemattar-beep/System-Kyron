@@ -20,8 +20,8 @@ export function CtaSection() {
     <section className="relative overflow-hidden scroll-mt-20 bg-background">
       <div className="relative py-32 md:py-48">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-[20%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-kyron-cyan/[0.05] blur-[160px] animate-mesh-drift" />
-          <div className="absolute bottom-[20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-kyron-emerald/[0.04] blur-[140px] animate-mesh-drift" style={{ animationDelay: '-12s' }} />
+          <div className="absolute top-[20%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-kyron-cyan/[0.05] blur-[160px]" />
+          <div className="absolute bottom-[20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-kyron-emerald/[0.04] blur-[140px]" />
         </div>
 
         <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -48,7 +48,7 @@ export function CtaSection() {
 
               <ScrollReveal delay={0.4} className="flex flex-wrap justify-center lg:justify-start gap-5">
                 {checks.map((label, i) => (
-                  <div key={i} className="flex items-center gap-3 px-5 py-2.5 rounded-full bg-kyron-emerald/10 border border-kyron-emerald/20 backdrop-blur-3xl">
+                  <div key={i} className="flex items-center gap-3 px-5 py-2.5 rounded-full bg-kyron-emerald/10 border border-kyron-emerald/20 backdrop-blur-sm">
                     <CircleCheck className="h-4 w-4 text-kyron-emerald" />
                     <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/80">{label}</span>
                   </div>

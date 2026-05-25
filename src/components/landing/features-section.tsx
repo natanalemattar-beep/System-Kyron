@@ -44,13 +44,13 @@ export function FeaturesSection() {
   return (
     <section className="py-32 md:py-48 relative overflow-hidden bg-transparent">
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[30%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-kyron-cyan/[0.05] blur-[150px] animate-mesh-drift" />
-        <div className="absolute bottom-[30%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-500/[0.03] blur-[120px] animate-mesh-drift" style={{ animationDelay: '-10s' }} />
+        <div className="absolute top-[30%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-kyron-cyan/[0.05] blur-[150px]" />
+        <div className="absolute bottom-[30%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-500/[0.03] blur-[120px]" />
       </div>
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <ScrollReveal className="text-center mb-24 md:mb-32 space-y-8">
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-kyron-cyan/20 bg-kyron-cyan/5 backdrop-blur-3xl mx-auto shadow-2xl">
+          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-kyron-cyan/20 bg-kyron-cyan/5 backdrop-blur-sm mx-auto shadow-2xl">
             <Zap className="h-4 w-4 text-kyron-cyan" />
             <span className="text-[10px] font-black uppercase tracking-[0.5em] text-kyron-cyan/60">{t('badge')}</span>
           </div>

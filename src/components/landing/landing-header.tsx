@@ -17,23 +17,17 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { useTranslations } from 'next-intl';
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useBannerVisible } from "@/components/demo-banner";
-import { motion, useSpring, useTransform, useScroll } from "framer-motion";
 import { WhatIsNewModal } from "./what-is-new-modal";
 
 export function LandingHeader() {
   const [scrolled, setScrolled] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const t = useTranslations('LandingHeader');
   const bannerVisible = useBannerVisible();
 
-  const { scrollY } = useScroll();
-  const smoothProgress = useSpring(scrollY, { stiffness: 200, damping: 30 });
-  const opacity = useTransform(smoothProgress, [0, 80], [0, 1]);
-
   useEffect(() => {
-    setMounted(true);
     const onScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -51,32 +45,28 @@ export function LandingHeader() {
     }
   };
 
-  if (!mounted) return null;
-
   return (
     <>
       <WhatIsNewModal />
-      <motion.header
-        className="fixed left-0 right-0 z-[150]"
-        initial={false}
-        animate={{
-          top: scrolled ? 12 : 0,
-          y: bannerVisible ? 36 : 0,
+      <header
+        className="fixed left-0 right-0 z-[150] transition-all duration-700 ease-out"
+        style={{
+          top: bannerVisible ? 36 : 0,
+          transform: `translateY(${scrolled ? 12 : 0}px)`,
         }}
-        transition={{ type: 'spring', stiffness: 300, damping: 35 }}
       >
         <div
           className={cn(
             "mx-auto px-4 transition-all duration-700",
             scrolled
-              ? "max-w-[1400px] rounded-[3rem] border border-border dark:border-white/10 bg-background/60 backdrop-blur-3xl shadow-2xl"
+              ? "max-w-[1400px] rounded-[3rem] border border-border dark:border-white/10 bg-background/60 backdrop-blur-lg shadow-2xl"
               : "max-w-full px-6 md:px-12"
           )}
         >
           {scrolled && (
-            <motion.div
+            <div
               className="absolute bottom-0 left-10 right-10 h-[2px] rounded-full bg-gradient-to-r from-kyron-cyan via-blue-500 to-violet-500 origin-left"
-              style={{ scaleX: opacity }}
+              style={{ transform: `scaleX(${Math.min(1, (typeof window !== 'undefined' ? window.scrollY : 0) / 80)})` }}
             />
           )}
 
@@ -94,7 +84,7 @@ export function LandingHeader() {
             </Link>
 
             <nav className="hidden lg:flex items-center gap-2 flex-1 justify-center">
-              <div className="flex items-center gap-2 p-2 bg-muted/50 dark:bg-white/[0.03] border border-border dark:border-white/5 rounded-[1.5rem] backdrop-blur-3xl">
+              <div className="flex items-center gap-2 p-2 bg-muted/50 dark:bg-white/[0.03] border border-border dark:border-white/5 rounded-[1.5rem]">
                 {navItems.map((item) => (
                   <Link
                     key={item.labelKey}
@@ -103,7 +93,7 @@ export function LandingHeader() {
                     className="px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 hover:text-foreground transition-all duration-500 rounded-xl hover:bg-muted dark:hover:bg-white/5 relative group"
                   >
                     {t(item.labelKey)}
-                    <motion.span className="absolute bottom-1.5 left-6 right-6 h-[2px] bg-kyron-cyan scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                    <span className="absolute bottom-1.5 left-6 right-6 h-[2px] bg-kyron-cyan scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
                   </Link>
                 ))}
 
@@ -112,7 +102,7 @@ export function LandingHeader() {
                     {t('solutions')}
                     <ChevronDown className="h-3.5 w-3.5 opacity-30 group-data-[state=open]:rotate-180 transition-transform" />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="center" className="w-80 p-4 rounded-[2.5rem] border border-border dark:border-white/10 bg-background/95 backdrop-blur-3xl shadow-2xl mt-6 space-y-1">
+                  <DropdownMenuContent align="center" className="w-80 p-4 rounded-[2.5rem] border border-border dark:border-white/10 bg-background/95 backdrop-blur-md shadow-2xl mt-6 space-y-1">
                     {[
                       { href: "/login-linea?type=personal" as any, icon: Cpu, title: t('connectivity_title'), desc: t('connectivity_desc'), iconClass: "bg-kyron-cyan/10 border-kyron-cyan/20 text-kyron-cyan" },
                       { href: "/login-escritorio-juridico", icon: ShieldCheck, title: t('legal_title'), desc: t('legal_desc'), iconClass: "bg-kyron-emerald/10 border-kyron-emerald/20 text-kyron-emerald" },
@@ -288,7 +278,7 @@ export function LandingHeader() {
             </div>
           </div>
         </div>
-      </motion.header>
+      </header>
     </>
   );
 }

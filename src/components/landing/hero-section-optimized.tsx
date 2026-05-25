@@ -9,21 +9,17 @@ import { Logo } from '@/components/logo';
 
 function RotatingWords({ words, interval = 3000 }: { words: string[], interval?: number }) {
   const [index, setIndex] = useState(0);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
     }, interval);
     return () => clearInterval(timer);
   }, [words.length, interval]);
 
-  if (!mounted) return <div className="relative h-[1.3em]" />;
-
   return (
     <div className="relative h-[1.3em] overflow-hidden">
-      <div className="absolute inset-0 block text-glow-gold transition-opacity duration-500">
+      <div className="absolute inset-0 block text-glow-gold opacity-100">
         {words[index]}
       </div>
     </div>
@@ -32,17 +28,9 @@ function RotatingWords({ words, interval = 3000 }: { words: string[], interval?:
 
 export function HeroSectionOptimized() {
   const t = useTranslations('HeroSection');
-  const [liveStats, setLiveStats] = useState({ totalUsuarios: 0 });
-  const [mounted, setMounted] = useState(false);
-
-  const rotatingTexts = [
-    t('rotating_words.0'),
-    'Facturación SENIAT',
-    t('rotating_words.2'),
-  ];
+  const [liveStats, setLiveStats] = useState<{ totalUsuarios: number } | null>(null);
 
   useEffect(() => {
-    setMounted(true);
     fetch('/api/stats')
       .then((res) => res.json())
       .then((json) => {
@@ -53,7 +41,11 @@ export function HeroSectionOptimized() {
       .catch(() => {});
   }, []);
 
-  if (!mounted) return <div className="min-h-[100svh]" />;
+  const rotatingTexts = [
+    t('rotating_words.0'),
+    'Facturación SENIAT',
+    t('rotating_words.2'),
+  ];
 
   return (
     <section className="relative min-h-[100svh] flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden bg-background">
@@ -66,7 +58,7 @@ export function HeroSectionOptimized() {
       <div className="relative z-10 w-full container mx-auto px-6 max-w-7xl">
         <div className="flex flex-col lg:flex-row items-center gap-20">
           <div className="flex-1 text-center lg:text-left space-y-10">
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-kyron-cyan/20 bg-kyron-cyan/5 backdrop-blur-2xl shadow-[0_0_30px_rgba(6,182,212,0.1)] animate-fade-in-up">
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-kyron-cyan/20 bg-kyron-cyan/5 backdrop-blur-sm shadow-[0_0_30px_rgba(6,182,212,0.1)] animate-fade-in-up">
               <span className="text-[10px] font-black uppercase tracking-[0.35em] text-kyron-cyan/70">
                 {t('badge')}
               </span>
@@ -103,7 +95,7 @@ export function HeroSectionOptimized() {
 
               <Button
                 variant="outline"
-                className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl border-border dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] backdrop-blur-3xl text-muted-foreground/70 hover:bg-black/[0.06] dark:hover:bg-white/[0.08] hover:text-foreground transition-all duration-500 hover:scale-[1.02] hover:border-border"
+                className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl border-border dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] text-muted-foreground/70 hover:bg-black/[0.06] dark:hover:bg-white/[0.08] hover:text-foreground transition-all duration-500 hover:scale-[1.02] hover:border-border"
               >
                 <span className="flex items-center gap-3">
                   <Play className="h-3.5 w-3.5 fill-current" />
@@ -128,7 +120,7 @@ export function HeroSectionOptimized() {
             <div className="relative aspect-square w-full max-w-[500px] mx-auto flex items-center justify-center">
               <div className="absolute inset-0 border border-border/80 dark:border-white/5 rounded-full animate-[spin_100s_linear_infinite]" />
               <div className="absolute inset-12 border border-border/80 dark:border-white/10 rounded-full animate-[spin_60s_linear_infinite_reverse]" />
-              <div className="relative z-10 w-40 h-40 rounded-full bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-3xl border border-border/80 dark:border-white/10 shadow-[0_0_80px_rgba(6,182,212,0.1)] flex items-center justify-center animate-float">
+              <div className="relative z-10 w-40 h-40 rounded-full bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-sm border border-border/80 dark:border-white/10 shadow-[0_0_80px_rgba(6,182,212,0.1)] flex items-center justify-center animate-float">
                 <Logo className="w-16 h-16 text-foreground opacity-90" />
               </div>
             </div>
@@ -136,24 +128,21 @@ export function HeroSectionOptimized() {
         </div>
       </div>
 
-      <div className="w-full py-16 mt-28 relative border-t border-border/40 dark:border-white/[0.03] bg-black/[0.01] dark:bg-white/[0.01] backdrop-blur-md">
+      <div className="w-full py-16 mt-28 relative border-t border-border/40 dark:border-white/[0.03] bg-black/[0.01] dark:bg-white/[0.01]">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16">
             {[
               { val: '24/7', label: t('support'), color: 'text-kyron-cyan' },
               { val: '5G', label: t('network'), color: 'text-blue-400' },
               {
-                val:
-                  liveStats.totalUsuarios > 0
-                    ? liveStats.totalUsuarios
-                    : '2.4k+',
+                val: liveStats ? String(liveStats.totalUsuarios) : '2.4k+',
                 label: t('portals'),
                 color: 'text-kyron-emerald',
               },
               { val: '100%', label: t('legal'), color: 'text-kyron-violet' },
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center group">
-                <div className="h-12 w-12 rounded-xl bg-black/[0.03] dark:bg-white/[0.03] flex items-center justify-center mb-5 border border-border/50 dark:border-white/[0.06] group-hover:scale-105 transition-all duration-500">
+                <div className="h-12 w-12 rounded-xl bg-black/[0.03] dark:bg-white/[0.03] flex items-center justify-center mb-5 border border-border/50 dark:border-white/[0.06] transition-all duration-500">
                   {i === 0 ? (
                     <Headphones className={stat.color + ' h-5 w-5'} />
                   ) : i === 1 ? (

@@ -40,10 +40,6 @@
     --kyron-indigo: 239 70% 55%;
     --kyron-gold: 45 85% 45%;
     --kyron-violet: 270 70% 55%;
-
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(34, 211, 238, 0.3);
-    --glass-shadow: rgba(0, 0, 0, 0.08);
   }
 
   .dark {
@@ -81,10 +77,6 @@
     --kyron-indigo: 239 84% 70%;
     --kyron-gold: 45 95% 55%;
     --kyron-violet: 270 85% 65%;
-
-    --glass-bg: rgba(15, 23, 42, 0.6);
-    --glass-border: rgba(34, 211, 238, 0.2);
-    --glass-shadow: rgba(0, 0, 0, 0.4);
   }
 
   html {
@@ -199,35 +191,7 @@
     50% { scale: 1.8; opacity: 0.7; }
   }
 
-  .animate-pulse-soft {
-    animation: pulse-soft 4s ease-in-out infinite;
-  }
-
-  @keyframes pulse-soft {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.7; }
-  }
-
-  .animate-scan-line {
-    animation: scan-line 10s linear infinite;
-    will-change: top;
-  }
-
-  @keyframes scan-line {
-    0% { top: 0%; }
-    100% { top: 100%; }
-  }
-
   /* Bento glass variants - single source of truth */
-  .bento-glass {
-    @apply relative overflow-hidden transition-all duration-500;
-    background: var(--glass-bg);
-    backdrop-filter: blur(40px) saturate(1.5);
-    -webkit-backdrop-filter: blur(40px) saturate(1.5);
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 20px 40px -12px var(--glass-shadow);
-  }
-
   .bento-card {
     @apply relative overflow-hidden rounded-[3.5rem] bg-background/50 dark:bg-white/[0.02] border border-border dark:border-white/5
            hover:border-border/80 dark:hover:border-white/20 transition-all duration-700 hover:-translate-y-1;

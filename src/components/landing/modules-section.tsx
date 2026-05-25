@@ -20,19 +20,19 @@ const modules = [
   { icon: Sparkles, name: "IA & Automatización", desc: "Agentes que hacen el trabajo pesado por ti. Sin configuraciones complicadas", href: "/automatizaciones", count: 2, color: "purple" as const },
 ];
 
-const colors: Record<string, { border: string; icon: string }> = {
-  blue:    { border: "border-blue-500/20",    icon: "text-blue-400 bg-blue-500/10 border-blue-500/20" },
-  cyan:    { border: "border-cyan-500/20",    icon: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20" },
-  amber:   { border: "border-amber-500/20",   icon: "text-amber-400 bg-amber-500/10 border-amber-500/20" },
-  emerald: { border: "border-emerald-500/20", icon: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20" },
-  violet:  { border: "border-violet-500/20",  icon: "text-violet-400 bg-violet-500/10 border-violet-500/20" },
-  rose:    { border: "border-rose-500/20",    icon: "text-rose-400 bg-rose-500/10 border-rose-500/20" },
-  green:   { border: "border-green-500/20",   icon: "text-green-400 bg-green-500/10 border-green-500/20" },
-  indigo:  { border: "border-indigo-500/20",  icon: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20" },
-  slate:   { border: "border-slate-500/20",   icon: "text-slate-400 bg-slate-500/10 border-slate-500/20" },
-  orange:  { border: "border-orange-500/20",  icon: "text-orange-400 bg-orange-500/10 border-orange-500/20" },
-  teal:    { border: "border-teal-500/20",    icon: "text-teal-400 bg-teal-500/10 border-teal-500/20" },
-  purple:  { border: "border-purple-500/20",  icon: "text-purple-400 bg-purple-500/10 border-purple-500/20" },
+const colors: Record<string, { border: string; hoverBorder: string; icon: string }> = {
+  blue:    { border: "border-blue-500/20",    hoverBorder: "hover:border-blue-500/40",    icon: "text-blue-400 bg-blue-500/10 border-blue-500/20" },
+  cyan:    { border: "border-cyan-500/20",    hoverBorder: "hover:border-cyan-500/40",    icon: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20" },
+  amber:   { border: "border-amber-500/20",   hoverBorder: "hover:border-amber-500/40",   icon: "text-amber-400 bg-amber-500/10 border-amber-500/20" },
+  emerald: { border: "border-emerald-500/20", hoverBorder: "hover:border-emerald-500/40", icon: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20" },
+  violet:  { border: "border-violet-500/20",  hoverBorder: "hover:border-violet-500/40",  icon: "text-violet-400 bg-violet-500/10 border-violet-500/20" },
+  rose:    { border: "border-rose-500/20",    hoverBorder: "hover:border-rose-500/40",    icon: "text-rose-400 bg-rose-500/10 border-rose-500/20" },
+  green:   { border: "border-green-500/20",   hoverBorder: "hover:border-green-500/40",   icon: "text-green-400 bg-green-500/10 border-green-500/20" },
+  indigo:  { border: "border-indigo-500/20",  hoverBorder: "hover:border-indigo-500/40",  icon: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20" },
+  slate:   { border: "border-slate-500/20",   hoverBorder: "hover:border-slate-500/40",   icon: "text-slate-400 bg-slate-500/10 border-slate-500/20" },
+  orange:  { border: "border-orange-500/20",  hoverBorder: "hover:border-orange-500/40",  icon: "text-orange-400 bg-orange-500/10 border-orange-500/20" },
+  teal:    { border: "border-teal-500/20",    hoverBorder: "hover:border-teal-500/40",    icon: "text-teal-400 bg-teal-500/10 border-teal-500/20" },
+  purple:  { border: "border-purple-500/20",  hoverBorder: "hover:border-purple-500/40",  icon: "text-purple-400 bg-purple-500/10 border-purple-500/20" },
 };
 
 export function ModulesSection() {
@@ -63,7 +63,7 @@ export function ModulesSection() {
             const c = colors[mod.color];
             return (
               <Link key={i} href={mod.href}>
-                <div className={`group relative overflow-hidden rounded-[2rem] bg-background/50 dark:bg-white/[0.02] border ${c.border} p-6 transition-all duration-500 hover:-translate-y-1 h-full hover:border-${mod.color}-500/40`}>
+                <div className={`group relative overflow-hidden rounded-[2rem] bg-background/50 dark:bg-white/[0.02] border ${c.border} ${c.hoverBorder} p-6 transition-all duration-500 hover:-translate-y-1 h-full`}>
                   <div className="flex items-start gap-4">
                     <div className={`shrink-0 h-10 w-10 rounded-xl border flex items-center justify-center ${c.icon}`}>
                       <mod.icon className="h-5 w-5" />
