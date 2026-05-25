@@ -89,7 +89,7 @@ export function InstagramPost() {
             </span>
             <div className="ml-auto flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
               <div className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,0.5)]" />
-              <span className="text-[7px] font-black uppercase tracking-[0.2em] text-cyan-400">InspiraVe 2026</span>
+              <span className="text-[7px] font-black uppercase tracking-[0.2em] text-cyan-400">Corporativo</span>
             </div>
           </div>
 

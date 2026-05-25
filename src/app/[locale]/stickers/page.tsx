@@ -328,7 +328,7 @@ function BookmarkItem({ qrCodeImage }: { qrCodeImage: string }) {
             <div className="text-center relative z-10 pb-4">
                 <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4">Innovación Empresarial</p>
                 <div className="flex flex-col items-center gap-1">
-                    <span className="text-[7px] font-black uppercase text-zinc-300">Reto InspiraVe 2026</span>
+                    <span className="text-[7px] font-black uppercase text-zinc-300">System Kyron</span>
                 </div>
             </div>
             <div className="absolute inset-0 opacity-[0.02] pointer-events-none select-none z-0 flex flex-col items-center justify-around">

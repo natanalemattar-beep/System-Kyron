@@ -222,7 +222,7 @@ export default function BrandKitPage() {
                                 transition={{ delay: 0.1 }}
                                 className="text-muted-foreground text-base lg:text-lg font-medium leading-relaxed max-w-xl"
                             >
-                                Infraestructura centralizada de activos estratégicos System Kyron para la defensa del Reto InspiraVe 2026.
+                                Infraestructura centralizada de activos estratégicos System Kyron.
                             </motion.p>
 
                             <motion.div 

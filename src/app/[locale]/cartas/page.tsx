@@ -36,7 +36,7 @@ const letters = [
 
             Reconocemos su labor titánica en la cadena de distribución y su apoyo constante al microempresario. System Kyron propone una integración algorítmica que simplifica la carga fiscal y operativa de sus aliados comerciales, garantizando que el foco permanezca en la productividad y el crecimiento mutuo.
 
-            Agradecemos su visión vanguardista en el Reto InspiraVe 2026 y quedamos a su entera disposición para explorar sinergias tecnológicas que sigan refrescando el futuro de nuestra nación.
+            Agradecemos su visión vanguardista y quedamos a su entera disposición para explorar sinergias tecnológicas que sigan refrescando el futuro de nuestra nación.
 
             Atentamente,
         `
