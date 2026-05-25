@@ -122,7 +122,7 @@ export default function CartaPage() {
                 )}
                 <div>
                   <h1 className="text-2xl font-bold tracking-tight text-zinc-900">System Kyron</h1>
-                  <p className="text-[10px] text-zinc-400 font-mono mt-0.5">RIF J-00000000-0</p>
+                  <p className="text-[10px] text-zinc-400 font-mono mt-0.5">RIF J-50832149-9</p>
                   <p className="text-sm text-zinc-500 mt-0.5">Plataforma de Inteligencia Corporativa</p>
                 </div>
               </div>
