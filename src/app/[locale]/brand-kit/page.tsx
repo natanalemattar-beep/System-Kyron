@@ -84,9 +84,9 @@ const RESOURCES: Resource[] = [
         image: 'https://images.unsplash.com/photo-1450101215322-bf5cd276cfc9?q=80&w=600&auto=format'
     },
     {
-        id: 'carta-funacyt',
-        title: 'Carta FUNACYT',
-        description: 'Carta de agradecimiento institucional dirigida a FUNACYT por su atención y disposición a la colaboración tecnológica.',
+        id: 'carta-fonacit',
+        title: 'Carta FONACIT',
+        description: 'Carta de agradecimiento institucional dirigida a FONACIT por su atención y disposición a la colaboración tecnológica.',
         icon: FileText,
         href: '/brand-kit/carta',
         color: 'from-amber-500 to-orange-600',

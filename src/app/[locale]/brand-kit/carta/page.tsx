@@ -82,7 +82,7 @@ export default function CartaPage() {
 
             <div className="space-y-2">
               <p className="text-base font-semibold text-zinc-700">A quien corresponda,</p>
-              <p className="text-base font-semibold text-zinc-700">FUNACYT</p>
+              <p className="text-base font-semibold text-zinc-700">FONACIT</p>
               <p className="text-sm text-zinc-400">Presente.&mdash;</p>
             </div>
 
@@ -92,11 +92,11 @@ export default function CartaPage() {
               </p>
 
               <p>
-                Valoramos profundamente el interés mostrado por FUNACYT hacia nuestra propuesta de plataforma de inteligencia corporativa, así como la disposición para explorar mecanismos de colaboración que contribuyan al desarrollo tecnológico y la automatización de procesos en el ecosistema empresarial venezolano.
+                Valoramos profundamente el interés mostrado por FONACIT hacia nuestra propuesta de plataforma de inteligencia corporativa, así como la disposición para explorar mecanismos de colaboración que contribuyan al desarrollo tecnológico y la automatización de procesos en el ecosistema empresarial venezolano.
               </p>
 
               <p>
-                En System Kyron creemos firmemente que la tecnología es un habilitador fundamental para la transformación productiva del país, y encontrar aliados institucionales como FUNACYT, comprometidos con la innovación y el desarrollo, reafirma nuestra convicción de que vamos por el camino correcto.
+                En System Kyron creemos firmemente que la tecnología es un habilitador fundamental para la transformación productiva del país, y encontrar aliados institucionales como FONACIT, comprometidos con la innovación y el desarrollo, reafirma nuestra convicción de que vamos por el camino correcto.
               </p>
 
               <p>
