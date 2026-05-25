@@ -20,6 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { ResourceHeader } from "@/components/brand/ResourceHeader";
+import html2canvas from "html2canvas";
 
 const letters = [
     {
@@ -106,8 +107,6 @@ export default function CartasAgradecimientoPage() {
         setIsExporting(true);
         toast({ title: "Generando PDF", description: "Procesando en alta resolución..." });
         try {
-            const mod = await import('html2canvas');
-const html2canvas = typeof mod === 'function' ? mod : (mod as any).default ?? mod;
             const jsPDF = (await import('jspdf')).default;
             const canvas = await html2canvas(exportRef.current, {
                 scale: 2,

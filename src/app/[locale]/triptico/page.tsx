@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
 import { Link } from '@/navigation';
+import html2canvas from "html2canvas";
 
 export default function SectorPrivadoPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = React.use(params);
@@ -90,8 +91,6 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
 
         try {
             await preloadBrochureImages();
-            const mod = await import('html2canvas');
-            const h2c = typeof mod === 'function' ? mod : (mod as any).default ?? mod;
             const { jsPDF } = await import('jspdf');
 
             const frontal = document.getElementById('cara-frontal');
@@ -106,7 +105,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 windowHeight: 816
             };
             
-            const canvas1 = await h2c(frontal!, canvasOpts);
+            const canvas1 = await html2canvas(frontal!, canvasOpts);
             const canvas2 = await h2c(interior!, canvasOpts);
 
             const pdf = new jsPDF({ 
@@ -137,9 +136,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
 
         try {
             await preloadBrochureImages();
-            const mod = await import('html2canvas');
-            const h2c = typeof mod === 'function' ? mod : (mod as any).default ?? mod;
-            const canvas = await h2c(node, {
+            const canvas = await html2canvas(node, {
                 scale: 3,
                 useCORS: true,
                 backgroundColor: '#ffffff',
@@ -173,12 +170,9 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
 
         try {
             await preloadBrochureImages();
-            const mod = await import('html2canvas');
-            const h2c = typeof mod === 'function' ? mod : (mod as any).default ?? mod;
-            
             const wordOpts = { scale: 1.0, useCORS: true, backgroundColor: '#ffffff', allowTaint: false, windowWidth: 1056, windowHeight: 816 };
-            const canvasFrontal = await h2c(frontal, wordOpts);
-            const canvasInterior = await h2c(interior, wordOpts);
+            const canvasFrontal = await html2canvas(frontal, wordOpts);
+            const canvasInterior = await html2canvas(interior, wordOpts);
             
             const imgFrontal = canvasFrontal.toDataURL('image/jpeg', 0.85);
             const imgInterior = canvasInterior.toDataURL('image/jpeg', 0.85);

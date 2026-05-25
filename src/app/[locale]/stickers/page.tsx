@@ -18,6 +18,7 @@ import { Link } from '@/navigation';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
+import html2canvas from "html2canvas";
 
 type AssetType = 'stickers' | 'bookmarks' | 'business-cards';
 
@@ -43,8 +44,6 @@ export default function IdentityAssetsPage() {
         setIsExporting(true);
 
         try {
-            const mod = await import('html2canvas');
-const html2canvas = typeof mod === 'function' ? mod : (mod as any).default ?? mod;
             const { jsPDF } = await import('jspdf');
 
             const element = document.getElementById('assets-sheet');

@@ -3,6 +3,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Download } from "lucide-react";
+import html2canvas from "html2canvas";
 
 const FEATURES = [
   { icon: "⚡", label: "Contabilidad Automatizada" },
@@ -27,30 +28,18 @@ export function InstagramPost() {
     setDownloading(true);
     try {
       await new Promise(r => setTimeout(r, 500));
-      const mod = await import("html2canvas");
-      const html2canvas = typeof mod === 'function' ? mod : (mod as any).default ?? mod;
-      let lastErr: unknown;
-      for (let attempt = 0; attempt < 3; attempt++) {
-        try {
-          const canvas = await html2canvas(postRef.current!, {
-            scale: 3,
-            useCORS: true,
-            backgroundColor: "#020617",
-            logging: false,
-          });
-          const link = document.createElement("a");
-          link.download = "system-kyron-post.png";
-          link.href = canvas.toDataURL("image/png");
-          link.click();
-          return;
-        } catch (err) {
-          lastErr = err;
-          await new Promise(r => setTimeout(r, 300 * (attempt + 1)));
-        }
-      }
-      throw lastErr;
-    } catch {
-      console.error("Error capturing post after retries");
+      const canvas = await html2canvas(postRef.current!, {
+        scale: 3,
+        useCORS: true,
+        backgroundColor: "#020617",
+        logging: false,
+      });
+      const link = document.createElement("a");
+      link.download = "system-kyron-post.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch (err) {
+      console.error("Error capturing post:", err);
     } finally {
       setDownloading(false);
     }

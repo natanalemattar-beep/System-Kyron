@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowLeft, Mail, Phone, Globe, Printer, FileDown, Languages, Loader2 } from 'lucide-react';
 import { Link } from '@/navigation';
+import html2canvas from "html2canvas";
 
 type Lang = 'en' | 'bg';
 
@@ -83,8 +84,6 @@ export default function AlianzaAmeruPage() {
     setIsExporting(true);
 
     try {
-      const mod = await import('html2canvas');
-const html2canvas = typeof mod === 'function' ? mod : (mod as any).default ?? mod;
       const { jsPDF } = await import('jspdf');
 
       const element = letterRef.current;
