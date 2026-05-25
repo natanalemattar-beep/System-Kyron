@@ -24,7 +24,7 @@ export function GlobalPreloader() {
         >
           <div className="relative flex flex-col items-center justify-center">
             {/* Outer Rotating Rings */}
-            <div className="absolute inset-0 w-64 h-64">
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64">
               <motion.div 
                 animate={{ rotate: 360 }}
                 transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
