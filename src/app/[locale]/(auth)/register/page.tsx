@@ -707,14 +707,14 @@ export default function RegisterSelectionPage() {
     const currentStepIdx = step === "identify" ? 0 : 1;
 
     return (
-        <div className="min-h-screen flex bg-gradient-to-b from-[#e4edf8] via-[#dce7f5] to-[#d2dff0] dark:from-[#0a0f1a] dark:via-[#111827] dark:to-[#0f172a]">
+        <div className="min-h-dvh lg:min-h-screen flex bg-gradient-to-b from-[#e4edf8] via-[#dce7f5] to-[#d2dff0] dark:from-[#0a0f1a] dark:via-[#111827] dark:to-[#0f172a]">
             <div className="hidden lg:block lg:w-[45%] xl:w-[42%]">
                 <div className="sticky top-0 h-screen">
                     <BrandingPanel />
                 </div>
             </div>
 
-            <div className="flex-1 relative overflow-hidden bg-gradient-to-b from-[#e8f0fa] via-[#dce7f5] to-[#d2dff0] dark:from-[#0a0f1a] dark:via-[#111827] dark:to-[#0f172a]">
+            <div className="flex-1 relative overflow-hidden flex flex-col bg-gradient-to-b from-[#e8f0fa] via-[#dce7f5] to-[#d2dff0] dark:from-[#0a0f1a] dark:via-[#111827] dark:to-[#0f172a]">
                 <div className="absolute inset-0 bg-gradient-to-br from-sky-100/40 via-transparent to-emerald-100/20 dark:from-sky-900/20 dark:to-emerald-900/10" />
 
                 <motion.div
@@ -743,7 +743,7 @@ export default function RegisterSelectionPage() {
                 />
 
 
-                <div className="relative z-10 min-h-screen flex flex-col">
+                <div className="relative z-10 flex-1 flex flex-col">
                     <nav className="flex items-center justify-between px-6 py-5 max-w-2xl mx-auto w-full">
                         {step === "identify" ? (
                             <Link href="/" className="group flex items-center gap-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-all duration-300 text-sm">
@@ -767,7 +767,7 @@ export default function RegisterSelectionPage() {
                         </div>
                     </nav>
 
-                    <div className="flex-1 flex flex-col items-center justify-center px-5 sm:px-8 pb-10 pt-4">
+                    <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-8 pb-6 lg:pb-10 pt-4">
                         <div className="w-full max-w-lg">
                             <KyronLogo />
                             <motion.div
@@ -775,9 +775,9 @@ export default function RegisterSelectionPage() {
                                 initial={{ opacity: 0, y: 15 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                                className="text-center mb-10"
+                                className="text-center mb-6 lg:mb-10"
                             >
-                                <h1 className="text-5xl sm:text-6xl font-black tracking-tight leading-none uppercase font-outfit">
+                                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none uppercase font-outfit">
                                     <span className="bg-gradient-to-b from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
                                         Crear Cuenta
                                     </span>
@@ -785,7 +785,7 @@ export default function RegisterSelectionPage() {
                                 <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] mt-3">Registro de Identidad Kyron</p>
                             </motion.div>
 
-                            <div className="flex items-start gap-3 mb-8 px-1">
+                            <div className="flex items-start gap-3 mb-6 lg:mb-8 px-1">
                                 {STEP_LABELS.map((label, n) => {
                                     const isActive = n === currentStepIdx;
                                     const isDone = n < currentStepIdx;

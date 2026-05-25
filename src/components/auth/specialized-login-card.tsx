@@ -429,12 +429,12 @@ export function SpecializedLoginCard({
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <div className="mb-10">
-              <h2 className="text-3xl font-black tracking-tight text-white uppercase leading-none">Acceso Seguro</h2>
-              <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest mt-2">Identificación de Usuario Protegida</p>
+            <div className="mb-6 lg:mb-10">
+              <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-white uppercase leading-none">Acceso Seguro</h2>
+              <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest mt-1 lg:mt-2">Identificación de Usuario Protegida</p>
             </div>
 
-            <div className="flex rounded-2xl bg-white/[0.03] border border-white/5 p-1.5 mb-10">
+            <div className="flex rounded-2xl bg-white/[0.03] border border-white/5 p-1.5 mb-6 lg:mb-10">
               <button
                 type="button"
                 onClick={() => { setLoginMode('email'); setError(null); }}
@@ -537,7 +537,7 @@ export function SpecializedLoginCard({
                     <Label className="text-[10px] font-black text-white/30 uppercase tracking-[0.25em]">{identifierLabel}</Label>
                     <div className="relative group">
                       <IdentifierIcon className={cn("absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-blue-500 transition-colors")} />
-                      <Input name="identifier" type="text" placeholder={identifierPlaceholder} required className={cn("h-16 pl-14 rounded-2xl border-white/5 bg-white/[0.02] text-white text-base font-bold tracking-tight transition-all placeholder:text-white/10")} />
+                      <Input name="identifier" type="text" placeholder={identifierPlaceholder} required className={cn("h-14 lg:h-16 pl-14 rounded-2xl border-white/5 bg-white/[0.02] text-white text-sm lg:text-base font-bold tracking-tight transition-all placeholder:text-white/10")} />
                     </div>
                   </div>
 
@@ -549,7 +549,7 @@ export function SpecializedLoginCard({
                     </div>
                     <div className="relative group">
                       <Lock className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-blue-500 transition-colors" />
-                      <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className={cn("h-16 pl-14 pr-14 rounded-2xl border-white/5 bg-white/[0.02] text-xl font-mono transition-all placeholder:text-white/10")} />
+                      <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className={cn("h-14 lg:h-16 pl-14 pr-14 rounded-2xl border-white/5 bg-white/[0.02] text-lg lg:text-xl font-mono transition-all placeholder:text-white/10")} />
                       <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-5 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors" tabIndex={-1}>
                         {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                       </button>
@@ -608,7 +608,7 @@ export function SpecializedLoginCard({
                     </span>
                   </label>
 
-                  <Button type="submit" className={cn("w-full h-16 rounded-2xl font-black text-[11px] uppercase tracking-[0.25em] text-white shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98]", theme.btnBg)} disabled={isLoading}>
+                  <Button type="submit" className={cn("w-full h-14 lg:h-16 rounded-2xl font-black text-[10px] lg:text-[11px] uppercase tracking-[0.25em] text-white shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98]", theme.btnBg)} disabled={isLoading}>
                     {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <>Validar Acceso <ArrowRight className="ml-3 h-4 w-4" /></>}
                   </Button>
                 </motion.form>
@@ -690,7 +690,7 @@ export function SpecializedLoginCard({
               )}
             </AnimatePresence>
 
-            <div className="mt-8 pt-6 border-t border-border/30 space-y-4">
+            <div className="mt-6 lg:mt-8 pt-4 lg:pt-6 border-t border-border/30 space-y-4">
               <Button variant="outline" asChild className="w-full h-11 rounded-xl text-[13px] font-semibold border-border/40 hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all">
                 <Link href="/register" className="flex items-center gap-2"><UserPlus className="h-4 w-4" /> Crear Cuenta</Link>
               </Button>
@@ -1226,7 +1226,7 @@ export function SpecializedLoginCard({
 
   if (layoutVariant === 'accounting-premium') {
     return (
-      <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden bg-[#020617]">
+      <div className="flex items-start lg:items-center justify-center min-h-dvh lg:min-h-screen p-4 md:p-8 w-full relative overflow-y-auto lg:overflow-hidden bg-[#020617]">
         {/* Cinematic Background */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(30,58,138,0.15),transparent_70%)]" />
@@ -1376,7 +1376,7 @@ export function SpecializedLoginCard({
               className="absolute -inset-10 bg-blue-600/10 blur-[100px] rounded-full" 
             />
             
-            <div className="relative rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-3xl p-8 md:p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden group">
+            <div className="relative rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-3xl p-6 md:p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden group">
               {/* Form top decoration line with animation */}
               <motion.div 
                 animate={{ x: ['-100%', '100%'] }}
@@ -1384,21 +1384,21 @@ export function SpecializedLoginCard({
                 className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-50" 
               />
               
-              <div className="mb-8">
+              <div className="mb-6 lg:mb-8">
                 <motion.div
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
-                  className="h-12 w-12 rounded-xl bg-blue-600 flex items-center justify-center mb-6 shadow-lg shadow-blue-600/20"
+                  className="h-10 w-10 lg:h-12 lg:w-12 rounded-xl bg-blue-600 flex items-center justify-center mb-3 lg:mb-6 shadow-lg shadow-blue-600/20"
                 >
-                  <Icon className="h-6 w-6 text-white" />
+                  <Icon className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
                 </motion.div>
-                <h2 className="text-2xl font-black text-white tracking-tight mb-2 uppercase italic">Bienvenido</h2>
-                <p className="text-sm text-slate-400 font-medium">Accede a tu panel de control financiero</p>
+                <h2 className="text-xl lg:text-2xl font-black text-white tracking-tight mb-1 lg:mb-2 uppercase italic">Bienvenido</h2>
+                <p className="text-xs lg:text-sm text-slate-400 font-medium">Accede a tu panel de control financiero</p>
               </div>
 
               {formContent}
               
-              <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-center gap-2">
+              <div className="mt-6 lg:mt-8 pt-4 lg:pt-6 border-t border-white/5 flex items-center justify-center gap-2">
                 <Shield className="h-3.5 w-3.5 text-blue-400/50" />
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Conexión Segura TLS 1.3</span>
               </div>
