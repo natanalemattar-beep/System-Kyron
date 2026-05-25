@@ -35,8 +35,22 @@ export default function LoginPersonalPage() {
   const [countdown, setCountdown] = useState(0);
   const [devCode, setDevCode] = useState<string | null>(null);
   const [trustDevice, setTrustDevice] = useState(false);
+  const [docType, setDocType] = useState<'V' | 'E'>('V');
+  const [identifierDisplay, setIdentifierDisplay] = useState('');
   const [deviceFingerprint] = useState(() => getDeviceFingerprint());
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const formatDoc = useCallback((raw: string) => {
+    const digits = raw.replace(/\D/g, '');
+    if (!digits) return '';
+    const groups: string[] = [];
+    let remaining = digits;
+    while (remaining.length > 0) {
+      groups.unshift(remaining.slice(-3));
+      remaining = remaining.slice(0, -3);
+    }
+    return groups.join('.');
+  }, []);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -66,7 +80,10 @@ export default function LoginPersonalPage() {
     setIsLoading(true);
     setError(null);
     const formData = new FormData(event.currentTarget);
-    const identifier = (formData.get('identifier') as string || '').trim().toLowerCase();
+    const rawIdentifier = (formData.get('identifier') as string || '').trim();
+    const identifier = rawIdentifier.includes('@')
+      ? rawIdentifier.toLowerCase()
+      : `${docType}-${rawIdentifier.replace(/\D/g, '')}`;
 
     const password = formData.get('password') as string;
     const accessKey = (formData.get('accessKey') as string || '').trim();
@@ -335,10 +352,35 @@ export default function LoginPersonalPage() {
                 <form onSubmit={handleLogin} className="space-y-8">
                   <div className="space-y-3 group">
                     <Label className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] ml-2">Cédula o Correo</Label>
-                    <div className="relative">
-                      <User className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-cyan-400 transition-colors" />
-                      <Input name="identifier" type="text" placeholder="V-00.000.000" required className="h-16 pl-16 rounded-2xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40 transition-all font-bold text-lg tracking-wider placeholder:text-white/5" />
+                    <div className="relative flex gap-2">
+                      <div className="flex rounded-xl border border-white/5 bg-white/[0.03] overflow-hidden shrink-0">
+                        <button type="button" onClick={() => setDocType('V')}
+                          className={cn("px-5 py-3 text-xs font-black uppercase tracking-widest transition-all",
+                            docType === 'V' ? "bg-blue-600 text-white shadow-lg" : "text-white/30 hover:text-white"
+                          )}>V</button>
+                        <button type="button" onClick={() => setDocType('E')}
+                          className={cn("px-5 py-3 text-xs font-black uppercase tracking-widest transition-all",
+                            docType === 'E' ? "bg-blue-600 text-white shadow-lg" : "text-white/30 hover:text-white"
+                          )}>E</button>
+                      </div>
+                      <div className="relative flex-1">
+                        <User className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-cyan-400 transition-colors" />
+                        <Input
+                          name="identifier"
+                          type="text"
+                          placeholder="00.000.000 o correo"
+                          value={identifierDisplay}
+                          onChange={e => {
+                            const v = e.target.value;
+                            if (v.includes('@')) { setIdentifierDisplay(v); return; }
+                            const digits = v.replace(/\D/g, '');
+                            setIdentifierDisplay(formatDoc(digits) || v);
+                          }}
+                          className="h-16 pl-14 rounded-2xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40 transition-all font-bold text-lg tracking-wider placeholder:text-white/5"
+                        />
+                      </div>
                     </div>
+                    <p className="text-[9px] font-bold text-white/15 uppercase tracking-[0.2em] ml-2">Selecciona V (Venezolano) o E (Extranjero) y escribe solo los números</p>
                   </div>
 
                   <div className="space-y-3 group">
