@@ -6,7 +6,7 @@ import { DemoBannerProvider } from "@/components/demo-banner";
 import { DemoBannerSpacer } from "@/components/demo-banner-spacer";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
-import { Inter, Outfit, Lora } from 'next/font/google';
+import { Inter, Outfit } from 'next/font/google';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { Providers } from "@/components/providers";
@@ -15,7 +15,6 @@ import { GlobalPreloader } from "@/components/ui/global-preloader";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit', display: 'optional' });
-const lora = Lora({ subsets: ['latin'], variable: '--font-lora', display: 'optional' });
 
 export const viewport = {
   width: 'device-width',
@@ -60,7 +59,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${inter.variable} ${outfit.variable} ${lora.variable} dark overflow-x-hidden`} suppressHydrationWarning>
+    <html lang={locale} className={`${inter.variable} ${outfit.variable} dark overflow-x-hidden`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
         <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
