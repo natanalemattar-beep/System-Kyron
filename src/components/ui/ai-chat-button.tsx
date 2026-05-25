@@ -188,8 +188,8 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "fixed z-50 h-14 w-14 rounded-full p-0.5 shadow-2xl group",
-          className || "bottom-6 right-6",
+          "fixed z-50 h-12 w-12 rounded-full p-0.5 shadow-2xl group",
+          className || "bottom-6 left-6",
           `bg-gradient-to-br ${context.color}`
         )}
       >
@@ -213,7 +213,7 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", damping: 25, stiffness: 350 }}
             className={cn(
-              "fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-48px)] max-h-[600px] rounded-3xl overflow-hidden flex flex-col",
+              "fixed bottom-24 left-6 z-50 w-[380px] max-w-[calc(100vw-48px)] max-h-[600px] rounded-3xl overflow-hidden flex flex-col",
               "shadow-[0_0_80px_rgba(0,0,0,0.6)] shadow-black/50",
               "border border-gray-200 dark:border-white/10",
               "bg-white/95 dark:bg-zinc-950/95 backdrop-blur-3xl",

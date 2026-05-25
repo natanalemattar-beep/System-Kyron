@@ -14,7 +14,7 @@ export function LandingClientWrapper({ children }: { children: React.ReactNode }
       <WhatsAppButton />
       <AIChatButton
         contextKey="system-kyron-soporte"
-        className="bottom-28 right-6"
+        className="bottom-28 left-6"
         chatClassName="bottom-48"
       />
     </>

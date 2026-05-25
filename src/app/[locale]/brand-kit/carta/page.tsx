@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "@/navigation";
-import { ShieldCheck, Lock, ArrowLeft, Download } from "lucide-react";
+import { ShieldCheck, Lock, ArrowLeft, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { toPng } from "html-to-image";
+import { jsPDF } from "jspdf";
 
 const ACCESS_CODE = "Carlos123";
 
@@ -12,7 +14,50 @@ export default function CartaPage() {
   const [code, setCode] = useState("");
   const [unlocked, setUnlocked] = useState(false);
   const [error, setError] = useState(false);
+  const [logoUrl, setLogoUrl] = useState("");
+  const [exporting, setExporting] = useState(false);
+  const letterRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    fetch("/images/logo-kyron-hq.png")
+      .then((r) => r.blob())
+      .then((blob) => {
+        const reader = new FileReader();
+        reader.onloadend = () => setLogoUrl(reader.result as string);
+        reader.readAsDataURL(blob);
+      });
+  }, []);
+
+  const handleDownloadPDF = async () => {
+    if (exporting || !letterRef.current) return;
+    setExporting(true);
+    try {
+      const canvas = await toPng(letterRef.current, {
+        quality: 1,
+        pixelRatio: 2,
+        backgroundColor: "#ffffff",
+      });
+      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+      const pdfW = pdf.internal.pageSize.getWidth();
+      const pdfH = pdf.internal.pageSize.getHeight();
+      const ratio = canvas.width / canvas.height;
+      const imgW = pdfW;
+      const imgH = pdfW / ratio;
+      pdf.addImage(canvas, "JPEG", 0, 0, imgW, imgH > pdfH ? pdfH : imgH, undefined, "FAST");
+      if (imgH > pdfH) {
+        pdf.addPage();
+        const remaining = imgH - pdfH;
+        const srcY = pdfH / imgH * canvas.height;
+        pdf.addImage(canvas, "JPEG", 0, 0, pdfW, remaining, undefined, "FAST", srcY);
+      }
+      pdf.save("System-Kyron-Carta-FONACIT.pdf");
+    } catch (err) {
+      console.error("Error generating PDF:", err);
+    } finally {
+      setExporting(false);
+    }
+  };
 
   const handleUnlock = () => {
     if (code.toLowerCase() === ACCESS_CODE.toLowerCase()) {
@@ -68,14 +113,20 @@ export default function CartaPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-[2rem] shadow-2xl overflow-hidden print:shadow-none print:rounded-none" id="letter-content">
+        <div ref={letterRef} className="bg-white rounded-[2rem] shadow-2xl overflow-hidden print:shadow-none print:rounded-none">
           <div className="p-12 md:p-20 space-y-8 text-zinc-800">
             <div className="flex justify-between items-start border-b border-zinc-200 pb-8">
-              <div>
-                <h1 className="text-3xl font-bold tracking-tight text-zinc-900">System Kyron</h1>
-                <p className="text-sm text-zinc-500 mt-1">Plataforma de Inteligencia Corporativa</p>
+              <div className="flex items-center gap-4">
+                {logoUrl && (
+                  <img src={logoUrl} alt="System Kyron" className="h-12 w-12 object-contain" />
+                )}
+                <div>
+                  <h1 className="text-2xl font-bold tracking-tight text-zinc-900">System Kyron</h1>
+                  <p className="text-[10px] text-zinc-400 font-mono mt-0.5">RIF J-00000000-0</p>
+                  <p className="text-sm text-zinc-500 mt-0.5">Plataforma de Inteligencia Corporativa</p>
+                </div>
               </div>
-              <div className="text-right text-sm text-zinc-400">
+              <div className="text-right text-sm text-zinc-400 shrink-0">
                 <p>Caracas, {new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
               </div>
             </div>
@@ -120,10 +171,12 @@ export default function CartaPage() {
 
         <div className="flex justify-center mt-8">
           <Button
-            onClick={() => window.print()}
-            className="h-12 px-8 rounded-2xl font-black text-xs uppercase tracking-widest bg-zinc-800 hover:bg-zinc-700 text-white"
+            onClick={handleDownloadPDF}
+            disabled={exporting}
+            className="h-12 px-8 rounded-2xl font-black text-xs uppercase tracking-widest bg-zinc-800 hover:bg-zinc-700 text-white disabled:opacity-50"
           >
-            <Download className="mr-3 h-4 w-4" /> Imprimir / Guardar PDF
+            {exporting ? <Loader2 className="mr-3 h-4 w-4 animate-spin" /> : <Download className="mr-3 h-4 w-4" />}
+            {exporting ? "Generando PDF..." : "Descargar PDF"}
           </Button>
         </div>
       </div>
