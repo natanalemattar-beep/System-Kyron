@@ -15,7 +15,7 @@ export default function CartaPage() {
   const router = useRouter();
 
   const handleUnlock = () => {
-    if (code.toLowerCase() === ACCESS_CODE) {
+    if (code.toLowerCase() === ACCESS_CODE.toLowerCase()) {
       setUnlocked(true);
       setError(false);
     } else {
