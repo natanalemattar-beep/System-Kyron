@@ -19,7 +19,7 @@ export function OfficialSeal({ className }: { className?: string }) {
         await new Promise(r => requestAnimationFrame(r));
         const { toPng } = await import('html-to-image');
         const dataUrl = await toPng(el, {
-            width: 1200, height: 1200, pixelRatio: 3, backgroundColor: '#ffffff',
+            width: 1200, height: 1200, pixelRatio: 3, backgroundColor: 'transparent',
             cacheBust: true,
         });
         el.style.width = origWidth;
