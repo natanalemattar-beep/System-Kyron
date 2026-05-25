@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import {
   Loader2, User, ChevronLeft, Fingerprint, ShieldCheck, UserPlus, Shield,
   Eye, EyeOff, CircleCheck, ArrowRight, TriangleAlert, Mail, Lock,
-  KeyRound, RotateCcw, Scan, Sparkles, Smartphone, MessageSquare, MessageCircle,
+  KeyRound, RotateCcw, Scan, Sparkles, Smartphone,
   Cpu
 } from 'lucide-react';
 import { useRouter, Link } from '@/navigation';
@@ -26,11 +26,10 @@ export default function LoginPersonalPage() {
   const [showAccessKey, setShowAccessKey] = useState(false);
   const [useAccessKey, setUseAccessKey] = useState(false);
   const [step, setStep] = useState<'credentials' | 'verification'>('credentials');
-  const [loginMode, setLoginMode] = useState<'email' | 'phone'>('email');
-  const [phoneMethod, setPhoneMethod] = useState<'sms' | 'whatsapp'>('sms');
+  const [loginMode] = useState<'email'>('email');
   const [verificationEmail, setVerificationEmail] = useState('');
   const [maskedEmail, setMaskedEmail] = useState('');
-  const [maskedPhone, setMaskedPhone] = useState('');
+
   const [codeDigits, setCodeDigits] = useState(['', '', '', '', '', '']);
   const [countdown, setCountdown] = useState(0);
   const [devCode, setDevCode] = useState<string | null>(null);
@@ -150,35 +149,6 @@ export default function LoginPersonalPage() {
       }
       toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
       router.push(dashboardPath as any);
-    } catch { setError('Error de conexión.'); setIsLoading(false); }
-  };
-
-  const handlePhoneLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const phone = (formData.get('phone') as string || '').trim();
-    if (!phone) { setError('Ingresa tu número de teléfono'); return; }
-    setIsLoading(true);
-    setError(null);
-    try {
-      const res = await fetch('/api/auth/login-phone', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, method: phoneMethod }),
-      });
-      const json = await res.json();
-      if (!res.ok) { setError(json.error || 'Error al enviar código.'); setIsLoading(false); return; }
-      if (json.requiresVerification) {
-        setVerificationEmail(json.email);
-        setMaskedPhone(json.maskedPhone || '');
-        setDevCode(null);
-        setStep('verification');
-        setCountdown(600);
-        setCodeDigits(['', '', '', '', '', '']);
-        setIsLoading(false);
-        const label = phoneMethod === 'sms' ? 'SMS' : 'WhatsApp';
-        toast({ title: `Código enviado por ${label}`, description: `Revisa tu ${label} en ${json.maskedPhone}`, action: <Smartphone className="text-emerald-500 h-4 w-4" /> });
-      }
     } catch { setError('Error de conexión.'); setIsLoading(false); }
   };
 
@@ -312,19 +282,11 @@ export default function LoginPersonalPage() {
                 <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">Autenticación de Ciudadanía Digital</p>
               </div>
 
-              <div className="flex rounded-2xl bg-white/[0.02] border border-white/5 p-1.5 mb-10">
-                <button type="button" onClick={() => { setLoginMode('email'); setError(null); }}
-                  className={cn("flex-1 flex items-center justify-center gap-3 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500",
-                    loginMode === 'email' ? "bg-blue-600 text-white shadow-[0_10px_30px_rgba(37,99,235,0.4)]" : "text-white/20 hover:text-white"
-                  )}>
-                  <Mail className="h-4 w-4" /> Correo / ID
-                </button>
-                <button type="button" onClick={() => { setLoginMode('phone'); setError(null); }}
-                  className={cn("flex-1 flex items-center justify-center gap-3 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500",
-                    loginMode === 'phone' ? "bg-emerald-600 text-white shadow-[0_10px_30px_rgba(5,150,105,0.4)]" : "text-white/20 hover:text-white"
-                  )}>
-                  <Smartphone className="h-4 w-4" /> Teléfono
-                </button>
+              <div className="flex items-center gap-2 mb-10">
+                <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-blue-600/10 border border-blue-500/20">
+                  <Mail className="h-4 w-4 text-blue-400" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Correo / Cédula</span>
+                </div>
               </div>
 
               {error && (
@@ -348,112 +310,71 @@ export default function LoginPersonalPage() {
                 </motion.div>
               )}
 
-              {loginMode === 'email' ? (
-                <form onSubmit={handleLogin} className="space-y-8">
-                  <div className="space-y-3 group">
-                    <Label className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] ml-2">Cédula o Correo</Label>
-                    <div className="relative flex gap-2">
-                      <div className="flex rounded-xl border border-white/5 bg-white/[0.03] overflow-hidden shrink-0">
-                        <button type="button" onClick={() => setDocType('V')}
-                          className={cn("px-5 py-3 text-xs font-black uppercase tracking-widest transition-all",
-                            docType === 'V' ? "bg-blue-600 text-white shadow-lg" : "text-white/30 hover:text-white"
-                          )}>V</button>
-                        <button type="button" onClick={() => setDocType('E')}
-                          className={cn("px-5 py-3 text-xs font-black uppercase tracking-widest transition-all",
-                            docType === 'E' ? "bg-blue-600 text-white shadow-lg" : "text-white/30 hover:text-white"
-                          )}>E</button>
-                      </div>
-                      <div className="relative flex-1">
-                        <User className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-cyan-400 transition-colors" />
-                        <Input
-                          name="identifier"
-                          type="text"
-                          placeholder="00.000.000 o correo"
-                          value={identifierDisplay}
-                          onChange={e => {
-                            const v = e.target.value;
-                            if (v.includes('@')) { setIdentifierDisplay(v); return; }
-                            const digits = v.replace(/\D/g, '');
-                            setIdentifierDisplay(formatDoc(digits) || v);
-                          }}
-                          className="h-16 pl-14 rounded-2xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40 transition-all font-bold text-lg tracking-wider placeholder:text-white/5"
-                        />
-                      </div>
+              <form onSubmit={handleLogin} className="space-y-8">
+                <div className="space-y-3 group">
+                  <Label className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] ml-2">Cédula o Correo</Label>
+                  <div className="relative flex gap-2">
+                    <div className="flex rounded-xl border border-white/5 bg-white/[0.03] overflow-hidden shrink-0">
+                      <button type="button" onClick={() => setDocType('V')}
+                        className={cn("px-5 py-3 text-xs font-black uppercase tracking-widest transition-all",
+                          docType === 'V' ? "bg-blue-600 text-white shadow-lg" : "text-white/30 hover:text-white"
+                        )}>V</button>
+                      <button type="button" onClick={() => setDocType('E')}
+                        className={cn("px-5 py-3 text-xs font-black uppercase tracking-widest transition-all",
+                          docType === 'E' ? "bg-blue-600 text-white shadow-lg" : "text-white/30 hover:text-white"
+                        )}>E</button>
                     </div>
-                    <p className="text-[9px] font-bold text-white/15 uppercase tracking-[0.2em] ml-2">Selecciona V (Venezolano) o E (Extranjero) y escribe solo los números</p>
-                  </div>
-
-                  <div className="space-y-3 group">
-                    <div className="flex justify-between items-center px-2">
-                        <Label className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em]">Clave de Acceso</Label>
-                        <Link href="/recuperar-cuenta" className="text-[9px] font-black text-cyan-400/50 hover:text-cyan-400 uppercase tracking-widest transition-colors">¿Olvidaste?</Link>
-                    </div>
-                    <div className="relative">
-                      <Lock className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-cyan-400 transition-colors" />
-                      <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required className="h-16 pl-16 pr-16 rounded-2xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40 transition-all font-mono text-2xl placeholder:text-white/5" />
-                      <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-6 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors" tabIndex={-1}>
-                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                      </button>
+                    <div className="relative flex-1">
+                      <User className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-cyan-400 transition-colors" />
+                      <Input
+                        name="identifier"
+                        type="text"
+                        placeholder="00.000.000 o correo"
+                        value={identifierDisplay}
+                        onChange={e => {
+                          const v = e.target.value;
+                          if (v.includes('@')) { setIdentifierDisplay(v); return; }
+                          const digits = v.replace(/\D/g, '');
+                          setIdentifierDisplay(formatDoc(digits) || v);
+                        }}
+                        className="h-16 pl-14 rounded-2xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40 transition-all font-bold text-lg tracking-wider placeholder:text-white/5"
+                      />
                     </div>
                   </div>
+                  <p className="text-[9px] font-bold text-white/15 uppercase tracking-[0.2em] ml-2">Selecciona V (Venezolano) o E (Extranjero) y escribe solo los números</p>
+                </div>
 
-                  <label className="flex items-center gap-3 px-2 cursor-pointer group">
-                    <input
-                      type="checkbox"
-                      checked={trustDevice}
-                      onChange={e => setTrustDevice(e.target.checked)}
-                      className="h-4 w-4 rounded border-white/20 bg-white/5 text-cyan-500 focus:ring-cyan-500/30 accent-cyan-500"
-                    />
-                    <span className="text-[9px] font-bold text-white/30 group-hover:text-white/50 uppercase tracking-[0.2em] transition-colors">
-                      Confiar en este dispositivo — no pedir código otra vez
-                    </span>
-                  </label>
-
-                  <Button type="submit" className="w-full h-18 rounded-[1.5rem] font-black text-[12px] uppercase tracking-[0.4em] shadow-2xl bg-blue-600 hover:bg-blue-500 text-white transition-all hover:scale-[1.02] active:scale-[0.98] italic group/btn overflow-hidden relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
-                    {isLoading ? <Loader2 className="mr-3 h-6 w-6 animate-spin" /> : <span className="flex items-center gap-4">Sincronizar Identidad <ArrowRight className="h-5 w-5" /></span>}
-                  </Button>
-                </form>
-              ) : (
-                <form onSubmit={handlePhoneLogin} className="space-y-8">
-                  <div className="p-6 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 space-y-2">
-                    <div className="flex items-center gap-3 text-emerald-400">
-                      <ShieldCheck className="h-5 w-5" />
-                      <p className="text-xs font-black uppercase tracking-widest">Acceso Biométrico / OTP</p>
-                    </div>
-                    <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest leading-relaxed">Enviaremos un código de verificación de 6 dígitos a tu dispositivo registrado.</p>
+                <div className="space-y-3 group">
+                  <div className="flex justify-between items-center px-2">
+                      <Label className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em]">Clave de Acceso</Label>
+                      <Link href="/recuperar-cuenta" className="text-[9px] font-black text-cyan-400/50 hover:text-cyan-400 uppercase tracking-widest transition-colors">¿Olvidaste?</Link>
                   </div>
-
-                  <div className="space-y-3 group">
-                    <Label className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] ml-2">Móvil Registrado</Label>
-                    <div className="relative">
-                      <Smartphone className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-emerald-400 transition-colors" />
-                      <Input name="phone" type="tel" placeholder="0412-0000000" required className="h-16 pl-16 rounded-2xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-emerald-500/20 focus-visible:border-emerald-500/40 transition-all font-bold text-lg tracking-wider placeholder:text-white/5" />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <button type="button" onClick={() => setPhoneMethod('sms')}
-                        className={cn("flex flex-col items-center gap-3 p-5 rounded-2xl border-2 transition-all duration-500",
-                          phoneMethod === 'sms' ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-400 shadow-[0_10px_20px_rgba(16,185,129,0.2)]" : "border-white/5 text-white/20 hover:border-white/10"
-                        )}>
-                        <MessageSquare className="h-6 w-6" />
-                        <span className="text-[9px] font-black uppercase tracking-widest">SMS Kyron</span>
-                    </button>
-                    <button type="button" onClick={() => setPhoneMethod('whatsapp')}
-                        className={cn("flex flex-col items-center gap-3 p-5 rounded-2xl border-2 transition-all duration-500",
-                          phoneMethod === 'whatsapp' ? "border-green-500/50 bg-green-500/10 text-green-400 shadow-[0_10px_20px_rgba(34,197,94,0.2)]" : "border-white/5 text-white/20 hover:border-white/10"
-                        )}>
-                        <MessageCircle className="h-6 w-6" />
-                        <span className="text-[9px] font-black uppercase tracking-widest">WhatsApp ID</span>
+                  <div className="relative">
+                    <Lock className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-cyan-400 transition-colors" />
+                    <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required className="h-16 pl-16 pr-16 rounded-2xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40 transition-all font-mono text-2xl placeholder:text-white/5" />
+                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-6 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors" tabIndex={-1}>
+                      {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                     </button>
                   </div>
+                </div>
 
-                  <Button type="submit" className="w-full h-18 rounded-[1.5rem] font-black text-[12px] uppercase tracking-[0.4em] shadow-2xl bg-emerald-600 hover:bg-emerald-500 text-white transition-all hover:scale-[1.02] active:scale-[0.98] italic" disabled={isLoading}>
-                    {isLoading ? <Loader2 className="mr-3 h-6 w-6 animate-spin" /> : <span className="flex items-center gap-4">Enviar Token <ArrowRight className="h-5 w-5" /></span>}
-                  </Button>
-                </form>
-              )}
+                <label className="flex items-center gap-3 px-2 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={trustDevice}
+                    onChange={e => setTrustDevice(e.target.checked)}
+                    className="h-4 w-4 rounded border-white/20 bg-white/5 text-cyan-500 focus:ring-cyan-500/30 accent-cyan-500"
+                  />
+                  <span className="text-[9px] font-bold text-white/30 group-hover:text-white/50 uppercase tracking-[0.2em] transition-colors">
+                    Confiar en este dispositivo — no pedir código otra vez
+                  </span>
+                </label>
+
+                <Button type="submit" className="w-full h-18 rounded-[1.5rem] font-black text-[12px] uppercase tracking-[0.4em] shadow-2xl bg-blue-600 hover:bg-blue-500 text-white transition-all hover:scale-[1.02] active:scale-[0.98] italic group/btn overflow-hidden relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
+                  {isLoading ? <Loader2 className="mr-3 h-6 w-6 animate-spin" /> : <span className="flex items-center gap-4">Sincronizar Identidad <ArrowRight className="h-5 w-5" /></span>}
+                </Button>
+              </form>
 
               <div className="mt-10 pt-10 border-t border-white/[0.05] space-y-6">
                 <button
@@ -497,7 +418,7 @@ export default function LoginPersonalPage() {
                 </div>
                 <h2 className="text-4xl font-black tracking-tight text-white uppercase font-outfit mb-4">Verificación</h2>
                 <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] leading-relaxed">
-                  {devCode ? 'Ingresa el código de desarrollo generado:' : <>Código enviado a <strong className="text-white">{maskedEmail || maskedPhone}</strong></>}
+                  {devCode ? 'Ingresa el código de desarrollo generado:' : <>Código enviado a <strong className="text-white">{maskedEmail}</strong></>}
                 </p>
                 {countdown > 0 && (
                   <div className="mt-6 inline-flex items-center gap-3 px-5 py-2 rounded-full bg-amber-500/5 border border-amber-500/10 text-[10px] font-black text-amber-500 uppercase tracking-widest">

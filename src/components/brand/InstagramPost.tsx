@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Download, ShieldCheck, Sparkles } from "lucide-react";
 
@@ -14,23 +14,42 @@ const FEATURES = [
 export function InstagramPost() {
   const postRef = useRef<HTMLDivElement>(null);
   const [downloading, setDownloading] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => setImgLoaded(true);
+    img.src = "/images/logo-kyron-hq.png";
+  }, []);
 
   const handleDownload = useCallback(async () => {
     if (downloading) return;
     setDownloading(true);
     try {
+      await new Promise(r => setTimeout(r, 500));
       const html2canvas = (await import("html2canvas")).default;
-      const canvas = await html2canvas(postRef.current!, {
-        scale: 3,
-        useCORS: true,
-        backgroundColor: "#020617",
-      });
-      const link = document.createElement("a");
-      link.download = "system-kyron-post.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
+      let lastErr: unknown;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          const canvas = await html2canvas(postRef.current!, {
+            scale: 3,
+            useCORS: true,
+            backgroundColor: "#020617",
+            logging: false,
+          });
+          const link = document.createElement("a");
+          link.download = "system-kyron-post.png";
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+          return;
+        } catch (err) {
+          lastErr = err;
+          await new Promise(r => setTimeout(r, 300 * (attempt + 1)));
+        }
+      }
+      throw lastErr;
     } catch {
-      console.error("Error capturing post");
+      console.error("Error capturing post after retries");
     } finally {
       setDownloading(false);
     }
