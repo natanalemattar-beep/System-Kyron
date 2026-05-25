@@ -1,13 +1,9 @@
 import dynamic from 'next/dynamic';
 import { LandingClientWrapper } from '@/components/landing/landing-client-wrapper';
 import { LazySection } from '@/components/landing/lazy-section';
+import { HeroSectionOptimized } from '@/components/landing/hero-section-optimized';
 import Image from 'next/image';
 
-const HeroSection = dynamic(() =>
-  import('@/components/landing/hero-section-optimized').then((m) => ({
-    default: m.HeroSectionOptimized,
-  }))
-);
 const FeaturesSection = dynamic(() =>
   import('@/components/landing/features-section').then((m) => ({
     default: m.FeaturesSection,
@@ -54,13 +50,13 @@ export default function LandingPage() {
       <LandingClientWrapper>
         <main className="w-full">
           <section id="inicio">
-            <HeroSection />
+            <HeroSectionOptimized />
           </section>
 
           <section className="relative w-full overflow-hidden py-12 md:py-20">
             <div className="max-w-7xl mx-auto px-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                {showcaseImages.map((img, i) => (
+                  {showcaseImages.map((img, i) => (
                   <div
                     key={i}
                     className="relative group overflow-hidden rounded-3xl aspect-[4/3] bg-muted dark:bg-slate-900/50 border border-border dark:border-white/5"
@@ -69,6 +65,7 @@ export default function LandingPage() {
                       src={img.src}
                       alt={img.alt}
                       fill
+                      priority={i === 0}
                       className="object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-90"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />

@@ -1,17 +1,18 @@
 
 import {getRequestConfig} from 'next-intl/server';
 import {locales} from '../config';
+import type {AbstractIntlMessages} from 'next-intl';
+import es from '../messages/es.json';
+import en from '../messages/en.json';
 
-/**
- * @fileOverview Configuración i18n asíncrona para Next.js 15.
- * Garantiza que el locale se resuelva antes de cargar mensajes.
- */
+const messageStore: Record<string, AbstractIntlMessages> = {es, en};
+
 export default getRequestConfig(async ({requestLocale}) => {
   const locale = await requestLocale;
   const validLocale = locales.includes(locale as any) ? (locale as any) : 'es';
  
   return {
     locale: validLocale,
-    messages: (await import(`../messages/${validLocale}.json`)).default
+    messages: messageStore[validLocale]
   };
 });

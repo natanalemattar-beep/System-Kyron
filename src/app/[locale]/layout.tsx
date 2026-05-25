@@ -14,8 +14,8 @@ import { GlobalPreloader } from "@/components/ui/global-preloader";
 
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit', display: 'swap' });
-const lora = Lora({ subsets: ['latin'], variable: '--font-lora', display: 'swap' });
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit', display: 'optional' });
+const lora = Lora({ subsets: ['latin'], variable: '--font-lora', display: 'optional' });
 
 export const viewport = {
   width: 'device-width',

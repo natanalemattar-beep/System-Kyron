@@ -26,16 +26,9 @@ const CSP_DIRECTIVES = [
   "upgrade-insecure-requests",
 ].join('; ');
 
-const SECURITY_HEADERS: Record<string, string> = {
-  'X-Content-Type-Options': 'nosniff',
-  'X-Frame-Options': 'SAMEORIGIN',
-  'Referrer-Policy': 'strict-origin-when-cross-origin',
+const EDGE_SECURITY_HEADERS: Record<string, string> = {
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), accelerometer=(), gyroscope=(), magnetometer=(), usb=(), publickey-credentials-get=()',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
-  'X-DNS-Prefetch-Control': 'on',
-  'Cross-Origin-Opener-Policy': 'same-origin',
-  'Cross-Origin-Resource-Policy': 'same-origin',
-  'X-XSS-Protection': '1; mode=block',
   ...(IS_PRODUCTION ? { 'Content-Security-Policy': CSP_DIRECTIVES } : {}),
 };
 
@@ -191,7 +184,7 @@ async function verifySession(req: NextRequest): Promise<boolean> {
   }
 }
 
-const securityHeaderEntries = Object.entries(SECURITY_HEADERS);
+const securityHeaderEntries = Object.entries(EDGE_SECURITY_HEADERS);
 
 function applySecurityHeaders(response: NextResponse): void {
   for (let i = 0; i < securityHeaderEntries.length; i++) {
