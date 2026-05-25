@@ -676,15 +676,11 @@
             },
             "accounting": {
                 "label": "Accounting Advisory",
-                "description": "Accounting, payroll, HR, engineering, and marketing unified in a single module."
+                "description": "Complete suite: accounting, audit, invoicing, payroll, HR, and talent management."
             },
             "legal": {
                 "label": "Legal Advisory",
                 "description": "Contract management, legal documents, and registry procedures."
-            },
-            "invoicing": {
-                "label": "Invoicing",
-                "description": "Point of sale for quick payments, inventory control, and sales."
             },
             "partners": {
                 "label": "Partners & Directors",

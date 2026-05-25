@@ -2,21 +2,21 @@
 "use client";
 
 import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
-import { ShoppingCart } from "lucide-react";
+import { Calculator } from "lucide-react";
 
 export default function LoginVentasPage() {
     return (
         <SpecializedLoginCard 
-            portalName="Facturación" 
-            portalDescription="Terminal de ventas de alta velocidad con sincronización de inventario."
-            redirectPath="/punto-de-venta"
-            icon={ShoppingCart}
+            portalName="Asesoría Contable" 
+            portalDescription="Suite completa: contabilidad, facturación, nómina y recursos humanos integrados."
+            redirectPath="/dashboard-empresa"
+            icon={Calculator}
             accentColor="emerald-600"
             layoutVariant="centered"
             features={[
-                "TPV Multimoneda Instantáneo",
-                "Validación de RIF SENIAT",
-                "Control de Stock Crítico"
+                "Contabilidad y Auditoría",
+                "Facturación y TPV",
+                "Nómina y RRHH"
             ]}
         />
     );

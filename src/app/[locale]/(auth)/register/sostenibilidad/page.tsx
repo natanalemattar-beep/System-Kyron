@@ -17,6 +17,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { useAuth } from '@/lib/auth/context';
 import { cn } from '@/lib/utils';
+import { getModuleConfig } from '@/lib/register-modules';
+import { RegistrationSuccess } from '@/components/registration-success';
 
 const schema = z.object({
     nombre: z.string().min(2, 'Ingrese su nombre'),
@@ -51,6 +53,7 @@ export default function RegisterSostenibilidadPage() {
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [registeredEmail, setRegisteredEmail] = useState('');
     const router = useRouter();
     const { refreshUser } = useAuth();
     const { toast } = useToast();
@@ -182,6 +185,7 @@ export default function RegisterSostenibilidadPage() {
                 throw new Error(errData.error || 'Error en el registro');
             }
             await refreshUser();
+            setRegisteredEmail(data.email);
             setStep(TOTAL_STEPS);
         } catch (e: unknown) {
             toast({ title: 'Error', description: e instanceof Error ? e.message : 'Error en el registro', variant: 'destructive' });
@@ -202,7 +206,7 @@ export default function RegisterSostenibilidadPage() {
                     </div>
                     <div>
                         <h1 className="text-2xl font-bold uppercase tracking-[0.1em] text-slate-800 dark:text-slate-100 italic">Sostenibilidad</h1>
-                        <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600">System Kyron • Personal</p>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600">System Kyron • Sostenibilidad</p>
                     </div>
                 </div>
 
@@ -376,19 +380,13 @@ export default function RegisterSostenibilidadPage() {
                                 </div>
                             )}
 
-                            {step === TOTAL_STEPS && (
-                                <div className="text-center py-10 space-y-6">
-                                    <div className="inline-flex items-center justify-center w-24 h-24 rounded-[2.5rem] bg-gradient-to-br from-emerald-500 to-green-600 shadow-2xl shadow-emerald-500/40 mb-2">
-                                        <Globe className="h-12 w-12 text-white stroke-[3px]" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <h2 className="text-3xl font-black italic tracking-tight text-slate-800 dark:text-slate-100">Eco-Perfil Listo</h2>
-                                        <p className="text-sm text-slate-500 font-medium px-8">Bienvenido al ecosistema de regeneración de System Kyron. Tu huella ya está en línea.</p>
-                                    </div>
-
-                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-emerald-600 hover:bg-slate-800 dark:hover:bg-emerald-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => router.push('/dashboard' as any)}>
-                                        Ir a mi Perfil <ArrowRight className="ml-2 h-5 w-5" />
-                                    </Button>
+                            {step === TOTAL_STEPS && registeredEmail && (
+                                <div className="py-6">
+                                    <RegistrationSuccess
+                                        moduleConfig={getModuleConfig('sostenibilidad')}
+                                        email={registeredEmail}
+                                        buttonText="Ir a mi Perfil Sostenible"
+                                    />
                                 </div>
                             )}
                         </div>

@@ -89,11 +89,15 @@ export default function LoginPersonalPage() {
         contabilidad: '/dashboard-empresa',
         juridico: '/dashboard-empresa',
         legal: '/escritorio-juridico',
-        ventas: '/punto-de-venta',
+        ventas: '/dashboard-empresa',
+        tpv: '/dashboard-empresa',
         sostenibilidad: '/sostenibilidad',
         telecom: '/mi-linea',
         socios: '/dashboard-socios',
-        rrhh: '/dashboard-rrhh',
+        rrhh: '/dashboard-empresa',
+        nomina: '/dashboard-empresa',
+        talento: '/dashboard-empresa',
+        informatica: '/dashboard-it',
       };
       const modules = json.user?.modules;
       let dashboardPath = '/dashboard';
@@ -201,7 +205,7 @@ export default function LoginPersonalPage() {
       const json = await res.json();
       if (!res.ok) { setError(json.error || 'Código incorrecto.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); setTimeout(() => inputRefs.current[0]?.focus(), 100); return; }
       toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-      const modPathMap: Record<string, string> = { contabilidad: '/dashboard-empresa', juridico: '/dashboard-empresa', legal: '/escritorio-juridico', ventas: '/punto-de-venta', sostenibilidad: '/sostenibilidad', telecom: '/mi-linea', socios: '/dashboard-socios', rrhh: '/dashboard-rrhh' };
+      const modPathMap: Record<string, string> = { contabilidad: '/dashboard-empresa', juridico: '/dashboard-empresa', legal: '/escritorio-juridico', ventas: '/dashboard-empresa', tpv: '/dashboard-empresa', sostenibilidad: '/sostenibilidad', telecom: '/mi-linea', socios: '/dashboard-socios', rrhh: '/dashboard-empresa', nomina: '/dashboard-empresa', talento: '/dashboard-empresa', informatica: '/dashboard-it' };
       let dest = '/dashboard';
       for (const mod of (json.user?.modules ?? [])) { const p = modPathMap[mod]; if (p) { dest = p; break; } }
       router.push(dest as any);

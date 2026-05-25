@@ -2851,6 +2851,23 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_tipo ON notificaciones(tipo, created_at DESC)`);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_prioridad ON notificaciones(prioridad) WHERE leida = false`);
 
+  await query(`CREATE TABLE IF NOT EXISTS alert_queue (
+    id          SERIAL PRIMARY KEY,
+    user_id     INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    dedup_key   TEXT NOT NULL,
+    tipo        TEXT NOT NULL,
+    titulo      TEXT NOT NULL,
+    mensaje     TEXT NOT NULL,
+    prioridad   TEXT NOT NULL DEFAULT 'normal'
+                CHECK (prioridad IN ('baja','normal','media','alta','critica')),
+    metadata    JSONB DEFAULT '{}',
+    categoria   TEXT NOT NULL DEFAULT 'general',
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  )`);
+  await safeQuery(`CREATE UNIQUE INDEX IF NOT EXISTS idx_alert_queue_dedup ON alert_queue(user_id, dedup_key)`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_alert_queue_user ON alert_queue(user_id, created_at DESC)`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_alert_queue_cleanup ON alert_queue(created_at)`);
+
   await safeQuery(`ALTER TABLE clientes ADD COLUMN IF NOT EXISTS rif_hash TEXT`);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_clientes_rif_hash ON clientes(rif_hash)`);
   await safeQuery(`ALTER TABLE proveedores ADD COLUMN IF NOT EXISTS rif_hash TEXT`);

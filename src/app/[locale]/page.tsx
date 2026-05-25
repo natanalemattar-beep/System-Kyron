@@ -3,40 +3,68 @@ import { LandingClientWrapper } from '@/components/landing/landing-client-wrappe
 import { LazySection } from '@/components/landing/lazy-section';
 import Image from 'next/image';
 
-// Above-the-fold — SSR for SEO & LCP
-const HeroSection      = dynamic(() => import('@/components/landing/hero-section-optimized').then(m => ({ default: m.HeroSectionOptimized })), { ssr: true });
-const FeaturesSection  = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: true });
-const SustainabilitySection = dynamic(() => import('@/components/landing/SustainabilitySection').then(m => ({ default: m.SustainabilitySection })), { ssr: true });
-const ModulesSection      = dynamic(() => import('@/components/landing/modules-section').then(m => ({ default: m.ModulesSection })));
+const HeroSection = dynamic(() =>
+  import('@/components/landing/hero-section-optimized').then((m) => ({
+    default: m.HeroSectionOptimized,
+  }))
+);
+const FeaturesSection = dynamic(() =>
+  import('@/components/landing/features-section').then((m) => ({
+    default: m.FeaturesSection,
+  }))
+);
+const SustainabilitySection = dynamic(() =>
+  import('@/components/landing/SustainabilitySection').then((m) => ({
+    default: m.SustainabilitySection,
+  }))
+);
+const ModulesSection = dynamic(() =>
+  import('@/components/landing/modules-section').then((m) => ({
+    default: m.ModulesSection,
+  }))
+);
+const FaqSection = dynamic(() =>
+  import('@/components/landing/faq-section').then((m) => ({ default: m.FaqSection }))
+);
+const CtaSection = dynamic(() =>
+  import('@/components/landing/cta-section').then((m) => ({ default: m.CtaSection }))
+);
+const Footer = dynamic(() =>
+  import('@/components/landing/footer').then((m) => ({ default: m.Footer }))
+);
 
-// Below-the-fold — loaded dynamically
-const FaqSection        = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })));
-const CtaSection        = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })));
-const Footer            = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })));
-
-const showImages = [
-  { src: "https://images.unsplash.com/photo-1550751827-4c39ad8d877c?q=80&w=1200&auto=format&fit=crop", alt: "Neural Command Center" },
-  { src: "https://images.unsplash.com/photo-1563986768609-442068323336?q=80&w=1200&auto=format&fit=crop", alt: "Corporate Intelligence" },
-  { src: "https://images.unsplash.com/photo-1485827404703-89b55f01bcbe?q=80&w=1200&auto=format&fit=crop", alt: "Cyber-Sec Infrastructure" },
+const showcaseImages = [
+  {
+    src: 'https://images.unsplash.com/photo-1550751827-4c39ad8d877c?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Neural Command Center',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1563986768609-442068323336?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Corporate Intelligence',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1485827404703-89b55f01bcbe?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Cyber-Sec Infrastructure',
+  },
 ];
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-screen selection:bg-cyan-500/30 w-full bg-white dark:bg-[#030712] text-gray-900 dark:text-white font-outfit">
+    <div className="relative min-h-screen selection:bg-kyron-cyan/30 w-full bg-background text-foreground">
       <LandingClientWrapper>
         <main className="w-full">
-
-          {/* 1. Hero — El gancho principal (SSR) */}
-          <div id="inicio">
+          <section id="inicio">
             <HeroSection />
-          </div>
+          </section>
 
-          {/* 1.5 Showcase — Imagenes de alto impacto */}
           <section className="relative w-full overflow-hidden py-12 md:py-20">
             <div className="max-w-7xl mx-auto px-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                {showImages.map((img, i) => (
-                  <div key={i} className="relative group overflow-hidden rounded-3xl aspect-[4/3] bg-gray-100 dark:bg-slate-900/50 border border-gray-200 dark:border-white/5">
+                {showcaseImages.map((img, i) => (
+                  <div
+                    key={i}
+                    className="relative group overflow-hidden rounded-3xl aspect-[4/3] bg-muted dark:bg-slate-900/50 border border-border dark:border-white/5"
+                  >
                     <Image
                       src={img.src}
                       alt={img.alt}
@@ -46,7 +74,9 @@ export default function LandingPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <p className="text-xs font-bold uppercase tracking-widest text-white/80">{img.alt}</p>
+                      <p className="text-xs font-bold uppercase tracking-widest text-white/80">
+                        {img.alt}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -54,37 +84,31 @@ export default function LandingPage() {
             </div>
           </section>
 
-          {/* 2. Features — Qué hace la plataforma (SSR) */}
           <section id="caracteristicas">
             <FeaturesSection />
           </section>
 
-          {/* 2.5 Todos los Módulos — Compact Grid (lazy, below fold) */}
           <LazySection fallbackHeight="500px">
             <ModulesSection />
           </LazySection>
 
-          {/* 2.6 Sustainability — Impacto Ambiental (SSR) */}
           <SustainabilitySection />
 
-          {/* 3. FAQ — Dudas comunes */}
           <LazySection fallbackHeight="600px">
-            <div id="faq">
+            <section id="faq">
               <FaqSection />
-            </div>
+            </section>
           </LazySection>
 
-          {/* 5. CTA — El cierre rápido */}
           <LazySection fallbackHeight="400px">
             <CtaSection />
           </LazySection>
-
         </main>
 
         <LazySection fallbackHeight="200px">
-          <div id="contacto">
+          <section id="contacto">
             <Footer />
-          </div>
+          </section>
         </LazySection>
       </LandingClientWrapper>
     </div>

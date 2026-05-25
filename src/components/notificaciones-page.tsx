@@ -68,6 +68,7 @@ const iconMap: Record<string, React.ReactNode> = {
   municipal: <FileText className="h-5 w-5 text-cyan-500" />,
   ambiental: <ShieldCheck className="h-5 w-5 text-green-500" />,
   vencimiento: <CalendarClock className="h-5 w-5 text-orange-500" />,
+  bienvenida: <CircleCheck className="h-5 w-5 text-emerald-500" />,
 };
 
 const tipoBadge: Record<string, { label: string; color: string }> = {
@@ -82,6 +83,7 @@ const tipoBadge: Record<string, { label: string; color: string }> = {
   municipal: { label: "Municipal", color: "bg-cyan-500/15 text-cyan-400 border-cyan-500/20" },
   ambiental: { label: "Ambiental", color: "bg-green-500/15 text-green-400 border-green-500/20" },
   vencimiento: { label: "Vencimiento", color: "bg-orange-500/15 text-orange-400 border-orange-500/20" },
+  bienvenida: { label: "Bienvenida", color: "bg-emerald-500/15 text-emerald-400 border-emerald-500/20" },
 };
 
 function timeAgo(dateStr: string): string {

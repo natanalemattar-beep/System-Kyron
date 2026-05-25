@@ -17,9 +17,7 @@ const config: Config = {
       },
     },
     extend: {
-      screens: {
-        'xs': '375px',
-      },
+      screens: { 'xs': '375px' },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-jetbrains-mono)', 'monospace'],
@@ -90,21 +88,26 @@ const config: Config = {
           "10%, 30%, 50%, 70%, 90%": { transform: "translateX(-4px)" },
           "20%, 40%, 60%, 80%": { transform: "translateX(4px)" },
         },
+        "mesh-drift": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "50%": { transform: "translate(5%, 5%) scale(1.05)" },
+        },
+        "marquee": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.35s cubic-bezier(0.16,1,0.3,1)",
         "accordion-up": "accordion-up 0.35s cubic-bezier(0.16,1,0.3,1)",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         "shake": "shake 0.5s ease-in-out",
-      },
-       textShadow: {
-        glow: '0 0 15px hsl(var(--primary) / 0.5), 0 0 30px hsl(var(--primary) / 0.3)',
+        "mesh-drift": "mesh-drift 20s ease-in-out infinite",
+        "marquee": "marquee 40s linear infinite",
       },
     },
   },
-  plugins: [
-      require("tailwindcss-animate"),
-    ],
+  plugins: [require("tailwindcss-animate")],
 }
 
 export default config;

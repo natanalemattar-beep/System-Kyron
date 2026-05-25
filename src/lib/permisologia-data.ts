@@ -6617,6 +6617,10 @@ export function getOrganismoById(id: string): Organismo | undefined {
 export function getPermisosByOrganismo(organismoId: string): PermisoTipo[] {
   const directos = tiposPermiso.filter(p => p.organismoId === organismoId);
   if (directos.length > 0) return directos;
+
+  const prefixed = tiposPermiso.filter(p => p.organismoId.startsWith(organismoId + '-'));
+  if (prefixed.length > 0) return prefixed;
+
   const org = organismos.find(o => o.id === organismoId);
   if (org && org.tipo === 'gobernacion') {
     return tiposPermiso

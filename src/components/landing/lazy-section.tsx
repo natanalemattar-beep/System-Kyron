@@ -1,9 +1,14 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
-export function LazySection({ children, fallbackHeight = '200px' }: { children: React.ReactNode; fallbackHeight?: string }) {
+export function LazySection({
+  children,
+  fallbackHeight = '200px',
+}: {
+  children: React.ReactNode;
+  fallbackHeight?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -25,19 +30,20 @@ export function LazySection({ children, fallbackHeight = '200px' }: { children: 
 
   return (
     <div ref={ref} className="relative w-full">
-      <AnimatePresence>
-        {visible ? (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {children}
-          </motion.div>
-        ) : (
-          <div style={{ minHeight: fallbackHeight }} className="w-full bg-transparent" />
-        )}
-      </AnimatePresence>
+      {visible ? (
+        <div
+          style={{
+            animation: 'fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards',
+          }}
+        >
+          {children}
+        </div>
+      ) : (
+        <div
+          style={{ minHeight: fallbackHeight }}
+          className="w-full bg-transparent"
+        />
+      )}
     </div>
   );
 }

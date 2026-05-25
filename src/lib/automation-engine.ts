@@ -2,6 +2,7 @@ import { query, queryOne } from '@/lib/db';
 import { sendNotificationEmail } from '@/lib/alert-email-service';
 import { sendWhatsAppNotification } from '@/lib/whatsapp-service';
 import { sendSmsNotification } from '@/lib/sms-service';
+import { queueAlert, makeDedupKey } from '@/lib/alert-queue';
 
 async function safeQuery(sql: string, params?: unknown[]): Promise<void> {
   try { await query(sql, params); } catch { /* non-fatal */ }
@@ -90,7 +91,7 @@ registerAction('bcv_sync', async () => {
 registerAction('fiscal_alerts', async () => {
   const now = new Date();
   const day = now.getDate();
-  const alerts: string[] = [];
+  const alerts: { tipo: string; mensaje: string; dedup: string }[] = [];
 
   const pendingIVA = await queryOne<{ cnt: string }>(
     `SELECT COUNT(*) as cnt FROM facturas WHERE estado = 'pendiente' AND fecha_emision >= CURRENT_DATE - INTERVAL '15 days'`
@@ -98,10 +99,10 @@ registerAction('fiscal_alerts', async () => {
   const ivaCount = parseInt(pendingIVA?.cnt || '0');
 
   if (day >= 1 && day <= 15) {
-    alerts.push('Período de declaración IVA quincenal activo');
+    alerts.push({ tipo: 'recordatorio', mensaje: 'Período de declaración IVA quincenal activo — revisa tus facturas antes del cierre.', dedup: 'iva_quincenal' });
   }
   if (day >= 25) {
-    alerts.push('Próximo cierre de período fiscal — verificar retenciones ISLR');
+    alerts.push({ tipo: 'recordatorio', mensaje: 'Cierre de período fiscal próximo — verifica retenciones ISLR y pagos pendientes.', dedup: 'cierre_fiscal' });
   }
 
   const overdueInvoices = await queryOne<{ cnt: string }>(
@@ -109,21 +110,30 @@ registerAction('fiscal_alerts', async () => {
   );
   const overdueCount = parseInt(overdueInvoices?.cnt || '0');
   if (overdueCount > 0) {
-    alerts.push(`${overdueCount} factura(s) vencida(s) requieren atención`);
+    alerts.push({ tipo: 'alerta', mensaje: `Tienes ${overdueCount} factura(s) vencida(s) sin pagar — revisa tu cartera.`, dedup: 'facturas_vencidas' });
   }
 
-  if (alerts.length > 0) {
-    for (const alert of alerts) {
-      await safeQuery(
-        `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-         SELECT id, 'fiscal', 'Alerta Fiscal Automática', $1, 'alta', 'app'
-         FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`,
-        [alert]
-      );
+  const empresas = await query<{ id: number }>(
+    `SELECT id FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`
+  );
+
+  let queued = 0;
+  for (const empresa of empresas) {
+    for (const a of alerts) {
+      await queueAlert({
+        user_id: empresa.id,
+        dedup_key: makeDedupKey('fiscal', a.dedup),
+        tipo: 'fiscal',
+        titulo: 'Alerta Fiscal',
+        mensaje: a.mensaje,
+        prioridad: a.tipo === 'alerta' ? 'alta' : 'media',
+        categoria: 'fiscal',
+      });
+      queued++;
     }
   }
 
-  return `Revisión fiscal: ${alerts.length} alerta(s) generada(s), ${ivaCount} facturas en período IVA, ${overdueCount} vencida(s)`;
+  return `Revisión fiscal: ${alerts.length} tipo(s) de alerta, ${queued} notificaciones encoladas, ${ivaCount} facturas en período IVA, ${overdueCount} vencida(s)`;
 });
 
 registerAction('regulatory_alerts', async () => {
@@ -185,7 +195,7 @@ registerAction('session_cleanup', async () => {
 
 registerAction('invoice_reminders', async () => {
   const overdue = await query(
-    `SELECT f.id, f.numero_factura, f.total, f.fecha_vencimiento, 
+    `SELECT f.id, f.user_id, f.numero_factura, f.total, f.fecha_vencimiento, 
             COALESCE(c.razon_social, c.nombre_contacto) as cliente_nombre, c.email as cliente_email
      FROM facturas f
      LEFT JOIN clientes c ON f.cliente_id = c.id
@@ -199,14 +209,18 @@ registerAction('invoice_reminders', async () => {
   let notified = 0;
   for (const inv of overdue) {
     const i = inv as Record<string, unknown>;
-    if (i.cliente_email) {
+    if (i.user_id && i.cliente_email) {
       try {
-        await query(
-          `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, leida, canal)
-           SELECT f.user_id, 'alerta', 'Factura por cobrar', $1, 'alta', false, 'app'
-           FROM facturas f WHERE f.id = $2 LIMIT 1`,
-          [`Factura #${i.numero_factura} por ${i.total} - Cliente: ${i.cliente_nombre}`, i.id]
-        );
+        await queueAlert({
+          user_id: Number(i.user_id),
+          dedup_key: makeDedupKey('invoice', `factura_${i.id}`),
+          tipo: 'alerta',
+          titulo: 'Factura por cobrar',
+          mensaje: `Factura #${i.numero_factura} por ${i.total} - Cliente: ${i.cliente_nombre}`,
+          prioridad: 'alta',
+          metadata: { factura_id: i.id, vencimiento: i.fecha_vencimiento },
+          categoria: 'cobranza',
+        });
         notified++;
       } catch { /* skip individual failures */ }
     }
@@ -237,44 +251,52 @@ registerAction('email_automation', async () => {
         const cnt = parseInt((overdue[0] as Record<string, string>)?.cnt || '0');
         if (cnt > 0) {
           const affectedUsers = await query(
-            `SELECT DISTINCT f.user_id, u.email, u.nombre, u.apellido 
-             FROM facturas f JOIN users u ON u.id = f.user_id 
-             WHERE f.estado = 'pendiente' AND f.fecha_vencimiento < CURRENT_DATE`
+            `SELECT DISTINCT f.user_id
+             FROM facturas f WHERE f.estado = 'pendiente' AND f.fecha_vencimiento < CURRENT_DATE`
           );
           for (const row of affectedUsers) {
             const u = row as Record<string, string>;
-            await safeQuery(
-              `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-               VALUES ($1, 'alerta', 'Facturas vencidas pendientes', $2, 'alta', 'app')`,
-              [u.user_id, `${cnt} factura(s) con fecha de vencimiento pasada requieren atención`]
-            );
+            await queueAlert({
+              user_id: Number(u.user_id),
+              dedup_key: makeDedupKey('email_auto', `facturas_vencidas_${u.user_id}`),
+              tipo: 'alerta',
+              titulo: 'Facturas vencidas',
+              mensaje: `${cnt} factura(s) vencida(s) pendientes de pago — revisa tu cartera de cobros.`,
+              prioridad: 'alta',
+              categoria: 'cobranza',
+            });
           }
         }
-      } else if (rule.tipo === 'resumen_semanal') {
-        const stats = await queryOne<Record<string, string>>(
-          `SELECT COUNT(*) as total FROM activity_log WHERE created_at > NOW() - INTERVAL '7 days'`
-        );
-        const total = stats?.total || '0';
-        await safeQuery(
-          `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-           SELECT id, 'info', 'Resumen semanal disponible', $1, 'normal', 'app'
-           FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`,
-          [`Tu resumen de actividad semanal está listo: ${total} eventos registrados`]
-        );
       } else if (rule.tipo === 'alerta_fiscal') {
-        await safeQuery(
-          `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-           SELECT id, 'fiscal', 'Revisión fiscal automática', 
-             'Verificación periódica de obligaciones fiscales completada', 'normal', 'app'
-           FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`
+        const users = await query<{ id: number }>(
+          `SELECT id FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`
         );
+        for (const u of users) {
+          await queueAlert({
+            user_id: u.id,
+            dedup_key: makeDedupKey('email_auto', `revision_fiscal_${u.id}`),
+            tipo: 'fiscal',
+            titulo: 'Revisión fiscal',
+            mensaje: 'Verificación periódica de obligaciones fiscales completada — no hay novedades urgentes.',
+            prioridad: 'normal',
+            categoria: 'fiscal',
+          });
+        }
       } else if (rule.tipo === 'recordatorio_pago') {
-        await safeQuery(
-          `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-           SELECT id, 'info', 'Recordatorio de pago', 
-             'Recuerda mantener tu suscripción al día para acceso ininterrumpido', 'normal', 'app'
-           FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`
+        const users = await query<{ id: number }>(
+          `SELECT id FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`
         );
+        for (const u of users) {
+          await queueAlert({
+            user_id: u.id,
+            dedup_key: makeDedupKey('email_auto', `recordatorio_pago_${u.id}`),
+            tipo: 'info',
+            titulo: 'Recordatorio de pago',
+            mensaje: 'Mantén tu suscripción al día para acceso ininterrumpido a todas las funcionalidades.',
+            prioridad: 'normal',
+            categoria: 'sistema',
+          });
+        }
       }
 
       await query(
@@ -308,33 +330,45 @@ registerAction('inventory_alerts', async () => {
 
   let notified = 0;
 
-  const userLowStock = new Map<number, string[]>();
+  const userLowStock = new Map<number, { items: string[]; ids: number[] }>();
   for (const item of lowStock) {
     const uid = item.user_id as number;
-    if (!userLowStock.has(uid)) userLowStock.set(uid, []);
-    userLowStock.get(uid)!.push(`${item.nombre} (${item.stock_actual}/${item.stock_minimo})`);
+    if (!userLowStock.has(uid)) userLowStock.set(uid, { items: [], ids: [] });
+    userLowStock.get(uid)!.items.push(`${item.nombre} (${item.stock_actual}/${item.stock_minimo})`);
+    userLowStock.get(uid)!.ids.push(item.id as number);
   }
-  for (const [userId, items] of userLowStock) {
-    await safeQuery(
-      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-       VALUES ($1, 'advertencia', 'Stock bajo detectado', $2, 'alta', 'app')`,
-      [userId, `${items.length} producto(s) por debajo del mínimo: ${items.slice(0, 5).join(', ')}${items.length > 5 ? '...' : ''}`]
-    );
+  for (const [userId, data] of userLowStock) {
+    await queueAlert({
+      user_id: userId,
+      dedup_key: makeDedupKey('inventory', `low_stock_${userId}`),
+      tipo: 'advertencia',
+      titulo: 'Stock bajo',
+      mensaje: `${data.items.length} producto(s) por debajo del mínimo: ${data.items.slice(0, 5).join(', ')}${data.items.length > 5 ? '...' : ''}`,
+      prioridad: 'alta',
+      metadata: { productos: data.ids, tipo: 'bajo_stock' },
+      categoria: 'inventario',
+    });
     notified++;
   }
 
-  const userOutOfStock = new Map<number, string[]>();
+  const userOutOfStock = new Map<number, { items: string[]; ids: number[] }>();
   for (const item of outOfStock) {
     const uid = item.user_id as number;
-    if (!userOutOfStock.has(uid)) userOutOfStock.set(uid, []);
-    userOutOfStock.get(uid)!.push(item.nombre as string);
+    if (!userOutOfStock.has(uid)) userOutOfStock.set(uid, { items: [], ids: [] });
+    userOutOfStock.get(uid)!.items.push(item.nombre as string);
+    userOutOfStock.get(uid)!.ids.push(item.id as number);
   }
-  for (const [userId, items] of userOutOfStock) {
-    await safeQuery(
-      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-       VALUES ($1, 'alerta', 'Productos agotados', $2, 'critica', 'app')`,
-      [userId, `${items.length} producto(s) sin stock: ${items.slice(0, 5).join(', ')}${items.length > 5 ? '...' : ''}`]
-    );
+  for (const [userId, data] of userOutOfStock) {
+    await queueAlert({
+      user_id: userId,
+      dedup_key: makeDedupKey('inventory', `out_of_stock_${userId}`),
+      tipo: 'alerta',
+      titulo: 'Productos agotados',
+      mensaje: `${data.items.length} producto(s) sin stock: ${data.items.slice(0, 5).join(', ')}${data.items.length > 5 ? '...' : ''}`,
+      prioridad: 'critica',
+      metadata: { productos: data.ids, tipo: 'agotado' },
+      categoria: 'inventario',
+    });
     notified++;
   }
 
@@ -1169,6 +1203,14 @@ registerAction('security_alerts', async () => {
   return `Seguridad: ${totalAlerts} alerta(s) generada(s) (${failedLogins.length} login sospechoso(s), ${permissionChanges.length} cambio(s) de permisos, ${offHoursActivity.length} actividad(es) fuera de horario, ${inactiveSessions.length} sesión(es) inactiva(s))`;
 });
 
+registerAction('generate_weekly_summary', async () => {
+  const { generateWeeklySummary } = await import('@/lib/alert-summary');
+  const summaries = await generateWeeklySummary();
+  const totalUsers = summaries.length;
+  const totalAlerts = summaries.reduce((s, r) => s + r.count, 0);
+  return `Resumen semanal generado para ${totalUsers} usuario(s), ${totalAlerts} alerta(s) resumida(s)`;
+});
+
 // ─────────────────────────────────────────────────────────────────────────────
 // SEED: Insert automation rules for new alert types
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1184,6 +1226,7 @@ export async function seedAlertAutomationRules(): Promise<number> {
     { name: 'Alertas de progreso KPI', description: 'Detecta metas KPI con bajo progreso relativo al período', action_type: 'kpi_progress_alerts', interval_hours: 6, module: 'inventario' },
     { name: 'Alertas de telecomunicaciones', description: 'Detecta facturas telecom por vencer, líneas con vencimiento de contrato y consumo excesivo', action_type: 'telecom_alerts', interval_hours: 24, module: 'telecom' },
     { name: 'Alertas de seguridad', description: 'Detecta intentos de login fallidos, cambios de permisos y actividad fuera de horario', action_type: 'security_alerts', interval_hours: 1, module: 'seguridad' },
+    { name: 'Resumen semanal con IA', description: 'Agrupa alertas no urgentes y genera un resumen con IA cada semana', action_type: 'generate_weekly_summary', interval_hours: 168, module: 'sistema' },
   ];
 
   let inserted = 0;

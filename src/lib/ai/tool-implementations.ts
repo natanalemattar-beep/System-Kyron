@@ -6,22 +6,52 @@ export async function setupToolImplementations() {
   registerTool("get_system_status", 
     {
       name: "get_system_status",
-      description: "Obtiene el estado actual del sistema",
+      description: "Obtiene el estado actual del sistema incluyendo tasa de error, alertas y salud de BD",
       parameters: { type: "object", properties: {} }
     } as any,
     {
       execute: async () => {
-        // In a real system, this would query Prometheus/Cloudwatch
-        // For now, we return some mock data or simple DB checks
         try {
-          // Check DB health
           await query("SELECT 1");
-          
+
+          const errorRate = await query<{ value: string }>(
+            `SELECT value FROM system_health_log 
+             WHERE metric_type = 'error_rate' 
+             ORDER BY recorded_at DESC LIMIT 1`
+          );
+
+          const prevErrorRate = await query<{ value: string }>(
+            `SELECT value FROM system_health_log 
+             WHERE metric_type = 'error_rate' 
+             ORDER BY recorded_at DESC OFFSET 1 LIMIT 1`
+          );
+
+          const current = parseFloat(errorRate[0]?.value || '0');
+          const previous = parseFloat(prevErrorRate[0]?.value || '0');
+          const change = previous > 0 ? ((current - previous) / previous * 100).toFixed(1) : '0';
+
+          const userCount = await query<{ cnt: string }>(
+            `SELECT COUNT(*) as cnt FROM users WHERE activo = true`
+          );
+
+          const alertCount = await query<{ cnt: string }>(
+            `SELECT COUNT(*) as cnt FROM alert_queue WHERE created_at > NOW() - INTERVAL '7 days'`
+          );
+
+          const notiCount = await query<{ cnt: string }>(
+            `SELECT COUNT(*) as cnt FROM notificaciones WHERE leida = false`
+          );
+
           return {
             status: "healthy",
-            uptime: "99.9%",
-            recent_errors: 0,
-            active_users: 142 // Mock
+            db_conectada: true,
+            tasa_error_actual: `${current.toFixed(2)}%`,
+            tasa_error_anterior: `${previous.toFixed(2)}%`,
+            cambio_error_rate: `${change}%`,
+            usuarios_activos: parseInt(userCount[0]?.cnt || '0'),
+            alertas_encoladas_semana: parseInt(alertCount[0]?.cnt || '0'),
+            notificaciones_sin_leer: parseInt(notiCount[0]?.cnt || '0'),
+            ultima_medicion: errorRate.length > 0 ? 'Disponible' : 'Sin datos históricos',
           };
         } catch (e) {
           return { status: "degraded", error: (e as Error).message };

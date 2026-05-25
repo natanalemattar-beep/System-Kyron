@@ -34,13 +34,13 @@
     },
 
     "HeroSection": {
-        "title_line1": "Tu Empresa,",
-        "title_line2": "Automatizada,",
-        "title_line3": "Sin Límites.",
-        "slogan": "System Kyron: Tu Ecosistema de Mando Único para la Transformación Digital.",
-        "subtitle": "¿Cansado de perder tiempo con mil programas que no se hablan entre sí? Automatiza tu contabilidad, nómina y facturación en un solo sitio. IA que de verdad resuelve, 100% venezolana.",
+        "title_line1": "Tu Negocio,",
+        "title_line2": "Más Sencillo,",
+        "title_line3": "Más Rápido.",
+        "slogan": "System Kyron: contabilidad, facturación y nómina en un solo lugar, sin complicaciones.",
+        "subtitle": "¿Cansado de tener la contabilidad en un programa, la facturación en otro y la nómina en Excel? Todo lo que tu negocio necesita para cumplir con el SENIAT, pagar a tiempo y crecer sin dolores de cabeza.",
 
-        "badge": "PLATAFORMA EMPRESARIAL CON IA",
+        "badge": "PARA NEGOCIOS EN VENEZUELA",
         "cta_main": "Comenzar Ahora",
         "cta_secondary": "Ver Capacidades",
         "cta_brochure": "Descargar Folleto",
@@ -92,53 +92,53 @@
         ]
     },
     "FeaturesSection": {
-        "badge": "Infraestructura de Élite",
-        "title_highlight": "Ecosistema de",
-        "title_rest": "Misión Crítica",
-        "subtitle": "Unificamos contabilidad, telecomunicaciones y analítica avanzada en una sola plataforma blindada para el sector privado venezolano.",
-        "ai_native_badge": "Infraestructura Nativa",
+        "badge": "Lo Que Hacemos",
+        "title_highlight": "Tu negocio,",
+        "title_rest": "más simple",
+        "subtitle": "Contabilidad, facturación, nómina y telecomunicaciones en un solo lugar. Sin programas separados, sin vueltas innecesarias.",
+        "ai_native_badge": "Agentes Automáticos",
         "features": [
             {
-                "title": "Fiscalidad VEN-NIF",
-                "description": "Automatización total de libros fiscales, IGTF y declaraciones SENIAT con sincronización de tasa BCV en tiempo real."
+                "title": "Contabilidad y Fiscal",
+                "description": "Lleva tus libros al día sin ser contador. El sistema calcula IVA, ISLR e IGTF solo. Declaraciones SENIAT listas en minutos."
             },
             {
-                "title": "Telecom 5G Nativo",
-                "description": "Gestión directa de flotas móviles, eSIMs y conectividad empresarial de alta disponibilidad integrada al panel."
+                "title": "Telecomunicaciones",
+                "description": "Gestiona líneas 5G, eSIM y flotas enteras desde el mismo escritorio. Sin ir a una oficina ni llenar planillas."
             },
             {
-                "title": "Gestión Legal Sistematizada",
-                "description": "Protocolos especializados en normativa LOTTT y VEN-NIF para redacción de contratos y blindaje operativo."
+                "title": "Legal y Trámites",
+                "description": "Genera contratos, poderes y documentos legales al instante. Permisos CONATEL y trámites fiscales sin abogado."
             },
             {
-                "title": "RRHH & Nómina",
-                "description": "Cálculos precisos de prestaciones, utilidades y seguridad social bajo el marco legal venezolano vigente."
+                "title": "Nómina y RRHH",
+                "description": "Calcula IVSS, utilidades y prestaciones sociales automáticamente. Tu equipo cobra a tiempo, tú duermes tranquilo."
             },
             {
-                "title": "Seguridad Shield",
-                "description": "Protocolos de cifrado AES-256 y redundancia de datos para garantizar la continuidad de su negocio 24/7."
+                "title": "Seguridad y Respaldo",
+                "description": "Tus datos cifrados y respaldados. No más sustos con información perdida o facturas que desaparecen."
             },
             {
                 "title": "Sostenibilidad",
-                "description": "Certificación de huella verde y gestión de eco-créditos corporativos integrados con tecnología Ameru."
+                "description": "Mide el impacto ambiental de tu negocio y conviértelo en ahorros reales. Certificación verde incluida."
             }
         ],
         "stats": [
             {
                 "val": "48h",
-                "detail": "Migración garantizada"
+                "detail": "Migración de datos"
             },
             {
                 "val": "Multi-empresa",
-                "detail": "Holdings y condominios"
+                "detail": "Controla todas tus empresas"
             },
             {
                 "val": "Bilingüe",
-                "detail": "Español & English"
+                "detail": "Español e Inglés"
             },
             {
-                "val": "Algoritmos",
-                "detail": "Procesamiento Avanzado"
+                "val": "100%",
+                "detail": "Cálculos automatizados"
             }
         ],
         "speed_title": "Velocidad de Respuesta",
@@ -167,22 +167,22 @@
             {
                 "value": 90,
                 "suffix": "%",
-                "label": "Reducción en tiempo de procesamiento fiscal"
+                "label": "Menos tiempo en declaraciones fiscales"
             },
             {
                 "value": 3,
                 "suffix": "x",
-                "label": "Más rápido que ERPs tradicionales"
+                "label": "Más rápido que hacerlo a mano"
             },
             {
                 "value": 19,
                 "suffix": "",
-                "label": "Automatizaciones sin intervención humana"
+                "label": "Tareas que se hacen solas"
             },
             {
                 "value": 99,
                 "suffix": ".9%",
-                "label": "Disponibilidad garantizada (uptime)"
+                "label": "Disponibilidad del sistema"
             }
         ]
     },
@@ -690,7 +690,7 @@
             },
             "accounting": {
                 "label": "Asesoría Contable",
-                "description": "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo."
+                "description": "Suite completa: contabilidad, auditoría, facturación, nómina, RRHH y talento integrados."
             },
             "legal": {
                 "label": "Asesoría Legal",
@@ -1209,17 +1209,17 @@
         "docs_sent": "Documentación enviada al SAPI"
     },
     "SustainabilitySection": {
-        "badge": "Impacto Ambiental Positivo",
-        "title_main": "Compromiso",
-        "title_highlight": "Huella Verde",
-        "description": "System Kyron no solo digitaliza su empresa, la hace sostenible. A través de nuestra integración con tecnología Ameru, transformamos residuos electrónicos en créditos operativos.",
-        "smart_bins_title": "Reciclaje Inteligente",
-        "smart_bins_desc": "Gestión automatizada de hardware obsoleto y clasificación de residuos corporativos.",
-        "eco_credits_title": "Eco-Créditos Kyron",
-        "eco_credits_desc": "Compense su huella de carbono y acceda a beneficios fiscales por sostenibilidad.",
-        "overlay_label": "Impacto Acumulado",
+        "badge": "Menos Basura, Más Ahorro",
+        "title_main": " Tus residuos",
+        "title_highlight": "valen",
+        "description": "Cada computador viejo, cada equipo que ya no usas — tiene un valor que probablemente estás ignorando. Te ayudamos a reciclarlos correctamente y convertirlos en beneficios para tu negocio.",
+        "smart_bins_title": "Reciclaje sin Enredo",
+        "smart_bins_desc": "Recolectamos tus equipos obsoletos y nos encargamos de todo. Tú solo separas, nosotros clasificamos y procesamos.",
+        "eco_credits_title": "Eco-Créditos",
+        "eco_credits_desc": "Cada equipo reciclado se traduce en créditos que puedes usar para reducir costos operativos. Menos basura electrónica, más ahorro.",
+        "overlay_label": "Lo que llevamos",
         "overlay_value": "12.5 Tons",
-        "overlay_sublabel": "CO2 Evitado este año",
+        "overlay_sublabel": "de residuos procesados este año",
         "certification_label": "Certificación Kyron-Ameru"
     },
     "Dashboard": {

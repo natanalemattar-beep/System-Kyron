@@ -30,14 +30,15 @@ const MODULE_PATH_MAP: Record<string, string> = {
     contabilidad: '/dashboard-empresa',
     juridico: '/dashboard-empresa',
     legal: '/escritorio-juridico',
-    ventas: '/punto-de-venta',
-    tpv: '/punto-de-venta',
+    ventas: '/dashboard-empresa',
+    tpv: '/dashboard-empresa',
     socios: '/dashboard-socios',
     sostenibilidad: '/sostenibilidad',
     telecom: '/mi-linea',
     rrhh: '/dashboard-rrhh',
     nomina: '/dashboard-rrhh',
     talento: '/dashboard-rrhh',
+    informatica: '/dashboard-it',
 };
 
 export function getModuleDashboardPath(modules?: string[]): string | null {

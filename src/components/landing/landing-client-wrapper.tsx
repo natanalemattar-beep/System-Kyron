@@ -13,13 +13,19 @@ export function LandingClientWrapper({ children }: { children: React.ReactNode }
     setMounted(true);
   }, []);
 
+  if (!mounted) return <>{children}</>;
+
   return (
     <>
-      {mounted && <PageTracker />}
-      {mounted && <LandingHeader />}
+      <PageTracker />
+      <LandingHeader />
       {children}
-      {mounted && <WhatsAppButton />}
-      {mounted && <AIChatButton contextKey="system-kyron-soporte" className="bottom-28 right-6" chatClassName="bottom-48" />}
+      <WhatsAppButton />
+      <AIChatButton
+        contextKey="system-kyron-soporte"
+        className="bottom-28 right-6"
+        chatClassName="bottom-48"
+      />
     </>
   );
 }
