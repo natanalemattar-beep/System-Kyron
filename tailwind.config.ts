@@ -97,6 +97,10 @@ const config: Config = {
           "100%": { transform: "translateX(-50%)" },
         },
       },
+      transitionDuration: {
+        '2000': '2000ms',
+        '3000': '3000ms',
+      },
       animation: {
         "accordion-down": "accordion-down 0.35s cubic-bezier(0.16,1,0.3,1)",
         "accordion-up": "accordion-up 0.35s cubic-bezier(0.16,1,0.3,1)",

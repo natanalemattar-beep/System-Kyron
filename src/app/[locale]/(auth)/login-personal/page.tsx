@@ -433,7 +433,7 @@ export default function LoginPersonalPage() {
                       <span className="text-[10px] font-black text-white/30 group-hover:text-cyan-400 transition-colors uppercase tracking-[0.3em]">Acceso Biométrico Pericial</span>
                     </>
                   )}
-                  <div className="absolute bottom-0 left-0 h-[2px] bg-cyan-500/50 group-hover:w-full w-0 transition-all duration-[2000ms]" />
+                  <div className="absolute bottom-0 left-0 h-[2px] bg-cyan-500/50 group-hover:w-full w-0 transition-all duration-2000" />
                 </button>
 
                 <div className="flex flex-col sm:flex-row gap-4">

@@ -1107,7 +1107,7 @@ export default function PitchPage() {
                                              src={slide.image} 
                                              alt={slide.title} 
                                              fill
-                                             className="object-cover group-hover:scale-105 transition-transform duration-[2000ms]" 
+                                             className="object-cover group-hover:scale-105 transition-transform duration-2000" 
                                          />
                                         <div className="absolute bottom-10 left-10 z-20">
                                             <div className="flex items-center gap-4">
