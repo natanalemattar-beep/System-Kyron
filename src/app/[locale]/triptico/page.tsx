@@ -90,7 +90,8 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
 
         try {
             await preloadBrochureImages();
-            const h2c = (await import('html2canvas')).default;
+            const mod = await import('html2canvas');
+            const h2c = typeof mod === 'function' ? mod : (mod as any).default ?? mod;
             const { jsPDF } = await import('jspdf');
 
             const frontal = document.getElementById('cara-frontal');
@@ -136,7 +137,8 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
 
         try {
             await preloadBrochureImages();
-            const h2c = (await import('html2canvas')).default;
+            const mod = await import('html2canvas');
+            const h2c = typeof mod === 'function' ? mod : (mod as any).default ?? mod;
             const canvas = await h2c(node, {
                 scale: 3,
                 useCORS: true,
@@ -171,7 +173,8 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
 
         try {
             await preloadBrochureImages();
-            const h2c = (await import('html2canvas')).default;
+            const mod = await import('html2canvas');
+            const h2c = typeof mod === 'function' ? mod : (mod as any).default ?? mod;
             
             const wordOpts = { scale: 1.0, useCORS: true, backgroundColor: '#ffffff', allowTaint: false, windowWidth: 1056, windowHeight: 816 };
             const canvasFrontal = await h2c(frontal, wordOpts);

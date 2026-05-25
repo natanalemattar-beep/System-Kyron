@@ -43,7 +43,8 @@ export default function IdentityAssetsPage() {
         setIsExporting(true);
 
         try {
-            const html2canvas = (await import('html2canvas')).default;
+            const mod = await import('html2canvas');
+const html2canvas = typeof mod === 'function' ? mod : (mod as any).default ?? mod;
             const { jsPDF } = await import('jspdf');
 
             const element = document.getElementById('assets-sheet');

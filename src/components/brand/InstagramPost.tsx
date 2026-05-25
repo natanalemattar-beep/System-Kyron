@@ -27,7 +27,8 @@ export function InstagramPost() {
     setDownloading(true);
     try {
       await new Promise(r => setTimeout(r, 500));
-      const html2canvas = (await import("html2canvas")).default;
+      const mod = await import("html2canvas");
+      const html2canvas = typeof mod === 'function' ? mod : (mod as any).default ?? mod;
       let lastErr: unknown;
       for (let attempt = 0; attempt < 3; attempt++) {
         try {
