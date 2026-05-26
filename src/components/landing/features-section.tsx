@@ -107,11 +107,11 @@ export function FeaturesSection() {
               <div className="grid grid-cols-2 gap-4 md:gap-8 pt-6 md:pt-8 border-t border-border dark:border-white/5">
                 <div className="space-y-1 md:space-y-2">
                   <p className="text-[11px] md:text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">Sincronización</p>
-                  <p className="text-3xl md:text-4xl font-black text-foreground tracking-tighter italic">0.2ms</p>
+                  <p className="text-3xl md:text-4xl font-black text-foreground tracking-tighter italic">En vivo</p>
                 </div>
                 <div className="space-y-1 md:space-y-2">
                   <p className="text-[11px] md:text-[10px] font-black text-kyron-emerald/40 uppercase tracking-widest">Cumplimiento</p>
-                  <p className="text-3xl md:text-4xl font-black text-kyron-emerald tracking-tighter italic">100%</p>
+                  <p className="text-3xl md:text-4xl font-black text-kyron-emerald tracking-tighter italic">Total</p>
                 </div>
               </div>
             </div>
@@ -136,7 +136,7 @@ export function FeaturesSection() {
             </div>
             <div className="pt-6 md:pt-10">
               <AnimatedProgress target={90} />
-              <p className="text-[10px] md:text-[9px] font-black text-blue-400 uppercase tracking-widest mt-3">Disponibilidad de Red 99.9%</p>
+              <p className="text-[10px] md:text-[9px] font-black text-blue-400 uppercase tracking-widest mt-3">Disponibilidad de Red</p>
             </div>
           </ScrollReveal>
 

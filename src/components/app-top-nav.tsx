@@ -181,6 +181,7 @@ export function AppTopNav() {
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
               className="lg:hidden p-2 rounded-xl text-white/40 hover:text-white hover:bg-white/5 transition-all"
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}

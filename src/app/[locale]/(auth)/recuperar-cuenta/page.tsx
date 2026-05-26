@@ -280,6 +280,7 @@ export default function RecuperarCuentaPage() {
                       onChange={e => setNewPassword(e.target.value)}
                       className="h-12 rounded-xl pr-10"
                       placeholder="Mínimo 8 caracteres"
+                      autoComplete="new-password"
                     />
                     <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -296,6 +297,7 @@ export default function RecuperarCuentaPage() {
                     onKeyDown={e => e.key === 'Enter' && resetPassword()}
                     className="h-12 rounded-xl"
                     placeholder="Repetir contraseña"
+                    autoComplete="new-password"
                   />
                 </div>
 

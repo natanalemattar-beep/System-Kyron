@@ -9,6 +9,7 @@ import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { OtpInput } from '@/components/ui/otp-input';
 import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
@@ -380,7 +381,7 @@ export default function RegisterTelecomPage() {
                                             <div className="space-y-1.5">
                                                 <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Contraseña</Label>
                                                 <div className="relative">
-                                                    <Input type={showPassword ? 'text' : 'password'} {...register('password')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none pr-10 focus:ring-2 focus:ring-blue-500/20" />
+                                                    <Input type={showPassword ? 'text' : 'password'} autoComplete="new-password" {...register('password')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none pr-10 focus:ring-2 focus:ring-blue-500/20" />
                                                     <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
                                                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                                     </button>
@@ -388,7 +389,7 @@ export default function RegisterTelecomPage() {
                                             </div>
                                             <div className="space-y-1.5">
                                                 <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Confirmar</Label>
-                                                <Input type="password" {...register('confirmPassword')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-blue-500/20" />
+                                                <Input type="password" autoComplete="new-password" {...register('confirmPassword')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-blue-500/20" />
                                             </div>
                                         </div>
 
@@ -426,10 +427,15 @@ export default function RegisterTelecomPage() {
                                             {verifLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Enviar Código 5G'}
                                         </Button>
                                     ) : (
-                                        <div className="space-y-6">
-                                            <div className="flex justify-center gap-3">
-                                                <Input maxLength={6} value={verifCode} onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))} className="h-16 text-center text-3xl font-black font-mono tracking-[0.5em] rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-4 focus:ring-blue-500/10" placeholder="000000" />
-                                            </div>
+                                        <div className="space-y-4">
+                                            <p className="text-xs font-semibold text-center text-slate-500 uppercase tracking-widest">Ingresa el código de 6 dígitos</p>
+                                            <OtpInput
+                                              value={verifCode}
+                                              onChange={setVerifCode}
+                                              onComplete={(code) => !verifVerified && verifyCode(code)}
+                                              accentColor="blue"
+                                              disabled={verifLoading || verifVerified}
+                                            />
                                             <div className="text-center">
                                                 {countdown > 0 ? (
                                                     <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Reenviar en <span className="text-blue-500">{countdown}s</span></p>

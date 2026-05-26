@@ -3,7 +3,7 @@ import { PricingSection } from '@/components/landing/pricing-section';
 import { LazySection } from '@/components/landing/lazy-section';
 import dynamic from 'next/dynamic';
 
-const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: true });
+const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: true, loading: () => <div className="h-96 animate-pulse bg-white/5" /> });
 
 export default function TelecomPricingPage() {
   return (

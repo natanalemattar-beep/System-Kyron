@@ -79,6 +79,7 @@ export default function CartaPage() {
               onChange={e => { setCode(e.target.value); setError(false); }}
               onKeyDown={e => e.key === 'Enter' && handleUnlock()}
               placeholder="Código de acceso"
+              autoComplete="off"
               className="w-full h-14 px-6 rounded-2xl border border-white/10 bg-white/[0.03] text-white text-center text-lg font-bold tracking-widest focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500/40"
             />
             {error && <p className="text-xs text-red-400 font-medium">Código incorrecto</p>}

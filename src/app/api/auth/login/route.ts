@@ -286,7 +286,6 @@ export async function POST(req: NextRequest) {
         if (emailResult && !emailResult.success) {
             console.error('[login] Verification email failed:', emailResult.error);
             if (isDev) {
-                console.log(`[login][DEV] Código de verificación para ${user.email}: ${code}`);
             }
 
             if (hasPhone) {

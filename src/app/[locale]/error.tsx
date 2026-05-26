@@ -6,7 +6,7 @@ import { RefreshCcw, ShieldAlert, Cpu, Zap } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 const motion = {
-  div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as React.ComponentType<any>,
+  div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false, loading: () => <div className="animate-pulse bg-white/5 rounded-2xl h-64" /> }) as React.ComponentType<any>,
 };
 
 

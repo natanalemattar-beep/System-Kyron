@@ -81,7 +81,10 @@ export default function LoginLineaUnifiedPage() {
   }, [countdown]);
 
   useEffect(() => {
-    if (step === 'verification') setTimeout(() => inputRefs.current[0]?.focus(), 100);
+    if (step === 'verification') {
+      const timer = setTimeout(() => inputRefs.current[0]?.focus(), 100);
+      return () => clearTimeout(timer);
+    }
   }, [step]);
 
   const handleAuth = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {

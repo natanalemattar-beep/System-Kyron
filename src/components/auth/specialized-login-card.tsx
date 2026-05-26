@@ -139,7 +139,10 @@ export function SpecializedLoginCard({
   }, [countdown]);
 
   useEffect(() => {
-    if (step === 'verification') setTimeout(() => singleInputRef.current?.focus(), 200);
+    if (step === 'verification') {
+      const timer = setTimeout(() => singleInputRef.current?.focus(), 200);
+      return () => clearTimeout(timer);
+    }
   }, [step]);
 
   const attemptLogin = useCallback(async (identifier: string, password: string, accessKey?: string) => {
@@ -550,7 +553,7 @@ export function SpecializedLoginCard({
                     <div className="relative group">
                       <Lock className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-blue-500 transition-colors" />
                       <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className={cn("h-14 lg:h-16 pl-14 pr-14 rounded-2xl border-white/5 bg-white/[0.02] text-lg lg:text-xl font-mono transition-all placeholder:text-white/10")} />
-                      <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-5 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors" tabIndex={-1}>
+                      <button type="button" onClick={() => setShowPassword(v => !v)} aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'} className="absolute right-5 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors" tabIndex={-1}>
                         {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                       </button>
                     </div>
@@ -584,7 +587,7 @@ export function SpecializedLoginCard({
                               minLength={6}
                               className={cn("h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)}
                             />
-                            <button type="button" onClick={() => setShowAccessKey(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
+                            <button type="button" onClick={() => setShowAccessKey(v => !v)} aria-label={showAccessKey ? 'Ocultar llave' : 'Mostrar llave'} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
                               {showAccessKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                             </button>
                           </div>

@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useEffect, useState, useCallback } from 'react';
-import { ArrowRight, Play, Headphones, Signal, Users, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Play, Headphones, Signal, Users, ShieldCheck, Building2 } from 'lucide-react';
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/logo';
@@ -15,14 +15,16 @@ function RotatingWords({ words, interval = 3000 }: { words: string[], interval?:
   useEffect(() => {
     const timer = setInterval(() => {
       setTransitioning(true);
-      setPrevIndex(index);
+      setIndex((prev) => {
+        setPrevIndex(prev);
+        return (prev + 1) % words.length;
+      });
       setTimeout(() => {
-        setIndex((prev) => (prev + 1) % words.length);
         setTransitioning(false);
       }, 200);
     }, interval);
     return () => clearInterval(timer);
-  }, [words.length, interval, index]);
+  }, [words.length, interval]);
 
   return (
     <div className="relative h-[1.3em] overflow-hidden inline-block min-w-[6ch]">
@@ -55,15 +57,15 @@ function RotatingWords({ words, interval = 3000 }: { words: string[], interval?:
 
 export function HeroSectionOptimized() {
   const t = useTranslations('HeroSection');
-  const [liveStats, setLiveStats] = useState<{ totalUsuarios: number } | null>(null);
+  const [liveStats, setLiveStats] = useState<{ totalUsuarios: number; totalEmpresas: number } | null>(null);
 
   useEffect(() => {
     fetch('/api/stats')
       .then((res) => res.json())
       .then((json) => {
         const data = json.data ?? json;
-        if (data.totalUsuarios !== undefined)
-          setLiveStats({ totalUsuarios: data.totalUsuarios });
+        if (data.totalUsuarios !== undefined || data.totalEmpresas !== undefined)
+          setLiveStats({ totalUsuarios: data.totalUsuarios ?? 0, totalEmpresas: data.totalEmpresas ?? 0 });
       })
       .catch(() => {});
   }, []);
@@ -186,14 +188,8 @@ export function HeroSectionOptimized() {
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-16">
             {[
-              { val: '24/7', label: t('support'), color: 'text-kyron-cyan' },
-              { val: '5G', label: t('network'), color: 'text-blue-400' },
-              {
-                val: liveStats ? String(liveStats.totalUsuarios) : '2.4k+',
-                label: t('portals'),
-                color: 'text-kyron-emerald',
-              },
-              { val: '100%', label: t('legal'), color: 'text-kyron-violet' },
+              { val: liveStats ? String(liveStats.totalEmpresas) : '—', label: 'Empresas', color: 'text-kyron-emerald', icon: 'building2' },
+              { val: liveStats ? String(liveStats.totalUsuarios) : '—', label: t('portals'), color: 'text-kyron-gold', icon: 'users' },
             ].map((stat, i) => (
               <div
                 key={i}
@@ -204,14 +200,10 @@ export function HeroSectionOptimized() {
                 }}
               >
                 <div className="h-12 w-12 rounded-xl bg-black/[0.03] dark:bg-white/[0.03] flex items-center justify-center mb-5 border border-border/50 dark:border-white/[0.06] transition-all duration-500">
-                  {i === 0 ? (
-                    <Headphones className={stat.color + ' h-5 w-5'} />
-                  ) : i === 1 ? (
-                    <Signal className={stat.color + ' h-5 w-5'} />
-                  ) : i === 2 ? (
-                    <Users className={stat.color + ' h-5 w-5'} />
+                  {stat.icon === 'building2' ? (
+                    <Building2 className={stat.color + ' h-5 w-5'} />
                   ) : (
-                    <ShieldCheck className={stat.color + ' h-5 w-5'} />
+                    <Users className={stat.color + ' h-5 w-5'} />
                   )}
                 </div>
                 <p className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.25em] md:tracking-[0.35em] text-muted-foreground/60 mb-2">

@@ -199,7 +199,6 @@ export const pathnames = {
   '/stickers': '/stickers',
   '/brand-kit': '/brand-kit',
 
-  '/kyron-contable': '/kyron-contable',
   '/alertas-regulatorias': '/alertas-regulatorias',
 
   // ADDITIONAL MISSING PATHS

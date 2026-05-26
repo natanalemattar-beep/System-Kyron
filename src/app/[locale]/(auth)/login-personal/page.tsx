@@ -54,8 +54,17 @@ export default function LoginPersonalPage() {
   const router = useRouter();
   const { toast } = useToast();
 
-  const handleMagicLinkVerified = useCallback(() => {
+  const handleMagicLinkVerified = useCallback(async () => {
     toast({ title: 'Identidad verificada', description: 'Acceso verificado automáticamente.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+    try {
+      const me = await fetch('/api/auth/me');
+      if (me.ok) {
+        const data = await me.json();
+        const path = data?.user?.modules ? getDashboardPath(data.user.modules) : '/dashboard';
+        router.push(path as any);
+        return;
+      }
+    } catch {}
     router.push('/dashboard');
   }, [toast, router]);
 
@@ -72,7 +81,10 @@ export default function LoginPersonalPage() {
   }, [countdown]);
 
   useEffect(() => {
-    if (step === 'verification') setTimeout(() => inputRefs.current[0]?.focus(), 100);
+    if (step === 'verification') {
+      const timer = setTimeout(() => inputRefs.current[0]?.focus(), 100);
+      return () => clearTimeout(timer);
+    }
   }, [step]);
 
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -316,8 +328,8 @@ export default function LoginPersonalPage() {
                   </div>
                   <div className="relative">
                     <Lock className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-cyan-400 transition-colors" />
-                    <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required className="h-16 pl-16 pr-16 rounded-2xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40 transition-all font-mono text-2xl placeholder:text-white/5" />
-                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-6 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors" tabIndex={-1}>
+                    <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className="h-16 pl-16 pr-16 rounded-2xl border-white/5 bg-white/[0.03] text-white focus-visible:ring-cyan-500/20 focus-visible:border-cyan-500/40 transition-all font-mono text-2xl placeholder:text-white/5" />
+                    <button type="button" onClick={() => setShowPassword(v => !v)} aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'} className="absolute right-6 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors" tabIndex={-1}>
                       {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                     </button>
                   </div>

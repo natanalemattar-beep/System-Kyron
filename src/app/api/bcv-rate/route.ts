@@ -176,9 +176,9 @@ async function fetchBcvRate(): Promise<{ rate: number; date: string; fuente: str
       result.fuente = result.fuente + '+manual-floor';
     }
 
-    saveToDB(result.rate, result.fuente).catch(() => {});
+    saveToDB(result.rate, result.fuente).catch(() => { console.warn('[bcv-rate] Failed to save to DB'); });
     return result;
-  } catch {}
+  } catch { console.warn('[bcv-rate] All external sources failed, using manual fallback'); }
 
   // Fallback to manual rate if everything fails
   return { rate: manualRate, date: todayStr, fuente: 'manual-fallback' };

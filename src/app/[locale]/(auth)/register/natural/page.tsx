@@ -22,6 +22,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { useAuth } from '@/lib/auth/context';
 import { DocumentInput } from '@/components/document-input';
+import { OtpInput } from '@/components/ui/otp-input';
 import { DocumentUpload, type UploadedDoc } from '@/components/document-upload';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
@@ -678,7 +679,7 @@ export default function RegisterNaturalPage() {
                 <Field id="password" label="Contraseña" error={errors.password?.message}>
                   <div className="relative">
                     <Shield className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                    <Input id="password" type={showPassword ? 'text' : 'password'} autoCapitalize="none" autoCorrect="off" className="pl-10 pr-11 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('password')} />
+                    <Input id="password" type={showPassword ? 'text' : 'password'} autoComplete="new-password" autoCapitalize="none" autoCorrect="off" className="pl-10 pr-11 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('password')} />
                     <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
@@ -711,7 +712,7 @@ export default function RegisterNaturalPage() {
                 <Field id="confirmPassword" label="Confirmar Contraseña" error={errors.confirmPassword?.message}>
                   <div className="relative">
                     <Shield className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                    <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} autoCapitalize="none" autoCorrect="off" className="pl-10 pr-11 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('confirmPassword')} />
+                    <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} autoComplete="new-password" autoCapitalize="none" autoCorrect="off" className="pl-10 pr-11 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('confirmPassword')} />
                     <button type="button" onClick={() => setShowConfirmPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" aria-label={showConfirmPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
                       {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
@@ -834,17 +835,14 @@ export default function RegisterNaturalPage() {
                             <p className="text-3xl font-bold font-mono tracking-wide text-cyan-600">{devCode}</p>
                           </div>
                         )}
-                        <div className="space-y-2">
-                          <Label htmlFor="verif-code" className="text-sm font-semibold">Ingresa el código de 6 dígitos</Label>
-                          <Input
-                            id="verif-code"
-                            type="text"
-                            inputMode="numeric"
-                            maxLength={6}
-                            placeholder="000000"
+                        <div className="space-y-4">
+                          <p className="text-sm font-semibold text-center text-muted-foreground/60">Ingresa el código de 6 dígitos</p>
+                          <OtpInput
                             value={verifCode}
-                            onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                            className="text-center text-2xl tracking-wider font-mono rounded-2xl bg-muted/30 border-border/50 h-14"
+                            onChange={setVerifCode}
+                            onComplete={(code) => !verifVerified && verifyCode(code)}
+                            accentColor="violet"
+                            disabled={verifLoading || verifVerified}
                           />
                         </div>
                         {verifLoading && (

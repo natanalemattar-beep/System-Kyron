@@ -46,6 +46,7 @@ export function PasswordGate({ children, title }: { children: React.ReactNode; t
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Clave de acceso"
+              autoComplete="off"
               className={cn(
                 "w-full pl-12 pr-4 py-4 rounded-xl bg-gray-900/50 border text-white placeholder-gray-500",
                 "focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent",

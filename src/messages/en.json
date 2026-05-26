@@ -156,46 +156,8 @@
         "speed_subtitle": "Average processing time",
         "fastest": "Fastest",
         "cta": "Test the Speed",
-        "competitors": [
-            {
-                "name": "System Kyron",
-                "speed": 90
-            },
-            {
-                "name": "SAP Business One",
-                "speed": 450
-            },
-            {
-                "name": "Odoo",
-                "speed": 800
-            },
-            {
-                "name": "QuickBooks",
-                "speed": 1200
-            }
-        ],
-        "metrics": [
-            {
-                "value": 90,
-                "suffix": "%",
-                "label": "Tax processing time reduction"
-            },
-            {
-                "value": 3,
-                "suffix": "x",
-                "label": "Faster than traditional ERPs"
-            },
-            {
-                "value": 19,
-                "suffix": "",
-                "label": "Automations without human intervention"
-            },
-            {
-                "value": 99,
-                "suffix": ".9%",
-                "label": "Guaranteed uptime (availability)"
-            }
-        ]
+        "competitors": [],
+        "metrics": []
     },
     "PricingSection": {
         "badge": "Pricing Architecture",
@@ -205,7 +167,7 @@
         "free_note": "Personal accounts always free",
         "analytics_title": "Efficiency",
         "analytics_highlight": "Projection",
-        "analytics_subtitle": "Our integrated analytics show a 90% reduction in tax processing times.",
+        "analytics_subtitle": "Efficiency projection based on automation of accounting and tax processes.",
         "most_complete": "Most Complete",
         "most_chosen": "Most Chosen",
         "free": "Free",
@@ -777,7 +739,70 @@
         "date": "Date",
         "amount": "Amount",
         "status": "Status",
-        "actions": "Actions"
+        "actions": "Actions",
+        "greeting_fallback": "Hello",
+        "status_operativo": "STATUS: OPERATIONAL",
+        "kpi_ingresos": "Revenue",
+        "kpi_gastos": "Expenses",
+        "kpi_utilidad": "Profit",
+        "kpi_liquidez": "Liquidity",
+        "flujo_mensual": "Monthly Flow",
+        "flujo_financiero": "Financial Flow",
+        "ultimos_12_meses": "Last 12 months",
+        "sin_datos_historicos": "No historical data",
+        "error_cargar_flujo": "Error loading financial flow",
+        "facturacion": "Invoicing",
+        "sin_facturas": "No invoices",
+        "total": "Total",
+        "cuentas": "Accounts",
+        "por_cobrar": "Receivables",
+        "por_pagar": "Payables",
+        "stock_bajo": "Low Stock",
+        "pendientes": "pending",
+        "items": "items",
+        "ultimos_movimientos": "Latest Movements",
+        "ver_todos": "View all",
+        "sin_movimientos": "No movements recorded",
+        "registrar": "Register",
+        "fiscal": "Tax",
+        "al_dia": "Up to date",
+        "configurado": "Configured",
+        "retenciones_ok": "Withholdings OK",
+        "sincronizado": "Synchronized",
+        "declaracion_iva": "VAT Declaration",
+        "conciliacion_bancaria": "Bank reconciliation",
+        "vence": "Due",
+        "antes_cierre": "Before closing",
+        "vence_proximo_mes": "Due next month",
+        "calendario_fiscal": "Tax Calendar SENIAT",
+        "cargando_calendario": "Loading calendar...",
+        "vencido": "OVERDUE",
+        "hoy": "TODAY",
+        "manana": "Tomorrow",
+        "vencimientos_plazos": "Deadlines & Terms",
+        "sin_vencimientos": "No upcoming or pending deadlines",
+        "modulos": "Modules",
+        "nomina": "Payroll",
+        "empleados_activos": "active employees",
+        "ver_nomina": "View Payroll",
+        "cierre_fiscal": "Tax Closing",
+        "clientes": "Clients",
+        "empleados": "Employees",
+        "facturas": "Invoices",
+        "alertas": "Alerts",
+        "datos_tiempo_real": "Real-time data",
+        "detalle": "Details",
+        "error_cargar_facturacion": "Error loading invoicing",
+        "proyeccion_ventas": "FORECAST: SALES +20%",
+        "simulacion_inflacion": "SIMULATION: INFLATION 35%",
+        "proyectar_ventas": "Forecast Sales +20%",
+        "simular_inflacion": "Simulate Inflation 35%",
+        "procesamiento_algoritmico": "Algorithmic Processing",
+        "suscripcion_activa": "Active Subscription",
+        "plan_professional": "Professional Plan",
+        "consultas_core": "Core Queries",
+        "almacenamiento": "Storage",
+        "escenarios_algoritmicos": "Algorithmic Scenarios"
     },
     "Marketing": {
         "title": "Investment Dashboard",
@@ -1153,6 +1178,28 @@
         "module_facturacion": "Invoicing",
         "module_socios_directivos": "Partners"
     },
+    "PillarShowcaseSection": {
+        "title": "Solutions for Your",
+        "highlight": "Peace of Mind",
+        "subtitle": "Sustainability · Connection · Efficiency",
+        "pillars": {
+            "eco": {
+                "title": "Sustainability",
+                "highlight": "Certified Impact",
+                "desc": "Offset your carbon footprint with Ameru technology and access the global eco-credits market."
+            },
+            "telecom": {
+                "title": "Connectivity",
+                "highlight": "Mission Critical",
+                "desc": "Corporate mobile lines with dedicated 5G so your team never misses a business opportunity."
+            },
+            "billing": {
+                "title": "Tax Management",
+                "highlight": "Full Automation",
+                "desc": "Legal VEN-NIF invoicing with automatic IGTF calculation and instant executive report generation."
+            }
+        }
+    },
     "SustainabilitySection": {
         "badge": "Positive Environmental Impact",
         "title_main": "Green",
@@ -1166,70 +1213,5 @@
         "overlay_value": "12.5 Tons",
         "overlay_sublabel": "CO2 Avoided this year",
         "certification_label": "Kyron-Ameru Certification"
-    },
-    "Dashboard": {
-        "greeting_fallback": "Hello",
-        "status_operativo": "STATUS: OPERATIONAL",
-        "kpi_ingresos": "Revenue",
-        "kpi_gastos": "Expenses",
-        "kpi_utilidad": "Profit",
-        "kpi_liquidez": "Liquidity",
-        "flujo_mensual": "Monthly Flow",
-        "flujo_financiero": "Financial Flow",
-        "ultimos_12_meses": "Last 12 months",
-        "sin_datos_historicos": "No historical data",
-        "error_cargar_flujo": "Error loading financial flow",
-        "facturacion": "Invoicing",
-        "sin_facturas": "No invoices",
-        "total": "Total",
-        "cuentas": "Accounts",
-        "por_cobrar": "Receivables",
-        "por_pagar": "Payables",
-        "stock_bajo": "Low Stock",
-        "pendientes": "pending",
-        "items": "items",
-        "ultimos_movimientos": "Latest Movements",
-        "ver_todos": "View all",
-        "sin_movimientos": "No movements recorded",
-        "registrar": "Register",
-        "fiscal": "Tax",
-        "al_dia": "Up to date",
-        "configurado": "Configured",
-        "retenciones_ok": "Withholdings OK",
-        "sincronizado": "Synchronized",
-        "declaracion_iva": "VAT Declaration",
-        "conciliacion_bancaria": "Bank reconciliation",
-        "vence": "Due",
-        "antes_cierre": "Before closing",
-        "vence_proximo_mes": "Due next month",
-        "calendario_fiscal": "Tax Calendar SENIAT",
-        "cargando_calendario": "Loading calendar...",
-        "vencido": "OVERDUE",
-        "hoy": "TODAY",
-        "manana": "Tomorrow",
-        "vencimientos_plazos": "Deadlines & Terms",
-        "sin_vencimientos": "No upcoming or pending deadlines",
-        "modulos": "Modules",
-        "nomina": "Payroll",
-        "empleados_activos": "active employees",
-        "ver_nomina": "View Payroll",
-        "cierre_fiscal": "Tax Closing",
-        "clientes": "Clients",
-        "empleados": "Employees",
-        "facturas": "Invoices",
-        "alertas": "Alerts",
-        "datos_tiempo_real": "Real-time data",
-        "detalle": "Details",
-        "error_cargar_facturacion": "Error loading invoicing",
-        "proyeccion_ventas": "FORECAST: SALES +20%",
-        "simulacion_inflacion": "SIMULATION: INFLATION 35%",
-        "proyectar_ventas": "Forecast Sales +20%",
-        "simular_inflacion": "Simulate Inflation 35%",
-        "procesamiento_algoritmico": "Algorithmic Processing",
-        "suscripcion_activa": "Active Subscription",
-        "plan_professional": "Professional Plan",
-        "consultas_core": "Core Queries",
-        "almacenamiento": "Storage",
-        "escenarios_algoritmicos": "Algorithmic Scenarios"
     }
 }

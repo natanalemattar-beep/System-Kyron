@@ -67,6 +67,19 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
     }, [refreshUser]);
 
     useEffect(() => {
+        let bc: BroadcastChannel | null = null;
+        try {
+            bc = new BroadcastChannel('kyron-auth');
+            bc.onmessage = (event) => {
+                if (event.data?.type === 'SESSION_READY') {
+                    refreshUser();
+                }
+            };
+        } catch {}
+        return () => { try { bc?.close(); } catch {} };
+    }, [refreshUser]);
+
+    useEffect(() => {
         if (!isLoading && !user && !isLoggingOut.current) {
             refreshUser();
         }

@@ -16,9 +16,7 @@ type Shortcut = {
 
 const shortcuts: Shortcut[] = [
   { label: "Análisis Fiscal", href: "/gaceta-6952", icon: Landmark, color: "from-amber-500/20 to-amber-500/5" },
-  { label: "Asistente Laboral", href: "/kyron-chat?context=rrhh", icon: Gavel, color: "from-pink-500/20 to-pink-500/5" },
-  { label: "Consultor Tributario", href: "/kyron-chat?context=tributario", icon: FileSearch, color: "from-cyan-500/20 to-cyan-500/5" },
-  { label: "Kyron Chat", href: "/kyron-chat", icon: MessageSquare, color: "from-violet-500/20 to-violet-500/5" },
+
 ];
 
 export function AiInspectionDropdown() {

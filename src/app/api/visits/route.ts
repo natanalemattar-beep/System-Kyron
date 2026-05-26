@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     const referrer = headersList.get('referer') || '';
 
     let body: { page?: string; visitor_id?: string; user_id?: number | null; module?: string } = {};
-    try { body = await req.json(); } catch {}
+    try { body = await req.json(); } catch { console.warn('[visits] Invalid JSON body'); }
 
     const page = body.page || '/';
     const visitor_id = body.visitor_id || null;

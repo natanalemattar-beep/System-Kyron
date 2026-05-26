@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CircleCheck, Loader2, ArrowLeft, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
-import Link from "next/link";
+import { Link } from "@/navigation";
 
 const QUESTIONS = [
     {

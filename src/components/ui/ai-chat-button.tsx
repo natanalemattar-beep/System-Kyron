@@ -187,6 +187,7 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Cerrar asistente Kyron" : "Abrir asistente Kyron"}
         className={cn(
           "fixed z-50 h-12 w-12 rounded-full p-0.5 shadow-2xl group",
           className || "bottom-6 left-6",
@@ -234,7 +235,7 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
                   <p className="text-[8px] text-gray-500 dark:text-white/40 font-black uppercase tracking-[0.2em]">Asistente Especializado</p>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 dark:text-white/40 hover:text-gray-900 dark:hover:text-white transition-all group">
+              <button onClick={() => setIsOpen(false)} aria-label="Cerrar chat" className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 dark:text-white/40 hover:text-gray-900 dark:hover:text-white transition-all group">
                 <X className="h-4 w-4 group-hover:scale-110 transition-transform" />
               </button>
             </div>
@@ -334,6 +335,7 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
                 <Button 
                   type="submit" 
                   disabled={isLoading || !input.trim()}
+                  aria-label="Enviar mensaje"
                   className={cn(
                     "h-11 w-11 rounded-xl p-0 shrink-0 transition-all",
                     "bg-gradient-to-br from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500",

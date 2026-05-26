@@ -88,7 +88,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
         if (!res.ok) return;
         const data = await res.json();
         if (active) setUnreadCount(data.total_no_leidas ?? 0);
-      } catch {}
+      } catch { console.warn('[header] Error fetching notifications'); }
     };
     fetchCount();
     const interval = setInterval(fetchCount, 60000);
@@ -97,7 +97,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
     const runMaintenance = async () => {
       try {
         await fetch('/api/system/maintenance');
-      } catch {}
+      } catch { console.warn('[header] Maintenance call failed'); }
     };
     runMaintenance();
     const maintInterval = setInterval(runMaintenance, 15 * 60 * 1000); // Cada 15 mins intenta mantenimiento
@@ -129,7 +129,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
 
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger asChild>
-                    <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9 rounded-xl bg-muted/40 border border-border/50">
+                    <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9 rounded-xl bg-muted/40 border border-border/50" aria-label="Abrir menú de navegación">
                         <Menu className="h-4 w-4 text-foreground/60" />
                     </Button>
                 </SheetTrigger>
@@ -255,7 +255,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                 </Button>
                             </SheetClose>
                             <SheetClose asChild>
-                                <Button variant="ghost" size="icon" asChild className="relative h-9 w-9 rounded-xl bg-muted/40 border border-border/50">
+                                <Button variant="ghost" size="icon" asChild className="relative h-9 w-9 rounded-xl bg-muted/40 border border-border/50" aria-label="Notificaciones">
                                     <Link href="/notificaciones">
                                         <Bell className="h-4 w-4 text-muted-foreground/50" />
                                         {unreadCount > 0 && (
@@ -436,10 +436,10 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
             </div>
             <GlobalSearch />
             <div className="hidden sm:flex items-center gap-1.5">
-                <Button variant="ghost" size="icon" asChild className="h-8 w-8 rounded-lg bg-muted/30 border border-border/40 group hover:bg-muted/50 transition-all">
+                <Button variant="ghost" size="icon" asChild className="h-8 w-8 rounded-lg bg-muted/30 border border-border/40 group hover:bg-muted/50 transition-all" aria-label="Configuración">
                     <Link href="/configuracion"><Settings className="h-3.5 w-3.5 text-muted-foreground/50 group-hover:text-primary transition-colors" /></Link>
                 </Button>
-                <Button variant="ghost" size="icon" asChild className="relative h-8 w-8 rounded-lg bg-muted/30 border border-border/40 group hover:bg-muted/50 transition-all">
+                <Button variant="ghost" size="icon" asChild className="relative h-8 w-8 rounded-lg bg-muted/30 border border-border/40 group hover:bg-muted/50 transition-all" aria-label="Notificaciones">
                     <Link href="/notificaciones">
                         <Bell className={cn(
                             "h-3.5 w-3.5 transition-colors",
@@ -456,7 +456,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
 
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-lg border border-border/40 p-0 overflow-hidden bg-muted/30 group hover:border-primary/30 transition-all">
+                <Button variant="ghost" className="relative h-8 w-8 rounded-lg border border-border/40 p-0 overflow-hidden bg-muted/30 group hover:border-primary/30 transition-all" aria-label="Menú de usuario">
                     <Avatar className="h-full w-full rounded-none">
                     <AvatarFallback className="rounded-none font-bold text-[11px] text-white bg-primary">
                         {user?.fallback || "AD"}

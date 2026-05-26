@@ -11,7 +11,7 @@ import { AIChatButton } from "@/components/ui/ai-chat-button";
 import { useAuth } from "@/lib/auth/context";
 import { asesoriaContableNavGroups } from "@/components/app-sidebar-nav-items";
 
-const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
+const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false, loading: () => null });
 
 export default function MainLayout({
   children,

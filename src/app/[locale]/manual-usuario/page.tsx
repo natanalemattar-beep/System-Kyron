@@ -15,7 +15,7 @@ import {
   DollarSign, FolderOpen,
   Headphones, Megaphone
 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { Card } from "@/components/ui/card";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";

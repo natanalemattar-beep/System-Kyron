@@ -7,26 +7,32 @@ import Image from 'next/image';
 const FeaturesSection = dynamic(() =>
   import('@/components/landing/features-section').then((m) => ({
     default: m.FeaturesSection,
-  }))
+  })),
+  { loading: () => <div className="h-96 animate-pulse bg-white/5 rounded-2xl" /> }
 );
 const SustainabilitySection = dynamic(() =>
   import('@/components/landing/SustainabilitySection').then((m) => ({
     default: m.SustainabilitySection,
-  }))
+  })),
+  { loading: () => <div className="h-80 animate-pulse bg-white/5 rounded-2xl" /> }
 );
 const ModulesSection = dynamic(() =>
   import('@/components/landing/modules-section').then((m) => ({
     default: m.ModulesSection,
-  }))
+  })),
+  { loading: () => <div className="h-96 animate-pulse bg-white/5 rounded-2xl" /> }
 );
 const FaqSection = dynamic(() =>
-  import('@/components/landing/faq-section').then((m) => ({ default: m.FaqSection }))
+  import('@/components/landing/faq-section').then((m) => ({ default: m.FaqSection })),
+  { loading: () => <div className="h-80 animate-pulse bg-white/5 rounded-2xl" /> }
 );
 const CtaSection = dynamic(() =>
-  import('@/components/landing/cta-section').then((m) => ({ default: m.CtaSection }))
+  import('@/components/landing/cta-section').then((m) => ({ default: m.CtaSection })),
+  { loading: () => <div className="h-64 animate-pulse bg-white/5 rounded-2xl" /> }
 );
 const Footer = dynamic(() =>
-  import('@/components/landing/footer').then((m) => ({ default: m.Footer }))
+  import('@/components/landing/footer').then((m) => ({ default: m.Footer })),
+  { loading: () => <div className="h-96 animate-pulse bg-white/5" /> }
 );
 
 const showcaseImages = [

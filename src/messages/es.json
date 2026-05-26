@@ -28,7 +28,7 @@
         "encryption_active": "Cifrado AES-256 Activo"
     },
     "DemoBanner": {
-        "message": "🚀 Ecosistema Digital Kyron · Candidato Finalista Reto Inspira 2026 · Protocolos de misión crítica activos.",
+        "message": "🚀 Ecosistema Digital Kyron · Plataforma en desarrollo · Precios mostrados son referenciales.",
         "cta": "Acceder Sistema",
         "dismiss": "Cerrar"
     },
@@ -145,46 +145,8 @@
         "speed_subtitle": "Tiempo promedio de procesamiento",
         "fastest": "Más rápido",
         "cta": "Probar la Velocidad",
-        "competitors": [
-            {
-                "name": "System Kyron",
-                "speed": 90
-            },
-            {
-                "name": "SAP Business One",
-                "speed": 450
-            },
-            {
-                "name": "Odoo",
-                "speed": 800
-            },
-            {
-                "name": "QuickBooks",
-                "speed": 1200
-            }
-        ],
-        "metrics": [
-            {
-                "value": 90,
-                "suffix": "%",
-                "label": "Menos tiempo en declaraciones fiscales"
-            },
-            {
-                "value": 3,
-                "suffix": "x",
-                "label": "Más rápido que hacerlo a mano"
-            },
-            {
-                "value": 19,
-                "suffix": "",
-                "label": "Tareas que se hacen solas"
-            },
-            {
-                "value": 99,
-                "suffix": ".9%",
-                "label": "Disponibilidad del sistema"
-            }
-        ]
+        "competitors": [],
+        "metrics": []
     },
     "PricingSection": {
         "badge": "Arquitectura de Precios",
@@ -194,7 +156,7 @@
         "free_note": "Cuentas personales siempre gratuitas",
         "analytics_title": "Proyección de",
         "analytics_highlight": "Eficiencia",
-        "analytics_subtitle": "Nuestra analítica integrada demuestra una reducción del 90% en tiempos de procesamiento fiscal.",
+        "analytics_subtitle": "Proyección de eficiencia basada en la automatización de procesos contables y fiscales.",
         "most_complete": "Más Completo",
         "most_chosen": "Más Elegido",
         "free": "Gratis",

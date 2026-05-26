@@ -8,7 +8,7 @@ import { BarChart, CartesianGrid, XAxis, YAxis, Bar, ResponsiveContainer } from 
 import { formatCurrency } from "@/lib/utils";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import dynamic from "next/dynamic";
-const motion = { div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as any };
+const motion = { div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false, loading: () => <div className="animate-pulse bg-white/5 rounded-2xl h-32" /> }) as any };
 import { Link } from "@/navigation";
 
 interface MercadoData {

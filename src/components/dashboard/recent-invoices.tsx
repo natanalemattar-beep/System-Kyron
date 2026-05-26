@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { Button } from "../ui/button";
 import { ArrowUpRight, Loader2 } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";

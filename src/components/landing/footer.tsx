@@ -120,9 +120,9 @@ export function Footer() {
             {['SENIAT', 'BCV', 'VEN-NIF', 'LOTTT', 'CONATEL', 'SUDEBAN'].map((ent) => (
               <span
                 key={ent}
-                className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/35 hover:text-muted-foreground/55 transition-colors cursor-default flex items-center gap-1.5"
+                className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/35 transition-colors cursor-default flex items-center gap-1.5"
               >
-                <Shield className="h-2.5 w-2.5 text-kyron-cyan/30" /> {ent}
+                <Shield className="h-2.5 w-2.5 text-muted-foreground/20" /> {ent}
               </span>
             ))}
           </div>

@@ -44,8 +44,8 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { ChartErrorBoundary } from "@/components/chart-error-boundary";
 
 const motion = {
-  div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as any,
-  header: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.header })), { ssr: false }) as any,
+  div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false, loading: () => <div className="animate-pulse bg-white/5 rounded-2xl h-32" /> }) as any,
+  header: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.header })), { ssr: false, loading: () => <div className="animate-pulse bg-white/5 rounded-2xl h-48" /> }) as any,
 };
 
 interface DashboardData {

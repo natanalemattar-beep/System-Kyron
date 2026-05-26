@@ -158,7 +158,7 @@ export function LandingHeader() {
               <ThemeToggle />
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-11 w-11 rounded-xl border border-border/40 dark:border-white/10 text-foreground bg-black/[0.02] dark:bg-white/[0.02] active:scale-90 transition-transform">
+                  <Button variant="ghost" size="icon" className="h-11 w-11 rounded-xl border border-border/40 dark:border-white/10 text-foreground bg-black/[0.02] dark:bg-white/[0.02] active:scale-90 transition-transform" aria-label={mobileOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}>
                     {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                   </Button>
                 </SheetTrigger>
@@ -179,7 +179,7 @@ export function LandingHeader() {
                       </span>
                     </div>
                     <SheetClose asChild>
-                      <Button variant="ghost" size="icon" className="ml-auto h-10 w-10 rounded-xl border border-border/40 dark:border-white/10 shrink-0">
+                      <Button variant="ghost" size="icon" className="ml-auto h-10 w-10 rounded-xl border border-border/40 dark:border-white/10 shrink-0" aria-label="Cerrar menú lateral">
                         <X className="h-4 w-4" />
                       </Button>
                     </SheetClose>

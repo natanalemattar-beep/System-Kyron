@@ -16,7 +16,7 @@ import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ModuleGuard } from "@/components/module-guard";
 import { AIChatButton } from "@/components/ui/ai-chat-button";
 
-const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
+const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false, loading: () => null });
 
 function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     const { user } = useAuth();

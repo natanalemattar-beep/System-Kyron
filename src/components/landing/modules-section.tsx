@@ -54,7 +54,7 @@ export function ModulesSection() {
             <span className="text-glow-cyan not-italic">necesita, sin vueltas</span>
           </h2>
           <p className="text-lg text-muted-foreground/50 max-w-2xl mx-auto font-medium">
-            Más de 100 módulos para que tu negocio funcione sin tener que brincar entre 10 programas distintos
+            {modules.length} módulos para que tu negocio funcione sin tener que brincar entre 10 programas distintos
           </p>
         </div>
 

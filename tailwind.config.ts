@@ -21,6 +21,7 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-jetbrains-mono)', 'monospace'],
+        outfit: ['var(--font-outfit)', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

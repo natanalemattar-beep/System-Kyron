@@ -18,6 +18,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { useAuth } from '@/lib/auth/context';
+import { OtpInput } from '@/components/ui/otp-input';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { MODULOS_INDIVIDUALES } from '@/lib/planes-data';
@@ -646,7 +647,7 @@ export default function RegisterContabilidadPage() {
                                                 <div className="space-y-2">
                                                     <Label className="text-[10px] font-bold uppercase tracking-wider text-white/40">Contraseña</Label>
                                                     <div className="relative">
-                                                        <Input type={showPassword ? 'text' : 'password'} {...register('password')} className="h-12 rounded-xl bg-white/5 border-white/10 pr-10 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/10 text-white placeholder:text-white/20 transition-all" />
+                                                        <Input type={showPassword ? 'text' : 'password'} autoComplete="new-password" {...register('password')} className="h-12 rounded-xl bg-white/5 border-white/10 pr-10 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/10 text-white placeholder:text-white/20 transition-all" />
                                                         <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors">
                                                             {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                                         </button>
@@ -668,7 +669,7 @@ export default function RegisterContabilidadPage() {
                                                 <div className="space-y-2">
                                                     <Label className="text-[10px] font-bold uppercase tracking-wider text-white/40">Confirmar Contraseña</Label>
                                                     <div className="relative">
-                                                        <Input type={showConfirmPassword ? 'text' : 'password'} {...register('confirmPassword')} className="h-12 rounded-xl bg-white/5 border-white/10 pr-10 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/10 text-white placeholder:text-white/20 transition-all" />
+                                                        <Input type={showConfirmPassword ? 'text' : 'password'} autoComplete="new-password" {...register('confirmPassword')} className="h-12 rounded-xl bg-white/5 border-white/10 pr-10 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/10 text-white placeholder:text-white/20 transition-all" />
                                                         <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors">
                                                             {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                                         </button>
@@ -725,48 +726,16 @@ export default function RegisterContabilidadPage() {
                                             {verifLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <><Mail className="mr-2 h-5 w-5" />Enviar Código de Verificación</>}
                                         </Button>
                                     ) : (
-                                        <div className="space-y-6">
-                                            <div className="flex justify-center gap-2 sm:gap-3">
-                                                {(() => {
-                                                    const digits = [];
-                                                    for (let i = 0; i < 6; i++) {
-                                                        digits.push(
-                                                            <input
-                                                                key={i}
-                                                                type="text"
-                                                                inputMode="numeric"
-                                                                maxLength={1}
-                                                                value={verifCode[i] || ''}
-                                                                onChange={e => {
-                                                                    const val = e.target.value.replace(/\D/g, '');
-                                                                    if (!val) return;
-                                                                    const arr = verifCode.split('');
-                                                                    arr[i] = val;
-                                                                    const next = arr.join('').slice(0, 6);
-                                                                    setVerifCode(next);
-                                                                    if (i < 5) {
-                                                                        document.querySelector<HTMLInputElement>(`[data-digit="${i + 1}"]`)?.focus();
-                                                                    }
-                                                                }}
-                                                                onKeyDown={e => {
-                                                                    if (e.key === 'Backspace' && !verifCode[i] && i > 0) {
-                                                                        document.querySelector<HTMLInputElement>(`[data-digit="${i - 1}"]`)?.focus();
-                                                                    }
-                                                                }}
-                                                                onPaste={e => {
-                                                                    e.preventDefault();
-                                                                    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
-                                                                    setVerifCode(pasted);
-                                                                    document.querySelector<HTMLInputElement>(`[data-digit="${Math.min(pasted.length, 5)}"]`)?.focus();
-                                                                }}
-                                                                data-digit={i}
-                                                                className="w-11 h-12 sm:w-14 sm:h-16 text-center text-lg sm:text-2xl font-black font-mono rounded-xl bg-white/5 border border-white/10 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/10 text-white transition-all outline-none"
-                                                            />
-                                                        );
-                                                    }
-                                                    return digits;
-                                                })()}
-                                            </div>
+                                        <div className="space-y-4">
+                                            <p className="text-xs font-semibold text-center text-white/30 uppercase tracking-widest">Ingresa el código de 6 dígitos</p>
+                                            <OtpInput
+                                              value={verifCode}
+                                              onChange={setVerifCode}
+                                              onComplete={(code) => !verifVerified && verifyCode(code)}
+                                              accentColor="cyan"
+                                              disabled={verifLoading || verifVerified}
+                                              className="[&_input]:bg-white/5 [&_input]:border-white/10 [&_input]:text-white"
+                                            />
                                             <div className="text-center">
                                                 {countdown > 0 ? (
                                                     <p className="text-[11px] font-bold uppercase tracking-widest text-white/30">Reenviar en <span className="text-cyan-400">{countdown}s</span></p>

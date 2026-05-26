@@ -1,31 +1,30 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Loader2, TriangleAlert, ArrowRight, Home } from 'lucide-react';
+import { ShieldCheck, Loader2, TriangleAlert, ExternalLink, BadgeCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 
 export default function VerifyLinkPage() {
-  const router = useRouter();
-  const params = useParams();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
-  const [message, setMessage] = useState('Sincronizando con el Nexo de seguridad...');
+  const [message, setMessage] = useState('Verificando acceso...');
   const [errorDetails, setErrorDetails] = useState<string | null>(null);
   const verifiedRef = useRef(false);
+  const broadcastRef = useRef<BroadcastChannel | null>(null);
+
+  useEffect(() => {
+    try { broadcastRef.current = new BroadcastChannel('kyron-auth'); } catch {}
+    return () => { try { broadcastRef.current?.close(); } catch {} };
+  }, []);
 
   useEffect(() => {
     if (verifiedRef.current) return;
 
-    const redirectParam = new URLSearchParams(window.location.search).get('redirect') || '';
-
     const verifyToken = async () => {
-      const token = params.token;
-      if (!token) {
+      const token = window.location.href.split('/').pop() || '';
+      if (!token || token.length < 10) {
         setStatus('error');
-        setMessage('Token de acceso no encontrado.');
+        setMessage('Enlace de acceso inválido.');
         return;
       }
 
@@ -40,35 +39,16 @@ export default function VerifyLinkPage() {
 
         if (response.ok && data.success) {
           setStatus('success');
-          setMessage(data.message || 'Identidad verificada exitosamente.');
+          setMessage('Listo, verificado. Ya puedes cerrar esta pestaña y volver a la anterior, tu sesión ya está abierta.');
           verifiedRef.current = true;
 
-          setTimeout(async () => {
-            if (data.registrationMode) {
-              const basePath = redirectParam || '/register/asesoria-contable';
-              router.push(`${basePath}?email=${encodeURIComponent(data.email)}&verified=true`);
-            } else if (redirectParam) {
-              router.push(redirectParam);
-            } else {
-              try {
-                const meRes = await fetch('/api/auth/me');
-                const meData = await meRes.json();
-                if (meData?.user?.tipo === 'juridico') {
-                  router.push('/dashboard-empresa');
-                } else {
-                  router.push('/dashboard');
-                }
-              } catch {
-                router.push('/dashboard');
-              }
-            }
-          }, 2000);
+          broadcastRef.current?.postMessage({ type: 'SESSION_READY', user: data.user || null });
         } else {
           setStatus('error');
           setMessage('No se pudo validar el enlace.');
           setErrorDetails(data.error || 'El enlace puede haber expirado o ya fue utilizado.');
         }
-      } catch (err) {
+      } catch {
         setStatus('error');
         setMessage('Error de conexión con el servidor.');
         setErrorDetails('Verifica tu conexión a internet e intenta de nuevo.');
@@ -76,11 +56,10 @@ export default function VerifyLinkPage() {
     };
 
     verifyToken();
-  }, [params.token, router]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#030711] flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      {/* Background HUD Grid */}
       <div className="absolute inset-0 hud-grid opacity-5 pointer-events-none" />
       
       <motion.div 
@@ -99,7 +78,7 @@ export default function VerifyLinkPage() {
             <>
               <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-xl animate-pulse" />
               <div className="relative h-16 w-16 rounded-2xl bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
-                <ShieldCheck className="h-8 w-8 text-emerald-500" />
+                <BadgeCheck className="h-8 w-8 text-emerald-500" />
               </div>
             </>
           )}
@@ -115,7 +94,7 @@ export default function VerifyLinkPage() {
 
         <h1 className="text-2xl font-black text-white uppercase tracking-tighter italic mb-4">
           {status === 'loading' && 'Verificando Acceso'}
-          {status === 'success' && 'Identidad Confirmada'}
+          {status === 'success' && 'Verificación Exitosa'}
           {status === 'error' && 'Acceso Denegado'}
         </h1>
         
@@ -126,26 +105,30 @@ export default function VerifyLinkPage() {
           )}
         </p>
 
-        {status === 'error' && (
-          <div className="flex flex-col gap-3">
-            <Button asChild className="h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold uppercase text-[10px] tracking-widest transition-all">
-              <Link href="/login">Reintentar Acceso <ArrowRight className="ml-2 h-4 w-4" /></Link>
-            </Button>
-            <Button asChild variant="ghost" className="h-10 text-white/40 hover:text-white transition-colors">
-              <Link href="/"><Home className="mr-2 h-4 w-4" /> Volver al Inicio</Link>
+        {status === 'success' && (
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex items-center gap-2 text-emerald-400/80 text-xs font-medium">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              Sesión activa en la otra pestaña
+            </div>
+            <Button
+              onClick={() => window.close()}
+              className="h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold uppercase text-[10px] tracking-widest transition-all"
+            >
+              <ExternalLink className="mr-2 h-4 w-4" /> Cerrar esta pestaña
             </Button>
           </div>
         )}
 
-        {status === 'success' && (
-          <div className="flex items-center justify-center gap-2 text-[10px] font-black text-emerald-500 uppercase tracking-[0.2em] animate-pulse">
-            <div className="h-1 w-1 rounded-full bg-emerald-500" />
-            Redirigiendo al Dashboard...
+        {status === 'error' && (
+          <div className="flex flex-col gap-3">
+            <Button asChild className="h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold uppercase text-[10px] tracking-widest transition-all">
+              <a href="/login">Ir a Iniciar Sesión</a>
+            </Button>
           </div>
         )}
       </motion.div>
 
-      {/* Decorative footer */}
       <div className="mt-8 flex items-center gap-3 opacity-20 pointer-events-none">
         <div className="h-px w-8 bg-white" />
         <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Protocolo Kyron Alpha</span>

@@ -53,6 +53,7 @@ export function PasswordGate({
                     <Input 
                         type="password" 
                         placeholder="Ingresa la clave maestra..."
+                        autoComplete="off"
                         className="h-14 bg-zinc-900/50 border-zinc-800 rounded-2xl px-6 text-white text-center focus:border-amber-500/50 outline-none transition-all group-hover:border-zinc-700"
                         value={pass}
                         onChange={(e) => setPass(e.target.value)}

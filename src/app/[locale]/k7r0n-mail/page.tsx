@@ -156,6 +156,7 @@ export default function KyronMailPage() {
               onKeyDown={e => e.key === 'Enter' && handleAuth()}
               className="text-center text-lg font-mono tracking-widest h-12 rounded-xl"
               disabled={failCount >= 5}
+              autoComplete="off"
             />
             <Button onClick={handleAuth} disabled={failCount >= 5} className="w-full h-11 rounded-xl font-bold text-xs uppercase tracking-widest">
               <Shield className="mr-2 h-3.5 w-3.5" /> Entrar

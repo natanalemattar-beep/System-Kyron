@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Leaf, Recycle, Wind, ShieldCheck } from 'lucide-react';
+import { Leaf, Recycle, Wind } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export function SustainabilitySection() {
@@ -78,11 +78,11 @@ export function SustainabilitySection() {
               <div className="absolute bottom-12 right-12 p-6 rounded-[1.5rem] bg-kyron-emerald/10 backdrop-blur-sm border border-kyron-emerald/20 shadow-2xl transition-all hover:bg-kyron-emerald/20">
                 <div className="flex items-center gap-5">
                   <div className="h-12 w-12 rounded-xl bg-kyron-emerald/20 flex items-center justify-center text-kyron-emerald">
-                    <ShieldCheck className="h-6 w-6" />
+                    <Recycle className="h-6 w-6" />
                   </div>
                   <p className="text-[11px] font-black text-foreground uppercase tracking-[0.3em] leading-tight">
-                    {t('certification_label')}<br/>
-                    <span className="text-kyron-emerald/60">Verified Active</span>
+                    Alianza Kyron-Ameru<br/>
+                    <span className="text-kyron-emerald/60">Reciclaje Electrónico</span>
                   </p>
                 </div>
               </div>

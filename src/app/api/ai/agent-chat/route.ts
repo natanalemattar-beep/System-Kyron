@@ -68,7 +68,7 @@ CAPACIDADES:
     const result = await ai.agenticGenerate(
       historyText ? `${historyText}\nUsuario: ${message}` : message,
       {
-        model: 'gemini-1.5-flash',
+        model: 'gemini-2.5-flash',
         temperature: 0.7,
         maxTokens: 4096,
         systemInstruction: basePrompt,

@@ -5,7 +5,12 @@ import { verificarAlertasRegulatorias } from '@/lib/alertas-regulatorias';
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
-  // Ensure the table exists (Lazy initialization for Vercel/Serverless)
+  const authHeader = req.headers.get('x-admin-key');
+  const adminKey = process.env.ADMIN_PROMOTE_SECRET || process.env.ADMIN_KEY;
+  if (!authHeader || authHeader !== adminKey) {
+    return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+  }
+
   try {
     await query(`
       CREATE TABLE IF NOT EXISTS system_tasks (

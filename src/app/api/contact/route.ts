@@ -26,13 +26,5 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
-  try {
-    const result = await query(
-      `SELECT id, nombre, email, empresa, asunto, leido, created_at
-       FROM contact_messages ORDER BY created_at DESC LIMIT 50`
-    );
-    return NextResponse.json({ messages: result });
-  } catch {
-    return NextResponse.json({ messages: [] });
-  }
+  return NextResponse.json({ error: 'Método no disponible' }, { status: 405 });
 }

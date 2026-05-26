@@ -85,10 +85,10 @@ export const naturalNavGroups = [
 
 export const asesoriaContableNavGroups = [
   {
-    title: "Suite Kyron",
+    title: "Asesoría Contable",
     icon: Briefcase,
     items: [
-      { href: "/kyron-contable", label: "Kyron Contable", icon: Briefcase, badge: "NUEVO", section: "Suite Kyron" },
+      { href: "/contabilidad", label: "Dashboard Unificado", icon: LayoutDashboard, section: "Asesoría Contable" },
     ],
   },
   {

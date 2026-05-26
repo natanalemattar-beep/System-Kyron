@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
     }
 
     const codigo = generateCode();
-    console.log(`[send-code] Iniciando flujo para: ${destino} (${tipo})`);
+    // Flujo iniciado
 
     // FLUJO EMAIL
     if (tipo === 'email') {

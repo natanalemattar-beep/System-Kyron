@@ -10,7 +10,7 @@ import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, CartesianGrid } fro
 import { Link } from "@/navigation";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import dynamic from "next/dynamic";
-const motion = { div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as any };
+const motion = { div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false, loading: () => <div className="animate-pulse bg-white/5 rounded-2xl h-32" /> }) as any };
 import { useToast } from "@/hooks/use-toast";
 
 interface ResumenVentas {
