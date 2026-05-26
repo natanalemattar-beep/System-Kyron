@@ -73,7 +73,7 @@ export default function AnalisisPage() {
                     </p>
                 </div>
                 <Button variant="ghost" asChild className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground hover:text-primary">
-                    <Link href="/dashboard-empresa"><ArrowLeft className="mr-2 h-4 w-4" /> Volver a Mando</Link>
+                    <Link href="/dashboard-empresas"><ArrowLeft className="mr-2 h-4 w-4" /> Volver a Mando</Link>
                 </Button>
             </header>
 

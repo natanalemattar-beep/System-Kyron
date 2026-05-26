@@ -8,7 +8,7 @@ export default function LoginMarketingPage() {
         <SpecializedLoginCard 
             portalName="Marketing"
             portalDescription="Panel de campañas, analytics y automatización de marketing."
-            redirectPath="/dashboard-empresa"
+            redirectPath="/dashboard-empresas"
             icon={Megaphone}
             accentColor="blue-900"
             layoutVariant="minimal"

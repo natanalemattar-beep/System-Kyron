@@ -8,9 +8,7 @@ function getModuleFromPath(path: string): string {
   if (!p || p === '/') return 'landing';
   if (p.startsWith('/login') || p.startsWith('/register')) return 'auth';
   if (
-    p.startsWith('/dashboard-empresa') ||
-    p.startsWith('/dashboard-empresa') ||
-    p.startsWith('/contabilidad') ||
+    p.startsWith('/dashboard-empresas') ||
     p.startsWith('/facturas') ||
     p.startsWith('/transacciones') ||
     p.startsWith('/cuentas-por') ||

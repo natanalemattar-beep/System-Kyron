@@ -6,5 +6,5 @@ export default async function ResumenNegocioRedirect({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  redirect(`/${locale}/dashboard-empresa`);
+  redirect(`/${locale}/dashboard-empresas`);
 }

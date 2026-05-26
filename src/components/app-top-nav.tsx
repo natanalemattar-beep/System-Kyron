@@ -87,7 +87,7 @@ export function AppTopNav() {
         <div className="h-full flex items-center justify-between px-4 lg:px-6 max-w-[1800px] mx-auto">
           {/* Left: Logo + Nav */}
           <div className="flex items-center gap-6">
-            <Link href="/dashboard-empresa" className="flex items-center gap-2.5 shrink-0">
+            <Link href="/dashboard-empresas" className="flex items-center gap-2.5 shrink-0">
               <div className="relative">
                 <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
                 <Logo className="h-8 w-8 relative z-10" />

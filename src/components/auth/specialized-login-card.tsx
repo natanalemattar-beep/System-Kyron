@@ -1343,24 +1343,7 @@ export function SpecializedLoginCard({
               ))}
             </div>
 
-            {/* Features Bar */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="flex items-center gap-6"
-            >
-              <div className="flex -space-x-3">
-                {[1,2,3,4].map(i => (
-                  <div key={i} className="h-8 w-8 rounded-full border-2 border-[#020617] bg-slate-800 flex items-center justify-center overflow-hidden">
-                    <div className="h-full w-full bg-gradient-to-br from-slate-600 to-slate-700" />
-                  </div>
-                ))}
-              </div>
-              <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">
-                Utilizado por +500 empresas en Venezuela
-              </p>
-            </motion.div>
+
           </div>
 
           {/* Right Side: Login Form */}

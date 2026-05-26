@@ -505,7 +505,7 @@ export default function RegisterJuridicoPage() {
                                         </div>
                                     </div>
 
-                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-amber-600 hover:bg-slate-800 dark:hover:bg-amber-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => router.push((isLegalMode ? '/escritorio-juridico' : '/dashboard-empresa') as any)}>
+                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-amber-600 hover:bg-slate-800 dark:hover:bg-amber-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => router.push((isLegalMode ? '/escritorio-juridico' : '/dashboard-empresas') as any)}>
                                         {isLegalMode ? 'Ir a mi Despacho Legal' : 'Ir al Portal Corporativo'} <ArrowRight className="ml-2 h-5 w-5" />
                                     </Button>
                                 </div>

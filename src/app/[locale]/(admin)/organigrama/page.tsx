@@ -162,7 +162,7 @@ export default function OrganigramaPage() {
       </div>
 
       <div>
-        <Link href={"/dashboard-empresa" as any}>
+        <Link href={"/dashboard-empresas" as any}>
           <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground hover:text-foreground mb-2">
             <ArrowLeft className="h-4 w-4" />
             Dashboard

@@ -21,7 +21,7 @@ const MODULE_ROUTE_MAP: Record<string, string[]> = {
 function getUserDefaultDashboard(modules: string[], tipo: string): string {
   if (tipo === 'juridico' || tipo === 'admin') {
     for (const mod of modules) {
-      if (MODULE_ROUTE_MAP['admin'].includes(mod)) return '/dashboard-empresa';
+      if (MODULE_ROUTE_MAP['admin'].includes(mod)) return '/dashboard-empresas';
     }
     for (const mod of modules) {
       if (MODULE_ROUTE_MAP.ventas.includes(mod)) return '/estrategias-ventas';
@@ -38,7 +38,7 @@ function getUserDefaultDashboard(modules: string[], tipo: string): string {
     for (const mod of modules) {
       if (MODULE_ROUTE_MAP.informatica.includes(mod)) return '/dashboard-it';
     }
-    return '/dashboard-empresa';
+    return '/dashboard-empresas';
   }
   return '/dashboard';
 }
@@ -85,7 +85,7 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
     if (userModules.length === 0 && (user.tipo === 'juridico' || user.tipo === 'admin')) {
       if (layoutKey !== 'admin' && !redirectedRef.current) {
         redirectedRef.current = true;
-        router.replace('/dashboard-empresa');
+        router.replace('/dashboard-empresas');
       }
       setAuthorized(layoutKey === 'admin');
       setChecked(true);

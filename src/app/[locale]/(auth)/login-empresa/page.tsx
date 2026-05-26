@@ -9,7 +9,7 @@ export default function LoginEmpresaPage() {
         <SpecializedLoginCard 
             portalName="Asesoría Contable" 
             portalDescription="Inteligencia financiera avanzada y auditoría forense para la nueva economía venezolana."
-            redirectPath="/dashboard-empresa"
+            redirectPath="/dashboard-empresas"
             icon={Calculator}
             accentColor="primary"
             layoutVariant="accounting-premium"

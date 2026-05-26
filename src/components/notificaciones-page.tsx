@@ -21,8 +21,8 @@ import { getModuleContext, type ModuleContext } from '@/lib/module-context';
 
 const DASHBOARD_MAP: Record<ModuleContext, string> = {
   natural: "/dashboard",
-  admin: "/dashboard-empresa",
-  "asesoria-contable": "/dashboard-empresa",
+  admin: "/dashboard-empresas",
+  "asesoria-contable": "/dashboard-empresas",
   ventas: "/estrategias-ventas",
   legal: "/escritorio-juridico",
   socios: "/dashboard-socios",

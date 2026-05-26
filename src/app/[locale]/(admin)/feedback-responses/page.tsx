@@ -68,7 +68,7 @@ export default function FeedbackResponsesPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <div className="flex items-center gap-2 mb-2">
-                        <Link href="/dashboard-empresa" className="p-2 hover:bg-white/5 rounded-lg transition-colors">
+                        <Link href="/dashboard-empresas" className="p-2 hover:bg-white/5 rounded-lg transition-colors">
                             <ArrowLeft className="h-4 w-4 text-zinc-500" />
                         </Link>
                         <span className="px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-black uppercase tracking-[0.2em] rounded-md">

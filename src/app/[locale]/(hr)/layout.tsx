@@ -38,7 +38,7 @@ export default function HRLayout({
     const user = { name: displayName, email: authUser?.email || "", fallback: initials, color: userColor };
 
     const navGroups = fromAdmin ? asesoriaContableNavGroups : rrhhNavGroups;
-    const dashHref = fromAdmin ? "/dashboard-empresa" : "/dashboard-rrhh";
+    const dashHref = fromAdmin ? "/dashboard-empresas" : "/dashboard-rrhh";
     const footerLabel = fromAdmin ? "Portal Empresarial" : "RRHH";
 
     return (

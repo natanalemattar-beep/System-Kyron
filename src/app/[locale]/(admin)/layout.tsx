@@ -38,7 +38,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
             <div className="absolute -bottom-[10%] right-[20%] w-[600px] h-[600px] bg-blue-400/[0.04] rounded-full blur-[100px]" />
           </div>
 
-          <AppHeader user={userObj} dashboardHref="/dashboard-empresa" navGroups={asesoriaContableNavGroups} />
+          <AppHeader user={userObj} dashboardHref="/dashboard-empresas" navGroups={asesoriaContableNavGroups} />
           
           <main className="w-full p-4 md:p-10 pt-24 md:pt-28 relative z-10">
               <PageTransition className="max-w-[1400px] mx-auto w-full">

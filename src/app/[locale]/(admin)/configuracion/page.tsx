@@ -187,7 +187,7 @@ export default function ConfiguracionPage() {
     <PageTransition>
       <div className="max-w-3xl mx-auto px-4 py-8 md:py-16 space-y-8">
         <div>
-          <BackButton href="/dashboard-empresa" label="Dashboard" />
+          <BackButton href="/dashboard-empresas" label="Dashboard" />
           <div className="flex items-center gap-4 mt-4">
             <div className="p-3 rounded-2xl bg-primary/10 border border-primary/15">
               <Settings className="h-6 w-6 text-primary" />

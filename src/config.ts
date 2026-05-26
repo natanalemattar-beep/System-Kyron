@@ -19,8 +19,8 @@ export const pathnames = {
   '/contabilidad/conatel': '/contabilidad/conatel',
 
   // ÁREA MAESTRA
-  '/dashboard-empresa': '/dashboard-empresa',
-  '/resumen-negocio': '/dashboard-empresa',
+  '/dashboard-empresas': '/dashboard-empresas',
+  '/resumen-negocio': '/dashboard-empresas',
 
   // GLOBAL MODULES
   '/automatizaciones': '/automatizaciones',

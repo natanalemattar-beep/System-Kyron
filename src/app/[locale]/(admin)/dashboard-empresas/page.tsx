@@ -303,7 +303,7 @@ export default function DashboardEmpresaPage() {
     <ErrorBoundary>
     <div className="relative min-h-screen pb-20">
       <div className="space-y-6 max-w-7xl mx-auto px-4 md:px-6">
-        <ModuleTutorial config={moduleTutorials["dashboard-empresa"]} />
+        <ModuleTutorial config={moduleTutorials["dashboard-empresas"]} />
         <SeasonalBanner />
 
         {/* Header */}

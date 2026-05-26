@@ -788,7 +788,7 @@ export default function RegisterContabilidadPage() {
 
                                     <Button
                                         className="w-full h-14 rounded-2xl bg-white text-slate-900 hover:bg-white/90 font-black uppercase tracking-widest shadow-xl transition-all active:scale-[0.98]"
-                                        onClick={() => router.push('/dashboard-empresa' as any)}
+                                        onClick={() => router.push('/dashboard-empresas' as any)}
                                     >
                                         Ir al Dashboard <ArrowRight className="ml-2 h-5 w-5" />
                                     </Button>

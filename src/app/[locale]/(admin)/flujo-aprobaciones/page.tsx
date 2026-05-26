@@ -108,7 +108,7 @@
         </div>
 
         <div>
-          <Link href="/dashboard-empresa" className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition mb-4">
+          <Link href="/dashboard-empresas" className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition mb-4">
             <ArrowLeft className="h-3 w-3" /> Dashboard
           </Link>
           <motion.header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>

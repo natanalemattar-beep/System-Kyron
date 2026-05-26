@@ -7,7 +7,7 @@ import { getModuleContext, type ModuleContext } from "@/lib/module-context";
 
 const DASHBOARD_MAP: Record<ModuleContext, { href: string; label: string }> = {
   natural: { href: "/dashboard", label: "Dashboard" },
-  "asesoria-contable": { href: "/dashboard-empresa", label: "Dashboard Empresarial" },
+  "asesoria-contable": { href: "/dashboard-empresas", label: "Dashboard Empresarial" },
   ventas: { href: "/estrategias-ventas", label: "Ventas" },
   legal: { href: "/escritorio-juridico", label: "Escritorio Jurídico" },
   socios: { href: "/dashboard-socios", label: "Socios" },

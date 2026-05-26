@@ -8,7 +8,7 @@ export default function LoginVentasPage() {
         <SpecializedLoginCard 
             portalName="Facturación" 
             portalDescription="Terminal de ventas de alta velocidad con sincronización de inventario."
-            redirectPath="/dashboard-empresa"
+            redirectPath="/dashboard-empresas"
             icon={ShoppingCart}
             accentColor="emerald-600"
             layoutVariant="centered"

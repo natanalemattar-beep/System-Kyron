@@ -155,7 +155,7 @@ export default function FacturacionPage() {
       <ModuleTutorial config={moduleTutorials["facturacion"]} />
 
       <div>
-        <BackButton href="/dashboard-empresa" label="Dashboard" />
+        <BackButton href="/dashboard-empresas" label="Dashboard" />
         <motion.header
           className="mt-4 flex flex-col md:flex-row justify-between items-start md:items-end gap-6"
           initial={{ opacity: 0, y: 20 }}

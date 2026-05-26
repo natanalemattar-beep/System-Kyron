@@ -25,8 +25,8 @@ export interface ModuleTutorialConfig {
 }
 
 export const moduleTutorials: Record<string, ModuleTutorialConfig> = {
-  "dashboard-empresa": {
-    moduleId: "dashboard-empresa",
+  "dashboard-empresas": {
+    moduleId: "dashboard-empresas",
     moduleName: "Dashboard Empresarial",
     moduleTag: "DASHBOARD",
     steps: [

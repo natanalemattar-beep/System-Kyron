@@ -27,7 +27,7 @@ import { AIChatButton } from "@/components/ui/ai-chat-button";
 
 const MODULE_CONFIG: Record<ModuleContext, { dashboardHref: string; navGroups: typeof naturalNavGroups; footerLabel: string; userColor: string }> = {
     natural: { dashboardHref: "/dashboard", navGroups: naturalNavGroups, footerLabel: "Portal Ciudadano", userColor: "bg-primary" },
-    admin: { dashboardHref: "/dashboard-empresa", navGroups: asesoriaContableNavGroups, footerLabel: "Portal Empresarial", userColor: "bg-primary shadow-glow" },
+    admin: { dashboardHref: "/dashboard-empresas", navGroups: asesoriaContableNavGroups, footerLabel: "Portal Empresarial", userColor: "bg-primary shadow-glow" },
     ventas: { dashboardHref: "/estrategias-ventas", navGroups: ventasNavGroups, footerLabel: "Portal de Ventas", userColor: "bg-emerald-600 shadow-glow-secondary" },
     legal: { dashboardHref: "/escritorio-juridico", navGroups: legalNavGroups, footerLabel: "Asesoría Legal", userColor: "bg-slate-800 shadow-glow" },
     socios: { dashboardHref: "/dashboard-socios", navGroups: sociosNavGroups, footerLabel: "Portal de Socios", userColor: "bg-indigo-900 shadow-glow" },

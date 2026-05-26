@@ -1,15 +1,15 @@
 export const MODULE_PATH_MAP: Record<string, string> = {
-  contabilidad: '/dashboard-empresa',
-  juridico: '/dashboard-empresa',
+  contabilidad: '/dashboard-empresas',
+  juridico: '/dashboard-empresas',
   legal: '/escritorio-juridico',
-  ventas: '/dashboard-empresa',
-  tpv: '/dashboard-empresa',
+  ventas: '/dashboard-empresas',
+  tpv: '/dashboard-empresas',
   socios: '/dashboard-socios',
   sostenibilidad: '/sostenibilidad',
   telecom: '/mi-linea',
-  rrhh: '/dashboard-empresa',
-  nomina: '/dashboard-empresa',
-  talento: '/dashboard-empresa',
+  rrhh: '/dashboard-empresas',
+  nomina: '/dashboard-empresas',
+  talento: '/dashboard-empresas',
   informatica: '/dashboard-it',
 };
 

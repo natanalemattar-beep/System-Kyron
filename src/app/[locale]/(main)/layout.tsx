@@ -36,7 +36,7 @@ export default function MainLayout({
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
-              <AppHeader user={{...user, color: "bg-primary"}} dashboardHref="/dashboard-empresa" navGroups={asesoriaContableNavGroups} />
+              <AppHeader user={{...user, color: "bg-primary"}} dashboardHref="/dashboard-empresas" navGroups={asesoriaContableNavGroups} />
               
               <main className="flex-1 w-full pt-20 relative z-10">
                   <PageTransition>
