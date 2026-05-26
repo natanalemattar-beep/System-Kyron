@@ -3,7 +3,6 @@ import { encryptIfNotEmpty } from '@/lib/encryption';
 import crypto from 'crypto';
 
 const CODE_LENGTH = 6;
-const CODE_EXPIRY_MS = 10 * 60 * 1000;
 const MAX_ATTEMPTS = 5;
 const MAGIC_TOKEN_BYTES = 32;
 
@@ -49,12 +48,11 @@ export function maskPhone(phone: string): string {
 }
 
 export async function storeMagicToken(email: string, token: string, _userId?: number): Promise<void> {
-  const expiresAt = new Date(Date.now() + CODE_EXPIRY_MS);
   const hashed = hashToken(token);
   await query(
     `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito)
-     VALUES ($1, 'email', $2, $3, 'magic_link')`,
-    [email.toLowerCase(), hashed, expiresAt]
+     VALUES ($1, 'email', $2, NOW() + INTERVAL '10 minutes', 'magic_link')`,
+    [email.toLowerCase(), hashed]
   );
 }
 
@@ -91,11 +89,10 @@ export async function storeCode(
   proposito: VerificationPurpose = 'verification',
   tipo: 'email' | 'sms' | 'whatsapp' = 'email'
 ): Promise<void> {
-  const expiresAt = new Date(Date.now() + CODE_EXPIRY_MS);
   await query(
     `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito)
-     VALUES ($1, $2, $3, $4, $5)`,
-    [destino.toLowerCase(), tipo, code, expiresAt, proposito]
+     VALUES ($1, $2, $3, NOW() + INTERVAL '10 minutes', $4)`,
+    [destino.toLowerCase(), tipo, code, proposito]
   );
 }
 

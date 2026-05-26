@@ -66,11 +66,10 @@ export async function POST(req: NextRequest) {
       }
 
       const codigo = generateResetCode();
-      const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
       await query(
-        `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) VALUES ($1, 'email', $2, $3, 'password-reset')`,
-        [user.email, codigo, expiresAt]
+        `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) VALUES ($1, 'email', $2, NOW() + INTERVAL '10 minutes', 'password-reset')`,
+        [user.email, codigo]
       );
 
       const emailResult = await sendEmail({
