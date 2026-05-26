@@ -16,7 +16,8 @@ import { Logo } from '@/components/logo';
 import { cn, isNetworkError } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getDeviceFingerprint } from '@/lib/device-fingerprint';
-import { useAuth, getModuleDashboardPath } from '@/lib/auth/context';
+import { useAuth } from '@/lib/auth/context';
+import { getDashboardPath as getModuleDashboardPath } from '@/lib/module-paths';
 
 type LayoutVariant = 'split-left' | 'split-right' | 'centered' | 'stacked' | 'minimal' | 'dark-immersive' | 'accounting-premium';
 

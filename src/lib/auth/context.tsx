@@ -73,6 +73,8 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
             bc.onmessage = (event) => {
                 if (event.data?.type === 'SESSION_READY') {
                     refreshUser();
+                } else if (event.data?.type === 'LOGOUT') {
+                    setUser(null);
                 }
             };
         } catch {}
@@ -125,6 +127,13 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
             // Intenta limpiar sesión aunque falle la API
         }
         setUser(null);
+        try {
+            localStorage.removeItem('_sk_vid');
+            localStorage.removeItem('kyron-session-timeout');
+        } catch {}
+        try {
+            new BroadcastChannel('kyron-auth').postMessage({ type: 'LOGOUT' });
+        } catch {}
         window.location.href = '/login';
     }, []);
 
