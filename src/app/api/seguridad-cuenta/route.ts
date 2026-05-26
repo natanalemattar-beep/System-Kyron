@@ -200,14 +200,20 @@ export async function GET(req: NextRequest) {
     },
     sesiones: sesionesFormateadas,
     historial: historialFormateado,
-    dispositivosConfianza: trustedDevices.map(d => ({
-      id: d.id,
-      nombre: d.device_name || 'Dispositivo desconocido',
-      tipo: d.device_type || 'web',
-      ip: maskIp(d.ip),
-      ultimoUso: d.last_used_at,
-      creado: d.created_at,
-    })),
+    dispositivosConfianza: trustedDevices.map(d => {
+      const parsed = parseUserAgent(d.user_agent);
+      const nombreDispositivo = d.device_name
+        ? d.device_name
+        : `${parsed.navegador} — ${parsed.sistema}`;
+      return {
+        id: d.id,
+        nombre: nombreDispositivo,
+        tipo: d.device_type || parsed.tipo || 'web',
+        ip: maskIp(d.ip),
+        ultimoUso: d.last_used_at,
+        creado: d.created_at,
+      };
+    }),
     estadisticas: {
       totalSesiones: sesionesFormateadas.length,
       totalEventos: parseInt(totalEventos?.count || '0'),
