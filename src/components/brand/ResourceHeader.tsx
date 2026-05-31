@@ -4,13 +4,15 @@ import React from 'react';
 import { 
     Circle, 
     Home,
-    Mail
+    Mail,
+    BookOpen
 } from 'lucide-react';
 import { Link, usePathname } from '@/navigation';
 import { cn } from '@/lib/utils';
 
 const navItems = [
     { name: 'Hub', href: '/brand-kit', icon: Home },
+    { name: 'Manual KYRON', href: '/brand-kit/manual-usuario', icon: BookOpen },
     { name: 'Stickers', href: '/stickers', icon: Circle },
     { name: 'Cartas', href: '/cartas', icon: Mail },
 ];

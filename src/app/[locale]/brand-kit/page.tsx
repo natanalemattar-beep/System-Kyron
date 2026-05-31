@@ -19,6 +19,7 @@ import {
     Fingerprint,
     Layers,
     ExternalLink,
+    BookOpen,
 } from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
@@ -147,6 +148,19 @@ const RESOURCES: Resource[] = [
         size: 'normal',
         gradient: 'from-cyan-900/40 via-blue-900/20 to-transparent',
         image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format'
+    },
+    {
+        id: 'manual-usuario',
+        title: 'Manual de Usuario — Formato Libro',
+        description: 'Edición corporativa del manual de usuario en formato libro con protección por clave de acceso.',
+        icon: BookOpen,
+        href: '/brand-kit/manual-usuario',
+        color: 'from-violet-500 to-fuchsia-600',
+        tag: 'MANUAL',
+        type: 'internal',
+        size: 'large',
+        gradient: 'from-violet-900/40 via-fuchsia-900/20 to-transparent',
+        image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format'
     }
 ];
 

@@ -198,6 +198,7 @@ export const pathnames = {
   '/activos-inmobiliarios': '/activos-inmobiliarios',
   '/stickers': '/stickers',
   '/brand-kit': '/brand-kit',
+  '/brand-kit/manual-usuario': '/brand-kit/manual-usuario',
 
   '/alertas-regulatorias': '/alertas-regulatorias',
 
