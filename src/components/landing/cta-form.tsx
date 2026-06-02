@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Loader as Loader2, Send, Building2, ShieldCheck } from "lucide-react";
+import { Loader as Loader2, Send, Building2, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -48,17 +48,7 @@ export function CtaForm() {
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            name: "",
-            role: "",
-            email: "",
-            phone: "",
-            company: "",
-            companySize: "",
-            sector: "",
-            urgency: "",
-            module: "Contabilidad",
-        },
+        defaultValues: { name: "", role: "", email: "", phone: "", company: "", companySize: "", sector: "", urgency: "", module: "Contabilidad" },
     });
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -66,25 +56,13 @@ export function CtaForm() {
         try {
             const result = await sendDemoRequestAction(values);
             if (result.success) {
-                toast({
-                    title: t('toast_success_title'),
-                    description: t('toast_success_desc'),
-                    action: <ShieldCheck className="text-primary h-4 w-4" />
-                });
+                toast({ title: t('toast_success_title'), description: t('toast_success_desc'), action: <ShieldCheck className="text-primary h-4 w-4" /> });
                 form.reset();
             } else {
-                toast({
-                    variant: "destructive",
-                    title: t('toast_error_title'),
-                    description: result.error || t('toast_error_desc'),
-                });
+                toast({ variant: "destructive", title: t('toast_error_title'), description: result.error || t('toast_error_desc') });
             }
-        } catch (error) {
-            toast({
-                variant: "destructive",
-                title: t('toast_error_title'),
-                description: t('toast_error_desc'),
-            });
+        } catch {
+            toast({ variant: "destructive", title: t('toast_error_title'), description: t('toast_error_desc') });
         } finally {
             setIsSubmitting(false);
         }
@@ -92,202 +70,166 @@ export function CtaForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="glass-liquid space-y-4 p-6 md:p-10 rounded-2xl shadow-xl relative">
-                <div className="absolute top-0 right-0 p-8 opacity-5">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="glass-liquid space-y-4 p-6 md:p-10 rounded-2xl shadow-2xl relative">
+                <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
                     <Building2 className="h-24 w-24 md:h-32 md:w-32 rotate-12 text-primary/20" />
                 </div>
-                
-                <div className="space-y-1 mb-6 relative z-10 text-center sm:text-left">
+
+                <div className="space-y-1 mb-6 relative text-center sm:text-left">
                     <h3 className="text-lg md:text-2xl font-bold tracking-tight uppercase italic text-foreground">{t('form_title')}</h3>
-                    <p className="text-[11px] md:text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{t('form_subtitle')}</p>
-                </div>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                            <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[10px] md:text-[11px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_name')}</FormLabel>
-                                <FormControl>
-                                    <Input placeholder={t('field_name_placeholder')} {...field} className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold" />
-                                </FormControl>
-                                <FormMessage className="text-[11px] md:text-[10px]" />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="role"
-                        render={({ field }) => (
-                            <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[10px] md:text-[11px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_role')}</FormLabel>
-                                <Select onValueChange={field.onChange} value={field.value}>
-                                    <FormControl>
-                                        <SelectTrigger className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
-                                            <SelectValue placeholder={t('field_role_placeholder')} />
-                                        </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent className="rounded-xl">
-                                        {roles.map(r => (
-                                            <SelectItem key={r} value={r} className="text-xs uppercase font-bold">{r}</SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                <FormMessage className="text-[11px] md:text-[10px]" />
-                            </FormItem>
-                        )}
-                    />
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{t('form_subtitle')}</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[10px] md:text-[11px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_email')}</FormLabel>
-                                <FormControl>
-                                    <Input type="email" placeholder={t('field_email_placeholder')} {...field} className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold" />
-                                </FormControl>
-                                <FormMessage className="text-[11px] md:text-[10px]" />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="phone"
-                        render={({ field }) => (
-                            <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[10px] md:text-[11px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_phone')}</FormLabel>
-                                <FormControl>
-                                    <Input type="tel" placeholder={t('field_phone_placeholder')} {...field} className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold" />
-                                </FormControl>
-                                <FormMessage className="text-[11px] md:text-[10px]" />
-                            </FormItem>
-                        )}
-                    />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <FormField
-                        control={form.control}
-                        name="company"
-                        render={({ field }) => (
-                            <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[10px] md:text-[11px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_company')}</FormLabel>
-                                <FormControl>
-                                    <Input placeholder={t('field_company_placeholder')} {...field} className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold" />
-                                </FormControl>
-                                <FormMessage className="text-[11px] md:text-[10px]" />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="companySize"
-                        render={({ field }) => (
-                            <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[10px] md:text-[11px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_size')}</FormLabel>
-                                <Select onValueChange={field.onChange} value={field.value}>
-                                    <FormControl>
-                                        <SelectTrigger className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
-                                            <SelectValue placeholder={t('field_size_placeholder')} />
-                                        </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent className="rounded-xl">
-                                        {["1-5", "6-20", "21-50", "51-200", "200+"].map(s => (
-                                            <SelectItem key={s} value={s} className="text-xs uppercase font-bold">{s}</SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                <FormMessage className="text-[11px] md:text-[10px]" />
-                            </FormItem>
-                        )}
-                    />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <FormField
-                        control={form.control}
-                        name="sector"
-                        render={({ field }) => (
-                            <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[10px] md:text-[11px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_sector')}</FormLabel>
-                                <Select onValueChange={field.onChange} value={field.value}>
-                                    <FormControl>
-                                        <SelectTrigger className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
-                                            <SelectValue placeholder={t('field_sector_placeholder')} />
-                                        </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent className="rounded-xl">
-                                        {sectors.map(s => (
-                                            <SelectItem key={s} value={s} className="text-xs uppercase font-bold">{s}</SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                <FormMessage className="text-[11px] md:text-[10px]" />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="urgency"
-                        render={({ field }) => (
-                            <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[10px] md:text-[11px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_urgency')}</FormLabel>
-                                <Select onValueChange={field.onChange} value={field.value}>
-                                    <FormControl>
-                                        <SelectTrigger className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
-                                            <SelectValue placeholder={t('field_urgency_placeholder')} />
-                                        </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent className="rounded-xl">
-                                        {urgencies.map(u => (
-                                            <SelectItem key={u} value={u} className="text-xs uppercase font-bold">{u}</SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                <FormMessage className="text-[11px] md:text-[10px]" />
-                            </FormItem>
-                        )}
-                    />
-                </div>
-
-                <FormField
-                    control={form.control}
-                    name="module"
-                    render={({ field }) => (
+                    <FormField control={form.control} name="name" render={({ field }) => (
                         <FormItem className="space-y-1.5 text-left">
-                            <FormLabel className="text-[10px] md:text-[11px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_module')}</FormLabel>
+                            <FormLabel className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_name')}</FormLabel>
+                            <FormControl>
+                                <Input placeholder={t('field_name_placeholder')} {...field} className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold focus:border-kyron-cyan/50 focus:ring-kyron-cyan/20 transition-all" />
+                            </FormControl>
+                            <FormMessage className="text-[10px]" />
+                        </FormItem>
+                    )} />
+                    <FormField control={form.control} name="role" render={({ field }) => (
+                        <FormItem className="space-y-1.5 text-left">
+                            <FormLabel className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_role')}</FormLabel>
                             <Select onValueChange={field.onChange} value={field.value}>
                                 <FormControl>
-                                    <SelectTrigger className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
-                                        <SelectValue placeholder={t('field_module_placeholder')} />
+                                    <SelectTrigger className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold focus:border-kyron-cyan/50">
+                                        <SelectValue placeholder={t('field_role_placeholder')} />
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent className="rounded-xl">
-                                    {loginOptions.map(opt => (
-                                        <SelectItem key={opt.href} value={opt.label} className="text-xs font-bold uppercase">{opt.label}</SelectItem>
-                                    ))}
+                                    {roles.map(r => (<SelectItem key={r} value={r} className="text-xs uppercase font-bold">{r}</SelectItem>))}
                                 </SelectContent>
                             </Select>
-                            <FormMessage className="text-[11px] md:text-[10px]" />
+                            <FormMessage className="text-[10px]" />
                         </FormItem>
-                    )}
-                />
+                    )} />
+                </div>
 
-                <Button type="submit" className="w-full text-[13px] font-bold h-14 md:h-16 mt-6 shadow-2xl rounded-2xl tracking-[0.05em]" disabled={isSubmitting}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField control={form.control} name="email" render={({ field }) => (
+                        <FormItem className="space-y-1.5 text-left">
+                            <FormLabel className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_email')}</FormLabel>
+                            <FormControl>
+                                <Input type="email" placeholder={t('field_email_placeholder')} {...field} className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold focus:border-kyron-cyan/50" />
+                            </FormControl>
+                            <FormMessage className="text-[10px]" />
+                        </FormItem>
+                    )} />
+                    <FormField control={form.control} name="phone" render={({ field }) => (
+                        <FormItem className="space-y-1.5 text-left">
+                            <FormLabel className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_phone')}</FormLabel>
+                            <FormControl>
+                                <Input type="tel" placeholder={t('field_phone_placeholder')} {...field} className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold focus:border-kyron-cyan/50" />
+                            </FormControl>
+                            <FormMessage className="text-[10px]" />
+                        </FormItem>
+                    )} />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField control={form.control} name="company" render={({ field }) => (
+                        <FormItem className="space-y-1.5 text-left">
+                            <FormLabel className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_company')}</FormLabel>
+                            <FormControl>
+                                <Input placeholder={t('field_company_placeholder')} {...field} className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold focus:border-kyron-cyan/50" />
+                            </FormControl>
+                            <FormMessage className="text-[10px]" />
+                        </FormItem>
+                    )} />
+                    <FormField control={form.control} name="companySize" render={({ field }) => (
+                        <FormItem className="space-y-1.5 text-left">
+                            <FormLabel className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_size')}</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                                <FormControl>
+                                    <SelectTrigger className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold focus:border-kyron-cyan/50">
+                                        <SelectValue placeholder={t('field_size_placeholder')} />
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent className="rounded-xl">
+                                    {["1-5", "6-20", "21-50", "51-200", "200+"].map(s => (<SelectItem key={s} value={s} className="text-xs uppercase font-bold">{s}</SelectItem>))}
+                                </SelectContent>
+                            </Select>
+                            <FormMessage className="text-[10px]" />
+                        </FormItem>
+                    )} />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField control={form.control} name="sector" render={({ field }) => (
+                        <FormItem className="space-y-1.5 text-left">
+                            <FormLabel className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_sector')}</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                                <FormControl>
+                                    <SelectTrigger className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold focus:border-kyron-cyan/50">
+                                        <SelectValue placeholder={t('field_sector_placeholder')} />
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent className="rounded-xl">
+                                    {sectors.map(s => (<SelectItem key={s} value={s} className="text-xs uppercase font-bold">{s}</SelectItem>))}
+                                </SelectContent>
+                            </Select>
+                            <FormMessage className="text-[10px]" />
+                        </FormItem>
+                    )} />
+                    <FormField control={form.control} name="urgency" render={({ field }) => (
+                        <FormItem className="space-y-1.5 text-left">
+                            <FormLabel className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_urgency')}</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                                <FormControl>
+                                    <SelectTrigger className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold focus:border-kyron-cyan/50">
+                                        <SelectValue placeholder={t('field_urgency_placeholder')} />
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent className="rounded-xl">
+                                    {urgencies.map(u => (<SelectItem key={u} value={u} className="text-xs uppercase font-bold">{u}</SelectItem>))}
+                                </SelectContent>
+                            </Select>
+                            <FormMessage className="text-[10px]" />
+                        </FormItem>
+                    )} />
+                </div>
+
+                <FormField control={form.control} name="module" render={({ field }) => (
+                    <FormItem className="space-y-1.5 text-left">
+                        <FormLabel className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground ml-1">{t('field_module')}</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                                <SelectTrigger className="h-11 bg-background/50 border-border/50 rounded-xl text-xs font-bold focus:border-kyron-cyan/50">
+                                    <SelectValue placeholder={t('field_module_placeholder')} />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent className="rounded-xl">
+                                {loginOptions.map(opt => (<SelectItem key={opt.href} value={opt.label} className="text-xs font-bold uppercase">{opt.label}</SelectItem>))}
+                            </SelectContent>
+                        </Select>
+                        <FormMessage className="text-[10px]" />
+                    </FormItem>
+                )} />
+
+                <Button type="submit" className="w-full text-[13px] font-bold h-14 md:h-16 mt-6 shadow-2xl rounded-2xl tracking-[0.05em] bg-gradient-to-r from-kyron-cyan to-blue-600 hover:from-kyron-cyan/90 hover:to-blue-500 transition-all duration-500 border-none" disabled={isSubmitting}>
                     {isSubmitting ? (
                         <><Loader2 className="mr-3 h-5 w-5 animate-spin"/> {t('btn_submitting')}</>
                     ) : (
                         <span className="flex items-center gap-3 justify-center">{t('btn_submit')} <Send className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
                     )}
                 </Button>
-                <p className="text-center text-[11px] md:text-[10px] text-muted-foreground/70 uppercase font-bold tracking-wider mt-4">{t('footer_text')}</p>
+
+                <div className="flex items-center justify-center gap-2 mt-4">
+                  <CheckCircle2 className="h-3 w-3 text-kyron-emerald/60" />
+                  <p className="text-[10px] text-muted-foreground/50 uppercase font-bold tracking-wider">{t('footer_text')}</p>
+                </div>
+
+                <div className="flex items-center justify-center gap-4 mt-3">
+                  {['AES-256', '2FA', 'HTTPS'].map((badge) => (
+                    <span key={badge} className="text-[7px] font-bold uppercase tracking-[0.2em] text-muted-foreground/20 px-2 py-0.5 rounded-full border border-border/30 dark:border-white/[0.04]">
+                      {badge}
+                    </span>
+                  ))}
+                </div>
             </form>
         </Form>
     );
 }
-
-

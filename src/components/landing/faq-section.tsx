@@ -13,6 +13,7 @@ import { useState, useCallback } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
+import { Link } from '@/navigation';
 
 const fallbackItems = [
   { question: '¿Cómo garantizan el cumplimiento fiscal en Venezuela?', answer: 'Monitoreamos la Gaceta Oficial las 24/7 con algoritmos de vigilancia normativa. IVA 16%, IGTF 3% e ISLR se calculan automáticamente según la normativa VEN-NIF. El sistema genera libros de compra/venta y archivos .txt listos para SENIAT.', category: 'fiscal' },
@@ -78,8 +79,7 @@ export function FaqSection() {
         body: JSON.stringify({
           message: aiQuery,
           context: 'faq',
-          systemPrompt:
-            'Eres un asistente de soporte de System Kyron. Responde preguntas sobre la plataforma, sus módulos, planes, precios y funcionalidades. Sé conciso, profesional y en español. Si no sabes algo, indícalo y sugiere contactar al soporte.',
+          systemPrompt: 'Eres un asistente de soporte de System Kyron. Responde preguntas sobre la plataforma, sus módulos, planes, precios y funcionalidades. Sé conciso, profesional y en español. Si no sabes algo, indícalo y sugiere contactar al soporte.',
         }),
       });
       const data = await res.json();
@@ -92,16 +92,13 @@ export function FaqSection() {
   }, [aiQuery]);
 
   return (
-    <section className="py-24 relative overflow-hidden bg-muted/50 dark:bg-[#03050a]">
+    <section className="py-24 relative overflow-hidden bg-muted/50 dark:bg-[#03050a] mesh-gradient">
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-kyron-cyan/5 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 px-4 py-1 border-kyron-cyan/30 bg-kyron-cyan/5 text-kyron-cyan uppercase tracking-widest text-[10px] font-black"
-          >
+          <Badge variant="outline" className="mb-4 px-4 py-1 border-kyron-cyan/30 bg-kyron-cyan/5 text-kyron-cyan uppercase tracking-widest text-[10px] font-black backdrop-blur-sm shadow-lg">
             {t('badge')}
           </Badge>
           <h2 className="text-4xl md:text-5xl font-black text-foreground mb-6 uppercase tracking-tighter">
@@ -121,7 +118,7 @@ export function FaqSection() {
               placeholder={t('search_placeholder')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="h-14 pl-12 bg-muted/50 dark:bg-white/5 border-border dark:border-white/10 rounded-2xl focus:border-kyron-cyan/50 focus:ring-kyron-cyan/20 text-foreground placeholder:text-muted-foreground/50 dark:placeholder:text-slate-600 transition-all"
+              className="h-14 pl-12 bg-muted/50 dark:bg-white/5 border-border dark:border-white/10 rounded-2xl focus:border-kyron-cyan/50 focus:ring-kyron-cyan/20 text-foreground placeholder:text-muted-foreground/50 dark:placeholder:text-slate-600 transition-all glass-card"
             />
           </div>
 
@@ -130,7 +127,7 @@ export function FaqSection() {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="border border-border dark:border-white/5 bg-muted/30 dark:bg-white/[0.02] rounded-2xl px-6 overflow-hidden hover:bg-muted/50 dark:hover:bg-white/[0.04] transition-all"
+                className="glass-card rounded-2xl px-6 overflow-hidden hover:bg-muted/50 dark:hover:bg-white/[0.04] transition-all border-none"
               >
                 <AccordionTrigger className="hover:no-underline py-6">
                   <div className="flex items-center gap-4 text-left">
@@ -145,11 +142,11 @@ export function FaqSection() {
                     </div>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="pb-6 pt-2 text-muted-foreground/70 text-base leading-relaxed border-t border-border dark:border-white/5">
+                <AccordionContent className="pb-6 pt-2 text-muted-foreground/70 text-base leading-relaxed">
                   <div className="pl-14">
                     {item.answer}
                     <div className="mt-4 flex items-center gap-2 text-kyron-cyan/40 text-[10px] font-black uppercase tracking-widest">
-                      <Sparkles className="h-3 w-3" /> System Kyron Assistant Verified
+                      <Sparkles className="h-3 w-3" /> System Kyron Assistant
                     </div>
                   </div>
                 </AccordionContent>
@@ -158,7 +155,7 @@ export function FaqSection() {
           </Accordion>
 
           {filteredItems.length === 0 && (
-            <div className="text-center py-20 bg-muted/30 dark:bg-white/[0.02] rounded-3xl border border-dashed border-border dark:border-white/10">
+            <div className="text-center py-20 glass-card rounded-3xl border border-dashed border-border dark:border-white/10">
               <HelpCircle className="h-12 w-12 text-muted-foreground/40 mx-auto mb-4" />
               <p className="text-muted-foreground/60 font-bold uppercase tracking-widest text-sm">
                 No se encontraron resultados para &ldquo;{search}&rdquo;
@@ -169,9 +166,9 @@ export function FaqSection() {
             </div>
           )}
 
-          <div className="mt-16 p-8 rounded-3xl border border-kyron-cyan/10 bg-gradient-to-br from-kyron-cyan/5 to-blue-500/5">
+          <div className="mt-16 glass-card p-8 rounded-3xl gradient-border">
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-10 w-10 rounded-xl bg-kyron-cyan/10 border border-kyron-cyan/20 flex items-center justify-center">
+              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-kyron-cyan/20 to-blue-500/20 border border-kyron-cyan/20 flex items-center justify-center">
                 <Bot className="h-5 w-5 text-kyron-cyan" />
               </div>
               <div>
@@ -184,23 +181,21 @@ export function FaqSection() {
                 type="text"
                 value={aiQuery}
                 onChange={(e) => setAiQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') askAI();
-                }}
+                onKeyDown={(e) => { if (e.key === 'Enter') askAI(); }}
                 placeholder="Ej: ¿Cómo configuro el módulo de nómina?"
-                className="flex-1 h-12 px-4 rounded-xl bg-muted/50 dark:bg-white/5 border border-border dark:border-white/10 text-foreground text-sm placeholder:text-muted-foreground/50 dark:placeholder:text-slate-600 focus:outline-none focus:border-kyron-cyan/50"
+                className="flex-1 h-12 px-4 rounded-xl bg-muted/50 dark:bg-white/5 border border-border dark:border-white/10 text-foreground text-sm placeholder:text-muted-foreground/50 dark:placeholder:text-slate-600 focus:outline-none focus:border-kyron-cyan/50 focus:ring-1 focus:ring-kyron-cyan/20 transition-all"
               />
               <Button
                 onClick={askAI}
                 disabled={aiLoading || !aiQuery.trim()}
                 size="icon"
-                className="h-12 w-12 rounded-xl bg-kyron-cyan/20 border border-kyron-cyan/20 hover:bg-kyron-cyan/30 text-kyron-cyan shrink-0"
+                className="h-12 w-12 rounded-xl bg-gradient-to-br from-kyron-cyan to-blue-500 hover:from-kyron-cyan/90 hover:to-blue-500/90 text-white border-none shrink-0 shadow-lg shadow-kyron-cyan/20"
               >
                 {aiLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               </Button>
             </div>
             {aiReply && (
-              <div className="mt-4 p-4 rounded-xl bg-muted/50 dark:bg-white/5 border border-border dark:border-white/5">
+              <div className="mt-4 p-4 rounded-xl glass-card">
                 <MarkdownRenderer content={aiReply} />
               </div>
             )}
@@ -208,15 +203,12 @@ export function FaqSection() {
         </div>
 
         <div className="mt-8 text-center">
-          <a href="/faq">
-            <Button
-              variant="outline"
-              className="h-14 px-10 rounded-2xl text-[11px] font-black uppercase tracking-[0.3em] border-kyron-cyan/30 text-kyron-cyan hover:bg-kyron-cyan/10 hover:text-kyron-cyan/80 transition-all group"
-            >
+          <Link href="/faq">
+            <Button variant="outline" className="h-14 px-10 rounded-2xl text-[11px] font-black uppercase tracking-[0.3em] border-kyron-cyan/30 text-kyron-cyan hover:bg-kyron-cyan/10 hover:text-kyron-cyan/80 transition-all group glass-card">
               Ver todas las preguntas frecuentes
               <ArrowRight className="ml-3 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

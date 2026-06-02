@@ -50,28 +50,29 @@ export default function LandingPage() {
             <HeroSectionOptimized />
           </section>
 
-          <section className="relative w-full overflow-hidden py-12 md:py-20">
+          <section className="relative w-full overflow-hidden py-12 md:py-20 mesh-gradient">
             <div className="max-w-7xl mx-auto px-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                 {showcaseImages.map((img, i) => (
                   <div
                     key={i}
-                    className="relative group overflow-hidden rounded-3xl aspect-[4/3] bg-muted dark:bg-slate-900/50 border border-border dark:border-white/5"
-                    style={{ willChange: i === 0 ? 'transform' : 'auto' }}
+                    className="group overflow-hidden rounded-[2rem] bg-background/40 dark:bg-white/[0.02] border border-border/50 dark:border-white/[0.06] shadow-xl transition-all duration-700 hover:-translate-y-1 hover:shadow-2xl"
                   >
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      fill
-                      priority={i === 0}
-                      className="object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-90"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <p className="text-xs font-bold uppercase tracking-widest text-white/80">
-                        {img.alt}
-                      </p>
+                    <div className="aspect-[4/3] relative overflow-hidden rounded-[2rem]">
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        priority={i === 0}
+                        className="object-cover transition-all duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-2 group-hover:translate-y-0 transition-all">
+                        <p className="text-xs font-bold uppercase tracking-widest text-white/90 drop-shadow-lg">
+                          {img.alt}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 ))}

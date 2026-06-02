@@ -5,7 +5,7 @@ import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Menu, X, ChevronDown, ShieldCheck, ArrowRight, ChevronRight,
-  KeyRound, UserPlus, Globe, Zap, Cpu, Lock, Headphones, Sparkles,
+  Globe, Cpu, Lock, Headphones,
   LayoutDashboard, FileText, LifeBuoy, LogIn, UserCheck
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
