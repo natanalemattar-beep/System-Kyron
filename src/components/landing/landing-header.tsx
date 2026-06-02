@@ -5,8 +5,9 @@ import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Menu, X, ChevronDown, ShieldCheck, ArrowRight, ChevronRight,
-  Globe, Cpu, Lock, Headphones,
-  LayoutDashboard, FileText, LifeBuoy, LogIn, UserCheck
+  Globe, Lock, Building2, Smartphone,
+  User, Car, Shield, Heart,
+  LayoutDashboard, FileText, LifeBuoy, LogIn, UserCheck, Users
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import {
@@ -26,10 +27,18 @@ const navItems = [
   { labelKey: 'plans' as const, href: '/precios' },
 ];
 
-const solutions = [
-  { href: "/login-linea?type=personal" as any, icon: Cpu, titleKey: 'connectivity_title' as const, descKey: 'connectivity_desc' as const, iconClass: "bg-kyron-cyan/10 border-kyron-cyan/20 text-kyron-cyan" },
-  { href: "/login-escritorio-juridico", icon: ShieldCheck, titleKey: 'legal_title' as const, descKey: 'legal_desc' as const, iconClass: "bg-kyron-emerald/10 border-kyron-emerald/20 text-kyron-emerald" },
-  { href: "/soporte", icon: Headphones, titleKey: null as any, descKey: null as any, label: "Atención al Cliente", desc: "Soporte con IA", iconClass: "bg-kyron-cyan/10 border-kyron-cyan/20 text-kyron-cyan" },
+const businessSolutions = [
+  { href: "/soluciones" as any, icon: Building2, label: "Contabilidad y Fiscal", desc: "SENIAT, IVA, ISLR, IGTF automatizados", iconClass: "bg-blue-500/10 border-blue-500/20 text-blue-400" },
+  { href: "/soluciones" as any, icon: Users, label: "RRHH y Nómina", desc: "LOTTT, prestaciones, IVSS, utilidades", iconClass: "bg-kyron-emerald/10 border-kyron-emerald/20 text-kyron-emerald" },
+  { href: "/soluciones" as any, icon: ShieldCheck, label: "Legal y Permisología", desc: "Contratos, poderes, trámites CONATEL", iconClass: "bg-amber-500/10 border-amber-500/20 text-amber-400" },
+  { href: "/soluciones" as any, icon: Smartphone, label: "Telecomunicaciones 5G", desc: "eSIM, flotas, internet empresarial", iconClass: "bg-indigo-500/10 border-indigo-500/20 text-indigo-400" },
+];
+
+const personalSolutions = [
+  { href: "/perfil" as any, icon: User, label: "Cuenta Personal", desc: "Documentos, salud y trámites civiles", iconClass: "bg-kyron-cyan/10 border-kyron-cyan/20 text-kyron-cyan" },
+  { href: "/vehiculos" as any, icon: Car, label: "Vehículos", desc: "Registro, documentos y multas", iconClass: "bg-rose-500/10 border-rose-500/20 text-rose-400" },
+  { href: "/seguros" as any, icon: Shield, label: "Seguros", desc: "Pólizas, reclamos y coberturas", iconClass: "bg-violet-500/10 border-violet-500/20 text-violet-400" },
+  { href: "/historial-medico" as any, icon: Heart, label: "Historial Médico", desc: "Citas, recetas y expedientes", iconClass: "bg-green-500/10 border-green-500/20 text-green-400" },
 ];
 
 const mobileNav = [
@@ -47,7 +56,16 @@ export function LandingHeader() {
   const bannerVisible = useBannerVisible();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 30);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
@@ -114,16 +132,33 @@ export function LandingHeader() {
                     {t('solutions')}
                     <ChevronDown className="h-3 w-3 opacity-30 group-data-[state=open]:rotate-180 transition-transform" />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="center" className="w-72 p-3 rounded-2xl border border-border/50 dark:border-white/10 bg-background/95 backdrop-blur-xl shadow-2xl mt-4 space-y-1">
-                    {solutions.map((item, i) => (
-                      <DropdownMenuItem key={i} asChild className="rounded-xl p-3 flex items-center gap-4 hover:bg-muted dark:hover:bg-white/5 transition-all group cursor-pointer border border-transparent hover:border-border/50 dark:hover:border-white/5">
+                  <DropdownMenuContent align="center" className="w-80 p-3 rounded-2xl border border-border/50 dark:border-white/10 bg-background/95 backdrop-blur-xl shadow-2xl mt-4">
+                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-kyron-cyan/50 px-3 pb-1 pt-1">Para Empresas</p>
+                    {businessSolutions.map((item) => (
+                      <DropdownMenuItem key={item.label} asChild className="rounded-xl p-3 flex items-center gap-4 hover:bg-muted dark:hover:bg-white/5 transition-all group cursor-pointer border border-transparent hover:border-border/50 dark:hover:border-white/5">
                         <Link href={item.href}>
                           <div className={`h-10 w-10 rounded-xl border flex items-center justify-center shrink-0 ${item.iconClass}`}>
                             <item.icon className="h-5 w-5" />
                           </div>
                           <div className="min-w-0">
-                            <p className="text-sm font-black uppercase tracking-tight text-foreground">{item.label || t(item.titleKey!)}</p>
-                            <p className="text-[9px] text-muted-foreground/50 font-bold uppercase tracking-widest truncate">{item.desc || t(item.descKey!)}</p>
+                            <p className="text-sm font-black uppercase tracking-tight text-foreground">{item.label}</p>
+                            <p className="text-[9px] text-muted-foreground/50 font-bold uppercase tracking-widest truncate">{item.desc}</p>
+                          </div>
+                          <ArrowRight className="h-4 w-4 ml-auto shrink-0 text-muted-foreground/30 group-hover:text-kyron-cyan group-hover:translate-x-1 transition-all" />
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                    <div className="h-px bg-border/50 dark:bg-white/[0.04] my-2" />
+                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-kyron-cyan/50 px-3 pb-1 pt-1">Para Personal</p>
+                    {personalSolutions.map((item) => (
+                      <DropdownMenuItem key={item.label} asChild className="rounded-xl p-3 flex items-center gap-4 hover:bg-muted dark:hover:bg-white/5 transition-all group cursor-pointer border border-transparent hover:border-border/50 dark:hover:border-white/5">
+                        <Link href={item.href}>
+                          <div className={`h-10 w-10 rounded-xl border flex items-center justify-center shrink-0 ${item.iconClass}`}>
+                            <item.icon className="h-5 w-5" />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-sm font-black uppercase tracking-tight text-foreground">{item.label}</p>
+                            <p className="text-[9px] text-muted-foreground/50 font-bold uppercase tracking-widest truncate">{item.desc}</p>
                           </div>
                           <ArrowRight className="h-4 w-4 ml-auto shrink-0 text-muted-foreground/30 group-hover:text-kyron-cyan group-hover:translate-x-1 transition-all" />
                         </Link>
@@ -232,22 +267,34 @@ export function LandingHeader() {
                       </SheetClose>
                     ))}
 
-                    <div className="pt-4 mt-4 border-t border-border/30 dark:border-white/[0.04]">
-                      <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/30 px-1 pb-1">Soluciones</p>
-                      {[
-                        { href: "/login-linea?type=personal" as any, icon: Cpu, label: t('connectivity_title') },
-                        { href: "/login-escritorio-juridico", icon: ShieldCheck, label: t('legal_title') },
-                      ].map((item, i) => (
-                        <SheetClose key={i} asChild>
-                          <Link
-                            href={item.href}
-                            className="flex items-center gap-4 p-3.5 rounded-2xl hover:bg-muted/50 dark:hover:bg-white/[0.03] border border-transparent hover:border-border/50 dark:hover:border-white/5 transition-all group"
-                            onClick={() => setMobileOpen(false)}
-                          >
-                            <div className="h-9 w-9 rounded-xl bg-muted/50 dark:bg-white/[0.03] flex items-center justify-center shrink-0 group-hover:bg-kyron-cyan/10 transition-colors">
-                              <item.icon className="h-4 w-4 text-muted-foreground/50 group-hover:text-kyron-cyan transition-colors" />
+                    <div className="pt-4 mt-4 border-t border-border/30 dark:border-white/[0.04] space-y-1">
+                      <p className="text-[9px] font-black uppercase tracking-[0.3em] text-kyron-cyan/50 px-1 pb-1 pt-1">Para Empresas</p>
+                      {businessSolutions.slice(0, 2).map((item) => (
+                        <SheetClose key={item.label} asChild>
+                          <Link href={item.href} className="flex items-center gap-4 p-3.5 rounded-2xl hover:bg-muted/50 dark:hover:bg-white/[0.03] border border-transparent hover:border-border/50 dark:hover:border-white/5 transition-all group" onClick={() => setMobileOpen(false)}>
+                            <div className={`h-9 w-9 rounded-xl border flex items-center justify-center shrink-0 ${item.iconClass}`}>
+                              <item.icon className="h-4 w-4" />
                             </div>
-                            <span className="text-sm font-bold tracking-wide text-muted-foreground/70 group-hover:text-foreground transition-colors">{item.label}</span>
+                            <div className="min-w-0">
+                              <span className="text-sm font-bold tracking-wide text-muted-foreground/70 group-hover:text-foreground transition-colors block">{item.label}</span>
+                              <span className="text-[8px] font-bold text-muted-foreground/40 uppercase tracking-wider">{item.desc}</span>
+                            </div>
+                            <ChevronRight className="h-3.5 w-3.5 ml-auto text-muted-foreground/20 group-hover:text-kyron-cyan/60 transition-all" />
+                          </Link>
+                        </SheetClose>
+                      ))}
+                      <div className="h-px bg-border/20 dark:bg-white/[0.03] my-1" />
+                      <p className="text-[9px] font-black uppercase tracking-[0.3em] text-kyron-cyan/50 px-1 pb-1 pt-1">Para Personal</p>
+                      {personalSolutions.slice(0, 2).map((item) => (
+                        <SheetClose key={item.label} asChild>
+                          <Link href={item.href} className="flex items-center gap-4 p-3.5 rounded-2xl hover:bg-muted/50 dark:hover:bg-white/[0.03] border border-transparent hover:border-border/50 dark:hover:border-white/5 transition-all group" onClick={() => setMobileOpen(false)}>
+                            <div className={`h-9 w-9 rounded-xl border flex items-center justify-center shrink-0 ${item.iconClass}`}>
+                              <item.icon className="h-4 w-4" />
+                            </div>
+                            <div className="min-w-0">
+                              <span className="text-sm font-bold tracking-wide text-muted-foreground/70 group-hover:text-foreground transition-colors block">{item.label}</span>
+                              <span className="text-[8px] font-bold text-muted-foreground/40 uppercase tracking-wider">{item.desc}</span>
+                            </div>
                             <ChevronRight className="h-3.5 w-3.5 ml-auto text-muted-foreground/20 group-hover:text-kyron-cyan/60 transition-all" />
                           </Link>
                         </SheetClose>

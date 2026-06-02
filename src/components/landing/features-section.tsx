@@ -111,7 +111,7 @@ export function FeaturesSection() {
           </ScrollReveal>
 
           {features.slice(2, 5).map((feat, i) => (
-            <ScrollReveal key={i} delay={0.3 + i * 0.1} className="md:col-span-4 glass-card p-8 group hover:border-amber-500/10">
+            <ScrollReveal key={feat.title} delay={0.3 + i * 0.1} className="md:col-span-4 glass-card p-8 group hover:border-amber-500/10">
               <div className="space-y-4">
                 <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-muted/80 to-muted/30 dark:from-white/[0.04] dark:to-white/[0.01] border border-border/50 dark:border-white/10 flex items-center justify-center text-muted-foreground/60 group-hover:text-foreground group-hover:bg-foreground/5 transition-all duration-500 shadow-lg">
                   {i === 0 ? <Shield className="h-6 w-6" /> : i === 1 ? <TrendingUp className="h-6 w-6" /> : <ChartColumn className="h-6 w-6" />}
@@ -138,7 +138,7 @@ export function FeaturesSection() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {agentList.map((agent, i) => (
-                <Link key={i} href="/soporte" className="glass-card rounded-[2rem] p-6 group/card hover:-translate-y-1.5 block animate-module" style={{ animationDelay: (i * 0.08) + 's' }}>
+                <Link key={agent.title} href="/soporte" className="glass-card rounded-[2rem] p-6 group/card hover:-translate-y-1.5 block animate-module" style={{ animationDelay: (i * 0.08) + 's' }}>
                   <div className={'h-10 w-10 rounded-xl border flex items-center justify-center mb-4 transition-all duration-500 shadow-lg ' + agentColorMap[agent.color]}>
                     <agent.icon className="h-5 w-5" />
                   </div>
@@ -152,7 +152,7 @@ export function FeaturesSection() {
 
         <div className="mt-12 md:mt-24 grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12 border-y border-border/30 dark:border-white/[0.04] py-10 md:py-16">
           {metrics.map((metric, i) => (
-            <div key={i} className="flex flex-col items-center text-center space-y-3 group animate-slideUp-stagger" style={{ animationDelay: (i * 0.1) + 's' }}>
+            <div key={metric.label} className="flex flex-col items-center text-center space-y-3 group animate-slideUp-stagger" style={{ animationDelay: (i * 0.1) + 's' }}>
               <span className="text-4xl md:text-6xl font-black text-foreground tracking-tighter italic group-hover:text-glow-cyan transition-all duration-500">
                 <AnimatedNumber target={metric.value} suffix={metric.suffix} />
               </span>

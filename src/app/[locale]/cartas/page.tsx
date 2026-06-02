@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -13,14 +14,14 @@ import {
     Smartphone,
     Sparkles,
     QrCode,
-    Image,
+    Image as ImageIcon,
     FileDown,
     ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { ResourceHeader } from "@/components/brand/ResourceHeader";
-import html2canvas from "html2canvas";
+
 
 const letters = [
     {
@@ -108,6 +109,7 @@ export default function CartasAgradecimientoPage() {
         toast({ title: "Generando PDF", description: "Procesando en alta resolución..." });
         try {
             const jsPDF = (await import('jspdf')).default;
+            const html2canvas = (await import('html2canvas')).default;
             const canvas = await html2canvas(exportRef.current, {
                 scale: 2,
                 useCORS: true,
@@ -174,7 +176,7 @@ export default function CartasAgradecimientoPage() {
                             <FileText className="h-3.5 w-3.5" /> Carta
                         </button>
                         <button onClick={() => setMode('foto')} className={cn("px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2", mode === 'foto' ? "bg-white text-black shadow-lg shadow-white/10" : "text-white/40 hover:text-white")}>
-                            <Image className="h-3.5 w-3.5" /> Foto
+                            <ImageIcon className="h-3.5 w-3.5" /> Foto
                         </button>
                         <button onClick={() => setMode('card')} className={cn("px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2", mode === 'card' ? "bg-white text-black shadow-lg shadow-white/10" : "text-white/40 hover:text-white")}>
                             <CreditCard className="h-3.5 w-3.5" /> ID Card

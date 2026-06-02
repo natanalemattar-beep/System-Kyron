@@ -92,7 +92,7 @@ export function AppSidebar() {
   };
 
   return (
-    <aside className="flex flex-col h-full bg-[#030711]/40 backdrop-blur-3xl overflow-hidden border-r border-white/5">
+    <aside className="flex flex-col h-full bg-background/40 backdrop-blur-3xl overflow-hidden border-r border-border">
       <div className="p-10 border-b border-white/5 flex flex-col items-center gap-5 bg-white/[0.02] relative group">
         <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         <div className="relative">

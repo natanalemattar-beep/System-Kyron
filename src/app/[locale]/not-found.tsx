@@ -7,7 +7,7 @@ import { Link } from '@/navigation';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-[#030711] overflow-hidden relative">
+    <div className="min-h-screen flex items-center justify-center p-6 bg-background overflow-hidden relative">
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 hud-grid opacity-10" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] animate-pulse" />

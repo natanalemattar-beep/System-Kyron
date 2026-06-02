@@ -52,6 +52,8 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  productionBrowserSourceMaps: false,
+  swcMinify: true,
   experimental: {
     serverActions: {
       bodySizeLimit: '10mb',
@@ -72,6 +74,7 @@ const nextConfig: NextConfig = {
       'tailwind-merge', 'ethers', 'googleapis', 'react-hook-form',
       '@hookform/resolvers', 'embla-carousel-react', 'react-day-picker',
       'react-intersection-observer', 'input-otp',
+      'html2canvas', 'html2pdf.js', 'jspdf',
     ],
   },
   webpack: (config, { isServer, webpack }) => {
@@ -109,6 +112,9 @@ const nextConfig: NextConfig = {
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 31536000,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'inline',
   },
   async headers() {
     return [

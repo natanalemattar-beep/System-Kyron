@@ -83,7 +83,7 @@ export function AppTopNav() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#030711]/80 backdrop-blur-2xl border-b border-white/5">
+      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-background/80 backdrop-blur-2xl border-b border-border">
         <div className="h-full flex items-center justify-between px-4 lg:px-6 max-w-[1800px] mx-auto">
           {/* Left: Logo + Nav */}
           <div className="flex items-center gap-6">
@@ -92,7 +92,7 @@ export function AppTopNav() {
                 <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
                 <Logo className="h-8 w-8 relative z-10" />
               </div>
-              <span className="text-[10px] font-black tracking-[0.3em] text-white/80 uppercase hidden sm:block">Kyron</span>
+              <span className="text-[10px] font-black tracking-[0.3em] text-foreground/80 uppercase hidden sm:block">Kyron</span>
             </Link>
 
             {/* Desktop Nav */}
@@ -109,7 +109,7 @@ export function AppTopNav() {
                         "flex items-center gap-2 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all",
                         isActive || openGroup === group.title
                           ? "bg-primary/15 text-primary"
-                          : "text-white/40 hover:text-white/70 hover:bg-white/5"
+                          : "text-muted-foreground/60 hover:text-foreground hover:bg-muted"
                       )}
                     >
                       <Icon className="h-3.5 w-3.5" />
@@ -124,10 +124,10 @@ export function AppTopNav() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 8 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-2 w-64 rounded-2xl bg-[#0a0f1a]/95 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden"
+                          className="absolute top-full left-0 mt-2 w-64 rounded-2xl bg-card/95 backdrop-blur-2xl border border-border shadow-2xl shadow-black/20 overflow-hidden"
                         >
                           <div className="p-2">
-                            <div className="px-3 py-2 text-[8px] font-black uppercase text-white/20 tracking-[0.3em]">
+                            <div className="px-3 py-2 text-[8px] font-black uppercase text-muted-foreground/40 tracking-[0.3em]">
                               {group.title}
                             </div>
                             {group.items?.slice(0, 8).map((item: any) => {
@@ -140,7 +140,7 @@ export function AppTopNav() {
                                     "flex items-center gap-3 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all",
                                     itemActive
                                       ? "bg-primary/15 text-primary"
-                                      : "text-white/40 hover:text-white/70 hover:bg-white/5"
+                                      : "text-muted-foreground/60 hover:text-foreground hover:bg-muted"
                                   )}
                                 >
                                   <item.icon className="h-3.5 w-3.5 shrink-0" />
@@ -148,7 +148,7 @@ export function AppTopNav() {
                                   {item.badge && (
                                     <span className={cn(
                                       "px-1.5 py-0.5 rounded text-[6px] font-black uppercase tracking-widest",
-                                      item.badge === 'NUEVO' ? "bg-primary text-white" : "bg-emerald-500/20 text-emerald-400"
+                                      item.badge === 'NUEVO' ? "bg-primary text-primary-foreground" : "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
                                     )}>
                                       {item.badge}
                                     </span>
@@ -182,7 +182,7 @@ export function AppTopNav() {
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
-              className="lg:hidden p-2 rounded-xl text-white/40 hover:text-white hover:bg-white/5 transition-all"
+              className="lg:hidden p-2 rounded-xl text-muted-foreground/60 hover:text-foreground hover:bg-muted transition-all"
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -198,7 +198,7 @@ export function AppTopNav() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-foreground/10 backdrop-blur-sm z-40 lg:hidden"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
@@ -206,11 +206,11 @@ export function AppTopNav() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 w-80 bg-[#0a0f1a] border-l border-white/5 z-50 overflow-y-auto lg:hidden"
+              className="fixed top-0 right-0 bottom-0 w-80 bg-card border-l border-border z-50 overflow-y-auto lg:hidden"
             >
-              <div className="p-6 border-b border-white/5 flex items-center justify-between">
-                <span className="text-[10px] font-black tracking-[0.3em] text-white/60 uppercase">Navegación</span>
-                <button onClick={() => setMobileOpen(false)} className="p-2 rounded-xl text-white/40 hover:text-white">
+              <div className="p-6 border-b border-border flex items-center justify-between">
+                <span className="text-[10px] font-black tracking-[0.3em] text-muted-foreground/60 uppercase">Navegación</span>
+                <button onClick={() => setMobileOpen(false)} className="p-2 rounded-xl text-muted-foreground/60 hover:text-foreground">
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -219,7 +219,7 @@ export function AppTopNav() {
                   const Icon = groupIcons[group.title] || LayoutGrid;
                   return (
                     <div key={group.title} className="space-y-2">
-                      <div className="flex items-center gap-2 px-2 text-[9px] font-black uppercase text-white/20 tracking-[0.3em]">
+                      <div className="flex items-center gap-2 px-2 text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.3em]">
                         <Icon className="h-3 w-3" />
                         {group.title}
                       </div>
@@ -235,7 +235,7 @@ export function AppTopNav() {
                                 "flex items-center gap-3 px-3 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all",
                                 itemActive
                                   ? "bg-primary/15 text-primary"
-                                  : "text-white/40 hover:text-white/70 hover:bg-white/5"
+                                  : "text-muted-foreground/60 hover:text-foreground hover:bg-muted"
                               )}
                             >
                               <item.icon className="h-3.5 w-3.5 shrink-0" />

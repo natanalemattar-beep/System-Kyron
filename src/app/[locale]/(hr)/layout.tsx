@@ -71,7 +71,7 @@ export default function HRLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
-          <AIChatButton contextKey="rrhh" />
+          <AIChatButton contextKey="kyron-empresas" />
           </div>
        </ModuleGuard>
      );

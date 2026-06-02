@@ -71,7 +71,7 @@ export default function LegalLayout({
           </div>
           <ScrollToTop />
           <FinancialToolkit />
-          <AIChatButton contextKey={fromAdmin ? "dashboard-asesoria-contable" : "legal"} />
+          <AIChatButton contextKey={fromAdmin ? "kyron-empresas" : "legal"} />
           </div>
         </ModuleGuard>
       );

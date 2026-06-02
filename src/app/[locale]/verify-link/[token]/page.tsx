@@ -59,7 +59,7 @@ export default function VerifyLinkPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#030711] flex flex-col items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 relative overflow-hidden">
       <div className="absolute inset-0 hud-grid opacity-5 pointer-events-none" />
       
       <motion.div 

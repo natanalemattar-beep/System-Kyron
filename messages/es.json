@@ -25,25 +25,25 @@
         "encryption_active": "Encriptación de sesión activa"
     },
     "DemoBanner": {
-        "message": "PLATAFORMA DE INTELIGENCIA CORPORATIVA — ACCESO EXCLUSIVO PARA USUARIOS REGISTRADOS",
+        "message": "PROTOTIPO FUNCIONAL — ACCESO EXCLUSIVO PARA USUARIOS REGISTRADOS (MODO DEMO)",
         "cta": "ACCEDER",
         "dismiss": "Cerrar"
     },
     "HeroSection": {
         "title_line1": "Tu empresa,",
-        "title_line2": "bajo control",
-        "title_line3": "y sin estrés",
-        "slogan": "La herramienta que une todo lo que necesitas para crecer.",
-        "subtitle": "Desde tus cuentas al día hasta internet que nunca falla y asesoría legal al instante. Todo en un solo lugar, diseñado para Venezuela.",
-        "badge": "Tu aliado empresarial",
-        "badge_text": "Líneas · eSIM · Gestión Elite",
-        "cta_main": "Empieza ahora",
+        "title_line2": "el ecosistema inteligente",
+        "title_line3": "para el crecimiento de Venezuela",
+        "slogan": "Todo lo que necesitas para vender y crecer en un solo lugar.",
+        "subtitle": "¿Por qué usar tantos programas cuando el negocio es uno solo? Unificamos facturación, nómina, telecomunicaciones y sostenibilidad para que crezcas sin preocuparte por la burocracia.",
+        "badge": "SISTEMA DE MANDO ÚNICO",
+        "badge_text": "Shield · Reserva · Auditoría IA",
+        "cta_main": "Probar la Demo",
         "cta_secondary": "Ver cómo funciona",
-        "pitch_button": "EXPLORAR PORTAL",
-        "subtitle_hero": "Infraestructura móvil de grado empresarial, gestión fiscal automatizada y consultoría avanzada. Todo en un ecosistema unificado para el sector privado venezolano.",
+        "pitch_button": "EXPLORAR ECOSISTEMA",
+        "subtitle_hero": "Infraestructura móvil homologada, gestión fiscal automatizada y blindaje legal. Todo en un ecosistema unificado para el sector privado venezolano.",
         "security_label": "ENCRIPTACIÓN",
         "live_users_label": "USUARIOS ELITE",
-        "features": ["Contabilidad Fácil", "Internet 5G", "Tasa BCV Real", "Soporte 24/7"],
+        "features": ["Kyron Shield", "Modo Reserva", "Auditoría IA", "Soporte 24/7"],
         "compliance": "Legalidad",
         "support": "Soporte",
         "network": "Red",
@@ -57,7 +57,7 @@
             { "val": "BCV", "label": "Sincronizado" },
             { "val": "VEN-NIF", "label": "Sin errores" }
         ],
-        "rotating_words": ["Inteligencia Total", "Precisión Fiscal", "Automatización Líder", "Riesgo Cero"]
+        "rotating_words": ["Kyron Shield", "Modo Reserva", "Auditoría IA", "Hardware Fiscal"]
     },
     "AIBudgetPlanner": {
         "badge": "Kyron AI",

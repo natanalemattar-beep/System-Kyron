@@ -31,8 +31,9 @@ function generarHashFiscal(data: {
 }
 
 async function getNextNumeroControl(userId: number): Promise<string> {
+    await query(`SELECT pg_advisory_xact_lock(hashtext('num_control_' || $1::text)::bigint)`, [userId]);
     const result = await query<{ max_num: string | null }>(
-        `SELECT MAX(numero_control) as max_num FROM facturas WHERE user_id = $1 AND numero_control IS NOT NULL FOR UPDATE`,
+        `SELECT MAX(numero_control) as max_num FROM facturas WHERE user_id = $1 AND numero_control IS NOT NULL`,
         [userId]
     );
     const current = result[0]?.max_num;
@@ -52,8 +53,9 @@ async function getNextNumeroFactura(userId: number, tipoDoc: string): Promise<st
         'GUIA_DESPACHO': 'GD',
     };
     const prefix = prefixes[tipoDoc] || 'FAC';
+    await query(`SELECT pg_advisory_xact_lock(hashtext('num_factura_' || $1::text)::bigint)`, [userId]);
     const result = await query<{ count: string }>(
-        `SELECT COUNT(*)::text as count FROM facturas WHERE user_id = $1 AND tipo_documento = $2 FOR UPDATE`,
+        `SELECT COUNT(*)::text as count FROM facturas WHERE user_id = $1 AND tipo_documento = $2`,
         [userId, tipoDoc]
     );
     const num = parseInt(result[0]?.count ?? '0', 10) + 1;
@@ -90,12 +92,12 @@ export async function GET(req: NextRequest) {
             `SELECT f.id, f.numero_factura, f.numero_control, f.serie, f.tipo, f.tipo_documento,
                     f.condicion_pago, f.fecha_emision, f.fecha_vencimiento,
                     f.moneda, f.subtotal::text, f.base_imponible::text, f.base_exenta::text,
-                    f.base_no_sujeta::text, f.porcentaje_iva, f.alicuota_tipo,
-                    f.monto_iva::text, f.porcentaje_igtf, f.monto_igtf::text,
-                    f.total::text, f.tasa_bcv, f.total_usd::text,
+                    f.base_no_sujeta::text, f.porcentaje_iva::text, f.alicuota_tipo,
+                    f.monto_iva::text, f.porcentaje_igtf::text, f.monto_igtf::text,
+                    f.total::text, f.tasa_bcv::text, f.total_usd::text,
                     f.monto_moneda_ext::text, f.moneda_extranjera,
-                    f.retencion_iva::text, f.porcentaje_ret_iva,
-                    f.retencion_islr::text, f.porcentaje_ret_islr,
+                    f.retencion_iva::text, f.porcentaje_ret_iva::text,
+                    f.retencion_islr::text, f.porcentaje_ret_islr::text,
                     f.total_a_pagar::text,
                     f.rif_emisor, f.razon_social_emisor, f.domicilio_fiscal_emisor,
                     f.estado, f.descripcion,
@@ -351,12 +353,12 @@ export async function POST(req: NextRequest) {
         }
 
         if (esEmitida && tipoDoc === 'NOTA_CREDITO' && factura_referencia_id) {
-            try {
-                await query(
-                    `UPDATE facturas SET estado = 'anulada', anulada_por_nc = $1 WHERE id = $2 AND user_id = $3 AND inmutable = true`,
-                    [factura.numero_factura, factura_referencia_id, session.user.id]
-                );
-            } catch {
+            const anulResult = await query(
+                `UPDATE facturas SET estado = 'anulada', anulada_por_nc = $1 WHERE id = $2 AND user_id = $3 AND inmutable = true`,
+                [factura.numero_factura, factura_referencia_id, session.user.id]
+            );
+            if (anulResult.length === 0) {
+                console.warn(`[facturas] NC ${factura.numero_factura} emitida pero no se encontró factura ${factura_referencia_id} para anular (puede que ya estuviera anulada o no pertenezca al usuario)`);
             }
         }
 

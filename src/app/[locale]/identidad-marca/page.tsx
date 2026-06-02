@@ -12,7 +12,7 @@ import {
   FileImage,
   FileText
 } from "lucide-react";
-import html2canvas from "html2canvas";
+
 import { useRef, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -34,6 +34,7 @@ export default function IdentidadMarcaPage() {
   const handleDownloadImage = async (format: 'png' | 'jpeg') => {
     if (!logoRef.current) return;
     
+    const html2canvas = (await import('html2canvas')).default;
     const canvas = await html2canvas(logoRef.current, {
       scale: 3, 
       backgroundColor: '#020617', 
@@ -56,6 +57,7 @@ export default function IdentidadMarcaPage() {
   const handleDownloadPDF = async () => {
     if (!logoRef.current) return;
     
+    const html2canvas = (await import('html2canvas')).default;
     const canvas = await html2canvas(logoRef.current, {
       scale: 3,
       backgroundColor: '#020617',

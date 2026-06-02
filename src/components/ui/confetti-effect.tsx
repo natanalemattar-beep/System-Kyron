@@ -1,8 +1,7 @@
-
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // --- Snowflake Particle ---
 const Snowflake = ({ style }: { style: React.CSSProperties }) => (
@@ -37,7 +36,6 @@ const Firework = ({ x, y, delay }: { x: number, y: number, delay: number }) => {
 
     return (
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
-            {/* Trail */}
             <motion.div
                 className="absolute"
                 style={{
@@ -59,7 +57,6 @@ const Firework = ({ x, y, delay }: { x: number, y: number, delay: number }) => {
                 }}
             />
 
-            {/* Explosion */}
             {Array.from({ length: sparkCount }).map((_, i) => {
                 const angle = (i / sparkCount) * 360;
                 const distance = Math.random() * 100 + 50;
@@ -68,7 +65,7 @@ const Firework = ({ x, y, delay }: { x: number, y: number, delay: number }) => {
 
                 return (
                     <motion.div
-                        key={i}
+                        key={`spark-${i}`}
                         className="absolute rounded-full"
                         style={{
                             top: `${y}%`,
@@ -103,22 +100,24 @@ type EffectType = 'snow' | 'fireworks';
 export function FestiveEffect({ type }: { type: EffectType }) {
   const [particles, setParticles] = useState<React.ReactElement[]>([]);
   const [isClient, setIsClient] = useState(false);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
     setIsClient(true);
+    return () => { mountedRef.current = false; };
   }, []);
 
-  const generateFireworks = useMemo(() => {
+  const generateFireworks = () => {
     if (!isClient || type !== 'fireworks') return [];
-    
-    const fireworkCount = Math.floor(Math.random() * 5) + 8; // 8 to 12 fireworks per burst
+
+    const fireworkCount = Math.floor(Math.random() * 5) + 8;
     return Array.from({ length: fireworkCount }).map((_, index) => {
-        const x = Math.random() * 80 + 10; // 10% to 90% of width
-        const y = Math.random() * 50 + 10; // 10% to 60% of height
+        const x = Math.random() * 80 + 10;
+        const y = Math.random() * 50 + 10;
         const delay = Math.random() * 1.5;
         return <Firework key={`fw-${Date.now()}-${index}`} x={x} y={y} delay={delay} />;
     });
-  }, [isClient, type]);
+  }; 
 
 
   useEffect(() => {
@@ -135,14 +134,16 @@ export function FestiveEffect({ type }: { type: EffectType }) {
         setParticles(snowParticles);
     } else if (type === 'fireworks') {
         const interval = setInterval(() => {
-            setParticles(generateFireworks);
-        }, 3500); // New burst every 3.5 seconds
+            if (mountedRef.current) {
+                setParticles(generateFireworks());
+            }
+        }, 3500);
 
-        setParticles(generateFireworks);
+        setParticles(generateFireworks());
 
         return () => clearInterval(interval);
     }
-  }, [isClient, type, generateFireworks]);
+  }, [isClient, type]);
 
 
   if (!isClient) {

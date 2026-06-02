@@ -35,7 +35,7 @@ export default function Error({
   // so the user isn't stuck on a black screen.
   if (!showFullError) {
     return (
-      <div className="min-h-screen bg-[#030711] flex flex-col items-center justify-center p-6 gap-6">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 gap-6">
         <div className="relative">
           <div className="h-16 w-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center animate-pulse">
             <Cpu className="h-8 w-8 text-primary animate-spin" />
@@ -51,7 +51,7 @@ export default function Error({
   }
 
   return (
-    <div className="min-h-[60vh] flex items-center justify-center p-6 bg-[#030711]/80 backdrop-blur-md rounded-[2.5rem] border border-white/5 m-4 relative overflow-hidden shadow-2xl">
+    <div className="min-h-[60vh] flex items-center justify-center p-6 bg-card/80 backdrop-blur-md rounded-[2.5rem] border border-border m-4 relative overflow-hidden shadow-2xl">
       {/* Background HUD Grid */}
       <div className="absolute inset-0 opacity-[0.03] hud-grid pointer-events-none" />
       

@@ -58,7 +58,7 @@ export function ModulesSection() {
           {modules.map((mod, i) => {
             const c = colors[mod.color];
             return (
-              <Link key={i} href={mod.href} className="animate-module" style={{ animationDelay: (i * 0.04) + 's', opacity: 0 }}>
+              <Link key={mod.name} href={mod.href} className="animate-module" style={{ animationDelay: (i * 0.04) + 's', opacity: 0 }}>
                 <div className={`group relative overflow-hidden rounded-2xl md:rounded-[2rem] glass-card ${c.border} ${c.hoverBorder} p-4 md:p-6 transition-all duration-500 hover:-translate-y-1.5 h-full`}>
                   <div className="flex items-start gap-3 md:gap-4">
                     <div className={`shrink-0 h-8 md:h-10 w-8 md:w-10 rounded-lg md:rounded-xl border flex items-center justify-center ${c.icon} transition-all duration-500 group-hover:scale-110 group-hover:shadow-lg ${c.glow}`}>

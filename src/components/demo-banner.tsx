@@ -63,12 +63,12 @@ export function DemoBannerProvider({ children }: { children: ReactNode }) {
             <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-cyan-500/5 to-amber-500/10 animate-pulse" />
             
             <div className="container max-w-7xl mx-auto px-4 flex items-center justify-center gap-2 sm:gap-4 relative z-10">
-              <div className="flex items-center gap-2 text-amber-400">
-                <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-amber-200/90 whitespace-nowrap">
-                  Página demo — Funcionalidad limitada
-                </p>
-              </div>
+               <div className="flex items-center gap-2 text-amber-400">
+                 <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                 <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-amber-200/90 whitespace-nowrap">
+                   {t('message')}
+                 </p>
+               </div>
 
               <Link 
                 href="/login" 

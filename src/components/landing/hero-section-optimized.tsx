@@ -108,8 +108,8 @@ export function HeroSectionOptimized() {
                     <div className="grid grid-cols-3 gap-2">
                       {[{ label: 'Ingresos', value: 'Bs. 24.500', trend: '+12%', up: true },
                         { label: 'Gastos', value: 'Bs. 8.200', trend: '-3%', up: false },
-                        { label: 'Margen', value: '66.5%', trend: '+8%', up: true }].map((item, i) => (
-                        <div key={i} className="rounded-lg bg-gray-50 dark:bg-white/[0.02] p-2.5 border border-gray-100 dark:border-white/[0.03]">
+                        { label: 'Margen', value: '66.5%', trend: '+8%', up: true }].map((item) => (
+                        <div key={item.label} className="rounded-lg bg-gray-50 dark:bg-white/[0.02] p-2.5 border border-gray-100 dark:border-white/[0.03]">
                           <p className="text-[8px] font-bold uppercase tracking-wider text-muted-foreground/40">{item.label}</p>
                           <p className="text-xs font-black text-foreground/80 mt-0.5">{item.value}</p>
                           <p className={`text-[8px] font-bold ${item.up ? 'text-kyron-emerald' : 'text-rose-500'}`}>{item.trend}</p>
@@ -150,7 +150,7 @@ export function HeroSectionOptimized() {
               { val: '99.9%', label: 'Uptime', color: 'text-kyron-cyan', icon: 'activity', sub: 'Disponibilidad' },
               { val: '24/7', label: 'Soporte', color: 'text-kyron-violet', icon: 'headphones', sub: 'Tiempo real' },
             ].map((stat, i) => (
-              <div key={i} className="stat-card text-center group" style={{ animation: 'slideUp 0.5s cubic-bezier(0.16,1,0.3,1) ' + (0.7 + i * 0.1) + 's forwards', opacity: 0 }}>
+              <div key={stat.label} className="stat-card text-center group" style={{ animation: 'slideUp 0.5s cubic-bezier(0.16,1,0.3,1) ' + (0.7 + i * 0.1) + 's forwards', opacity: 0 }}>
                 <div className={`h-10 w-10 rounded-xl bg-${stat.color.split('-')[1]}-500/10 border border-${stat.color.split('-')[1]}-500/20 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-500`}>
                   {stat.icon === 'building2' ? <Building2 className={`${stat.color} h-4 w-4`} /> :
                    stat.icon === 'users' ? <Users className={`${stat.color} h-4 w-4`} /> :

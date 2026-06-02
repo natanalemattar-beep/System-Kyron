@@ -53,7 +53,7 @@ export default function VentasLayout({ children }: { children: React.ReactNode }
             </div>
             <ScrollToTop />
           <FinancialToolkit />
-          <AIChatButton contextKey="ventas" />
+          <AIChatButton contextKey="kyron-empresas" />
  
          </div>
       </CurrencyProvider>

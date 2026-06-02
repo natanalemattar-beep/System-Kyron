@@ -18,7 +18,7 @@ import { Link } from '@/navigation';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
-import html2canvas from "html2canvas";
+
 
 type AssetType = 'stickers' | 'bookmarks' | 'business-cards';
 
@@ -49,7 +49,7 @@ export default function IdentityAssetsPage() {
             const element = document.getElementById('assets-sheet');
             if (!element) return;
 
-            // Renderizar el PDF con un factor de escala alto para nitidez extrema
+            const html2canvas = (await import('html2canvas')).default;
             const canvas = await html2canvas(element, {
                 scale: 3, // Balance entre calidad y tamaño de archivo
                 useCORS: true,
@@ -97,7 +97,7 @@ export default function IdentityAssetsPage() {
     const qrCodeImage = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(qrUrl)}&color=000000&bgcolor=ffffff&margin=2`;
 
     return (
-        <div className="min-h-screen bg-[#030711] text-white font-[family-name:var(--font-outfit)] print:bg-white print:text-black">
+        <div className="min-h-screen bg-background text-foreground font-[family-name:var(--font-outfit)] print:bg-white print:text-black">
             <ResourceHeader />
 
             {/* Toolbar System Kyron */}

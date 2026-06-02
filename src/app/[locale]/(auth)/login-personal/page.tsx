@@ -199,11 +199,11 @@ export default function LoginPersonalPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden bg-[#0a0e1a]">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#0a0e1a] via-[#0d1525] to-[#0a0e1a]" />
+    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden bg-background">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-background via-background/95 to-background" />
 
       <div className="absolute top-8 left-8 z-50">
-        <Button variant="ghost" asChild className="rounded-full h-10 px-4 text-[10px] font-black uppercase tracking-widest text-white/30 hover:text-white hover:bg-white/5 transition-all">
+        <Button variant="ghost" asChild className="rounded-full h-10 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 hover:text-foreground hover:bg-muted transition-all">
           <Link href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-4 w-4" /> Volver</Link>
         </Button>
       </div>
@@ -212,7 +212,7 @@ export default function LoginPersonalPage() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-5xl grid md:grid-cols-10 gap-0 rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.8)] relative z-10"
+        className="w-full max-w-5xl grid md:grid-cols-10 gap-0 rounded-[3rem] overflow-hidden border border-border shadow-2xl relative z-10"
       >
         {/* Lado Informativo - Vault Aesthetics */}
         <div className="md:col-span-4 relative overflow-hidden flex flex-col justify-between text-white bg-gradient-to-br from-blue-700 via-blue-800 to-[#02040a] p-12">
@@ -247,21 +247,21 @@ export default function LoginPersonalPage() {
         </div>
 
         {/* Lado de Formulario - Interactive Terminal */}
-        <div className="md:col-span-6 p-12 md:p-16 flex flex-col justify-center bg-[#030711] relative">
+        <div className="md:col-span-6 p-12 md:p-16 flex flex-col justify-center bg-card relative">
             <div className="absolute top-0 right-0 p-8 opacity-20">
-                <Scan className="h-20 w-20 text-white/10" />
+                <Scan className="h-20 w-20 text-muted-foreground/20" />
             </div>
 
           {step === 'credentials' ? (
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <div className="mb-12">
-                <h2 className="text-4xl font-black tracking-tight text-white uppercase font-outfit leading-none mb-3">Protocolo de Acceso</h2>
-                <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">Autenticación de Ciudadanía Digital</p>
+                <h2 className="text-4xl font-black tracking-tight text-foreground uppercase font-outfit leading-none mb-3">Protocolo de Acceso</h2>
+                <p className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-[0.3em]">Autenticación de Ciudadanía Digital</p>
               </div>
 
               <div className="flex items-center gap-2 mb-10">
-                <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-blue-600/10 border border-blue-500/20">
-                  <Mail className="h-4 w-4 text-blue-400" />
+                <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-primary/10 border border-primary/20">
+                  <Mail className="h-4 w-4 text-primary" />
                   <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Correo / Cédula</span>
                 </div>
               </div>

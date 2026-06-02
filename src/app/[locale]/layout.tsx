@@ -20,7 +20,6 @@ export const viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: '#030711',
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -59,15 +58,21 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${inter.variable} ${outfit.variable} dark overflow-x-hidden`} suppressHydrationWarning>
+    <html lang={locale} className={`${inter.variable} ${outfit.variable} overflow-x-hidden`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://api.qrserver.com" />
+        <link rel="dns-prefetch" href="https://api.qrserver.com" />
         <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
       </head>
-      <body className="antialiased font-inter bg-[#030711] text-foreground selection:bg-primary/30 selection:text-white overflow-x-hidden w-full" suppressHydrationWarning>
+      <body className="antialiased font-inter bg-background text-foreground selection:bg-primary/30 selection:text-primary-foreground overflow-x-hidden w-full" suppressHydrationWarning>
         <SpeedInsights />
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>

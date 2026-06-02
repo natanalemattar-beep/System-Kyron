@@ -117,7 +117,7 @@ function PricingGraphs({ t }: { t: any }) {
           <div className="relative z-10 w-full h-full flex items-end justify-between gap-3 md:gap-6">
               {[60, 45, 90, 65, 80, 55, 100].map((h, i) => (
                   <motion.div
-                    key={i}
+                    key={`chart-bar-${i}`}
                     initial={{ height: 0 }}
                     whileInView={{ height: `${h}%` }}
                     transition={{ duration: 1, delay: i * 0.1 }}
@@ -632,7 +632,7 @@ export function PricingSection() {
 
                   <ul className="space-y-3 mb-8">
                     {combo.items.map((item: string, j: number) => (
-                      <li key={j} className="flex items-center gap-3 text-xs text-slate-500 dark:text-white/50 font-medium">
+                      <li key={item} className="flex items-center gap-3 text-xs text-slate-500 dark:text-white/50 font-medium">
                         <div className="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-white/20" />
                         <span className="flex-1">{item}</span>
                         <span className="text-[10px] font-black text-white/20">{comboItemsPrices[id]?.[j] === 0 ? '✅ Incluido' : `+$${comboItemsPrices[id]?.[j]?.toFixed(2) ?? '—'}`}</span>

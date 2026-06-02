@@ -28,7 +28,7 @@ import {
 } from 'lucide-react';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
 import { Link } from '@/navigation';
-import html2canvas from "html2canvas";
+import Image from 'next/image';
 
 export default function SectorPrivadoPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = React.use(params);
@@ -91,6 +91,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
 
         try {
             await preloadBrochureImages();
+            const html2canvas = (await import('html2canvas')).default;
             const { jsPDF } = await import('jspdf');
 
             const frontal = document.getElementById('cara-frontal');
@@ -106,7 +107,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
             };
             
             const canvas1 = await html2canvas(frontal!, canvasOpts);
-            const canvas2 = await h2c(interior!, canvasOpts);
+            const canvas2 = await html2canvas(interior!, canvasOpts);
 
             const pdf = new jsPDF({ 
                 orientation: 'landscape', 
@@ -136,6 +137,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
 
         try {
             await preloadBrochureImages();
+            const html2canvas = (await import('html2canvas')).default;
             const canvas = await html2canvas(node, {
                 scale: 3,
                 useCORS: true,
@@ -170,6 +172,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
 
         try {
             await preloadBrochureImages();
+            const html2canvas = (await import('html2canvas')).default;
             const wordOpts = { scale: 1.0, useCORS: true, backgroundColor: '#ffffff', allowTaint: false, windowWidth: 1056, windowHeight: 816 };
             const canvasFrontal = await html2canvas(frontal, wordOpts);
             const canvasInterior = await html2canvas(interior, wordOpts);
@@ -329,7 +332,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 {/* P2: CIERRE Y ACCIÓN */}
                 <div className="w-[3.69in] border-r border-gray-200 p-6 flex flex-col bg-gradient-to-br from-white via-white to-cyan-50/60 min-h-0">
                     <div className="absolute -right-20 -bottom-20 pointer-events-none">
-                        <img src="/images/logo-black.png" alt="Logo Fondo" className="w-[450px] h-[450px] object-contain opacity-[0.06]" />
+                        <Image src="/images/logo-black.png" alt="Logo Fondo" width={450} height={450} className="w-[450px] h-[450px] object-contain opacity-[0.06]" />
                     </div>
                     
                     <div className="mb-4">
@@ -365,7 +368,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                     </div>
 
                     <div className="mt-4 flex justify-between items-end pt-4 border-t border-gray-200">
-                        <img src="/images/logo-black.png" alt="Kyron Mini" className="h-12 w-12 opacity-40 object-contain" />
+                        <Image src="/images/logo-black.png" alt="Kyron Mini" width={48} height={48} className="h-12 w-12 opacity-40 object-contain" />
                         <div className="text-right">
                             <p className="text-[13px] text-gray-500 font-black uppercase tracking-[0.2em] mb-1">Contacto Directo</p>
                             <p className="text-[20px] text-gray-900 font-black uppercase tracking-widest">0424-1846016</p>
@@ -381,7 +384,7 @@ export default function SectorPrivadoPage({ params }: { params: Promise<{ locale
                 <div className="w-[3.69in] p-6 flex flex-col relative overflow-hidden bg-gradient-to-br from-white via-white to-cyan-50/80 min-h-0">
                     <div className="flex flex-col h-full">
                         <div className="flex justify-between items-start mb-6">
-                            <img src="/images/logo-black.png" alt="Kyron" className="h-14 w-14 object-contain opacity-100" />
+                            <Image src="/images/logo-black.png" alt="Kyron" width={56} height={56} className="h-14 w-14 object-contain opacity-100" />
                             <div className="flex flex-col items-end">
                                 <span className="px-3 py-1.5 bg-white border border-cyan-200 rounded-md text-[11px] font-black uppercase tracking-widest text-cyan-700 shadow-sm">Presentación Oficial</span>
                             </div>

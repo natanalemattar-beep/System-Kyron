@@ -8,7 +8,7 @@ import { Shield, Zap, Calculator } from "lucide-react";
 
 export default function PreciosPage() {
     return (
-        <div className="min-h-screen bg-[#030711]">
+        <div className="min-h-screen bg-background">
             <LandingHeader />
             
             <main className="pt-20">

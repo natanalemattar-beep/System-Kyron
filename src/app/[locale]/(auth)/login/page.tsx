@@ -42,13 +42,13 @@ export default function LoginSelectionPage() {
   const enterpriseOptions = optionKeys.filter(o => o.category === 'corporate');
 
   return (
-    <div className="min-h-screen flex flex-col items-center w-full relative bg-[#0a0e1a] overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#0a0e1a] via-[#0d1525] to-[#0a0e1a]" />
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-600/5 blur-[200px] rounded-full pointer-events-none" />
+    <div className="min-h-screen flex flex-col items-center w-full relative bg-background overflow-hidden">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-background via-background/95 to-background" />
+      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/5 blur-[200px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-emerald-500/4 blur-[180px] rounded-full pointer-events-none" />
 
       <div className="w-full max-w-6xl px-6 py-6 flex justify-between items-center relative z-20">
-        <Button variant="ghost" asChild className="rounded-full h-10 px-4 text-[10px] font-black uppercase tracking-widest text-white/30 hover:text-white hover:bg-white/5 transition-all">
+        <Button variant="ghost" asChild className="rounded-full h-10 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 hover:text-foreground hover:bg-muted transition-all">
           <Link href="/" className="flex items-center"><ChevronLeft className="mr-2 h-4 w-4" /> {t('back')}</Link>
         </Button>
       </div>
@@ -76,17 +76,17 @@ export default function LoginSelectionPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-[10px] font-bold uppercase tracking-[0.3em] mb-2"
+                className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-[10px] font-bold uppercase tracking-[0.3em] mb-2"
             >
                 <Lock className="h-3 w-3" /> {t('badge')}
             </motion.div>
-            <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] font-black tracking-tight leading-[0.9] text-white uppercase font-outfit">
+            <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] font-black tracking-tight leading-[0.9] text-foreground uppercase font-outfit">
                 {t('title')}<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-emerald-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-accent">
                     {t('title_highlight')}
                 </span>
             </h1>
-            <p className="text-[10px] font-bold text-white/40 max-w-xl mx-auto uppercase tracking-[0.4em] font-outfit">
+            <p className="text-[10px] font-bold text-muted-foreground/60 max-w-xl mx-auto uppercase tracking-[0.4em] font-outfit">
                 {t('subtitle')}
             </p>
           </div>
@@ -95,11 +95,11 @@ export default function LoginSelectionPage() {
         <div className="grid lg:grid-cols-12 gap-12 items-start">
             {/* PORTAL CIUDADANO - Left Side / Main focus */}
             <div className="lg:col-span-5 space-y-8">
-                <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                        <User className="h-4 w-4 text-blue-400" />
-                    </div>
-                    <h2 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">{t('citizen_portal')}</h2>
+                    <div className="flex items-center gap-3">
+                        <div className="h-8 w-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                            <User className="h-4 w-4 text-blue-500 dark:text-blue-400" />
+                        </div>
+                        <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{t('citizen_portal')}</h2>
                 </div>
 
                 <div className="grid gap-4">
@@ -111,15 +111,15 @@ export default function LoginSelectionPage() {
                             transition={{ delay: 0.4 + (i * 0.1) }}
                         >
                             <Link href={o.href as any} className="group block" onClick={() => handleNavClick(o.href)}>
-                                <div className="p-6 rounded-2xl bg-[#111827] border border-[#1e293b] hover:border-blue-500/20 hover:bg-[#151e30] transition-all duration-300 flex items-center gap-6 shadow-lg shadow-black/10">
+                                <div className="p-6 rounded-2xl bg-card border border-border hover:border-primary/30 hover:bg-card/80 transition-all duration-300 flex items-center gap-6 shadow-lg">
                                     <div className={cn("h-14 w-14 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-lg text-white shrink-0 transition-all duration-300", o.color)}>
                                         {navigatingTo === o.href ? <Loader2 className="h-6 w-6 animate-spin" /> : <o.icon className="h-6 w-6" />}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <h3 className="text-lg font-bold text-white tracking-tight">{t(`options.${o.key}.label`)}</h3>
-                                        <p className="text-[11px] text-zinc-400 mt-0.5">{t(`options.${o.key}.description`)}</p>
+                                        <h3 className="text-lg font-bold text-foreground tracking-tight">{t(`options.${o.key}.label`)}</h3>
+                                        <p className="text-[11px] text-muted-foreground mt-0.5">{t(`options.${o.key}.description`)}</p>
                                     </div>
-                                    <div className="h-10 w-10 rounded-lg bg-[#1e293b] flex items-center justify-center group-hover:bg-blue-500/10 group-hover:text-blue-400 transition-all text-zinc-500">
+                                    <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center group-hover:bg-primary/10 group-hover:text-primary transition-all text-muted-foreground/60">
                                         <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
                                     </div>
                                 </div>
@@ -133,9 +133,9 @@ export default function LoginSelectionPage() {
             <div className="lg:col-span-7 space-y-8">
                 <div className="flex items-center gap-3">
                     <div className="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                        <Building2 className="h-4 w-4 text-emerald-400" />
+                        <Building2 className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
                     </div>
-                    <h2 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">{t('corporate_portals')}</h2>
+                    <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{t('corporate_portals')}</h2>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -147,13 +147,13 @@ export default function LoginSelectionPage() {
                             transition={{ delay: 0.5 + (i * 0.05) }}
                         >
                             <Link href={option.href as any} className="group block" onClick={() => handleNavClick(option.href)}>
-                                <div className="p-4 rounded-xl bg-[#111827] border border-[#1e293b] hover:border-emerald-500/20 hover:bg-[#151e30] transition-all duration-300 flex items-center gap-4 shadow-lg shadow-black/10">
+                                <div className="p-4 rounded-xl bg-card border border-border hover:border-accent/30 hover:bg-card/80 transition-all duration-300 flex items-center gap-4 shadow-lg">
                                     <div className={cn("h-10 w-10 rounded-lg bg-gradient-to-br flex items-center justify-center shadow-md text-white shrink-0 transition-all duration-300", option.color)}>
                                         {navigatingTo === option.href ? <Loader2 className="h-4 w-4 animate-spin" /> : <option.icon className="h-4 w-4" />}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <h4 className="text-sm font-bold text-white">{t(`options.${option.key}.label`)}</h4>
-                                        <p className="text-[10px] text-zinc-400 mt-0.5 truncate">{t(`options.${option.key}.description`)}</p>
+                                        <h4 className="text-sm font-bold text-foreground">{t(`options.${option.key}.label`)}</h4>
+                                        <p className="text-[10px] text-muted-foreground mt-0.5 truncate">{t(`options.${option.key}.description`)}</p>
                                     </div>
                                 </div>
                             </Link>
@@ -166,19 +166,19 @@ export default function LoginSelectionPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1 }}
-                    className="p-6 rounded-2xl bg-gradient-to-r from-blue-500/5 to-emerald-500/5 border border-blue-500/10"
+                    className="p-6 rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 border border-primary/10"
                 >
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
                         <div className="flex items-center gap-4">
-                            <div className="h-12 w-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
-                                <Sparkles className="h-6 w-6 text-blue-400" />
+                            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                                <Sparkles className="h-6 w-6 text-primary" />
                             </div>
                             <div>
-                                <h4 className="text-base font-bold text-white">{t('full_ecosystem')}</h4>
-                                <p className="text-xs text-zinc-400 mt-0.5">{t('ecosystem_desc')}</p>
+                                <h4 className="text-base font-bold text-foreground">{t('full_ecosystem')}</h4>
+                                <p className="text-xs text-muted-foreground mt-0.5">{t('ecosystem_desc')}</p>
                             </div>
                         </div>
-                        <Button asChild className="h-11 px-6 rounded-xl font-bold text-xs bg-white text-slate-900 hover:bg-blue-50 transition-all shadow-lg shadow-white/10">
+                        <Button asChild className="h-11 px-6 rounded-xl font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
                             <Link href="/register">Crear Cuenta <ArrowRight className="ml-2 h-4 w-4" /></Link>
                         </Button>
                     </div>
@@ -186,15 +186,15 @@ export default function LoginSelectionPage() {
             </div>
         </div>
 
-        <footer className="mt-24 pt-12 border-t border-white/[0.03] flex flex-col items-center gap-8">
-            <div className="flex items-center justify-center gap-4 flex-wrap opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+        <footer className="mt-24 pt-12 border-t border-border/30 flex flex-col items-center gap-8">
+            <div className="flex items-center justify-center gap-4 flex-wrap opacity-30 hover:opacity-60 transition-all duration-500">
                 {["VEN-NIF", "SENIAT", "IGTF 3.0", "LOTTT", "SAPI", "SUDEBAN"].map((badge) => (
-                    <div key={badge} className="px-4 py-1.5 rounded-lg bg-[#111827] border border-[#1e293b] text-[10px] font-bold tracking-wider text-zinc-500">
+                    <div key={badge} className="px-4 py-1.5 rounded-lg bg-muted border border-border text-[10px] font-bold tracking-wider text-muted-foreground/60">
                         {badge}
                     </div>
                 ))}
             </div>
-            <p className="text-[10px] font-bold text-white/10 uppercase tracking-[0.5em] flex items-center gap-4">
+            <p className="text-[10px] font-bold text-muted-foreground/30 uppercase tracking-[0.5em] flex items-center gap-4">
                 <Globe className="h-3 w-3" /> Protocolo de Seguridad Kyron Shield v2026.04
             </p>
         </footer>

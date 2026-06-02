@@ -1086,7 +1086,7 @@ export function SpecializedLoginCard({
   );
 
   const pageBackground = (
-    <div className="absolute inset-0 -z-10 overflow-hidden bg-[#050816]">
+    <div className="absolute inset-0 -z-10 overflow-hidden bg-background">
       {/* HUD Grid Overlay */}
       <div className="absolute inset-0 hud-grid opacity-20" />
       
@@ -1230,7 +1230,7 @@ export function SpecializedLoginCard({
 
   if (layoutVariant === 'accounting-premium') {
     return (
-      <div className="flex items-start lg:items-center justify-center min-h-dvh lg:min-h-screen p-4 md:p-8 w-full relative overflow-y-auto lg:overflow-hidden bg-[#020617]">
+      <div className="flex items-start lg:items-center justify-center min-h-dvh lg:min-h-screen p-4 md:p-8 w-full relative overflow-y-auto lg:overflow-hidden bg-background">
         {/* Cinematic Background */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(30,58,138,0.15),transparent_70%)]" />
@@ -1542,7 +1542,7 @@ export function SpecializedLoginCard({
   if (layoutVariant === 'dark-immersive') {
     return (
       <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 overflow-hidden bg-[#0a0a0f]">
+        <div className="absolute inset-0 -z-10 overflow-hidden bg-background">
           <div className={cn("absolute inset-0 bg-gradient-to-br opacity-[0.15]", theme.gradient)} />
           <div className="absolute -top-60 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full blur-[250px] opacity-25" style={{ background: theme.glowFrom }} />
           <div className="absolute bottom-0 right-0 w-[600px] h-[400px] rounded-full blur-[200px] opacity-15" style={{ background: theme.glowFrom }} />
@@ -1649,7 +1649,7 @@ export function SpecializedLoginCard({
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden bg-[#050816]">
+    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden bg-background">
       {pageBackground}
       {backButton}
       <motion.div

@@ -18,7 +18,7 @@ export default function GlobalError({
 
   return (
     <html lang="es">
-      <body className="bg-[#030711] text-white min-h-screen flex items-center justify-center p-6 font-sans">
+      <body className="bg-background text-foreground min-h-screen flex items-center justify-center p-6 font-sans">
         <div className="max-w-md w-full">
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-rose-500 to-red-600 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>

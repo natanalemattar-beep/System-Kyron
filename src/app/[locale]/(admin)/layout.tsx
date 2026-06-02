@@ -46,7 +46,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
               </PageTransition>
           </main>
           
-          <footer className="p-8 md:p-12 border-t border-white/5 bg-card/40 text-center backdrop-blur-3xl mt-20 relative z-20">
+          <footer className="p-8 md:p-12 border-t border-border bg-card/40 text-center backdrop-blur-3xl mt-20 relative z-20">
             <p className="text-[10px] font-semibold uppercase tracking-[1.2em] text-foreground/10 italic">
               System Kyron • Portal Empresarial • 2026
             </p>
@@ -54,7 +54,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
           <ScrollToTop />
           <FinancialToolkit />
           <WelcomeTutorial />
-          <AIChatButton contextKey="dashboard-asesoria-contable" />
+          <AIChatButton contextKey="kyron-empresas" />
           </div>
      );
  }

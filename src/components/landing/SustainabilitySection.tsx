@@ -45,7 +45,7 @@ export function SustainabilitySection() {
                 { icon: Recycle, title: t('smart_bins_title'), desc: t('smart_bins_desc'), color: 'emerald' },
                 { icon: Wind, title: t('eco_credits_title'), desc: t('eco_credits_desc'), color: 'green' },
               ].map((card, i) => (
-                <ScrollReveal key={i} delay={0.2 + i * 0.1} y={20}>
+                <ScrollReveal key={card.title} delay={0.2 + i * 0.1} y={20}>
                   <div className="group/card p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] glass-card hover:border-kyron-emerald/20 hover:-translate-y-2 transition-all duration-700">
                     <div className="h-10 md:h-14 w-10 md:w-14 rounded-xl md:rounded-2xl bg-gradient-to-br from-kyron-emerald/20 to-green-500/20 border border-kyron-emerald/20 flex items-center justify-center text-kyron-emerald mb-6 md:mb-8 group-hover/card:scale-110 group-hover/card:rotate-6 transition-all shadow-lg shadow-kyron-emerald/5">
                       <card.icon className="h-7 w-7" />

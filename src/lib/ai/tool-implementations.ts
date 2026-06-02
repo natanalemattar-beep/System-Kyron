@@ -107,8 +107,12 @@ registerTool(
             const { cliente_id, total, descripcion, moneda = 'USD' } = params;
             if (!cliente_id || !total) return { success: false, error: 'cliente_id y total requeridos' };
             const [f] = await query(
-              `INSERT INTO facturas (cliente_id, total, moneda, descripcion, emitida_at)
-               VALUES ($1,$2,$3,$4,NOW()) RETURNING id, numero_factura`,
+              `WITH seq AS (
+                 SELECT COALESCE(COUNT(*)::int, 0) + 1 AS n FROM facturas WHERE tipo_documento = 'FACTURA'
+               )
+               INSERT INTO facturas (cliente_id, total, moneda, descripcion, emitida_at, numero_factura, tipo_documento, estado, inmutable)
+               SELECT $1, $2, $3, $4, NOW(), 'FAC-' || LPAD(seq.n::text, 6, '0'), 'FACTURA', 'emitida', true
+               FROM seq RETURNING id, numero_factura`,
               [cliente_id, n(total), moneda, descripcion || null]
             );
             return { success: true, factura_id: f?.id, numero: f?.numero_factura, mensaje: `Factura creada: ${f?.numero_factura || '#' + f?.id}` };

@@ -52,8 +52,8 @@ export function CtaSection() {
               </ScrollReveal>
 
               <ScrollReveal delay={0.4} className="flex flex-wrap justify-center lg:justify-start gap-5">
-                {checks.map((label, i) => (
-                  <div key={i} className="flex items-center gap-3 px-5 py-2.5 rounded-full bg-kyron-emerald/10 border border-kyron-emerald/20 backdrop-blur-sm shadow-lg">
+                {checks.map((label) => (
+                  <div key={label} className="flex items-center gap-3 px-5 py-2.5 rounded-full bg-kyron-emerald/10 border border-kyron-emerald/20 backdrop-blur-sm shadow-lg">
                     <CircleCheck className="h-4 w-4 text-kyron-emerald" />
                     <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/80">{label}</span>
                   </div>
@@ -61,11 +61,11 @@ export function CtaSection() {
               </ScrollReveal>
 
               <div className="space-y-4 pt-8">
-                {testimonials.map((item, i) => (
-                  <div key={i} className="glass-card rounded-2xl p-5 max-w-sm mx-auto lg:mx-0">
+                {testimonials.map((item) => (
+                  <div key={item.author} className="glass-card rounded-2xl p-5 max-w-sm mx-auto lg:mx-0">
                     <div className="flex gap-2 mb-2">
                       {Array.from({ length: item.rating }).map((_, j) => (
-                        <Star key={j} className="h-3 w-3 fill-amber-400 text-amber-400" />
+                        <Star key={`star-${j}`} className="h-3 w-3 fill-amber-400 text-amber-400" />
                       ))}
                     </div>
                     <div className="flex gap-3">

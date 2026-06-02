@@ -1,6 +1,5 @@
 "use client";
 
-import type { Invoice } from "@/lib/types";
 import {
   Table,
   TableBody,
@@ -30,14 +29,38 @@ import { formatCurrency, formatDate } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 
-const statusVariant: { [key in Invoice["status"]]: "default" | "secondary" | "destructive" | "outline" } = {
-  Pagada: "default",
-  Enviada: "secondary",
-  Borrador: "outline",
-  Vencida: "destructive",
+interface FacturaRow {
+  id: number;
+  numero_factura: string;
+  numero_control: string | null;
+  cliente_nombre: string | null;
+  fecha_emision: string;
+  total: string;
+  estado: string;
+  inmutable: boolean;
+}
+
+const statusVariant: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
+  pagada: "default",
+  cobrada: "default",
+  emitida: "secondary",
+  pendiente: "secondary",
+  borrador: "outline",
+  vencida: "destructive",
+  anulada: "destructive",
 };
 
-export function InvoicesTable({ invoices, isLoading }: { invoices: Invoice[], isLoading: boolean }) {
+const statusLabel: Record<string, string> = {
+  emitida: "Emitida",
+  pendiente: "Pendiente",
+  cobrada: "Cobrada",
+  pagada: "Pagada",
+  borrador: "Borrador",
+  vencida: "Vencida",
+  anulada: "Anulada",
+};
+
+export function InvoicesTable({ invoices, isLoading }: { invoices: FacturaRow[], isLoading: boolean }) {
   const { toast } = useToast();
 
   const handleImmutableAction = () => {
@@ -112,21 +135,21 @@ export function InvoicesTable({ invoices, isLoading }: { invoices: Invoice[], is
             </TableHeader>
             <TableBody>
               {invoices.map((invoice) => {
-                const isImmutable = (invoice as Record<string, unknown>).inmutable === true || invoice.status !== 'Borrador';
+                const isImmutable = invoice.inmutable || invoice.estado !== 'borrador';
 
                 return (
                   <TableRow key={invoice.id}>
-                    <TableCell className="font-medium font-mono text-xs">{invoice.id}</TableCell>
-                    <TableCell className="font-mono text-xs text-muted-foreground">—</TableCell>
-                    <TableCell>{invoice.customer}</TableCell>
-                    <TableCell>{formatDate(invoice.date)}</TableCell>
+                    <TableCell className="font-medium font-mono text-xs">{invoice.numero_factura}</TableCell>
+                    <TableCell className="font-mono text-xs text-muted-foreground">{invoice.numero_control ?? '—'}</TableCell>
+                    <TableCell>{invoice.cliente_nombre ?? '—'}</TableCell>
+                    <TableCell>{formatDate(invoice.fecha_emision)}</TableCell>
                     <TableCell>
-                      <Badge variant={statusVariant[invoice.status]}>
-                        {invoice.status}
+                      <Badge variant={statusVariant[invoice.estado] ?? 'outline'}>
+                        {statusLabel[invoice.estado] ?? invoice.estado}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right font-mono">
-                      {formatCurrency(invoice.amount, 'Bs.')}
+                      {formatCurrency(parseFloat(invoice.total || '0'), 'Bs.')}
                     </TableCell>
                     <TableCell className="text-center">
                       {isImmutable ? (

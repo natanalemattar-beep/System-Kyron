@@ -188,7 +188,7 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
         porcentaje_iva: pIva.toString(),
         tasa_bcv: data.tasa_bcv?.toString() || '0',
         moneda_extranjera: data.moneda !== 'VES' ? data.moneda : null,
-        monto_moneda_ext: data.moneda !== 'VES' && data.tasa_bcv && data.tasa_bcv > 0 ? (total * data.tasa_bcv).toFixed(2) : null,
+        monto_moneda_ext: data.moneda !== 'VES' ? total.toFixed(2) : null,
         porcentaje_ret_iva: (data.porcentaje_ret_iva || 0).toString(),
         porcentaje_ret_islr: (data.porcentaje_ret_islr || 0).toString(),
         factura_referencia_num: data.factura_referencia_num || null,

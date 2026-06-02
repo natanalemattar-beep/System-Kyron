@@ -33,7 +33,7 @@ export function Footer() {
       <div className="border-b border-border dark:border-white/[0.04] py-3 overflow-hidden">
         <div className="flex gap-8 animate-marquee whitespace-nowrap">
           {[...modules, ...modules].map((m, i) => (
-            <span key={i} className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40 shrink-0 flex items-center gap-3">
+            <span key={`${m}-${i}`} className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40 shrink-0 flex items-center gap-3">
               {m} <Hexagon className="h-2 w-2 text-kyron-cyan/20" />
             </span>
           ))}
@@ -172,9 +172,9 @@ export function Footer() {
         <div className="mt-8 pt-6 border-t border-border dark:border-white/[0.03]">
           <div className="flex flex-col items-center gap-2">
             <div className="flex items-center gap-2 mt-2">
-              {['AES-256', 'JWT', 'HTTPS', 'VEN-NIF'].map((tech, i) => (
+              {['AES-256', 'JWT', 'HTTPS', 'VEN-NIF'].map((tech) => (
                 <span
-                  key={i}
+                  key={tech}
                   className="text-[8px] font-bold uppercase tracking-[0.2em] text-muted-foreground/10 px-2 py-0.5 rounded-full border border-border dark:border-white/[0.04]"
                 >
                   {tech}
