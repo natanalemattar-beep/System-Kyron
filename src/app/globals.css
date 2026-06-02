@@ -139,6 +139,27 @@
 
   .animate-fade-in-up {
     animation: fadeInUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+    will-change: transform, opacity;
+  }
+
+  .animate-fade-in-up-delay-1 {
+    animation: fadeInUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s forwards;
+    will-change: transform, opacity;
+  }
+
+  .animate-fade-in-up-delay-2 {
+    animation: fadeInUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+    will-change: transform, opacity;
+  }
+
+  .animate-fade-in-up-delay-3 {
+    animation: fadeInUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+    will-change: transform, opacity;
+  }
+
+  .animate-fade-in-up-delay-4 {
+    animation: fadeInUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.55s forwards;
+    will-change: transform, opacity;
   }
 
   @keyframes fadeInScale {
@@ -208,6 +229,16 @@
   }
 
   /* Bento glass variants - single source of truth */
+  .animate-module {
+    animation: fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+    will-change: transform, opacity;
+  }
+
+  .animate-slideUp-stagger {
+    animation: slideUp 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+    will-change: transform, opacity;
+  }
+
   .bento-card {
     @apply relative overflow-hidden rounded-[3.5rem] bg-background/50 dark:bg-white/[0.02] border border-border dark:border-white/5
            hover:border-border/80 dark:hover:border-white/20 transition-all duration-700 hover:-translate-y-1;

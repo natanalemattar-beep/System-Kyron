@@ -1,6 +1,7 @@
 'use client';
 
-import { ReactNode, useRef, useState, useEffect } from 'react';
+import { ReactNode } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -23,40 +24,23 @@ export function ScrollReveal({
   margin = "-15% 0px -15% 0px",
   blur: initialBlur = 0,
 }: ScrollRevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          if (once) observer.disconnect();
-        } else if (!once) {
-          setIsVisible(false);
-        }
-      },
-      { rootMargin: margin }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [once, margin]);
+  const { ref, inView } = useInView({
+    triggerOnce: once,
+    rootMargin: margin,
+  });
 
   return (
     <div
       ref={ref}
       className={className}
       style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible
-          ? 'translate(0, 0)'
-          : `translate(${x}px, ${y}px)`,
-        filter: isVisible ? 'blur(0)' : `blur(${initialBlur}px)`,
+        opacity: inView ? 1 : 0,
+        transform: inView ? 'translate(0, 0)' : `translate(${x}px, ${y}px)`,
+        filter: inView ? 'blur(0)' : `blur(${initialBlur}px)`,
         transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}s,
                      transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}s,
                      filter 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+        willChange: inView ? 'auto' : 'transform, opacity',
       }}
     >
       {children}

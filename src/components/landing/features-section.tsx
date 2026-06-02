@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import {
@@ -18,6 +18,7 @@ import {
 import { Link } from '@/navigation';
 import { ScrollReveal } from './scroll-reveal';
 import { AnimatedNumber } from '@/components/animations/animated-number';
+import { useInView } from 'react-intersection-observer';
 
 const agentList = [
   { icon: Headphones, title: 'Atención al Cliente', desc: 'Agente proactivo que detecta situaciones y genera acciones automáticas', color: 'kyron-cyan' },
@@ -36,24 +37,10 @@ const agentColorMap: Record<string, string> = {
 };
 
 function AnimatedProgress({ target = 90 }: { target?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '-50px 0px' }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    rootMargin: '-50px 0px',
+  });
 
   return (
     <div ref={ref} className="h-2 w-full bg-muted rounded-full overflow-hidden">
@@ -188,11 +175,8 @@ export function FeaturesSection() {
                 <Link
                   key={i}
                   href="/soporte"
-                  className="bento-card rounded-[2rem] p-6 hover:border-border/80 dark:hover:border-white/15 hover:-translate-y-1 block"
-                  style={{
-                    animation: 'fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1) ' + (i * 0.08) + 's forwards',
-                    opacity: 0,
-                  }}
+                  className="bento-card rounded-[2rem] p-6 hover:border-border/80 dark:hover:border-white/15 hover:-translate-y-1 block animate-module"
+                  style={{ animationDelay: (i * 0.08) + 's' }}
                 >
                   <div
                     className={
@@ -218,11 +202,8 @@ export function FeaturesSection() {
           {metrics.map((metric, i) => (
             <div
               key={i}
-              className="flex flex-col items-center text-center space-y-3 group"
-              style={{
-                animation: 'slideUp 0.5s cubic-bezier(0.16,1,0.3,1) ' + (i * 0.1) + 's forwards',
-                opacity: 0,
-              }}
+              className="flex flex-col items-center text-center space-y-3 group animate-slideUp-stagger"
+              style={{ animationDelay: (i * 0.1) + 's' }}
             >
               <span className="text-4xl md:text-6xl font-black text-foreground tracking-tighter italic group-hover:text-glow-cyan transition-all duration-500">
                 <AnimatedNumber

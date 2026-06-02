@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Sparkles, ArrowRight, CircleCheck, Shield, Zap, Clock } from "lucide-react";
+import { Sparkles, CircleCheck } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import { ScrollReveal } from './scroll-reveal';
 

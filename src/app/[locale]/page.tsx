@@ -36,18 +36,9 @@ const Footer = dynamic(() =>
 );
 
 const showcaseImages = [
-  {
-    src: '/images/landing/hero-dashboard.webp',
-    alt: 'Neural Command Center',
-  },
-  {
-    src: '/images/landing/features-analytics.webp',
-    alt: 'Corporate Intelligence',
-  },
-  {
-    src: '/images/landing/hero-bg.webp',
-    alt: 'Cyber-Sec Infrastructure',
-  },
+  { src: '/images/landing/hero-dashboard.webp', alt: 'Neural Command Center' },
+  { src: '/images/landing/features-analytics.webp', alt: 'Corporate Intelligence' },
+  { src: '/images/landing/hero-bg.webp', alt: 'Cyber-Sec Infrastructure' },
 ];
 
 export default function LandingPage() {
@@ -62,10 +53,11 @@ export default function LandingPage() {
           <section className="relative w-full overflow-hidden py-12 md:py-20">
             <div className="max-w-7xl mx-auto px-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                  {showcaseImages.map((img, i) => (
+                {showcaseImages.map((img, i) => (
                   <div
                     key={i}
                     className="relative group overflow-hidden rounded-3xl aspect-[4/3] bg-muted dark:bg-slate-900/50 border border-border dark:border-white/5"
+                    style={{ willChange: i === 0 ? 'transform' : 'auto' }}
                   >
                     <Image
                       src={img.src}
