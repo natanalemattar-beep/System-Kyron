@@ -145,8 +145,8 @@ export function HeroSectionOptimized() {
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
             {[
-              { val: statsVal ? String(statsVal.totalEmpresas) : '—', label: 'Empresas', color: 'text-kyron-emerald', icon: 'building2', sub: 'Activas en plataforma' },
-              { val: statsVal ? String(statsVal.totalUsuarios) : '—', label: t('portals'), color: 'text-kyron-gold', icon: 'users', sub: 'Usuarios registrados' },
+              { val: statsVal ? String(statsVal.totalEmpresas) : '—', label: 'Empresas', color: 'text-kyron-emerald', icon: 'building2', sub: 'Registradas' },
+              { val: statsVal ? String(statsVal.totalUsuarios) : '—', label: 'Usuarios', color: 'text-kyron-gold', icon: 'users', sub: 'Registrados' },
               { val: '99.9%', label: 'Uptime', color: 'text-kyron-cyan', icon: 'activity', sub: 'Disponibilidad' },
               { val: '24/7', label: 'Soporte', color: 'text-kyron-violet', icon: 'headphones', sub: 'Tiempo real' },
             ].map((stat, i) => (
