@@ -98,6 +98,19 @@ const RESOURCES: Resource[] = [
         image: 'https://images.unsplash.com/photo-1450101215322-bf5cd276cfc9?q=80&w=600&auto=format'
     },
     {
+        id: 'carta-inactividad',
+        title: 'Carta de Inactividad SENIAT',
+        description: 'Declaración jurada de inactividad fiscal dirigida al SENIAT, conforme al Art. 100 del Reglamento de la LISLR.',
+        icon: FileText,
+        href: '/brand-kit/carta-inactividad',
+        color: 'from-red-500 to-rose-600',
+        tag: 'SENIAT',
+        type: 'internal',
+        size: 'normal',
+        gradient: 'from-red-900/40 via-rose-900/20 to-transparent',
+        image: 'https://images.unsplash.com/photo-1450101215322-bf5cd276cfc9?q=80&w=600&auto=format'
+    },
+    {
         id: 'instagram',
         title: 'Portafolio Digital',
         description: 'Ecosistema visual y presencia institucional en redes de alto impacto corporativo.',
@@ -165,7 +178,7 @@ const RESOURCES: Resource[] = [
 ];
 
 const METRICS = [
-    { label: 'Recursos', value: '8', icon: Layers },
+    { label: 'Recursos', value: '9', icon: Layers },
     { label: 'Estado', value: 'Verificado', icon: ShieldCheck },
     { label: 'Core', value: 'v2.8', icon: Cpu },
     { label: 'Latencia', value: '<1ms', icon: Zap },
