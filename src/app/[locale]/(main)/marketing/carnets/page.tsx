@@ -21,7 +21,7 @@ const companyInfo = {
   direccion: "Av. Playa Grande, Edif. Belo Horizonte, Piso 15, Apt. 155 B, Catia La Mar, Estado La Guaira, Venezuela",
   telefono: "0424-1846016",
   email: "infosystemkyron@gmail.com",
-  web: "systemkyron.com",
+  web: "system-kyron.vercel.app",
 };
 
 const emptyEmployee = { id: "—", nombre: "Nombre", apellido: "Apellido", cedula: "—", cargo: "Cargo", departamento: "—", telefono: "—", email: "—", fechaIngreso: "—", tipoSangre: "—", foto: null };

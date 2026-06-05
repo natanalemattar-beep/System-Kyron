@@ -18,7 +18,7 @@ const userData = {
     phone: "+58 414-9377068",
     email: "usuario.natural@email.com",
     address: "Caracas, Venezuela",
-    website: "https://systemkyron.com",
+    website: "https://system-kyron.vercel.app",
     avatarId: "user-avatar",
     socials: {
         linkedin: "https://linkedin.com/in/systemkyron",
@@ -36,7 +36,7 @@ export default function TarjetaDigitalPage() {
 
     useEffect(() => {
         setIsClient(true);
-        const currentUrl = typeof window !== 'undefined' ? `${window.location.origin}/natural/perfil` : 'https://systemkyron.com/perfil';
+        const currentUrl = typeof window !== 'undefined' ? `${window.location.origin}/natural/perfil` : 'https://system-kyron.vercel.app/perfil';
         setQrCodeUrl(`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(currentUrl)}&bgcolor=ffffff&color=000000&margin=1`);
     }, []);
 

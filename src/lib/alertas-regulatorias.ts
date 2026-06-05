@@ -614,7 +614,7 @@ export async function verificarAlertasRegulatorias(): Promise<number> {
                   <hr style="border: none; border-top: 1px solid #334155; margin: 16px 0;" />
                   <p style="font-size: 11px; color: #64748b;">
                     System Kyron — Monitoreo Regulatorio Automático<br/>
-                    <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://systemkyron.com'}/notificaciones" style="color: #60a5fa;">Ver en plataforma</a>
+                    <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.vercel.app'}/notificaciones" style="color: #60a5fa;">Ver en plataforma</a>
                   </p>
                 </div>
               </div>

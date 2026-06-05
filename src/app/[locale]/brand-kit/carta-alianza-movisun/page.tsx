@@ -188,7 +188,7 @@ export default function CartaAlianzaMovisunPage() {
                 <div className="text-[10px] text-gray-500 space-y-0.5 leading-relaxed">
                   <p><strong className="text-gray-700">Empresa:</strong> EMPRENDIMIENTO CARLOS MATTAR &nbsp;|&nbsp; <strong className="text-gray-700">RIF:</strong> J-50832149-9</p>
                   <p><strong className="text-gray-700">Direccion Fiscal:</strong> Av. Playa Grande, Edif. Belo Horizonte, Piso 15, Apt. 155 B, Catia La Mar, Estado La Guaira, Venezuela</p>
-                  <p><strong className="text-gray-700">Correo:</strong> systemkyronofficial@gmail.com &nbsp;|&nbsp; <strong className="text-gray-700">Web:</strong> systemkyron.com</p>
+                  <p><strong className="text-gray-700">Correo:</strong> systemkyronofficial@gmail.com &nbsp;|&nbsp; <strong className="text-gray-700">Web:</strong> system-kyron.vercel.app</p>
                 </div>
 
                 <div className="mt-10">

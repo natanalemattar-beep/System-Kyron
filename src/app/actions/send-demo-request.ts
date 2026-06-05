@@ -72,7 +72,7 @@ function buildDemoRequestEmailHtml(data: {
   return buildKyronEmailTemplate({
     title: '📋 Nueva Solicitud de Demo',
     body: bodyHtml,
-    footer: 'Este correo fue generado automáticamente al recibir una solicitud de demostración en systemkyron.com.',
+    footer: 'Este correo fue generado automáticamente al recibir una solicitud de demostración en system-kyron.vercel.app.',
   });
 }
 

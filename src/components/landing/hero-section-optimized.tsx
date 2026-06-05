@@ -91,7 +91,7 @@ export function HeroSectionOptimized() {
                 <div className="mockup-browser-dot bg-amber-400/70" />
                 <div className="mockup-browser-dot bg-kyron-emerald/70" />
                 <div className="mockup-browser-url">
-                  <span className="text-[9px] font-medium text-muted-foreground/50 tracking-wide">app.systemkyron.com/dashboard</span>
+                  <span className="text-[9px] font-medium text-muted-foreground/50 tracking-wide">app.system-kyron.vercel.app/dashboard</span>
                 </div>
                 <div className="h-5 w-5 rounded-md bg-muted/50 dark:bg-white/[0.03] border border-border/30 dark:border-white/[0.04]" />
               </div>
