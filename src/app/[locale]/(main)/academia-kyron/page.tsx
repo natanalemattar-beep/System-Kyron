@@ -15,15 +15,15 @@ const courses = [
     { title: "Seguridad Blockchain", desc: "Protocolos de inmutabilidad y sellado digital de activos.", duration: "3h", level: "Básico", img: "https://picsum.photos/seed/blockchain/400/200", progress: 100 },
 ];
 
-export default function AcademiaKyronPage() {
+export default function CursosPage() {
     return (
         <div className="space-y-12 w-full px-6 md:px-16 pb-20">
             <header className="border-l-4 border-yellow-500 pl-8 py-2 mt-10">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-yellow-500/10 border border-yellow-500/20 text-[11px] font-semibold uppercase tracking-wider text-yellow-500 mb-4">
-                    <School className="h-3 w-3" /> CENTRO EDUCATIVO
+                    <School className="h-3 w-3" /> CURSOS
                 </div>
-                <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase italic text-foreground">Kyron <span className="text-yellow-500">Academy</span></h1>
-                <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Centro de Formación Técnica y Profesional • 2026</p>
+                <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase italic text-foreground">Centro de <span className="text-yellow-500">Formación</span></h1>
+                <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Cursos Técnicos y Profesionales • 2026</p>
             </header>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -9,7 +9,7 @@ import { jsPDF } from "jspdf";
 
 const ACCESS_CODE = "Carlos123";
 
-export default function CartaInactividadPage() {
+export default function CartaAlianzaMovisunPage() {
   const [code, setCode] = useState("");
   const [unlocked, setUnlocked] = useState(false);
   const [error, setError] = useState(false);
@@ -41,7 +41,7 @@ export default function CartaInactividadPage() {
       const pdfW = pdf.internal.pageSize.getWidth();
       const imgH = (pdfW * letterRef.current.offsetHeight) / letterRef.current.offsetWidth;
       pdf.addImage(dataUrl, "PNG", 0, 0, pdfW, imgH);
-      pdf.save("System-Kyron-Carta-Inactividad-SENIAT.pdf");
+      pdf.save("System-Kyron-Carta-Alianza-Movisun-Colombia.pdf");
     } catch (err: any) {
       alert("Error al generar PDF: " + (err?.message || "desconocido"));
     } finally {
@@ -69,7 +69,7 @@ export default function CartaInactividadPage() {
           </div>
           <div className="space-y-2">
             <h1 className="text-2xl font-black text-white uppercase tracking-tight">Documento Protegido</h1>
-            <p className="text-sm text-zinc-400">Ingresa el código de acceso para visualizar esta carta.</p>
+            <p className="text-sm text-zinc-400">Ingresa el codigo de acceso para visualizar esta carta.</p>
           </div>
           <div className="space-y-4">
             <input
@@ -77,11 +77,11 @@ export default function CartaInactividadPage() {
               value={code}
               onChange={e => { setCode(e.target.value); setError(false); }}
               onKeyDown={e => e.key === 'Enter' && handleUnlock()}
-              placeholder="Código de acceso"
+              placeholder="Codigo de acceso"
               autoComplete="off"
               className="w-full h-14 px-6 rounded-2xl border border-white/10 bg-white/[0.03] text-white text-center text-lg font-bold tracking-widest focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500/40"
             />
-            {error && <p className="text-xs text-red-400 font-medium">Código incorrecto</p>}
+            {error && <p className="text-xs text-red-400 font-medium">Codigo incorrecto</p>}
             <Button onClick={handleUnlock} className="w-full h-14 rounded-2xl font-black text-xs uppercase tracking-widest bg-amber-600 hover:bg-amber-500 text-white">
               <ShieldCheck className="mr-3 h-4 w-4" /> Desbloquear
             </Button>
@@ -122,43 +122,81 @@ export default function CartaInactividadPage() {
             </div>
 
             <div className="space-y-2">
-              <p className="text-base font-semibold text-zinc-700">SENIAT</p>
-              <p className="text-base font-semibold text-zinc-700">Gerencia Regional de Tributos Internos de la Región Capital</p>
-              <p className="text-sm text-zinc-400">Su despacho.&mdash;</p>
+              <p className="text-base font-semibold text-zinc-700">MOVISUN COLOMBIA S.A.S.</p>
+              <p className="text-base font-semibold text-zinc-700">Att.: Direccion de Alianzas Estrategicas</p>
+              <p className="text-sm text-zinc-400">Bogota D.C., Colombia.&mdash;</p>
             </div>
 
             <div className="text-base leading-relaxed text-zinc-700 space-y-5 text-justify">
               <p className="font-bold text-lg uppercase tracking-tight text-zinc-800 text-center">
-                Carta de Declaración de Inactividad Fiscal
+                Carta de Intencion de Alianza Comercial
               </p>
 
               <p>
-                Yo, <strong>Carlos Alberto Mattar Zreik</strong>, venezolano, mayor de edad, titular de la cédula de identidad N° <strong>V-26.441.166</strong>, actuando en mi carácter de Representante Legal de la empresa mercantil <strong>EMPRENDIMIENTO CARLOS MATTAR</strong>, debidamente inscrita en el Registro de Información Fiscal (RIF) bajo el N° <strong>J-50832149-9</strong>, por medio de la presente y de conformidad con lo establecido en el <strong>Parágrafo Segundo del Artículo 100 del Reglamento de la Ley de Impuesto sobre la Renta</strong>, me dirijo a ustedes para realizar la siguiente declaración:
+                Reciba un cordial saludo de parte de <strong>EMPRENDIMIENTO CARLOS MATTAR</strong>, empresa venezolana 
+                identificada con RIF J-50832149-9, desarrolladora del ecosistema de inteligencia corporativa 
+                <strong> System Kyron</strong>. Por medio de la presente, manifestamos nuestro formal interes en 
+                establecer una <strong>alianza comercial estrategica</strong> con <strong>MOVISUN COLOMBIA S.A.S.</strong>
               </p>
 
               <p>
-                En mi carácter de Representante Legal y bajo juramento, declaro que durante el período fiscal comprendido entre el <strong>primer día del mes de enero y el treinta y uno de diciembre del año {new Date().getFullYear() - 1}</strong>, la empresa <strong>EMPRENDIMIENTO CARLOS MATTAR</strong> no ha realizado actividad comercial, industrial, financiera ni de ninguna otra naturaleza que genere hechos imponibles sujetos al Impuesto sobre la Renta ni al Impuesto al Valor Agregado (IVA).
+                System Kyron es una plataforma corporativa integral que unifica mas de 100 modulos en areas como 
+                contabilidad (VEN-NIF/SENIAT), facturacion electronica, nomina (LOTTT), telecomunicaciones 5G,
+                legal, inteligencia artificial, sostenibilidad y seguridad. Actualmente operamos en Venezuela 
+                con proyeccion de expansion regional.
               </p>
 
               <p>
-                En consecuencia, durante el mencionado período fiscal, no se han generado ingresos, egresos, compras, ventas, importaciones, exportaciones, ni se han emitido facturas o documentos fiscales de ningún tipo. Tampoco se han presentado declaraciones de Impuesto sobre la Renta (ISLR) ni de Impuesto al Valor Agregado (IVA), por cuanto no ha existido actividad económica gravable.
+                Entendemos que MOVISUN COLOMBIA es una empresa lider en el sector de <strong>telecomunicaciones 
+                y tecnologia movil</strong> en Colombia, con una solida trayectoria y presencia en el mercado 
+                colombiano. Creemos que existe una oportunidad significativa para desarrollar sinergias 
+                comerciales que beneficien a ambas organizaciones.
+              </p>
+
+              <p className="font-semibold text-zinc-800">
+                Objeto de la Alianza:
               </p>
 
               <p>
-                La presente declaración se realiza en cumplimiento con lo dispuesto en el <strong>Parágrafo Segundo del Artículo 100 del Reglamento de la Ley de Impuesto sobre la Renta</strong>, el cual establece la obligación de los contribuyentes de informar al SENIAT sobre los períodos fiscales en los que no se hubieren realizado operaciones gravadas, así como en acatamiento a las disposiciones contenidas en el <strong>Código Orgánico Tributario</strong> vigente.
+                La presente carta de intencion tiene como objetivo explorar y establecer los terminos para 
+                una alianza comercial que podria incluir, sin limitarse a:
               </p>
 
+              <ul className="list-disc pl-6 space-y-2 text-zinc-700">
+                <li>
+                  <strong>Distribucion cruzada de servicios:</strong> Integracion de soluciones MOVISUN 
+                  en el ecosistema System Kyron para el mercado colombiano, y viceversa.
+                </li>
+                <li>
+                  <strong>Paquetes comerciales conjuntos:</strong> Desarrollo de ofertas empaquetadas 
+                  que combinen servicios de telecomunicaciones MOVISUN con modulos corporativos de 
+                  System Kyron.
+                </li>
+                <li>
+                  <strong>Expansion geografica:</strong> Colaboracion para la entrada de System Kyron 
+                  en el mercado colombiano, aprovechando la infraestructura y conocimiento local de MOVISUN.
+                </li>
+                <li>
+                  <strong>Innovacion tecnologica:</strong> Co-desarrollo de soluciones integradas de 
+                  transformacion digital para el sector empresarial colombiano.
+                </li>
+              </ul>
+
               <p>
-                Asimismo, manifiesto mi compromiso de notificar inmediatamente al SENIAT en caso de que la empresa inicie cualquier actividad económica que genere obligaciones tributarias, a fin de dar cumplimiento oportuno a todas las obligaciones formales y sustanciales que correspondan conforme a la legislación tributaria venezolana.
+                Quedamos a la espera de su respuesta para concretar una reunion de trabajo donde podamos 
+                presentar formalmente nuestra propuesta y explorar en detalle los terminos de esta 
+                potencial alianza. Estamos seguros de que esta colaboracion generara valor significativo 
+                para ambas organizaciones y, sobre todo, para nuestros clientes.
               </p>
             </div>
 
             <div className="pt-8 border-t border-zinc-200 space-y-8">
               <div className="text-sm text-zinc-500 space-y-1">
-                <p><strong className="text-zinc-600">Dirección Fiscal:</strong> Av. Playa Grande, Edif. Belo Horizonte, Piso 15, Apt. 155 B, Conjunto Residencial Belo Horizonte, Catia La Mar, Parroquia Capital La Guaira, Estado La Guaira, Zona Postal 1162, Venezuela.</p>
-                <p><strong className="text-zinc-600">Registro de Información Fiscal (RIF):</strong> J-50832149-9</p>
-                <p><strong className="text-zinc-600">Correo Electrónico:</strong> systemkyronofficial@gmail.com</p>
-                <p><strong className="text-zinc-600">Teléfono de Contacto:</strong> +58 412-1234567</p>
+                <p><strong className="text-zinc-600">Empresa:</strong> EMPRENDIMIENTO CARLOS MATTAR</p>
+                <p><strong className="text-zinc-600">RIF:</strong> J-50832149-9</p>
+                <p><strong className="text-zinc-600">Direccion Fiscal:</strong> Av. Playa Grande, Edif. Belo Horizonte, Piso 15, Apt. 155 B, Catia La Mar, Estado La Guaira, Venezuela</p>
+                <p><strong className="text-zinc-600">Correo Electronico:</strong> systemkyronofficial@gmail.com</p>
+                <p><strong className="text-zinc-600">Plataforma:</strong> systemkyron.com</p>
               </div>
 
               <div className="pt-6 space-y-6">
@@ -170,7 +208,16 @@ export default function CartaInactividadPage() {
                     <p className="text-sm text-zinc-500">C.I. V-26.441.166</p>
                     <p className="text-sm text-zinc-500">Representante Legal</p>
                     <p className="text-sm text-zinc-500">EMPRENDIMIENTO CARLOS MATTAR</p>
-                    <p className="text-sm text-zinc-500">RIF J-50832149-9</p>
+                    <p className="text-sm text-zinc-500">System Kyron</p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col items-center py-2">
+                  <div className="w-64 border-t border-zinc-300 pt-3 text-center">
+                    <p className="font-bold text-zinc-800">MOVISUN COLOMBIA S.A.S.</p>
+                    <p className="text-sm text-zinc-500">Representante Autorizado</p>
+                    <div className="mt-4 h-10" />
+                    <p className="text-xs text-zinc-400 italic">Firma y sello de la empresa</p>
                   </div>
                 </div>
               </div>

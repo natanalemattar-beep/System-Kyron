@@ -29,7 +29,7 @@ export default function PrivacyPage() {
             {[
               {
                 title: "1. Responsable del Tratamiento",
-                body: "EMPRENDIMIENTO CARLOS MATTAR, con RIF J-50832149-9 y domicilio en La Guaira, República Bolivariana de Venezuela, es el responsable del tratamiento de los datos personales recopilados a través de la Plataforma System Kyron. Para cualquier consulta relacionada con la protección de sus datos, puede contactarnos en infosystemkyron@gmail.com."
+                body: "EMPRENDIMIENTO CARLOS MATTAR, con RIF J-50832149-9 y domicilio en Av. Playa Grande, Edif. Belo Horizonte, Piso 15, Apt. 155 B, Catia La Mar, Estado La Guaira, Zona Postal 1162, Venezuela, es el responsable del tratamiento de los datos personales recopilados a través de la Plataforma System Kyron. Para cualquier consulta relacionada con la protección de sus datos, puede contactarnos en infosystemkyron@gmail.com."
               },
               {
                 title: "2. Datos que Recopilamos",
@@ -81,7 +81,7 @@ export default function PrivacyPage() {
               },
               {
                 title: "14. Contacto del Responsable de Protección de Datos",
-                body: "Para preguntas, consultas o reclamaciones sobre privacidad y protección de datos personales: infosystemkyron@gmail.com — EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9), La Guaira, Venezuela."
+                body: "Para preguntas, consultas o reclamaciones sobre privacidad y protección de datos personales: infosystemkyron@gmail.com — EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9), Catia La Mar, Estado La Guaira, Venezuela."
               },
             ].map((section, i) => (
               <div key={i} className="p-6 rounded-2xl border border-border/50 bg-card/30 space-y-2">

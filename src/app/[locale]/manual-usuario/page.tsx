@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import {
-  BookOpen, ShieldCheck, Zap, Calculator, Users, School,
+  BookOpen, ShieldCheck, Zap, Calculator, Users,
   Download, Printer, Loader as Loader2, CircleCheck as CircleCheck,
   Target, LayoutDashboard, ShoppingCart,
   Landmark, Activity, Cpu, Building2, FileText,
@@ -413,52 +413,7 @@ const chapters = [
       "Módulos premium desbloqueables según plan."
     ]
   },
-  {
-    id: "modelo-zedu",
-    title: "Modelo ZEDU — AutoMind Core",
-    icon: School,
-    color: "from-violet-500 to-fuchsia-500",
-    content: `El Modelo Zedu corresponde al proyecto educativo AutoMind Core, desarrollado en el Colegio Santa Rosa de Lima, Caracas. Transforma el sistema de archivado tradicional de instituciones educativas en un entorno digital eficiente, integrando digitalización de expedientes estudiantiles y herramientas de Asistencia Técnica Directa de apoyo administrativo. AutoMind Core aplica analítica avanzada para optimizar la gestión escolar, desde matrículas hasta comunicaciones con padres y representantes.`,
-    details: [
-      "Digitalización y búsqueda instantánea de expedientes con OCR.",
-      "Asistencia Técnica Directa: atención 24/7 vía WhatsApp y portal web.",
-      "Generación de reportes, circulares y análisis estratégico.",
-      "Gestión de matrículas y inscripciones digitales.",
-      "Comunicación automatizada con representantes.",
-      "Disponible con opción de descarga en Word (.doc)."
-    ]
-  },
-  {
-    id: "soporte",
-    title: "Soporte Técnico & Comunidad",
-    icon: Headphones,
-    color: "from-sky-500 to-cyan-500",
-    content: `El soporte técnico de System Kyron es de grado corporativo. Incluye asistencia multicanal mediante Asistencia Técnica Directa (algoritmos de procesamiento avanzado), chat en vivo y conexión directa con el equipo de ingeniería. El sistema de notificaciones internas mantiene al usuario informado sobre actualizaciones, cambios de normativa y alertas del sistema. Estamos comprometidos con una experiencia de misión crítica: sin caídas, sin errores y con respuesta técnica inmediata.`,
-    details: [
-      "Resolución de dudas 24/7 mediante Asistencia Técnica Directa.",
-      "Seguimiento transparente de tickets de servicio.",
-      "Sistema de notificaciones internas del sistema.",
-      "Actualizaciones de sistema sin interrupciones.",
-      "FAQ completa con preguntas frecuentes.",
-      "Foro de la comunidad Kyron para mejores prácticas.",
-      "Contacto directo: infosystemkyron@gmail.com."
-    ]
-  },
-  {
-    id: "academia",
-    title: "Academia Kyron",
-    icon: School,
-    color: "from-purple-500 to-violet-500",
-    content: `La Academia Kyron es un portal educativo donde los operadores aprenden a usar cada módulo del sistema mediante cursos certificados. El conocimiento se transfiere a los usuarios para que dominen la gestión fiscal y técnica del sistema, convirtiéndose en profesionales capaces de liderar la transformación digital en sus empresas. El ecosistema también ofrece una guía de registro interactiva y tutoriales por módulo para nuevos usuarios.`,
-    details: [
-      "Certificación de competencias en gestión Kyron.",
-      "Tutoriales en video paso a paso de cada módulo.",
-      "Webinars sobre cambios en Gacetas Oficiales.",
-      "Biblioteca técnica con manuales, guías y casos de éxito.",
-      "Guía de registro interactiva para nuevos usuarios.",
-      "Tutoriales por módulo con asistente Asistencia Técnica Directa."
-    ]
-  }
+
 ];
 
 function ReadingProgress() {
@@ -767,7 +722,7 @@ export default function ManualUsuarioPage() {
             <p className="text-muted-foreground text-sm md:text-base max-w-2xl leading-relaxed">
               Documentaci&oacute;n completa de {chapters.length} m&oacute;dulos del ecosistema System Kyron. 
               Incluye gu&iacute;as de uso, especificaciones t&eacute;cnicas, sistema multimoneda, 
-              m&oacute;dulos de RRHH, IT, legal, telecomunicaciones y el Modelo ZEDU AutoMind AI.
+               m&oacute;dulos de RRHH, IT, legal y telecomunicaciones.
             </p>
 
             <div className="flex flex-wrap gap-3 pt-4">
@@ -850,15 +805,7 @@ export default function ManualUsuarioPage() {
                             </li>
                           ))}
                         </ul>
-                        {chapter.id === "modelo-zedu" && (
-                          <div className="mt-6 pt-4 border-t border-border/50">
-                            <Button asChild size="sm" className="w-full rounded-xl text-[10px] font-semibold uppercase tracking-widest gap-2">
-                              <Link href="/login">
-                                <ExternalLink className="h-3 w-3" /> Ver documento completo
-                              </Link>
-                            </Button>
-                          </div>
-                        )}
+
                       </div>
                     </div>
                   </div>

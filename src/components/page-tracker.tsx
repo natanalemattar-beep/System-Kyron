@@ -57,7 +57,6 @@ function getModuleFromPath(path: string): string {
     p.startsWith('/sostenibilidad') ||
     p.startsWith('/mercado-ecocreditos') ||
     p.startsWith('/generador-documentos') ||
-    p.startsWith('/academia-kyron') ||
     p.startsWith('/ingenieria-ia') ||
     p.startsWith('/data-entry') ||
     p.startsWith('/marketing') ||

@@ -59,7 +59,7 @@ const sections = [
   },
   {
     title: "14. Propiedad Intelectual",
-    body: "Todo el contenido, diseno, codigo fuente, algoritmos, marcas, logotipos, interfaz de usuario (diseno HUD Titanium), documentacion, animaciones, componentes de interfaz y funcionalidades de la Plataforma son propiedad exclusiva de System Kyron y estan protegidos por las leyes de propiedad intelectual de la Republica Bolivariana de Venezuela, tratados internacionales aplicables y la Ley sobre Derecho de Autor. Queda estrictamente prohibida la reproduccion, distribucion, modificacion o uso no autorizado de cualquier elemento de la Plataforma. El Modelo ZEDU AutoMind AI es propiedad intelectual compartida con el Colegio Santa Rosa de Lima."
+    body: "Todo el contenido, diseno, codigo fuente, algoritmos, marcas, logotipos, interfaz de usuario (diseno HUD Titanium), documentacion, animaciones, componentes de interfaz y funcionalidades de la Plataforma son propiedad exclusiva de System Kyron y estan protegidos por las leyes de propiedad intelectual de la Republica Bolivariana de Venezuela, tratados internacionales aplicables y la Ley sobre Derecho de Autor. Queda estrictamente prohibida la reproduccion, distribucion, modificacion o uso no autorizado de cualquier elemento de la Plataforma."
   },
   {
     title: "15. Disponibilidad del Servicio",
@@ -103,7 +103,7 @@ const sections = [
   },
   {
     title: "25. Contacto",
-    body: "Para consultas, reclamaciones, ejercicio de derechos o notificaciones relacionadas con estos Terminos de Servicio: Correo electronico: infosystemkyron@gmail.com — Responsable: EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9) — Direccion: La Guaira, Venezuela. Horario de atencion: Lunes a Viernes, 8:00 AM - 6:00 PM (hora de Venezuela, UTC-4). Asistencia Tecnica 24/7."
+    body: "Para consultas, reclamaciones, ejercicio de derechos o notificaciones relacionadas con estos Terminos de Servicio: Correo electronico: infosystemkyron@gmail.com — Responsable: EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9) — Direccion: Av. Playa Grande, Edif. Belo Horizonte, Piso 15, Apt. 155 B, Catia La Mar, Estado La Guaira, Zona Postal 1162, Venezuela. Horario de atencion: Lunes a Viernes, 8:00 AM - 6:00 PM (hora de Venezuela, UTC-4). Asistencia Tecnica 24/7."
   }
 ];
 
@@ -149,7 +149,7 @@ export default function TermsPage() {
 
           <div className="pt-8 border-t border-border/50 text-center">
             <p className="text-[10px] text-muted-foreground/60 font-bold uppercase tracking-widest">
-              System Kyron v3.0 &bull; EMPRENDIMIENTO CARLOS MATTAR &bull; RIF: J-50832149-9 &bull; La Guaira, Venezuela &bull; &copy; 2026
+              System Kyron v3.0 &bull; EMPRENDIMIENTO CARLOS MATTAR &bull; RIF: J-50832149-9 &bull; Catia La Mar, Estado La Guaira, Venezuela &bull; &copy; 2026
             </p>
           </div>
         </div>

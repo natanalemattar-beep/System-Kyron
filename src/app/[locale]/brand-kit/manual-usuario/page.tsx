@@ -3,7 +3,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-  BookOpen, ShieldCheck, Zap, Calculator, Users, School,
+  BookOpen, ShieldCheck, Zap, Calculator, Users,
   Download, Printer, Loader2, CircleCheck, Target, LayoutDashboard, ShoppingCart,
   Landmark, Activity, Cpu, Building2, FileText,
   Gavel, Radio, Recycle, Wallet, ChartBar as ChartColumn, BrainCircuit,
@@ -25,13 +25,15 @@ const chapters = [
     title: "Bienvenida al Ecosistema",
     icon: Target,
     color: "from-blue-500 to-cyan-500",
-    content: `Bienvenido a la documentación unificada de System Kyron v3.0. Este legajo representa la visión técnica y operativa de un ecosistema integral diseñado para la excelencia en la gestión empresarial y ciudadana en Venezuela. Bajo la dirección estratégica de Carlos Mattar (CM), Sebastián Garrido (SG) y Marcos Sousa (MS), System Kyron se propone como el núcleo de inteligencia que fusiona telecomunicaciones, finanzas y cumplimiento legal automatizado. El ecosistema cuenta con más de 80 tablas en base de datos, más de 60 rutas API y más de 10 módulos especializados. Este manual detalla las capacidades técnicas disponibles para transformar la operatividad del sector privado bajo los más altos estándares de seguridad y eficiencia.`,
+    content: `Este manual de usuario te guiara en el uso completo del ecosistema System Kyron v3.0. Esta organizado en 26 capitulos que cubren cada modulo disponible en la plataforma. Para aprovechar al maximo este documento, lee los capitulos en orden secuencial la primera vez que uses el sistema. Cada capitulo incluye una descripcion del modulo y una lista de puntos clave con instrucciones especificas. Si necesitas consultar un tema en particular, usa la tabla de contenidos para saltar directamente al capitulo correspondiente. Al finalizar la lectura, realiza las acciones descritas en los puntos clave para aplicar lo aprendido.`,
     details: [
-      "Centralizar el 100% de las operaciones críticas en una plataforma única.",
-      "Ingeniería avanzada desarrollada en el Colegio Santa Rosa de Lima.",
-      "Preparar a las empresas para la economía digital de 2026.",
-      "Más de 10 áreas independientes que escalan con su organización.",
-      "Soporte multimoneda (Bs., USD, EUR) con tasas BCV en tiempo real."
+      "Abre el manual desde el panel de ayuda del sistema en la seccion de documentacion.",
+      "Selecciona cada capitulo desde la tabla de contenidos para navegar directamente al tema.",
+      "Lee la descripcion de cada modulo antes de interactuar con el por primera vez.",
+      "Revisa los puntos clave al final de cada capitulo para identificar las acciones principales.",
+      "Usa la funcion de busqueda del navegador para encontrar temas especificos dentro del manual.",
+      "Exporta el manual completo a PDF desde el boton de exportacion en la cabecera de la pagina.",
+      "Consulta el indice de contenidos para localizar rapidamente cualquier modulo del sistema."
     ]
   },
   {
@@ -39,14 +41,15 @@ const chapters = [
     title: "Cómo empezar",
     icon: Zap,
     color: "from-amber-500 to-orange-500",
-    content: `El despliegue de System Kyron está diseñado para ser fluido e intuitivo. Al iniciar, el sistema le guiará a través de una configuración inicial donde definirá el perfil de su organización o identidad personal. Un asistente de configuración mapea automáticamente sus necesidades según el sector económico, asegurando que los módulos de facturación, contabilidad y recursos humanos se activen con los parámetros legales correspondientes a su jurisdicción. El sistema ofrece un tutorial de bienvenida interactivo y tutoriales específicos por módulo para facilitar la adopción.`,
+    content: `Para comenzar a usar System Kyron, accede a la URL de la plataforma desde tu navegador. Al cargar la pagina por primera vez, el asistente de configuracion inicial te guiara para registrar los datos de tu organizacion. Completa cada paso del asistente en orden: primero los datos fiscales, luego la seleccion de modulos y finalmente la configuracion de usuarios. Una vez finalizada la configuracion, el sistema te redirigira al panel principal con los modulos activados. Si encuentras alguna duda durante el proceso, usa el tutorial interactivo disponible en la esquina inferior derecha de la pantalla. Desde el panel principal puedes acceder a todos los modulos mediante el menu lateral izquierdo.`,
     details: [
-      "Registro de RIF, Razón Social y datos de contacto oficiales.",
-      "Activación bajo demanda de las 10+ secciones principales.",
-      "Guía asistida por Asistencia Técnica Directa (algoritmos de procesamiento avanzado) para la carga inicial de datos.",
-      "Soporte bilingüe completo (Español e Inglés) con next-intl.",
-      "Tutorial de bienvenida interactivo y tutoriales por módulo.",
-      "Guía de registro paso a paso disponible en /guia-registro."
+      "Ingresa a la plataforma desde el enlace proporcionado por el administrador del sistema.",
+      "Registra el RIF y la razon social de tu empresa en el formulario de configuracion inicial.",
+      "Selecciona los modulos que deseas activar desde el panel de seleccion de servicios disponibles.",
+      "Configura los usuarios administradores asignando roles y permisos de acceso especificos.",
+      "Completa el tutorial de bienvenida para familiarizarte con la interfaz principal del sistema.",
+      "Revisa los tutoriales especificos de cada modulo desde el centro de ayuda integrado.",
+      "Accede a la guia de registro paso a paso desde la ruta /guia-registro del sistema."
     ]
   },
   {
@@ -54,15 +57,15 @@ const chapters = [
     title: "Protegiendo tu cuenta",
     icon: ShieldCheck,
     color: "from-emerald-500 to-green-500",
-    content: `La seguridad en System Kyron es la base de la arquitectura. El sistema implementa cifrado AES-256 con autenticación de dos factores (2FA). Para proteger sus activos digitales, la validación 2FA es obligatoria: cada acceso sensible requiere confirmación desde su dispositivo vinculado, garantizando que solo el titular pueda acceder a la plataforma. Los tokens JWT se manejan como cookies HTTP-only para máxima seguridad. Se aplican cabeceras CSP, HSTS, X-Frame-Options, Permissions-Policy, rate limiting con bloqueo por fuerza bruta, validación de complejidad de contraseña y sanitización de entradas.`,
+    content: `La seccion de Seguridad te permite configurar la proteccion de tu cuenta y controlar el acceso a la plataforma. Desde esta pagina puedes activar la autenticacion de dos factores, revisar los dispositivos vinculados y gestionar tus credenciales de acceso. Para activar 2FA, ve a Configuracion > Seguridad > Autenticacion y selecciona el metodo de verificacion de tu preferencia. El sistema te solicitara un codigo de verificacion cada vez que inicies sesion desde un dispositivo no reconocido. Revisa periodicamente el registro de actividad de tu cuenta desde el modulo de Auditoria. Manten tus credenciales actualizadas y notifica al administrador si sospechas de accesos no autorizados.`,
     details: [
-      "Cifrado AES-256 de grado bancario en toda la plataforma.",
-      "Autenticación 2FA vía email, SMS o WhatsApp.",
-      "Alertas instantáneas ante intentos de acceso no autorizados.",
-      "Auditoría inmutable de cada operación con SHA-256.",
-      "Rate limiting inteligente con bloqueo tras intentos fallidos.",
-      "Cabeceras de seguridad: CSP, HSTS, X-Content-Type-Options.",
-      "Magic links para verificación de acceso sin contraseña."
+      "Ve a Configuracion > Seguridad y selecciona la opcion de Autenticacion de Dos Factores.",
+      "Elige el metodo de 2FA entre las opciones disponibles: email, SMS o WhatsApp.",
+      "Configura tu dispositivo vinculado siguiendo las instrucciones que muestra el sistema.",
+      "Revisa la lista de dispositivos autorizados y elimina aquellos que no reconozcas.",
+      "Cambia tu contrasena desde la seccion de credenciales cada 90 dias como practica recomendada.",
+      "Activa las alertas de seguridad para recibir notificaciones de intentos de acceso sospechosos.",
+      "Consulta el registro de actividad de tu cuenta desde el modulo de Auditoria del sistema."
     ]
   },
   {
@@ -70,14 +73,15 @@ const chapters = [
     title: "Dashboard Empresarial",
     icon: LayoutDashboard,
     color: "from-violet-500 to-purple-500",
-    content: `El portal central de System Kyron es un espejo de la salud de su negocio. El Dashboard Empresarial muestra KPIs (Indicadores Clave de Desempeño) en tiempo real, incluyendo ingresos, gastos, utilidad neta, cuentas por cobrar y pagar, análisis de nómina y movimientos recientes. El sistema de visualización multimoneda permite cambiar entre Bolívares (Bs.), Dólares (USD) y Euros (EUR) con un solo clic, convirtiendo automáticamente todos los valores mostrados según las tasas de cambio. La interfaz utiliza el diseño HUD Titanium con animaciones fluidas y gráficos interactivos para reducir la carga cognitiva.`,
+    content: `El Dashboard Empresarial es la pantalla principal al iniciar sesion en System Kyron. Desde aqui puedes monitorear los indicadores clave de rendimiento de tu negocio en tiempo real. Para personalizar la vista, usa el selector de moneda en la esquina superior derecha para alternar entre Bolivares, Dolares y Euros. Los graficos interactivos muestran ingresos, gastos, utilidad neta y cuentas por cobrar y pagar. Cada tarjeta de KPI se actualiza automaticamente sin necesidad de recargar la pagina. Haz clic en cualquier indicador para ver su desglose detallado en una ventana emergente. Desde el menu de configuracion del dashboard puedes elegir que indicadores mostrar segun tu rol.`,
     details: [
-      "Resumen consolidado con KPIs financieros en tiempo real.",
-      "Selector de moneda: visualización en Bs., USD o EUR.",
-      "Gráficos de ingresos/gastos, cuentas por cobrar/pagar.",
-      "Personalización según rol (Gerente, Contador, Operador).",
-      "Datos actualizados sin necesidad de recarga manual.",
-      "Navegación rápida entre cuenta personal y corporativa."
+      "Al iniciar sesion, revisa el panel principal que muestra los KPIs financieros consolidados del dia.",
+      "Usa el selector de moneda en la esquina superior derecha para cambiar la moneda de visualizacion.",
+      "Haz clic en cualquier grafico para expandirlo y ver los datos con mayor nivel de detalle.",
+      "Revisa las tarjetas de cuentas por cobrar y pagar para identificar saldos pendientes de pago.",
+      "Personaliza los indicadores visibles desde el menu de configuracion del dashboard empresarial.",
+      "Accede a la navegacion entre cuenta personal y corporativa desde el menu superior del sistema.",
+      "Los datos se actualizan automaticamente sin necesidad de recarga manual de la pagina."
     ]
   },
   {
@@ -85,14 +89,14 @@ const chapters = [
     title: "Sistema Multimoneda",
     icon: DollarSign,
     color: "from-green-500 to-emerald-500",
-    content: `System Kyron incorpora un sistema de visualización multimoneda que permite ver todos los valores monetarios en Bolívares (VES), Dólares (USD) o Euros (EUR). El selector de moneda está disponible en todas las páginas financieras: centro de facturación, proformas, facturación a crédito, notas de débito, notas de crédito y el dashboard empresarial. Es importante destacar que este sistema es de referencia visual solamente: todos los montos se almacenan y procesan en bolívares (VES) para cumplir con la normativa SENIAT. Las tasas de cambio se muestran como referencia y las del BCV se actualizan automáticamente.`,
+    content: `El sistema multimoneda te permite visualizar los valores monetarios en la moneda de tu preferencia. Desde cualquier pagina financiera, localiza el selector de moneda en la esquina superior derecha de la pantalla. Haz clic en el selector para alternar entre Bolivares, Dolares y Euros segun tu necesidad de visualizacion. Ten en cuenta que este cambio es solo de referencia visual: todos los montos se almacenan y procesan en bolivares para cumplir con la normativa del SENIAT. Las tasas de cambio utilizadas para la conversion se actualizan automaticamente desde las tasas oficiales del BCV. En las notas de debito y credito, el selector aparece en formato compacto y cicla entre las monedas con cada clic.`,
     details: [
-      "Conversión instantánea entre VES, USD y EUR en pantalla.",
-      "Cumplimiento SENIAT: todos los datos fiscales en VES.",
-      "Selector completo (3 opciones visibles) en dashboards.",
-      "Selector compacto (clic para ciclar) en notas de débito/crédito.",
-      "Tasas BCV actualizadas automáticamente.",
-      "6 páginas financieras con soporte multimoneda integrado."
+      "Ubica el selector de moneda en la esquina superior derecha de cualquier pagina financiera.",
+      "Haz clic en el selector para cambiar entre las opciones de visualizacion: Bs, USD o EUR.",
+      "Verifica que los montos en pantalla se actualicen instantaneamente al cambiar de moneda.",
+      "Recuerda que todos los datos fiscales se almacenan en bolivares segun normativa SENIAT.",
+      "En notas de debito y credito, haz clic repetidamente en el selector compacto para ciclar monedas.",
+      "Las tasas de cambio del BCV se actualizan automaticamente sin intervencion del usuario."
     ]
   },
   {
@@ -100,15 +104,15 @@ const chapters = [
     title: "Contabilidad VEN-NIF",
     icon: Calculator,
     color: "from-sky-500 to-blue-500",
-    content: `El módulo contable se alinea estrictamente con las normas VEN-NIF y cuenta con 10 sub-módulos especializados. Procesa automáticamente los asientos diarios, integrando las ventas del TPV y los gastos registrados. Incluye gestión multimoneda con tasas oficiales del BCV y cálculo automático del Reajuste por Inflación Fiscal (RIPF) según índices INPC. Además ofrece análisis de caja, estructura de costos, análisis de rentabilidad, análisis de riesgo, análisis de ventas, libro de compra-venta, cuentas por cobrar y pagar, declaración de IVA, retenciones ISLR-ARC y trámites fiscales integrados.`,
+    content: `El modulo de Contabilidad VEN-NIF organiza la gestion financiera de tu empresa en 10 submodulos accesibles desde la barra lateral. Para registrar un asiento contable, ve a Contabilidad General y selecciona Libro Diario. Ingresa la fecha de la transaccion, el codigo de la cuenta contable y los montos en el debe y haber correspondientes. El sistema integra automaticamente las ventas del TPV y los gastos registrados en otros modulos. Para la declaracion de IVA, accede al submodulo de Impuestos y selecciona el periodo fiscal a declarar. Los libros de compra-venta se generan automaticamente con cada factura registrada en el sistema.`,
     details: [
-      "Adaptación total a los principios contables VEN-NIF.",
-      "Conversión síncrona en Bs., USD y EUR según tasa BCV.",
-      "Ajuste RIPF automatizado de activos no monetarios.",
-      "Balance de Situación y Estado de Resultados siempre listos.",
-      "10 sub-módulos: análisis de caja, costos, rentabilidad, riesgo, ventas.",
-      "Libros de compra-venta, declaración IVA, ISLR-ARC automáticos.",
-      "Cuentas por cobrar y pagar con alertas de vencimiento."
+      "Ve al modulo de Contabilidad desde el menu principal y selecciona el submodulo deseado.",
+      "Para registrar un asiento, abre Libro Diario desde Contabilidad General e ingresa los datos.",
+      "Selecciona la fecha de la transaccion usando el selector de fecha del formulario contable.",
+      "Ingresa el codigo de la cuenta contable o buscala en el catalogo de cuentas disponible.",
+      "Registra el monto en el debe y el haber y haz clic en Guardar para confirmar el asiento.",
+      "Para la declaracion de IVA, ve al submodulo de Impuestos y selecciona el periodo correspondiente.",
+      "Exporta los libros de compra-venta desde el submodulo de Reportes Contables."
     ]
   },
   {
@@ -116,15 +120,15 @@ const chapters = [
     title: "Facturación Homologada SENIAT",
     icon: FileText,
     color: "from-blue-500 to-indigo-500",
-    content: `El centro de facturación cumple con la Providencia SNAT/2011/0071 para facturación electrónica en Venezuela. Incluye facturación estándar, proformas comerciales, facturación a crédito con control de mora, notas de débito y notas de crédito. Cada documento fiscal incluye hash SHA-256 para garantizar inmutabilidad y cumplimiento ante auditorías. El sistema genera secuencias correlativas, control de números de máquina fiscal, y soporta cobro mixto Bs./Divisas con cálculo exacto de IGTF (3%). Todas las vistas financieras incluyen el selector multimoneda para referencia visual.`,
+    content: `El centro de facturacion te permite emitir documentos fiscales homologados segun la normativa del SENIAT. Desde el menu lateral, selecciona el tipo de documento que deseas crear: factura estandar, proforma, factura a credito, nota de debito o nota de credito. Completa los datos del cliente, los conceptos a facturar y los montos correspondientes en el formulario. El sistema genera automaticamente el numero correlativo, el hash SHA-256 de seguridad y el calculo del IGTF si aplica. Antes de emitir, revisa los datos fiscales del documento en la vista previa. Haz clic en Emitir para registrar el documento fiscal en el sistema y generar el PDF.`,
     details: [
-      "Facturación electrónica con hash SHA-256 inmutable.",
-      "Proformas comerciales con conversión a factura formal.",
-      "Facturación a crédito con alertas de mora y vencimiento.",
-      "Notas de débito y crédito con cálculos automáticos.",
-      "Cumplimiento Providencia 0071: correlativo, RIF, datos fiscales.",
-      "Selector multimoneda en todas las vistas de facturación.",
-      "Cobro mixto Bs./Divisas con IGTF automático."
+      "Ve al centro de facturacion desde el menu principal y selecciona el tipo de documento a emitir.",
+      "Completa los datos del cliente: RIF, razon social y direccion fiscal en el formulario.",
+      "Agrega los productos o servicios a facturar con sus cantidades, precios e impuestos.",
+      "Revisa el calculo automatico del IGTF si el pago incluye transaccion en divisas.",
+      "Verifica los datos fiscales en la vista previa antes de hacer clic en Emitir.",
+      "El sistema genera el PDF de la factura con el hash SHA-256 y el codigo QR de verificacion.",
+      "Para facturas a credito, configura los plazos de pago y las alertas de mora en el formulario."
     ]
   },
   {
@@ -132,15 +136,15 @@ const chapters = [
     title: "Impuestos & Pre-Alerta Core",
     icon: Landmark,
     color: "from-red-500 to-rose-500",
-    content: `El cumplimiento ante el SENIAT es de misión crítica. System Kyron incorpora un motor de Pre-Alerta que notifica con 15, 7 y 3 días de antelación sobre cada vencimiento fiscal. El sistema calcula automáticamente el IVA (16%), las retenciones de ISLR y el IGTF (3%) según el método de pago. El módulo de Alertas Fiscales Expandidas monitorea más de 30 obligaciones fiscales venezolanas. El módulo de Alertas Regulatorias vigila cambios legislativos desde Gacetas Oficiales y la Asamblea Nacional. Al automatizar estos procesos según la Providencia SNAT/2011/0071, se evitan multas por declaraciones extemporáneas.`,
+    content: `El modulo de Impuestos centraliza el cumplimiento de todas tus obligaciones fiscales ante el SENIAT. Desde la pagina principal del modulo, revisa el calendario de vencimientos que muestra las fechas limites para cada declaracion. El sistema activa alertas de preaviso con 15, 7 y 3 dias de anticipacion para cada obligacion fiscal. Para generar la declaracion de IVA, selecciona el periodo fiscal y el sistema calculara automaticamente el monto a pagar basado en las facturas registradas. Para exportar los libros de compra-venta, haz clic en Exportar y selecciona el formato de archivo compatible con el portal fiscal del SENIAT. Las retenciones de ISLR y ARC se calculan automaticamente segun las transacciones registradas.`,
     details: [
-      "Generación automática de libros de Compra y Venta.",
-      "Cálculo instantáneo del IGTF (3%) en transacciones de divisas.",
-      "Notificaciones proactivas para cumplimiento a tiempo.",
-      "Exportación de archivos .txt para el portal fiscal del SENIAT.",
-      "Monitoreo de 30+ obligaciones fiscales venezolanas.",
-      "Alertas regulatorias desde Gacetas Oficiales y Asamblea Nacional.",
-      "Pre-alerta con 15, 7 y 3 días antes de vencimientos."
+      "Accede al modulo de Impuestos desde el menu principal y revisa el calendario de vencimientos.",
+      "Configura las alertas de preaviso desde la seccion de Pre-Alerta Core del modulo.",
+      "Selecciona el periodo fiscal para la declaracion de IVA y revisa los calculos automaticos.",
+      "Exporta los libros de compra y venta en formato .txt para el portal del SENIAT.",
+      "Verifica el calculo del IGTF en las transacciones que incluyan pago en divisas.",
+      "Revisa las retenciones de ISLR y ARC generadas automaticamente en cada periodo.",
+      "Consulta el modulo de Alertas Regulatorias para conocer cambios en la legislacion fiscal."
     ]
   },
   {
@@ -148,15 +152,15 @@ const chapters = [
     title: "Punto de Venta & Inventario",
     icon: ShoppingCart,
     color: "from-orange-500 to-amber-500",
-    content: `El módulo de facturación integra un Punto de Venta (TPV) de alta velocidad con control de horario laboral. Si un operador intenta procesar una venta fuera de su turno, el sistema requiere autorización gerencial. El control de inventario se actualiza en tiempo real con cada transacción, alertando sobre stock bajo y permitiendo transferencias entre sucursales. Junto con la homologación de equipos fiscales y 26+ pasarelas de pago (incluyendo 29 bancos venezolanos), asegura control total sobre inventario e ingresos.`,
+    content: `El modulo de Punto de Venta te permite procesar transacciones de venta en tiempo real desde la interfaz del sistema. Para iniciar una venta, ve al modulo TPV y selecciona los productos que el cliente desea comprar. El sistema valida el horario laboral del operador y bloquea la transaccion si esta fuera del turno asignado, requiriendo autorizacion gerencial. El inventario se actualiza automaticamente con cada venta procesada. Para pagos mixtos, selecciona el metodo de pago y el sistema calculara el IGTF correspondiente. Al finalizar la jornada, realiza el arqueo de caja desde el submodulo de Control de Caja.`,
     details: [
-      "Bloqueo automático del TPV fuera del horario laboral.",
-      "Cobro mixto (Bs./Divisas) con cálculo exacto de IGTF.",
-      "Actualización de inventario en tiempo real con cada transacción.",
-      "Registro de excepciones supervisadas por gerencia.",
-      "26+ pasarelas de pago y 29 bancos venezolanos.",
-      "Alertas de stock bajo y gestión de reposición.",
-      "Control de caja con arqueos detallados."
+      "Ve al modulo TPV desde el menu principal para iniciar el registro de una nueva venta.",
+      "Selecciona o escanea los productos que el cliente desea comprar en el catalogo del sistema.",
+      "Verifica el horario laboral: si estas fuera de tu turno, solicita autorizacion a gerencia.",
+      "Selecciona el metodo de pago: efectivo, punto de venta, pago movil o transferencia.",
+      "Para pagos mixtos, ingresa el monto en divisas y el sistema calcula el IGTF automaticamente.",
+      "Confirma la venta y entrega el comprobante al cliente, ya sea impreso o digital.",
+      "Al cierre del dia, realiza el arqueo de caja desde el submodulo de Control de Caja."
     ]
   },
   {
@@ -164,16 +168,15 @@ const chapters = [
     title: "Recursos Humanos & Nómina",
     icon: Users,
     color: "from-teal-500 to-cyan-500",
-    content: `La gestión del talento garantiza el respeto total a la LOTTT. El módulo de RRHH es uno de los más completos del ecosistema, con sub-módulos para: nómina con cálculos automáticos, prestaciones sociales, desarrollo personal, bienestar laboral, clima organizacional, salud y seguridad, reclutamiento, libros laborales, proyectos del personal y manuales de procedimientos RRHH. Calcula nóminas, vacaciones, utilidades y prestaciones sociales de forma transparente. Incluye la entrega de recibos de pago firmados digitalmente a través de WhatsApp, con plena validez legal.`,
+    content: `El modulo de Recursos Humanos y Nomina gestiona todo el ciclo de vida del talento humano en tu empresa. Desde el panel principal del modulo, accede a los submodulos disponibles en la barra lateral. Para procesar la nomina, selecciona el periodo de pago y el sistema calculara automaticamente los aportes del IVSS, FAOV, LPH e INCES. Las prestaciones sociales se calculan segun la LOTTT considerando el tiempo de servicio y el salario del trabajador. Para la entrega de recibos de pago, ve al submodulo de Nomina, selecciona el trabajador y haz clic en Enviar para que el recibo llegue firmado digitalmente via WhatsApp.`,
     details: [
-      "Cálculo automático de IVSS, FAOV, LPH e INCES.",
-      "Recibos de pago por WhatsApp con validez legal.",
-      "Prestaciones sociales con cálculo LOTTT automatizado.",
-      "Módulo de desarrollo personal y plan de carrera.",
-      "Bienestar laboral: encuestas de clima organizacional.",
-      "Reclutamiento: publicación de vacantes y selección.",
-      "Salud y seguridad ocupacional con registros LOPCYMAT.",
-      "Libros laborales y manuales de procedimientos RRHH."
+      "Accede al modulo de RRHH desde el menu principal y selecciona el submodulo requerido.",
+      "Para procesar nomina, ve a Nomina > Procesar y selecciona el periodo de pago correspondiente.",
+      "Revisa los calculos automaticos de IVSS, FAOV, LPH e INCES antes de confirmar la nomina.",
+      "Para calcular prestaciones sociales, ve al submodulo de Prestaciones y selecciona el trabajador.",
+      "Genera los recibos de pago desde Nomina > Recibos y haz clic en Enviar por WhatsApp.",
+      "Publica vacantes desde el submodulo de Reclutamiento y gestiona las postulaciones recibidas.",
+      "Registra las evaluaciones de desempeno desde el submodulo de Desarrollo Personal."
     ]
   },
   {
@@ -181,16 +184,15 @@ const chapters = [
     title: "Asesoría Legal con Asistencia Técnica Directa",
     icon: Gavel,
     color: "from-indigo-500 to-violet-500",
-    content: `El módulo jurídico actúa como un Oficial de Cumplimiento virtual. Asistencia Técnica Directa — algoritmos de procesamiento avanzado — está entrenado en legislación venezolana para redactar borradores de contratos, acuerdos de confidencialidad y actas de asamblea. El Escritorio Jurídico centraliza la gestión de todos los documentos legales. El módulo de Permisología gestiona permisos, licencias y certificaciones ante SENIAT, SAREN, SAPI y otras instituciones. Monitorea registros y emite alertas sobre vencimiento de poderes o necesidad de renovar marcas comerciales.`,
+    content: `El modulo de Asesoria Legal te permite gestionar documentos juridicos y dar seguimiento a los casos legales de tu empresa. Para redactar un contrato, ve al submodulo de Documentos Legales y selecciona la plantilla que deseas usar. El asistente Asistencia Tecnica Directa te guiara en la elaboracion del borrador segun la legislacion venezolana. Para gestionar permisos y licencias, accede al submodulo de Permisologia y selecciona la institucion correspondiente: SENIAT, SAREN o SAPI. El sistema monitorea las fechas de vencimiento de poderes y registros mercantiles y envia alertas automaticas antes de la caducidad. Desde el Escritorio Juridico puedes centralizar todos los documentos legales de tu empresa.`,
     details: [
-      "Generación automática de documentos legales por Asistencia Técnica Directa.",
-      "Escritorio Jurídico: gestión centralizada de casos legales.",
-      "Gestión de contratos con seguimiento de vigencia.",
-      "Permisología: licencias, permisos y certificaciones.",
-      "Avisos preventivos antes de la caducidad de poderes.",
-      "Control de registros de marca y patentes (SAPI).",
-      "Organización de documentos públicos y notariales (SAREN).",
-      "Generación de actas de asamblea con formato legal."
+      "Ve al modulo Legal desde el menu principal y selecciona Documentos Legales para crear un contrato.",
+      "Elige la plantilla juridica que deseas usar: contrato, acuerdo de confidencialidad o acta de asamblea.",
+      "Completa los datos solicitados por el asistente y revisa el borrador generado automaticamente.",
+      "Para gestionar permisos, ve a Permisologia y selecciona la institucion y el tipo de tramite.",
+      "Configura las alertas de vencimiento de poderes desde la seccion de Control de Vigencia.",
+      "Organiza los documentos publicos y notariales en el Escritorio Juridico del modulo.",
+      "Revisa periodicamente el estado de los registros de marca y patentes en SAPI."
     ]
   },
   {
@@ -198,16 +200,15 @@ const chapters = [
     title: "Telecomunicaciones 5G/eSIM",
     icon: Radio,
     color: "from-cyan-500 to-sky-500",
-    content: `System Kyron opera como un centro de telecomunicaciones bajo normativas de CONATEL. Permite la activación inmediata de líneas móviles mediante eSIM (chips digitales), eliminando la logística física. Las empresas pueden gestionar flotas de datos 5G con priorización de red (Network Slicing). El módulo incluye: gestión de líneas individuales (Mi Línea), consumo 5G, flotas empresariales, facturación corporativa de telecom, recargas, homologación IMEI, venta de líneas, reportes de flota y límites corporativos para control de gastos.`,
+    content: `El modulo de Telecomunicaciones te permite gestionar lineas moviles y planes corporativos desde la plataforma. Para activar una nueva linea eSIM, ve a Telecomunicaciones > Activacion eSIM y selecciona la cantidad de lineas a activar. El sistema genera un codigo QR que puedes escanear con el dispositivo movil para completar la activacion. Para gestionar flotas empresariales, accede al submodulo de Flotas y registra los limites de consumo por usuario. Desde el panel de Facturacion Corporativa puedes revisar el consumo de cada linea y generar las facturas correspondientes. Los reportes de consumo estan disponibles en el submodulo de Reportes de Flota para su descarga en PDF o Excel.`,
     details: [
-      "Activación eSIM en minutos mediante código QR.",
-      "Cumplimiento con los estándares de CONATEL.",
-      "Gestión centralizada de consumo para planes corporativos.",
-      "Flotas empresariales con límites y alertas de consumo.",
-      "Facturación corporativa de telecomunicaciones.",
-      "Homologación de equipos IMEI.",
-      "Reportes detallados de consumo por flota y usuario.",
-      "Venta de líneas con activación inmediata."
+      "Ve al modulo de Telecomunicaciones y selecciona Activacion eSIM para crear nuevas lineas.",
+      "Ingresa la cantidad de lineas a activar y el plan corporativo asignado a cada una.",
+      "Escanea el codigo QR generado por el sistema desde el dispositivo movil del usuario.",
+      "Para gestionar flotas, ve a Flotas Empresariales y configura los limites de consumo por linea.",
+      "Revisa el consumo de cada linea desde el panel de Facturacion Corporativa de Telecom.",
+      "Genera reportes de flota desde el submodulo de Reportes para exportar a PDF o Excel.",
+      "Para homologar equipos IMEI, ve a Homologacion e ingresa el codigo IMEI del dispositivo."
     ]
   },
   {
@@ -215,15 +216,15 @@ const chapters = [
     title: "Informática & IT",
     icon: Cpu,
     color: "from-slate-500 to-zinc-500",
-    content: `El módulo de Informática e IT proporciona herramientas completas para la gestión tecnológica de la empresa. Incluye un Dashboard IT con métricas en tiempo real, gestión de infraestructura de servidores y servicios, sistema de Helpdesk para soporte interno, gestión de licencias de software, seguridad informática con monitoreo de vulnerabilidades, y sistema de respaldos automatizados. Permite a las empresas mantener control total sobre su infraestructura tecnológica, garantizando la continuidad operativa.`,
+    content: `El modulo de Informatica e IT te proporciona las herramientas para gestionar la infraestructura tecnologica de tu empresa. Desde el Dashboard IT puedes monitorear las metricas de servidores, redes y servicios en tiempo real. Para registrar un ticket de soporte, ve al submodulo de Helpdesk, completa el formulario con la descripcion del problema y selecciona la prioridad correspondiente. El modulo de Gestion de Licencias te permite llevar el control de las licencias de software activas y te alerta antes de su vencimiento. Para configurar respaldos automatizados, ve a Respaldo > Programar y selecciona la frecuencia y los datos a respaldar. El inventario de equipos se actualiza desde el submodulo de Activos Tecnologicos.`,
     details: [
-      "Dashboard IT con métricas de infraestructura en tiempo real.",
-      "Sistema de Helpdesk para gestión de tickets de soporte.",
-      "Gestión de licencias de software con alertas de renovación.",
-      "Monitoreo de seguridad informática y vulnerabilidades.",
-      "Sistema de respaldos automatizados con programación.",
-      "Gestión de infraestructura: servidores, redes y servicios.",
-      "Inventario de equipos y activos tecnológicos."
+      "Accede al modulo de Informatica desde el menu principal y revisa el Dashboard IT.",
+      "Para crear un ticket de soporte, ve a Helpdesk y completa el formulario con los detalles.",
+      "Selecciona la prioridad del ticket: baja, media, alta o critica segun la urgencia.",
+      "Revisa las licencias de software activas desde el submodulo de Gestion de Licencias.",
+      "Programa respaldos automatizados desde Respaldo > Programar con frecuencia diaria o semanal.",
+      "Actualiza el inventario de equipos desde el submodulo de Activos Tecnologicos.",
+      "Monitorea las vulnerabilidades de seguridad desde el panel de Seguridad Informatica."
     ]
   },
   {
@@ -231,16 +232,15 @@ const chapters = [
     title: "Cuenta Personal del Ciudadano",
     icon: FolderOpen,
     color: "from-blue-500 to-indigo-500",
-    content: `El portal de Cuenta Personal está diseñado para el ciudadano venezolano. Incluye: perfil personal con datos civiles, dashboard de actividades, gestión de documentos (cédula, pasaporte, títulos), partidas de nacimiento, actas de matrimonio, documentos judiciales, antecedentes penales, registro de RIF personal, directorio médico, cálculo de manutención LOPNNA, carnet personal digital, tarjeta digital de identificación, tarjeta de reciclaje Ameru, notificaciones personales y módulo de seguridad de la cuenta.`,
+    content: `La Cuenta Personal del Ciudadano te permite gestionar tus documentos de identidad y datos personales desde un solo lugar. Para acceder, inicia sesion con tu usuario y contrasena personal y selecciona Cuenta Personal desde el menu principal. Desde el perfil personal puedes actualizar tus datos civiles, cargar documentos como la cedula o el pasaporte y gestionar tus partidas de nacimiento. Para solicitar un documento, ve al submodulo correspondiente, completa el formulario y adjunta los archivos requeridos. El sistema te notificara cuando el documento este disponible para su descarga. El modulo de Seguridad de la Cuenta te permite revisar la actividad reciente y gestionar tus dispositivos vinculados.`,
     details: [
-      "Bóveda digital de documentos de identidad y propiedad.",
-      "Partidas de nacimiento y actas de matrimonio digitalizadas.",
-      "Antecedentes penales y documentos judiciales.",
-      "Cálculo LOPNNA de pensión alimenticia con ajuste inflacionario.",
-      "Registro de RIF personal desde la plataforma.",
-      "Directorio médico con búsqueda de profesionales.",
-      "Carnet personal y tarjeta digital de identificación.",
-      "Tarjeta de reciclaje Ameru para Eco-Créditos."
+      "Inicia sesion y selecciona Cuenta Personal desde el menu principal del sistema.",
+      "Actualiza tus datos civiles desde la seccion de Perfil Personal del modulo.",
+      "Carga tus documentos de identidad en la boveda digital desde Documentos > Identidad.",
+      "Solicita partidas de nacimiento o actas de matrimonio desde el submodulo correspondiente.",
+      "Consulta tus antecedentes penales desde Documentos Judiciales en el modulo.",
+      "Para calcular la pension alimenticia, ve a Calculo LOPNNA e ingresa los datos requeridos.",
+      "Accede a tu carnet personal digital desde la seccion de identificacion del modulo."
     ]
   },
   {
@@ -248,14 +248,15 @@ const chapters = [
     title: "Portal de Socios & Directivos",
     icon: Briefcase,
     color: "from-amber-500 to-yellow-500",
-    content: `El portal de Socios y Directivos ofrece una vista ejecutiva consolidada de toda la operación empresarial. Diseñado para la alta gerencia, permite acceder a KPIs estratégicos, análisis de rendimiento global, reportes consolidados multi-sede y toma de decisiones basada en datos. Desde este portal los directivos pueden supervisar todas las áreas de la empresa sin acceder a la operación diaria, manteniendo el control estratégico con información actualizada en tiempo real.`,
+    content: `El Portal de Socios y Directivos ofrece una vista consolidada de la operacion empresarial para la alta gerencia. Para acceder, inicia sesion con tu cuenta de socio o directivo y selecciona Portal de Socios desde el menu principal. El dashboard ejecutivo muestra los KPIs estrategicos de todas las sedes de tu empresa en una sola pantalla. Desde aqui puedes revisar reportes consolidados, analisis de rendimiento global y proyecciones empresariales sin acceder a la operacion diaria. Para generar un reporte para la junta directiva, selecciona el periodo y las metricas que deseas incluir y haz clic en Generar. Los reportes se exportan en PDF o Excel para su presentacion.`,
     details: [
-      "Dashboard ejecutivo con KPIs estratégicos consolidados.",
-      "Vista global del rendimiento de todas las sedes.",
-      "Reportes de alto nivel para juntas directivas.",
-      "Control de acceso diferenciado para socios y directivos.",
-      "Análisis de tendencias y proyecciones empresariales.",
-      "Gestión de dividendos y participaciones societarias."
+      "Accede al Portal de Socios desde el menu principal con tu cuenta de directivo autorizado.",
+      "Revisa el dashboard ejecutivo que muestra los KPIs estrategicos consolidados del negocio.",
+      "Selecciona una sede especifica desde el filtro de sedes para ver sus indicadores detallados.",
+      "Para generar un reporte, ve a Reportes y selecciona el tipo de informe y el periodo.",
+      "Revisa las proyecciones empresariales desde el submodulo de Analisis de Tendencias.",
+      "Gestiona las participaciones societarias desde el submodulo de Dividendos y Socios.",
+      "Exporta los reportes en formato PDF o Excel para presentarlos en juntas directivas."
     ]
   },
   {
@@ -263,14 +264,15 @@ const chapters = [
     title: "Sostenibilidad & Eco-Créditos Ameru",
     icon: Recycle,
     color: "from-green-500 to-emerald-500",
-    content: `Este módulo introduce la economía circular al ecosistema mediante el programa Ameru. Mediante puntos de reciclaje con tecnología de inducción magnética, los usuarios transforman residuos en activos digitales. Asistencia Técnica Directa valida el pesaje y acredita Eco-Créditos en su cuenta. Estos créditos se intercambian en el Mercado de Eco-Créditos interno, permitiendo a las empresas comprar o vender bonos verdes. Los usuarios pueden consultar su tarjeta de reciclaje desde la cuenta personal.`,
+    content: `El modulo de Sostenibilidad y Eco-Creditos Ameru te permite participar en el programa de reciclaje y economia circular. Para comenzar, registra tu tarjeta de reciclaje Ameru desde tu Cuenta Personal. Cuando entregues materiales reciclables en un punto de reciclaje autorizado, el sistema validara el peso y tipo de material mediante tecnologia de induccion magnetica. Los Eco-Creditos obtenidos se acreditan automaticamente en tu cuenta y puedes consultar tu saldo desde el modulo de Sostenibilidad. Para intercambiar creditos, ve al Mercado de Eco-Creditos donde puedes comprar o vender bonos verdes con otros usuarios del ecosistema. Los creditos acumulados son canjeables por servicios dentro de la plataforma Kyron.`,
     details: [
-      "Clasificación precisa de metales y plásticos por el sistema.",
-      "Exchange de activos ambientales certificados.",
-      "Acumulación de puntos canjeables por servicios Kyron.",
-      "Reportes de impacto ambiental para balance social (CO₂).",
-      "Tarjeta de reciclaje Ameru integrada en cuenta personal.",
-      "Mercado de Eco-Créditos para bonos verdes empresariales."
+      "Registra tu tarjeta de reciclaje Ameru desde tu Cuenta Personal en el sistema.",
+      "Lleva los materiales reciclables a un punto de reciclaje autorizado con tecnologia de induccion.",
+      "El sistema valida automaticamente el peso y clasifica el tipo de material reciclado.",
+      "Revisa tu saldo de Eco-Creditos desde el modulo de Sostenibilidad en el menu principal.",
+      "Ve al Mercado de Eco-Creditos para comprar o vender bonos verdes con otros usuarios.",
+      "Canjea tus creditos acumulados por servicios disponibles en la plataforma Kyron.",
+      "Consulta tus reportes de impacto ambiental desde la seccion de Reportes del modulo."
     ]
   },
   {
@@ -278,14 +280,15 @@ const chapters = [
     title: "Fidelización & Marketing",
     icon: Megaphone,
     color: "from-pink-500 to-rose-500",
-    content: `El módulo de Fidelización de Clientes permite crear programas de lealtad, gestionar puntos de recompensa y diseñar campañas de retención. Junto con el módulo de Estrategias de Ventas y el Análisis de Mercado, ofrece herramientas completas para el crecimiento comercial. Incluye modelos de factura personalizables, análisis de ventas con tendencias, estructura de costos detallada y análisis de rentabilidad por producto o servicio.`,
+    content: `El modulo de Fidelizacion y Marketing te permite disenar programas de lealtad para tus clientes y analizar el rendimiento de tus estrategias comerciales. Para crear un programa de puntos, ve a Fidelizacion > Nuevo Programa y configura las reglas de acumulacion y canje. Para analizar las ventas de tu negocio, accede al submodulo de Analisis de Ventas donde encontraras graficos de tendencias por producto, periodo y cliente. El Analisis de Rentabilidad te muestra el margen de cada producto o servicio para identificar los mas rentables. Para disenar campanas de marketing dirigidas, ve a Campanas y segmenta tus clientes segun su historial de compras. Los modelos de factura personalizables permiten adaptar el diseno de las facturas a la identidad visual de tu marca.`,
     details: [
-      "Programas de fidelización con puntos de recompensa.",
-      "Estrategias de ventas con análisis de conversión.",
-      "Análisis de mercado y competencia.",
-      "Modelos de factura personalizables por marca.",
-      "Análisis de rentabilidad por producto/servicio.",
-      "Segmentación de clientes y campañas dirigidas."
+      "Ve a Fidelizacion > Nuevo Programa para crear un programa de puntos de recompensa.",
+      "Configura las reglas de acumulacion: puntos por monto de compra o por frecuencia de visita.",
+      "Define las recompensas canjeables y los puntos necesarios para cada una.",
+      "Para analizar ventas, ve a Analisis de Ventas y selecciona el periodo de consulta.",
+      "Revisa la rentabilidad por producto desde el submodulo de Estructura de Costos.",
+      "Crea campanas de marketing desde Campanas y selecciona el segmento de clientes objetivo.",
+      "Personaliza el diseno de tus facturas desde Modelos de Factura en el modulo."
     ]
   },
   {
@@ -293,15 +296,15 @@ const chapters = [
     title: "Billetera Digital & Pasarelas",
     icon: Wallet,
     color: "from-yellow-500 to-amber-500",
-    content: `La Billetera Digital es el centro financiero del ecosistema. Permite realizar pagos instantáneos entre usuarios de la plataforma sin comisiones. Los fondos pueden provenir de ventas, transferencias bancarias o del canje de Eco-Créditos. El módulo de pasarelas de pago soporta 26+ métodos de pago y 29 bancos venezolanos, incluyendo Pago Móvil, transferencias bancarias, Zelle, PayPal, Binance Pay, criptomonedas y más. El sistema calcula automáticamente el IGTF en pagos con divisas.`,
+    content: `La Billetera Digital es el centro financiero del ecosistema donde puedes gestionar tus fondos y realizar pagos. Para consultar tu saldo, ve a Billetera Digital desde el menu principal. Para realizar una transferencia a otro usuario del sistema, selecciona Transferir, ingresa el identificador del destinatario y el monto, y haz clic en Enviar. Las transferencias entre usuarios de la plataforma son inmediatas y sin comisiones. Para agregar fondos, selecciona la opcion de Recargar y elige el metodo de pago entre las mas de 26 pasarelas disponibles. El historial de transacciones muestra cada movimiento con su detalle completo y se puede exportar para conciliacion. Los fondos en la billetera estan protegidos bajo cifrado AES-256.`,
     details: [
-      "Transferencias P2P/B2B inmediatas dentro de la red.",
-      "Conversión de Eco-Créditos en saldo utilizable.",
-      "26+ pasarelas de pago integradas.",
-      "29 bancos venezolanos para Pago Móvil y transferencias.",
-      "Protección de fondos bajo cifrado AES-256.",
-      "Historial sellado e inmutable de cada transacción.",
-      "Cálculo automático de IGTF en pagos con divisas."
+      "Accede a la Billetera Digital desde el menu principal para consultar tu saldo disponible.",
+      "Para transferir fondos, selecciona Transferir e ingresa el ID del destinatario y el monto.",
+      "Selecciona Confirmar para ejecutar la transferencia, que es inmediata entre usuarios del sistema.",
+      "Para recargar saldo, selecciona Recargar y elige la pasarela de pago de tu preferencia.",
+      "Revisa el historial de transacciones desde la seccion de Movimientos del modulo.",
+      "Exporta el historial desde el boton Exportar para conciliacion o auditoria.",
+      "El IGTF se calcula automaticamente si la transaccion incluye pago en divisas."
     ]
   },
   {
@@ -309,15 +312,15 @@ const chapters = [
     title: "Auditoría, Blockchain & Automatizaciones",
     icon: Activity,
     color: "from-rose-500 to-red-500",
-    content: `Para garantizar el 'Cero Riesgo Fiscal', System Kyron cuenta con un Supervisor Asistencia Técnica Directa que audita transacciones las 24 horas. Detecta inconsistencias antes de que se conviertan en multas. La auditoría incluye sellado criptográfico SHA-256 y anclaje blockchain mediante raíz de Merkle en redes Polygon, Ethereum y BSC para registros inmutables. El Motor de Automatización ejecuta reglas programadas como sincronización BCV, anclaje blockchain por lotes, alertas fiscales y más, con dashboard de ejecución en tiempo real.`,
+    content: `El modulo de Auditoria, Blockchain y Automatizaciones garantiza la transparencia e inmutabilidad de todas las operaciones del sistema. Desde el panel de Auditoria puedes revisar el registro detallado de cada transaccion con su hash SHA-256 correspondiente. Para verificar la integridad de un documento, copia su hash y utiliza el verificador en linea desde el submodulo de Blockchain. El Motor de Automatizacion te permite programar tareas recurrentes como la sincronizacion de tasas BCV o el anclaje blockchain por lotes. Para crear una nueva automatizacion, ve a Automatizaciones > Nueva Regla, define la condicion de disparo y la accion a ejecutar. El dashboard de ejecucion muestra el estado de cada automatizacion en tiempo real.`,
     details: [
-      "Detección temprana de errores en base imponible o IGTF.",
-      "Sellado SHA-256 inmutable en cada operación fiscal.",
-      "Anclaje blockchain en Polygon, Ethereum y BSC.",
-      "Motor de automatización con reglas programadas.",
-      "Sincronización automática de tasas BCV.",
-      "Score de cumplimiento fiscal para su empresa.",
-      "Dashboard de automatizaciones con logs de ejecución."
+      "Ve al modulo de Auditoria y selecciona el registro de transacciones para revisar operaciones.",
+      "Usa el hash SHA-256 de cada transaccion para verificar su integridad desde el verificador.",
+      "Para anclar registros en blockchain, ve a Blockchain y selecciona los lotes a procesar.",
+      "Programa automatizaciones desde Automatizaciones > Nueva Regla con condicion y accion.",
+      "Configura la sincronizacion automatica de tasas BCV desde las reglas de automatizacion.",
+      "Revisa el dashboard de automatizaciones para monitorear el estado de cada tarea programada.",
+      "Consulta el score de cumplimiento fiscal desde el panel principal del modulo."
     ]
   },
   {
@@ -325,15 +328,15 @@ const chapters = [
     title: "Reportes & Analítica Avanzada",
     icon: ChartColumn,
     color: "from-pink-500 to-rose-500",
-    content: `System Kyron transforma los datos en decisiones. El generador de reportes extrae información analítica de cualquier módulo del sistema. Desde reportes de ventas por hora hasta análisis de rentabilidad por producto. Incluye resumen de negocio ejecutivo, análisis de riesgo financiero, proyecciones algorítmicas y documentos listos para auditorías del SENIAT. Todos los reportes son exportables en PDF y Excel, diseñados para juntas directivas o entes gubernamentales con total transparencia.`,
+    content: `El modulo de Reportes y Analitica Avanzada te permite generar informes personalizados con datos de cualquier modulo del sistema. Para crear un reporte, ve a Reportes > Nuevo Reporte y selecciona el origen de datos entre los modulos disponibles. Elige el tipo de grafico o tabla para visualizar la informacion y selecciona los campos a incluir. Puedes filtrar los datos por rango de fechas, sedes o cualquier otro criterio disponible. Una vez configurado el reporte, haz clic en Generar para previsualizar los resultados. Para exportar, selecciona el formato deseado entre PDF y Excel y haz clic en Descargar. Los reportes generados quedan guardados en el historial para consultas futuras.`,
     details: [
-      "Resúmenes ejecutivos para socios y directores.",
-      "Proyecciones de ventas y tendencias por Asistencia Técnica Directa.",
-      "Documentos listos para auditorías del SENIAT.",
-      "Exportación a PDF y Excel (ExcelJS) en un clic.",
-      "Análisis de riesgo financiero y alertas.",
-      "Resumen de negocio con indicadores consolidados.",
-      "Registro completo e inmutable de cada operación."
+      "Ve a Reportes > Nuevo Reporte y selecciona el modulo de origen de los datos.",
+      "Elige el tipo de visualizacion: tabla, grafico de barras, lineal o circular.",
+      "Selecciona los campos a incluir y aplica los filtros de fecha, sede o categoria.",
+      "Haz clic en Generar para previsualizar el reporte con los datos actuales del sistema.",
+      "Revisa los resultados y ajusta los parametros si es necesario antes de exportar.",
+      "Selecciona el formato de exportacion: PDF para presentaciones o Excel para analisis.",
+      "Los reportes guardados estan disponibles en el Historial de Reportes del modulo."
     ]
   },
   {
@@ -341,14 +344,15 @@ const chapters = [
     title: "Asistencia Técnica Directa — Asistencia Especializada",
     icon: BrainCircuit,
     color: "from-violet-500 to-fuchsia-500",
-    content: `Asistencia Técnica Directa es el asistente inteligente del ecosistema, algoritmos de procesamiento avanzado. Ofrece 10+ identidades contextuales que se adaptan automáticamente según la sección donde se encuentre el usuario: Contador Kyron en contabilidad, Abogado Kyron en el módulo legal, Ingeniero Kyron en IT, Telecom Kyron en telecomunicaciones, y más. El chat es accesible desde cualquier página del sistema y puede responder preguntas, generar documentos, analizar datos y asistir en la toma de decisiones.`,
+    content: `Asistencia Tecnica Directa es el asistente inteligente accesible desde cualquier pagina del sistema. Para abrir el chat, haz clic en el icono de asistencia en la esquina inferior derecha de la pantalla. El asistente detecta automaticamente el modulo en el que te encuentras y activa la identidad contextual correspondiente: Contador Kyron en contabilidad, Abogado Kyron en el modulo legal, Ingeniero Kyron en IT, entre otras. Escribe tu consulta en el campo de texto y presiona Enter para enviar. El asistente puede generar documentos, analizar datos, responder preguntas sobre el sistema y asistir en la toma de decisiones. Para documentos largos, el asistente te guiara paso a paso en su elaboracion.`,
     details: [
-      "10+ identidades contextuales según módulo activo.",
-      "Generación de documentos legales y contables.",
-      "Análisis fiscal predictivo y alertas proactivas.",
-      "Asistencia en la clasificación de residuos Ameru.",
-      "Centro de consultas accesible desde cualquier página del sistema.",
-      "Motor determinista de alta velocidad Kyron Engine v3.0."
+      "Haz clic en el icono de asistencia en la esquina inferior derecha para abrir el chat.",
+      "El asistente se adapta automaticamente al modulo activo donde te encuentres navegando.",
+      "Escribe tu consulta en el campo de texto y presiona Enter para recibir una respuesta.",
+      "Para generar un documento, solicitalo al asistente indicando el tipo y los datos requeridos.",
+      "Usa el asistente para analizar datos financieros o fiscales del modulo actual.",
+      "Si necesitas ayuda con un proceso, describe el problema y el asistente te guiara paso a paso.",
+      "El chat permanece disponible mientras navegas entre los diferentes modulos del sistema."
     ]
   },
   {
@@ -356,14 +360,15 @@ const chapters = [
     title: "Conexión Bancaria & Conciliación",
     icon: Landmark,
     color: "from-emerald-500 to-teal-500",
-    content: `System Kyron se integra con las principales instituciones financieras del país. La conexión permite conciliación bancaria automática, comparando registros contables con movimientos bancarios. Reduce el tiempo de oficina al automatizar el reconocimiento de pagos móviles, transferencias y cargos por servicios bancarios. Las tasas BCV se actualizan automáticamente para conversiones en tiempo real. El billetera-cambio permite operaciones de cambio de divisas dentro del ecosistema.`,
+    content: `El modulo de Conexion Bancaria y Conciliacion te permite conectar tus cuentas bancarias con el sistema para automatizar la conciliacion. Para configurar una nueva conexion, ve a Conexion Bancaria > Agregar Cuenta y selecciona tu banco de la lista de instituciones soportadas. Ingresa las credenciales de acceso a tu banca en linea siguiendo las instrucciones de seguridad del sistema. Una vez conectada la cuenta, el modulo de Conciliacion compara automaticamente los movimientos bancarios con los registros contables del sistema. Las discrepancias se marcan en rojo para que puedas revisarlas manualmente. Para aceptar una conciliacion, revisa las coincidencias y haz clic en Confirmar. Las tasas de cambio del BCV se actualizan diariamente para las conversiones automaticas.`,
     details: [
-      "Conciliación inteligente de transacciones bancarias.",
-      "Actualización diaria de tasas de cambio del BCV.",
-      "Cuadre entre bancos y efectivo en tiempo real.",
-      "Enlaces cifrados mediante protocolos de alta seguridad.",
-      "Billetera de cambio para operaciones de divisas.",
-      "Soporte para 29 bancos venezolanos."
+      "Ve a Conexion Bancaria > Agregar Cuenta y selecciona tu banco de la lista disponible.",
+      "Ingresa las credenciales de tu banca en linea en el formulario de conexion segura.",
+      "Una vez conectada, ve a Conciliacion para revisar los movimientos bancarios importados.",
+      "El sistema marca automaticamente las transacciones que coinciden con tus registros contables.",
+      "Revisa las discrepancias marcadas en rojo y ajusta los registros si es necesario.",
+      "Haz clic en Confirmar para aceptar la conciliacion de las transacciones verificadas.",
+      "Las tasas BCV se actualizan automaticamente cada dia habil para las conversiones."
     ]
   },
   {
@@ -371,14 +376,15 @@ const chapters = [
     title: "Múltiples Sedes & Franquicias",
     icon: Building2,
     color: "from-zinc-500 to-slate-500",
-    content: `Para las empresas en expansión, System Kyron ofrece gestión multi-sede. Controle inventarios, ventas y personal de diferentes sucursales desde una cuenta ejecutiva de Socios y Directivos. Consolide la operación global del negocio manteniendo la independencia administrativa de cada punto, ideal para franquicias o holdings que operan en distintos estados. El sistema de activos inmobiliarios permite registrar y gestionar las propiedades de la empresa.`,
+    content: `El modulo de Multiples Sedes y Franquicias te permite gestionar todas las sucursales de tu empresa desde una unica cuenta ejecutiva. Para agregar una nueva sede, ve a Sedes > Agregar Sede y completa los datos de la ubicacion, incluyendo direccion, datos fiscales y contacto del gerente. Desde el panel de control multi-sede puedes visualizar las metricas consolidadas de todas las sucursales en tiempo real. Para transferir inventario entre locales, ve a Inventario > Transferencias y selecciona el producto, el origen y el destino de la transferencia. Cada sede mantiene su independencia administrativa mientras los reportes se consolidan a nivel corporativo. Los permisos de acceso se configuran por sede para que cada gerente acceda solo a su sucursal.`,
     details: [
-      "Reportes unificados de todos los puntos de venta.",
-      "Transferencias de stock entre locales.",
-      "Permisos diferenciados por gerente de sede.",
-      "Visibilidad en tiempo real de cada sucursal.",
-      "Gestión de activos inmobiliarios por sede.",
-      "Consolidación financiera multi-sede."
+      "Ve a Sedes > Agregar Sede para registrar una nueva sucursal en el sistema.",
+      "Completa los datos de la sede: nombre, direccion, RIF y datos de contacto del gerente.",
+      "Desde el panel multi-sede, revisa las metricas de rendimiento de todas las sucursales.",
+      "Para transferir stock, ve a Inventario > Transferencias y selecciona origen y destino.",
+      "Configura los permisos de acceso por sede desde el submodulo de Usuarios y Roles.",
+      "Genera reportes consolidados desde Reportes > Multi-Sede para una vision corporativa.",
+      "Gestiona los activos inmobiliarios de cada sede desde el submodulo de Activos."
     ]
   },
   {
@@ -386,14 +392,15 @@ const chapters = [
     title: "Configuración & Personalización",
     icon: Settings,
     color: "from-gray-500 to-slate-500",
-    content: `La página de Configuración permite personalizar completamente la experiencia del usuario. Incluye ajustes de animaciones (rendimiento adaptativo), preferencias de navegación, configuración de notificaciones (email, SMS, WhatsApp), datos fiscales de la empresa (RIF, razón social, domicilio fiscal), datos de contacto y temática visual del sistema. El sistema de temas estacionales celebra fechas venezolanas importantes con decoraciones especiales.`,
+    content: `La pagina de Configuracion te permite personalizar la experiencia del sistema segun tus preferencias. Para acceder, haz clic en el icono de Configuracion en el menu inferior o en la esquina superior derecha del panel principal. En la seccion de Preferencias puedes ajustar las animaciones del sistema seleccionando entre modo rendimiento o modo fluido. Para configurar las notificaciones, ve a Notificaciones y selecciona los canales que deseas activar: email, SMS o WhatsApp, y los tipos de alertas que quieres recibir. En la seccion de Datos Fiscales puedes actualizar el RIF, la razon social y el domicilio fiscal de tu empresa. Los cambios realizados en Configuracion se guardan automaticamente al salir de la pagina.`,
     details: [
-      "Ajustes de animaciones y rendimiento adaptativo.",
-      "Configuración de notificaciones por canal preferido.",
-      "Datos fiscales: RIF, razón social, domicilio fiscal.",
-      "Temas estacionales para fiestas venezolanas.",
-      "Preferencias de navegación y atajos.",
-      "Gestión de plan y límites de suscripción."
+      "Accede a Configuracion desde el menu principal o el icono de ajustes en el panel.",
+      "Ajusta las animaciones del sistema desde Preferencias > Rendimiento Adaptativo.",
+      "Configura las notificaciones seleccionando los canales y tipos de alerta deseados.",
+      "Actualiza los datos fiscales de tu empresa en la seccion de Datos Fiscales.",
+      "Selecciona el tema visual del sistema desde la seccion de Apariencia y Temas.",
+      "Configura los atajos de navegacion desde Preferencias > Atajos del Sistema.",
+      "Revisa los limites de tu plan de suscripcion desde la seccion de Plan y Facturacion."
     ]
   },
   {
@@ -401,29 +408,15 @@ const chapters = [
     title: "Planes de Suscripción",
     icon: CreditCard,
     color: "from-purple-500 to-indigo-500",
-    content: `System Kyron ofrece 4 planes de suscripción progresivos diseñados para adaptarse a empresas de cualquier tamaño. Cada plan incluye límites específicos de recursos (usuarios, facturas, almacenamiento, módulos) que escalan con las necesidades de la organización. Los precios se expresan en USD con conversión automática a bolívares según la tasa BCV vigente. Todos los planes incluyen acceso a Asistencia Técnica Directa y soporte técnico, diferenciándose en volumen de operaciones y funcionalidades avanzadas.`,
+    content: `La pagina de Planes de Suscripcion te permite elegir el plan que mejor se adapte a las necesidades de tu empresa. System Kyron ofrece 4 planes progresivos: Emprendedor, Profesional, Empresarial y Corporativo. Para cambiar de plan, ve a Configuracion > Plan Actual y selecciona el plan al que deseas migrar. Cada plan especifica los limites de usuarios, facturas mensuales, almacenamiento y modulos disponibles. Los precios se expresan en dolares con conversion automatica a bolivares segun la tasa BCV vigente. Puedes elegir entre facturacion mensual o anual con descuento. Al seleccionar un plan superior, los modulos premium se desbloquean automaticamente. Los cambios de plan entran en vigencia al inicio del siguiente ciclo de facturacion.`,
     details: [
-      "4 planes progresivos: desde emprendedores hasta corporaciones.",
-      "Límites de recursos que escalan con la empresa.",
-      "Facturación mensual o anual con descuento.",
-      "Precios en USD con conversión BCV automática.",
-      "Acceso a Asistencia Técnica Directa incluido en todos los planes.",
-      "Módulos premium desbloqueables según plan."
-    ]
-  },
-  {
-    id: "modelo-zedu",
-    title: "Modelo ZEDU — AutoMind Core",
-    icon: School,
-    color: "from-violet-500 to-fuchsia-500",
-    content: `El Modelo Zedu corresponde al proyecto educativo AutoMind Core, desarrollado en el Colegio Santa Rosa de Lima, Caracas. Transforma el sistema de archivado tradicional de instituciones educativas en un entorno digital eficiente, integrando digitalización de expedientes estudiantiles y herramientas de Asistencia Técnica Directa de apoyo administrativo. AutoMind Core aplica analítica avanzada para optimizar la gestión escolar, desde matrículas hasta comunicaciones con padres y representantes.`,
-    details: [
-      "Digitalización y búsqueda instantánea de expedientes con OCR.",
-      "Asistencia Técnica Directa: atención 24/7 vía WhatsApp y portal web.",
-      "Generación de reportes, circulares y análisis estratégico.",
-      "Gestión de matrículas y inscripciones digitales.",
-      "Comunicación automatizada con representantes.",
-      "Disponible con opción de descarga en Word (.doc)."
+      "Ve a Configuracion > Plan Actual para consultar el plan activo de tu suscripcion.",
+      "Revisa los limites de tu plan actual: usuarios, facturas, almacenamiento y modulos.",
+      "Para cambiar de plan, haz clic en Cambiar Plan y selecciona el nuevo plan deseado.",
+      "Compara las caracteristicas de cada plan en la tabla comparativa disponible en la pagina.",
+      "Elige la modalidad de pago: mensual o anual con descuento por pago adelantado.",
+      "Los modulos premium se desbloquean automaticamente al contratar un plan superior.",
+      "El cambio de plan se activa al inicio del siguiente ciclo de facturacion."
     ]
   },
   {
@@ -431,32 +424,17 @@ const chapters = [
     title: "Soporte Técnico & Comunidad",
     icon: Headphones,
     color: "from-sky-500 to-cyan-500",
-    content: `El soporte técnico de System Kyron es de grado corporativo. Incluye asistencia multicanal mediante Asistencia Técnica Directa (algoritmos de procesamiento avanzado), chat en vivo y conexión directa con el equipo de ingeniería. El sistema de notificaciones internas mantiene al usuario informado sobre actualizaciones, cambios de normativa y alertas del sistema. Estamos comprometidos con una experiencia de misión crítica: sin caídas, sin errores y con respuesta técnica inmediata.`,
+    content: `El modulo de Soporte Tecnico y Comunidad te brinda canales de asistencia para resolver cualquier duda o problema con el sistema. Para contactar al soporte, abre el chat de Asistencia Tecnica Directa desde el icono en la esquina inferior derecha y describe tu consulta. El asistente respondera en tiempo real con las instrucciones necesarias. Si necesitas asistencia de un agente humano, solicita la conexion con el equipo de ingenieria desde el mismo chat. Para dar seguimiento a un ticket, ve a Soporte > Mis Tickets donde encontraras el historial de tus solicitudes con su estado actual. Las notificaciones del sistema te mantendran informado sobre las actualizaciones y cambios en la plataforma. El foro de la comunidad Kyron esta disponible para compartir mejores practicas con otros usuarios.`,
     details: [
-      "Resolución de dudas 24/7 mediante Asistencia Técnica Directa.",
-      "Seguimiento transparente de tickets de servicio.",
-      "Sistema de notificaciones internas del sistema.",
-      "Actualizaciones de sistema sin interrupciones.",
-      "FAQ completa con preguntas frecuentes.",
-      "Foro de la comunidad Kyron para mejores prácticas.",
-      "Contacto directo: infosystemkyron@gmail.com."
+      "Abre el chat de Asistencia Tecnica Directa desde el icono en la esquina inferior derecha.",
+      "Describe tu consulta o problema en el chat y sigue las instrucciones del asistente.",
+      "Si requieres asistencia humana, solicita la conexion con el equipo de ingenieria.",
+      "Revisa el estado de tus solicitudes previas desde Soporte > Mis Tickets.",
+      "Consulta la seccion de Preguntas Frecuentes desde Soporte > FAQ para respuestas rapidas.",
+      "Participa en el foro de la comunidad Kyron desde Soporte > Comunidad.",
+      "Las notificaciones del sistema te informan sobre actualizaciones y cambios importantes."
     ]
   },
-  {
-    id: "academia",
-    title: "Academia Kyron",
-    icon: School,
-    color: "from-purple-500 to-violet-500",
-    content: `La Academia Kyron es un portal educativo donde los operadores aprenden a usar cada módulo del sistema mediante cursos certificados. El conocimiento se transfiere a los usuarios para que dominen la gestión fiscal y técnica del sistema, convirtiéndose en profesionales capaces de liderar la transformación digital en sus empresas. El ecosistema también ofrece una guía de registro interactiva y tutoriales por módulo para nuevos usuarios.`,
-    details: [
-      "Certificación de competencias en gestión Kyron.",
-      "Tutoriales en video paso a paso de cada módulo.",
-      "Webinars sobre cambios en Gacetas Oficiales.",
-      "Biblioteca técnica con manuales, guías y casos de éxito.",
-      "Guía de registro interactiva para nuevos usuarios.",
-      "Tutoriales por módulo con asistente Asistencia Técnica Directa."
-    ]
-  }
 ];
 
 const TOTAL_CHAPTERS = chapters.length;

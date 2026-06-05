@@ -18,7 +18,7 @@ import Image from "next/image";
 const companyInfo = {
   nombre: "EMPRENDIMIENTO CARLOS MATTAR",
   rif: "J-50832149-9",
-  direccion: "La Guaira, República Bolivariana de Venezuela",
+  direccion: "Av. Playa Grande, Edif. Belo Horizonte, Piso 15, Apt. 155 B, Catia La Mar, Estado La Guaira, Venezuela",
   telefono: "0424-1846016",
   email: "infosystemkyron@gmail.com",
   web: "systemkyron.com",

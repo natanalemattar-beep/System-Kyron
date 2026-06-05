@@ -132,7 +132,7 @@ const slides = [
     },
     {
         id: "smart_bin",
-        tag: "MODELO ZEDU // SMART BIN",
+        tag: "SMART BIN",
         title: "TRANSFORMANDO\nEL RECICLAJE",
         subtitle: "Sostenibilidad que genera beneficios.",
         body: "El Smart Bin de Ameru.AI identifica y procesa residuos electrónicos, otorgando créditos fiscales y beneficios directos en tu suscripción Kyron.",
@@ -1163,7 +1163,7 @@ export default function PitchPage() {
 
                                             <footer className="mt-8 flex items-center justify-between border-t border-white/5 pt-8">
                                                 <div className="flex items-center gap-4"><Icon className="h-6 w-6 text-[#00FF00]" /><span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">Kyron Tactical Suite // v2.6.5</span></div>
-                                                <div className="text-[9px] font-black text-white/10 uppercase tracking-[0.5em]">Protocolo ZEDU // Defensa 2026</div>
+                                                <div className="text-[9px] font-black text-white/10 uppercase tracking-[0.5em]">Protocolo Defensa 2026</div>
                                             </footer>
                                         </div>
                                     </motion.section>

@@ -111,6 +111,19 @@ const RESOURCES: Resource[] = [
         image: 'https://images.unsplash.com/photo-1450101215322-bf5cd276cfc9?q=80&w=600&auto=format'
     },
     {
+        id: 'carta-alianza-movisun',
+        title: 'Carta Alianza Movisun Colombia',
+        description: 'Propuesta formal de alianza comercial estrategica con MOVISUN COLOMBIA S.A.S. para distribucion cruzada y expansion en el mercado colombiano.',
+        icon: FileText,
+        href: '/brand-kit/carta-alianza-movisun',
+        color: 'from-blue-500 to-cyan-600',
+        tag: 'ALIANZA',
+        type: 'internal',
+        size: 'normal',
+        gradient: 'from-blue-900/40 via-cyan-900/20 to-transparent',
+        image: 'https://images.unsplash.com/photo-1450101215322-bf5cd276cfc9?q=80&w=600&auto=format'
+    },
+    {
         id: 'instagram',
         title: 'Portafolio Digital',
         description: 'Ecosistema visual y presencia institucional en redes de alto impacto corporativo.',
