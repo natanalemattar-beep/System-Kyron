@@ -14,6 +14,7 @@ export default function CartaAlianzaMovisunPage() {
   const [unlocked, setUnlocked] = useState(false);
   const [error, setError] = useState(false);
   const [logoUrl, setLogoUrl] = useState("");
+  const [sealUrl, setSealUrl] = useState("");
   const [exporting, setExporting] = useState(false);
   const letterRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -24,6 +25,13 @@ export default function CartaAlianzaMovisunPage() {
       .then((blob) => {
         const reader = new FileReader();
         reader.onloadend = () => setLogoUrl(reader.result as string);
+        reader.readAsDataURL(blob);
+      });
+    fetch("/images/seal-sample.png")
+      .then((r) => r.blob())
+      .then((blob) => {
+        const reader = new FileReader();
+        reader.onloadend = () => setSealUrl(reader.result as string);
         reader.readAsDataURL(blob);
       });
   }, []);
@@ -198,21 +206,9 @@ export default function CartaAlianzaMovisunPage() {
                     </div>
 
                     <div className="flex flex-col items-center justify-center flex-1">
-                      <svg viewBox="0 0 160 160" className="w-36 h-36 text-[#1e3a5f] opacity-70">
-                        <circle cx="80" cy="80" r="75" fill="none" stroke="currentColor" strokeWidth="3" opacity="0.3" />
-                        <circle cx="80" cy="80" r="60" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.15" />
-                        <path id="arc-top" d="M 30,80 A 50,50 0 0,1 130,80" fill="none" />
-                        <text fontSize="9" fontWeight="bold" fill="currentColor" letterSpacing="4">
-                          <textPath href="#arc-top" startOffset="50%" textAnchor="middle">SYSTEM KYRON</textPath>
-                        </text>
-                        <path id="arc-bottom" d="M 130,80 A 50,50 0 0,1 30,80" fill="none" />
-                        <text fontSize="7" fill="currentColor" letterSpacing="3">
-                          <textPath href="#arc-bottom" startOffset="50%" textAnchor="middle">OFICIAL</textPath>
-                        </text>
-                        <text x="80" y="88" textAnchor="middle" fontSize="10" fontWeight="bold" fill="currentColor">SELLO</text>
-                        <line x1="60" y1="97" x2="100" y2="97" stroke="currentColor" strokeWidth="0.5" opacity="0.3" />
-                        <text x="80" y="107" textAnchor="middle" fontSize="6" fill="currentColor" opacity="0.5">RIF J-50832149-9</text>
-                      </svg>
+                      {sealUrl && (
+                        <img src={sealUrl} alt="Sello oficial System Kyron" className="w-28 h-28 object-contain opacity-80" />
+                      )}
                       <p className="text-[9px] text-gray-400 italic mt-1">Sello oficial</p>
                     </div>
                   </div>
