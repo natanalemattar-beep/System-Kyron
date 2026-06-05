@@ -145,7 +145,7 @@ export default function CartaInactividadPage() {
                 </p>
 
                 <p className="indent-8">
-                  Yo, <strong>Carlos Alberto Natanale Mattar Hernandez</strong>, venezolano, mayor de edad, titular de la cedula de identidad N° <strong>V-26.441.166</strong>, actuando en mi caracter de Representante Legal de la empresa mercantil <strong>EMPRENDIMIENTO CARLOS MATTAR</strong>, debidamente inscrita en el Registro de Informacion Fiscal (RIF) bajo el N° <strong>J-50832149-9</strong>, por medio de la presente y de conformidad con lo establecido en el <strong>Paragrafo Segundo del Articulo 100 del Reglamento de la Ley de Impuesto sobre la Renta</strong>, me dirijo a ustedes para realizar la siguiente declaracion:
+                  Yo, <strong>Carlos Alberto Natanale Mattar Hernandez</strong>, venezolano, mayor de edad, titular de la cedula de identidad N° <strong>V-32855496</strong>, actuando en mi caracter de Representante Legal de la empresa mercantil <strong>EMPRENDIMIENTO CARLOS MATTAR</strong>, debidamente inscrita en el Registro de Informacion Fiscal (RIF) bajo el N° <strong>J-50832149-9</strong>, por medio de la presente y de conformidad con lo establecido en el <strong>Paragrafo Segundo del Articulo 100 del Reglamento de la Ley de Impuesto sobre la Renta</strong>, me dirijo a ustedes para realizar la siguiente declaracion:
                 </p>
 
                 <p className="indent-8">
@@ -177,7 +177,7 @@ export default function CartaInactividadPage() {
                   <div className="flex flex-col items-center">
                     <div className="w-72 border-t border-gray-400 pt-3 text-center">
                       <p className="text-sm font-bold text-gray-800">Carlos Alberto Natanale Mattar Hernandez</p>
-                      <p className="text-[10px] text-gray-500">C.I. V-26.441.166</p>
+                      <p className="text-[10px] text-gray-500">C.I. V-32855496</p>
                       <p className="text-[10px] text-gray-500">Representante Legal</p>
                       <p className="text-[10px] text-gray-500">EMPRENDIMIENTO CARLOS MATTAR</p>
                       <p className="text-[10px] text-gray-500">RIF J-50832149-9</p>

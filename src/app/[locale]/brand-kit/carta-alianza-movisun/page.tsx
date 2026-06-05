@@ -190,20 +190,30 @@ export default function CartaAlianzaMovisunPage() {
                     <div className="flex flex-col items-center flex-1">
                       <div className="w-full max-w-[14rem] border-t border-gray-400 pt-3 text-center">
                         <p className="text-sm font-bold text-gray-800">Carlos Alberto Natanale Mattar Hernandez</p>
-                        <p className="text-[10px] text-gray-500">C.I. V-26.441.166</p>
+                        <p className="text-[10px] text-gray-500">C.I. V-32855496</p>
                         <p className="text-[10px] text-gray-500">Representante Legal</p>
                         <p className="text-[10px] text-gray-500">EMPRENDIMIENTO CARLOS MATTAR</p>
                         <p className="text-[10px] text-gray-500">System Kyron</p>
                       </div>
                     </div>
 
-                    <div className="flex flex-col items-center flex-1">
-                      <div className="w-full max-w-[14rem] border-t border-gray-400 pt-3 text-center">
-                        <p className="text-sm font-bold text-gray-800">MOVISUN COLOMBIA S.A.S.</p>
-                        <p className="text-[10px] text-gray-500">Representante Autorizado</p>
-                        <div className="mt-4 h-10" />
-                        <p className="text-[10px] text-gray-400 italic">Firma y sello de la empresa</p>
-                      </div>
+                    <div className="flex flex-col items-center justify-center flex-1">
+                      <svg viewBox="0 0 160 160" className="w-36 h-36 text-[#1e3a5f] opacity-70">
+                        <circle cx="80" cy="80" r="75" fill="none" stroke="currentColor" strokeWidth="3" opacity="0.3" />
+                        <circle cx="80" cy="80" r="60" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.15" />
+                        <path id="arc-top" d="M 30,80 A 50,50 0 0,1 130,80" fill="none" />
+                        <text fontSize="9" fontWeight="bold" fill="currentColor" letterSpacing="4">
+                          <textPath href="#arc-top" startOffset="50%" textAnchor="middle">SYSTEM KYRON</textPath>
+                        </text>
+                        <path id="arc-bottom" d="M 130,80 A 50,50 0 0,1 30,80" fill="none" />
+                        <text fontSize="7" fill="currentColor" letterSpacing="3">
+                          <textPath href="#arc-bottom" startOffset="50%" textAnchor="middle">OFICIAL</textPath>
+                        </text>
+                        <text x="80" y="88" textAnchor="middle" fontSize="10" fontWeight="bold" fill="currentColor">APROBADO</text>
+                        <line x1="60" y1="97" x2="100" y2="97" stroke="currentColor" strokeWidth="0.5" opacity="0.3" />
+                        <text x="80" y="107" textAnchor="middle" fontSize="6" fill="currentColor" opacity="0.5">RIF J-50832149-9</text>
+                      </svg>
+                      <p className="text-[9px] text-gray-400 italic mt-1">Sello oficial</p>
                     </div>
                   </div>
                 </div>
