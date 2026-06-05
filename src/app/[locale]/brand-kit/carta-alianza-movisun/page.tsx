@@ -36,11 +36,19 @@ export default function CartaAlianzaMovisunPage() {
         quality: 1,
         pixelRatio: 2,
         backgroundColor: "#ffffff",
+        style: { fontFamily: "'Times New Roman', Times, serif" },
       });
-      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "letter" });
       const pdfW = pdf.internal.pageSize.getWidth();
-      const imgH = (pdfW * letterRef.current.offsetHeight) / letterRef.current.offsetWidth;
-      pdf.addImage(dataUrl, "PNG", 0, 0, pdfW, imgH);
+      const pdfH = pdf.internal.pageSize.getHeight();
+      const imgW = letterRef.current.offsetWidth;
+      const imgH = letterRef.current.offsetHeight;
+      const ratio = Math.min(pdfW / imgW, pdfH / imgH);
+      const renderW = imgW * ratio;
+      const renderH = imgH * ratio;
+      const offsetX = (pdfW - renderW) / 2;
+      const offsetY = (pdfH - renderH) / 2;
+      pdf.addImage(dataUrl, "PNG", offsetX, offsetY, renderW, renderH);
       pdf.save("System-Kyron-Carta-Alianza-Movisun-Colombia.pdf");
     } catch (err: any) {
       alert("Error al generar PDF: " + (err?.message || "desconocido"));
@@ -92,9 +100,9 @@ export default function CartaAlianzaMovisunPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#02040a] py-16 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-12">
+    <div className="min-h-screen bg-[#02040a] py-16 px-4 print:bg-white print:py-0">
+      <div className="max-w-3xl mx-auto">
+        <div className="flex items-center justify-between mb-12 print:hidden">
           <Button variant="ghost" onClick={() => router.push('/brand-kit')} className="text-zinc-400 hover:text-white text-xs font-black uppercase tracking-widest">
             <ArrowLeft className="mr-2 h-4 w-4" /> Volver
           </Button>
@@ -104,128 +112,109 @@ export default function CartaAlianzaMovisunPage() {
           </div>
         </div>
 
-        <div ref={letterRef} className="bg-white rounded-[2rem] shadow-2xl overflow-hidden print:shadow-none print:rounded-none">
-          <div className="p-12 md:p-20 space-y-8 text-zinc-800">
-            <div className="flex justify-between items-start border-b border-zinc-200 pb-8">
-              <div className="flex items-center gap-4">
-                {logoUrl && (
-                  <img src={logoUrl} alt="System Kyron" className="h-12 w-12 object-contain" />
-                )}
-                <div>
-                  <h1 className="text-2xl font-bold tracking-tight text-zinc-900">EMPRENDIMIENTO CARLOS MATTAR</h1>
-                  <p className="text-[10px] text-zinc-400 font-mono mt-0.5">RIF J-50832149-9</p>
-                </div>
-              </div>
-              <div className="text-right text-sm text-zinc-400 shrink-0">
-                <p>Caracas, {new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-              </div>
-            </div>
+        <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none">
+          <div className="relative">
+            <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f]" />
 
-            <div className="space-y-2">
-              <p className="text-base font-semibold text-zinc-700">MOVISUN COLOMBIA S.A.S.</p>
-              <p className="text-base font-semibold text-zinc-700">Att.: Direccion de Alianzas Estrategicas</p>
-              <p className="text-sm text-zinc-400">Bogota D.C., Colombia.&mdash;</p>
-            </div>
-
-            <div className="text-base leading-relaxed text-zinc-700 space-y-5 text-justify">
-              <p className="font-bold text-lg uppercase tracking-tight text-zinc-800 text-center">
-                Carta de Intencion de Alianza Comercial
-              </p>
-
-              <p>
-                Reciba un cordial saludo de parte de <strong>EMPRENDIMIENTO CARLOS MATTAR</strong>, empresa venezolana 
-                identificada con RIF J-50832149-9, desarrolladora del ecosistema de inteligencia corporativa 
-                <strong> System Kyron</strong>. Por medio de la presente, manifestamos nuestro formal interes en 
-                establecer una <strong>alianza comercial estrategica</strong> con <strong>MOVISUN COLOMBIA S.A.S.</strong>
-              </p>
-
-              <p>
-                System Kyron es una plataforma corporativa integral que unifica mas de 100 modulos en areas como 
-                contabilidad (VEN-NIF/SENIAT), facturacion electronica, nomina (LOTTT), telecomunicaciones 5G,
-                legal, inteligencia artificial, sostenibilidad y seguridad. Actualmente operamos en Venezuela 
-                con proyeccion de expansion regional.
-              </p>
-
-              <p>
-                Entendemos que MOVISUN COLOMBIA es una empresa lider en el sector de <strong>telecomunicaciones 
-                y tecnologia movil</strong> en Colombia, con una solida trayectoria y presencia en el mercado 
-                colombiano. Creemos que existe una oportunidad significativa para desarrollar sinergias 
-                comerciales que beneficien a ambas organizaciones.
-              </p>
-
-              <p className="font-semibold text-zinc-800">
-                Objeto de la Alianza:
-              </p>
-
-              <p>
-                La presente carta de intencion tiene como objetivo explorar y establecer los terminos para 
-                una alianza comercial que podria incluir, sin limitarse a:
-              </p>
-
-              <ul className="list-disc pl-6 space-y-2 text-zinc-700">
-                <li>
-                  <strong>Distribucion cruzada de servicios:</strong> Integracion de soluciones MOVISUN 
-                  en el ecosistema System Kyron para el mercado colombiano, y viceversa.
-                </li>
-                <li>
-                  <strong>Paquetes comerciales conjuntos:</strong> Desarrollo de ofertas empaquetadas 
-                  que combinen servicios de telecomunicaciones MOVISUN con modulos corporativos de 
-                  System Kyron.
-                </li>
-                <li>
-                  <strong>Expansion geografica:</strong> Colaboracion para la entrada de System Kyron 
-                  en el mercado colombiano, aprovechando la infraestructura y conocimiento local de MOVISUN.
-                </li>
-                <li>
-                  <strong>Innovacion tecnologica:</strong> Co-desarrollo de soluciones integradas de 
-                  transformacion digital para el sector empresarial colombiano.
-                </li>
-              </ul>
-
-              <p>
-                Quedamos a la espera de su respuesta para concretar una reunion de trabajo donde podamos 
-                presentar formalmente nuestra propuesta y explorar en detalle los terminos de esta 
-                potencial alianza. Estamos seguros de que esta colaboracion generara valor significativo 
-                para ambas organizaciones y, sobre todo, para nuestros clientes.
-              </p>
-            </div>
-
-            <div className="pt-8 border-t border-zinc-200 space-y-8">
-              <div className="text-sm text-zinc-500 space-y-1">
-                <p><strong className="text-zinc-600">Empresa:</strong> EMPRENDIMIENTO CARLOS MATTAR</p>
-                <p><strong className="text-zinc-600">RIF:</strong> J-50832149-9</p>
-                <p><strong className="text-zinc-600">Direccion Fiscal:</strong> Av. Playa Grande, Edif. Belo Horizonte, Piso 15, Apt. 155 B, Catia La Mar, Estado La Guaira, Venezuela</p>
-                <p><strong className="text-zinc-600">Correo Electronico:</strong> systemkyronofficial@gmail.com</p>
-                <p><strong className="text-zinc-600">Plataforma:</strong> systemkyron.com</p>
-              </div>
-
-              <div className="pt-6 space-y-6">
-                <p className="font-semibold text-zinc-800">Atentamente,</p>
-
-                <div className="flex flex-col items-center py-4">
-                  <div className="w-64 border-t border-zinc-300 pt-3 text-center">
-                    <p className="font-bold text-zinc-800">Carlos Alberto Mattar Zreik</p>
-                    <p className="text-sm text-zinc-500">C.I. V-26.441.166</p>
-                    <p className="text-sm text-zinc-500">Representante Legal</p>
-                    <p className="text-sm text-zinc-500">EMPRENDIMIENTO CARLOS MATTAR</p>
-                    <p className="text-sm text-zinc-500">System Kyron</p>
+            <div className="px-[1.2in] py-[0.6in] space-y-5" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+              <div className="flex justify-between items-start border-b-2 border-[#1e3a5f] pb-4 mb-2">
+                <div className="flex items-center gap-4">
+                  {logoUrl && (
+                    <img src={logoUrl} alt="System Kyron" className="h-14 w-14 object-contain" />
+                  )}
+                  <div>
+                    <h1 className="text-xl font-bold text-[#1e3a5f] tracking-tight">EMPRENDIMIENTO CARLOS MATTAR</h1>
+                    <p className="text-[9px] text-gray-500 font-mono mt-0.5">RIF J-50832149-9</p>
                   </div>
                 </div>
+                <div className="text-right shrink-0">
+                  <p className="text-xs text-gray-500">Caracas,</p>
+                  <p className="text-xs text-gray-500">{new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                </div>
+              </div>
 
-                <div className="flex flex-col items-center py-2">
-                  <div className="w-64 border-t border-zinc-300 pt-3 text-center">
-                    <p className="font-bold text-zinc-800">MOVISUN COLOMBIA S.A.S.</p>
-                    <p className="text-sm text-zinc-500">Representante Autorizado</p>
-                    <div className="mt-4 h-10" />
-                    <p className="text-xs text-zinc-400 italic">Firma y sello de la empresa</p>
+              <div className="mb-7">
+                <p className="text-sm font-semibold text-gray-800">MOVISUN COLOMBIA S.A.S.</p>
+                <p className="text-sm font-semibold text-gray-800">Att.: Direccion de Alianzas Estrategicas</p>
+                <p className="text-xs text-gray-400">Bogota D.C., Colombia.&mdash;</p>
+              </div>
+
+              <div className="text-justify space-y-4 text-sm leading-[1.75] text-gray-800">
+                <p className="font-bold text-base uppercase tracking-tight text-[#1e3a5f] text-center border-b border-gray-200 pb-3 mb-5">
+                  Carta de Intencion de Alianza Comercial
+                </p>
+
+                <p className="indent-8">
+                  Reciba un cordial saludo de parte de <strong>EMPRENDIMIENTO CARLOS MATTAR</strong>, empresa venezolana identificada con RIF J-50832149-9, desarrolladora del ecosistema de inteligencia corporativa <strong>System Kyron</strong>. Por medio de la presente, manifestamos nuestro formal interes en establecer una <strong>alianza comercial estrategica</strong> con <strong>MOVISUN COLOMBIA S.A.S.</strong>
+                </p>
+
+                <p className="indent-8">
+                  System Kyron es una plataforma corporativa integral que unifica mas de 100 modulos en areas como contabilidad (VEN-NIF/SENIAT), facturacion electronica, nomina (LOTTT), telecomunicaciones 5G, legal, inteligencia artificial, sostenibilidad y seguridad. Actualmente operamos en Venezuela con proyeccion de expansion regional.
+                </p>
+
+                <p className="indent-8">
+                  Entendemos que MOVISUN COLOMBIA es una empresa lider en el sector de <strong>telecomunicaciones y tecnologia movil</strong> en Colombia, con una solida trayectoria y presencia en el mercado colombiano. Creemos que existe una oportunidad significativa para desarrollar sinergias comerciales que beneficien a ambas organizaciones.
+                </p>
+
+                <p className="font-semibold text-gray-800">
+                  Objeto de la Alianza:
+                </p>
+
+                <p className="indent-8">
+                  La presente carta de intencion tiene como objetivo explorar y establecer los terminos para una alianza comercial que podria incluir, sin limitarse a:
+                </p>
+
+                <ul className="list-disc pl-6 space-y-1.5">
+                  <li><strong>Distribucion cruzada de servicios:</strong> Integracion de soluciones MOVISUN en el ecosistema System Kyron para el mercado colombiano, y viceversa.</li>
+                  <li><strong>Paquetes comerciales conjuntos:</strong> Desarrollo de ofertas empaquetadas que combinen servicios de telecomunicaciones MOVISUN con modulos corporativos de System Kyron.</li>
+                  <li><strong>Expansion geografica:</strong> Colaboracion para la entrada de System Kyron en el mercado colombiano, aprovechando la infraestructura y conocimiento local de MOVISUN.</li>
+                  <li><strong>Innovacion tecnologica:</strong> Co-desarrollo de soluciones integradas de transformacion digital para el sector empresarial colombiano.</li>
+                </ul>
+
+                <p className="indent-8">
+                  Quedamos a la espera de su respuesta para concretar una reunion de trabajo donde podamos presentar formalmente nuestra propuesta y explorar en detalle los terminos de esta potencial alianza. Estamos seguros de que esta colaboracion generara valor significativo para ambas organizaciones y, sobre todo, para nuestros clientes.
+                </p>
+              </div>
+
+              <div className="pt-6 border-t border-gray-200">
+                <div className="text-[10px] text-gray-500 space-y-0.5 leading-relaxed">
+                  <p><strong className="text-gray-700">Empresa:</strong> EMPRENDIMIENTO CARLOS MATTAR &nbsp;|&nbsp; <strong className="text-gray-700">RIF:</strong> J-50832149-9</p>
+                  <p><strong className="text-gray-700">Direccion Fiscal:</strong> Av. Playa Grande, Edif. Belo Horizonte, Piso 15, Apt. 155 B, Catia La Mar, Estado La Guaira, Venezuela</p>
+                  <p><strong className="text-gray-700">Correo:</strong> systemkyronofficial@gmail.com &nbsp;|&nbsp; <strong className="text-gray-700">Web:</strong> systemkyron.com</p>
+                </div>
+
+                <div className="mt-10">
+                  <p className="text-sm font-semibold text-gray-800 mb-8">Atentamente,</p>
+
+                  <div className="flex justify-around gap-8">
+                    <div className="flex flex-col items-center flex-1">
+                      <div className="w-full max-w-[14rem] border-t border-gray-400 pt-3 text-center">
+                        <p className="text-sm font-bold text-gray-800">Carlos Alberto Natanale Mattar Hernandez</p>
+                        <p className="text-[10px] text-gray-500">C.I. V-26.441.166</p>
+                        <p className="text-[10px] text-gray-500">Representante Legal</p>
+                        <p className="text-[10px] text-gray-500">EMPRENDIMIENTO CARLOS MATTAR</p>
+                        <p className="text-[10px] text-gray-500">System Kyron</p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col items-center flex-1">
+                      <div className="w-full max-w-[14rem] border-t border-gray-400 pt-3 text-center">
+                        <p className="text-sm font-bold text-gray-800">MOVISUN COLOMBIA S.A.S.</p>
+                        <p className="text-[10px] text-gray-500">Representante Autorizado</p>
+                        <div className="mt-4 h-10" />
+                        <p className="text-[10px] text-gray-400 italic">Firma y sello de la empresa</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f]" />
           </div>
         </div>
 
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-center mt-8 print:hidden">
           <Button
             onClick={handleDownloadPDF}
             disabled={exporting}

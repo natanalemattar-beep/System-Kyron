@@ -88,17 +88,18 @@ export function LandingHeader() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed left-0 right-0 z-[150]"
+        className="fixed left-0 right-0 z-[150] will-change-transform"
         style={{
           top: bannerVisible ? 36 : 0,
+          transition: 'top 0.3s ease-out',
         }}
       >
         <div
           className={cn(
-            "mx-auto transition-all duration-700 ease-out",
+            "mx-auto",
             scrolled
-              ? "max-w-[calc(100%-24px)] md:max-w-[1400px] rounded-2xl md:rounded-[2rem] mt-2 border border-border/50 dark:border-white/10 bg-background/80 backdrop-blur-2xl shadow-2xl shadow-black/5 dark:shadow-black/20"
-              : "max-w-full px-4 md:px-8 bg-transparent"
+              ? "max-w-[calc(100%-24px)] md:max-w-[1400px] rounded-2xl md:rounded-[2rem] mt-2 border border-border/50 dark:border-white/10 bg-background/80 backdrop-blur-2xl shadow-2xl shadow-black/5 dark:shadow-black/20 transition-all duration-300 ease-out"
+              : "max-w-full px-4 md:px-8 bg-transparent transition-[max-width,padding] duration-300 ease-out"
           )}
         >
           <div className="flex items-center justify-between h-14 md:h-20 w-full">
@@ -137,7 +138,7 @@ export function LandingHeader() {
                     <span className="relative z-10">{t('solutions')}</span>
                     <ChevronDown className="h-3 w-3 opacity-30 group-data-[state=open]:rotate-180 transition-transform relative z-10" />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="center" className="w-80 p-3 rounded-2xl border border-border/50 dark:border-white/10 bg-background/95 backdrop-blur-xl shadow-2xl mt-4 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 origin-top">
+                  <DropdownMenuContent align="start" sideOffset={8} className="w-72 p-3 rounded-2xl border border-border/50 dark:border-white/10 bg-background/95 backdrop-blur-xl shadow-2xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 origin-top">
                     <p className="text-[9px] font-black uppercase tracking-[0.3em] text-kyron-cyan/50 px-3 pb-1 pt-1">Para Empresas</p>
                     {businessSolutions.map((item) => (
                       <DropdownMenuItem key={item.label} asChild className="rounded-xl p-3 flex items-center gap-4 hover:bg-muted dark:hover:bg-white/5 transition-all group cursor-pointer border border-transparent hover:border-border/50 dark:hover:border-white/5">
