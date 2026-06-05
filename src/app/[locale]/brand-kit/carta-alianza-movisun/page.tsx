@@ -209,7 +209,7 @@ export default function CartaAlianzaMovisunPage() {
                         <text fontSize="7" fill="currentColor" letterSpacing="3">
                           <textPath href="#arc-bottom" startOffset="50%" textAnchor="middle">OFICIAL</textPath>
                         </text>
-                        <text x="80" y="88" textAnchor="middle" fontSize="10" fontWeight="bold" fill="currentColor">APROBADO</text>
+                        <text x="80" y="88" textAnchor="middle" fontSize="10" fontWeight="bold" fill="currentColor">SELLO</text>
                         <line x1="60" y1="97" x2="100" y2="97" stroke="currentColor" strokeWidth="0.5" opacity="0.3" />
                         <text x="80" y="107" textAnchor="middle" fontSize="6" fill="currentColor" opacity="0.5">RIF J-50832149-9</text>
                       </svg>
