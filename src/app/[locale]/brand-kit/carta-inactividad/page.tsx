@@ -6,6 +6,7 @@ import { ShieldCheck, Lock, ArrowLeft, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toPng } from "html-to-image";
 import { jsPDF } from "jspdf";
+import { OfficialSealSvg } from "@/components/brand/OfficialSealSvg";
 
 const ACCESS_CODE = "Carlos123";
 
@@ -113,7 +114,7 @@ export default function CartaInactividadPage() {
         </div>
 
         <div className="flex justify-center">
-          <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none flex flex-col" style={{ width: '21.59cm', height: '27.94cm' }}>
+          <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none flex flex-col" style={{ width: '21.59cm', height: '27.94cm', fontFamily: 'Arial' }}>
             <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
 
             <div className="flex-1 px-[0.8in] py-[0.4in] flex flex-col" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
@@ -181,6 +182,10 @@ export default function CartaInactividadPage() {
                       <p className="text-[8.5px] text-gray-500">EMPRENDIMIENTO CARLOS MATTAR</p>
                       <p className="text-[8.5px] text-gray-500">RIF J-50832149-9</p>
                     </div>
+                  </div>
+                  <div className="flex flex-col items-center shrink-0">
+                    <OfficialSealSvg size={72} className="opacity-90" />
+                    <p className="text-[8px] text-gray-400 italic mt-0.5">Sello oficial</p>
                   </div>
                 </div>
               </div>

@@ -6,6 +6,7 @@ import { ShieldCheck, Lock, ArrowLeft, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toPng } from "html-to-image";
 import { jsPDF } from "jspdf";
+import { OfficialSealSvg } from "@/components/brand/OfficialSealSvg";
 
 const ACCESS_CODE = "Carlos123";
 
@@ -14,7 +15,6 @@ export default function CartaAlianzaMovisunPage() {
   const [unlocked, setUnlocked] = useState(false);
   const [error, setError] = useState(false);
   const [logoUrl, setLogoUrl] = useState("");
-  const [sealDataUrl, setSealDataUrl] = useState("");
   const [exporting, setExporting] = useState(false);
   const letterRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -25,15 +25,6 @@ export default function CartaAlianzaMovisunPage() {
       .then((blob) => {
         const reader = new FileReader();
         reader.onloadend = () => setLogoUrl(reader.result as string);
-        reader.readAsDataURL(blob);
-      })
-      .catch(console.error);
-
-    fetch("/images/seal-sample.png")
-      .then((r) => r.blob())
-      .then((blob) => {
-        const reader = new FileReader();
-        reader.onloadend = () => setSealDataUrl(reader.result as string);
         reader.readAsDataURL(blob);
       })
       .catch(console.error);
@@ -124,7 +115,7 @@ export default function CartaAlianzaMovisunPage() {
         </div>
 
         <div className="flex justify-center">
-          <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none flex flex-col" style={{ width: '21.59cm', height: '27.94cm' }}>
+          <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none flex flex-col" style={{ width: '21.59cm', height: '27.94cm', fontFamily: 'Arial' }}>
             <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
             
             <div className="flex-1 px-[0.8in] py-[0.4in] flex flex-col" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
@@ -207,7 +198,7 @@ export default function CartaAlianzaMovisunPage() {
                   </div>
             
                   <div className="flex flex-col items-center shrink-0">
-                    <img src={sealDataUrl || "/images/seal-sample.png"} alt="Sello oficial System Kyron" className="w-18 h-18 object-contain opacity-90" />
+                    <OfficialSealSvg size={72} className="opacity-90" />
                     <p className="text-[8px] text-gray-400 italic mt-0.5">Sello oficial</p>
                   </div>
                 </div>
