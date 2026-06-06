@@ -137,44 +137,36 @@ export default function CartaAlianzaMovisunPage() {
             
               <div className="mb-4 shrink-0">
                 <p className="text-sm font-semibold text-gray-800">MOVISUN COLOMBIA S.A.S.</p>
-                <p className="text-sm font-semibold text-gray-800">Att.: Direccion de Alianzas Estrategicas</p>
+                <p className="text-sm font-semibold text-gray-800">Att.: Direccion General / Departamento Legal</p>
                 <p className="text-[11px] text-gray-400">Bogota D.C., Colombia.&mdash;</p>
               </div>
             
               <div className="text-justify space-y-3 text-[13px] leading-[1.55] text-gray-800 flex-1">
                 <p className="font-bold text-sm uppercase tracking-tight text-[#1e3a5f] text-center border-b border-gray-200 pb-2 mb-3">
-                  Carta de Intencion de Alianza Comercial
+                  Solicitud de Representacion de Marca y Gestion de Permisos
                 </p>
             
                 <p className="indent-8">
-                  Reciba un cordial saludo de parte de <strong>EMPRENDIMIENTO CARLOS MATTAR</strong>, empresa venezolana identificada con RIF J-50832149-9, desarrolladora del ecosistema de inteligencia corporativa <strong>System Kyron</strong>. Por medio de la presente, manifestamos nuestro formal interes en establecer una <strong>alianza comercial estrategica</strong> con <strong>MOVISUN COLOMBIA S.A.S.</strong>
+                  Reciba un cordial saludo de parte de <strong>EMPRENDIMIENTO CARLOS MATTAR</strong>, empresa venezolana identificada con RIF J-50832149-9, desarrolladora del ecosistema de inteligencia corporativa <strong>System Kyron</strong>. Por medio de la presente, nos dirigimos a ustedes con el proposito de solicitar formalmente la <strong>representacion de la marca MOVISUN</strong> en los territorios de <strong>Venezuela y España</strong>, asi como la gestion de los permisos y contratos necesarios para llevar a cabo dicha representacion.
                 </p>
             
                 <p className="indent-8">
-                  System Kyron es una plataforma corporativa integral que unifica mas de 100 modulos en areas como contabilidad (VEN-NIF/SENIAT), facturacion electronica, nomina (LOTTT), telecomunicaciones 5G, legal, inteligencia artificial, sostenibilidad y seguridad. Actualmente operamos en Venezuela con proyeccion de expansion regional.
+                  Nuestra empresa cuenta con una solida trayectoria en el desarrollo e integracion de soluciones tecnologicas, con presencia en el mercado venezolano y proyeccion internacional. Creemos firmemente que los productos y servicios ofrecidos por <strong>MOVISUN COLOMBIA S.A.S.</strong> tienen un alto potencial de penetracion en los mercados venezolano y espanol, y estamos preparados para asumir la representacion de la marca con responsabilidad, profesionalismo y dedicacion.
                 </p>
             
                 <p className="indent-8">
-                  Entendemos que MOVISUN COLOMBIA es una empresa lider en el sector de <strong>telecomunicaciones y tecnologia movil</strong> en Colombia, con una solida trayectoria y presencia en el mercado colombiano. Creemos que existe una oportunidad significativa para desarrollar sinergias comerciales que beneficien a ambas organizaciones.
-                </p>
-            
-                <p className="font-semibold text-gray-800">
-                  Objeto de la Alianza:
-                </p>
-            
-                <p className="indent-8">
-                  La presente carta de intencion tiene como objetivo explorar y establecer los terminos para una alianza comercial que podria incluir, sin limitarse a:
+                  El objetivo de esta solicitud es establecer una relacion de representacion comercial que nos permita:
                 </p>
             
                 <ul className="list-disc pl-5 space-y-1 text-[13px] leading-[1.45]">
-                  <li><strong>Distribucion cruzada de servicios:</strong> Integracion de soluciones MOVISUN en el ecosistema System Kyron para el mercado colombiano, y viceversa.</li>
-                  <li><strong>Paquetes comerciales conjuntos:</strong> Desarrollo de ofertas empaquetadas que combinen servicios de telecomunicaciones MOVISUN con modulos corporativos de System Kyron.</li>
-                  <li><strong>Expansion geografica:</strong> Colaboracion para la entrada de System Kyron en el mercado colombiano, aprovechando la infraestructura y conocimiento local de MOVISUN.</li>
-                  <li><strong>Innovacion tecnologica:</strong> Co-desarrollo de soluciones integradas de transformacion digital para el sector empresarial colombiano.</li>
+                  <li><strong>Representacion en Venezuela:</strong> Tramitar los registros sanitarios, permisos de importacion, homologaciones y demas requisitos legales exigidos por las autoridades venezolanas (SENIAT, SENCAMER, INTT, entre otros) para la comercializacion de los productos y servicios MOVISUN en el territorio nacional.</li>
+                  <li><strong>Representacion en España:</strong> Gestionar los permisos, certificaciones y contratos necesarios ante las autoridades espanolas y europeas para la introduccion y comercializacion de la marca MOVISUN en el mercado espanol, incluyendo los tramites ante la Oficina Espanola de Patentes y Marcas y demas organismos competentes.</li>
+                  <li><strong>Gestion de contratos:</strong> Elaborar, negociar y suscribir los contratos de representacion, distribucion y licencia que ambas partes acuerden, asegurando el cumplimiento de la normativa legal aplicable en cada jurisdiccion.</li>
+                  <li><strong>Proteccion de la marca:</strong> Velar por la proteccion de los derechos de propiedad intelectual e industrial de MOVISUN en ambos territorios, incluyendo el registro y defensa de las marcas y patentes correspondientes.</li>
                 </ul>
             
                 <p className="indent-8">
-                  Quedamos a la espera de su response para concretar una reunion de trabajo donde podamos presentar formalmente nuestra propuesta y explorar en detalle los terminos de esta potencial alianza. Estamos seguros de que esta colaboracion generara valor significativo para ambas organizaciones y, sobre todo, para nuestros clientes.
+                  Quedamos a la espera de su response para concretar una reunion donde podamos presentar formalmente nuestra propuesta de representacion, asi como para iniciar los tramites legales y administrativos necesarios. Estamos seguros de que esta relacion comercial sera beneficiosa para ambas partes y contribuira al crecimiento y posicionamiento de la marca MOVISUN en los mercados de habla hispana.
                 </p>
               </div>
             
