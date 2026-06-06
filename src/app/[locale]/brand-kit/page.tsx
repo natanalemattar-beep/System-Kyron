@@ -24,9 +24,10 @@ import {
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
+import dynamic from 'next/dynamic';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
-import { OfficialSeal } from '@/components/brand/OfficialSeal';
-import { InstagramPost } from '@/components/brand/InstagramPost';
+const OfficialSeal = dynamic(() => import('@/components/brand/OfficialSeal'), { ssr: false });
+const InstagramPost = dynamic(() => import('@/components/brand/InstagramPost'), { ssr: false });
 import { PasswordGate } from '@/components/password-gate';
 import { useTheme } from "next-themes";
 
@@ -447,13 +448,14 @@ export default function BrandKitPage() {
     );
 }
 
-function ResourceCard({ resource: res, isActive }: { resource: Resource; isActive: boolean }) {
+const ResourceCard = memo(function ResourceCard({ resource: res, isActive }: { resource: Resource; isActive: boolean }) {
     const Icon = res.icon;
     
     return (
         <motion.div 
             whileHover={{ y: -6 }}
             className="group relative h-full"
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
         >
             <div className={cn(
                 "absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-40 blur-[60px] transition-all duration-700 rounded-[2rem] -z-10",
@@ -471,7 +473,6 @@ function ResourceCard({ resource: res, isActive }: { resource: Resource; isActiv
                         alt="" 
                         fill 
                         className="object-cover opacity-30"
-                        unoptimized
                     />
                 </div>
                 
@@ -512,7 +513,7 @@ function ResourceCard({ resource: res, isActive }: { resource: Resource; isActiv
                             </p>
                         </div>
                     </div>
-
+                
                     <div className="mt-10 pt-6 border-t border-border dark:border-white/5">
                         {res.type === 'internal' ? (
                             <Link href={res.href as unknown as Parameters<typeof Link>[0]['href']} className="flex items-center justify-between w-full group/link">
@@ -544,4 +545,5 @@ function ResourceCard({ resource: res, isActive }: { resource: Resource; isActiv
             </div>
         </motion.div>
     );
-}
+});
+ResourceCard.displayName = "ResourceCard";
