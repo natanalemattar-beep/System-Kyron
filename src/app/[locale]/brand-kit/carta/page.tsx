@@ -101,7 +101,7 @@ export default function CartaPage() {
 
   return (
     <div className="min-h-screen bg-[#02040a] py-16 px-4 print:bg-white print:py-0">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-12 print:hidden">
           <Button variant="ghost" onClick={() => router.push('/brand-kit')} className="text-zinc-400 hover:text-white text-xs font-black uppercase tracking-widest">
             <ArrowLeft className="mr-2 h-4 w-4" /> Volver
@@ -112,15 +112,15 @@ export default function CartaPage() {
           </div>
         </div>
 
-        <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none">
-          <div className="relative">
-            <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f]" />
+        <div className="flex justify-center">
+          <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none flex flex-col" style={{ width: '21.59cm', height: '27.94cm' }}>
+            <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
 
-            <div className="px-[1.2in] py-[0.6in] space-y-5" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
-              <div className="flex justify-between items-start border-b-2 border-[#1e3a5f] pb-4 mb-2">
-                <div className="flex items-center gap-4">
+            <div className="flex-1 px-[0.8in] py-[0.5in] flex flex-col" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+              <div className="flex justify-between items-start border-b-2 border-[#1e3a5f] pb-3 mb-4 shrink-0">
+                <div className="flex items-center gap-3">
                   {logoUrl && (
-                    <img src={logoUrl} alt="System Kyron" className="h-14 w-14 object-contain" />
+                    <img src={logoUrl} alt="System Kyron" className="h-12 w-12 object-contain" />
                   )}
                   <div>
                     <h1 className="text-xl font-bold text-[#1e3a5f] tracking-tight">EMPRENDIMIENTO CARLOS MATTAR</h1>
@@ -133,14 +133,16 @@ export default function CartaPage() {
                 </div>
               </div>
 
-              <div className="mb-7">
+              <div className="mb-7 shrink-0">
                 <p className="text-sm font-semibold text-gray-800">A quien corresponda,</p>
                 <p className="text-sm font-semibold text-gray-800">FONACIT</p>
                 <p className="text-xs text-gray-400">Presente.&mdash;</p>
               </div>
 
-              <div className="text-justify space-y-4 text-sm leading-[1.75] text-gray-800">
-                Reciba un cordial saludo de parte del equipo de <strong>System Kyron</strong>. Por medio de la presente, deseamos expresar nuestro mas sincero agradecimiento por el valioso tiempo y la atencion brindada durante nuestras recientes comunicaciones.
+              <div className="text-justify space-y-4 text-sm leading-[1.75] text-gray-800 flex-1">
+                <p>
+                  Reciba un cordial saludo de parte del equipo de <strong>System Kyron</strong>. Por medio de la presente, deseamos expresar nuestro mas sincero agradecimiento por el valioso tiempo y la atencion brindada durante nuestras recientes comunicaciones.
+                </p>
 
                 <p className="indent-8">
                   Valoramos profundamente el interes mostrado por FONACIT hacia nuestra propuesta de plataforma de inteligencia corporativa, asi como la disposicion para explorar mecanismos de colaboracion que contribuyan al desarrollo tecnologico y la automatizacion de procesos en el ecosistema empresarial venezolano.
@@ -155,7 +157,7 @@ export default function CartaPage() {
                 </p>
               </div>
 
-              <div className="pt-6 border-t border-gray-200">
+              <div className="pt-6 border-t border-gray-200 mt-auto shrink-0">
                 <div className="text-[10px] text-gray-500 space-y-0.5 leading-relaxed">
                   <p><strong className="text-gray-700">Correo:</strong> systemkyronofficial@gmail.com &nbsp;|&nbsp; <strong className="text-gray-700">Instagram:</strong> @systemkyron</p>
                 </div>
@@ -174,7 +176,7 @@ export default function CartaPage() {
               </div>
             </div>
 
-            <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f]" />
+            <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
           </div>
         </div>
 
