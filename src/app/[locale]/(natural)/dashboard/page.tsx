@@ -118,7 +118,7 @@ export default function DashboardPersonalPage() {
   }
 
   return (
-    <div className="space-y-6 pb-20 max-w-7xl mx-auto px-4 md:px-0">
+    <div className="ds-container pt-6">
       <ModuleTutorial config={moduleTutorials["ciudadano"]} />
       <ProfileCompletionNotice />
       
@@ -128,7 +128,7 @@ export default function DashboardPersonalPage() {
         animate={{ opacity: 1, y: 0 }}
         className="mt-6"
       >
-        <div className="rounded-2xl border border-border bg-card px-6 py-6 md:px-8 md:py-7 shadow-sm shadow-black/[0.02]">
+        <div className="ds-card w-full">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <div className="flex items-center gap-4">
               <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -163,7 +163,7 @@ export default function DashboardPersonalPage() {
             </div>
             <span className={cn("text-xs font-semibold", verif.color)}>{verif.percent}%</span>
           </div>
-          <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
+          <div className="ds-progress !h-3">
             <div
               className={cn("h-full rounded-full", verif.color.replace('text-', 'bg-'))}
               style={{ width: `${verif.percent}%` }}
@@ -173,16 +173,16 @@ export default function DashboardPersonalPage() {
         </div>
       )}
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {kpiCards.map((kpi, i) => (
           kpi.href ? (
             <Link href={kpi.href as never} key={i}>
-              <Card className={cn("border border-border bg-card rounded-xl overflow-hidden h-full transition-all hover:shadow-md shadow-sm shadow-black/[0.02] border-t-2 " + kpi.color.replace("text-", "border-t-") + "/30", kpi.ring)}>
+              <Card className="ds-card">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-xs font-medium text-muted-foreground">{kpi.title}</span>
-                    <div className={cn("h-8 w-8 rounded-lg flex items-center justify-center", kpi.bg)}>
+                    <div className={cn("ds-kpi-icon h-8 w-8 rounded-lg flex items-center justify-center", kpi.bg)}>
                       <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                       {kpi.alert && <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-rose-500" />}
                     </div>
@@ -201,11 +201,11 @@ export default function DashboardPersonalPage() {
               </Card>
             </Link>
           ) : (
-            <Card key={i} className={cn("border border-border bg-card rounded-xl overflow-hidden h-full transition-all hover:shadow-md shadow-sm shadow-black/[0.02] border-t-2 " + kpi.color.replace("text-", "border-t-") + "/30", kpi.ring)}>
+            <Card key={i} className="ds-card">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-medium text-muted-foreground">{kpi.title}</span>
-                  <div className={cn("h-8 w-8 rounded-lg flex items-center justify-center", kpi.bg)}>
+                  <div className={cn("ds-kpi-icon h-8 w-8 rounded-lg flex items-center justify-center", kpi.bg)}>
                     <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                   </div>
                 </div>
@@ -343,7 +343,7 @@ export default function DashboardPersonalPage() {
             <TriangleAlert className="h-4 w-4 text-amber-400" />
             <span className="text-xs font-semibold text-foreground/60">Vencimiento de Documentos</span>
           </div>
-          <div className="flex flex-col items-center justify-center py-6 gap-2">
+          <div className="ds-empty-state">
             <FileText className="h-8 w-8 opacity-15" />
             <p className="text-xs text-muted-foreground/40 text-center">Accede a tu expediente para ver las fechas de vencimiento</p>
             <Link href="/documentos">
@@ -360,7 +360,7 @@ export default function DashboardPersonalPage() {
             </div>
             <Link href="/tarjeta-reciclaje"><span className="text-xs font-medium text-green-400/70 hover:text-green-300 flex items-center gap-1">Ver <ChevronRight className="h-3 w-3" /></span></Link>
           </div>
-          <div className="flex flex-col items-center justify-center py-6 gap-2">
+          <div className="ds-empty-state">
             <Leaf className="h-8 w-8 opacity-15 text-green-500" />
             <p className="text-xs font-bold text-foreground/60">0 créditos</p>
             <p className="text-xs text-muted-foreground/40 text-center">Recicla materiales para acumular eco-créditos</p>
@@ -397,7 +397,7 @@ export default function DashboardPersonalPage() {
         </div>
       </div>
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
         <div className="flex items-center gap-2 mb-3">
           <div className="h-6 w-1 rounded-full bg-primary/40" />
           <span className="text-xs font-semibold text-muted-foreground">Módulos Especializados</span>
@@ -409,7 +409,7 @@ export default function DashboardPersonalPage() {
             { title: "Bóveda Civil", icon: Lock, href: "/documentos", desc: "Resguardo de documentos", color: "text-amber-500", bg: "bg-amber-500/8", ring: "ring-amber-500/10" },
           ].map((serv, i) => (
             <Link key={i} href={serv.href as never}>
-              <Card className={cn("border border-border bg-card/50 hover:bg-card hover:border-primary/30 rounded-xl p-4 transition-all hover:shadow-md shadow-sm shadow-black/[0.02]", serv.ring)}>
+              <Card className="ds-card">
                 <div className="flex items-center gap-3">
                   <div className={cn("h-10 w-10 rounded-lg flex items-center justify-center shrink-0", serv.bg)}>
                     <serv.icon className={cn("h-[18px] w-[18px]", serv.color)} />

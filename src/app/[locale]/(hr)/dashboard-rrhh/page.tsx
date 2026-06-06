@@ -131,8 +131,8 @@ export default function RecursosHumanosPage() {
   };
 
   return (
-    <div className="space-y-6 pb-20">
-      <header className="rounded-2xl border border-border bg-card px-6 py-6 md:px-8 md:py-7 mt-4 md:mt-6">
+    <div className="ds-container">
+      <header className="ds-header">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-3">
@@ -159,7 +159,7 @@ export default function RecursosHumanosPage() {
         </div>
       </header>
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
           { label: "Personal Activo", value: loading ? "—" : String(empleados.length), icon: Users },
@@ -167,7 +167,7 @@ export default function RecursosHumanosPage() {
           { label: "Salario Promedio", value: loading ? "—" : formatCurrency(avgSalario, "Bs.", currentLocale), icon: Target },
           { label: "Departamentos", value: loading ? "—" : String(distribucion.length), icon: Building2 },
         ].map((kpi, i) => (
-          <Card key={i} className={cn("border border-border rounded-xl bg-card shadow-sm shadow-black/[0.02] transition-all hover:shadow-md", [
+          <Card key={i} className={cn("ds-card", [
             "border-t-2 border-t-blue-500/30",
             "border-t-2 border-t-emerald-500/30",
             "border-t-2 border-t-violet-500/30",
@@ -176,7 +176,7 @@ export default function RecursosHumanosPage() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">{kpi.label}</span>
-                <div className="p-2 rounded-lg bg-current/10">
+                <div className="p-2 rounded-lg bg-current/10 ds-kpi-icon">
                   <kpi.icon className="h-3.5 w-3.5 text-foreground" />
                 </div>
               </div>
@@ -189,12 +189,12 @@ export default function RecursosHumanosPage() {
       </div>
       </div>
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        <Card className="lg:col-span-8 border border-border rounded-xl overflow-hidden bg-card shadow-sm shadow-black/[0.02]">
+        <Card className="lg:col-span-8 ds-card overflow-hidden">
           <CardHeader className="p-5 pb-2 flex flex-row items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="h-6 w-1 rounded-full bg-primary/40" />
+              <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
               <div>
                 <CardTitle className="text-xs font-bold uppercase tracking-wider text-foreground/80">Distribución por Departamento</CardTitle>
                 <CardDescription className="text-xs text-muted-foreground/50 font-medium mt-0.5">Balance de fuerza laboral · Datos en vivo</CardDescription>
@@ -205,7 +205,7 @@ export default function RecursosHumanosPage() {
           <CardContent className="p-4 pt-0">
             <div className="h-[260px]">
               {distribucion.length === 0 ? (
-                <div className="h-full flex flex-col items-center justify-center gap-2 text-muted-foreground/30">
+                <div className="h-full ds-empty-state">
                   <Users className="h-10 w-10" />
                   <p className="text-xs font-semibold uppercase">Sin empleados registrados</p>
                 </div>
@@ -229,9 +229,9 @@ export default function RecursosHumanosPage() {
         </Card>
 
         <div className="lg:col-span-4 space-y-4">
-          <Card className="rounded-xl border border-border bg-card p-4 shadow-sm shadow-black/[0.02]">
+          <Card className="ds-card p-4">
             <div className="flex items-center gap-2 mb-3">
-              <div className="h-6 w-1 rounded-full bg-primary/40" />
+              <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
               <ShieldCheck className="h-4 w-4 text-foreground" />
               <span className="text-xs font-bold uppercase tracking-wider text-foreground/60">LOPCYMAT</span>
               <Badge className="ml-auto bg-primary/10 text-primary border-primary/20 text-xs font-semibold h-5">Al día</Badge>
@@ -251,9 +251,9 @@ export default function RecursosHumanosPage() {
             </div>
           </Card>
 
-          <Card className="rounded-xl border border-border bg-card p-4 shadow-sm shadow-black/[0.02]">
+          <Card className="ds-card p-4">
             <div className="flex items-center gap-2 mb-3">
-              <div className="h-6 w-1 rounded-full bg-primary/40" />
+              <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
               <Award className="h-4 w-4 text-foreground" />
               <span className="text-xs font-bold uppercase tracking-wider text-foreground/60">Resumen Salarial</span>
             </div>
@@ -278,12 +278,12 @@ export default function RecursosHumanosPage() {
       </div>
       </div>
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        <Card className="lg:col-span-8 border border-border rounded-xl bg-card overflow-hidden shadow-sm shadow-black/[0.02]">
+        <Card className="lg:col-span-8 ds-card overflow-hidden">
           <div className="p-4 pb-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-border/10">
             <div className="flex items-center gap-3">
-              <div className="h-6 w-1 rounded-full bg-primary/40" />
+              <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
               <span className="text-xs font-bold uppercase tracking-wider text-foreground/80">Directorio de Personal</span>
             </div>
             <div className="relative w-full sm:w-48">
@@ -333,9 +333,9 @@ export default function RecursosHumanosPage() {
         </Card>
 
         <div className="lg:col-span-4 space-y-4">
-          <Card className="border border-border rounded-xl bg-card p-4 shadow-sm shadow-black/[0.02]">
+          <Card className="ds-card p-4">
             <div className="flex items-center gap-2 mb-3">
-              <div className="h-6 w-1 rounded-full bg-primary/40" />
+              <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
               <Activity className="h-4 w-4 text-foreground" />
               <span className="text-xs font-bold uppercase tracking-wider text-foreground/60">Estado del Sistema</span>
             </div>
@@ -360,9 +360,9 @@ export default function RecursosHumanosPage() {
             </div>
           </Card>
 
-          <Card className="border border-border rounded-xl bg-card p-4 overflow-hidden shadow-sm shadow-black/[0.02]">
+          <Card className="ds-card p-4 overflow-hidden">
             <div className="flex items-center gap-3 mb-1">
-              <div className="h-6 w-1 rounded-full bg-primary/40" />
+              <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
               <h3 className="text-sm font-bold text-foreground">Protocolos</h3>
             </div>
             <p className="text-xs text-muted-foreground/40 mb-3">Accesos rápidos</p>

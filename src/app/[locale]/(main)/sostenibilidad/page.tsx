@@ -126,8 +126,8 @@ export default function SostenibilidadPage() {
   }
 
   return (
-    <div className="space-y-10 pb-20">
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+    <div className="ds-container">
+      <header className="ds-header">
         <div>
           <div className="flex items-center gap-3 mb-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-secondary/10 border border-secondary/20 text-[11px] font-semibold uppercase tracking-wide text-secondary">
@@ -155,10 +155,10 @@ export default function SostenibilidadPage() {
       </header>
 
       {esPersonal ? (
-        <Card className="glass-card border-none bg-card/50 rounded-2xl">
+        <Card className="ds-card glass-card border-none bg-card/50 rounded-2xl">
           <CardContent className="p-6">
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 rounded-xl bg-primary/10"><Leaf className="h-4 w-4 text-primary" /></div>
+              <div className="ds-kpi-icon p-2 rounded-xl bg-primary/10"><Leaf className="h-4 w-4 text-primary" /></div>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wide text-foreground">Consejos para tu hogar</p>
                 <p className="text-[10px] text-muted-foreground">Pequeñas acciones, gran impacto ambiental</p>
@@ -173,7 +173,7 @@ export default function SostenibilidadPage() {
                 { icon: Recycle, text: 'Lleva tus electrónicos en desuso a puntos Ameru autorizados.' },
               ].map((c, i) => (
                 <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-muted/30 border border-border/10">
-                  <div className="p-1.5 rounded-lg bg-primary/10 shrink-0">
+                  <div className="ds-kpi-icon p-1.5 rounded-lg bg-primary/10 shrink-0">
                     <c.icon className="h-3.5 w-3.5 text-primary" />
                   </div>
                   <p className="text-[11px] text-muted-foreground leading-relaxed">{c.text}</p>
@@ -183,7 +183,7 @@ export default function SostenibilidadPage() {
           </CardContent>
         </Card>
       ) : (
-        <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden group">
+        <Card className="ds-card glass-card border-none bg-card/50 rounded-2xl overflow-hidden group">
           <div className="p-6 md:p-10 grid lg:grid-cols-2 gap-10 items-center">
             <div className="space-y-6">
               <div className="space-y-2">
@@ -237,10 +237,10 @@ export default function SostenibilidadPage() {
           { label: "Transacciones", val: String(transacciones.length), icon: MapPin, color: "text-emerald-500", bgColor: "bg-emerald-500/10 border-emerald-500/15", desc: "Total registrado" },
           { label: "Nivel Ameru", val: nivel.toUpperCase(), icon: ShieldCheck, color: NIVEL_COLORS[nivel] || "text-primary", bgColor: "bg-primary/10 border-primary/15", desc: "Score de participación" },
         ].map((kpi, i) => (
-          <Card key={i} className="glass-card border-none bg-card/50 p-5 rounded-2xl group hover:scale-[1.01] transition-all">
+          <Card key={i} className="ds-card glass-card border-none bg-card/50 p-5 rounded-2xl group hover:scale-[1.01] transition-all">
             <div className="flex justify-between items-start mb-4">
               <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/40">{kpi.label}</p>
-              <div className={cn("p-1.5 rounded-lg border", kpi.bgColor)}>
+              <div className={cn("ds-kpi-icon p-1.5 rounded-lg border", kpi.bgColor)}>
                 <kpi.icon className={cn("h-3.5 w-3.5", kpi.color)} />
               </div>
             </div>
@@ -251,7 +251,7 @@ export default function SostenibilidadPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-12">
-        <Card className="lg:col-span-8 glass-card border-none rounded-2xl bg-card/50 overflow-hidden">
+        <Card className="ds-card lg:col-span-8 glass-card border-none rounded-2xl bg-card/50 overflow-hidden">
           <CardHeader className="p-6 border-b border-border/30">
             <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground flex items-center gap-2">
               <Activity className="h-3.5 w-3.5 text-secondary" /> Historial de Reciclaje
@@ -259,8 +259,8 @@ export default function SostenibilidadPage() {
           </CardHeader>
           <CardContent className="p-0">
             {transacciones.length === 0 ? (
-              <div className="py-12 px-6 text-center space-y-3">
-                <div className="mx-auto w-12 h-12 rounded-xl bg-muted/30 flex items-center justify-center">
+              <div className="ds-empty-state">
+                <div className="ds-kpi-icon mx-auto w-12 h-12 rounded-xl bg-muted/30 flex items-center justify-center">
                   <Recycle className="h-5 w-5 text-muted-foreground/30" />
                 </div>
                 <p className="text-sm font-medium text-muted-foreground/60">Sin registros de reciclaje</p>
@@ -310,7 +310,7 @@ export default function SostenibilidadPage() {
         </Card>
 
         <div className="lg:col-span-4 space-y-6">
-          <Card className="bg-gradient-to-br from-emerald-600 to-teal-700 text-white rounded-2xl p-6 border-none relative overflow-hidden">
+          <Card className="ds-card bg-gradient-to-br from-emerald-600 to-teal-700 text-white rounded-2xl p-6 border-none relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-10"><Coins className="h-24 w-24" /></div>
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <h3 className="text-sm font-semibold uppercase tracking-tight mb-2">Canje de Activos</h3>
@@ -318,7 +318,7 @@ export default function SostenibilidadPage() {
             <Button variant="secondary" size="sm" className="bg-white text-emerald-700 font-bold text-[10px] uppercase tracking-wider rounded-xl h-9 px-5 hover:bg-white/90">ACCEDER AL EXCHANGE</Button>
           </Card>
 
-          <Card className="glass-card border-none p-5 rounded-2xl bg-card/50">
+          <Card className="ds-card glass-card border-none p-5 rounded-2xl bg-card/50">
             <h4 className="text-[10px] font-semibold uppercase tracking-wide text-secondary mb-6 flex items-center gap-2">
               <Activity className="h-3.5 w-3.5" /> Resumen de Cuenta
             </h4>

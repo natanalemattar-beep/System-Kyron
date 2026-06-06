@@ -109,7 +109,7 @@ export default function CartaAlianzaMovisunPage() {
 
   return (
     <div className="min-h-screen bg-[#02040a] py-16 px-4 print:bg-white print:py-0">
-      <div className="max-w-3xl mx-auto">
+        <div className="flex justify-center">
         <div className="flex items-center justify-between mb-12 print:hidden">
           <Button variant="ghost" onClick={() => router.push('/brand-kit')} className="text-zinc-400 hover:text-white text-xs font-black uppercase tracking-widest">
             <ArrowLeft className="mr-2 h-4 w-4" /> Volver
@@ -120,11 +120,11 @@ export default function CartaAlianzaMovisunPage() {
           </div>
         </div>
 
-        <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none">
+        <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none" style={{ width: '21.59cm', height: '27.94cm' }}>
           <div className="relative">
             <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f]" />
 
-            <div className="px-[1.2in] py-[0.6in] space-y-5" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+             <div className="px-[1in] py-[0.8in] space-y-5" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
               <div className="flex justify-between items-start border-b-2 border-[#1e3a5f] pb-4 mb-2">
                 <div className="flex items-center gap-4">
                   {logoUrl && (

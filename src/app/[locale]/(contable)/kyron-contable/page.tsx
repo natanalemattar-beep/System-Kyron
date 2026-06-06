@@ -88,10 +88,10 @@ const QUICK_LINKS = [
 
 export default function KyronContablePage() {
   return (
-    <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
-      <header className="pt-8 space-y-4">
+    <div className="ds-container">
+      <header className="ds-header">
         <div className="flex items-center gap-3">
-          <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-600/20">
+          <div className="ds-kpi-icon h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-600/20">
             <Briefcase className="h-7 w-7 text-white" />
           </div>
           <div>
@@ -108,11 +108,11 @@ export default function KyronContablePage() {
         </div>
       </header>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="ds-section">
         {QUICK_LINKS.map((link, i) => (
           <Link key={i} href={link.href}
-            className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card shadow-sm shadow-black/[0.02] hover:shadow-md hover:border-primary/20 transition-all">
-            <div className="h-9 w-9 rounded-xl bg-muted/30 border border-border/50 flex items-center justify-center shrink-0">
+            className="ds-card">
+            <div className="ds-kpi-icon h-9 w-9 rounded-xl bg-muted/30 border border-border/50 flex items-center justify-center shrink-0">
               <link.icon className="h-4 w-4 text-muted-foreground" />
             </div>
             <span className="text-xs font-semibold text-foreground">{link.label}</span>
@@ -120,12 +120,12 @@ export default function KyronContablePage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="ds-section">
         {SERVICE_LINES.map((svc) => (
           <div key={svc.id}
-            className="rounded-2xl border border-border bg-card shadow-sm shadow-black/[0.02] overflow-hidden hover:shadow-md transition-all flex flex-col">
+            className="ds-card">
             <div className={`p-5 flex items-center gap-4 ${svc.bg} ${svc.border} border-b`}>
-              <div className={`h-12 w-12 rounded-xl ${svc.bg} ${svc.border} flex items-center justify-center`}>
+              <div className={`ds-kpi-icon h-12 w-12 rounded-xl ${svc.bg} ${svc.border} flex items-center justify-center`}>
                 <svc.icon className={`h-6 w-6 ${svc.color}`} />
               </div>
               <div className="flex-1 min-w-0">
@@ -159,9 +159,9 @@ export default function KyronContablePage() {
         ))}
       </div>
 
-      <div className="rounded-2xl bg-gradient-to-br from-blue-600/[0.03] to-indigo-600/[0.03] border border-blue-500/10 p-6">
+      <div className="ds-section">
         <div className="flex items-start gap-4">
-          <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shrink-0 shadow-lg">
+          <div className="ds-kpi-icon h-12 w-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shrink-0 shadow-lg">
             <Sparkles className="h-6 w-6 text-white" />
           </div>
           <div>
@@ -177,7 +177,7 @@ export default function KyronContablePage() {
                 { icon: Users, label: "RRHH", desc: "Talento y bienestar laboral" },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-lg bg-muted/30 border border-border/50 flex items-center justify-center">
+                  <div className="ds-kpi-icon h-8 w-8 rounded-lg bg-muted/30 border border-border/50 flex items-center justify-center">
                     <item.icon className="h-4 w-4 text-muted-foreground" />
                   </div>
                   <div className="hidden sm:block">

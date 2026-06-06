@@ -105,11 +105,11 @@ export default function EstrategiasVentasPage() {
   const altasYCriticas = estrategias.filter(e => e.impacto === 'Alto' || e.impacto === 'Crítico').length;
 
   return (
-    <div className="space-y-10 pb-20 px-4 md:px-10">
+    <div className="ds-container">
       <motion.header
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6"
+        className="ds-header"
       >
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
@@ -156,7 +156,7 @@ export default function EstrategiasVentasPage() {
           <span className="text-sm">Cargando estrategias...</span>
         </div>
       ) : estrategias.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 gap-3">
+        <div className="ds-empty-state">
           <Inbox className="h-12 w-12 text-muted-foreground/30" />
           <p className="text-sm text-muted-foreground">No hay estrategias configuradas</p>
         </div>

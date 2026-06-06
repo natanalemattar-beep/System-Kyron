@@ -137,8 +137,8 @@ export default function EscritorioJuridicoPage() {
   ];
 
   return (
-    <div className="space-y-12 pb-20 px-6 md:px-10">
-      <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-slate-500 pl-8 py-2 mt-10">
+    <div className="ds-container">
+      <header className="ds-header">
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-500/10 border border-slate-500/20 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 font-tech">
             <Gavel className="h-3 w-3" /> ÁREA LEGAL
@@ -165,13 +165,13 @@ export default function EscritorioJuridicoPage() {
         </div>
       </header>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="ds-section grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {kpiData.map((kpi, index) => (
           <motion.div key={kpi.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }}>
-            <Card className="glass-card border-none bg-white/[0.02] p-2 rounded-xl">
+            <Card className="ds-card p-2">
               <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-6">
                 <CardTitle className="text-[10px] font-semibold uppercase tracking-widest text-white/30">{kpi.title}</CardTitle>
-                <div className={cn("p-2 rounded-lg border border-white/5", kpi.bg)}>
+                <div className={cn("p-2 rounded-lg border border-white/5 ds-kpi-icon", kpi.bg)}>
                   <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                 </div>
               </CardHeader>
@@ -187,8 +187,8 @@ export default function EscritorioJuridicoPage() {
         ))}
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-12">
-        <Card className="lg:col-span-8 glass-card border-none rounded-2xl bg-white/[0.01] overflow-hidden">
+      <div className="ds-section grid gap-10 lg:grid-cols-12">
+        <Card className="ds-card lg:col-span-8 overflow-hidden">
           <CardHeader className="p-10 border-b border-white/5 flex flex-col md:flex-row justify-between items-center bg-white/[0.01]">
             <div className="space-y-1">
               <CardTitle className="text-xl font-semibold uppercase italic tracking-tight">Expedientes y Trámites</CardTitle>
@@ -212,7 +212,7 @@ export default function EscritorioJuridicoPage() {
                 {[1,2,3].map(n => <div key={n} className="h-12 bg-white/5 rounded-xl animate-pulse" />)}
               </div>
             ) : filtrados.length === 0 ? (
-              <div className="text-center py-20">
+              <div className="ds-empty-state">
                 <FileText className="h-12 w-12 text-white/10 mx-auto mb-4" />
                 <p className="text-[10px] font-semibold uppercase text-white/20">No hay documentos registrados</p>
                 <Button onClick={() => setShowDialog(true)} variant="outline" size="sm" className="mt-4 text-[11px] font-semibold uppercase rounded-xl border-white/10">
@@ -288,11 +288,11 @@ export default function EscritorioJuridicoPage() {
 
         <div className="lg:col-span-4 space-y-8">
           {/* Módulo de Blindaje Legal IA */}
-          <Card className="bg-gradient-to-br from-slate-900 to-black text-white rounded-[2.5rem] p-1 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 group overflow-hidden relative">
+          <Card className="ds-card bg-gradient-to-br from-slate-900 to-black text-white rounded-[2.5rem] p-1 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 group overflow-hidden relative">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(6,182,212,0.15),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             <div className="p-8 relative z-10">
               <div className="flex justify-between items-start mb-10">
-                <div className="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20">
+                <div className="ds-kpi-icon p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20">
                   <ShieldCheck className="h-6 w-6 text-cyan-400" />
                 </div>
                 <Badge className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20 text-[8px] font-black tracking-widest uppercase">Protocolo SK-Safe</Badge>
@@ -320,7 +320,7 @@ export default function EscritorioJuridicoPage() {
           </Card>
 
           {/* Bóveda de Firmas Digitales */}
-          <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-8 overflow-hidden relative">
+          <Card className="ds-card overflow-hidden relative">
             <div className="absolute top-0 right-0 p-6 opacity-5 rotate-12">
                <FileSignature className="h-32 w-32" />
             </div>
@@ -331,7 +331,7 @@ export default function EscritorioJuridicoPage() {
             </CardHeader>
             <CardContent className="p-0 space-y-4 relative z-10">
               <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 flex items-center gap-4">
-                <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                <div className="ds-kpi-icon h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
                   <CircleCheck className="h-5 w-5 text-emerald-500" />
                 </div>
                 <div>
@@ -346,7 +346,7 @@ export default function EscritorioJuridicoPage() {
           </Card>
 
           {/* Radar de Obligaciones */}
-          <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-8">
+          <Card className="ds-card">
             <CardHeader className="p-0 mb-6">
               <CardTitle className="text-[10px] font-black uppercase tracking-[0.25em] text-amber-500 flex items-center gap-3">
                 <Activity className="h-4 w-4" /> Radar Regulatorio
@@ -368,8 +368,8 @@ export default function EscritorioJuridicoPage() {
         </div>
       </div>
 
-      <Card className="glass-card border-none p-12 md:p-20 rounded-2xl bg-white/[0.02] mt-20 overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-slate-500/40 to-transparent" />
+      <Card className="ds-card mt-20 overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
         <div className="grid lg:grid-cols-12 gap-16 md:gap-24 relative z-10">
           <div className="lg:col-span-5 space-y-10">
             <div className="flex items-center gap-6">
@@ -404,7 +404,7 @@ export default function EscritorioJuridicoPage() {
                 ))}
               </div>
             </div>
-            <Card className="bg-slate-500/5 border border-slate-500/20 p-10 rounded-2xl flex items-center justify-between">
+            <Card className="ds-card bg-slate-500/5 border border-slate-500/20 p-10 rounded-2xl flex items-center justify-between">
               <div className="space-y-2">
                 <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Documentos en Archivo</p>
                 <p className="text-2xl font-bold text-white italic tracking-tight uppercase">{documentos.length} REGISTROS</p>

@@ -85,26 +85,23 @@ export default function MarketingDashboardPage() {
     const totalGastado = Number(data?.campanas?.total_gastado ?? 0);
 
     return (
-        <div className="space-y-12 w-full px-6 md:px-16 pb-20">
+        <div className="ds-container !max-w-full">
             <ModuleTutorial config={moduleTutorials["marketing"]} />
 
-            <header className="border-l-4 border-primary pl-8 py-2 mt-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary-sm mb-4">
+            <header className="ds-header mt-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
                     <Megaphone className="h-3 w-3" /> MARKETING IA — CENTRO DE CONTROL
                 </div>
-                <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase italic text-foreground">
-                    Dashboard de <span className="text-primary">Marketing</span>
-                </h1>
-                <div className="flex items-center gap-4 mt-2">
-                    <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">
-                        KPIs en tiempo real • Campañas • CRM • System Kyron 2026
-                    </p>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={handleRefresh}
-                        className="h-8 rounded-xl text-[11px] font-semibold uppercase tracking-widest border-border ml-auto"
-                    >
+                <div className="flex items-start justify-between">
+                    <div>
+                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase italic text-foreground">
+                            Dashboard de <span className="text-primary">Marketing</span>
+                        </h1>
+                        <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40 mt-2">
+                            KPIs en tiempo real • Campañas • CRM • System Kyron 2026
+                        </p>
+                    </div>
+                    <Button variant="outline" size="sm" onClick={handleRefresh} className="h-8 rounded-xl text-[11px] font-semibold uppercase tracking-widest border-border shrink-0">
                         <RefreshCw className={`h-3.5 w-3.5 mr-2 ${refreshing ? "animate-spin" : ""}`} />
                         Actualizar
                     </Button>
@@ -132,8 +129,8 @@ export default function MarketingDashboardPage() {
                             { label: "Emails Enviados", value: fmt(data?.email?.total_enviados), icon: Mail, color: "text-cyan-400", bg: "bg-cyan-400/10" },
                             { label: "Seguidores Totales", value: fmt(data?.redes?.total_seguidores), icon: Globe, color: "text-amber-400", bg: "bg-amber-400/10" },
                         ].map((kpi, i) => (
-                            <Card key={i} className="glass-card border-none p-6 rounded-xl bg-card/50 relative overflow-hidden group">
-                                <div className={`p-3 ${kpi.bg} rounded-xl w-fit mb-4 border border-white/5`}>
+                            <Card key={i} className="ds-card">
+                                <div className="ds-kpi-icon mb-4 border border-white/5">
                                     <kpi.icon className={`h-5 w-5 ${kpi.color}`} />
                                 </div>
                                 <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/50 mb-1">{kpi.label}</p>
@@ -143,7 +140,7 @@ export default function MarketingDashboardPage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <Card className="glass-card border-border/50 bg-card/40 rounded-xl p-6">
+                        <Card className="ds-card">
                             <div className="flex items-center gap-2 mb-4">
                                 <Target className="h-4 w-4 text-primary" />
                                 <h3 className="text-xs font-semibold uppercase tracking-widest text-foreground/80">Campañas</h3>
@@ -172,7 +169,7 @@ export default function MarketingDashboardPage() {
                             </div>
                         </Card>
 
-                        <Card className="glass-card border-border/50 bg-card/40 rounded-xl p-6">
+                        <Card className="ds-card">
                             <div className="flex items-center gap-2 mb-4">
                                 <Users className="h-4 w-4 text-emerald-400" />
                                 <h3 className="text-xs font-semibold uppercase tracking-widest text-foreground/80">CRM</h3>
@@ -197,7 +194,7 @@ export default function MarketingDashboardPage() {
                             </div>
                         </Card>
 
-                        <Card className="glass-card border-border/50 bg-card/40 rounded-xl p-6">
+                        <Card className="ds-card">
                             <div className="flex items-center gap-2 mb-4">
                                 <Mail className="h-4 w-4 text-cyan-400" />
                                 <h3 className="text-xs font-semibold uppercase tracking-widest text-foreground/80">Email Marketing</h3>
@@ -222,7 +219,7 @@ export default function MarketingDashboardPage() {
                             </div>
                         </Card>
 
-                        <Card className="glass-card border-border/50 bg-card/40 rounded-xl p-6">
+                        <Card className="ds-card">
                             <div className="flex items-center gap-2 mb-4">
                                 <Globe className="h-4 w-4 text-amber-400" />
                                 <h3 className="text-xs font-semibold uppercase tracking-widest text-foreground/80">Redes Sociales</h3>
@@ -258,7 +255,7 @@ export default function MarketingDashboardPage() {
                                 {(data?.recentCampanas ?? []).map((campaign) => {
                                     const roiStr = Number(campaign.roi) !== 0 ? `${Number(campaign.roi) > 0 ? "+" : ""}${Number(campaign.roi)}%` : "—";
                                     return (
-                                        <Card key={campaign.id} className="glass-card border-border/50 bg-card/40 rounded-xl p-6 group hover:border-primary/30 transition-all duration-300">
+                                        <Card key={campaign.id} className="ds-card group">
                                             <div className="flex items-start justify-between mb-4">
                                                 <div>
                                                     <p className="text-sm font-semibold uppercase italic tracking-tight text-foreground/90">{campaign.nombre}</p>
@@ -305,7 +302,7 @@ export default function MarketingDashboardPage() {
 
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 {(data?.topRedes ?? []).map((social, i) => (
-                                    <Card key={i} className="glass-card border-border/50 bg-card/40 rounded-xl p-5 text-center group hover:border-primary/30 transition-all">
+                                    <Card key={i} className="ds-card p-5 text-center group">
                                         <div className={cn("mx-auto w-10 h-10 rounded-xl flex items-center justify-center mb-3", social.bg || "bg-primary/10")}>
                                             <Globe className={cn("h-4 w-4", social.color || "text-primary")} />
                                         </div>
@@ -327,7 +324,7 @@ export default function MarketingDashboardPage() {
                     )}
 
                     {totalCampanas === 0 && totalClientes === 0 && (
-                        <div className="flex flex-col items-center justify-center py-20 gap-6 text-muted-foreground/30">
+                        <div className="ds-empty-state !py-20">
                             <ChartColumn className="h-16 w-16" />
                             <div className="text-center space-y-2">
                                 <p className="text-sm font-semibold uppercase tracking-widest">Dashboard Vacío</p>

@@ -154,8 +154,8 @@ export default function DashboardSociosPage() {
   }
 
   return (
-    <div className="space-y-10 pb-20">
-      <header className="rounded-2xl border border-border bg-card px-6 py-6 md:px-8 md:py-7">
+    <div className="ds-container">
+      <header className="ds-header">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-xs font-black uppercase tracking-[0.2em] text-indigo-500 mb-4 font-tech">
@@ -170,7 +170,7 @@ export default function DashboardSociosPage() {
         </div>
       </header>
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
         <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
           {[
             { label: "Total Socios", val: String(stats.total_socios), icon: Users, color: "text-blue-500", bgColor: "bg-blue-500/10 border-blue-500/15", sub: `${stats.socios_activos} activos` },
@@ -178,10 +178,10 @@ export default function DashboardSociosPage() {
             { label: "Actas Registradas", val: String(stats.total_actas), icon: FileText, color: "text-violet-500", bgColor: "bg-violet-500/10 border-violet-500/15", sub: `${stats.actas_registradas} formalizadas` },
             { label: "Gobernanza", val: stats.socios_activos > 0 ? "Activa" : "Sin socios", icon: Clock, color: "text-amber-500", bgColor: "bg-amber-500/10 border-amber-500/15", sub: stats.socios_activos > 0 ? "Al día" : "Registre socios" },
           ].map((kpi, i) => (
-            <Card key={i} className={cn("rounded-xl border border-border bg-card p-5 transition-all hover:shadow-md shadow-sm shadow-black/[0.02]", `border-t-2 ${kpi.color.replace('text-', 'border-t-')}/30`)}>
+            <Card key={i} className={cn("ds-card p-5", `border-t-2 ${kpi.color.replace('text-', 'border-t-')}/30`)}>
               <div className="flex justify-between items-start mb-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground/40">{kpi.label}</p>
-                <div className={cn("p-2 rounded-lg bg-current/10", kpi.color)}>
+                <div className={cn("p-2 rounded-lg bg-current/10 ds-kpi-icon", kpi.color)}>
                   <kpi.icon className={cn("h-3.5 w-3.5", kpi.color)} />
                 </div>
               </div>
@@ -192,14 +192,14 @@ export default function DashboardSociosPage() {
         </div>
       </div>
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
         <div className="grid gap-6 lg:grid-cols-12">
-        <Card className="lg:col-span-8 rounded-xl border border-border bg-card overflow-hidden shadow-sm shadow-black/[0.02]">
+        <Card className="lg:col-span-8 ds-card overflow-hidden">
           <CardHeader className="p-6 border-b border-border">
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
-                  <div className="h-6 w-1 rounded-full bg-primary/40" />
+                  <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
                   <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground">Composición Accionaria</CardTitle>
                 </div>
                 <CardDescription className="text-xs mt-1">
@@ -270,10 +270,10 @@ export default function DashboardSociosPage() {
         </Card>
 
         <div className="lg:col-span-4 space-y-6">
-          <Card className="rounded-xl border border-border bg-card overflow-hidden shadow-sm shadow-black/[0.02]">
+          <Card className="ds-card overflow-hidden">
             <CardHeader className="p-5 border-b border-border">
               <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground flex items-center gap-2">
-                <div className="h-6 w-1 rounded-full bg-primary/40" />
+                <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
                 <Activity className="h-3.5 w-3.5 text-indigo-500" /> Actas Recientes
               </CardTitle>
             </CardHeader>
@@ -347,11 +347,11 @@ export default function DashboardSociosPage() {
       </div>
       </div>
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {modules.map((module) => (
           <Link key={module.title} href={module.href as never} className="group block">
-            <Card className="rounded-xl border border-border bg-card/50 p-5 h-full flex flex-col justify-between transition-all hover:shadow-md shadow-sm shadow-black/[0.02]">
+            <Card className="ds-card p-5 h-full flex flex-col justify-between">
               <div className="space-y-3">
                 <div className={cn("p-2.5 rounded-xl border w-fit", module.bgColor)}>
                   <module.icon className={cn("h-4 w-4", module.color)} />
@@ -428,7 +428,7 @@ export default function DashboardSociosPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowForm(false)} className="rounded-lg text-xs">Cancelar</Button>
-            <Button onClick={handleSave} disabled={saving} className="rounded-lg text-xs bg-indigo-600 hover:bg-indigo-700 text-white">
+            <Button onClick={handleSave} disabled={saving} className="rounded-xl text-xs font-black uppercase tracking-[0.15em] bg-indigo-600 hover:bg-indigo-700 text-white">
               {saving && <Loader2 className="mr-1.5 h-3 w-3 animate-spin" />}
               {editId ? 'Actualizar' : 'Registrar'}
             </Button>

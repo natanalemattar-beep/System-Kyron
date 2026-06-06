@@ -119,11 +119,11 @@ export default function DashboardITPage() {
   }
 
   return (
-    <div className="space-y-10 pb-20 px-4 md:px-10 bg-background min-h-screen">
+    <div className="ds-container !max-w-full">
       <motion.header
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl border border-border bg-card shadow-sm shadow-black/[0.02] px-6 py-6 md:px-8 md:py-7 mt-4 md:mt-6"
+        className="ds-header"
       >
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="space-y-1.5">
@@ -155,14 +155,14 @@ export default function DashboardITPage() {
         </div>
       </motion.header>
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {kpis.map((kpi, i) => (
-          <Card key={i} className={cn("border border-border rounded-xl bg-card shadow-sm shadow-black/[0.02] transition-all hover:shadow-md", kpi.color.replace('text-', 'border-t-') + '/30')}>
+          <Card key={i} className={cn("ds-card", kpi.color.replace('text-', 'border-t-') + '/30')}>
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">{kpi.label}</span>
-                <div className="p-2 rounded-lg bg-current/10">
+                <div className="ds-kpi-icon">
                   <kpi.icon className={cn("h-3.5 w-3.5", kpi.color)} />
                 </div>
               </div>
@@ -176,14 +176,14 @@ export default function DashboardITPage() {
       </div>
       </div>
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <Card className="rounded-xl border border-border bg-card shadow-sm shadow-black/[0.02] transition-all hover:shadow-md">
+          <Card className="ds-card">
             <CardHeader className="p-5 border-b">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="h-6 w-1 rounded-full bg-primary/40" />
+                  <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
                   <CardTitle className="text-xs font-semibold uppercase tracking-widest">Actividad Reciente</CardTitle>
                 </div>
                 <Link href="/helpdesk" className="text-xs text-primary font-bold hover:underline flex items-center gap-1">
@@ -198,7 +198,7 @@ export default function DashboardITPage() {
                   <span className="text-xs">Cargando actividad...</span>
                 </div>
               ) : actividad.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-12 text-muted-foreground gap-3">
+                <div className="ds-empty-state">
                   <Inbox className="h-10 w-10 opacity-20" />
                   <p className="text-xs font-semibold uppercase tracking-widest">Sin actividad reciente</p>
                 </div>
@@ -218,10 +218,10 @@ export default function DashboardITPage() {
           </Card>
         </div>
 
-        <Card className="rounded-xl border border-border bg-card shadow-sm shadow-black/[0.02] transition-all hover:shadow-md">
+        <Card className="ds-card">
           <CardHeader className="p-5 border-b">
             <div className="flex items-center gap-2">
-              <div className="h-6 w-1 rounded-full bg-primary/40" />
+              <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
               <CardTitle className="text-xs font-semibold uppercase tracking-widest">Estado de Tickets</CardTitle>
             </div>
           </CardHeader>
@@ -258,18 +258,18 @@ export default function DashboardITPage() {
       </div>
       </div>
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
         <div>
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-2">
-              <div className="h-6 w-1 rounded-full bg-primary/40" />
+              <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
               <h2 className="text-sm font-semibold uppercase tracking-widest text-foreground">Módulos IT</h2>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {MODULOS.map((mod, i) => (
               <Link key={i} href={mod.href}>
-                <Card className={cn("rounded-xl border shadow-sm shadow-black/[0.02] transition-all hover:shadow-md cursor-pointer h-full", mod.border)}>
+                <Card className={cn("ds-card cursor-pointer h-full", mod.border)}>
                   <CardContent className="p-6 flex flex-col gap-4 h-full">
                     <div className="flex items-start justify-between">
                       <div className={cn("p-3 rounded-xl", mod.bg)}>

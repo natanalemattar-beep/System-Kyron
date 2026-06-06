@@ -371,4 +371,164 @@
   .section-divider {
     @apply w-full h-px bg-gradient-to-r from-transparent via-border/50 to-transparent my-0;
   }
+
+  /* ===== DASHBOARD ENHANCED SYSTEM ===== */
+
+  .ds-container {
+    @apply space-y-5 max-w-7xl mx-auto px-3 md:px-6 pb-20;
+  }
+
+  .ds-header {
+    @apply relative overflow-hidden rounded-2xl border border-border/60 bg-card px-6 py-6 md:px-8 md:py-7;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.02), inset 0 1px 0 0 rgb(255 255 255 / 0.4);
+  }
+  .dark .ds-header {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), inset 0 1px 0 0 rgb(255 255 255 / 0.02);
+  }
+  .ds-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.2), transparent);
+  }
+
+  .ds-section {
+    @apply relative overflow-hidden rounded-2xl p-4 md:p-5 border border-border/30;
+    background: linear-gradient(135deg, hsl(var(--card) / 0.15), hsl(var(--muted) / 0.08));
+  }
+  .ds-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 100% 50% at 50% 0%, hsl(var(--primary) / 0.03) 0%, transparent 70%);
+  }
+
+  .ds-card {
+    @apply relative overflow-hidden rounded-xl border border-border/60 bg-card p-4 md:p-5 transition-all duration-300;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.02), 0 1px 3px 0 rgb(0 0 0 / 0.02);
+  }
+  .ds-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsl(var(--primary) / 0.06), transparent 40%);
+  }
+  .ds-card:hover {
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.05), 0 2px 4px rgb(0 0 0 / 0.03);
+    @apply border-primary/20 -translate-y-0.5;
+  }
+  .ds-card:hover::after {
+    opacity: 1;
+  }
+  .dark .ds-card {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.2), 0 1px 3px 0 rgb(0 0 0 / 0.15);
+  }
+  .dark .ds-card:hover {
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.3), 0 4px 8px rgb(0 0 0 / 0.2);
+  }
+
+  .ds-card-accent {
+    @apply ds-card border-t-2;
+  }
+
+  .ds-kpi-icon {
+    @apply p-2 rounded-lg transition-colors duration-300;
+  }
+  .ds-card:hover .ds-kpi-icon {
+    background-color: hsl(var(--foreground) / 0.15);
+  }
+
+  .ds-kpi-value {
+    @apply text-2xl md:text-3xl font-bold tracking-tight tabular-nums;
+  }
+
+  .ds-label {
+    @apply text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60;
+  }
+
+  .ds-badge {
+    @apply text-[11px] font-semibold px-2 py-0.5 rounded-md;
+  }
+
+  .ds-dot {
+    @apply inline-block w-1.5 h-1.5 rounded-full;
+  }
+
+  .ds-grid-4 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4;
+  }
+
+  .ds-grid-2 {
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-4;
+  }
+
+  .ds-progress {
+    @apply h-1.5 rounded-full bg-muted overflow-hidden;
+  }
+  .ds-progress-bar {
+    @apply h-full rounded-full transition-all duration-700;
+  }
+
+  .ds-metric-up {
+    @apply text-emerald-600 dark:text-emerald-400;
+  }
+  .ds-metric-down {
+    @apply text-rose-600 dark:text-rose-400;
+  }
+
+  .ds-empty-state {
+    @apply flex flex-col items-center justify-center py-12 text-muted-foreground/40 gap-3;
+  }
+
+  .ds-divider {
+    @apply w-full h-px bg-gradient-to-r from-transparent via-border/40 to-transparent my-2;
+  }
+
+  /* Grow effect on module icons */
+  .ds-module-icon {
+    @apply h-9 w-9 rounded-lg flex items-center justify-center transition-all duration-300;
+  }
+  a:hover .ds-module-icon {
+    @apply scale-110;
+  }
+
+  /* KPI spotlight cards - elevated variant */
+  .ds-spotlight {
+    @apply ds-card;
+  }
+  .ds-spotlight::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, hsl(var(--primary) / 0.03) 180deg, transparent 360deg);
+    animation: spotlight-rotate 8s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes spotlight-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .ds-spotlight-content {
+    @apply relative z-10;
+  }
+
+  /* Glass dashboard variant */
+  .ds-glass {
+    @apply ds-card;
+    backdrop-filter: blur(12px);
+    background: linear-gradient(135deg, hsl(var(--card) / 0.6), hsl(var(--background) / 0.3));
+  }
+  .dark .ds-glass {
+    background: linear-gradient(135deg, hsl(var(--card) / 0.4), hsl(var(--background) / 0.1));
+  }
 }

@@ -86,7 +86,7 @@ export default function DashboardEjecutivoPage() {
   }
 
   return (
-    <div className="space-y-6 pb-16 px-4 md:px-6 lg:px-8 animate-in fade-in duration-700">
+    <div className="ds-container animate-in fade-in duration-700">
       <motion.header initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 pb-2">
         <div>
           <div className="flex items-center gap-2 mb-1 font-tech">
@@ -103,13 +103,13 @@ export default function DashboardEjecutivoPage() {
 
       <ProfileCompletionNotice />
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {KPI_DATA.map((kpi, i) => (
-          <div key={i} className={cn("p-4 rounded-xl border border-border bg-card shadow-sm shadow-black/[0.02] transition-all hover:shadow-md overflow-hidden relative", kpi.borderColor)}>
+          <div key={i} className={cn("ds-card p-4", kpi.borderColor)}>
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
-              <div className="p-2 rounded-lg bg-current/10"><kpi.icon className={cn("h-3 w-3", kpi.color)} /></div>
+              <div className="p-2 rounded-lg bg-current/10 ds-kpi-icon"><kpi.icon className={cn("h-3 w-3", kpi.color)} /></div>
             </div>
             {loading ? (
               <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
@@ -127,14 +127,14 @@ export default function DashboardEjecutivoPage() {
         </div>
       </div>
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
       <div className="grid lg:grid-cols-12 gap-6">
-        <Card className="lg:col-span-8 rounded-xl border border-border bg-card shadow-sm shadow-black/[0.02] overflow-hidden">
+        <Card className="lg:col-span-8 ds-card overflow-hidden">
           <CardHeader className="p-6 border-b border-border">
             <div className="flex justify-between items-center">
               <div>
                 <div className="flex items-center gap-2">
-                  <div className="h-6 w-1 rounded-full bg-primary/40" />
+                  <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
                   <CardTitle className="text-lg font-black uppercase tracking-tighter text-foreground">Radar de Red <span className="text-primary">SK-5G</span></CardTitle>
                 </div>
                 <CardDescription className="text-xs font-bold uppercase tracking-widest text-muted-foreground/40">Monitoreo de latencia y potencia en tiempo real</CardDescription>
@@ -178,10 +178,10 @@ export default function DashboardEjecutivoPage() {
           </CardContent>
         </Card>
 
-        <Card className="lg:col-span-4 rounded-xl border border-border bg-card shadow-sm shadow-black/[0.02] p-6">
+        <Card className="lg:col-span-4 ds-card p-6">
            <CardHeader className="p-0 mb-6">
               <div className="flex items-center gap-2">
-                <div className="h-6 w-1 rounded-full bg-primary/40" />
+                <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
                 <CardTitle className="text-xs font-black uppercase tracking-[0.25em] text-muted-foreground">Salud MDM Dispositivos</CardTitle>
               </div>
            </CardHeader>
@@ -191,7 +191,7 @@ export default function DashboardEjecutivoPage() {
                 { name: "S24 Ultra - Ventas", status: "Actualizando", battery: "42%", color: "text-amber-500" },
                 { name: "iPad Air - Almacén", status: "Desconectado", battery: "05%", color: "text-rose-500" }
               ].map((dev, i) => (
-                <div key={i} className="p-4 rounded-xl bg-card/50 border border-border shadow-sm shadow-black/[0.02] transition-all hover:shadow-md flex items-center justify-between">
+                <div key={i} className="ds-card p-4 flex items-center justify-between">
                    <div className="space-y-1">
                       <p className="text-xs font-black text-foreground uppercase tracking-widest">{dev.name}</p>
                       <p className={cn("text-xs font-bold uppercase", dev.color)}>{dev.status}</p>
@@ -212,14 +212,14 @@ export default function DashboardEjecutivoPage() {
       </div>
       </div>
 
-      <div className="rounded-2xl bg-muted/20 p-5 space-y-4">
+      <div className="ds-section">
       <div className="grid lg:grid-cols-3 gap-6">
         <Card className="lg:col-span-2 rounded-xl border border-border bg-card shadow-sm shadow-black/[0.02] overflow-hidden">
           <CardHeader className="px-5 py-4 border-b border-border">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded-lg"><ChartColumn className="h-4 w-4 text-primary" /></div>
               <div className="flex items-center gap-2">
-                <div className="h-6 w-1 rounded-full bg-primary/40" />
+                <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
                 <div>
                   <CardTitle className="text-sm font-semibold text-foreground">Tendencia de Costos Corporativos</CardTitle>
                   <CardDescription className="text-xs text-muted-foreground">Proyección financiera Q2-2026</CardDescription>
@@ -247,11 +247,11 @@ export default function DashboardEjecutivoPage() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-xl border border-border bg-card shadow-sm shadow-black/[0.02] overflow-hidden">
+        <Card className="ds-card overflow-hidden">
           <CardHeader className="px-5 py-4 border-b border-border">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded-lg"><PieChart className="h-4 w-4 text-primary" /></div>
-              <div className="h-6 w-1 rounded-full bg-primary/40" />
+              <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
               <CardTitle className="text-sm font-semibold text-foreground">Distribución Global</CardTitle>
             </div>
           </CardHeader>
@@ -259,7 +259,7 @@ export default function DashboardEjecutivoPage() {
             {loading ? (
               <div className="flex items-center justify-center py-6"><Loader2 className="h-4 w-4 animate-spin text-muted-foreground" /></div>
             ) : distribucion.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-6 gap-2">
+              <div className="ds-empty-state">
                 <Inbox className="h-8 w-8 opacity-20" />
                 <p className="text-xs text-muted-foreground text-center">Sin líneas registradas</p>
               </div>
@@ -278,11 +278,11 @@ export default function DashboardEjecutivoPage() {
         </Card>
       </div>
 
-      <Card className="rounded-xl border border-border bg-card shadow-sm shadow-black/[0.02] overflow-hidden">
+      <Card className="ds-card overflow-hidden">
         <CardContent className="p-6 space-y-3">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-primary/10 rounded-lg"><BrainCircuit className="h-4 w-4 text-primary" /></div>
-            <div className="h-6 w-1 rounded-full bg-primary/40" />
+            <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
             <p className="text-sm font-black uppercase tracking-widest text-foreground">Resumen de Inteligencia Telecom</p>
           </div>
           {loading ? (
@@ -291,7 +291,7 @@ export default function DashboardEjecutivoPage() {
               <span className="text-xs">Generando resumen...</span>
             </div>
           ) : totalLineas === 0 ? (
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <p className="ds-empty-state">
               No hay líneas telecom registradas en el sistema. Registre las líneas corporativas para obtener métricas ejecutivas.
             </p>
           ) : (

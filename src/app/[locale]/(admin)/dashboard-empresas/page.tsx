@@ -302,7 +302,7 @@ export default function DashboardEmpresaPage() {
   return (
     <ErrorBoundary>
     <div className="relative min-h-screen pb-20">
-      <div className="space-y-6 max-w-7xl mx-auto px-4 md:px-6">
+      <div className="ds-container">
         <ModuleTutorial config={moduleTutorials["dashboard-empresas"]} />
         <SeasonalBanner />
 
@@ -312,88 +312,88 @@ export default function DashboardEmpresaPage() {
           animate={{ opacity: 1, y: 0 }}
           className="pt-6"
         >
-          <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 rounded-2xl border border-border bg-card px-6 py-5 md:px-8 md:py-6 shadow-sm shadow-black/[0.02] border-t-2 border-t-primary/20">
-            <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Building className="h-7 w-7 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
-                  <GreetingIcon className="h-6 w-6 text-primary inline-block mr-2 -mt-0.5" />
-                  {activeEvent ? activeEvent.saludo : (greeting?.text ?? t('greeting_fallback'))}{user?.nombre ? `, ${user.nombre.trim().split(" ")[0]}` : ""}
-                </h1>
-                <div className="flex items-center gap-3 mt-1">
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                    <CalendarDays className="h-3.5 w-3.5" />
-                    {clientDateStr ?? ""}
-                  </div>
-                  <span className="text-muted-foreground/30">·</span>
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                    <Clock className="h-3.5 w-3.5" />
-                    {clientTimeStr ?? ""}
+          <div className="ds-header border-t-2 border-t-primary/20">
+            <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
+              <div className="flex items-center gap-4">
+                <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center ring-1 ring-primary/20">
+                  <Building className="h-7 w-7 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
+                    <GreetingIcon className="h-6 w-6 text-primary inline-block mr-2 -mt-0.5" />
+                    {activeEvent ? activeEvent.saludo : (greeting?.text ?? t('greeting_fallback'))}{user?.nombre ? `, ${user.nombre.trim().split(" ")[0]}` : ""}
+                  </h1>
+                  <div className="flex items-center gap-3 mt-1">
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <CalendarDays className="h-3.5 w-3.5" />
+                      {clientDateStr ?? ""}
+                    </div>
+                    <span className="text-muted-foreground/30">·</span>
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <Clock className="h-3.5 w-3.5" />
+                      {clientTimeStr ?? ""}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto">
-              {data?.tasaBCV && (
-                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                  <TrendingUpDown className="h-3.5 w-3.5" />
-                  BCV: {data.tasaBCV.usd_ves.toFixed(2)} BS/$
+              <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto">
+                {data?.tasaBCV && (
+                  <div className="ds-card flex items-center gap-2 px-3 py-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                    <TrendingUpDown className="h-3.5 w-3.5" />
+                    BCV: {data.tasaBCV.usd_ves.toFixed(2)} BS/$
+                  </div>
+                )}
+                <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/30 px-2 py-1 backdrop-blur-sm">
+                  <CurrencySelector className="border-none bg-transparent h-9 rounded-lg text-xs font-semibold px-3" />
+                  <div className="h-5 w-px bg-border" />
+                  <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg" onClick={() => fetchDashboard(true)} disabled={refreshing}>
+                    <RefreshCw className={cn("h-4 w-4", refreshing && "animate-spin")} />
+                  </Button>
                 </div>
-              )}
-              <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/30 px-2 py-1">
-                <CurrencySelector className="border-none bg-transparent h-9 rounded-lg text-xs font-semibold px-3" />
-                <div className="h-5 w-px bg-border" />
-                <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg" onClick={() => fetchDashboard(true)} disabled={refreshing}>
-                  <RefreshCw className={cn("h-4 w-4", refreshing && "animate-spin")} />
+                <Button onClick={() => { setClosingData(null); setShowCierre(true); }} variant="outline" size="sm" className="h-9 rounded-lg text-xs font-semibold gap-2">
+                  <Vault className="h-4 w-4" /> Cierre Fiscal
                 </Button>
+                <AiInspectionDropdown />
               </div>
-              <Button onClick={() => { setClosingData(null); setShowCierre(true); }} variant="outline" size="sm" className="h-9 rounded-lg text-xs font-semibold gap-2">
-                <Vault className="h-4 w-4" /> Cierre Fiscal
-              </Button>
-              <AiInspectionDropdown />
             </div>
           </div>
         </motion.header>
 
         {/* KPIs Grid */}
-        <div className="rounded-2xl bg-muted/20 p-5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="ds-section">
+          <div className="ds-grid-4">
             {(() => {
               const utilSpark = sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0));
               return [
-                { label: t('kpi_ingresos'), value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones?.ingresos, icon: ArrowUpFromLine, color: "text-emerald-500", border: "border-t-emerald-500/30", sparkData: sparklineData.ingresos },
-                { label: t('kpi_gastos'), value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones?.gastos, invertVariacion: true, icon: ArrowDownFromLine, color: "text-rose-500", border: "border-t-rose-500/30", sparkData: sparklineData.gastos },
-                { label: t('kpi_utilidad'), value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones?.utilidad, icon: PiggyBank, color: "text-amber-500", border: "border-t-amber-500/30", sparkData: utilSpark },
-                { label: t('kpi_liquidez'), value: data ? fmtCur(data.liquidezTotal) : "—", icon: Vault, color: "text-primary", border: "border-t-primary/30", sparkData: [] },
+                { label: t('kpi_ingresos'), value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones?.ingresos, icon: ArrowUpFromLine, color: "text-emerald-500", border: "border-t-emerald-500/30", sparkData: sparklineData.ingresos, iconBg: "ds-kpi-icon bg-emerald-500/10 text-emerald-500" },
+                { label: t('kpi_gastos'), value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones?.gastos, invertVariacion: true, icon: ArrowDownFromLine, color: "text-rose-500", border: "border-t-rose-500/30", sparkData: sparklineData.gastos, iconBg: "ds-kpi-icon bg-rose-500/10 text-rose-500" },
+                { label: t('kpi_utilidad'), value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones?.utilidad, icon: PiggyBank, color: "text-amber-500", border: "border-t-amber-500/30", sparkData: utilSpark, iconBg: "ds-kpi-icon bg-amber-500/10 text-amber-500" },
+                { label: t('kpi_liquidez'), value: data ? fmtCur(data.liquidezTotal) : "—", icon: Vault, color: "text-primary", border: "border-t-primary/30", sparkData: [], iconBg: "ds-kpi-icon bg-primary/10 text-primary" },
               ];
             })().map((kpi, i) => (
-              <div key={i}>
-                <div className={cn("rounded-xl border border-border bg-card p-5 h-full shadow-sm shadow-black/[0.02] border-t-2 transition-shadow hover:shadow-md", kpi.border)}>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2.5">
-                      <div className={cn("p-2 rounded-lg bg-current/10", kpi.color)}>
-                        <kpi.icon className={cn("h-4 w-4", kpi.color)} />
-                      </div>
-                      <span className="text-xs font-semibold text-muted-foreground">{kpi.label}</span>
+              <div key={i} className={cn("ds-card-accent h-full", kpi.border)}>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2.5">
+                    <div className={kpi.iconBg}>
+                      <kpi.icon className="h-4 w-4" />
                     </div>
-                    {kpi.variacion !== undefined && (
-                      <div className={cn("text-xs font-semibold px-2 py-0.5 rounded-md bg-current/10", variacionColor(kpi.variacion, kpi.invertVariacion))}>
-                        {kpi.variacion > 0 ? "+" : ""}{kpi.variacion}%
-                      </div>
-                    )}
+                    <span className="ds-label">{kpi.label}</span>
                   </div>
-                  
-                  <div className="space-y-1.5">
-                    <h3 className="text-2xl font-bold tracking-tight text-foreground tabular-nums">
-                      {loading ? <div className="h-8 w-28 rounded bg-muted animate-pulse" /> : kpi.value}
-                    </h3>
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs text-muted-foreground/60">{t('flujo_mensual')}</p>
-                      {kpi.sparkData && kpi.sparkData.length > 1 && <MiniSparkline data={kpi.sparkData} color={kpi.color.includes('emerald') ? '#10b981' : kpi.color.includes('rose') ? '#f43f5e' : kpi.color.includes('amber') ? '#f59e0b' : '#3b82f6'} />}
+                  {kpi.variacion !== undefined && (
+                    <div className={cn("ds-badge bg-current/10", variacionColor(kpi.variacion, kpi.invertVariacion))}>
+                      {kpi.variacion > 0 ? "+" : ""}{kpi.variacion}%
                     </div>
+                  )}
+                </div>
+                
+                <div className="space-y-1.5">
+                  <h3 className="ds-kpi-value">
+                    {loading ? <div className="h-8 w-28 rounded bg-muted animate-pulse" /> : kpi.value}
+                  </h3>
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs text-muted-foreground/60">{t('flujo_mensual')}</p>
+                    {kpi.sparkData && kpi.sparkData.length > 1 && <MiniSparkline data={kpi.sparkData} color={kpi.color.includes('emerald') ? '#10b981' : kpi.color.includes('rose') ? '#f43f5e' : kpi.color.includes('amber') ? '#f59e0b' : '#3b82f6'} />}
                   </div>
                 </div>
               </div>
@@ -402,8 +402,8 @@ export default function DashboardEmpresaPage() {
         </div>
 
         {/* Secondary Stats */}
-        <div className="rounded-2xl bg-muted/20 p-5">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="ds-section">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {(() => {
               const unread = data?.notificacionesNoLeidas ?? 0;
               return [
@@ -414,8 +414,8 @@ export default function DashboardEmpresaPage() {
               ];
             })().map((stat, i) => (
               <Link key={i} href={stat.href as never}>
-                <div className="rounded-xl border border-border bg-card p-4 flex items-center gap-3 shadow-sm shadow-black/[0.02] transition-all hover:shadow-md hover:-translate-y-0.5 group">
-                  <div className={cn("h-10 w-10 rounded-lg flex items-center justify-center shrink-0 bg-current/10 group-hover:bg-current/20 transition-colors", stat.color)}>
+                <div className="ds-card flex items-center gap-3 group cursor-pointer">
+                  <div className={cn("h-10 w-10 rounded-lg flex items-center justify-center shrink-0 bg-current/10 group-hover:bg-current/20 transition-all group-hover:scale-110", stat.color)}>
                     <stat.icon className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
@@ -423,26 +423,26 @@ export default function DashboardEmpresaPage() {
                     <p className="text-xs font-medium text-muted-foreground">{stat.label}</p>
                   </div>
                   {stat.extra && <span className="ml-auto text-xs font-semibold text-muted-foreground/40 hidden xl:block">{curConfig.symbol}{stat.extra}</span>}
-                  {stat.alert && <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />}
+                  {stat.alert && <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0" />}
                 </div>
               </Link>
             ))}
           </div>
         </div>
 
-      <div className="rounded-2xl bg-muted/20 p-5">
+      <div className="ds-section">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <div className="lg:col-span-8">
-          <div className="rounded-xl border border-border bg-card overflow-hidden shadow-sm shadow-black/[0.02]">
-            <div className="px-5 py-4 flex items-center justify-between border-b border-border">
+          <div className="ds-card overflow-hidden">
+            <div className="px-5 py-4 flex items-center justify-between border-b border-border/60">
               <div className="flex items-center gap-3">
-                <div className="h-8 w-1 rounded-full bg-primary/40" />
+                <div className="h-8 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
                 <div>
                   <h3 className="text-sm font-semibold text-foreground">Flujo Financiero</h3>
                   <p className="text-xs text-muted-foreground mt-0.5">Últimos 12 meses</p>
                 </div>
               </div>
-              <BarChartBig className="h-5 w-5 text-muted-foreground/30" />
+              <BarChartBig className="h-5 w-5 text-muted-foreground/20" />
             </div>
             <div className="p-5">
               <div className="h-[280px] w-full">
@@ -488,15 +488,18 @@ export default function DashboardEmpresaPage() {
         </div>
 
         <div className="lg:col-span-4 space-y-4">
-          <div className="rounded-xl border border-border bg-card p-5">
+          <div className="ds-card">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-semibold text-foreground">Facturación</span>
-              <FileBarChart2 className="h-4 w-4 text-muted-foreground/30" />
+              <div className="flex items-center gap-2">
+                <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
+                <span className="text-sm font-semibold text-foreground">Facturación</span>
+              </div>
+              <FileBarChart2 className="h-4 w-4 text-muted-foreground/20" />
             </div>
             {loading ? (
               <div className="h-32 flex items-center justify-center"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground/20" /></div>
             ) : facturasPie.length === 0 ? (
-              <div className="h-32 flex flex-col items-center justify-center gap-2 text-muted-foreground/30">
+              <div className="ds-empty-state">
                 <ReceiptText className="h-8 w-8" />
                 <p className="text-xs font-medium">Sin facturas</p>
               </div>
@@ -516,7 +519,7 @@ export default function DashboardEmpresaPage() {
                         <span className="text-sm font-semibold ml-auto">{d.value}</span>
                       </div>
                     ))}
-                      <div className="pt-2 border-t border-border">
+                      <div className="pt-2 ds-divider">
                         <span className="text-xs text-muted-foreground">Total: <span className="font-semibold text-foreground">{data?.facturas?.total ?? 0}</span></span>
                       </div>
                     </div>
@@ -526,39 +529,42 @@ export default function DashboardEmpresaPage() {
               </div>
             </div>
             <div className="lg:col-span-4 space-y-4">
-              <div className="rounded-xl border border-border bg-card p-5">
+              <div className="ds-card">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm font-semibold text-foreground">Cuentas</span>
-                  <Coins className="h-4 w-4 text-muted-foreground/30" />
+                  <div className="flex items-center gap-2">
+                    <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
+                    <span className="text-sm font-semibold text-foreground">Cuentas</span>
+                  </div>
+                  <Coins className="h-4 w-4 text-muted-foreground/20" />
                 </div>
                 <div className="space-y-3">
                   <Link href="/cuentas-por-cobrar" className="block">
-                    <div className="flex items-center justify-between p-4 rounded-xl bg-emerald-500/[0.04] border border-emerald-500/10 hover:bg-emerald-500/[0.08] transition-colors">
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-emerald-500/[0.04] border border-emerald-500/10 hover:bg-emerald-500/[0.08] transition-all hover:shadow-sm">
                       <div className="flex items-center gap-3">
                         <TrendingUp className="h-4 w-4 text-emerald-400" />
                         <span className="text-sm font-medium text-foreground/70">Por Cobrar</span>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-bold text-emerald-400">{loading ? "—" : fmtCur(data?.cuentasCobrar?.total ?? 0)}</p>
+                        <p className="text-sm font-bold ds-metric-up">{loading ? "—" : fmtCur(data?.cuentasCobrar?.total ?? 0)}</p>
                         <p className="text-[11px] text-muted-foreground/40">{data?.cuentasCobrar?.count ?? 0} pendientes</p>
                       </div>
                     </div>
                   </Link>
                   <Link href="/cuentas-por-pagar" className="block">
-                    <div className="flex items-center justify-between p-4 rounded-xl bg-rose-500/[0.04] border border-rose-500/10 hover:bg-rose-500/[0.08] transition-colors">
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-rose-500/[0.04] border border-rose-500/10 hover:bg-rose-500/[0.08] transition-all hover:shadow-sm">
                       <div className="flex items-center gap-3">
                         <TrendingDown className="h-4 w-4 text-rose-400" />
                         <span className="text-sm font-medium text-foreground/70">Por Pagar</span>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-bold text-rose-400">{loading ? "—" : fmtCur(data?.cuentasPagar?.total ?? 0)}</p>
+                        <p className="text-sm font-bold ds-metric-down">{loading ? "—" : fmtCur(data?.cuentasPagar?.total ?? 0)}</p>
                         <p className="text-[11px] text-muted-foreground/40">{data?.cuentasPagar?.count ?? 0} pendientes</p>
                       </div>
                     </div>
                   </Link>
               {(data?.inventarioBajoStock ?? 0) > 0 && (
                 <Link href="/inventario" className="block">
-                  <div className="flex items-center justify-between p-4 rounded-xl bg-amber-500/[0.04] border border-amber-500/10 hover:bg-amber-500/[0.08] transition-colors">
+                  <div className="flex items-center justify-between p-4 rounded-xl bg-amber-500/[0.04] border border-amber-500/10 hover:bg-amber-500/[0.08] transition-all hover:shadow-sm">
                     <div className="flex items-center gap-3">
                       <Warehouse className="h-4 w-4 text-amber-400" />
                       <span className="text-sm font-medium text-foreground/70">Stock Bajo</span>
@@ -573,12 +579,12 @@ export default function DashboardEmpresaPage() {
       </div>
       </div>
 
-      <div className="rounded-2xl bg-muted/20 p-5">
+      <div className="ds-section">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <div className="lg:col-span-5">
-          <div className="rounded-xl border border-border bg-card p-5 shadow-sm shadow-black/[0.02]">
+          <div className="ds-card">
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-8 w-1 rounded-full bg-primary/40" />
+              <div className="h-8 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
               <span className="text-sm font-semibold text-foreground">Últimos Movimientos</span>
               <Link href="/contabilidad/libros" className="ml-auto text-xs font-medium text-primary hover:text-primary/80 flex items-center gap-1">Ver todos <ChevronRight className="h-3.5 w-3.5" /></Link>
             </div>
@@ -595,15 +601,15 @@ export default function DashboardEmpresaPage() {
                       <p className="text-sm font-medium truncate text-foreground">{mov.concepto}</p>
                       <p className="text-xs text-muted-foreground">{mov.fecha_operacion}{mov.categoria ? ` · ${mov.categoria}` : ""}</p>
                     </div>
-                    <span className={cn("text-sm font-semibold tabular-nums shrink-0", mov.tipo === "credito" ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400")}>
+                    <span className={cn("text-sm font-semibold tabular-nums shrink-0", mov.tipo === "credito" ? "ds-metric-up" : "ds-metric-down")}>
                       {mov.tipo === "credito" ? "+" : "-"}{fmtCur(parseSafeNumber(mov.monto))}
                     </span>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="py-10 text-center">
-                <Coins className="h-10 w-10 text-muted-foreground/20 mx-auto mb-3" />
+              <div className="ds-empty-state">
+                <Coins className="h-10 w-10" />
                 <p className="text-xs text-muted-foreground/60">Sin movimientos registrados</p>
                 <Link href="/contabilidad/conciliacion-bancaria"><Button variant="outline" size="sm" className="mt-4 text-xs rounded-lg h-8">Registrar</Button></Link>
               </div>
@@ -612,7 +618,7 @@ export default function DashboardEmpresaPage() {
         </div>
 
         <div className="lg:col-span-4">
-          <div className="rounded-xl border border-emerald-500/20 bg-card p-5 h-full">
+          <div className="ds-card border-emerald-500/20 h-full">
             <div className="flex items-center gap-3 mb-4">
               <ShieldCheck className="h-5 w-5 text-emerald-500" />
               <span className="text-sm font-semibold text-foreground">Fiscal</span>
@@ -652,10 +658,13 @@ export default function DashboardEmpresaPage() {
         </div>
 
         <div className="lg:col-span-3 space-y-4">
-          <div className="rounded-xl border border-border bg-card p-5 shadow-sm shadow-black/[0.02]">
+          <div className="ds-card">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold text-foreground">Proyecciones</h3>
-              <TrendingUp className="h-4 w-4 text-muted-foreground/40" />
+              <div className="flex items-center gap-2">
+                <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
+                <h3 className="text-sm font-semibold text-foreground">Proyecciones</h3>
+              </div>
+              <TrendingUp className="h-4 w-4 text-muted-foreground/20" />
             </div>
             <div className="space-y-2.5">
               <Button size="sm" variant="outline" className="w-full justify-start text-xs font-medium rounded-lg h-10 gap-3"
@@ -669,7 +678,7 @@ export default function DashboardEmpresaPage() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-border bg-card p-5">
+          <div className="ds-card">
             <div className="flex items-center justify-between mb-5">
               <div>
                 <p className="text-xs text-muted-foreground">Suscripción</p>
@@ -688,16 +697,19 @@ export default function DashboardEmpresaPage() {
                     <span>{stat.label}</span>
                     <span className="text-foreground font-medium">{stat.current} / {stat.total}{stat.suffix}</span>
                   </div>
-                  <div className="h-2 rounded-full bg-muted overflow-hidden">
-                    <div className={cn("h-full rounded-full transition-all duration-700", stat.color)} style={{ width: `${Math.min((stat.current / stat.total) * 100, 100)}%` }} />
+                  <div className="ds-progress">
+                    <div className={cn("ds-progress-bar animate-progress", stat.color)} style={{ width: `${Math.min((stat.current / stat.total) * 100, 100)}%`, "--progress-target": `${Math.min((stat.current / stat.total) * 100, 100)}%` } as React.CSSProperties} />
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="rounded-xl border border-border bg-card p-5">
-            <p className="text-sm font-semibold text-foreground mb-3">Nómina</p>
+          <div className="ds-card">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/20" />
+              <p className="text-sm font-semibold text-foreground">Nómina</p>
+            </div>
             <div className="flex items-baseline gap-1 mb-1.5">
               <span className="text-xl font-bold tracking-tight">{loading ? "—" : fmtCur(data?.nominaMensual ?? 0)}</span>
             </div>
@@ -708,11 +720,12 @@ export default function DashboardEmpresaPage() {
       </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="rounded-xl border border-amber-500/20 bg-card p-5 shadow-sm shadow-black/[0.02]">
+      <div className="ds-grid-2">
+        <div className="ds-card border-amber-500/20">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <CalendarDays className="h-5 w-5 text-amber-500" />
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-1 rounded-full bg-gradient-to-b from-amber-500 to-amber-500/20" />
+              <CalendarDays className="h-4 w-4 text-amber-500" />
               <h3 className="text-sm font-semibold text-foreground">Calendario Fiscal SENIAT</h3>
             </div>
             <Link href="/contabilidad/tributos/calendario-fiscal"><span className="text-xs font-medium text-primary hover:text-primary/80 flex items-center gap-1">Ver todo <ChevronRight className="h-3.5 w-3.5" /></span></Link>
@@ -732,18 +745,20 @@ export default function DashboardEmpresaPage() {
                     <p className="text-sm font-medium truncate text-foreground">{d.label}</p>
                     <p className="text-xs text-muted-foreground">{d.dateStr}</p>
                   </div>
-                  <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-md", d.diff <= 5 ? "bg-rose-500/10 text-rose-600 dark:text-rose-400" : d.diff <= 15 ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400")}>
+                  <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-md", d.diff <= 5 ? "bg-rose-500/10 ds-metric-down" : d.diff <= 15 ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" : "bg-emerald-500/10 ds-metric-up")}>
                     {d.diff < 0 ? "VENCIDO" : d.diff === 0 ? "HOY" : d.diff === 1 ? "Mañana" : `${d.diff}d`}
                   </span>
                 </div>
               );
             })}
           </div>
+        </div>
 
-        <div className="rounded-xl border border-blue-500/20 bg-card p-5">
+        <div className="ds-card border-blue-500/20">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <WalletCards className="h-5 w-5 text-blue-500" />
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-1 rounded-full bg-gradient-to-b from-blue-500 to-blue-500/20" />
+              <WalletCards className="h-4 w-4 text-blue-500" />
               <h3 className="text-sm font-semibold text-foreground">Cuentas por Cobrar</h3>
             </div>
           </div>
@@ -752,25 +767,25 @@ export default function DashboardEmpresaPage() {
               <div className="flex items-center justify-between p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
                 <span className="text-sm font-medium text-foreground/80">Por cobrar</span>
                 <div className="text-right">
-                  <span className="text-base font-semibold text-emerald-600 dark:text-emerald-400">{fmtCur(data.cuentasCobrar.total)}</span>
+                  <span className="text-base font-semibold ds-metric-up">{fmtCur(data.cuentasCobrar.total)}</span>
                   <span className="text-xs text-muted-foreground ml-2">{data.cuentasCobrar.count} pendientes</span>
                 </div>
               </div>
               <div className="flex items-center justify-between p-3 rounded-lg bg-rose-500/5 border border-rose-500/10">
                 <span className="text-sm font-medium text-foreground/80">Por pagar</span>
                 <div className="text-right">
-                  <span className="text-base font-semibold text-rose-600 dark:text-rose-400">{fmtCur(data.cuentasPagar.total)}</span>
+                  <span className="text-base font-semibold ds-metric-down">{fmtCur(data.cuentasPagar.total)}</span>
                   <span className="text-xs text-muted-foreground ml-2">{data.cuentasPagar.count} pendientes</span>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="text-center py-8">
-              <ShieldCheck className="h-8 w-8 text-emerald-500/20 mx-auto mb-3" />
+            <div className="ds-empty-state">
+              <ShieldCheck className="h-8 w-8" />
               <p className="text-xs text-muted-foreground/60">Sin cuentas pendientes</p>
             </div>
           )}
-          <div className="mt-4 pt-3 border-t border-border flex items-center justify-between">
+          <div className="mt-4 pt-3 ds-divider flex items-center justify-between">
             <span className="text-xs text-muted-foreground">Datos en tiempo real</span>
             <Link href="/cuentas-por-cobrar"><span className="text-xs font-medium text-primary hover:text-primary/80 flex items-center gap-1">Detalle <ChevronRight className="h-3.5 w-3.5" /></span></Link>
           </div>
@@ -778,7 +793,7 @@ export default function DashboardEmpresaPage() {
       </div>
 
       {semaforo && semaforo.global && (
-        <div className="rounded-xl border border-border bg-card overflow-hidden">
+        <div className="ds-card overflow-hidden">
           <div className="flex flex-col lg:flex-row">
             <div className={cn(
               "flex flex-row lg:flex-col items-center justify-center gap-2 p-5 lg:p-6 lg:w-[90px] shrink-0",
@@ -794,14 +809,14 @@ export default function DashboardEmpresaPage() {
                   verde: "bg-emerald-500",
                 };
                 return (
-                  <div key={color} className={cn("w-5 h-5 rounded-full transition-all", isActive ? colorMap[color] : "bg-muted-foreground/20")} />
+                  <div key={color} className={cn("ds-dot !w-5 !h-5 transition-all", isActive ? colorMap[color] : "bg-muted-foreground/20")} />
                 );
               })}
               <span className={cn(
                 "text-xs font-semibold",
-                semaforo.global.level === "rojo" ? "text-rose-600 dark:text-rose-400" :
+                semaforo.global.level === "rojo" ? "ds-metric-down" :
                 semaforo.global.level === "amarillo" ? "text-amber-600 dark:text-amber-400" :
-                "text-emerald-600 dark:text-emerald-400"
+                "ds-metric-up"
               )}>
                 {semaforo.global.level === "rojo" ? "Alerta" :
                  semaforo.global.level === "amarillo" ? "Atención" :
@@ -812,28 +827,28 @@ export default function DashboardEmpresaPage() {
             <div className="flex-1 p-5 min-w-0">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <BellRing className={cn("h-4 w-4", semaforo.global.level === "rojo" ? "text-rose-500" :
-                    semaforo.global.level === "amarillo" ? "text-amber-500" : "text-emerald-500")} />
+                  <BellRing className={cn("h-4 w-4", semaforo.global.level === "rojo" ? "ds-metric-down" :
+                    semaforo.global.level === "amarillo" ? "text-amber-500" : "ds-metric-up")} />
                   <span className="text-sm font-semibold text-foreground">Vencimientos y Plazos</span>
                 </div>
                 <div className="flex items-center gap-2">
                   {(semaforo.global.vencidos ?? 0) > 0 && (
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400">
+                    <span className="ds-badge bg-rose-500/10 ds-metric-down">
                       {semaforo.global.vencidos} vencido{(semaforo.global.vencidos ?? 0) !== 1 ? "s" : ""}
                     </span>
                   )}
                   {(semaforo.global.urgentes ?? 0) > 0 && (
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                    <span className="ds-badge bg-amber-500/10 text-amber-600 dark:text-amber-400">
                       {semaforo.global.urgentes} urgente{(semaforo.global.urgentes ?? 0) !== 1 ? "s" : ""}
                     </span>
                   )}
                   {(semaforo.global.proximos ?? 0) > 0 && (
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                    <span className="ds-badge bg-blue-500/10 text-blue-600 dark:text-blue-400">
                       {semaforo.global.proximos} próximo{(semaforo.global.proximos ?? 0) !== 1 ? "s" : ""}
                     </span>
                   )}
                   {(!semaforo.alertas || semaforo.alertas.length === 0) && (
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                    <span className="ds-badge bg-emerald-500/10 ds-metric-up">
                       Sin vencimientos
                     </span>
                   )}
@@ -841,8 +856,8 @@ export default function DashboardEmpresaPage() {
               </div>
 
               {!Array.isArray(semaforo?.alertas) || semaforo.alertas.length === 0 ? (
-                <div className="py-8 text-center">
-                  <ShieldCheck className="h-10 w-10 text-emerald-500/20 mx-auto mb-3" />
+                <div className="ds-empty-state">
+                  <ShieldCheck className="h-10 w-10" />
                   <p className="text-xs text-muted-foreground/60">No hay vencimientos próximos ni pendientes</p>
                 </div>
               ) : (
@@ -855,7 +870,7 @@ export default function DashboardEmpresaPage() {
                         alerta.nivel === "urgente" ? "bg-amber-500/5 border-amber-500/10 hover:bg-amber-500/10" :
                         "bg-blue-500/5 border-blue-500/10 hover:bg-blue-500/10"
                       )}>
-                        <div className={cn("w-2.5 h-2.5 rounded-full shrink-0",
+                        <div className={cn("ds-dot !w-2.5 !h-2.5 shrink-0",
                           alerta.nivel === "vencido" ? "bg-rose-500" :
                           alerta.nivel === "urgente" ? "bg-amber-500" : "bg-blue-500")} />
                         <div className="flex-1 min-w-0">
@@ -867,7 +882,7 @@ export default function DashboardEmpresaPage() {
                         </div>
                         <div className="text-right shrink-0">
                           <p className={cn("text-sm font-semibold",
-                            alerta.nivel === "vencido" ? "text-rose-600 dark:text-rose-400" :
+                            alerta.nivel === "vencido" ? "ds-metric-down" :
                             alerta.nivel === "urgente" ? "text-amber-600 dark:text-amber-400" : "text-blue-600 dark:text-blue-400"
                           )}>
                             {alerta.dias < 0 ? `${Math.abs(alerta.dias)}d vencido` :
@@ -887,10 +902,8 @@ export default function DashboardEmpresaPage() {
           </div>
         </div>
       )}
-      </div>
 
-      <div className="rounded-2xl bg-muted/20 p-5">
-      <div>
+      <div className="ds-section">
         <div className="flex items-center gap-2 mb-4">
           <LayoutGrid className="h-4 w-4 text-muted-foreground" />
           <h3 className="text-sm font-semibold text-foreground">Módulos</h3>
@@ -906,8 +919,8 @@ export default function DashboardEmpresaPage() {
             { label: "ECO", href: "/sostenibilidad", icon: Leaf, color: "text-green-500" },
           ].map((mod, i) => (
             <Link key={i} href={mod.href as never}>
-              <div className="flex flex-col items-center gap-2 p-3 rounded-lg border border-border bg-card/50 hover:bg-card hover:border-primary/30 transition-all cursor-pointer">
-                <div className={cn("h-9 w-9 rounded-lg flex items-center justify-center bg-current/10", mod.color)}>
+              <div className="flex flex-col items-center gap-2 p-3 rounded-lg border border-border/60 bg-card/30 hover:bg-card hover:border-primary/30 transition-all cursor-pointer hover:-translate-y-0.5">
+                <div className={cn("ds-module-icon bg-current/10", mod.color)}>
                   <mod.icon className={cn("h-4 w-4", mod.color)} />
                 </div>
                 <p className="text-xs font-medium text-muted-foreground">{mod.label}</p>
@@ -915,7 +928,6 @@ export default function DashboardEmpresaPage() {
             </Link>
           ))}
         </div>
-      </div>
       </div>
 
       <ActivityTimeline limit={10} />
