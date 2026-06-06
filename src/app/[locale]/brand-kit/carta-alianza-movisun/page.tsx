@@ -118,31 +118,31 @@ export default function CartaAlianzaMovisunPage() {
           <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none flex flex-col" style={{ width: '21.59cm', height: '27.94cm', fontFamily: 'Arial' }}>
             <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
             
-            <div className="flex-1 px-[0.8in] py-[0.4in] flex flex-col" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
-              <div className="flex justify-between items-start border-b-2 border-[#1e3a5f] pb-2 mb-2 shrink-0">
+            <div className="flex-1 px-[0.9in] py-[0.5in] flex flex-col" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+              <div className="flex justify-between items-start border-b-2 border-[#1e3a5f] pb-3 mb-3 shrink-0">
                 <div className="flex items-center gap-3">
                   {logoUrl && (
                     <img src={logoUrl} alt="System Kyron" className="h-10 w-10 object-contain" />
                   )}
                   <div>
                     <p className="text-sm font-bold text-[#1e3a5f] tracking-tight">EMPRENDIMIENTO CARLOS MATTAR</p>
-                    <p className="text-[8px] text-gray-500 font-mono">RIF J-50832149-9</p>
+                    <p className="text-[9px] text-gray-500 font-mono">RIF J-50832149-9</p>
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-[10px] text-gray-500">Caracas,</p>
-                  <p className="text-[10px] text-gray-500">{new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                  <p className="text-[11px] text-gray-500">Caracas,</p>
+                  <p className="text-[11px] text-gray-500">{new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                 </div>
               </div>
             
-              <div className="mb-3 shrink-0">
-                <p className="text-xs font-semibold text-gray-800">MOVISUN COLOMBIA S.A.S.</p>
-                <p className="text-xs font-semibold text-gray-800">Att.: Direccion de Alianzas Estrategicas</p>
-                <p className="text-[10px] text-gray-400">Bogota D.C., Colombia.&mdash;</p>
+              <div className="mb-4 shrink-0">
+                <p className="text-sm font-semibold text-gray-800">MOVISUN COLOMBIA S.A.S.</p>
+                <p className="text-sm font-semibold text-gray-800">Att.: Direccion de Alianzas Estrategicas</p>
+                <p className="text-[11px] text-gray-400">Bogota D.C., Colombia.&mdash;</p>
               </div>
             
-              <div className="text-justify space-y-2 text-[12.5px] leading-[1.4] text-gray-800 flex-1">
-                <p className="font-bold text-sm uppercase tracking-tight text-[#1e3a5f] text-center border-b border-gray-200 pb-1.5 mb-2">
+              <div className="text-justify space-y-3 text-[13px] leading-[1.55] text-gray-800 flex-1">
+                <p className="font-bold text-sm uppercase tracking-tight text-[#1e3a5f] text-center border-b border-gray-200 pb-2 mb-3">
                   Carta de Intencion de Alianza Comercial
                 </p>
             
@@ -166,7 +166,7 @@ export default function CartaAlianzaMovisunPage() {
                   La presente carta de intencion tiene como objetivo explorar y establecer los terminos para una alianza comercial que podria incluir, sin limitarse a:
                 </p>
             
-                <ul className="list-disc pl-5 space-y-0.5 text-[12px] leading-[1.35]">
+                <ul className="list-disc pl-5 space-y-1 text-[13px] leading-[1.45]">
                   <li><strong>Distribucion cruzada de servicios:</strong> Integracion de soluciones MOVISUN en el ecosistema System Kyron para el mercado colombiano, y viceversa.</li>
                   <li><strong>Paquetes comerciales conjuntos:</strong> Desarrollo de ofertas empaquetadas que combinen servicios de telecomunicaciones MOVISUN con modulos corporativos de System Kyron.</li>
                   <li><strong>Expansion geografica:</strong> Colaboracion para la entrada de System Kyron en el mercado colombiano, aprovechando la infraestructura y conocimiento local de MOVISUN.</li>
@@ -179,7 +179,7 @@ export default function CartaAlianzaMovisunPage() {
               </div>
             
               <div className="pt-3 border-t border-gray-200 mt-auto shrink-0">
-                <div className="text-[8.5px] text-gray-500 space-y-0.5 leading-relaxed">
+                <div className="text-[9.5px] text-gray-500 space-y-0.5 leading-relaxed">
                   <p><strong className="text-gray-700">Empresa:</strong> EMPRENDIMIENTO CARLOS MATTAR &nbsp;|&nbsp; <strong className="text-gray-700">RIF:</strong> J-50832149-9</p>
                   <p><strong className="text-gray-700">Direccion Fiscal:</strong> Av. Playa Grande, Edif. Belo Horizonte, Piso 15, Apt. 155 B, Catia La Mar, Estado La Guaira, Venezuela</p>
                   <p><strong className="text-gray-700">Correo:</strong> systemkyronofficial@gmail.com &nbsp;|&nbsp; <strong className="text-gray-700">Web:</strong> system-kyron.vercel.app</p>
@@ -187,13 +187,13 @@ export default function CartaAlianzaMovisunPage() {
             
                 <div className="mt-4 flex items-end justify-between gap-4">
                   <div className="flex-1">
-                    <p className="text-xs font-semibold text-gray-800 mb-3">Atentamente,</p>
+                    <p className="text-sm font-semibold text-gray-800 mb-3">Atentamente,</p>
                     <div className="max-w-[12rem] border-t border-gray-400 pt-1.5 text-center">
-                      <p className="text-[11px] font-bold text-gray-800 leading-tight">Carlos Alberto Natanale Mattar Hernandez</p>
-                      <p className="text-[8.5px] text-gray-500">C.I. V-32855496</p>
-                      <p className="text-[8.5px] text-gray-500">Representante Legal</p>
-                      <p className="text-[8.5px] text-gray-500">EMPRENDIMIENTO CARLOS MATTAR</p>
-                      <p className="text-[8.5px] text-gray-500">System Kyron</p>
+                      <p className="text-[12px] font-bold text-gray-800 leading-tight">Carlos Alberto Natanale Mattar Hernandez</p>
+                      <p className="text-[9.5px] text-gray-500">C.I. V-32855496</p>
+                      <p className="text-[9.5px] text-gray-500">Representante Legal</p>
+                      <p className="text-[9.5px] text-gray-500">EMPRENDIMIENTO CARLOS MATTAR</p>
+                      <p className="text-[9.5px] text-gray-500">System Kyron</p>
                     </div>
                   </div>
             

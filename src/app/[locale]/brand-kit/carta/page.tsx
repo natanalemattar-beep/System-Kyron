@@ -117,7 +117,7 @@ export default function CartaPage() {
           <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none flex flex-col" style={{ width: '21.59cm', height: '27.94cm', fontFamily: 'Arial' }}>
             <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
 
-            <div className="flex-1 px-[0.8in] py-[0.5in] flex flex-col" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+            <div className="flex-1 px-[0.9in] py-[0.55in] flex flex-col" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
               <div className="flex justify-between items-start border-b-2 border-[#1e3a5f] pb-3 mb-4 shrink-0">
                 <div className="flex items-center gap-3">
                   {logoUrl && (
@@ -140,7 +140,7 @@ export default function CartaPage() {
                 <p className="text-xs text-gray-400">Presente.&mdash;</p>
               </div>
 
-              <div className="text-justify space-y-4 text-sm leading-[1.75] text-gray-800 flex-1">
+              <div className="text-justify space-y-5 text-[15px] leading-[1.7] text-gray-800 flex-1">
                 <p>
                   Reciba un cordial saludo de parte del equipo de <strong>System Kyron</strong>. Por medio de la presente, deseamos expresar nuestro mas sincero agradecimiento por el valioso tiempo y la atencion brindada durante nuestras recientes comunicaciones.
                 </p>
