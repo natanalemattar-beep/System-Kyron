@@ -14,7 +14,7 @@ export default function CartaAlianzaMovisunPage() {
   const [unlocked, setUnlocked] = useState(false);
   const [error, setError] = useState(false);
   const [logoUrl, setLogoUrl] = useState("");
-  const [sealUrl, setSealUrl] = useState("");
+  const [sealDataUrl, setSealDataUrl] = useState("");
   const [exporting, setExporting] = useState(false);
   const letterRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -26,14 +26,17 @@ export default function CartaAlianzaMovisunPage() {
         const reader = new FileReader();
         reader.onloadend = () => setLogoUrl(reader.result as string);
         reader.readAsDataURL(blob);
-      });
+      })
+      .catch(console.error);
+
     fetch("/images/seal-sample.png")
       .then((r) => r.blob())
       .then((blob) => {
         const reader = new FileReader();
-        reader.onloadend = () => setSealUrl(reader.result as string);
+        reader.onloadend = () => setSealDataUrl(reader.result as string);
         reader.readAsDataURL(blob);
-      });
+      })
+      .catch(console.error);
   }, []);
 
   const handleDownloadPDF = async () => {
@@ -109,7 +112,7 @@ export default function CartaAlianzaMovisunPage() {
 
   return (
     <div className="min-h-screen bg-[#02040a] py-16 px-4 print:bg-white print:py-0">
-        <div className="flex justify-center">
+      <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-12 print:hidden">
           <Button variant="ghost" onClick={() => router.push('/brand-kit')} className="text-zinc-400 hover:text-white text-xs font-black uppercase tracking-widest">
             <ArrowLeft className="mr-2 h-4 w-4" /> Volver
@@ -120,12 +123,12 @@ export default function CartaAlianzaMovisunPage() {
           </div>
         </div>
 
-        <div ref={letterRef} className="bg-white shadow-2xl print:shadow-none" style={{ width: '21.59cm', minHeight: '27.94cm' }}>
-          <div className="relative flex flex-col min-h-[27.94cm]">
-            <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f]" />
-
-            <div className="flex-1 px-[1.2in] py-[0.6in] flex flex-col" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
-              <div className="flex justify-between items-start border-b-2 border-[#1e3a5f] pb-3 mb-4">
+        <div className="flex justify-center">
+          <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none flex flex-col" style={{ width: '21.59cm', height: '27.94cm' }}>
+            <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
+            
+            <div className="flex-1 px-[1in] py-[0.8in] flex flex-col" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+              <div className="flex justify-between items-start border-b-2 border-[#1e3a5f] pb-3 mb-4 shrink-0">
                 <div className="flex items-center gap-3">
                   {logoUrl && (
                     <img src={logoUrl} alt="System Kyron" className="h-12 w-12 object-contain" />
@@ -140,57 +143,57 @@ export default function CartaAlianzaMovisunPage() {
                   <p className="text-[10px] text-gray-500">{new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                 </div>
               </div>
-
-              <div className="mb-5">
+            
+              <div className="mb-5 shrink-0">
                 <p className="text-sm font-semibold text-gray-800">MOVISUN COLOMBIA S.A.S.</p>
                 <p className="text-sm font-semibold text-gray-800">Att.: Direccion de Alianzas Estrategicas</p>
                 <p className="text-[11px] text-gray-400">Bogota D.C., Colombia.&mdash;</p>
               </div>
-
+            
               <div className="text-justify space-y-3 text-sm leading-[1.65] text-gray-800 flex-1">
                 <p className="font-bold text-base uppercase tracking-tight text-[#1e3a5f] text-center border-b border-gray-200 pb-2 mb-4">
                   Carta de Intencion de Alianza Comercial
                 </p>
-
+            
                 <p className="indent-8">
                   Reciba un cordial saludo de parte de <strong>EMPRENDIMIENTO CARLOS MATTAR</strong>, empresa venezolana identificada con RIF J-50832149-9, desarrolladora del ecosistema de inteligencia corporativa <strong>System Kyron</strong>. Por medio de la presente, manifestamos nuestro formal interes en establecer una <strong>alianza comercial estrategica</strong> con <strong>MOVISUN COLOMBIA S.A.S.</strong>
                 </p>
-
+            
                 <p className="indent-8">
                   System Kyron es una plataforma corporativa integral que unifica mas de 100 modulos en areas como contabilidad (VEN-NIF/SENIAT), facturacion electronica, nomina (LOTTT), telecomunicaciones 5G, legal, inteligencia artificial, sostenibilidad y seguridad. Actualmente operamos en Venezuela con proyeccion de expansion regional.
                 </p>
-
+            
                 <p className="indent-8">
                   Entendemos que MOVISUN COLOMBIA es una empresa lider en el sector de <strong>telecomunicaciones y tecnologia movil</strong> en Colombia, con una solida trayectoria y presencia en el mercado colombiano. Creemos que existe una oportunidad significativa para desarrollar sinergias comerciales que beneficien a ambas organizaciones.
                 </p>
-
+            
                 <p className="font-semibold text-gray-800">
                   Objeto de la Alianza:
                 </p>
-
+            
                 <p className="indent-8">
                   La presente carta de intencion tiene como objetivo explorar y establecer los terminos para una alianza comercial que podria incluir, sin limitarse a:
                 </p>
-
+            
                 <ul className="list-disc pl-5 space-y-1 text-sm">
                   <li><strong>Distribucion cruzada de servicios:</strong> Integracion de soluciones MOVISUN en el ecosistema System Kyron para el mercado colombiano, y viceversa.</li>
                   <li><strong>Paquetes comerciales conjuntos:</strong> Desarrollo de ofertas empaquetadas que combinen servicios de telecomunicaciones MOVISUN con modulos corporativos de System Kyron.</li>
                   <li><strong>Expansion geografica:</strong> Colaboracion para la entrada de System Kyron en el mercado colombiano, aprovechando la infraestructura y conocimiento local de MOVISUN.</li>
                   <li><strong>Innovacion tecnologica:</strong> Co-desarrollo de soluciones integradas de transformacion digital para el sector empresarial colombiano.</li>
                 </ul>
-
+            
                 <p className="indent-8">
                   Quedamos a la espera de su respuesta para concretar una reunion de trabajo donde podamos presentar formalmente nuestra propuesta y explorar en detalle los terminos de esta potencial alianza. Estamos seguros de que esta colaboracion generara valor significativo para ambas organizaciones y, sobre todo, para nuestros clientes.
                 </p>
               </div>
-
-              <div className="pt-4 border-t border-gray-200 mt-auto">
+            
+              <div className="pt-4 border-t border-gray-200 mt-auto shrink-0">
                 <div className="text-[9px] text-gray-500 space-y-0.5 leading-relaxed">
                   <p><strong className="text-gray-700">Empresa:</strong> EMPRENDIMIENTO CARLOS MATTAR &nbsp;|&nbsp; <strong className="text-gray-700">RIF:</strong> J-50832149-9</p>
                   <p><strong className="text-gray-700">Direccion Fiscal:</strong> Av. Playa Grande, Edif. Belo Horizonte, Piso 15, Apt. 155 B, Catia La Mar, Estado La Guaira, Venezuela</p>
                   <p><strong className="text-gray-700">Correo:</strong> systemkyronofficial@gmail.com &nbsp;|&nbsp; <strong className="text-gray-700">Web:</strong> system-kyron.vercel.app</p>
                 </div>
-
+            
                 <div className="mt-6 flex items-end justify-between gap-4">
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-gray-800 mb-5">Atentamente,</p>
@@ -202,21 +205,19 @@ export default function CartaAlianzaMovisunPage() {
                       <p className="text-[9px] text-gray-500">System Kyron</p>
                     </div>
                   </div>
-
-                  <div className="flex flex-col items-center">
-                    {sealUrl && (
-                      <img src={sealUrl} alt="Sello oficial System Kyron" className="w-24 h-24 object-contain opacity-80" />
-                    )}
+            
+                  <div className="flex flex-col items-center shrink-0">
+                    <img src={sealDataUrl || "/images/seal-sample.png"} alt="Sello oficial System Kyron" className="w-24 h-24 object-contain opacity-90" />
                     <p className="text-[8px] text-gray-400 italic mt-0.5">Sello oficial</p>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f]" />
+            
+            <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
           </div>
         </div>
-
+        
         <div className="flex justify-center mt-8 print:hidden">
           <Button
             onClick={handleDownloadPDF}
