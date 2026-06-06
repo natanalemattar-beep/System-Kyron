@@ -185,7 +185,6 @@ export default function CartaInactividadPage() {
                   </div>
                   <div className="flex flex-col items-center shrink-0">
                     <OfficialSealSvg size={100} className="opacity-90" />
-                    <p className="text-[8px] text-gray-400 italic mt-0.5">Sello oficial</p>
                   </div>
                 </div>
               </div>
