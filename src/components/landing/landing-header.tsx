@@ -181,20 +181,20 @@ export function LandingHeader() {
               <LanguageSwitcher variant="default" align="end" />
               <ThemeToggle />
               <div className="w-px h-6 bg-border/50 mx-2" />
-              <Link href="/login">
-                <Button variant="ghost" className="h-10 px-5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/70 hover:text-foreground border border-transparent hover:border-border/50 hover:shadow-lg hover:shadow-kyron-cyan/5 dark:hover:shadow-kyron-cyan/10 transition-all duration-300">
+              <Button variant="ghost" asChild className="h-10 px-5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/70 hover:text-foreground border border-transparent hover:border-border/50 hover:shadow-lg hover:shadow-kyron-cyan/5 dark:hover:shadow-kyron-cyan/10 transition-all duration-300">
+                <Link href="/login">
                   {t('login')}
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button className="group relative h-10 px-7 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] bg-foreground hover:bg-foreground/90 text-background dark:bg-white dark:hover:bg-white/90 dark:text-black shadow-lg shadow-foreground/10 hover:shadow-xl hover:shadow-foreground/20 dark:hover:shadow-white/20 transition-all duration-300 active:scale-95 border-none overflow-hidden">
+                </Link>
+              </Button>
+              <Button asChild className="group relative h-10 px-7 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] bg-foreground hover:bg-foreground/90 text-background dark:bg-white dark:hover:bg-white/90 dark:text-black shadow-lg shadow-foreground/10 hover:shadow-xl hover:shadow-foreground/20 dark:hover:shadow-white/20 transition-all duration-300 active:scale-95 border-none overflow-hidden">
+                <Link href="/register">
                   <span className="absolute inset-0 bg-gradient-to-r from-kyron-cyan/0 via-kyron-cyan/10 to-kyron-cyan/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
                   <span className="relative z-10 flex items-center">
                     {t('register')}
                     <ArrowRight className="h-3.5 w-3.5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </span>
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
 
             {/* Mobile hamburger */}
