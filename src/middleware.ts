@@ -116,6 +116,10 @@ const PUBLIC_API_SET = new Set([
   '/api/feedback',
   '/api/ai/agent-chat',
   '/api/core/extract-document',
+  '/api/ai/kyron-chat-trial',
+  '/api/ai/speed-test',
+  '/api/admin/kyron-mail',
+  '/api/auth/me',
 ]);
 
 // Routes that handle their own header-based auth (e.g. x-admin-key)

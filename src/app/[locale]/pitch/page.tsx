@@ -282,15 +282,17 @@ function CountUpNumber({ value, suffix = "" }: { value: string, suffix?: string 
     useEffect(() => {
         let startTime: number | null = null;
         const duration = 1500;
+        let rafId: number;
         
         const animate = (timestamp: number) => {
             if (!startTime) startTime = timestamp;
             const progress = Math.min((timestamp - startTime) / duration, 1);
             setCount(Math.floor(progress * numericValue));
-            if (progress < 1) requestAnimationFrame(animate);
+            if (progress < 1) rafId = requestAnimationFrame(animate);
         };
         
-        requestAnimationFrame(animate);
+        rafId = requestAnimationFrame(animate);
+        return () => cancelAnimationFrame(rafId);
     }, [numericValue]);
 
     return <span>{count}{suffix}</span>;

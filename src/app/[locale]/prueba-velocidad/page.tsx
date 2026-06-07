@@ -57,6 +57,10 @@ export default function PruebaVelocidadPage() {
     }
   }, [result]);
 
+  useEffect(() => {
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, []);
+
   async function runTest(text?: string) {
     const q = (text ?? query).trim();
     if (!q || loading) return;
