@@ -105,7 +105,7 @@ export function DocumentScanner({ onScanComplete, onClose, type }: DocumentScann
                 setStep("result");
                 onScanComplete(aiData.number, aiData.prefix, { ...aiData, ...personData });
             } else {
-                setError(json.error || "No se pudo leer el documento.");
+                setError(typeof json.error === 'string' ? json.error : json.error?.message || "No se pudo leer el documento.");
                 setStep("select");
             }
         } catch (err) {

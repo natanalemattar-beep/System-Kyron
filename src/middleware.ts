@@ -115,6 +115,7 @@ const PUBLIC_API_SET = new Set([
   '/api/budget',
   '/api/feedback',
   '/api/ai/agent-chat',
+  '/api/core/extract-document',
 ]);
 
 // Routes that handle their own header-based auth (e.g. x-admin-key)
