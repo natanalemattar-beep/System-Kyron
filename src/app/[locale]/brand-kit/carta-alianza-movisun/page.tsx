@@ -38,7 +38,7 @@ export default function CartaAlianzaMovisunPage() {
         quality: 1,
         pixelRatio: 2,
         backgroundColor: "#ffffff",
-        style: { fontFamily: "'Times New Roman', Times, serif" },
+        style: { fontFamily: "Arial" },
       });
       const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "letter" });
       const pdfW = pdf.internal.pageSize.getWidth();
@@ -118,7 +118,7 @@ export default function CartaAlianzaMovisunPage() {
           <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none flex flex-col" style={{ width: '21.59cm', height: '27.94cm', fontFamily: 'Arial' }}>
             <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
             
-            <div className="flex-1 px-[0.9in] py-[0.5in] flex flex-col" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+            <div className="flex-1 px-[0.9in] py-[0.5in] flex flex-col">
               <div className="flex justify-between items-start border-b-2 border-[#1e3a5f] pb-3 mb-3 shrink-0">
                 <div className="flex items-center gap-3">
                   {logoUrl && (
@@ -166,7 +166,7 @@ export default function CartaAlianzaMovisunPage() {
                 </ul>
             
                 <p className="indent-8">
-                  Quedamos a la espera de su response para concretar una reunion donde podamos presentar formalmente nuestra propuesta de representacion, asi como para iniciar los tramites legales y administrativos necesarios. Estamos seguros de que esta relacion comercial sera beneficiosa para ambas partes y contribuira al crecimiento y posicionamiento de la marca MOVISUN en los mercados de habla hispana.
+                  Quedamos a la espera de su respuesta para concretar una reunion donde podamos presentar formalmente nuestra propuesta de representacion, asi como para iniciar los tramites legales y administrativos necesarios. Estamos seguros de que esta relacion comercial sera beneficiosa para ambas partes y contribuira al crecimiento y posicionamiento de la marca MOVISUN en los mercados de habla hispana.
                 </p>
               </div>
             
