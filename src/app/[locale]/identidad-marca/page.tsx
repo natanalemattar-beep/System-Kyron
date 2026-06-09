@@ -117,9 +117,24 @@ export default function IdentidadMarcaPage() {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(0, 0, size, size);
 
-    const padding = size * 0.12;
-    const drawSize = size - padding * 2;
-    ctx.drawImage(img, padding, padding, drawSize, drawSize);
+    const padding = size * 0.1;
+    const logoSize = size * 0.55;
+    const logoX = (size - logoSize) / 2;
+    ctx.drawImage(img, logoX, padding, logoSize, logoSize);
+
+    const textY = padding + logoSize + size * 0.04;
+    const fontSize = size * 0.075;
+    ctx.font = `bold ${fontSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
+
+    const center = size / 2;
+    ctx.textAlign = "right";
+    ctx.textBaseline = "top";
+    ctx.fillStyle = "#1a1a2e";
+    ctx.fillText("SYSTEM", center, textY);
+
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#2563eb";
+    ctx.fillText("KYRON", center, textY);
 
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
