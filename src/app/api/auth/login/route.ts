@@ -8,8 +8,10 @@ import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { generateCode, storeCode, generateMagicToken, storeMagicToken } from '@/lib/verification-codes';
 import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { createLoginChallenge } from '@/lib/login-challenge';
-import { decryptIfEncrypted, encryptIfNotEmpty, generateSearchHash } from '@/lib/encryption';
+import { decryptIfEncrypted, generateSearchHash } from '@/lib/encryption';
 import { getBaseUrl } from '@/lib/server-url';
+
+export const dynamic = 'force-dynamic';
 
 interface DbUser {
     id: number;
@@ -32,7 +34,7 @@ export async function POST(req: NextRequest) {
         const rl = rateLimit(`login:${ip}`, 10, 15 * 60 * 1000);
         if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs);
 
-        const { identifier, email, password, accessKey, portal, deviceFingerprint, trustDevice, redirect } = await req.json();
+        const { identifier, email, password, accessKey, portal, deviceFingerprint, redirect } = await req.json();
         const loginId = (identifier || email || '').trim();
 
         if (!loginId || !password) {
@@ -285,8 +287,6 @@ export async function POST(req: NextRequest) {
 
         if (emailResult && !emailResult.success) {
             console.error('[login] Verification email failed:', emailResult.error);
-            if (isDev) {
-            }
 
             if (hasPhone) {
                 return NextResponse.json({

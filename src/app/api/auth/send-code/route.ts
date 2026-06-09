@@ -84,20 +84,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Demasiados intentos. Por favor, espere 60 segundos.' }, { status: 429 });
     }
 
-    const codigo = generateCode();
-    // Flujo iniciado
-
     // FLUJO EMAIL
     if (tipo === 'email') {
       try {
-        const [userConfigRows] = await Promise.all([
-          query<{ email_verificacion: string | null; user_id: number }>(
-            `SELECT cu.email_verificacion, cu.user_id FROM configuracion_usuario cu
-             JOIN users u ON u.id = cu.user_id
-             WHERE u.email = $1`,
-            [destino]
-          ),
-        ]);
+        const codigo = generateCode();
+        const userConfigRows = await query<{ email_verificacion: string | null; user_id: number }>(
+          `SELECT cu.email_verificacion, cu.user_id FROM configuracion_usuario cu
+           JOIN users u ON u.id = cu.user_id
+           WHERE u.email = $1`,
+          [destino]
+        );
         const userConfig = userConfigRows?.[0];
         const emailDestino = userConfig?.email_verificacion || destino;
 

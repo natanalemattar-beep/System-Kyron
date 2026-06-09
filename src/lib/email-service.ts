@@ -34,14 +34,14 @@ async function logEmail(opts: EmailOptions, result: EmailResult) {
 
 async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
   try {
+    if (!process.env.GMAIL_APP_PASSWORD) {
+      console.error('[email-service] CRÍTICO: GMAIL_APP_PASSWORD no está definida en las variables de entorno.');
+    }
+
     const { getSmtpTransporter, getGmailSenderAddress } = await import('@/lib/gmail-client');
 
     const transporter = getSmtpTransporter();
     const senderEmail = await getGmailSenderAddress();
-
-    if (!process.env.GMAIL_APP_PASSWORD) {
-      console.error('[email-service] CRÍTICO: GMAIL_APP_PASSWORD no está definida en las variables de entorno.');
-    }
 
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
     const fromAddr = opts.from ?? `System Kyron <${senderEmail}>`;
@@ -74,6 +74,10 @@ export async function sendEmail(opts: EmailOptions): Promise<EmailResult> {
   console.warn(`[email-service] Gmail failed (${opts.purpose ?? 'general'}): ${result.error}`);
   logEmail(opts, result).catch(() => {});
   return result;
+}
+
+function escapeHtml(text: string): string {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 export function buildKyronEmailTemplate(content: {
@@ -112,10 +116,10 @@ export function buildKyronEmailTemplate(content: {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${content.title} — System Kyron</title>
+  <title>${escapeHtml(content.title)} — System Kyron</title>
 </head>
-<body style="margin:0;padding:0;background-color:#0f172a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;">
-  <span style="display:none;font-size:1px;color:#0f172a;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">${plainTextPreview}...</span>
+<body style="margin:0;padding:0;background-color:#0f172a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
+  <span style="display:none;font-size:1px;color:#0f172a;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">${plainTextPreview}...</span>
 
   <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0f172a;padding:32px 16px;">
     <tr>
@@ -156,7 +160,7 @@ export function buildKyronEmailTemplate(content: {
 
           <tr>
             <td style="padding:0 32px 32px 32px;">
-              <h1 style="margin:0 0 10px 0;color:#f1f5f9;font-size:22px;font-weight:800;text-align:center;line-height:1.35;letter-spacing:-0.01em;">${content.title}</h1>
+              <h1 style="margin:0 0 10px 0;color:#f1f5f9;font-size:22px;font-weight:800;text-align:center;line-height:1.35;letter-spacing:-0.01em;">${escapeHtml(content.title)}</h1>
               <p style="margin:0 0 32px 0;color:#94a3b8;font-size:14px;line-height:1.75;text-align:center;">
                 ${content.body}
               </p>
@@ -168,7 +172,7 @@ export function buildKyronEmailTemplate(content: {
                     <table cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td style="background:${palette.gradient};border-radius:16px;box-shadow:0 8px 28px -4px ${palette.accent}40;">
-                          <a href="${content.magicLink}" style="display:inline-block;color:#ffffff;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 40px;border-radius:16px;">Verificar y Acceder</a>
+                          <a href="${content.magicLink?.startsWith('https://') ? content.magicLink : '#'}" style="display:inline-block;color:#ffffff;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 40px;border-radius:16px;">Verificar y Acceder</a>
                         </td>
                       </tr>
                     </table>
@@ -208,7 +212,7 @@ export function buildKyronEmailTemplate(content: {
                 <tr>
                   <td style="padding:16px 20px;background:rgba(251,191,36,0.03);border-radius:14px;border-left:3px solid rgba(251,191,36,0.25);">
                     <p style="margin:0;color:#94a3b8;font-size:11px;line-height:1.6;">
-                      <strong style="color:#fbbf24;">🔒 Privacidad:</strong> ${content.footer ?? 'Este c\u00f3digo es confidencial. Si no iniciaste esta solicitud, ignora este mensaje.'}
+                      <strong style="color:#fbbf24;">🔒 Privacidad:</strong> ${content.footer ? escapeHtml(content.footer) : 'Este c\u00f3digo es confidencial. Si no iniciaste esta solicitud, ignora este mensaje.'}
                     </p>
                   </td>
                 </tr>
