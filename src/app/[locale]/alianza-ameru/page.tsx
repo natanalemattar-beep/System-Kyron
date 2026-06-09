@@ -143,7 +143,7 @@ export default function AlianzaAmeruPage() {
         >
           <ArrowLeft className="h-4 w-4" />
           <span className="hidden sm:inline">{t.backLabel}</span>
-          <span className="sm:hidden">Back</span>
+          <span className="sm:hidden">Volver</span>
         </Link>
 
         <div className="flex items-center gap-2">
