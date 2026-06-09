@@ -1,5 +1,4 @@
 import { query, queryOne } from '@/lib/db';
-import { encryptIfNotEmpty } from '@/lib/encryption';
 import crypto from 'crypto';
 
 const CODE_LENGTH = 6;
@@ -25,9 +24,6 @@ function hashToken(token: string): string {
   return crypto.createHash('sha256').update(token).digest('hex');
 }
 
-/**
- * Normaliza un número de teléfono al formato internacional (+58...)
- */
 export function normalizePhone(phone: string): string {
   let normalized = phone.replace(/[\s\-\(\)]/g, '');
   if (normalized.startsWith('0')) normalized = `+58${normalized.slice(1)}`;
@@ -36,9 +32,6 @@ export function normalizePhone(phone: string): string {
   return normalized;
 }
 
-/**
- * Enmascara un número de teléfono para privacidad
- */
 export function maskPhone(phone: string): string {
   const clean = phone.replace(/[^\d]/g, '');
   if (clean.length >= 10) {
@@ -84,8 +77,8 @@ export async function verifyMagicToken(token: string): Promise<{ valid: boolean;
 export type VerificationPurpose = 'verification' | 'registration' | '2fa' | 'reset_password' | 'sensitive_action' | 'magic_link';
 
 export async function storeCode(
-  destino: string, 
-  code: string, 
+  destino: string,
+  code: string,
   proposito: VerificationPurpose = 'verification',
   tipo: 'email' | 'sms' | 'whatsapp' = 'email'
 ): Promise<void> {
@@ -97,19 +90,18 @@ export async function storeCode(
 }
 
 export async function verifyCode(
-  destino: string, 
-  inputCode: string, 
+  destino: string,
+  inputCode: string,
   proposito: VerificationPurpose = 'verification'
-): Promise<{ valid: boolean; userId?: number; error?: string }> {
+): Promise<{ valid: boolean; error?: string }> {
   const key = destino.toLowerCase();
 
-  // Usamos Row Level Locking para evitar race conditions
   const record = await queryOne<{ id: number; codigo: string; intentos: number }>(
     `SELECT id, codigo, COALESCE(intentos, 0) as intentos FROM verification_codes
      WHERE destino = $1 AND usado = false AND expires_at > NOW()
      AND proposito = $2
      ORDER BY created_at DESC LIMIT 1
-     FOR UPDATE`,
+     FOR UPDATE SKIP LOCKED`,
     [key, proposito]
   );
 
@@ -127,23 +119,15 @@ export async function verifyCode(
     return { valid: false, error: `Código incorrecto. ${remaining} intentos restantes.` };
   }
 
-  // Marcar como usado
   await query(`UPDATE verification_codes SET usado = true WHERE id = $1`, [record.id]);
+  return { valid: true };
+}
 
-  // Intentar obtener el usuario (búsqueda dual email/teléfono/cédula usando Blind Index)
-  const { generateSearchHash } = await import('@/lib/encryption');
-  const searchHash = generateSearchHash(key);
-  
-  const user = await queryOne<{ id: number }>(
-    `SELECT id FROM users 
-     WHERE email = $1 
-        OR telefono = $1 
-        OR telefono_hash = $2 
-        OR cedula_hash = $2 
-        OR rif_hash = $2`,
-    [key, searchHash]
+export async function cleanExpiredCodes(): Promise<number> {
+  const result = await query<{ id: number }>(
+    `DELETE FROM verification_codes WHERE expires_at < NOW() - INTERVAL '1 hour'`
   );
-  return { valid: true, userId: user?.id };
+  return result?.length ?? 0;
 }
 
 

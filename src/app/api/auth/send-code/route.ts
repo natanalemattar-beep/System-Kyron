@@ -90,33 +90,25 @@ export async function POST(req: NextRequest) {
     // FLUJO EMAIL
     if (tipo === 'email') {
       try {
-        // 1. Obtener configuración de usuario (email alternativo)
-        const [userConfig, user] = await Promise.all([
-          query<{ email_verificacion: string | null }>(
-            `SELECT cu.email_verificacion FROM configuracion_usuario cu
+        const [userConfigRows] = await Promise.all([
+          query<{ email_verificacion: string | null; user_id: number }>(
+            `SELECT cu.email_verificacion, cu.user_id FROM configuracion_usuario cu
              JOIN users u ON u.id = cu.user_id
              WHERE u.email = $1`,
             [destino]
           ),
-          queryOne<{ id: number }>(`SELECT id FROM users WHERE email = $1`, [destino]),
         ]);
+        const userConfig = userConfigRows?.[0];
+        const emailDestino = userConfig?.email_verificacion || destino;
 
-        const emailDestino = userConfig[0]?.email_verificacion || destino;
-
-        // 2. GUARDAR EN DB (Crítico: Debe ocurrir antes del envío)
-        await storeCode(destino, codigo, proposito, 'email');
-
-        // 3. Generar Magic Link
         const token = generateMagicToken();
         const baseUrl = getBaseUrl(req);
         const redirectQuery = redirectPath ? `?redirect=${encodeURIComponent(redirectPath)}` : '';
         const magicLink = `${baseUrl}/es/verify-link/${token}${redirectQuery}`;
-        
-        // Guardar magic token
-        await storeMagicToken(destino, token, user?.id);
 
+        await storeCode(destino, codigo, proposito, 'email');
+        await storeMagicToken(destino, token, userConfig?.user_id);
 
-        // 4. Construir y Enviar Email
         const html = buildKyronEmailTemplate({
           title: 'Verificación de Seguridad',
           body: 'Has solicitado acceder a tu ecosistema Kyron. Utiliza el código a continuación o haz clic en el botón de acceso rápido.',
