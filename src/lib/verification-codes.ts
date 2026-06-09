@@ -125,7 +125,7 @@ export async function verifyCode(
 
 export async function cleanExpiredCodes(): Promise<number> {
   const result = await query<{ id: number }>(
-    `DELETE FROM verification_codes WHERE expires_at < NOW() - INTERVAL '1 hour'`
+    `DELETE FROM verification_codes WHERE expires_at < NOW() - INTERVAL '1 hour' RETURNING id`
   );
   return result?.length ?? 0;
 }

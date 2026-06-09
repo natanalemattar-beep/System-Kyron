@@ -172,7 +172,7 @@ export function buildKyronEmailTemplate(content: {
                     <table cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td style="background:${palette.gradient};border-radius:16px;box-shadow:0 8px 28px -4px ${palette.accent}40;">
-                          <a href="${content.magicLink?.startsWith('https://') ? content.magicLink : '#'}" style="display:inline-block;color:#ffffff;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 40px;border-radius:16px;">Verificar y Acceder</a>
+                          <a href="${content.magicLink?.startsWith('http') ? content.magicLink : '#'}" style="display:inline-block;color:#ffffff;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 40px;border-radius:16px;">Verificar y Acceder</a>
                         </td>
                       </tr>
                     </table>

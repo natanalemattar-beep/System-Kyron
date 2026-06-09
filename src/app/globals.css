@@ -4,42 +4,42 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 222 20% 18%;
+    --background: 210 35% 95%;
+    --foreground: 222 25% 14%;
     
-    --card: 0 0% 100%;
-    --card-foreground: 222 20% 18%;
+    --card: 210 30% 97%;
+    --card-foreground: 222 25% 14%;
     
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 20% 18%;
+    --popover: 210 30% 97%;
+    --popover-foreground: 222 25% 14%;
     
     --primary: 191 85% 42%;
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 210 16% 93%;
-    --secondary-foreground: 222 20% 18%;
+    --secondary: 191 30% 90%;
+    --secondary-foreground: 222 25% 14%;
     
-    --muted: 210 14% 95%;
-    --muted-foreground: 215 14% 46%;
+    --muted: 210 25% 92%;
+    --muted-foreground: 215 18% 46%;
     
-    --accent: 156 70% 40%;
+    --accent: 156 65% 38%;
     --accent-foreground: 0 0% 100%;
     
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
     
-    --border: 214 16% 86%;
-    --input: 214 16% 86%;
+    --border: 214 20% 82%;
+    --input: 214 20% 82%;
     --ring: 191 85% 42%;
     
     --radius: 1rem;
     
-    --kyron-deep: 222 20% 18%;
-    --kyron-cyan: 191 85% 42%;
-    --kyron-emerald: 156 70% 40%;
-    --kyron-indigo: 239 70% 55%;
-    --kyron-gold: 45 85% 45%;
-    --kyron-violet: 270 70% 55%;
+    --kyron-deep: 222 25% 14%;
+    --kyron-cyan: 191 85% 45%;
+    --kyron-emerald: 156 65% 38%;
+    --kyron-indigo: 239 68% 52%;
+    --kyron-gold: 42 85% 45%;
+    --kyron-violet: 270 68% 52%;
   }
 
   .dark {
@@ -243,16 +243,16 @@
   /* ===== REALISTIC GLASS & DEPTH EFFECTS ===== */
 
   .glass-subtle {
-    @apply bg-background/60 dark:bg-white/[0.03] backdrop-blur-xl border border-border/50 dark:border-white/[0.06] shadow-xl;
+    @apply bg-background/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/50 dark:border-white/[0.06] shadow-xl;
   }
 
   .glass-card {
-    @apply relative overflow-hidden rounded-[2rem] bg-background/40 dark:bg-white/[0.02] backdrop-blur-xl border border-border/50 dark:border-white/[0.06] shadow-2xl;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.02), inset 0 1px 0 0 rgb(255 255 255 / 0.4);
+    @apply relative overflow-hidden rounded-[2rem] bg-background/60 dark:bg-white/[0.02] backdrop-blur-xl border border-border/50 dark:border-white/[0.06] shadow-2xl;
+    box-shadow: 0 8px 20px -8px hsl(var(--kyron-cyan) / 0.06), 0 2px 4px -2px rgb(0 0 0 / 0.03), inset 0 1px 0 0 rgb(255 255 255 / 0.5);
   }
 
   .dark .glass-card {
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3), inset 0 1px 0 0 rgb(255 255 255 / 0.03);
+    box-shadow: 0 8px 24px -8px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.3), inset 0 1px 0 0 rgb(255 255 255 / 0.03);
   }
 
   .glass-liquid {
@@ -272,16 +272,16 @@
     z-index: 0;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--kyron-cyan) / 0.12) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 60% at 100% 40%, hsl(var(--kyron-emerald) / 0.06) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 60% at 0% 60%, hsl(var(--kyron-violet) / 0.04) 0%, transparent 70%);
+      radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--kyron-cyan) / 0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 100% 40%, hsl(var(--kyron-emerald) / 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 0% 60%, hsl(var(--kyron-violet) / 0.08) 0%, transparent 60%);
   }
 
   .dark .mesh-gradient::before {
     background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--kyron-cyan) / 0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 60% at 100% 40%, hsl(var(--kyron-emerald) / 0.04) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 60% at 0% 60%, hsl(var(--kyron-violet) / 0.03) 0%, transparent 70%);
+      radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--kyron-cyan) / 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 100% 40%, hsl(var(--kyron-emerald) / 0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 0% 60%, hsl(var(--kyron-violet) / 0.05) 0%, transparent 60%);
   }
 
   /* ===== DEVICE MOCKUP FRAME ===== */
@@ -359,7 +359,7 @@
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, hsl(var(--kyron-cyan) / 0.3), hsl(var(--kyron-violet) / 0.1), hsl(var(--kyron-cyan) / 0.3));
+    background: linear-gradient(135deg, hsl(var(--kyron-cyan) / 0.5), hsl(var(--kyron-violet) / 0.2), hsl(var(--kyron-cyan) / 0.4));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -390,7 +390,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.2), transparent);
+    background: linear-gradient(90deg, transparent, hsl(var(--kyron-cyan) / 0.35), transparent);
   }
 
   .ds-section {
@@ -403,7 +403,7 @@
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 100% 50% at 50% 0%, hsl(var(--primary) / 0.03) 0%, transparent 70%);
+      radial-gradient(ellipse 100% 50% at 50% 0%, hsl(var(--kyron-cyan) / 0.08) 0%, transparent 70%);
   }
 
   .ds-card {
