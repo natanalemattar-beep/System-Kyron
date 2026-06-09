@@ -133,7 +133,7 @@ export function LandingHeader() {
                 ))}
 
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center gap-2 px-5 py-2 text-[10px] font-black uppercase tracking-[0.25em] text-muted-foreground/60 hover:text-foreground transition-all duration-300 rounded-xl hover:bg-muted dark:hover:bg-white/5 outline-none group overflow-hidden">
+                  <DropdownMenuTrigger className="relative flex items-center gap-2 px-5 py-2 text-[10px] font-black uppercase tracking-[0.25em] text-muted-foreground/60 hover:text-foreground transition-all duration-300 rounded-xl hover:bg-muted dark:hover:bg-white/5 outline-none group overflow-hidden">
                     <span className="absolute inset-0 bg-kyron-cyan/5 dark:bg-kyron-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
                     <span className="relative z-10">{t('solutions')}</span>
                     <ChevronDown className="h-3 w-3 opacity-30 group-data-[state=open]:rotate-180 transition-transform relative z-10" />
@@ -237,28 +237,32 @@ export function LandingHeader() {
                     className="px-5 pt-5 pb-3 relative z-10"
                   >
                     <div className="flex gap-3">
-                      <Link href="/login" className="flex-1" onClick={() => setMobileOpen(false)}>
-                        <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-kyron-cyan/5 dark:bg-kyron-cyan/10 border border-kyron-cyan/20 hover:bg-kyron-cyan/15 hover:border-kyron-cyan/30 hover:shadow-lg hover:shadow-kyron-cyan/5 transition-all duration-300 group">
-                          <div className="h-9 w-9 rounded-xl bg-kyron-cyan/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-[-8deg] transition-all duration-300 shrink-0">
-                            <LogIn className="h-4 w-4 text-kyron-cyan" />
+                      <SheetClose asChild>
+                        <Link href="/login" className="flex-1">
+                          <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-kyron-cyan/5 dark:bg-kyron-cyan/10 border border-kyron-cyan/20 hover:bg-kyron-cyan/15 hover:border-kyron-cyan/30 hover:shadow-lg hover:shadow-kyron-cyan/5 transition-all duration-300 group">
+                            <div className="h-9 w-9 rounded-xl bg-kyron-cyan/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-[-8deg] transition-all duration-300 shrink-0">
+                              <LogIn className="h-4 w-4 text-kyron-cyan" />
+                            </div>
+                            <div>
+                              <p className="text-xs font-black uppercase tracking-widest text-foreground">{t('login')}</p>
+                              <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-kyron-cyan/50">{t('secure_portal')}</p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="text-xs font-black uppercase tracking-widest text-foreground">{t('login')}</p>
-                            <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-kyron-cyan/50">{t('secure_portal')}</p>
+                        </Link>
+                      </SheetClose>
+                      <SheetClose asChild>
+                        <Link href="/register" className="flex-1">
+                          <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-foreground/5 dark:bg-white/[0.06] border border-border/50 dark:border-white/10 hover:bg-foreground/10 hover:border-foreground/20 dark:hover:border-white/20 hover:shadow-lg transition-all duration-300 group">
+                            <div className="h-9 w-9 rounded-xl bg-foreground/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-[-8deg] transition-all duration-300 shrink-0">
+                              <UserCheck className="h-4 w-4 text-foreground/70" />
+                            </div>
+                            <div>
+                              <p className="text-xs font-black uppercase tracking-widest text-foreground">{t('register')}</p>
+                              <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40">Nuevo usuario</p>
+                            </div>
                           </div>
-                        </div>
-                      </Link>
-                      <Link href="/register" className="flex-1" onClick={() => setMobileOpen(false)}>
-                        <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-foreground/5 dark:bg-white/[0.06] border border-border/50 dark:border-white/10 hover:bg-foreground/10 hover:border-foreground/20 dark:hover:border-white/20 hover:shadow-lg transition-all duration-300 group">
-                          <div className="h-9 w-9 rounded-xl bg-foreground/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-[-8deg] transition-all duration-300 shrink-0">
-                            <UserCheck className="h-4 w-4 text-foreground/70" />
-                          </div>
-                          <div>
-                            <p className="text-xs font-black uppercase tracking-widest text-foreground">{t('register')}</p>
-                            <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40">Nuevo usuario</p>
-                          </div>
-                        </div>
-                      </Link>
+                        </Link>
+                      </SheetClose>
                     </div>
                   </motion.div>
 
