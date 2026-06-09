@@ -108,39 +108,42 @@ export default function IdentidadMarcaPage() {
       img.onerror = reject;
     });
 
-    const size = 1200;
+    const px = Math.round((4 / 2.54) * 300);
     const canvas = document.createElement("canvas");
-    canvas.width = size;
-    canvas.height = size;
+    canvas.width = px;
+    canvas.height = px;
 
     const ctx = canvas.getContext("2d")!;
     ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, size, size);
-
-    const padding = size * 0.12;
-    const logoSize = withName ? size * 0.55 : size * 0.76;
-    const logoX = (size - logoSize) / 2;
-    const logoY = withName ? padding : (size - logoSize) / 2;
-    ctx.drawImage(img, logoX, logoY, logoSize, logoSize);
+    ctx.fillRect(0, 0, px, px);
 
     if (withName) {
-      const textY = logoY + logoSize + size * 0.04;
-      const fontSize = size * 0.075;
+      const logoSize = px * 0.56;
+      const padX = (px - logoSize) / 2;
+      const logoY = px * 0.07;
+      ctx.drawImage(img, padX, logoY, logoSize, logoSize);
+
+      const textY = logoY + logoSize + px * 0.04;
+      const fontSize = px * 0.075;
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       ctx.fillStyle = "#1a1a2e";
       ctx.font = `bold ${fontSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
-      ctx.fillText("SYSTEM KYRON", size / 2, textY);
+      ctx.fillText("SYSTEM KYRON", px / 2, textY);
+    } else {
+      const pad = px * 0.03;
+      const logoSize = px - pad * 2;
+      ctx.drawImage(img, pad, pad, logoSize, logoSize);
     }
 
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
-    link.download = withName ? "System_Kyron_Logo_SAPI_4x4.png" : "System_Kyron_Logo_Solo.png";
+    link.download = withName ? "System_Kyron_Logo_4x4.png" : "System_Kyron_Logo_Solo_4x4.png";
     link.click();
 
     toast({
       title: "DESCARGA EXITOSA",
-      description: withName ? "Logo 4x4 para SAPI descargado en PNG" : "Logo solo descargado en PNG",
+      description: withName ? "Logo 4x4 + nombre descargado" : "Logo 4x4 solo descargado",
     });
   };
 
