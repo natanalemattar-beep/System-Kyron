@@ -24,7 +24,7 @@ export function BackToDashboard({ fallbackHref, fallbackLabel, className }: {
 }) {
   const [target, setTarget] = useState<{ href: string; label: string }>({
     href: fallbackHref || "/dashboard",
-    label: fallbackLabel || "Dashboard",
+    label: fallbackLabel || "Panel Principal",
   });
 
   useEffect(() => {

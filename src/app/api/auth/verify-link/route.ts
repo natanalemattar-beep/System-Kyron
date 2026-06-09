@@ -59,7 +59,6 @@ export async function POST(req: NextRequest) {
         [result.email.toLowerCase()]
       );
 
-
       return NextResponse.json({
         success: true,
         verified: true,
@@ -79,6 +78,13 @@ export async function POST(req: NextRequest) {
       tipo: user.tipo,
       nombre: displayName,
     });
+
+    // Insertar MAGIC_VERIFIED para que el polling detecte la verificación
+    await query(
+      `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito, usado)
+       VALUES ($1, 'email', 'MAGIC_VERIFIED', NOW() + INTERVAL '5 minutes', 'verification', true)`,
+      [result.email.toLowerCase()]
+    );
 
     const cookie = setSessionCookie(sessionToken);
     const res = NextResponse.json({

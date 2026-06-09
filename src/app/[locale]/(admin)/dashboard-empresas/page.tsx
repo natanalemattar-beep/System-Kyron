@@ -622,7 +622,7 @@ export default function DashboardEmpresaPage() {
             <div className="flex items-center gap-3 mb-4">
               <ShieldCheck className="h-5 w-5 text-emerald-500" />
               <span className="text-sm font-semibold text-foreground">Fiscal</span>
-              <Badge className="ml-auto bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 text-xs font-medium h-5 rounded-md">OK</Badge>
+              <Badge className="ml-auto bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 text-xs font-medium h-5 rounded-md">Correcto</Badge>
             </div>
             <div className="grid grid-cols-2 gap-2.5">
               {[

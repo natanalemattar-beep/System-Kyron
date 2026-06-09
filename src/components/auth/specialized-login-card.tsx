@@ -134,6 +134,23 @@ export function SpecializedLoginCard({
     handleMagicLinkVerified
   );
 
+  // Escuchar mensajes BroadcastChannel desde verify-link page
+  useEffect(() => {
+    if (step !== 'verification' || verifVerified) return;
+    let channel: BroadcastChannel | null = null;
+    try {
+      channel = new BroadcastChannel('kyron-auth');
+      channel.onmessage = (event) => {
+        if (event.data?.type === 'SESSION_READY') {
+          setVerifVerified(true);
+          toast({ title: 'Identidad verificada', description: 'Acceso verificado por enlace mágico.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+          handleRedirect(event.data.user);
+        }
+      };
+    } catch {}
+    return () => { try { channel?.close(); } catch {} };
+  }, [step, verifVerified, toast, handleRedirect]);
+
   useEffect(() => {
     if (countdown <= 0) return;
     const timer = setTimeout(() => setCountdown(c => c - 1), 1000);
@@ -1380,8 +1397,8 @@ export function SpecializedLoginCard({
                 >
                   <Icon className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
                 </motion.div>
-                <h2 className="text-xl lg:text-2xl font-black text-white tracking-tight mb-1 lg:mb-2 uppercase italic">Bienvenido</h2>
-                <p className="text-xs lg:text-sm text-slate-400 font-medium">Accede a tu panel de control financiero</p>
+                <h2 className="text-xl lg:text-2xl font-black text-white tracking-tight mb-1 lg:mb-2 uppercase italic">Iniciar Sesi\u00f3n</h2>
+                <p className="text-xs lg:text-sm text-slate-400 font-medium">Accede a tu panel de control</p>
               </div>
 
               {formContent}

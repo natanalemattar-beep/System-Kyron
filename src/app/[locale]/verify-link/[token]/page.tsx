@@ -21,7 +21,7 @@ export default function VerifyLinkPage() {
     if (verifiedRef.current) return;
 
     const verifyToken = async () => {
-      const token = window.location.href.split('/').pop() || '';
+      const token = window.location.pathname.split('/').pop() || '';
       if (!token || token.length < 10) {
         setStatus('error');
         setMessage('Enlace de acceso inválido.');

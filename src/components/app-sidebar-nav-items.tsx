@@ -223,7 +223,7 @@ export const sostenibilidadNavGroups = [
         icon: Recycle,
         items: [
             { href: "/sostenibilidad", label: "Dashboard Ambiental", icon: Leaf },
-            { href: "/mercado-ecocreditos", label: "Eco-Exchange", icon: Coins },
+            { href: "/mercado-ecocreditos", label: "Eco-Mercado", icon: Coins },
             { href: "/tarjeta-reciclaje", label: "Tarjeta Avanzada", icon: Recycle },
         ]
     }

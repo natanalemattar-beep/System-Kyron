@@ -92,8 +92,8 @@ export default function MercadoEcocreditosPage() {
                             <p className="text-xl font-bold text-secondary">+12.4%</p>
                         </div>
                         <div>
-                            <p className="text-[10px] font-semibold uppercase text-white/20 mb-1">Status</p>
-                            <p className="text-xl font-bold text-primary">Bullish</p>
+                            <p className="text-[10px] font-semibold uppercase text-white/20 mb-1">Estado</p>
+                            <p className="text-xl font-bold text-primary">Alcista</p>
                         </div>
                     </CardContent>
                 </Card>

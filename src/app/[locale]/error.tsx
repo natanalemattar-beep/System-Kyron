@@ -77,7 +77,7 @@ export default function Error({
 
         <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-4 font-mono text-[10px] text-left">
            <div className="text-rose-500/60 mb-1 font-bold uppercase tracking-widest flex items-center gap-2">
-             <Cpu className="h-3 w-3" /> Error Stack Trace
+             <Cpu className="h-3 w-3" /> Trazado del Error
            </div>
            <p className="text-slate-500 line-clamp-2">{error.message}</p>
         </div>

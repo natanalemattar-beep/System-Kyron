@@ -1,4 +1,4 @@
-import { query, queryOne } from '@/lib/db';
+import { query, queryOne, transaction } from '@/lib/db';
 import crypto from 'crypto';
 
 const CODE_LENGTH = 6;
@@ -96,31 +96,41 @@ export async function verifyCode(
 ): Promise<{ valid: boolean; error?: string }> {
   const key = destino.toLowerCase();
 
-  const record = await queryOne<{ id: number; codigo: string; intentos: number }>(
-    `SELECT id, codigo, COALESCE(intentos, 0) as intentos FROM verification_codes
-     WHERE destino = $1 AND usado = false AND expires_at > NOW()
-     AND proposito = $2
-     ORDER BY created_at DESC LIMIT 1
-     FOR UPDATE SKIP LOCKED`,
-    [key, proposito]
-  );
+  return transaction(async (client) => {
+    const result = await client.query<{ id: number; codigo: string; intentos: number }>(
+      `SELECT id, codigo, COALESCE(intentos, 0) as intentos FROM verification_codes
+       WHERE destino = $1 AND usado = false AND expires_at > NOW()
+       AND proposito = $2
+       ORDER BY created_at DESC LIMIT 1
+       FOR UPDATE`,
+      [key, proposito]
+    );
 
-  if (!record) {
-    return { valid: false, error: 'Código inválido o expirado. Solicita uno nuevo.' };
-  }
+    const record = result.rows[0] ?? null;
 
-  if (record.intentos >= MAX_ATTEMPTS) {
-    return { valid: false, error: 'Demasiados intentos fallidos. Solicita un nuevo código.' };
-  }
+    if (!record) {
+      return { valid: false, error: 'Código inválido o expirado. Solicita uno nuevo.' };
+    }
 
-  if (record.codigo !== inputCode.trim()) {
-    await query(`UPDATE verification_codes SET intentos = COALESCE(intentos, 0) + 1 WHERE id = $1`, [record.id]);
-    const remaining = MAX_ATTEMPTS - record.intentos - 1;
-    return { valid: false, error: `Código incorrecto. ${remaining} intentos restantes.` };
-  }
+    if (record.intentos >= MAX_ATTEMPTS) {
+      return { valid: false, error: 'Demasiados intentos fallidos. Solicita un nuevo código.' };
+    }
 
-  await query(`UPDATE verification_codes SET usado = true WHERE id = $1`, [record.id]);
-  return { valid: true };
+    if (record.codigo !== inputCode.trim()) {
+      await client.query(
+        `UPDATE verification_codes SET intentos = COALESCE(intentos, 0) + 1 WHERE id = $1`,
+        [record.id]
+      );
+      const remaining = MAX_ATTEMPTS - record.intentos - 1;
+      return { valid: false, error: `Código incorrecto. ${remaining} intentos restantes.` };
+    }
+
+    await client.query(
+      `UPDATE verification_codes SET usado = true WHERE id = $1`,
+      [record.id]
+    );
+    return { valid: true };
+  });
 }
 
 export async function cleanExpiredCodes(): Promise<number> {
