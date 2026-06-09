@@ -96,8 +96,31 @@ export async function POST(req: NextRequest) {
                 entidadId: user.id,
                 metadata: { ip, accountLocked: bruteResult.locked },
             });
+
             if (bruteResult.locked) {
                 const mins = Math.ceil(bruteResult.lockDurationMs / 60000);
+                const userAgent = req.headers.get('user-agent') || 'Desconocido';
+                const deviceName = userAgent.includes('Mobile') ? 'Móvil' : userAgent.includes('Tablet') ? 'Tablet' : 'Escritorio';
+                sendEmail({
+                    to: user.email,
+                    subject: '🔒 Cuenta bloqueada por seguridad — System Kyron',
+                    html: buildKyronEmailTemplate({
+                        title: 'Cuenta bloqueada temporalmente',
+                        body: `
+                            <p style="margin:0 0 16px 0;">Hola <strong>${user.nombre}</strong>, tu cuenta ha sido bloqueada temporalmente por múltiples intentos de acceso fallidos.</p>
+                            <table style="width:100%;border-collapse:collapse;margin:0 0 20px 0;background:rgba(255,255,255,0.03);border-radius:12px;overflow:hidden;">
+                                <tr><td style="padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.05);color:#94a3b8;font-size:12px;">IP del intento</td><td style="padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.05);color:#f1f5f9;font-size:13px;font-weight:600;">${ip}</td></tr>
+                                <tr><td style="padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.05);color:#94a3b8;font-size:12px;">Dispositivo</td><td style="padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.05);color:#f1f5f9;font-size:13px;font-weight:600;">${deviceName}</td></tr>
+                                <tr><td style="padding:10px 14px;color:#94a3b8;font-size:12px;">Duración del bloqueo</td><td style="padding:10px 14px;color:#f1f5f9;font-size:13px;font-weight:600;">${mins} minuto${mins > 1 ? 's' : ''}</td></tr>
+                            </table>
+                        `,
+                        footer: 'Si no reconoces esta actividad, cambia tu contraseña inmediatamente desde la configuración de seguridad.',
+                        type: 'alert',
+                    }),
+                    module: 'auth',
+                    purpose: 'alert',
+                }).catch(err => console.error('[login] Failed to send lockout email:', err));
+
                 return NextResponse.json(
                     { error: `Cuenta bloqueada por múltiples intentos fallidos. Intenta de nuevo en ${mins} minuto${mins > 1 ? 's' : ''}.` },
                     { status: 423 }

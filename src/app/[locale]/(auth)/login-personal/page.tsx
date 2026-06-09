@@ -37,7 +37,8 @@ export default function LoginPersonalPage() {
   const [trustDevice, setTrustDevice] = useState(false);
   const [docType, setDocType] = useState<'V' | 'E'>('V');
   const [identifierDisplay, setIdentifierDisplay] = useState('');
-  const [deviceFingerprint] = useState(() => getDeviceFingerprint());
+  const [deviceFingerprint, setDeviceFingerprint] = useState('');
+  useEffect(() => { getDeviceFingerprint().then(setDeviceFingerprint); }, []);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const formatDoc = useCallback((raw: string) => {

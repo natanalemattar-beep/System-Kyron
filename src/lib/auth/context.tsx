@@ -20,7 +20,7 @@ interface AuthContextValue {
     user: AuthUser | null;
     isLoading: boolean;
     login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
-    logout: () => Promise<void>;
+    logout: (allSessions?: boolean) => Promise<void>;
     refreshUser: () => Promise<void>;
 }
 
@@ -119,10 +119,14 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
         }
     }, []);
 
-    const logout = useCallback(async () => {
+    const logout = useCallback(async (allSessions = false) => {
         isLoggingOut.current = true;
         try {
-            await fetch('/api/auth/logout', { method: 'POST' });
+            await fetch('/api/auth/logout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ all: allSessions }),
+            });
         } catch {
             // Intenta limpiar sesión aunque falle la API
         }
@@ -130,6 +134,7 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
         try {
             localStorage.removeItem('_sk_vid');
             localStorage.removeItem('kyron-session-timeout');
+            localStorage.removeItem('kyron-theme');
         } catch {}
         try {
             new BroadcastChannel('kyron-auth').postMessage({ type: 'LOGOUT' });

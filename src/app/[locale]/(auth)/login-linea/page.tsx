@@ -54,7 +54,8 @@ export default function LoginLineaUnifiedPage() {
   const [codeDigits, setCodeDigits] = useState(['', '', '', '', '', '']);
   const [countdown, setCountdown] = useState(0);
   const [trustDevice, setTrustDevice] = useState(false);
-  const [deviceFingerprint] = useState(() => getDeviceFingerprint());
+  const [deviceFingerprint, setDeviceFingerprint] = useState('');
+  useEffect(() => { getDeviceFingerprint().then(setDeviceFingerprint); }, []);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
   const { toast } = useToast();

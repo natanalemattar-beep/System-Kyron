@@ -83,7 +83,8 @@ export function SpecializedLoginCard({
   const [singleCode, setSingleCode] = useState('');
   const [verifVerified, setVerifVerified] = useState(false);
   const [trustDevice, setTrustDevice] = useState(false);
-  const [deviceFingerprint] = useState(() => getDeviceFingerprint());
+  const [deviceFingerprint, setDeviceFingerprint] = useState('');
+  useEffect(() => { getDeviceFingerprint().then(setDeviceFingerprint); }, []);
   const singleInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const { toast } = useToast();

@@ -9,9 +9,9 @@ export function PerformanceProvider({ children }: { children: React.ReactNode })
         reducedMotion="user" 
         transition={{ 
           type: "spring", 
-          stiffness: 260, 
-          damping: 30,
-          mass: 1
+          stiffness: 350, 
+          damping: 25,
+          mass: 0.6
         }}
       >
         {children}

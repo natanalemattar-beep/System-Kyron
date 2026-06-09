@@ -4,9 +4,9 @@ import { motion, useInView, useReducedMotion, AnimatePresence, type Variants } f
 import React, { useRef, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-const springBounce = { type: 'spring', stiffness: 100, damping: 35, mass: 0.8 } as const;
-const smoothEase = [0.25, 0.1, 0.25, 1] as const; // Standard Ease-In-Out
-const snappyEase = [0.4, 0, 0.2, 1] as const; // High authority transition
+const springBounce = { type: 'spring', stiffness: 180, damping: 25, mass: 0.6 } as const;
+const smoothEase = [0.2, 0, 0.15, 1] as const;
+const snappyEase = [0.35, 0, 0.1, 1] as const;
 
 function useHasMounted() {
   const [mounted, setMounted] = useState(false);
@@ -91,7 +91,7 @@ export function MotionContainer({
   className,
   variant = 'fade-up',
   delay = 0,
-  duration = 0.35,
+  duration = 0.25,
   once = true,
   amount = 0.1,
   as = 'div',
@@ -133,9 +133,9 @@ interface StaggerContainerProps {
 export function StaggerContainer({
   children,
   className,
-  staggerDelay = 0.08,
+  staggerDelay = 0.05,
   once = true,
-  amount = 0.15,
+  amount = 0.1,
 }: StaggerContainerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, amount });
@@ -212,9 +212,9 @@ export function PageTransition({ children, className }: PageTransitionProps) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 8 }}
+      initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.25, ease: smoothEase }}
+      transition={{ duration: 0.18, ease: snappyEase }}
     >
       {children}
     </motion.div>
