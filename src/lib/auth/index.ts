@@ -1,5 +1,7 @@
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
+import crypto from 'crypto';
+import { query } from '@/lib/db';
 
 const jwtSecret = process.env.JWT_SECRET;
 
@@ -23,6 +25,34 @@ export interface SessionPayload {
     email: string;
     tipo: 'natural' | 'juridico' | 'admin';
     nombre: string;
+}
+
+export function hashToken(token: string): string {
+  return crypto.createHash('sha256').update(token).digest('hex');
+}
+
+export async function insertUserSession(
+  token: string,
+  userId: number,
+  ip?: string,
+  userAgent?: string
+): Promise<void> {
+  const tokenHash = hashToken(token);
+  const expiresAt = new Date(Date.now() + EXPIRES_IN * 1000);
+  await query(
+    `INSERT INTO user_sessions (user_id, token_hash, ip, user_agent, expires_at)
+     VALUES ($1, $2, $3, $4, $5)
+     ON CONFLICT (token_hash) DO UPDATE SET
+       last_active_at = NOW(),
+       ip = EXCLUDED.ip,
+       user_agent = EXCLUDED.user_agent`,
+    [userId, tokenHash, ip || null, userAgent || null, expiresAt]
+  );
+}
+
+export async function removeUserSession(token: string): Promise<void> {
+  const tokenHash = hashToken(token);
+  await query(`DELETE FROM user_sessions WHERE token_hash = $1`, [tokenHash]);
 }
 
 export async function createToken(payload: SessionPayload): Promise<string> {

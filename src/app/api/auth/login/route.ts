@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { query, queryOne } from '@/lib/db';
-import { createToken, setSessionCookie } from '@/lib/auth';
+import { createToken, setSessionCookie, insertUserSession } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse, checkBruteForce, recordLoginFailure, clearLoginFailures } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
@@ -181,6 +181,7 @@ export async function POST(req: NextRequest) {
                 },
             });
             res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
+            await insertUserSession(token, user.id, ip, req.headers.get('user-agent') || undefined);
             await logActivity({
                 userId: user.id,
                 evento: 'LOGIN',
@@ -243,6 +244,8 @@ export async function POST(req: NextRequest) {
                     },
                 });
                 res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
+
+                await insertUserSession(token, user.id, ip, req.headers.get('user-agent') || undefined);
 
                 await logActivity({
                     userId: user.id,
