@@ -10,7 +10,8 @@ import {
   Camera, 
   Sparkles,
   FileImage,
-  FileText
+  FileText,
+  Scale
 } from "lucide-react";
 
 import { useRef, useState, useEffect } from "react";
@@ -97,6 +98,40 @@ export default function IdentidadMarcaPage() {
     });
   };
 
+  const handleDownloadSAPI = async () => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = "/images/logo-kyron-hq.png";
+
+    await new Promise<void>((resolve, reject) => {
+      img.onload = () => resolve();
+      img.onerror = reject;
+    });
+
+    const size = 1200;
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+
+    const ctx = canvas.getContext("2d")!;
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(0, 0, size, size);
+
+    const padding = size * 0.12;
+    const drawSize = size - padding * 2;
+    ctx.drawImage(img, padding, padding, drawSize, drawSize);
+
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = "System_Kyron_Logo_SAPI_4x4.png";
+    link.click();
+
+    toast({
+      title: "DESCARGA EXITOSA",
+      description: "Logo 4x4 para SAPI descargado en PNG",
+    });
+  };
+
   if (!isMounted) return null;
 
   return (
@@ -171,6 +206,14 @@ export default function IdentidadMarcaPage() {
               onClick={handleDownloadPDF}
             >
               <FileText className="mr-3 h-4 w-4" /> DESCARGAR PDF
+            </Button>
+
+            <Button 
+              variant="outline" 
+              className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-green-500/30 bg-green-500/5 text-green-500 hover:bg-green-500/10 shadow-glow"
+              onClick={handleDownloadSAPI}
+            >
+              <Scale className="mr-3 h-4 w-4" /> LOGO 4x4 SAPI
             </Button>
 
             <Button 
