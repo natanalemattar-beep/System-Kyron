@@ -98,7 +98,7 @@ export default function IdentidadMarcaPage() {
     });
   };
 
-  const handleDownloadSAPI = async () => {
+  const handleDownloadSAPI = async (withName: boolean) => {
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.src = "/images/logo-kyron-hq.png";
@@ -117,29 +117,30 @@ export default function IdentidadMarcaPage() {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(0, 0, size, size);
 
-    const padding = size * 0.1;
-    const logoSize = size * 0.55;
+    const padding = size * 0.12;
+    const logoSize = withName ? size * 0.55 : size * 0.76;
     const logoX = (size - logoSize) / 2;
-    ctx.drawImage(img, logoX, padding, logoSize, logoSize);
+    const logoY = withName ? padding : (size - logoSize) / 2;
+    ctx.drawImage(img, logoX, logoY, logoSize, logoSize);
 
-    const textY = padding + logoSize + size * 0.04;
-    const fontSize = size * 0.075;
-    ctx.font = `bold ${fontSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
-
-    ctx.textAlign = "center";
-    ctx.textBaseline = "top";
-    ctx.fillStyle = "#1a1a2e";
-    ctx.font = `bold ${fontSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
-    ctx.fillText("SYSTEM KYRON", size / 2, textY);
+    if (withName) {
+      const textY = logoY + logoSize + size * 0.04;
+      const fontSize = size * 0.075;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
+      ctx.fillStyle = "#1a1a2e";
+      ctx.font = `bold ${fontSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
+      ctx.fillText("SYSTEM KYRON", size / 2, textY);
+    }
 
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
-    link.download = "System_Kyron_Logo_SAPI_4x4.png";
+    link.download = withName ? "System_Kyron_Logo_SAPI_4x4.png" : "System_Kyron_Logo_Solo.png";
     link.click();
 
     toast({
       title: "DESCARGA EXITOSA",
-      description: "Logo 4x4 para SAPI descargado en PNG",
+      description: withName ? "Logo 4x4 para SAPI descargado en PNG" : "Logo solo descargado en PNG",
     });
   };
 
@@ -222,9 +223,17 @@ export default function IdentidadMarcaPage() {
             <Button 
               variant="outline" 
               className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-green-500/30 bg-green-500/5 text-green-500 hover:bg-green-500/10 shadow-glow"
-              onClick={handleDownloadSAPI}
+              onClick={() => handleDownloadSAPI(true)}
             >
-              <Scale className="mr-3 h-4 w-4" /> LOGO 4x4 SAPI
+              <Scale className="mr-3 h-4 w-4" /> LOGO 4x4 + NOMBRE
+            </Button>
+
+            <Button 
+              variant="outline" 
+              className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-sky-500/30 bg-sky-500/5 text-sky-400 hover:bg-sky-500/10 shadow-glow"
+              onClick={() => handleDownloadSAPI(false)}
+            >
+              <FileImage className="mr-3 h-4 w-4" /> LOGO 4x4 SOLO
             </Button>
 
             <Button 
