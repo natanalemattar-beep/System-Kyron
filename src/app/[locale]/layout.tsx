@@ -65,8 +65,6 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-        <link rel="preconnect" href="https://api.qrserver.com" />
-        <link rel="dns-prefetch" href="https://api.qrserver.com" />
         <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16.png" />

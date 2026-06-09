@@ -6,8 +6,8 @@ import { ArrowLeft } from "lucide-react";
 import { getModuleContext, type ModuleContext } from "@/lib/module-context";
 
 const DASHBOARD_MAP: Record<ModuleContext, { href: string; label: string }> = {
-  natural: { href: "/dashboard", label: "Dashboard" },
-  "asesoria-contable": { href: "/dashboard-empresas", label: "Dashboard Empresarial" },
+  natural: { href: "/dashboard", label: "Panel Personal" },
+  "asesoria-contable": { href: "/dashboard-empresas", label: "Panel Empresarial" },
   ventas: { href: "/estrategias-ventas", label: "Ventas" },
   legal: { href: "/escritorio-juridico", label: "Escritorio Jurídico" },
   socios: { href: "/dashboard-socios", label: "Socios" },

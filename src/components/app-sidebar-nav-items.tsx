@@ -256,7 +256,7 @@ export const sociosNavGroups = [
 
 export const informaticaNavGroups = [
   {
-    title: "Dashboard",
+    title: "Panel IT",
     icon: LayoutDashboard,
     items: [
         { href: "/dashboard-it", label: "Panel IT", icon: LayoutDashboard },
