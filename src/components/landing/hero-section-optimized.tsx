@@ -151,7 +151,7 @@ export function HeroSectionOptimized() {
               { val: '24/7', label: 'Soporte', color: 'text-kyron-violet', icon: 'headphones', sub: 'Tiempo real' },
             ].map((stat, i) => (
               <div key={stat.label} className="stat-card text-center group" style={{ animation: 'slideUp 0.5s cubic-bezier(0.16,1,0.3,1) ' + (0.7 + i * 0.1) + 's forwards', opacity: 0 }}>
-                <div className={`h-10 w-10 rounded-xl bg-${stat.color.split('-')[1]}-500/10 border border-${stat.color.split('-')[1]}-500/20 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-500`}>
+                <div className="h-10 w-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-500">
                   {stat.icon === 'building2' ? <Building2 className={`${stat.color} h-4 w-4`} /> :
                    stat.icon === 'users' ? <Users className={`${stat.color} h-4 w-4`} /> :
                    stat.icon === 'activity' ? <Activity className={`${stat.color} h-4 w-4`} /> :

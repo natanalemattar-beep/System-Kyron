@@ -82,22 +82,25 @@ const SolutionsPage: FC = () => {
                 {cat.items.map((solution, i) => (
                   <div
                     key={i}
-                    className="group relative p-4 md:p-5 rounded-2xl bg-card/40 border border-white/5 hover:border-white/20 transition-all duration-300 hover:bg-card/60"
+                    className="group relative p-4 md:p-5 rounded-2xl bg-card/40 border border-white/5 hover:border-white/20 transition-all duration-300 hover:bg-card/60 hover:scale-[1.02] active:scale-[0.98]"
                   >
-                    <div className={cn(
-                      "h-9 w-9 md:h-10 md:w-10 rounded-xl flex items-center justify-center mb-3 transition-all duration-300",
-                      "bg-white/[0.03] border border-white/10 group-hover:scale-110"
-                    )}>
-                      <solution.icon className={cn("h-4 w-4 md:h-5 md:w-5", solution.color)} />
-                    </div>
-                    
-                    <div className="space-y-1">
-                      <h3 className="text-xs md:text-sm font-black uppercase tracking-tight text-white">
-                        {solution.title}
-                      </h3>
-                      <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em] text-white/40">
-                        {solution.subtitle}
-                      </p>
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none" />
+                    <div className="relative">
+                      <div className={cn(
+                        "h-9 w-9 md:h-10 md:w-10 rounded-xl flex items-center justify-center mb-3 transition-all duration-300",
+                        "bg-white/[0.03] border border-white/10 group-hover:scale-110 group-hover:shadow-glow"
+                      )}>
+                        <solution.icon className={cn("h-4 w-4 md:h-5 md:w-5", solution.color)} />
+                      </div>
+                      
+                      <div className="space-y-1">
+                        <h3 className="text-xs md:text-sm font-black uppercase tracking-tight text-white">
+                          {solution.title}
+                        </h3>
+                        <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em] text-white/40">
+                          {solution.subtitle}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 ))}

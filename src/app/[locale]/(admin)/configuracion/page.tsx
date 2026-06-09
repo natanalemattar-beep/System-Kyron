@@ -87,8 +87,8 @@ function SectionCard({ icon: Icon, title, description, children, color = 'primar
   return (
     <div className="rounded-2xl border border-border/30 bg-card/60 backdrop-blur-sm overflow-hidden">
       <div className="px-6 py-4 border-b border-border/20 flex items-center gap-3">
-        <div className={cn("p-2 rounded-xl", color === 'primary' ? 'bg-primary/10' : `bg-${color}/10`)}>
-          <Icon className={cn("h-4 w-4", color === 'primary' ? 'text-primary' : `text-${color}`)} />
+        <div className={cn("p-2 rounded-xl", color === 'primary' ? 'bg-primary/10' : 'bg-white/5')}>
+          <Icon className={cn("h-4 w-4", color === 'primary' ? 'text-primary' : 'text-muted-foreground')} />
         </div>
         <div>
           <h3 className="text-sm font-bold text-foreground">{title}</h3>

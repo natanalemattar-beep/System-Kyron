@@ -170,11 +170,11 @@ export default function DashboardEmpresaPage() {
     const m = now.getMonth();
     const y = now.getFullYear();
     const rawDeadlines = [
-      { label: "IVA — Declaración mensual", date: new Date(y, m + 1, 15), iconKey: "iva", color: "text-blue-400", bg: "bg-blue-500/8" },
-      { label: "Retenciones IVA — Quincenal", date: new Date(y, m, now.getDate() <= 15 ? 15 : new Date(y, m + 1, 0).getDate()), iconKey: "ret", color: "text-cyan-400", bg: "bg-cyan-500/8" },
-      { label: "ISLR — Anticipo trimestral", date: new Date(y, Math.ceil((m + 1) / 3) * 3, 15), iconKey: "islr", color: "text-purple-400", bg: "bg-purple-500/8" },
-      { label: "Contribuciones parafiscales", date: new Date(y, m + 1, 5), iconKey: "para", color: "text-emerald-400", bg: "bg-emerald-500/8" },
-      { label: "FAOV / BANAVIH", date: new Date(y, m + 1, 5), iconKey: "faov", color: "text-teal-400", bg: "bg-teal-500/8" },
+      { label: "IVA — Declaración mensual", date: new Date(y, m + 1, 15), iconKey: "iva", color: "text-blue-400", bg: "bg-blue-500/10" },
+      { label: "Retenciones IVA — Quincenal", date: new Date(y, m, now.getDate() <= 15 ? 15 : new Date(y, m + 1, 0).getDate()), iconKey: "ret", color: "text-cyan-400", bg: "bg-cyan-500/10" },
+      { label: "ISLR — Anticipo trimestral", date: new Date(y, Math.ceil((m + 1) / 3) * 3, 15), iconKey: "islr", color: "text-purple-400", bg: "bg-purple-500/10" },
+      { label: "Contribuciones parafiscales", date: new Date(y, m + 1, 5), iconKey: "para", color: "text-emerald-400", bg: "bg-emerald-500/10" },
+      { label: "FAOV / BANAVIH", date: new Date(y, m + 1, 5), iconKey: "faov", color: "text-teal-400", bg: "bg-teal-500/10" },
     ].map(d => {
       const diff = Math.ceil((d.date.getTime() - now.getTime()) / 86400000);
       return { label: d.label, diff, dateStr: d.date.toLocaleDateString(loc, { day: "2-digit", month: "short" }), iconKey: d.iconKey, color: d.color, bg: d.bg };

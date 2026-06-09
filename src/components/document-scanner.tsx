@@ -235,7 +235,7 @@ export function DocumentScanner({ onScanComplete, onClose, type }: DocumentScann
                                     <p className="text-sm font-bold text-white">{result.db.nombre} {result.db.apellido || ''}</p>
                                 )}
                                 {type === "rif" && result.db.data?.razonSocial && (
-                                    <p className="text-sm font-bold text-white">{result.db.data.razonSocial}</p>
+                                    <p className="text-sm font-bold text-white">{result.db.data?.razonSocial}</p>
                                 )}
                                 {result.db.fechaNacimiento && (
                                     <p className="text-xs text-white/50">F. Nac: {new Date(result.db.fechaNacimiento).toLocaleDateString('es-VE')}</p>
