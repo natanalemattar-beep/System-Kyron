@@ -40,20 +40,142 @@ export default function PlanNegocioMovisunPage() {
 
       <Section title="2. Plan de Distribuci\u00f3n del Producto">
         <SubSection title="Canales de Distribuci\u00f3n">
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '11px' }}>
+              <thead>
+                <tr style={{ backgroundColor: '#1e3a5f', color: 'white' }}>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Canal</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Descripci\u00f3n</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'center', border: '1px solid #ccc' }}>% Margen</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'center', border: '1px solid #ccc' }}>Volumen</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc', fontWeight: 600 }}>DTC (Directo al Consumidor)</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Tienda online integrada a System Kyron con cat\u00e1logo digital, carrito de compras, pasarela de pago en divisas (USDT, PayPal, Zelle) y bol\u00edvares (BCV). Entrega contra entrega o por delivery express 24h en ciudades principales.</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>50% - 65%</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>Bajo-Medio</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc', fontWeight: 600 }}>Mayorista</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Venta por lotes (m\u00edn. 50 pares) a comercios multimarca en centros comerciales de Caracas, Maracaibo, Valencia, Barquisimeto y Puerto Ordaz. Contrato trimestral con vol\u00famenes escalonados.</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>20% - 30%</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>Alto</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc', fontWeight: 600 }}>Corporativo / Dotaciones</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Venta B2B a empresas para uniformes laborales, dotaci\u00f3n de personal y calzado industrial. Contratos anuales con entregas programadas. Facturaci\u00f3n electr\u00f3nica y cr\u00e9dito a 30-60 d\u00edas.</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>30% - 40%</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>Medio-Alto</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc', fontWeight: 600 }}>Red de Agentes</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Comisionistas independientes con cat\u00e1logo digital y link de pago personalizado. Comisi\u00f3n del 10%-15% por venta. Capacitaci\u00f3n inicial y soporte continuo v\u00eda System Kyron.</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>10% - 15% (comisi\u00f3n)</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>Medio</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc', fontWeight: 600 }}>Distribuidores Regionales</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Socios comerciales en cada estado con exclusividad zonal. Compra directa de inventario a precio de distribuidor (35% descuento sobre PVP). M\u00ednimo 200 pares por pedido inicial.</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>25% - 35%</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>Muy Alto</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </SubSection>
+
+        <SubSection title="Estrategia de Precios por Segmento">
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '11px' }}>
+              <thead>
+                <tr style={{ backgroundColor: '#1e3a5f', color: 'white' }}>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Segmento</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Tipo de Calzado</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'right', border: '1px solid #ccc' }}>Costo FOB (USD)</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'right', border: '1px solid #ccc' }}>PVP Sugerido (USD)</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'center', border: '1px solid #ccc' }}>Margen</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Econ\u00f3mico</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Sint\u00e9tico, casual b\u00e1sico</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'right' }}>$8 - $12</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'right' }}>$25 - $30</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>55% - 60%</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Medio</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Cuero, escolar, deportivo</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'right' }}>$15 - $22</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'right' }}>$40 - $55</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>50% - 55%</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Premium</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Cuero genuino, dise\u00f1o, industrial</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'right' }}>$28 - $40</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'right' }}>$65 - $90</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>45% - 50%</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Industrial / Seguridad</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Punta de acero, dielectrico</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'right' }}>$20 - $35</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'right' }}>$55 - $80</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>45% - 55%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-[11px] text-gray-500 mt-2">* Los precios incluyen costo de importaci\u00f3n, log\u00edstica interna y margen del 5% adicional. Descuentos por volumen: 5% (50-100 pares), 10% (101-500 pares), 15% (500+ pares).</p>
+        </SubSection>
+
+        <SubSection title="Almacenamiento y Gesti\u00f3n de Inventario">
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '11px' }}>
+              <thead>
+                <tr style={{ backgroundColor: '#1e3a5f', color: 'white' }}>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Centro</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Ubicaci\u00f3n</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'center', border: '1px solid #ccc' }}>Capacidad</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Cobertura</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc', fontWeight: 600 }}>Principal</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>La Guaira (cerca del puerto)</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>5,000 pares</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Centro-Norte (Caracas, Miranda, La Guaira, Aragua)</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc', fontWeight: 600 }}>Occidente</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Maracaibo (Zulia)</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>3,000 pares</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Zulia, Falc\u00f3n, M\u00e9rida, T\u00e1chira, Trujillo</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc', fontWeight: 600 }}>Oriente</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Puerto Ordaz (Bol\u00edvar)</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>2,500 pares</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Bol\u00edvar, Anzo\u00e1tegui, Monagas, Delta Amacuro, Nueva Esparta</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-[11px] text-gray-700 mt-2"><strong>Gesti\u00f3n de inventario:</strong> Sistema automatizado v\u00eda m\u00f3dulo de inventario de System Kyron con alertas de stock m\u00ednimo configuradas al 20% de capacidad. Conexi\u00f3n en tiempo real con la tienda online para evitar sobreventa. Auditor\u00edas f\u00edsicas mensuales con c\u00f3digo QR por lote.</p>
+        </SubSection>
+
+        <SubSection title="Log\u00edstica de \u00daltima Milla">
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '11px' }}>
+              <thead>
+                <tr style={{ backgroundColor: '#1e3a5f', color: 'white' }}>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Tipo de Entrega</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Aliados Log\u00edsticos</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'center', border: '1px solid #ccc' }}>Tiempo</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'right', border: '1px solid #ccc' }}>Costo x Par</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Express 24h (ciudades capitales)</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>MRW, Zoom, Domesa</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>24 horas</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'right' }}>$2.50</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Est\u00e1ndar (todo el territorio)</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>MRW, Domesa, Tealca</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>3-5 d\u00edas h\u00e1biles</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'right' }}>$1.80</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Contra Entrega (solo DTC)</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>MRW, Zoom</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>24-48 horas</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'right' }}>$3.00</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Carga Pesada (pedidos mayoristas)</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Transporte Rodado C.A., Log\u00edstica del Lago</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>5-7 d\u00edas h\u00e1biles</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'right' }}>$0.80 - $1.20</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </SubSection>
+
+        <SubSection title="Gesti\u00f3n de Devoluciones y Garant\u00edas">
           <ul>
-            <li><strong>Directo al Consumidor (DTC):</strong> Tienda en l\u00ednea integrada a System Kyron, con cat\u00e1logo digital, carrito de compras y pagos en divisas (USDT, PayPal) y bol\u00edvares (BCV).</li>
-            <li><strong>Distribuci\u00f3n Mayorista:</strong> Venta por lotes (m\u00ednimo 50 pares) a comercios multimarca en centros comerciales de Caracas, Maracaibo, Valencia y Barquisimeto.</li>
-            <li><strong>Cat\u00e1logo Corporativo:</strong> Venta a empresas para uniformes laborales y dotaci\u00f3n de personal.</li>
-            <li><strong>Red de Agentes:</strong> Comisionistas independientes con cat\u00e1logo digital y link de pago.</li>
+            <li><strong>Devoluciones por defecto de f\u00e1brica:</strong> Hasta 30 d\u00edas post-entrega. Reemplazo inmediato sin costo. El producto defectuoso se devuelve al proveedor en Colombia para cr\u00e9dito.</li>
+            <li><strong>Cambios por talla:</strong> Hasta 15 d\u00edas. Costo de env\u00edo cubierto por el cliente ($2.50). Stock de cambio reservado en almac\u00e9n principal.</li>
+            <li><strong>Garant\u00eda de producto:</strong> 90 d\u00edas contra defectos de fabricaci\u00f3n (costuras, suelas, materiales). Proceso gestionado directamente desde el m\u00f3dulo de CRM de System Kyron con generaci\u00f3n autom\u00e1tica de etiqueta de devoluci\u00f3n.</li>
+            <li><strong>Tasa de devoluci\u00f3n estimada:</strong> 3% - 5% del total de ventas, acorde al est\u00e1ndar de la industria del calzado en Venezuela.</li>
           </ul>
         </SubSection>
 
-        <SubSection title="Estrategia de Precios">
-          <p>Margen estimado: 40% a 60% sobre costo FOB. Precio sugerido al p\u00fablico: entre $25 y $80 USD por par, dependiendo del segmento (econ\u00f3mico, medio, premium). Se aplicar\u00e1 un margen adicional del 5% para cubrir costos de importaci\u00f3n y log\u00edstica interna.</p>
+        <SubSection title="Cobertura Geogr\u00e1fica y Plan de Expansi\u00f3n">
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '11px' }}>
+              <thead>
+                <tr style={{ backgroundColor: '#1e3a5f', color: 'white' }}>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Fase</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Per\u00edodo</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Cobertura</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Meta de Ventas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Fase 1</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Meses 1-3</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Caracas, Miranda, La Guaira (DTC + Mayorista)</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>800 pares</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Fase 2</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Meses 4-6</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Maracaibo, Valencia, Barquisimeto (Apertura occidente)</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>2,500 pares</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Fase 3</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Meses 7-9</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Puerto Ordaz, Barcelona, Matur\u00edn (Apertura oriente)</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>4,000 pares</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Fase 4</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Meses 10-12</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Cobertura nacional + distribuidores regionales en todos los estados</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>6,000+ pares</td></tr>
+              </tbody>
+            </table>
+          </div>
         </SubSection>
 
-        <SubSection title="Almacenamiento">
-          <p>Centro de distribuci\u00f3n principal en La Guaira (cercan\u00eda al puerto) con capacidad para 5,000 pares. Sub-almacenes en Maracaibo (occidente) y Puerto Ordaz (oriente) para cobertura nacional. Gesti\u00f3n de inventario mediante m\u00f3dulo de inventario de System Kyron con alertas de stock m\u00ednimo.</p>
+        <SubSection title="KPIs de Distribuci\u00f3n">
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '11px' }}>
+              <thead>
+                <tr style={{ backgroundColor: '#1e3a5f', color: 'white' }}>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>KPI</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'left', border: '1px solid #ccc' }}>Descripci\u00f3n</th>
+                  <th style={{ padding: '6px 10px', textAlign: 'center', border: '1px solid #ccc' }}>Meta</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>OTIF</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>On Time In Full — entregas completas y a tiempo</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>&ge; 95%</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Rotaci\u00f3n de Inventario</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Veces que se vende y repone el stock por a\u00f1o</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>4x - 6x anual</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Costo de Distribuci\u00f3n</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Porcentaje del PVP destinado a log\u00edstica y entrega</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>&le; 8%</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Tasa de Devoluci\u00f3n</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Porcentaje de productos devueltos sobre vendidos</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>&le; 4%</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Cobertura de Mercado</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>% de estados de Venezuela con presencia activa</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>80% (20/24 estados)</td></tr>
+                <tr><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>NPS Log\u00edstico</td><td style={{ padding: '5px 10px', border: '1px solid #ccc' }}>Net Promoter Score de experiencia de entrega</td><td style={{ padding: '5px 10px', border: '1px solid #ccc', textAlign: 'center' }}>&ge; 70</td></tr>
+              </tbody>
+            </table>
+          </div>
         </SubSection>
       </Section>
 
