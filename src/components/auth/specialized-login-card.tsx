@@ -1397,7 +1397,7 @@ export function SpecializedLoginCard({
                 >
                   <Icon className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
                 </motion.div>
-                <h2 className="text-xl lg:text-2xl font-black text-white tracking-tight mb-1 lg:mb-2 uppercase italic">Iniciar Sesi\u00f3n</h2>
+                <h2 className="text-xl lg:text-2xl font-black text-white tracking-tight mb-1 lg:mb-2 uppercase italic">Iniciar Sesión</h2>
                 <p className="text-xs lg:text-sm text-slate-400 font-medium">Accede a tu panel de control</p>
               </div>
 
