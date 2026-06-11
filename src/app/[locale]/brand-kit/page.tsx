@@ -26,8 +26,8 @@ import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
-const OfficialSeal = dynamic(() => import('@/components/brand/OfficialSeal'), { ssr: false });
-const InstagramPost = dynamic(() => import('@/components/brand/InstagramPost'), { ssr: false });
+const OfficialSeal = dynamic(() => import('@/components/brand/OfficialSeal').then(m => m.OfficialSeal), { ssr: false });
+const InstagramPost = dynamic(() => import('@/components/brand/InstagramPost').then(m => m.InstagramPost), { ssr: false });
 import { PasswordGate } from '@/components/password-gate';
 import { useTheme } from "next-themes";
 
