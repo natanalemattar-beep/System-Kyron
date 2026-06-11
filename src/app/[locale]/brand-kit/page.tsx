@@ -188,11 +188,24 @@ const RESOURCES: Resource[] = [
         size: 'large',
         gradient: 'from-violet-900/40 via-fuchsia-900/20 to-transparent',
         image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format'
+    },
+    {
+        id: 'plan-negocio-movisun',
+        title: 'Plan de Negocio — Movisun',
+        description: 'Plan completo de importación, distribución, financiamiento, RRHH y publicidad para la alianza System Kyron × Movisun.',
+        icon: Building2,
+        href: '/brand-kit/plan-negocio-movisun',
+        color: 'from-yellow-500 to-amber-600',
+        tag: 'NEGOCIO',
+        type: 'internal',
+        size: 'large',
+        gradient: 'from-yellow-900/40 via-amber-900/20 to-transparent',
+        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format'
     }
 ];
 
 const METRICS = [
-    { label: 'Recursos', value: '9', icon: Layers },
+    { label: 'Recursos', value: '10', icon: Layers },
     { label: 'Estado', value: 'Verificado', icon: ShieldCheck },
     { label: 'Core', value: 'v2.8', icon: Cpu },
     { label: 'Latencia', value: '<1ms', icon: Zap },
