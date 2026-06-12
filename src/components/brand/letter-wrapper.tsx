@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, type ReactNode } from 'react';
+import { useState, useRef, useCallback, type ReactNode } from 'react';
 import { useRouter } from '@/navigation';
 import { ShieldCheck, Lock, ArrowLeft, Download, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -21,7 +21,7 @@ export function LetterWrapper({ children, title, filename, backHref = '/brand-ki
   const [unlocked, setUnlocked] = useState(false);
   const [error, setError] = useState(false);
   const [exporting, setExporting] = useState(false);
-  const letterRef = useRef<HTMLDivElement>(null);
+  const pagesRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const unlock = () => {
@@ -33,30 +33,34 @@ export function LetterWrapper({ children, title, filename, backHref = '/brand-ki
     }
   };
 
-  const handleDownloadPDF = async () => {
-    if (exporting || !letterRef.current) return;
+  const handleDownloadPDF = useCallback(async () => {
+    if (exporting || !pagesRef.current) return;
     setExporting(true);
     try {
-      const dataUrl = await toPng(letterRef.current, {
-        quality: 1,
-        pixelRatio: 2,
-        backgroundColor: '#ffffff',
-        style: { fontFamily: 'Arial' },
-      });
+      const pageEls = pagesRef.current.querySelectorAll<HTMLElement>('[data-letter-page]');
       const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'letter' });
       const pdfW = pdf.internal.pageSize.getWidth();
       const pdfH = pdf.internal.pageSize.getHeight();
-      const imgW = letterRef.current.offsetWidth;
-      const imgH = letterRef.current.offsetHeight;
-      const ratio = Math.min(pdfW / imgW, pdfH / imgH);
-      pdf.addImage(dataUrl, 'PNG', (pdfW - imgW * ratio) / 2, (pdfH - imgH * ratio) / 2, imgW * ratio, imgH * ratio);
+
+      for (let i = 0; i < pageEls.length; i++) {
+        if (i > 0) pdf.addPage();
+        const dataUrl = await toPng(pageEls[i], {
+          quality: 1,
+          pixelRatio: 2,
+          backgroundColor: '#ffffff',
+        });
+        const imgW = pageEls[i].offsetWidth;
+        const imgH = pageEls[i].offsetHeight;
+        const ratio = Math.min(pdfW / imgW, pdfH / imgH);
+        pdf.addImage(dataUrl, 'PNG', (pdfW - imgW * ratio) / 2, (pdfH - imgH * ratio) / 2, imgW * ratio, imgH * ratio);
+      }
       pdf.save(filename);
     } catch (err: any) {
       alert('Error al generar PDF: ' + (err?.message || 'desconocido'));
     } finally {
       setExporting(false);
     }
-  };
+  }, [exporting, filename]);
 
   if (!unlocked) {
     return (
@@ -104,17 +108,8 @@ export function LetterWrapper({ children, title, filename, backHref = '/brand-ki
           </div>
         </div>
 
-        <div className="flex justify-center">
-          <div ref={letterRef} className="bg-white shadow-2xl overflow-hidden print:shadow-none flex flex-col" style={{ width: '21.59cm', minHeight: '27.94cm', fontFamily: 'Arial' }}>
-            <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
-            <div className="flex-1 px-[0.9in] py-[0.5in] flex flex-col">
-              <h1 className="text-lg font-black text-[#1e3a5f] text-center uppercase tracking-tight border-b-2 border-[#1e3a5f] pb-3 mb-6">
-                {title}
-              </h1>
-              {children}
-            </div>
-            <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
-          </div>
+        <div ref={pagesRef} className="flex flex-col items-center gap-8 print:gap-0">
+          {children}
         </div>
 
         <div className="flex justify-center mt-8 print:hidden">
@@ -128,6 +123,27 @@ export function LetterWrapper({ children, title, filename, backHref = '/brand-ki
           </Button>
         </div>
       </div>
+    </div>
+  );
+}
+
+export function LetterPage({ children, title }: { children: ReactNode; title?: string }) {
+  return (
+    <div
+      data-letter-page
+      className="bg-white shadow-2xl overflow-hidden print:shadow-none flex flex-col"
+      style={{ width: '21.59cm', minHeight: '27.94cm', fontFamily: 'Arial' }}
+    >
+      <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
+      <div className="flex-1 px-[0.9in] py-[0.5in] flex flex-col">
+        {title && (
+          <h1 className="text-lg font-black text-[#1e3a5f] text-center uppercase tracking-tight border-b-2 border-[#1e3a5f] pb-3 mb-6">
+            {title}
+          </h1>
+        )}
+        {children}
+      </div>
+      <div className="h-1.5 bg-gradient-to-r from-[#1e3a5f] via-[#2d5f8a] to-[#1e3a5f] shrink-0" />
     </div>
   );
 }
