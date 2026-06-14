@@ -53,13 +53,12 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   productionBrowserSourceMaps: false,
-  swcMinify: true,
   experimental: {
     serverActions: {
       bodySizeLimit: '10mb',
     },
     optimizePackageImports: [
-      'lucide-react', 'recharts', 'date-fns', 'framer-motion',
+      'lucide-react', 'recharts', 'date-fns',
       '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu',
       '@radix-ui/react-select', '@radix-ui/react-tabs',
       '@radix-ui/react-tooltip', '@radix-ui/react-popover',
