@@ -75,6 +75,22 @@ export default function LoginPersonalPage() {
     handleMagicLinkVerified
   );
 
+  // Escuchar BroadcastChannel desde verify-link page
+  useEffect(() => {
+    if (step !== 'verification') return;
+    let channel: BroadcastChannel | null = null;
+    try {
+      channel = new BroadcastChannel('kyron-auth');
+      channel.onmessage = (event) => {
+        if (event.data?.type === 'SESSION_READY') {
+          toast({ title: 'Identidad verificada', description: 'Acceso verificado por enlace mágico.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+          handleMagicLinkVerified();
+        }
+      };
+    } catch {}
+    return () => { try { channel?.close(); } catch {} };
+  }, [step, toast, handleMagicLinkVerified]);
+
   useEffect(() => {
     if (countdown <= 0) return;
     const timer = setTimeout(() => setCountdown(c => c - 1), 1000);

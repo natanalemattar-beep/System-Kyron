@@ -4,7 +4,7 @@ import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { verifyLoginChallenge } from '@/lib/login-challenge';
-import { generateCode, generateMagicToken, storeMagicToken, storeCode, normalizePhone } from '@/lib/verification-codes';
+import { generateCode, generateMagicToken, storeMagicToken, storeCode, normalizePhone, maskPhone } from '@/lib/verification-codes';
 import { getBaseUrl } from '@/lib/server-url';
 
 export const dynamic = 'force-dynamic';
@@ -144,12 +144,30 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // FLUJO TELÉFONO (SMS / WhatsApp) — EN CONSTRUCCIÓN
-    const channelName = tipo === 'sms' ? 'SMS' : 'WhatsApp';
-    return NextResponse.json(
-      { error: `La verificación por ${channelName} está en construcción. Usa el correo electrónico.`, enConstruccion: true },
-      { status: 503 }
-    );
+    // FLUJO TELÉFONO (SMS / WhatsApp)
+    try {
+      if (tipo === 'sms' || tipo === 'whatsapp') {
+        await storeCode(destino, codigo, proposito, tipo);
+        console.log(`[send-code] Código ${codigo} enviado (simulado) a ${destino} vía ${tipo}`);
+
+        const isDev = process.env.NODE_ENV === 'development' || !!process.env.NEXT_PUBLIC_DEV_CODE;
+
+        return NextResponse.json({
+          success: true,
+          message: `Código enviado por ${tipo === 'sms' ? 'SMS' : 'WhatsApp'}`,
+          channel: tipo,
+          destination: maskPhone(destino),
+          expiresIn: 600,
+          ...(isDev ? { devCode: codigo } : {}),
+        });
+      }
+    } catch (phoneErr) {
+      console.error(`[send-code] Fallo en flujo ${tipo}:`, phoneErr);
+      return NextResponse.json(
+        { error: `No se pudo enviar el código por ${tipo === 'sms' ? 'SMS' : 'WhatsApp'}` },
+        { status: 502 }
+      );
+    }
 
 
   } catch (err: any) {

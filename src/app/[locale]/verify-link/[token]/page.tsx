@@ -4,18 +4,37 @@ import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Loader2, TriangleAlert, ExternalLink, BadgeCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useRouter } from '@/navigation';
 
 export default function VerifyLinkPage() {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState('Verificando acceso...');
   const [errorDetails, setErrorDetails] = useState<string | null>(null);
+  const [userData, setUserData] = useState<any>(null);
   const verifiedRef = useRef(false);
   const broadcastRef = useRef<BroadcastChannel | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     try { broadcastRef.current = new BroadcastChannel('kyron-auth'); } catch {}
     return () => { try { broadcastRef.current?.close(); } catch {} };
   }, []);
+
+  // Redirigir al dashboard después de verificación exitosa
+  useEffect(() => {
+    if (status === 'success' && userData) {
+      const timer = setTimeout(async () => {
+        broadcastRef.current?.postMessage({ type: 'SESSION_READY', user: userData });
+        try {
+          const { getDashboardPath } = await import('@/lib/module-paths');
+          const path = userData?.modules?.length ? getDashboardPath(userData.modules) : null;
+          if (path) { router.push(path as any); return; }
+        } catch {}
+        router.push('/dashboard' as any);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [status, userData, router]);
 
   useEffect(() => {
     if (verifiedRef.current) return;
@@ -39,7 +58,8 @@ export default function VerifyLinkPage() {
 
         if (response.ok && data.success) {
           setStatus('success');
-          setMessage('Listo, verificado. Ya puedes cerrar esta pestaña y volver a la anterior, tu sesión ya está abierta.');
+          setMessage('Verificación exitosa. Redirigiendo al dashboard...');
+          setUserData(data.user || data);
           verifiedRef.current = true;
 
           broadcastRef.current?.postMessage({ type: 'SESSION_READY', user: data.user || null });

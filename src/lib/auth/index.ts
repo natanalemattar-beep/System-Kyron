@@ -43,7 +43,6 @@ export async function insertUserSession(
     `INSERT INTO user_sessions (user_id, token_hash, ip, user_agent, expires_at)
      VALUES ($1, $2, $3, $4, $5)
      ON CONFLICT (token_hash) DO UPDATE SET
-       last_active_at = NOW(),
        ip = EXCLUDED.ip,
        user_agent = EXCLUDED.user_agent`,
     [userId, tokenHash, ip || null, userAgent || null, expiresAt]

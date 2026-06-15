@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query, queryOne } from '@/lib/db';
-import { createToken, setSessionCookie } from '@/lib/auth';
+import { createToken, setSessionCookie, insertUserSession } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { verifyMagicToken } from '@/lib/verification-codes';
@@ -101,6 +101,8 @@ export async function POST(req: NextRequest) {
       },
     });
     res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
+
+    await insertUserSession(sessionToken, user.id, ip, req.headers.get('user-agent') || undefined);
 
     await logActivity({
       userId: user.id,

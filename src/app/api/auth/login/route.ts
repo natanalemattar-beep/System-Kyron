@@ -329,14 +329,11 @@ export async function POST(req: NextRequest) {
                 });
             }
 
-            // FALLBACK: Si el email falla y tiene llave de acceso válida, crear sesión
-            // Si no tiene llave, intentar SMS/WhatsApp o rechazar
-            if (!hasPhone && !user.access_key_hash) {
-                return NextResponse.json({
-                    error: 'Error enviando código de verificación. Intenta de nuevo más tarde.',
-                    emailFailed: true,
-                }, { status: 502 });
-            }
+            // Si no tiene teléfono alternativo, no hay canal de respaldo
+            return NextResponse.json({
+                error: 'Error enviando código de verificación. Intenta de nuevo más tarde o contacta soporte.',
+                emailFailed: true,
+            }, { status: 502 });
         }
 
         return NextResponse.json({

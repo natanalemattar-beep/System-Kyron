@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query, queryOne } from '@/lib/db';
-import { createToken, setSessionCookie } from '@/lib/auth';
+import { createToken, setSessionCookie, insertUserSession } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail } from '@/lib/input-sanitizer';
@@ -116,6 +116,8 @@ export async function POST(req: NextRequest) {
     });
 
     response.cookies.set(cookie.name, cookie.value, cookie.options as any);
+
+    await insertUserSession(token, user.id, ip, req.headers.get('user-agent') || undefined);
 
     // Registrar dispositivo como confiable si el usuario lo solicitó
     if (trustDevice && deviceFingerprint && typeof deviceFingerprint === 'string' && deviceFingerprint.length > 5) {

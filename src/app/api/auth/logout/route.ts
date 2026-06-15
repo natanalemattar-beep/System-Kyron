@@ -1,15 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSession } from '@/lib/auth';
+import { getSession, removeUserSession, hashToken } from '@/lib/auth';
 import { query } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logger';
 
+const COOKIE_NAME = 'sk_session';
+
 export async function POST(req: NextRequest) {
     const session = await getSession();
+    const token = req.cookies.get(COOKIE_NAME)?.value;
+
     if (session) {
         const { all } = await req.json().catch(() => ({ all: false }));
 
         if (all) {
             await query(`DELETE FROM user_sessions WHERE user_id = $1`, [session.user.id]);
+        } else if (token) {
+            await removeUserSession(token);
         }
 
         await logActivity({
@@ -23,7 +29,7 @@ export async function POST(req: NextRequest) {
     }
 
     const res = NextResponse.json({ success: true });
-    res.cookies.set('sk_session', '', {
+    res.cookies.set(COOKIE_NAME, '', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { query, queryOne } from '@/lib/db';
-import { createToken, setSessionCookie } from '@/lib/auth';
+import { createToken, setSessionCookie, insertUserSession } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail, isStrongPassword, sanitizeString } from '@/lib/input-sanitizer';
@@ -30,11 +30,12 @@ export async function POST(req: NextRequest) {
 
         const body = await req.json();
         const { tipo } = body;
+        const userAgent = req.headers.get('user-agent') || undefined;
 
         if (tipo === 'natural') {
-            return await registerNatural(body);
+            return await registerNatural(body, ip, userAgent);
         } else if (tipo === 'juridico') {
-            return await registerJuridico(body);
+            return await registerJuridico(body, ip, userAgent);
         }
 
         return NextResponse.json({ error: 'Tipo de registro inválido' }, { status: 400 });
@@ -51,7 +52,7 @@ export async function POST(req: NextRequest) {
     }
 }
 
-async function registerNatural(body: Record<string, unknown>) {
+async function registerNatural(body: Record<string, unknown>, ip: string = '0.0.0.0', userAgent?: string) {
     const {
         nombre, apellido, cedula, telefono, telefono_alt,
         fecha_nacimiento, genero, estado_civil,
@@ -143,6 +144,8 @@ async function registerNatural(body: Record<string, unknown>) {
     });
     res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
 
+    await insertUserSession(token, user.id, ip, userAgent);
+
     sendWelcomeEmail(normalizedEmail, `${nombre} ${apellido}`, moduloNatural).catch(() => {});
     createWelcomeNotification(user.id, moduloNatural).catch(() => {});
 
@@ -213,7 +216,7 @@ async function registerNatural(body: Record<string, unknown>) {
     return res;
 }
 
-async function registerJuridico(body: Record<string, unknown>) {
+async function registerJuridico(body: Record<string, unknown>, ip: string = '0.0.0.0', userAgent?: string) {
     const {
         razonSocial, rif, tipo_empresa, actividad_economica, codigo_ciiu,
         fecha_constitucion, registro_mercantil, capital_social,
@@ -407,6 +410,8 @@ async function registerJuridico(body: Record<string, unknown>) {
         user: { id: Number(user.id), email: user.email, tipo: 'juridico', nombre: razonSocial },
     });
     res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
+
+    await insertUserSession(token, Number(user.id), ip, userAgent);
 
     sendWelcomeEmail(email as string, razonSocial as string, moduloJuridico).catch(() => {});
     createWelcomeNotification(user.id, moduloJuridico).catch(() => {});
