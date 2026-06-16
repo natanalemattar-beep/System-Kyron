@@ -11,7 +11,10 @@ import {
   Sparkles,
   FileImage,
   FileText,
-  Scale
+  Scale,
+  Monitor,
+  Tv,
+  Code
 } from "lucide-react";
 
 import { useRef, useState, useEffect } from "react";
@@ -147,6 +150,51 @@ export default function IdentidadMarcaPage() {
     });
   };
 
+  const handleDownloadRes = async (width: number, height: number, label: string) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = "/images/logo-kyron-hq.png";
+
+    await new Promise<void>((resolve, reject) => {
+      img.onload = () => resolve();
+      img.onerror = reject;
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d")!;
+    ctx.fillStyle = "#020617";
+    ctx.fillRect(0, 0, width, height);
+
+    const logoSize = Math.min(width, height) * 0.35;
+    const lx = (width - logoSize) / 2;
+    const ly = height * 0.2;
+    ctx.drawImage(img, lx, ly, logoSize, logoSize);
+
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    ctx.fillStyle = "#ffffff";
+    const fontSize = Math.min(width, height) * 0.055;
+    ctx.font = `bold ${fontSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
+    ctx.fillText("SYSTEM KYRON", width / 2, ly + logoSize + fontSize * 0.5);
+
+    const subSize = fontSize * 0.4;
+    ctx.font = `${subSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
+    ctx.fillStyle = "rgba(255,255,255,0.5)";
+    ctx.fillText("Tu ecosistema operativo", width / 2, ly + logoSize + fontSize * 0.5 + fontSize * 1.1);
+
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = `System_Kyron_${label}.png`;
+    link.click();
+
+    toast({
+      title: "DESCARGA EXITOSA",
+      description: `Logo descargado en ${label} (${width}×${height})`,
+    });
+  };
+
   if (!isMounted) return null;
 
   return (
@@ -204,7 +252,7 @@ export default function IdentidadMarcaPage() {
               className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 shadow-glow"
               onClick={() => handleDownloadImage('png')}
             >
-              <FileImage className="mr-3 h-4 w-4" /> DESCARGAR PNG
+              <FileImage className="mr-3 h-4 w-4" /> PNG
             </Button>
 
             <Button 
@@ -212,7 +260,7 @@ export default function IdentidadMarcaPage() {
               className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-secondary/30 bg-secondary/5 text-secondary hover:bg-secondary/10 shadow-glow-secondary"
               onClick={() => handleDownloadImage('jpeg')}
             >
-              <FileImage className="mr-3 h-4 w-4" /> DESCARGAR JPG
+              <FileImage className="mr-3 h-4 w-4" /> JPG
             </Button>
 
             <Button 
@@ -220,7 +268,37 @@ export default function IdentidadMarcaPage() {
               className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-border bg-card/50 text-foreground hover:bg-card"
               onClick={handleDownloadPDF}
             >
-              <FileText className="mr-3 h-4 w-4" /> DESCARGAR PDF
+              <FileText className="mr-3 h-4 w-4" /> PDF
+            </Button>
+
+            <Button 
+              variant="outline" 
+              className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-cyan-500/30 bg-cyan-500/5 text-cyan-400 hover:bg-cyan-500/10 shadow-glow"
+              onClick={() => handleDownloadRes(1920, 1080, "HD")}
+            >
+              <Monitor className="mr-3 h-4 w-4" /> HD
+            </Button>
+
+            <Button 
+              variant="outline" 
+              className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-purple-500/30 bg-purple-500/5 text-purple-400 hover:bg-purple-500/10 shadow-glow"
+              onClick={() => handleDownloadRes(3840, 2160, "4K")}
+            >
+              <Tv className="mr-3 h-4 w-4" /> 4K
+            </Button>
+
+            <Button 
+              variant="outline" 
+              className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-orange-500/30 bg-orange-500/5 text-orange-400 hover:bg-orange-500/10 shadow-glow"
+              onClick={() => {
+                const link = document.createElement("a");
+                link.href = "/images/logo-kyron.svg";
+                link.download = "System_Kyron_Logo.svg";
+                link.click();
+                toast({ title: "DESCARGA EXITOSA", description: "Logo descargado en formato SVG (vector)" });
+              }}
+            >
+              <Code className="mr-3 h-4 w-4" /> SVG
             </Button>
 
             <Button 
@@ -228,7 +306,7 @@ export default function IdentidadMarcaPage() {
               className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-green-500/30 bg-green-500/5 text-green-500 hover:bg-green-500/10 shadow-glow"
               onClick={() => handleDownloadSAPI(true)}
             >
-              <Scale className="mr-3 h-4 w-4" /> LOGO 4x4 + NOMBRE
+              <Scale className="mr-3 h-4 w-4" /> 4x4 + NOMBRE
             </Button>
 
             <Button 
@@ -236,14 +314,14 @@ export default function IdentidadMarcaPage() {
               className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-sky-500/30 bg-sky-500/5 text-sky-400 hover:bg-sky-500/10 shadow-glow"
               onClick={() => handleDownloadSAPI(false)}
             >
-              <FileImage className="mr-3 h-4 w-4" /> LOGO 4x4 SOLO
+              <FileImage className="mr-3 h-4 w-4" /> 4x4 SOLO
             </Button>
 
             <Button 
               className="btn-3d-primary h-14 px-10 rounded-2xl text-[10px] font-semibold uppercase tracking-widest shadow-lg"
               onClick={() => window.print()}
             >
-              <Camera className="mr-3 h-4 w-4" /> CAPTURAR PANTALLA
+              <Camera className="mr-3 h-4 w-4" /> CAPTURAR
             </Button>
           </div>
         </motion.div>
