@@ -617,6 +617,33 @@ export default function IdentidadMarcaPage() {
                 </div>
               ))}
             </div>
+
+            <div className="mt-12 pt-8 border-t border-white/5 max-w-3xl mx-auto">
+              <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-foreground/40 mb-4 text-center">ÍNDICE DE MÓDULOS</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 gap-y-2 text-[9px] text-foreground/70">
+                {[
+                  { emoji: "📊", name: "Contabilidad" },
+                  { emoji: "📄", name: "Facturación" },
+                  { emoji: "👥", name: "Nómina & RRHH" },
+                  { emoji: "⚖️", name: "Legal" },
+                  { emoji: "📣", name: "Marketing" },
+                  { emoji: "📡", name: "Telecomunicaciones" },
+                  { emoji: "🛡️", name: "IT & Seguridad" },
+                  { emoji: "🤝", name: "Socios" },
+                  { emoji: "🌿", name: "Sostenibilidad" },
+                  { emoji: "📋", name: "Planificación" },
+                  { emoji: "🧠", name: "IA & Automatización" },
+                  { emoji: "🏛️", name: "Portal Ciudadano" },
+                  { emoji: "🛡️", name: "Kyron Shield" },
+                  { emoji: "👨‍👩‍👧‍👦", name: "Control Parental" },
+                ].map(m => (
+                  <span key={m.name} className="flex items-center gap-1.5">
+                    <span>{m.emoji}</span>
+                    <span>{m.name}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
           </motion.div>
         </motion.div>
 
