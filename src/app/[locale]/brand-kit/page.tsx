@@ -20,6 +20,7 @@ import {
     Layers,
     ExternalLink,
     BookOpen,
+    AlertTriangle,
 } from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
@@ -125,6 +126,19 @@ const RESOURCES: Resource[] = [
         image: 'https://images.unsplash.com/photo-1450101215322-bf5cd276cfc9?q=80&w=600&auto=format'
     },
     {
+        id: 'permisos-emprendimiento-carlos-mattar',
+        title: 'Alertas de Permisos — Carlos Mattar',
+        description: 'Matriz de permisos, licencias y habilitaciones que Emprendimiento Carlos Mattar debe gestionar para importación y distribución de calzado.',
+        icon: AlertTriangle,
+        href: '/brand-kit/permisos-emprendimiento-carlos-mattar',
+        color: 'from-amber-500 to-orange-600',
+        tag: 'ALERTA',
+        type: 'internal',
+        size: 'normal',
+        gradient: 'from-amber-900/40 via-orange-900/20 to-transparent',
+        image: 'https://images.unsplash.com/photo-1450101215322-bf5cd276cfc9?q=80&w=600&auto=format'
+    },
+    {
         id: 'instagram',
         title: 'Portafolio Digital',
         description: 'Ecosistema visual y presencia institucional en redes de alto impacto corporativo.',
@@ -218,7 +232,7 @@ const RESOURCES: Resource[] = [
 ];
 
 const METRICS = [
-    { label: 'Recursos', value: '11', icon: Layers },
+    { label: 'Recursos', value: '12', icon: Layers },
     { label: 'Estado', value: 'Verificado', icon: ShieldCheck },
     { label: 'Core', value: 'v2.8', icon: Cpu },
     { label: 'Latencia', value: '<1ms', icon: Zap },
