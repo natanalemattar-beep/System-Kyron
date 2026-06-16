@@ -26,6 +26,23 @@ import { useToast } from "@/hooks/use-toast";
 
 import { PasswordGate } from "@/components/auth/password-gate";
 
+const MODULE_LEMAS: Record<string, string> = {
+  contabilidad: "El orden de tus finanzas, sin esfuerzo",
+  facturacion: "Donde cada cobro encuentra su camino",
+  nomina: "Tu gente, siempre en el centro",
+  legal: "La ley al servicio de tu empresa",
+  marketing: "Haz que te escuchen, haz que te vean",
+  telecom: "El mundo habla, tú decides cómo",
+  it: "Tu tranquilidad tiene nombre",
+  socios: "Crecer juntos es el plan",
+  sostenibilidad: "El mañana empieza hoy",
+  planificacion: "Donde el futuro se vuelve claro",
+  ia: "La inteligencia que suma",
+  ciudadano: "Tu país, más cerca que nunca",
+  kyronshield: "Defensa que no se rinde",
+  controlparental: "Educar sin miedo, crecer en confianza",
+};
+
 export default function IdentidadMarcaPage() {
   const { toast } = useToast();
   const logoRef = useRef<HTMLDivElement>(null);
@@ -163,6 +180,7 @@ export default function IdentidadMarcaPage() {
   };
 
   const handleDownloadModPDF = async (modId: string, modName: string, cm: number) => {
+    const lema = MODULE_LEMAS[modId] ?? "El sistema que se adapta a ti";
     const px = Math.round((cm / 2.54) * 300);
     const canvas = await svgToCanvas(modId, px);
     const jsPDF = (await import("jspdf")).default;
@@ -181,13 +199,13 @@ export default function IdentidadMarcaPage() {
     pdf.setFont("Helvetica", "normal");
     pdf.setFontSize(7);
     pdf.setTextColor(150, 150, 150);
-    pdf.text("System Kyron — El sistema que se adapta a ti", pw / 2, nameY + 4, { align: "center" });
+    pdf.text(`System Kyron — ${lema}`, pw / 2, nameY + 4, { align: "center" });
     const safeName = modName.replace(/[^a-zA-Z0-9]/g, "_");
     pdf.save(`System_Kyron_${safeName}_${cm}x${cm}.pdf`);
     toast({ title: "DESCARGA EXITOSA", description: `Logo "${modName}" en PDF ${cm}x${cm}` });
   };
 
-  const svgToCanvas = async (modId: string, size: number, moduleName?: string): Promise<HTMLCanvasElement> => {
+  const svgToCanvas = async (modId: string, size: number, moduleName?: string, lema?: string): Promise<HTMLCanvasElement> => {
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.src = `/images/module-logos/mod-${modId}.svg`;
@@ -215,7 +233,7 @@ export default function IdentidadMarcaPage() {
       ctx.fillText(moduleName.toUpperCase(), size / 2, size + textArea * 0.2);
       ctx.fillStyle = "#999999";
       ctx.font = `${lemaSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
-      ctx.fillText("System Kyron — El sistema que se adapta a ti", size / 2, size + textArea * 0.2 + fontSize + lemaSize * 0.3);
+      ctx.fillText(`System Kyron — ${lema}`, size / 2, size + textArea * 0.2 + fontSize + lemaSize * 0.3);
     } else {
       canvas.width = size;
       canvas.height = size;
@@ -229,7 +247,8 @@ export default function IdentidadMarcaPage() {
   };
 
   const handleDownloadModPNG = async (modId: string, modName: string, px: number, label: string) => {
-    const canvas = await svgToCanvas(modId, px, modName);
+    const lema = MODULE_LEMAS[modId] ?? "El sistema que se adapta a ti";
+    const canvas = await svgToCanvas(modId, px, modName, lema);
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
     link.download = `System_Kyron_${modName.replace(/[^a-zA-Z0-9]/g, '_')}_${label}.png`;
@@ -291,6 +310,7 @@ export default function IdentidadMarcaPage() {
       const canvas = await svgToCanvas(mods[i].id, px);
       const logoY = (ph - sizeMM) / 2 - 4;
       pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, logoY, sizeMM, sizeMM);
+      const lema = MODULE_LEMAS[mods[i].id] ?? "El sistema que se adapta a ti";
       const nameY = logoY + sizeMM + 3;
       pdf.setFont("Helvetica", "bold");
       pdf.setFontSize(10);
@@ -299,7 +319,7 @@ export default function IdentidadMarcaPage() {
       pdf.setFont("Helvetica", "normal");
       pdf.setFontSize(7);
       pdf.setTextColor(150, 150, 150);
-      pdf.text("System Kyron — El sistema que se adapta a ti", pw / 2, nameY + 4, { align: "center" });
+      pdf.text(`System Kyron — ${lema}`, pw / 2, nameY + 4, { align: "center" });
     }
 
     pdf.save(`System_Kyron_Todos_Los_Modulos_${cm}x${cm}.pdf`);
