@@ -1,8 +1,27 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <path d="M100 25v150" stroke="currentColor" stroke-width="7" fill="none" opacity="0.85"/>
-  <path d="M60 45c0-11 9-20 20-20h40c11 0 20 9 20 20v10H60V45z" stroke="currentColor" stroke-width="7" fill="none" opacity="0.85" stroke-linejoin="round"/>
-  <path d="M60 55v100c0 11 9 20 20 20h40c11 0 20-9 20-20V55" stroke="currentColor" stroke-width="7" fill="none" opacity="0.85"/>
-  <path d="M80 85h40M80 110h40M80 135h20" stroke="currentColor" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.6"/>
-  <circle cx="170" cy="45" r="18" fill="currentColor" opacity="0.85"/>
-  <path d="M165 45l4 4 7-7" stroke="#020617" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#030712" rx="32" />
+  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="#080e1a" stroke="url(#hexGrad)" stroke-width="4" filter="url(#glow)" />
+  <path d="M 65,135 L 100,100 L 135,135" fill="none" stroke="url(#iconGrad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+  <line x1="60" y1="80" x2="140" y2="80" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity="0.9" />
+  <path d="M 60,80 L 52,115 H 68 Z" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
+  <path d="M 140,80 L 132,115 H 148 Z" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
+  <circle cx="100" cy="100" r="10" fill="#FFFFFF" />
+  <circle cx="100" cy="100" r="5" fill="#8b5cf6" />
 </svg>
