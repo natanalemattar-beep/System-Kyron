@@ -258,7 +258,7 @@ export default function IdentidadMarcaPage() {
         title="Activos de Marca" 
         description="Centro de descarga de logos y manual de identidad. Acceso restringido con clave Carlos123."
     >
-      <div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center relative overflow-hidden hud-grid select-none">
+      <div className="min-h-screen bg-background text-foreground flex flex-col items-center relative overflow-hidden hud-grid select-none">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(var(--primary),0.08)_0,transparent_70%)]" />
           <div className="absolute top-12 left-12 border-l border-primary/20 pl-4">
@@ -412,9 +412,63 @@ export default function IdentidadMarcaPage() {
               <Camera className="mr-3 h-4 w-4" /> CAPTURAR
             </Button>
           </div>
+
+          {/* Module Logos Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="w-full max-w-5xl pt-16"
+          >
+            <div className="text-center mb-10 space-y-3">
+              <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 backdrop-blur-md">
+                <Sparkles className="h-4 w-4 text-violet-400" />
+                <span className="text-[10px] font-black text-violet-400 uppercase tracking-[0.15em]">LOGOS POR MÓDULO</span>
+              </div>
+              <h2 className="text-2xl font-black tracking-tight text-foreground">
+                Identidad Visual —{" "}
+                <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">Cada Módulo, Su Marca</span>
+              </h2>
+              <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+                Logos SVG vectoriales para cada módulo del ecosistema System Kyron. Haz clic para descargar.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+              {[
+                { id: "contabilidad", name: "Contabilidad", color: "border-cyan-500/30 bg-cyan-500/5" },
+                { id: "facturacion", name: "Facturación", color: "border-amber-500/30 bg-amber-500/5" },
+                { id: "nomina", name: "Nómina & RRHH", color: "border-emerald-500/30 bg-emerald-500/5" },
+                { id: "legal", name: "Legal", color: "border-rose-500/30 bg-rose-500/5" },
+                { id: "marketing", name: "Marketing", color: "border-fuchsia-500/30 bg-fuchsia-500/5" },
+                { id: "telecom", name: "Telecomunicaciones", color: "border-teal-500/30 bg-teal-500/5" },
+                { id: "it", name: "IT & Seguridad", color: "border-slate-500/30 bg-slate-500/5" },
+                { id: "socios", name: "Socios", color: "border-blue-500/30 bg-blue-500/5" },
+                { id: "sostenibilidad", name: "Sostenibilidad", color: "border-green-500/30 bg-green-500/5" },
+                { id: "planificacion", name: "Planificación", color: "border-orange-500/30 bg-orange-500/5" },
+                { id: "ia", name: "IA & Automatización", color: "border-purple-500/30 bg-purple-500/5" },
+                { id: "ciudadano", name: "Portal Ciudadano", color: "border-sky-500/30 bg-sky-500/5" },
+              ].map(mod => (
+                <div key={mod.id} className={`group relative p-5 rounded-2xl border ${mod.color} hover:bg-card/60 transition-all cursor-pointer`} onClick={() => {
+                  const link = document.createElement("a");
+                  link.href = `/images/module-logos/mod-${mod.id}.svg`;
+                  link.download = `System_Kyron_${mod.name.replace(/[^a-zA-Z0-9]/g, '_')}.svg`;
+                  link.click();
+                  toast({ title: "DESCARGA EXITOSA", description: `Logo "${mod.name}" descargado en SVG` });
+                }}>
+                  <div className="h-16 w-16 mx-auto mb-3 text-foreground">
+                    <object data={`/images/module-logos/mod-${mod.id}.svg`} type="image/svg+xml" className="w-full h-full pointer-events-none" style={{ colorScheme: "auto" }}>?</object>
+                  </div>
+                  <p className="text-[10px] font-bold text-center text-foreground uppercase tracking-wider">{mod.name}</p>
+                  <p className="text-[8px] font-bold text-center text-muted-foreground/40 uppercase tracking-widest mt-1">SVG</p>
+                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-transparent group-hover:ring-white/10 transition-all" />
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
 
-        <div className="absolute bottom-10 flex items-center gap-8 text-[10px] font-semibold uppercase tracking-wider text-foreground/10 italic">
+        <div className="relative mt-20 mb-10 flex items-center gap-8 text-[10px] font-semibold uppercase tracking-wider text-foreground/10 italic">
           <span className="flex items-center gap-2"><Sparkles className="h-3 w-3" /> Precision Graphics</span>
           <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> Auth: Verified</span>
         </div>
