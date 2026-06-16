@@ -101,7 +101,7 @@ export default function IdentidadMarcaPage() {
     });
   };
 
-  const handleDownloadSAPI = async (withName: boolean) => {
+  const handleDownloadCM = async (cm: number, withName: boolean) => {
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.src = "/images/logo-kyron-hq.png";
@@ -111,7 +111,7 @@ export default function IdentidadMarcaPage() {
       img.onerror = reject;
     });
 
-    const px = Math.round((4 / 2.54) * 300);
+    const px = Math.round((cm / 2.54) * 300);
     const canvas = document.createElement("canvas");
     canvas.width = px;
     canvas.height = px;
@@ -139,14 +139,15 @@ export default function IdentidadMarcaPage() {
       ctx.drawImage(img, pad, pad, logoSize, logoSize);
     }
 
+    const suffix = `${cm}x${cm}`;
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
-    link.download = withName ? "System_Kyron_Logo_4x4.png" : "System_Kyron_Logo_Solo_4x4.png";
+    link.download = withName ? `System_Kyron_Logo_${suffix}.png` : `System_Kyron_Logo_Solo_${suffix}.png`;
     link.click();
 
     toast({
       title: "DESCARGA EXITOSA",
-      description: withName ? "Logo 4x4 + nombre descargado" : "Logo 4x4 solo descargado",
+      description: withName ? `Logo ${suffix} + nombre descargado` : `Logo ${suffix} solo descargado`,
     });
   };
 
@@ -304,17 +305,33 @@ export default function IdentidadMarcaPage() {
             <Button 
               variant="outline" 
               className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-green-500/30 bg-green-500/5 text-green-500 hover:bg-green-500/10 shadow-glow"
-              onClick={() => handleDownloadSAPI(true)}
+              onClick={() => handleDownloadCM(4, true)}
             >
-              <Scale className="mr-3 h-4 w-4" /> 4x4 + NOMBRE
+              <Scale className="mr-3 h-4 w-4" /> 4×4 + NOMBRE
             </Button>
 
             <Button 
               variant="outline" 
               className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-sky-500/30 bg-sky-500/5 text-sky-400 hover:bg-sky-500/10 shadow-glow"
-              onClick={() => handleDownloadSAPI(false)}
+              onClick={() => handleDownloadCM(4, false)}
             >
-              <FileImage className="mr-3 h-4 w-4" /> 4x4 SOLO
+              <FileImage className="mr-3 h-4 w-4" /> 4×4 SOLO
+            </Button>
+
+            <Button 
+              variant="outline" 
+              className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-green-600/30 bg-green-600/5 text-green-600 hover:bg-green-600/10 shadow-glow"
+              onClick={() => handleDownloadCM(5, true)}
+            >
+              <Scale className="mr-3 h-4 w-4" /> 5×5 + NOMBRE
+            </Button>
+
+            <Button 
+              variant="outline" 
+              className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-cyan-600/30 bg-cyan-600/5 text-cyan-600 hover:bg-cyan-600/10 shadow-glow"
+              onClick={() => handleDownloadCM(5, false)}
+            >
+              <FileImage className="mr-3 h-4 w-4" /> 5×5 SOLO
             </Button>
 
             <Button 
