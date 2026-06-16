@@ -131,6 +131,39 @@ export default function RegisterNaturalPage() {
 
   const [cedulaLookup, setCedulaLookup] = useState<{ nombre: string; apellido: string; estado?: string; municipio?: string; fechaNacimiento?: string; sexo?: string; estadoCivil?: string; parroquia?: string } | null>(null);
   const [cedulaSearching, setCedulaSearching] = useState(false);
+
+  const getSavedFormData = (): Partial<FormData> => {
+    try {
+      const saved = sessionStorage.getItem('kyron-register-natural');
+      return saved ? JSON.parse(saved) : {};
+    } catch { return {}; }
+  };
+
+  const savedData = typeof window !== 'undefined' ? getSavedFormData() : {};
+
+  const defaultFormValues: Partial<FormData> = {
+    cedula: prefilledDoc || savedData.cedula || undefined,
+    nombre: prefilledNombre || savedData.nombre || undefined,
+    apellido: prefilledApellido || savedData.apellido || undefined,
+    estado_residencia: prefilledEstado || savedData.estado_residencia || undefined,
+    municipio: prefilledMunicipio || savedData.municipio || undefined,
+    ciudad: prefilledParroquia || savedData.ciudad || undefined,
+    fecha_nacimiento: prefilledFechaNac || savedData.fecha_nacimiento || undefined,
+    genero: prefilledSexo || savedData.genero || undefined,
+    estado_civil: prefilledCivil || savedData.estado_civil || undefined,
+    telefono: savedData.telefono || undefined,
+    telefono_alt: savedData.telefono_alt || undefined,
+    direccion: savedData.direccion || undefined,
+    email: savedData.email || undefined,
+  };
+
+  const { register, handleSubmit, control, getValues, watch, setValue, formState: { errors }, trigger } =
+    useForm<FormData>({
+      resolver: zodResolver(fullSchema),
+      mode: 'onTouched',
+      defaultValues: defaultFormValues,
+    });
+
   const cedulaValue = watch('cedula');
   useEffect(() => {
     if (!cedulaValue || !/^[VE]-\d{6,10}$/.test(cedulaValue)) {
@@ -164,38 +197,6 @@ export default function RegisterNaturalPage() {
     }, 500);
     return () => { clearTimeout(timeout); controller.abort(); setCedulaSearching(false); };
   }, [cedulaValue, setValue]);
-
-  const getSavedFormData = (): Partial<FormData> => {
-    try {
-      const saved = sessionStorage.getItem('kyron-register-natural');
-      return saved ? JSON.parse(saved) : {};
-    } catch { return {}; }
-  };
-
-  const savedData = typeof window !== 'undefined' ? getSavedFormData() : {};
-
-  const defaultFormValues: Partial<FormData> = {
-    cedula: prefilledDoc || savedData.cedula || undefined,
-    nombre: prefilledNombre || savedData.nombre || undefined,
-    apellido: prefilledApellido || savedData.apellido || undefined,
-    estado_residencia: prefilledEstado || savedData.estado_residencia || undefined,
-    municipio: prefilledMunicipio || savedData.municipio || undefined,
-    ciudad: prefilledParroquia || savedData.ciudad || undefined,
-    fecha_nacimiento: prefilledFechaNac || savedData.fecha_nacimiento || undefined,
-    genero: prefilledSexo || savedData.genero || undefined,
-    estado_civil: prefilledCivil || savedData.estado_civil || undefined,
-    telefono: savedData.telefono || undefined,
-    telefono_alt: savedData.telefono_alt || undefined,
-    direccion: savedData.direccion || undefined,
-    email: savedData.email || undefined,
-  };
-
-  const { register, handleSubmit, control, getValues, watch, setValue, formState: { errors }, trigger } =
-    useForm<FormData>({
-      resolver: zodResolver(fullSchema),
-      mode: 'onTouched',
-      defaultValues: defaultFormValues,
-    });
 
   const startCountdown = () => {
     setCountdown(60);

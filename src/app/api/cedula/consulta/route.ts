@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { validarFormatoCedula, normalizarCedula } from '@/lib/validacion-venezuela';
 import { generateSearchHash, decryptIfEncrypted } from '@/lib/encryption';
+import { consultarCedula } from '@/lib/cedula-api';
 
 export const dynamic = 'force-dynamic';
 
@@ -38,11 +39,46 @@ interface SAIMEData {
   estatus: string | null;
   fechaEmision: string | null;
   fechaVencimiento: string | null;
+  rif?: string | null;
 }
 
-// La consulta con IA ha sido removida en favor de fuentes de datos deterministas y manuales.
 async function consultarCedulaConMotorCore(cedula: string, nacionalidad: string): Promise<SAIMEData | null> {
-  return null;
+  const cedulaNum = cedula.replace(/\D/g, '');
+  if (!cedulaNum) return null;
+
+  const nacion = nacionalidad === 'Extranjero(a)' ? 'E' : 'V';
+
+  try {
+    const result = await consultarCedula(nacion, cedulaNum);
+
+    if (result.error || !result.data) {
+      return null;
+    }
+
+    const d = result.data;
+    return {
+      nombre: [d.primer_nombre, d.segundo_nombre].filter(Boolean).join(' '),
+      apellido: [d.primer_apellido, d.segundo_apellido].filter(Boolean).join(' '),
+      primerNombre: d.primer_nombre,
+      segundoNombre: d.segundo_nombre || null,
+      primerApellido: d.primer_apellido,
+      segundoApellido: d.segundo_apellido || null,
+      fechaNacimiento: null,
+      sexo: null,
+      estadoCivil: null,
+      estado: d.cne?.estado || null,
+      municipio: d.cne?.municipio || null,
+      parroquia: d.cne?.parroquia || null,
+      lugarNacimiento: null,
+      nacionalidad: d.nacionalidad === 'V' ? 'Venezolano(a)' : 'Extranjero(a)',
+      estatus: 'VIGENTE',
+      fechaEmision: null,
+      fechaVencimiento: null,
+      rif: d.rif || null,
+    };
+  } catch {
+    return null;
+  }
 }
 
 export async function GET(req: NextRequest) {

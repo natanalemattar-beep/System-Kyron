@@ -201,11 +201,24 @@ const RESOURCES: Resource[] = [
         size: 'large',
         gradient: 'from-yellow-900/40 via-amber-900/20 to-transparent',
         image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format'
+    },
+    {
+        id: 'presupuesto-movisun',
+        title: 'Presupuesto — Movisun',
+        description: 'Modelo de presupuesto para cotizar productos Movisun a empresas en Venezuela. Incluye tabla de productos, condiciones comerciales y términos.',
+        icon: FileText,
+        href: '/brand-kit/presupuesto-movisun',
+        color: 'from-emerald-500 to-teal-600',
+        tag: 'COTIZACIÓN',
+        type: 'internal',
+        size: 'normal',
+        gradient: 'from-emerald-900/40 via-teal-900/20 to-transparent',
+        image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format'
     }
 ];
 
 const METRICS = [
-    { label: 'Recursos', value: '10', icon: Layers },
+    { label: 'Recursos', value: '11', icon: Layers },
     { label: 'Estado', value: 'Verificado', icon: ShieldCheck },
     { label: 'Core', value: 'v2.8', icon: Cpu },
     { label: 'Latencia', value: '<1ms', icon: Zap },
