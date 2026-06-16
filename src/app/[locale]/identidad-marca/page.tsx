@@ -161,10 +161,22 @@ export default function IdentidadMarcaPage() {
     const canvas = await svgToCanvas(modId, px);
     const jsPDF = (await import("jspdf")).default;
     const pdf = new jsPDF("p", "mm", "a4");
+    const pw = pdf.internal.pageSize.getWidth();
+    const ph = pdf.internal.pageSize.getHeight();
+    pdf.setFillColor(3, 7, 18);
+    pdf.rect(0, 0, pw, ph, "F");
     const sizeMM = cm * 10;
-    const x = (pdf.internal.pageSize.getWidth() - sizeMM) / 2;
-    const y = (pdf.internal.pageSize.getHeight() - sizeMM) / 2;
+    const x = (pw - sizeMM) / 2;
+    const y = (ph - sizeMM) / 2 - 8;
     pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, sizeMM);
+    pdf.setFont("Helvetica", "bold");
+    pdf.setFontSize(14);
+    pdf.setTextColor(220, 220, 220);
+    pdf.text(modName, pw / 2, y + sizeMM + 12, { align: "center" });
+    pdf.setFont("Helvetica", "normal");
+    pdf.setFontSize(7);
+    pdf.setTextColor(80, 80, 100);
+    pdf.text("SYSTEM KYRON", pw / 2, ph - 10, { align: "center" });
     const safeName = modName.replace(/[^a-zA-Z0-9]/g, "_");
     pdf.save(`System_Kyron_${safeName}_${cm}x${cm}.pdf`);
     toast({ title: "DESCARGA EXITOSA", description: `Logo "${modName}" en PDF ${cm}x${cm} — listo para imprimir` });
@@ -201,18 +213,18 @@ export default function IdentidadMarcaPage() {
 
   const handleDownloadAllModPNG = async (px: number, label: string) => {
     const mods = [
-      { id: "contabilidad", name: "Contabilidad" },
-      { id: "facturacion", name: "Facturación" },
-      { id: "nomina", name: "Nómina & RRHH" },
-      { id: "legal", name: "Legal" },
-      { id: "marketing", name: "Marketing" },
-      { id: "telecom", name: "Telecomunicaciones" },
-      { id: "it", name: "IT & Seguridad" },
-      { id: "socios", name: "Socios" },
-      { id: "sostenibilidad", name: "Sostenibilidad" },
-      { id: "planificacion", name: "Planificación" },
-      { id: "ia", name: "IA & Automatización" },
-      { id: "ciudadano", name: "Portal Ciudadano" },
+      { id: "contabilidad", name: "Contabilidad", emoji: "📊" },
+      { id: "facturacion", name: "Facturación", emoji: "📄" },
+      { id: "nomina", name: "Nómina & RRHH", emoji: "👥" },
+      { id: "legal", name: "Legal", emoji: "⚖️" },
+      { id: "marketing", name: "Marketing", emoji: "📣" },
+      { id: "telecom", name: "Telecomunicaciones", emoji: "📡" },
+      { id: "it", name: "IT & Seguridad", emoji: "🛡️" },
+      { id: "socios", name: "Socios", emoji: "🤝" },
+      { id: "sostenibilidad", name: "Sostenibilidad", emoji: "🌿" },
+      { id: "planificacion", name: "Planificación", emoji: "📋" },
+      { id: "ia", name: "IA & Automatización", emoji: "🧠" },
+      { id: "ciudadano", name: "Portal Ciudadano", emoji: "🏛️" },
     ];
     for (const mod of mods) {
       await handleDownloadModPNG(mod.id, mod.name, px, label);
@@ -222,31 +234,43 @@ export default function IdentidadMarcaPage() {
 
   const handleDownloadAllModPDF = async (cm: number) => {
     const mods = [
-      { id: "contabilidad", name: "Contabilidad" },
-      { id: "facturacion", name: "Facturación" },
-      { id: "nomina", name: "Nómina & RRHH" },
-      { id: "legal", name: "Legal" },
-      { id: "marketing", name: "Marketing" },
-      { id: "telecom", name: "Telecomunicaciones" },
-      { id: "it", name: "IT & Seguridad" },
-      { id: "socios", name: "Socios" },
-      { id: "sostenibilidad", name: "Sostenibilidad" },
-      { id: "planificacion", name: "Planificación" },
-      { id: "ia", name: "IA & Automatización" },
-      { id: "ciudadano", name: "Portal Ciudadano" },
+      { id: "contabilidad", name: "Contabilidad", emoji: "📊" },
+      { id: "facturacion", name: "Facturación", emoji: "📄" },
+      { id: "nomina", name: "Nómina & RRHH", emoji: "👥" },
+      { id: "legal", name: "Legal", emoji: "⚖️" },
+      { id: "marketing", name: "Marketing", emoji: "📣" },
+      { id: "telecom", name: "Telecomunicaciones", emoji: "📡" },
+      { id: "it", name: "IT & Seguridad", emoji: "🛡️" },
+      { id: "socios", name: "Socios", emoji: "🤝" },
+      { id: "sostenibilidad", name: "Sostenibilidad", emoji: "🌿" },
+      { id: "planificacion", name: "Planificación", emoji: "📋" },
+      { id: "ia", name: "IA & Automatización", emoji: "🧠" },
+      { id: "ciudadano", name: "Portal Ciudadano", emoji: "🏛️" },
     ];
 
     const jsPDF = (await import("jspdf")).default;
     const pdf = new jsPDF("p", "mm", "a4");
+    const pw = pdf.internal.pageSize.getWidth();
+    const ph = pdf.internal.pageSize.getHeight();
     const sizeMM = cm * 10;
-    const x = (pdf.internal.pageSize.getWidth() - sizeMM) / 2;
-    const y = (pdf.internal.pageSize.getHeight() - sizeMM) / 2;
+    const x = (pw - sizeMM) / 2;
 
     for (let i = 0; i < mods.length; i++) {
+      if (i > 0) pdf.addPage();
+      pdf.setFillColor(3, 7, 18);
+      pdf.rect(0, 0, pw, ph, "F");
+      const y = (ph - sizeMM) / 2 - 8;
       const px = Math.round((cm / 2.54) * 300);
       const canvas = await svgToCanvas(mods[i].id, px);
       pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, sizeMM);
-      if (i < mods.length - 1) pdf.addPage();
+      pdf.setFont("Helvetica", "bold");
+      pdf.setFontSize(16);
+      pdf.setTextColor(200, 200, 200);
+      pdf.text(`${mods[i].emoji}  ${mods[i].name}`, pw / 2, y + sizeMM + 14, { align: "center" });
+      pdf.setFont("Helvetica", "normal");
+      pdf.setFontSize(7);
+      pdf.setTextColor(80, 80, 100);
+      pdf.text("SYSTEM KYRON", pw / 2, ph - 10, { align: "center" });
     }
 
     pdf.save(`System_Kyron_Todos_Los_Modulos_${cm}x${cm}.pdf`);
