@@ -1,27 +1,43 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
       <feGaussianBlur stdDeviation="6" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
     </filter>
     <linearGradient id="hexGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#d946ef" />
+      <stop offset="0%" stop-color="#e879f9" />
+      <stop offset="50%" stop-color="#d946ef" />
       <stop offset="100%" stop-color="#c026d3" />
     </linearGradient>
+    <linearGradient id="hexFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d946ef" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#c026d3" stop-opacity="0.02" />
+    </linearGradient>
     <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c026d3" />
+      <stop offset="0%" stop-color="#f5d0fe" />
+      <stop offset="50%" stop-color="#e879f9" />
       <stop offset="100%" stop-color="#d946ef" />
     </linearGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#d946ef" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#030712" stop-opacity="0" />
+    </radialGradient>
   </defs>
   <rect width="100%" height="100%" fill="#030712" rx="32" />
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="#080e1a" stroke="url(#hexGrad)" stroke-width="4" filter="url(#glow)" />
-  <path d="M 125,65 L 85,100 L 125,135" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
-  <path d="M 138,82 A 20,20 0 0 1 138,118" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.8" />
-  <path d="M 148,72 A 35,35 0 0 1 148,128" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.8" />
-  <path d="M 70,90 L 85,100 L 70,110 Z" fill="url(#iconGrad)" />
-  <circle cx="85" cy="100" r="10" fill="#FFFFFF" />
-  <circle cx="85" cy="100" r="5" fill="#d946ef" />
+  <circle cx="100" cy="100" r="70" fill="url(#centerGlow)" />
+  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="none" stroke="url(#hexGrad)" stroke-width="0.8" opacity="0.3" filter="url(#glow)" />
+  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
+  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
+  <path d="M 130,62 L 85,100 L 130,138" fill="none" stroke="url(#iconGrad)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
+  <path d="M 142,80 A 18,18 0 0 1 142,120" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.8" />
+  <path d="M 152,70 A 32,32 0 0 1 152,130" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.65" />
+  <path d="M 160,60 A 45,45 0 0 1 160,140" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.5" />
+  <path d="M 68,93 L 82,98 L 68,103 Z" fill="url(#iconGrad)" opacity="0.9" />
+  <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
+  <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
+  <circle cx="85" cy="100" r="4.5" fill="#e879f9" filter="url(#softGlow)" />
 </svg>
