@@ -220,6 +220,9 @@ export default function IdentidadMarcaPage() {
       const textArea = size * 0.28;
       const fontSize = size * 0.055;
       const lemaSize = size * 0.035;
+      const gap = lemaSize * 0.5;
+      const textBlockHeight = fontSize + gap + lemaSize;
+      const textTop = size + (textArea - textBlockHeight) / 2;
       canvas.width = size;
       canvas.height = size + textArea;
       ctx.fillStyle = "#FFFFFF";
@@ -230,10 +233,10 @@ export default function IdentidadMarcaPage() {
       ctx.textAlign = "center";
       ctx.fillStyle = "#666666";
       ctx.font = `bold ${fontSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
-      ctx.fillText(moduleName.toUpperCase(), size / 2, size + textArea * 0.2);
+      ctx.fillText(moduleName.toUpperCase(), size / 2, textTop);
       ctx.fillStyle = "#999999";
       ctx.font = `${lemaSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
-      ctx.fillText(`System Kyron — ${lema}`, size / 2, size + textArea * 0.2 + fontSize + lemaSize * 0.3);
+      ctx.fillText(`System Kyron — ${lema}`, size / 2, textTop + fontSize + gap);
     } else {
       canvas.width = size;
       canvas.height = size;
