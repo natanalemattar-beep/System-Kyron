@@ -171,14 +171,23 @@ export default function IdentidadMarcaPage() {
     const ph = pdf.internal.pageSize.getHeight();
     const sizeMM = cm * 10;
     const x = (pw - sizeMM) / 2;
-    const y = (ph - sizeMM) / 2;
-    pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, sizeMM);
+    const logoY = (ph - sizeMM) / 2 - 4;
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, logoY, sizeMM, sizeMM);
+    const nameY = logoY + sizeMM + 3;
+    pdf.setFont("Helvetica", "bold");
+    pdf.setFontSize(10);
+    pdf.setTextColor(100, 100, 100);
+    pdf.text(modName.toUpperCase(), pw / 2, nameY, { align: "center" });
+    pdf.setFont("Helvetica", "normal");
+    pdf.setFontSize(7);
+    pdf.setTextColor(150, 150, 150);
+    pdf.text("System Kyron — El sistema que se adapta a ti", pw / 2, nameY + 4, { align: "center" });
     const safeName = modName.replace(/[^a-zA-Z0-9]/g, "_");
     pdf.save(`System_Kyron_${safeName}_${cm}x${cm}.pdf`);
     toast({ title: "DESCARGA EXITOSA", description: `Logo "${modName}" en PDF ${cm}x${cm}` });
   };
 
-  const svgToCanvas = async (modId: string, size: number): Promise<HTMLCanvasElement> => {
+  const svgToCanvas = async (modId: string, size: number, moduleName?: string): Promise<HTMLCanvasElement> => {
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.src = `/images/module-logos/mod-${modId}.svg`;
@@ -187,19 +196,40 @@ export default function IdentidadMarcaPage() {
       img.onerror = reject;
     });
     const canvas = document.createElement("canvas");
-    canvas.width = size;
-    canvas.height = size;
     const ctx = canvas.getContext("2d")!;
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, size, size);
-    const pad = size * 0.06;
-    const logoSize = size - pad * 2;
-    ctx.drawImage(img, pad, pad, logoSize, logoSize);
+
+    if (moduleName) {
+      const textArea = size * 0.28;
+      const fontSize = size * 0.055;
+      const lemaSize = size * 0.035;
+      canvas.width = size;
+      canvas.height = size + textArea;
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, size, canvas.height);
+      const pad = size * 0.06;
+      const logoSize = size - pad * 2;
+      ctx.drawImage(img, pad, pad, logoSize, logoSize);
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#666666";
+      ctx.font = `bold ${fontSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
+      ctx.fillText(moduleName.toUpperCase(), size / 2, size + textArea * 0.2);
+      ctx.fillStyle = "#999999";
+      ctx.font = `${lemaSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
+      ctx.fillText("System Kyron — El sistema que se adapta a ti", size / 2, size + textArea * 0.2 + fontSize + lemaSize * 0.3);
+    } else {
+      canvas.width = size;
+      canvas.height = size;
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, size, size);
+      const pad = size * 0.06;
+      const logoSize = size - pad * 2;
+      ctx.drawImage(img, pad, pad, logoSize, logoSize);
+    }
     return canvas;
   };
 
   const handleDownloadModPNG = async (modId: string, modName: string, px: number, label: string) => {
-    const canvas = await svgToCanvas(modId, px);
+    const canvas = await svgToCanvas(modId, px, modName);
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
     link.download = `System_Kyron_${modName.replace(/[^a-zA-Z0-9]/g, '_')}_${label}.png`;
@@ -269,7 +299,7 @@ export default function IdentidadMarcaPage() {
       pdf.setFont("Helvetica", "normal");
       pdf.setFontSize(7);
       pdf.setTextColor(150, 150, 150);
-      pdf.text("System Kyron — Tu ecosistema operativo", pw / 2, nameY + 4, { align: "center" });
+      pdf.text("System Kyron — El sistema que se adapta a ti", pw / 2, nameY + 4, { align: "center" });
     }
 
     pdf.save(`System_Kyron_Todos_Los_Modulos_${cm}x${cm}.pdf`);
@@ -361,7 +391,7 @@ export default function IdentidadMarcaPage() {
     const subSize = fontSize * 0.4;
     ctx.font = `${subSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
     ctx.fillStyle = "rgba(255,255,255,0.5)";
-    ctx.fillText("Tu ecosistema operativo", width / 2, ly + logoSize + fontSize * 0.5 + fontSize * 1.1);
+    ctx.fillText("El sistema que se adapta a ti", width / 2, ly + logoSize + fontSize * 0.5 + fontSize * 1.1);
 
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
@@ -415,7 +445,7 @@ export default function IdentidadMarcaPage() {
                   SYSTEM <span className="text-primary">KYRON</span>
                 </h1>
                 <p className="text-sm md:text-lg font-medium text-zinc-400 tracking-wider">
-                  Tu ecosistema operativo: tus líneas, tu contabilidad y cero complicaciones.
+                  El sistema que se adapta a ti: tus líneas, tu contabilidad y cero complicaciones.
                 </p>
               </div>
             </div>
