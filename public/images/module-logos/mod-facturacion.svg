@@ -33,11 +33,10 @@
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
   <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
   <path d="M 140,58 L 85,100 L 140,142" fill="none" stroke="url(#iconGrad)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
-  <path d="M 100,72 H 132 A 5,5 0 0 1 137,77 V 118 A 5,5 0 0 1 132,123 H 100" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.9" />
-  <line x1="107" y1="86" x2="130" y2="86" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.85" />
-  <line x1="107" y1="98" x2="126" y2="98" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.7" />
-  <line x1="107" y1="110" x2="114" y2="110" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.55" />
-  <path d="M 127,72 V 62 A 3,3 0 0 1 130,59 H 135 A 3,3 0 0 1 138,62 V 68" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.6" />
+  <path d="M 95,75 H 130 V 122 Q 112,126 95,122 Z" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" />
+  <line x1="103" y1="88" x2="122" y2="88" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.85" />
+  <line x1="103" y1="100" x2="118" y2="100" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.7" />
+  <line x1="103" y1="112" x2="112" y2="112" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.55" />
   <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
   <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
   <circle cx="85" cy="100" r="4.5" fill="#fbbf24" filter="url(#softGlow)" />
