@@ -163,23 +163,13 @@ export default function IdentidadMarcaPage() {
     const pdf = new jsPDF("p", "mm", "a4");
     const pw = pdf.internal.pageSize.getWidth();
     const ph = pdf.internal.pageSize.getHeight();
-    pdf.setFillColor(3, 7, 18);
-    pdf.rect(0, 0, pw, ph, "F");
     const sizeMM = cm * 10;
     const x = (pw - sizeMM) / 2;
-    const y = (ph - sizeMM) / 2 - 8;
+    const y = (ph - sizeMM) / 2;
     pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, sizeMM);
-    pdf.setFont("Helvetica", "bold");
-    pdf.setFontSize(14);
-    pdf.setTextColor(220, 220, 220);
-    pdf.text(modName, pw / 2, y + sizeMM + 12, { align: "center" });
-    pdf.setFont("Helvetica", "normal");
-    pdf.setFontSize(7);
-    pdf.setTextColor(80, 80, 100);
-    pdf.text("SYSTEM KYRON", pw / 2, ph - 10, { align: "center" });
     const safeName = modName.replace(/[^a-zA-Z0-9]/g, "_");
     pdf.save(`System_Kyron_${safeName}_${cm}x${cm}.pdf`);
-    toast({ title: "DESCARGA EXITOSA", description: `Logo "${modName}" en PDF ${cm}x${cm} — listo para imprimir` });
+    toast({ title: "DESCARGA EXITOSA", description: `Logo "${modName}" en PDF ${cm}x${cm}` });
   };
 
   const svgToCanvas = async (modId: string, size: number): Promise<HTMLCanvasElement> => {
@@ -261,20 +251,10 @@ export default function IdentidadMarcaPage() {
 
     for (let i = 0; i < mods.length; i++) {
       if (i > 0) pdf.addPage();
-      pdf.setFillColor(3, 7, 18);
-      pdf.rect(0, 0, pw, ph, "F");
-      const y = (ph - sizeMM) / 2 - 8;
+      const y = (ph - sizeMM) / 2;
       const px = Math.round((cm / 2.54) * 300);
       const canvas = await svgToCanvas(mods[i].id, px);
       pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, sizeMM);
-      pdf.setFont("Helvetica", "bold");
-      pdf.setFontSize(16);
-      pdf.setTextColor(200, 200, 200);
-      pdf.text(`${mods[i].emoji}  ${mods[i].name}`, pw / 2, y + sizeMM + 14, { align: "center" });
-      pdf.setFont("Helvetica", "normal");
-      pdf.setFontSize(7);
-      pdf.setTextColor(80, 80, 100);
-      pdf.text("SYSTEM KYRON", pw / 2, ph - 10, { align: "center" });
     }
 
     pdf.save(`System_Kyron_Todos_Los_Modulos_${cm}x${cm}.pdf`);
