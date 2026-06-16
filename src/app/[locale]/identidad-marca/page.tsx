@@ -112,29 +112,35 @@ export default function IdentidadMarcaPage() {
     });
 
     const px = Math.round((cm / 2.54) * 300);
+
     const canvas = document.createElement("canvas");
-    canvas.width = px;
-    canvas.height = px;
     const ctx = canvas.getContext("2d")!;
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, px, px);
+
+    let canvasH = px;
+    let mmHeight = cm * 10;
 
     if (withName) {
-      const logoSize = px * 0.56;
-      const padX = (px - logoSize) / 2;
-      const logoY = px * 0.07;
-      ctx.drawImage(img, padX, logoY, logoSize, logoSize);
-      const textY = logoY + logoSize + px * 0.04;
       const fontSize = px * 0.075;
+      const textGap = px * 0.035;
+      canvasH = px + textGap * 2 + fontSize;
+      canvas.width = px;
+      canvas.height = canvasH;
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, px, canvasH);
+      ctx.drawImage(img, 0, 0, px, px);
+      const textY = px + textGap;
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       ctx.fillStyle = "#1a1a2e";
       ctx.font = `bold ${fontSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
       ctx.fillText("SYSTEM KYRON", px / 2, textY);
+      mmHeight = (canvasH / 300) * 25.4;
     } else {
-      const pad = px * 0.03;
-      const logoSize = px - pad * 2;
-      ctx.drawImage(img, pad, pad, logoSize, logoSize);
+      canvas.width = px;
+      canvas.height = px;
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, px, px);
+      ctx.drawImage(img, 0, 0, px, px);
     }
 
     const jsPDF = (await import("jspdf")).default;
@@ -144,9 +150,9 @@ export default function IdentidadMarcaPage() {
 
     const sizeMM = cm * 10;
     const x = (pw - sizeMM) / 2;
-    const y = (ph - sizeMM) / 2;
+    const y = (ph - mmHeight) / 2;
 
-    pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, sizeMM);
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, mmHeight);
     const suffix = `${cm}x${cm}`;
     pdf.save(withName ? `System_Kyron_Logo_${suffix}_PDF.pdf` : `System_Kyron_Logo_Solo_${suffix}_PDF.pdf`);
 
