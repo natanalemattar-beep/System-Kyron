@@ -71,7 +71,7 @@ export default function IdentidadMarcaPage() {
     
     const image = canvas.toDataURL('image/png');
     const jsPDF = (await import("jspdf")).default;
-    const pdf = new jsPDF('l', 'mm', 'a4');
+    const pdf = new jsPDF('l', 'mm', 'letter');
     
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
@@ -138,7 +138,7 @@ export default function IdentidadMarcaPage() {
     }
 
     const jsPDF = (await import("jspdf")).default;
-    const pdf = new jsPDF("p", "mm", "a4");
+    const pdf = new jsPDF("p", "mm", "letter");
     const pw = pdf.internal.pageSize.getWidth();
     const ph = pdf.internal.pageSize.getHeight();
 
@@ -160,7 +160,7 @@ export default function IdentidadMarcaPage() {
     const px = Math.round((cm / 2.54) * 300);
     const canvas = await svgToCanvas(modId, px);
     const jsPDF = (await import("jspdf")).default;
-    const pdf = new jsPDF("p", "mm", "a4");
+    const pdf = new jsPDF("p", "mm", "letter");
     const pw = pdf.internal.pageSize.getWidth();
     const ph = pdf.internal.pageSize.getHeight();
     const sizeMM = cm * 10;
@@ -243,7 +243,7 @@ export default function IdentidadMarcaPage() {
     ];
 
     const jsPDF = (await import("jspdf")).default;
-    const pdf = new jsPDF("p", "mm", "a4");
+    const pdf = new jsPDF("p", "mm", "letter");
     const pw = pdf.internal.pageSize.getWidth();
     const ph = pdf.internal.pageSize.getHeight();
     const sizeMM = cm * 10;
@@ -260,7 +260,7 @@ export default function IdentidadMarcaPage() {
     pdf.save(`System_Kyron_Todos_Los_Modulos_${cm}x${cm}.pdf`);
     toast({
       title: "DESCARGA EXITOSA",
-      description: `PDF con ${mods.length} módulos, cada logo en su propia hoja A4 — ${cm}x${cm}`,
+      description: `PDF con ${mods.length} módulos, cada logo en su propia hoja — ${cm}x${cm}`,
     });
   };
 
