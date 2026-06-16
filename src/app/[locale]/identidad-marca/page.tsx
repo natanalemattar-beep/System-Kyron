@@ -101,6 +101,61 @@ export default function IdentidadMarcaPage() {
     });
   };
 
+  const handleDownloadPDFCM = async (cm: number, withName: boolean) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = "/images/logo-kyron-hq.png";
+
+    await new Promise<void>((resolve, reject) => {
+      img.onload = () => resolve();
+      img.onerror = reject;
+    });
+
+    const px = Math.round((cm / 2.54) * 300);
+    const canvas = document.createElement("canvas");
+    canvas.width = px;
+    canvas.height = px;
+    const ctx = canvas.getContext("2d")!;
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(0, 0, px, px);
+
+    if (withName) {
+      const logoSize = px * 0.56;
+      const padX = (px - logoSize) / 2;
+      const logoY = px * 0.07;
+      ctx.drawImage(img, padX, logoY, logoSize, logoSize);
+      const textY = logoY + logoSize + px * 0.04;
+      const fontSize = px * 0.075;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
+      ctx.fillStyle = "#1a1a2e";
+      ctx.font = `bold ${fontSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
+      ctx.fillText("SYSTEM KYRON", px / 2, textY);
+    } else {
+      const pad = px * 0.03;
+      const logoSize = px - pad * 2;
+      ctx.drawImage(img, pad, pad, logoSize, logoSize);
+    }
+
+    const jsPDF = (await import("jspdf")).default;
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pw = pdf.internal.pageSize.getWidth();
+    const ph = pdf.internal.pageSize.getHeight();
+
+    const sizeMM = cm * 10;
+    const x = (pw - sizeMM) / 2;
+    const y = (ph - sizeMM) / 2;
+
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, sizeMM);
+    const suffix = `${cm}x${cm}`;
+    pdf.save(withName ? `System_Kyron_Logo_${suffix}_PDF.pdf` : `System_Kyron_Logo_Solo_${suffix}_PDF.pdf`);
+
+    toast({
+      title: "DESCARGA EXITOSA",
+      description: `PDF ${suffix} listo para imprimir — calidad 300 DPI`,
+    });
+  };
+
   const handleDownloadCM = async (cm: number, withName: boolean) => {
     const img = new Image();
     img.crossOrigin = "anonymous";
@@ -332,6 +387,22 @@ export default function IdentidadMarcaPage() {
               onClick={() => handleDownloadCM(5, false)}
             >
               <FileImage className="mr-3 h-4 w-4" /> 5×5 SOLO
+            </Button>
+
+            <Button 
+              variant="outline" 
+              className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-rose-600/30 bg-rose-600/5 text-rose-500 hover:bg-rose-600/10 shadow-glow"
+              onClick={() => handleDownloadPDFCM(5, false)}
+            >
+              <FileText className="mr-3 h-4 w-4" /> 5×5 SOLO PDF
+            </Button>
+
+            <Button 
+              variant="outline" 
+              className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-rose-500/30 bg-rose-500/5 text-rose-400 hover:bg-rose-500/10 shadow-glow"
+              onClick={() => handleDownloadPDFCM(5, true)}
+            >
+              <FileText className="mr-3 h-4 w-4" /> 5×5 + NOMBRE PDF
             </Button>
 
             <Button 
