@@ -550,7 +550,8 @@ export default function IdentidadMarcaPage() {
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-sky-600/90 to-indigo-600/90 hover:from-sky-600 hover:to-indigo-600 text-white font-bold uppercase text-[10px] tracking-widest transition-all shadow-lg ml-3"
                 >
                   <FileImage className="h-4 w-4" /> DESCARGAR TODOS EN PNG 2048px
-                </button>
+                  </button>
+              </div>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
