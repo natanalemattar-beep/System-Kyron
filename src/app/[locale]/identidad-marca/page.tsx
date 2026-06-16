@@ -225,11 +225,13 @@ export default function IdentidadMarcaPage() {
       { id: "planificacion", name: "Planificación", emoji: "📋" },
       { id: "ia", name: "IA & Automatización", emoji: "🧠" },
       { id: "ciudadano", name: "Portal Ciudadano", emoji: "🏛️" },
+      { id: "kyronshield", name: "Kyron Shield", emoji: "🛡️" },
+      { id: "controlparental", name: "Control Parental", emoji: "👨‍👩‍👧‍👦" },
     ];
     for (const mod of mods) {
       await handleDownloadModPNG(mod.id, mod.name, px, label);
     }
-    toast({ title: "DESCARGA MASIVA", description: `12 logos descargados en PNG ${label}` });
+    toast({ title: "DESCARGA MASIVA", description: `14 logos descargados en PNG ${label}` });
   };
 
   const handleDownloadAllModPDF = async (cm: number) => {
@@ -246,6 +248,8 @@ export default function IdentidadMarcaPage() {
       { id: "planificacion", name: "Planificación", emoji: "📋" },
       { id: "ia", name: "IA & Automatización", emoji: "🧠" },
       { id: "ciudadano", name: "Portal Ciudadano", emoji: "🏛️" },
+      { id: "kyronshield", name: "Kyron Shield", emoji: "🛡️" },
+      { id: "controlparental", name: "Control Parental", emoji: "👨‍👩‍👧‍👦" },
     ];
 
     const jsPDF = (await import("jspdf")).default;
@@ -592,6 +596,8 @@ export default function IdentidadMarcaPage() {
                 { id: "planificacion", name: "Planificación", color: "border-orange-500/30 bg-orange-500/5" },
                 { id: "ia", name: "IA & Automatización", color: "border-purple-500/30 bg-purple-500/5" },
                 { id: "ciudadano", name: "Portal Ciudadano", color: "border-sky-500/30 bg-sky-500/5" },
+                { id: "kyronshield", name: "Kyron Shield", color: "border-amber-500/30 bg-amber-500/5" },
+                { id: "controlparental", name: "Control Parental", color: "border-violet-500/30 bg-violet-500/5" },
               ].map(mod => (
                 <div key={mod.id} className={`group relative p-5 rounded-2xl border ${mod.color} bg-card/30 hover:bg-card/60 transition-all`}>
                   <div className="h-16 w-16 mx-auto mb-3 text-foreground pointer-events-none">
