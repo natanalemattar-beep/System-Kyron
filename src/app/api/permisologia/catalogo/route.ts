@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
   const sector = searchParams.get('sector') || 'todos';
   const q = searchParams.get('q') || '';
   const offset = parseInt(searchParams.get('offset') || '0', 10);
-  const limit = Math.min(parseInt(searchParams.get('limit') || '50', 10), 200);
+  const limit = Math.min(parseInt(searchParams.get('limit') || '50', 10), 5000);
 
   const items: CatalogoItem[] = [];
 

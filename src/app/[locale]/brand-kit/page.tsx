@@ -27,6 +27,7 @@ import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
 import { ResourceHeader } from '@/components/brand/ResourceHeader';
+import { UpdateBanner } from '@/components/brand/update-banner';
 const OfficialSeal = dynamic(() => import('@/components/brand/OfficialSeal').then(m => m.OfficialSeal), { ssr: false });
 const InstagramPost = dynamic(() => import('@/components/brand/InstagramPost').then(m => m.InstagramPost), { ssr: false });
 import { PasswordGate } from '@/components/password-gate';
@@ -366,6 +367,9 @@ export default function BrandKitPage() {
                         </div>
                     </motion.div>
                 </div>
+
+                {/* Update Banner */}
+                <UpdateBanner />
 
                 {/* Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
