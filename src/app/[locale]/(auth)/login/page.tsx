@@ -2,7 +2,7 @@
 
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
-import { User, Building2, ArrowRight, ChevronLeft, Globe, Signal, Smartphone, Calculator, Gavel, Users, Recycle, Sparkles, Lock, Cpu, Loader2 } from 'lucide-react';
+import { User, Building2, ArrowRight, ChevronLeft, Globe, Signal, Smartphone, Landmark, Gavel, Users, Recycle, Sparkles, Lock, Cpu, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
@@ -16,7 +16,7 @@ const optionKeys = [
   { key: 'personal', href: '/login-personal', icon: User, category: 'citizen', color: 'from-blue-500 to-indigo-600', iconBg: 'bg-blue-500/10', textColor: 'text-blue-600', borderHover: 'hover:border-blue-400/50', shadow: 'hover:shadow-blue-500/10', glow: 'rgba(59,130,246,0.18)' },
   { key: 'lines_personal', href: '/login-linea?type=personal', icon: Smartphone, category: 'citizen', color: 'from-cyan-500 to-blue-600', iconBg: 'bg-cyan-500/10', textColor: 'text-cyan-600', borderHover: 'hover:border-cyan-400/50', shadow: 'hover:shadow-cyan-500/10', glow: 'rgba(6,182,212,0.18)' },
   { key: 'lines_business', href: '/login-linea?type=empresa', icon: Signal, category: 'citizen', color: 'from-amber-500 to-orange-600', iconBg: 'bg-amber-500/10', textColor: 'text-amber-600', borderHover: 'hover:border-amber-400/50', shadow: 'hover:shadow-amber-500/10', glow: 'rgba(245,158,11,0.18)' },
-  { key: 'accounting', href: '/login-empresa', icon: Calculator, category: 'corporate', color: 'from-emerald-500 to-teal-600', iconBg: 'bg-emerald-500/10', textColor: 'text-emerald-600', borderHover: 'hover:border-emerald-400/50', shadow: 'hover:shadow-emerald-500/10', glow: 'rgba(16,185,129,0.18)' },
+  { key: 'accounting', href: '/login-empresa', icon: Landmark, category: 'corporate', color: 'from-emerald-500 to-teal-600', iconBg: 'bg-emerald-500/10', textColor: 'text-emerald-600', borderHover: 'hover:border-emerald-400/50', shadow: 'hover:shadow-emerald-500/10', glow: 'rgba(16,185,129,0.18)' },
   { key: 'legal', href: '/login-escritorio-juridico', icon: Gavel, category: 'corporate', color: 'from-violet-500 to-purple-600', iconBg: 'bg-violet-500/10', textColor: 'text-violet-600', borderHover: 'hover:border-violet-400/50', shadow: 'hover:shadow-violet-500/10', glow: 'rgba(139,92,246,0.18)' },
   { key: 'partners', href: '/login-socios', icon: Users, category: 'corporate', color: 'from-slate-500 to-zinc-600', iconBg: 'bg-slate-500/10', textColor: 'text-slate-600', borderHover: 'hover:border-slate-400/50', shadow: 'hover:shadow-slate-500/10', glow: 'rgba(100,116,139,0.18)' },
   { key: 'sustainability', href: '/login-sostenibilidad', icon: Recycle, category: 'corporate', color: 'from-green-500 to-emerald-600', iconBg: 'bg-green-500/10', textColor: 'text-green-600', borderHover: 'hover:border-green-400/50', shadow: 'hover:shadow-green-500/10', glow: 'rgba(34,197,94,0.18)' },

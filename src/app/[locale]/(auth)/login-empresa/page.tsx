@@ -2,7 +2,7 @@
 "use client";
 
 import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
-import { Calculator } from "lucide-react";
+import { Landmark } from "lucide-react";
 
 export default function LoginEmpresaPage() {
     return (
@@ -10,7 +10,7 @@ export default function LoginEmpresaPage() {
             portalName="Asesoría Contable" 
             portalDescription="Inteligencia financiera avanzada y auditoría forense para la nueva economía venezolana."
             redirectPath="/dashboard-empresas"
-            icon={Calculator}
+            icon={Landmark}
             accentColor="primary"
             layoutVariant="accounting-premium"
             features={[
