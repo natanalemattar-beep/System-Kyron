@@ -138,8 +138,10 @@ export default function IdentidadMarcaPage() {
 
     if (withName) {
       const fontSize = px * 0.075;
+      const lemaSize = px * 0.04;
       const textGap = px * 0.035;
-      canvasH = px + textGap * 2 + fontSize;
+      const lemaGap = px * 0.015;
+      canvasH = px + textGap * 2 + fontSize + lemaGap + lemaSize;
       canvas.width = px;
       canvas.height = canvasH;
       ctx.fillStyle = "#FFFFFF";
@@ -151,6 +153,9 @@ export default function IdentidadMarcaPage() {
       ctx.fillStyle = "#1a1a2e";
       ctx.font = `bold ${fontSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
       ctx.fillText("SYSTEM KYRON", px / 2, textY);
+      ctx.fillStyle = "#888888";
+      ctx.font = `${lemaSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
+      ctx.fillText("El sistema que se adapta a ti", px / 2, textY + fontSize + lemaGap);
       mmHeight = (canvasH / 300) * 25.4;
     } else {
       canvas.width = px;
