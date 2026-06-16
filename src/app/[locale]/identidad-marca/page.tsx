@@ -197,6 +197,62 @@ export default function IdentidadMarcaPage() {
     });
   };
 
+  const handleDownloadAllModPDF = async (cm: number) => {
+    const mods = [
+      { id: "contabilidad", name: "Contabilidad" },
+      { id: "facturacion", name: "Facturación" },
+      { id: "nomina", name: "Nómina & RRHH" },
+      { id: "legal", name: "Legal" },
+      { id: "marketing", name: "Marketing" },
+      { id: "telecom", name: "Telecomunicaciones" },
+      { id: "it", name: "IT & Seguridad" },
+      { id: "socios", name: "Socios" },
+      { id: "sostenibilidad", name: "Sostenibilidad" },
+      { id: "planificacion", name: "Planificación" },
+      { id: "ia", name: "IA & Automatización" },
+      { id: "ciudadano", name: "Portal Ciudadano" },
+    ];
+
+    const jsPDF = (await import("jspdf")).default;
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pw = pdf.internal.pageSize.getWidth();
+    const ph = pdf.internal.pageSize.getHeight();
+    const sizeMM = cm * 10;
+    const x = (pw - sizeMM) / 2;
+    const y = (ph - sizeMM) / 2;
+
+    for (let i = 0; i < mods.length; i++) {
+      const mod = mods[i];
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = `/images/module-logos/mod-${mod.id}.svg`;
+      await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = reject;
+      });
+
+      const px = Math.round((cm / 2.54) * 300);
+      const canvas = document.createElement("canvas");
+      canvas.width = px;
+      canvas.height = px;
+      const ctx = canvas.getContext("2d")!;
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, px, px);
+      const pad = px * 0.06;
+      const logoSize = px - pad * 2;
+      ctx.drawImage(img, pad, pad, logoSize, logoSize);
+
+      pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, sizeMM);
+      if (i < mods.length - 1) pdf.addPage();
+    }
+
+    pdf.save(`System_Kyron_Todos_Los_Modulos_${cm}x${cm}.pdf`);
+    toast({
+      title: "DESCARGA EXITOSA",
+      description: `PDF con ${mods.length} módulos, cada logo en su propia hoja A4 — ${cm}x${cm}`,
+    });
+  };
+
   const handleDownloadCM = async (cm: number, withName: boolean) => {
     const img = new Image();
     img.crossOrigin = "anonymous";
@@ -473,6 +529,14 @@ export default function IdentidadMarcaPage() {
               <p className="text-sm text-muted-foreground max-w-xl mx-auto">
                 Logos SVG vectoriales + PDF 5×5 listo para imprimir. Haz clic en el SVG para descargar vector, o en PDF para impresión milimétrica.
               </p>
+              <div className="pt-4">
+                <button
+                  onClick={() => handleDownloadAllModPDF(5)}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600/90 to-rose-600/90 hover:from-violet-600 hover:to-rose-600 text-white font-bold uppercase text-[10px] tracking-widest transition-all shadow-lg"
+                >
+                  <FileText className="h-4 w-4" /> DESCARGAR TODOS LOS MÓDULOS EN PDF
+                </button>
+              </div>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
