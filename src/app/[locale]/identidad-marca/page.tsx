@@ -157,44 +157,67 @@ export default function IdentidadMarcaPage() {
   };
 
   const handleDownloadModPDF = async (modId: string, modName: string, cm: number) => {
+    const px = Math.round((cm / 2.54) * 300);
+    const canvas = await svgToCanvas(modId, px);
+    const jsPDF = (await import("jspdf")).default;
+    const pdf = new jsPDF("p", "mm", "a4");
+    const sizeMM = cm * 10;
+    const x = (pdf.internal.pageSize.getWidth() - sizeMM) / 2;
+    const y = (pdf.internal.pageSize.getHeight() - sizeMM) / 2;
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, sizeMM);
+    const safeName = modName.replace(/[^a-zA-Z0-9]/g, "_");
+    pdf.save(`System_Kyron_${safeName}_${cm}x${cm}.pdf`);
+    toast({ title: "DESCARGA EXITOSA", description: `Logo "${modName}" en PDF ${cm}x${cm} — listo para imprimir` });
+  };
+
+  const svgToCanvas = async (modId: string, size: number): Promise<HTMLCanvasElement> => {
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.src = `/images/module-logos/mod-${modId}.svg`;
-
     await new Promise<void>((resolve, reject) => {
       img.onload = () => resolve();
       img.onerror = reject;
     });
-
-    const px = Math.round((cm / 2.54) * 300);
     const canvas = document.createElement("canvas");
-    canvas.width = px;
-    canvas.height = px;
+    canvas.width = size;
+    canvas.height = size;
     const ctx = canvas.getContext("2d")!;
     ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, px, px);
-
-    const pad = px * 0.06;
-    const logoSize = px - pad * 2;
+    ctx.fillRect(0, 0, size, size);
+    const pad = size * 0.06;
+    const logoSize = size - pad * 2;
     ctx.drawImage(img, pad, pad, logoSize, logoSize);
+    return canvas;
+  };
 
-    const jsPDF = (await import("jspdf")).default;
-    const pdf = new jsPDF("p", "mm", "a4");
-    const pw = pdf.internal.pageSize.getWidth();
-    const ph = pdf.internal.pageSize.getHeight();
+  const handleDownloadModPNG = async (modId: string, modName: string, px: number, label: string) => {
+    const canvas = await svgToCanvas(modId, px);
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = `System_Kyron_${modName.replace(/[^a-zA-Z0-9]/g, '_')}_${label}.png`;
+    link.click();
+    toast({ title: "DESCARGA EXITOSA", description: `Logo "${modName}" descargado en PNG ${label}` });
+  };
 
-    const sizeMM = cm * 10;
-    const x = (pw - sizeMM) / 2;
-    const y = (ph - sizeMM) / 2;
-
-    pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, sizeMM);
-    const safeName = modName.replace(/[^a-zA-Z0-9]/g, "_");
-    pdf.save(`System_Kyron_${safeName}_${cm}x${cm}.pdf`);
-
-    toast({
-      title: "DESCARGA EXITOSA",
-      description: `Logo "${modName}" en PDF ${cm}x${cm} — listo para imprimir`,
-    });
+  const handleDownloadAllModPNG = async (px: number, label: string) => {
+    const mods = [
+      { id: "contabilidad", name: "Contabilidad" },
+      { id: "facturacion", name: "Facturación" },
+      { id: "nomina", name: "Nómina & RRHH" },
+      { id: "legal", name: "Legal" },
+      { id: "marketing", name: "Marketing" },
+      { id: "telecom", name: "Telecomunicaciones" },
+      { id: "it", name: "IT & Seguridad" },
+      { id: "socios", name: "Socios" },
+      { id: "sostenibilidad", name: "Sostenibilidad" },
+      { id: "planificacion", name: "Planificación" },
+      { id: "ia", name: "IA & Automatización" },
+      { id: "ciudadano", name: "Portal Ciudadano" },
+    ];
+    for (const mod of mods) {
+      await handleDownloadModPNG(mod.id, mod.name, px, label);
+    }
+    toast({ title: "DESCARGA MASIVA", description: `12 logos descargados en PNG ${label}` });
   };
 
   const handleDownloadAllModPDF = async (cm: number) => {
@@ -215,33 +238,13 @@ export default function IdentidadMarcaPage() {
 
     const jsPDF = (await import("jspdf")).default;
     const pdf = new jsPDF("p", "mm", "a4");
-    const pw = pdf.internal.pageSize.getWidth();
-    const ph = pdf.internal.pageSize.getHeight();
     const sizeMM = cm * 10;
-    const x = (pw - sizeMM) / 2;
-    const y = (ph - sizeMM) / 2;
+    const x = (pdf.internal.pageSize.getWidth() - sizeMM) / 2;
+    const y = (pdf.internal.pageSize.getHeight() - sizeMM) / 2;
 
     for (let i = 0; i < mods.length; i++) {
-      const mod = mods[i];
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.src = `/images/module-logos/mod-${mod.id}.svg`;
-      await new Promise<void>((resolve, reject) => {
-        img.onload = () => resolve();
-        img.onerror = reject;
-      });
-
       const px = Math.round((cm / 2.54) * 300);
-      const canvas = document.createElement("canvas");
-      canvas.width = px;
-      canvas.height = px;
-      const ctx = canvas.getContext("2d")!;
-      ctx.fillStyle = "#FFFFFF";
-      ctx.fillRect(0, 0, px, px);
-      const pad = px * 0.06;
-      const logoSize = px - pad * 2;
-      ctx.drawImage(img, pad, pad, logoSize, logoSize);
-
+      const canvas = await svgToCanvas(mods[i].id, px);
       pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, sizeMM);
       if (i < mods.length - 1) pdf.addPage();
     }
@@ -534,9 +537,20 @@ export default function IdentidadMarcaPage() {
                   onClick={() => handleDownloadAllModPDF(5)}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600/90 to-rose-600/90 hover:from-violet-600 hover:to-rose-600 text-white font-bold uppercase text-[10px] tracking-widest transition-all shadow-lg"
                 >
-                  <FileText className="h-4 w-4" /> DESCARGAR TODOS LOS MÓDULOS EN PDF
+                  <FileText className="h-4 w-4" />                   DESCARGAR TODOS LOS MÓDULOS EN PDF
                 </button>
-              </div>
+                <button
+                  onClick={() => handleDownloadAllModPNG(512, "512px")}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600/90 to-orange-600/90 hover:from-amber-600 hover:to-orange-600 text-white font-bold uppercase text-[10px] tracking-widest transition-all shadow-lg ml-3"
+                >
+                  <FileImage className="h-4 w-4" /> DESCARGAR TODOS EN PNG 512px
+                </button>
+                <button
+                  onClick={() => handleDownloadAllModPNG(2048, "2048px")}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-sky-600/90 to-indigo-600/90 hover:from-sky-600 hover:to-indigo-600 text-white font-bold uppercase text-[10px] tracking-widest transition-all shadow-lg ml-3"
+                >
+                  <FileImage className="h-4 w-4" /> DESCARGAR TODOS EN PNG 2048px
+                </button>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
@@ -559,7 +573,7 @@ export default function IdentidadMarcaPage() {
                     <object data={`/images/module-logos/mod-${mod.id}.svg`} type="image/svg+xml" className="w-full h-full" style={{ colorScheme: "auto" }}>?</object>
                   </div>
                   <p className="text-[10px] font-bold text-center text-foreground uppercase tracking-wider mb-2">{mod.name}</p>
-                  <div className="flex justify-center gap-2">
+                  <div className="flex flex-wrap justify-center gap-1">
                     <button
                       onClick={() => {
                         const link = document.createElement("a");
@@ -568,12 +582,20 @@ export default function IdentidadMarcaPage() {
                         link.click();
                         toast({ title: "DESCARGA EXITOSA", description: `Logo "${mod.name}" descargado en SVG` });
                       }}
-                      className="px-2.5 py-1 rounded-lg text-[8px] font-bold uppercase tracking-widest bg-violet-500/10 text-violet-400 border border-violet-500/20 hover:bg-violet-500/20 transition-all"
+                      className="px-2 py-1 rounded-lg text-[7px] font-bold uppercase tracking-widest bg-violet-500/10 text-violet-400 border border-violet-500/20 hover:bg-violet-500/20 transition-all"
                     >SVG</button>
                     <button
                       onClick={() => handleDownloadModPDF(mod.id, mod.name, 5)}
-                      className="px-2.5 py-1 rounded-lg text-[8px] font-bold uppercase tracking-widest bg-rose-500/10 text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-all"
-                    >PDF 5×5</button>
+                      className="px-2 py-1 rounded-lg text-[7px] font-bold uppercase tracking-widest bg-rose-500/10 text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-all"
+                    >PDF</button>
+                    <button
+                      onClick={() => handleDownloadModPNG(mod.id, mod.name, 512, "512px")}
+                      className="px-2 py-1 rounded-lg text-[7px] font-bold uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-all"
+                    >PNG</button>
+                    <button
+                      onClick={() => handleDownloadModPNG(mod.id, mod.name, 2048, "2048px")}
+                      className="px-2 py-1 rounded-lg text-[7px] font-bold uppercase tracking-widest bg-sky-500/10 text-sky-400 border border-sky-500/20 hover:bg-sky-500/20 transition-all"
+                    >HD</button>
                   </div>
                 </div>
               ))}
