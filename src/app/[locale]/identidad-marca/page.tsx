@@ -261,12 +261,15 @@ export default function IdentidadMarcaPage() {
       const canvas = await svgToCanvas(mods[i].id, px);
       const logoY = (ph - sizeMM) / 2 - 4;
       pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, logoY, sizeMM, sizeMM);
-      const fontSize = 10;
+      const nameY = logoY + sizeMM + 3;
       pdf.setFont("Helvetica", "bold");
-      pdf.setFontSize(fontSize);
+      pdf.setFontSize(10);
       pdf.setTextColor(100, 100, 100);
-      const textY = logoY + sizeMM + 3;
-      pdf.text(mods[i].name.toUpperCase(), pw / 2, textY, { align: "center" });
+      pdf.text(mods[i].name.toUpperCase(), pw / 2, nameY, { align: "center" });
+      pdf.setFont("Helvetica", "normal");
+      pdf.setFontSize(7);
+      pdf.setTextColor(150, 150, 150);
+      pdf.text("System Kyron — Tu ecosistema operativo", pw / 2, nameY + 4, { align: "center" });
     }
 
     pdf.save(`System_Kyron_Todos_Los_Modulos_${cm}x${cm}.pdf`);
