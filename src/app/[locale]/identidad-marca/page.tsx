@@ -156,6 +156,47 @@ export default function IdentidadMarcaPage() {
     });
   };
 
+  const handleDownloadModPDF = async (modId: string, modName: string, cm: number) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = `/images/module-logos/mod-${modId}.svg`;
+
+    await new Promise<void>((resolve, reject) => {
+      img.onload = () => resolve();
+      img.onerror = reject;
+    });
+
+    const px = Math.round((cm / 2.54) * 300);
+    const canvas = document.createElement("canvas");
+    canvas.width = px;
+    canvas.height = px;
+    const ctx = canvas.getContext("2d")!;
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(0, 0, px, px);
+
+    const pad = px * 0.06;
+    const logoSize = px - pad * 2;
+    ctx.drawImage(img, pad, pad, logoSize, logoSize);
+
+    const jsPDF = (await import("jspdf")).default;
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pw = pdf.internal.pageSize.getWidth();
+    const ph = pdf.internal.pageSize.getHeight();
+
+    const sizeMM = cm * 10;
+    const x = (pw - sizeMM) / 2;
+    const y = (ph - sizeMM) / 2;
+
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", x, y, sizeMM, sizeMM);
+    const safeName = modName.replace(/[^a-zA-Z0-9]/g, "_");
+    pdf.save(`System_Kyron_${safeName}_${cm}x${cm}.pdf`);
+
+    toast({
+      title: "DESCARGA EXITOSA",
+      description: `Logo "${modName}" en PDF ${cm}x${cm} — listo para imprimir`,
+    });
+  };
+
   const handleDownloadCM = async (cm: number, withName: boolean) => {
     const img = new Image();
     img.crossOrigin = "anonymous";
@@ -430,7 +471,7 @@ export default function IdentidadMarcaPage() {
                 <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">Cada Módulo, Su Marca</span>
               </h2>
               <p className="text-sm text-muted-foreground max-w-xl mx-auto">
-                Logos SVG vectoriales para cada módulo del ecosistema System Kyron. Haz clic para descargar.
+                Logos SVG vectoriales + PDF 5×5 listo para imprimir. Haz clic en el SVG para descargar vector, o en PDF para impresión milimétrica.
               </p>
             </div>
 
@@ -449,19 +490,27 @@ export default function IdentidadMarcaPage() {
                 { id: "ia", name: "IA & Automatización", color: "border-purple-500/30 bg-purple-500/5" },
                 { id: "ciudadano", name: "Portal Ciudadano", color: "border-sky-500/30 bg-sky-500/5" },
               ].map(mod => (
-                <div key={mod.id} className={`group relative p-5 rounded-2xl border ${mod.color} hover:bg-card/60 transition-all cursor-pointer`} onClick={() => {
-                  const link = document.createElement("a");
-                  link.href = `/images/module-logos/mod-${mod.id}.svg`;
-                  link.download = `System_Kyron_${mod.name.replace(/[^a-zA-Z0-9]/g, '_')}.svg`;
-                  link.click();
-                  toast({ title: "DESCARGA EXITOSA", description: `Logo "${mod.name}" descargado en SVG` });
-                }}>
-                  <div className="h-16 w-16 mx-auto mb-3 text-foreground">
-                    <object data={`/images/module-logos/mod-${mod.id}.svg`} type="image/svg+xml" className="w-full h-full pointer-events-none" style={{ colorScheme: "auto" }}>?</object>
+                <div key={mod.id} className={`group relative p-5 rounded-2xl border ${mod.color} bg-card/30 hover:bg-card/60 transition-all`}>
+                  <div className="h-16 w-16 mx-auto mb-3 text-foreground pointer-events-none">
+                    <object data={`/images/module-logos/mod-${mod.id}.svg`} type="image/svg+xml" className="w-full h-full" style={{ colorScheme: "auto" }}>?</object>
                   </div>
-                  <p className="text-[10px] font-bold text-center text-foreground uppercase tracking-wider">{mod.name}</p>
-                  <p className="text-[8px] font-bold text-center text-muted-foreground/40 uppercase tracking-widest mt-1">SVG</p>
-                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-transparent group-hover:ring-white/10 transition-all" />
+                  <p className="text-[10px] font-bold text-center text-foreground uppercase tracking-wider mb-2">{mod.name}</p>
+                  <div className="flex justify-center gap-2">
+                    <button
+                      onClick={() => {
+                        const link = document.createElement("a");
+                        link.href = `/images/module-logos/mod-${mod.id}.svg`;
+                        link.download = `System_Kyron_${mod.name.replace(/[^a-zA-Z0-9]/g, '_')}.svg`;
+                        link.click();
+                        toast({ title: "DESCARGA EXITOSA", description: `Logo "${mod.name}" descargado en SVG` });
+                      }}
+                      className="px-2.5 py-1 rounded-lg text-[8px] font-bold uppercase tracking-widest bg-violet-500/10 text-violet-400 border border-violet-500/20 hover:bg-violet-500/20 transition-all"
+                    >SVG</button>
+                    <button
+                      onClick={() => handleDownloadModPDF(mod.id, mod.name, 5)}
+                      className="px-2.5 py-1 rounded-lg text-[8px] font-bold uppercase tracking-widest bg-rose-500/10 text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-all"
+                    >PDF 5×5</button>
+                  </div>
                 </div>
               ))}
             </div>
