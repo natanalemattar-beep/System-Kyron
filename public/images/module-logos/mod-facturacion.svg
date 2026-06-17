@@ -2,11 +2,17 @@
   <defs>
     <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
       <feGaussianBlur stdDeviation="6" result="blur" />
-      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
     <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="3" result="blur" />
-      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
     <linearGradient id="hexGrad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#fbbf24" />
@@ -18,12 +24,12 @@
       <stop offset="100%" stop-color="#d97706" stop-opacity="0.02" />
     </linearGradient>
     <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fde68a" />
+      <stop offset="0%" stop-color="#fef3c7" />
       <stop offset="50%" stop-color="#fbbf24" />
-      <stop offset="100%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
     </linearGradient>
     <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.15" />
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.2" />
       <stop offset="100%" stop-color="#030712" stop-opacity="0" />
     </radialGradient>
     <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -33,24 +39,28 @@
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
     </linearGradient>
   </defs>
+  
+  <!-- Background -->
   <rect width="100%" height="100%" fill="#030712" rx="32" />
-  <circle cx="100" cy="100" r="70" fill="url(#centerGlow)" />
+  <circle cx="100" cy="100" r="75" fill="url(#centerGlow)" />
+  
+  <!-- Outer Hexagon Border -->
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="none" stroke="url(#hexGrad)" stroke-width="0.8" opacity="0.3" filter="url(#glow)" />
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
+  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="2.5" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
-  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
+  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.2" />
   
-  <!-- Invoicing Receipt/Document (Facturación) -->
-  <rect x="75" y="60" width="50" height="70" rx="4" fill="none" stroke="url(#iconGrad)" stroke-width="6" stroke-linejoin="round" filter="url(#softGlow)" />
-  <line x1="87" y1="78" x2="113" y2="78" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" />
-  <line x1="87" y1="94" x2="113" y2="94" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.75" />
-  <line x1="87" y1="110" x2="103" y2="110" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.55" />
+  <!-- Icon: Document Receipt (Facturación) -->
+  <g transform="translate(5, 5)">
+    <rect x="75" y="60" width="40" height="60" rx="3" fill="none" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linejoin="round" filter="url(#softGlow)" />
+    <line x1="85" y1="75" x2="105" y2="75" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.9" />
+    <line x1="85" y1="90" x2="105" y2="90" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.75" />
+    <line x1="85" y1="105" x2="97" y2="105" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.55" />
+    <path d="M 110,110 L 118,120 L 132,102" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
+  </g>
   
-  <!-- Glowing Checkmark at bottom right of document -->
-  <path d="M 120,115 L 128,127 L 142,107" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
-  
-  <!-- Concentric Circle dot -->
-  <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
-  <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="4.5" fill="#fbbf24" filter="url(#softGlow)" />
+  <!-- Concentric Dot -->
+  <circle cx="85" cy="100" r="12" fill="#FFFFFF" opacity="0.1" />
+  <circle cx="85" cy="100" r="8" fill="#FFFFFF" filter="url(#softGlow)" />
+  <circle cx="85" cy="100" r="4" fill="#fbbf24" filter="url(#softGlow)" />
 </svg>

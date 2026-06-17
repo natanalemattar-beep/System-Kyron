@@ -2,11 +2,17 @@
   <defs>
     <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
       <feGaussianBlur stdDeviation="6" result="blur" />
-      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
     <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="3" result="blur" />
-      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
     <linearGradient id="hexGrad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#60a5fa" />
@@ -23,7 +29,7 @@
       <stop offset="100%" stop-color="#2563eb" />
     </linearGradient>
     <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.15" />
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.2" />
       <stop offset="100%" stop-color="#030712" stop-opacity="0" />
     </radialGradient>
     <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -33,27 +39,32 @@
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
     </linearGradient>
   </defs>
+  
+  <!-- Background -->
   <rect width="100%" height="100%" fill="#030712" rx="32" />
-  <circle cx="100" cy="100" r="70" fill="url(#centerGlow)" />
+  <circle cx="100" cy="100" r="75" fill="url(#centerGlow)" />
+  
+  <!-- Outer Hexagon Border -->
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="none" stroke="url(#hexGrad)" stroke-width="0.8" opacity="0.3" filter="url(#glow)" />
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
+  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="2.5" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
-  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
+  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.2" />
   
-  <!-- Classic Civic Portal/Temple (Portal Ciudadano) -->
-  <path d="M 60,78 L 100,50 L 140,78 Z" fill="none" stroke="url(#iconGrad)" stroke-width="6" stroke-linejoin="round" filter="url(#softGlow)" />
-  <rect x="65" y="78" width="70" height="8" rx="1" fill="url(#iconGrad)" />
+  <!-- Icon: Government Portal/Temple (Portal Ciudadano) -->
+  <g transform="translate(10, 10)">
+    <path d="M 50,75 L 90,47 L 130,75 Z" fill="none" stroke="url(#iconGrad)" stroke-width="5" stroke-linejoin="round" filter="url(#softGlow)" />
+    <rect x="55" y="75" width="70" height="7" rx="1" fill="url(#iconGrad)" />
+    
+    <!-- Columns -->
+    <line x1="62" y1="82" x2="62" y2="120" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.9" />
+    <line x1="81" y1="82" x2="81" y2="120" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.9" />
+    <line x1="100" y1="82" x2="100" y2="120" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.9" />
+    <line x1="118" y1="82" x2="118" y2="120" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.9" />
+    
+    <rect x="50" y="120" width="80" height="8" rx="1.5" fill="url(#iconGrad)" />
+  </g>
   
-  <!-- Columns -->
-  <line x1="72" y1="86" x2="72" y2="128" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" />
-  <line x1="91" y1="86" x2="91" y2="128" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" />
-  <line x1="110" y1="86" x2="110" y2="128" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" />
-  <line x1="128" y1="86" x2="128" y2="128" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" />
-  
-  <!-- Base -->
-  <rect x="60" y="128" width="80" height="10" rx="2" fill="url(#iconGrad)" />
-  
-  <!-- Concentric Circle dot -->
+  <!-- Concentric Dot -->
   <circle cx="100" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
   <circle cx="100" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
   <circle cx="100" cy="100" r="4.5" fill="#60a5fa" filter="url(#softGlow)" />

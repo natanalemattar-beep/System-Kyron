@@ -2,11 +2,17 @@
   <defs>
     <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
       <feGaussianBlur stdDeviation="6" result="blur" />
-      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
     <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="3" result="blur" />
-      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
     <linearGradient id="hexGrad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#2dd4bf" />
@@ -18,12 +24,12 @@
       <stop offset="100%" stop-color="#0891b2" stop-opacity="0.02" />
     </linearGradient>
     <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#5eead4" />
+      <stop offset="0%" stop-color="#ccfbf1" />
       <stop offset="50%" stop-color="#2dd4bf" />
       <stop offset="100%" stop-color="#14b8a6" />
     </linearGradient>
     <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.15" />
+      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.2" />
       <stop offset="100%" stop-color="#030712" stop-opacity="0" />
     </radialGradient>
     <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -33,28 +39,34 @@
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
     </linearGradient>
   </defs>
+  
+  <!-- Background -->
   <rect width="100%" height="100%" fill="#030712" rx="32" />
-  <circle cx="100" cy="100" r="70" fill="url(#centerGlow)" />
+  <circle cx="100" cy="100" r="75" fill="url(#centerGlow)" />
+  
+  <!-- Outer Hexagon Border -->
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="none" stroke="url(#hexGrad)" stroke-width="0.8" opacity="0.3" filter="url(#glow)" />
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
+  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="2.5" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
-  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
+  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.2" />
   
-  <!-- Smartphone Outline & Signal (Líneas Personal) -->
-  <rect x="80" y="60" width="40" height="80" rx="6" fill="none" stroke="url(#iconGrad)" stroke-width="6" filter="url(#softGlow)" />
-  <circle cx="100" cy="130" r="4" fill="#FFFFFF" opacity="0.9" />
+  <!-- Icon: Smartphone Connectivity (Líneas Personal) -->
+  <g transform="translate(10, 10)">
+    <rect x="75" y="55" width="30" height="65" rx="5" fill="none" stroke="url(#iconGrad)" stroke-width="5" filter="url(#softGlow)" />
+    <circle cx="90" cy="110" r="3" fill="#FFFFFF" opacity="0.9" />
+    
+    <!-- Waves -->
+    <path d="M 80,45 A 12,12 0 0 1 100,45" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.9" />
+    <path d="M 72,37 A 24,24 0 0 1 108,37" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.75" filter="url(#softGlow)" />
+    <path d="M 64,29 A 36,36 0 0 1 116,29" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.55" filter="url(#softGlow)" />
+    
+    <!-- Micro User Icon -->
+    <circle cx="90" cy="74" r="5" fill="#FFFFFF" opacity="0.8" />
+    <path d="M 81,90 C 81,83 99,83 99,90" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.8" />
+  </g>
   
-  <!-- Signal Waves radiating from phone -->
-  <path d="M 87,50 A 15,15 0 0 1 113,50" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" filter="url(#softGlow)" opacity="0.9" />
-  <path d="M 77,42 A 30,30 0 0 1 123,42" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" filter="url(#softGlow)" opacity="0.7" />
-  <path d="M 67,34 A 45,45 0 0 1 133,34" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" filter="url(#softGlow)" opacity="0.5" />
-  
-  <!-- User Silhouette inside phone -->
-  <circle cx="100" cy="85" r="7" fill="#FFFFFF" opacity="0.8" />
-  <path d="M 88,105 C 88,97 112,97 112,105" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.8" />
-  
-  <!-- Concentric Circle dot -->
-  <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
-  <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="4.5" fill="#2dd4bf" filter="url(#softGlow)" />
+  <!-- Concentric Dot -->
+  <circle cx="85" cy="100" r="12" fill="#FFFFFF" opacity="0.1" />
+  <circle cx="85" cy="100" r="8" fill="#FFFFFF" filter="url(#softGlow)" />
+  <circle cx="85" cy="100" r="4" fill="#2dd4bf" filter="url(#softGlow)" />
 </svg>

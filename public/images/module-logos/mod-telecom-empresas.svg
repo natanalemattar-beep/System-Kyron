@@ -2,11 +2,17 @@
   <defs>
     <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
       <feGaussianBlur stdDeviation="6" result="blur" />
-      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
     <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="3" result="blur" />
-      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
     <linearGradient id="hexGrad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#2dd4bf" />
@@ -18,12 +24,12 @@
       <stop offset="100%" stop-color="#0891b2" stop-opacity="0.02" />
     </linearGradient>
     <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#5eead4" />
+      <stop offset="0%" stop-color="#ccfbf1" />
       <stop offset="50%" stop-color="#2dd4bf" />
       <stop offset="100%" stop-color="#14b8a6" />
     </linearGradient>
     <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.15" />
+      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.2" />
       <stop offset="100%" stop-color="#030712" stop-opacity="0" />
     </radialGradient>
     <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -33,25 +39,31 @@
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
     </linearGradient>
   </defs>
+  
+  <!-- Background -->
   <rect width="100%" height="100%" fill="#030712" rx="32" />
-  <circle cx="100" cy="100" r="70" fill="url(#centerGlow)" />
+  <circle cx="100" cy="100" r="75" fill="url(#centerGlow)" />
+  
+  <!-- Outer Hexagon Border -->
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="none" stroke="url(#hexGrad)" stroke-width="0.8" opacity="0.3" filter="url(#glow)" />
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
+  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="2.5" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
-  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
+  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.2" />
   
-  <!-- Corporate Office Buildings & Signal Tower (Líneas Empresas) -->
-  <rect x="70" y="85" width="20" height="55" rx="2" fill="none" stroke="url(#iconGrad)" stroke-width="7" stroke-linecap="round" filter="url(#softGlow)" />
-  <rect x="100" y="65" width="22" height="75" rx="2" fill="none" stroke="url(#iconGrad)" stroke-width="7" stroke-linecap="round" filter="url(#softGlow)" />
-  <rect x="132" y="90" width="18" height="50" rx="2" fill="none" stroke="url(#iconGrad)" stroke-width="7" stroke-linecap="round" filter="url(#softGlow)" />
+  <!-- Icon: Enterprise Telecommunications Buildings (Líneas Empresas) -->
+  <g transform="translate(10, 10)">
+    <rect x="65" y="80" width="16" height="45" rx="1.5" fill="none" stroke="url(#iconGrad)" stroke-width="5" stroke-linecap="round" filter="url(#softGlow)" />
+    <rect x="88" y="60" width="18" height="65" rx="1.5" fill="none" stroke="url(#iconGrad)" stroke-width="5" stroke-linecap="round" filter="url(#softGlow)" />
+    <rect x="114" y="85" width="14" height="40" rx="1.5" fill="none" stroke="url(#iconGrad)" stroke-width="5" stroke-linecap="round" filter="url(#softGlow)" />
+    
+    <!-- Core Signal Waves -->
+    <path d="M 91,46 A 8,8 0 0 1 103,46" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.9" />
+    <path d="M 85,38 A 18,18 0 0 1 109,38" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.75" />
+    <path d="M 79,30 A 28,28 0 0 1 115,30" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.55" filter="url(#softGlow)" />
+  </g>
   
-  <!-- Signal Waves radiating from the main center building -->
-  <path d="M 103,50 A 10,10 0 0 1 119,50" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.9" />
-  <path d="M 97,42 A 22,22 0 0 1 125,42" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.7" />
-  <path d="M 91,34 A 34,34 0 0 1 131,34" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.5" filter="url(#softGlow)" />
-  
-  <!-- Concentric Circle dot -->
-  <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
-  <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="4.5" fill="#2dd4bf" filter="url(#softGlow)" />
+  <!-- Concentric Dot -->
+  <circle cx="85" cy="100" r="12" fill="#FFFFFF" opacity="0.1" />
+  <circle cx="85" cy="100" r="8" fill="#FFFFFF" filter="url(#softGlow)" />
+  <circle cx="85" cy="100" r="4" fill="#2dd4bf" filter="url(#softGlow)" />
 </svg>
