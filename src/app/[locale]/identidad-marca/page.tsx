@@ -270,7 +270,8 @@ export default function IdentidadMarcaPage() {
       { id: "nomina", name: "Nómina & RRHH", emoji: "👥" },
       { id: "legal", name: "Legal", emoji: "⚖️" },
       { id: "marketing", name: "Marketing", emoji: "📣" },
-      { id: "telecom", name: "Telecomunicaciones", emoji: "📡" },
+      { id: "telecom-personal", name: "Líneas Personal", emoji: "📱" },
+      { id: "telecom-empresas", name: "Líneas Empresas", emoji: "🏢" },
       { id: "it", name: "IT & Seguridad", emoji: "🛡️" },
       { id: "socios", name: "Socios", emoji: "🤝" },
       { id: "sostenibilidad", name: "Sostenibilidad", emoji: "🌿" },
@@ -292,7 +293,8 @@ export default function IdentidadMarcaPage() {
       { id: "nomina", name: "Nómina & RRHH", emoji: "👥" },
       { id: "legal", name: "Legal", emoji: "⚖️" },
       { id: "marketing", name: "Marketing", emoji: "📣" },
-      { id: "telecom", name: "Telecomunicaciones", emoji: "📡" },
+      { id: "telecom-personal", name: "Líneas Personal", emoji: "📱" },
+      { id: "telecom-empresas", name: "Líneas Empresas", emoji: "🏢" },
       { id: "it", name: "IT & Seguridad", emoji: "🛡️" },
       { id: "socios", name: "Socios", emoji: "🤝" },
       { id: "sostenibilidad", name: "Sostenibilidad", emoji: "🌿" },
@@ -632,10 +634,10 @@ export default function IdentidadMarcaPage() {
               </p>
               <div className="pt-4">
                 <button
-                  onClick={() => handleDownloadAllModPDF(5)}
+                  onClick={() => handleDownloadAllModPDF(4)}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600/90 to-rose-600/90 hover:from-violet-600 hover:to-rose-600 text-white font-bold uppercase text-[10px] tracking-widest transition-all shadow-lg"
                 >
-                  <FileText className="h-4 w-4" />                   DESCARGAR TODOS LOS MÓDULOS EN PDF
+                  <FileText className="h-4 w-4" />                   DESCARGAR TODOS LOS MÓDULOS EN PDF (4×4)
                 </button>
                 <button
                   onClick={() => handleDownloadAllModPNG(512, "512px")}
@@ -659,7 +661,8 @@ export default function IdentidadMarcaPage() {
                 { id: "nomina", name: "Nómina & RRHH", color: "border-emerald-500/30 bg-emerald-500/5" },
                 { id: "legal", name: "Legal", color: "border-rose-500/30 bg-rose-500/5" },
                 { id: "marketing", name: "Marketing", color: "border-fuchsia-500/30 bg-fuchsia-500/5" },
-                { id: "telecom", name: "Telecomunicaciones", color: "border-teal-500/30 bg-teal-500/5" },
+                { id: "telecom-personal", name: "Líneas Personal", color: "border-teal-500/30 bg-teal-500/5" },
+                { id: "telecom-empresas", name: "Líneas Empresas", color: "border-teal-500/30 bg-teal-500/5" },
                 { id: "it", name: "IT & Seguridad", color: "border-slate-500/30 bg-slate-500/5" },
                 { id: "socios", name: "Socios", color: "border-blue-500/30 bg-blue-500/5" },
                 { id: "sostenibilidad", name: "Sostenibilidad", color: "border-green-500/30 bg-green-500/5" },
@@ -710,7 +713,8 @@ export default function IdentidadMarcaPage() {
                   { emoji: "👥", name: "Nómina & RRHH" },
                   { emoji: "⚖️", name: "Legal" },
                   { emoji: "📣", name: "Marketing" },
-                  { emoji: "📡", name: "Telecomunicaciones" },
+                  { emoji: "📱", name: "Líneas Personal" },
+                  { emoji: "🏢", name: "Líneas Empresas" },
                   { emoji: "🛡️", name: "IT & Seguridad" },
                   { emoji: "🤝", name: "Socios" },
                   { emoji: "🌿", name: "Sostenibilidad" },
