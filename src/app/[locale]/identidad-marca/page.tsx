@@ -560,6 +560,22 @@ export default function IdentidadMarcaPage() {
 
             <Button 
               variant="outline" 
+              className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-rose-600/30 bg-rose-600/5 text-rose-500 hover:bg-rose-600/10 shadow-glow"
+              onClick={() => handleDownloadPDFCM(4, false)}
+            >
+              <FileText className="mr-3 h-4 w-4" /> 4×4 SOLO PDF
+            </Button>
+
+            <Button 
+              variant="outline" 
+              className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-rose-500/30 bg-rose-500/5 text-rose-400 hover:bg-rose-500/10 shadow-glow"
+              onClick={() => handleDownloadPDFCM(4, true)}
+            >
+              <FileText className="mr-3 h-4 w-4" /> 4×4 + NOMBRE PDF
+            </Button>
+
+            <Button 
+              variant="outline" 
               className="rounded-2xl h-14 px-8 text-[10px] font-semibold uppercase tracking-widest border-green-600/30 bg-green-600/5 text-green-600 hover:bg-green-600/10 shadow-glow"
               onClick={() => handleDownloadCM(5, true)}
             >
