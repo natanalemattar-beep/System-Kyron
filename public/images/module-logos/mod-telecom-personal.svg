@@ -65,8 +65,6 @@
     <path d="M 81,90 C 81,83 99,83 99,90" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.8" />
   </g>
   
-  <!-- Concentric Dot -->
-  <circle cx="85" cy="100" r="12" fill="#FFFFFF" opacity="0.1" />
-  <circle cx="85" cy="100" r="8" fill="#FFFFFF" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="4" fill="#2dd4bf" filter="url(#softGlow)" />
+  <!-- Concentric Dot Removed -->
 </svg>
+

@@ -64,8 +64,6 @@
     <rect x="50" y="120" width="80" height="8" rx="1.5" fill="url(#iconGrad)" />
   </g>
   
-  <!-- Concentric Dot -->
-  <circle cx="100" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
-  <circle cx="100" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
-  <circle cx="100" cy="100" r="4.5" fill="#60a5fa" filter="url(#softGlow)" />
+  <!-- Concentric Dot Removed -->
 </svg>
+

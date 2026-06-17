@@ -68,3 +68,4 @@
   <circle cx="100" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
   <circle cx="100" cy="100" r="4.5" fill="#c084fc" filter="url(#softGlow)" />
 </svg>
+
