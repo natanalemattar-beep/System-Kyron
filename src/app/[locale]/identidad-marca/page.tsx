@@ -349,30 +349,34 @@ export default function IdentidadMarcaPage() {
 
     const px = Math.round((cm / 2.54) * 300);
     const canvas = document.createElement("canvas");
-    canvas.width = px;
-    canvas.height = px;
-
     const ctx = canvas.getContext("2d")!;
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, px, px);
 
     if (withName) {
-      const logoSize = px * 0.56;
-      const padX = (px - logoSize) / 2;
-      const logoY = px * 0.07;
-      ctx.drawImage(img, padX, logoY, logoSize, logoSize);
-
-      const textY = logoY + logoSize + px * 0.04;
       const fontSize = px * 0.075;
+      const lemaSize = px * 0.04;
+      const textGap = px * 0.035;
+      const lemaGap = px * 0.015;
+      const canvasH = px + textGap * 2 + fontSize + lemaGap + lemaSize;
+      canvas.width = px;
+      canvas.height = canvasH;
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, px, canvasH);
+      ctx.drawImage(img, 0, 0, px, px);
+      const textY = px + textGap;
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       ctx.fillStyle = "#1a1a2e";
       ctx.font = `bold ${fontSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
       ctx.fillText("SYSTEM KYRON", px / 2, textY);
+      ctx.fillStyle = "#888888";
+      ctx.font = `${lemaSize}px 'Inter', 'Segoe UI', Arial, sans-serif`;
+      ctx.fillText("El sistema que se adapta a ti", px / 2, textY + fontSize + lemaGap);
     } else {
-      const pad = px * 0.03;
-      const logoSize = px - pad * 2;
-      ctx.drawImage(img, pad, pad, logoSize, logoSize);
+      canvas.width = px;
+      canvas.height = px;
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, px, px);
+      ctx.drawImage(img, 0, 0, px, px);
     }
 
     const suffix = `${cm}x${cm}`;
