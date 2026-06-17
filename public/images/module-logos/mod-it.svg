@@ -26,19 +26,22 @@
       <stop offset="0%" stop-color="#6366f1" stop-opacity="0.15" />
       <stop offset="100%" stop-color="#030712" stop-opacity="0" />
     </radialGradient>
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15" />
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.01" />
+      <stop offset="40.1%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
   </defs>
   <rect width="100%" height="100%" fill="#030712" rx="32" />
   <circle cx="100" cy="100" r="70" fill="url(#centerGlow)" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="none" stroke="url(#hexGrad)" stroke-width="0.8" opacity="0.3" filter="url(#glow)" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
+  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
   <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
-  <path d="M 68,62 H 132 V 100 C 132,128 100,148 100,148 C 100,148 68,128 68,100 Z" fill="none" stroke="url(#iconGrad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
-  <path d="M 118,78 L 95,100 L 118,122" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" />
-  <circle cx="80" cy="78" r="3" fill="#FFFFFF" opacity="0.5" />
-  <circle cx="80" cy="122" r="3" fill="#FFFFFF" opacity="0.5" />
-  <circle cx="120" cy="65" r="2.5" fill="#FFFFFF" opacity="0.4" />
-  <circle cx="120" cy="135" r="2.5" fill="#FFFFFF" opacity="0.4" />
-  <circle cx="95" cy="100" r="10" fill="#FFFFFF" opacity="0.12" />
-  <circle cx="95" cy="100" r="7" fill="#FFFFFF" filter="url(#softGlow)" />
-  <circle cx="95" cy="100" r="3.5" fill="#818cf8" filter="url(#softGlow)" />
+  <path d="M 70,80 H 130 M 70,100 H 130 M 70,120 H 130" fill="none" stroke="url(#iconGrad)" stroke-width="10" stroke-linecap="round" filter="url(#softGlow)" />
+  <path d="M 100,70 V 130" fill="none" stroke="url(#iconGrad)" stroke-width="10" stroke-linecap="round" filter="url(#softGlow)" />
+  <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
+  <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
+  <circle cx="85" cy="100" r="4.5" fill="#818cf8" filter="url(#softGlow)" />
 </svg>
