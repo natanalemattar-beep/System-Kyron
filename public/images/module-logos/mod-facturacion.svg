@@ -39,9 +39,17 @@
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
   <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
-  <path d="M 70,100 L 130,100" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softGlow)" />
-  <path d="M 90,80 L 110,120" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softGlow)" />
-  <path d="M 110,80 L 90,120" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softGlow)" />
+  
+  <!-- Invoicing Receipt/Document (Facturación) -->
+  <rect x="75" y="60" width="50" height="70" rx="4" fill="none" stroke="url(#iconGrad)" stroke-width="6" stroke-linejoin="round" filter="url(#softGlow)" />
+  <line x1="87" y1="78" x2="113" y2="78" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" />
+  <line x1="87" y1="94" x2="113" y2="94" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.75" />
+  <line x1="87" y1="110" x2="103" y2="110" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.55" />
+  
+  <!-- Glowing Checkmark at bottom right of document -->
+  <path d="M 120,115 L 128,127 L 142,107" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
+  
+  <!-- Concentric Circle dot -->
   <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
   <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
   <circle cx="85" cy="100" r="4.5" fill="#fbbf24" filter="url(#softGlow)" />

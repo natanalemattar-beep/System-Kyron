@@ -39,9 +39,18 @@
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
   <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
-  <circle cx="80" cy="100" r="15" fill="none" stroke="url(#iconGrad)" stroke-width="12" stroke-linecap="round" filter="url(#softGlow)" />
-  <circle cx="120" cy="100" r="15" fill="none" stroke="url(#iconGrad)" stroke-width="12" stroke-linecap="round" filter="url(#softGlow)" />
-  <path d="M 80,100 L 120,100" fill="none" stroke="url(#iconGrad)" stroke-width="12" stroke-linecap="round" filter="url(#softGlow)" />
+  
+  <!-- Human Profiles/Team (Nómina & RRHH) -->
+  <circle cx="85" cy="85" r="14" fill="none" stroke="url(#iconGrad)" stroke-width="5" filter="url(#softGlow)" />
+  <path d="M 65,118 C 65,103 75,103 85,103 C 95,103 105,103 105,118" fill="none" stroke="url(#iconGrad)" stroke-width="5" stroke-linecap="round" filter="url(#softGlow)" />
+  
+  <circle cx="120" cy="75" r="11" fill="none" stroke="url(#iconGrad)" stroke-width="4.5" filter="url(#softGlow)" />
+  <path d="M 104,103 C 104,91 112,91 120,91 C 128,91 136,91 136,103" fill="none" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linecap="round" filter="url(#softGlow)" />
+  
+  <!-- Glowing Connection Bond -->
+  <path d="M 85,95 L 120,85" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="3,3" opacity="0.8" />
+  
+  <!-- Concentric Circle dot -->
   <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
   <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
   <circle cx="85" cy="100" r="4.5" fill="#34d399" filter="url(#softGlow)" />

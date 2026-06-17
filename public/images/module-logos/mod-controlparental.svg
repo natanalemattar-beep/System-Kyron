@@ -39,9 +39,19 @@
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
   <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
-  <path d="M 70,60 A 30,30 0 0 1 130,60" fill="none" stroke="url(#iconGrad)" stroke-width="12" stroke-linecap="round" filter="url(#softGlow)" />
-  <circle cx="100" cy="110" r="15" fill="none" stroke="url(#iconGrad)" stroke-width="12" stroke-linecap="round" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
-  <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="4.5" fill="#c084fc" filter="url(#softGlow)" />
+  
+  <!-- Parent & Child Protection Silhouette (Control Parental) -->
+  <path d="M 70,60 V 110 C 70,130 100,145 100,145 C 100,145 130,130 130,110 V 60" fill="none" stroke="url(#iconGrad)" stroke-width="6" stroke-linejoin="round" filter="url(#softGlow)" />
+  
+  <!-- Parent and child vectors inside parent shield -->
+  <circle cx="92" cy="85" r="5" fill="#FFFFFF" opacity="0.9" />
+  <path d="M 84,103 C 84,95 100,95 100,103" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.9" />
+  
+  <circle cx="108" cy="95" r="4" fill="#FFFFFF" opacity="0.75" />
+  <path d="M 101,112 C 101,105 115,105 115,112" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.75" />
+  
+  <!-- Concentric Circle dot -->
+  <circle cx="100" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
+  <circle cx="100" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
+  <circle cx="100" cy="100" r="4.5" fill="#c084fc" filter="url(#softGlow)" />
 </svg>

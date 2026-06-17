@@ -39,8 +39,24 @@
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
   <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
-  <path d="M 70,80 H 130 M 70,100 H 130 M 70,120 H 130" fill="none" stroke="url(#iconGrad)" stroke-width="10" stroke-linecap="round" filter="url(#softGlow)" />
-  <path d="M 100,70 V 130" fill="none" stroke="url(#iconGrad)" stroke-width="10" stroke-linecap="round" filter="url(#softGlow)" />
+  
+  <!-- Glowing Microchip/Circuit (Informatica IT) -->
+  <rect x="75" y="75" width="50" height="50" rx="6" fill="none" stroke="url(#iconGrad)" stroke-width="6" filter="url(#softGlow)" />
+  <rect x="87" y="87" width="26" height="26" rx="3" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.85" />
+  
+  <!-- Radiating circuit connection tracks -->
+  <line x1="75" y1="85" x2="60" y2="85" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linecap="round" />
+  <line x1="75" y1="100" x2="60" y2="100" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linecap="round" />
+  <line x1="75" y1="115" x2="60" y2="115" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linecap="round" />
+  <line x1="125" y1="85" x2="140" y2="85" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linecap="round" />
+  <line x1="125" y1="100" x2="140" y2="100" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linecap="round" />
+  <line x1="125" y1="115" x2="140" y2="115" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linecap="round" />
+  
+  <!-- Nodes at ends of circuits -->
+  <circle cx="60" cy="100" r="4.5" fill="#FFFFFF" filter="url(#softGlow)" />
+  <circle cx="140" cy="100" r="4.5" fill="#FFFFFF" filter="url(#softGlow)" />
+  
+  <!-- Concentric Circle dot -->
   <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
   <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
   <circle cx="85" cy="100" r="4.5" fill="#818cf8" filter="url(#softGlow)" />

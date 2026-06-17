@@ -39,9 +39,17 @@
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
   <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
-  <path d="M 80,130 L 80,110 L 100,110 L 100,130" fill="none" stroke="url(#iconGrad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
-  <path d="M 110,130 L 110,80 L 130,80 L 130,130" fill="none" stroke="url(#iconGrad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
-  <path d="M 80,100 L 130,100" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.3" />
+  
+  <!-- Financial Bar Chart (Accounting) -->
+  <rect x="70" y="105" width="12" height="35" rx="3" fill="url(#iconGrad)" filter="url(#softGlow)" />
+  <rect x="94" y="85" width="12" height="55" rx="3" fill="url(#iconGrad)" filter="url(#softGlow)" />
+  <rect x="118" y="65" width="12" height="75" rx="3" fill="url(#iconGrad)" filter="url(#softGlow)" />
+  
+  <!-- Glowing Trend Line -->
+  <path d="M 65,120 L 90,100 L 114,80 L 140,55" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
+  <circle cx="140" cy="55" r="4" fill="#FFFFFF" filter="url(#glow)" />
+  
+  <!-- Concentric Circle dot -->
   <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
   <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
   <circle cx="85" cy="100" r="4.5" fill="#34d399" filter="url(#softGlow)" />

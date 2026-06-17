@@ -39,9 +39,18 @@
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
   <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
-  <circle cx="100" cy="100" r="30" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softGlow)" />
-  <circle cx="100" cy="100" r="20" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softGlow)" />
-  <circle cx="100" cy="100" r="10" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softGlow)" />
+  
+  <!-- Megaphone/Broadcasting Horn (Marketing) -->
+  <path d="M 65,115 L 85,115 L 115,135 V 65 L 85,85 L 65,85 Z" fill="none" stroke="url(#iconGrad)" stroke-width="6" stroke-linejoin="round" filter="url(#softGlow)" />
+  <path d="M 65,85 V 115" stroke="url(#iconGrad)" stroke-width="6" />
+  <path d="M 75,115 L 75,130 L 85,125" fill="none" stroke="url(#iconGrad)" stroke-width="5" stroke-linejoin="round" />
+  
+  <!-- Expanding Waves -->
+  <path d="M 128,85 A 20,20 0 0 1 128,115" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" filter="url(#softGlow)" />
+  <path d="M 138,75 A 35,38 0 0 1 138,125" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.7" filter="url(#softGlow)" />
+  <path d="M 148,65 A 50,54 0 0 1 148,135" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.5" filter="url(#softGlow)" />
+  
+  <!-- Concentric Circle dot -->
   <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
   <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
   <circle cx="85" cy="100" r="4.5" fill="#e879f9" filter="url(#softGlow)" />

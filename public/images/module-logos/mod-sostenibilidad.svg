@@ -39,7 +39,15 @@
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
   <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
-  <path d="M 100,140 C 140,140 150,100 100,60 C 50,100 60,140 100,140" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softGlow)" />
+  
+  <!-- Stylized Green Leaf (Sostenibilidad) -->
+  <path d="M 70,120 C 70,80 100,60 130,60 C 130,60 130,100 100,120 C 85,130 75,130 70,120 Z" fill="none" stroke="url(#iconGrad)" stroke-width="8" stroke-linejoin="round" filter="url(#softGlow)" />
+  
+  <!-- Glowing central leaf vein -->
+  <path d="M 70,120 Q 95,95 130,60" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" filter="url(#softGlow)" />
+  <path d="M 95,95 Q 110,90 120,80" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.6" />
+  
+  <!-- Concentric Circle dot -->
   <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
   <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
   <circle cx="85" cy="100" r="4.5" fill="#4ade80" filter="url(#softGlow)" />

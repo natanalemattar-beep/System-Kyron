@@ -39,8 +39,21 @@
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
   <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
-  <path d="M 85,100 Q 100,70 120,100 Q 140,130 120,160" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softGlow)" />
-  <circle cx="120" cy="160" r="8" fill="#FFFFFF" filter="url(#softGlow)" />
+  
+  <!-- Smartphone Outline & Signal (Líneas Personal) -->
+  <rect x="80" y="60" width="40" height="80" rx="6" fill="none" stroke="url(#iconGrad)" stroke-width="6" filter="url(#softGlow)" />
+  <circle cx="100" cy="130" r="4" fill="#FFFFFF" opacity="0.9" />
+  
+  <!-- Signal Waves radiating from phone -->
+  <path d="M 87,50 A 15,15 0 0 1 113,50" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" filter="url(#softGlow)" opacity="0.9" />
+  <path d="M 77,42 A 30,30 0 0 1 123,42" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" filter="url(#softGlow)" opacity="0.7" />
+  <path d="M 67,34 A 45,45 0 0 1 133,34" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" filter="url(#softGlow)" opacity="0.5" />
+  
+  <!-- User Silhouette inside phone -->
+  <circle cx="100" cy="85" r="7" fill="#FFFFFF" opacity="0.8" />
+  <path d="M 88,105 C 88,97 112,97 112,105" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.8" />
+  
+  <!-- Concentric Circle dot -->
   <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
   <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
   <circle cx="85" cy="100" r="4.5" fill="#2dd4bf" filter="url(#softGlow)" />

@@ -39,9 +39,22 @@
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
   <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
   <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
-  <path d="M 80,60 L 120,60 M 80,100 L 120,100 M 80,140 L 120,140" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softGlow)" />
-  <path d="M 100,60 L 100,140" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
-  <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="4.5" fill="#60a5fa" filter="url(#softGlow)" />
+  
+  <!-- Classic Civic Portal/Temple (Portal Ciudadano) -->
+  <path d="M 60,78 L 100,50 L 140,78 Z" fill="none" stroke="url(#iconGrad)" stroke-width="6" stroke-linejoin="round" filter="url(#softGlow)" />
+  <rect x="65" y="78" width="70" height="8" rx="1" fill="url(#iconGrad)" />
+  
+  <!-- Columns -->
+  <line x1="72" y1="86" x2="72" y2="128" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" />
+  <line x1="91" y1="86" x2="91" y2="128" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" />
+  <line x1="110" y1="86" x2="110" y2="128" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" />
+  <line x1="128" y1="86" x2="128" y2="128" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" />
+  
+  <!-- Base -->
+  <rect x="60" y="128" width="80" height="10" rx="2" fill="url(#iconGrad)" />
+  
+  <!-- Concentric Circle dot -->
+  <circle cx="100" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
+  <circle cx="100" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
+  <circle cx="100" cy="100" r="4.5" fill="#60a5fa" filter="url(#softGlow)" />
 </svg>
