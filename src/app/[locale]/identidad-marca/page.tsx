@@ -689,6 +689,49 @@ export default function IdentidadMarcaPage() {
                 >
                   <FileImage className="h-4 w-4" /> DESCARGAR TODOS EN PNG 2048px
                   </button>
+                <button
+                  onClick={async () => {
+                    // Download all module SVGs as a ZIP. Try -new.svg first, otherwise fallback to original.
+                    const mods = [
+                      "contabilidad","facturacion","nomina","legal","marketing","telecom-personal","telecom-empresas","it","socios","sostenibilidad","ia","ciudadano","kyronshield","controlparental"
+                    ];
+                    const JSZip = (await import('jszip')).default;
+                    const { saveAs } = await import('file-saver');
+                    const zip = new JSZip();
+                    await Promise.all(mods.map(async (id) => {
+                      const newUrl = `/images/module-logos/mod-${id}-new.svg`;
+                      const origUrl = `/images/module-logos/mod-${id}.svg`;
+                      let url = origUrl;
+                      try {
+                        const res = await fetch(newUrl, { method: 'GET' });
+                        if (res.ok) url = newUrl;
+                        else {
+                          const res2 = await fetch(origUrl, { method: 'GET' });
+                          if (!res2.ok) return; // skip if neither exists
+                          url = origUrl;
+                        }
+                      } catch (err) {
+                        try {
+                          const res2 = await fetch(origUrl, { method: 'GET' });
+                          if (!res2.ok) return;
+                          url = origUrl;
+                        } catch {
+                          return;
+                        }
+                      }
+                      const r = await fetch(url);
+                      if (!r.ok) return;
+                      const text = await r.text();
+                      zip.file(`mod-${id}.svg`, text);
+                    }));
+                    const blob = await zip.generateAsync({ type: 'blob' });
+                    saveAs(blob, 'System_Kyron_Module_Logos_SVG.zip');
+                    toast({ title: 'DESCARGA ZIP', description: 'Todos los SVGs han sido empaquetados en un ZIP.' });
+                  }}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-green-600/90 to-emerald-600/90 hover:from-green-600 hover:to-emerald-600 text-white font-bold uppercase text-[10px] tracking-widest transition-all shadow-lg ml-3"
+                >
+                  <FileImage className="h-4 w-4" /> DESCARGAR TODOS EN ZIP (SVG)
+                </button>
               </div>
             </div>
 
@@ -719,9 +762,18 @@ export default function IdentidadMarcaPage() {
                   <p className="text-[10px] font-bold text-center text-foreground uppercase tracking-wider mb-2">{mod.name}</p>
                   <div className="flex flex-wrap justify-center gap-1">
                     <button
-                      onClick={() => {
+                      onClick={async () => {
                         const link = document.createElement("a");
-                        link.href = `/images/module-logos/mod-${mod.id}-new.svg`;
+                        const newUrl = `/images/module-logos/mod-${mod.id}-new.svg`;
+                        const origUrl = `/images/module-logos/mod-${mod.id}.svg`;
+                        try {
+                          // Try HEAD first to avoid downloading the file just to check existence
+                          const res = await fetch(newUrl, { method: 'HEAD' });
+                          link.href = res.ok ? newUrl : origUrl;
+                        } catch (err) {
+                          // If fetch/HEAD fails for any reason, fall back to the original SVG
+                          link.href = origUrl;
+                        }
                         link.download = `System_Kyron_${mod.name.replace(/[^a-zA-Z0-9]/g, '_')}.svg`;
                         link.click();
                         toast({ title: "DESCARGA EXITOSA", description: `Logo "${mod.name}" descargado en SVG` });
