@@ -1,61 +1,47 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="5" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
     </filter>
-    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.25" />
-      <stop offset="100%" stop-color="#070f1e" stop-opacity="0" />
-    </radialGradient>
-    <linearGradient id="diskGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1e3a8a" />
-      <stop offset="100%" stop-color="#1d4ed8" />
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="50%" stop-color="#14b8a6" />
+      <stop offset="100%" stop-color="#0891b2" />
+    </linearGradient>
+    <linearGradient id="hexFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.02" />
     </linearGradient>
     <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="100%" stop-color="#93c5fd" />
+      <stop offset="0%" stop-color="#5eead4" />
+      <stop offset="50%" stop-color="#2dd4bf" />
+      <stop offset="100%" stop-color="#14b8a6" />
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#030712" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15" />
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.01" />
+      <stop offset="40.1%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
     </linearGradient>
   </defs>
-
-  <!-- Dark Deep Blue Background -->
-  <rect width="100%" height="100%" fill="#070f1e" />
-  <circle cx="100" cy="100" r="90" fill="url(#bgGlow)" />
-
-  <!-- Outer Ring of Glowing Dots -->
-  <circle cx="100" cy="100" r="78" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="2, 4.5" opacity="0.4" filter="url(#glow)" />
-  
-  <!-- Outer Solid Ring -->
-  <circle cx="100" cy="100" r="72" fill="none" stroke="#60a5fa" stroke-width="0.5" opacity="0.2" />
-
-  <!-- Main Inner Disk -->
-  <circle cx="100" cy="100" r="66" fill="url(#diskGrad)" stroke="#1e3a8a" stroke-width="1.5" />
-  
-  <!-- Inner Concentric Dial Ring -->
-  <circle cx="100" cy="100" r="61" fill="none" stroke="#60a5fa" stroke-width="0.5" opacity="0.15" />
-
-  <!-- Top Text: Module Name -->
-  <text x="100" y="70" text-anchor="middle" font-family="'Inter', 'Segoe UI', Arial" font-size="5.5" font-weight="900" letter-spacing="1.5" fill="#93c5fd" opacity="0.85">• — LÍNEAS PERSONAL — •</text>
-
-  <!-- Central Icon: Personal Line (Líneas Personal) -->
-  <g transform="translate(0, 5)">
-    <!-- Avatar Head -->
-    <circle cx="100" cy="85" r="7" fill="url(#iconGrad)" />
-    <!-- Avatar Shoulders -->
-    <path d="M 88,103 C 88,96 112,96 112,103 Z" fill="url(#iconGrad)" />
-    
-    <!-- 3 Horizontal Lines -->
-    <line x1="82" y1="108" x2="118" y2="108" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.9" />
-    <line x1="82" y1="114" x2="118" y2="114" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.75" />
-    <line x1="82" y1="120" x2="118" y2="120" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.55" />
-    
-    <!-- Small Connected Node (Dot) -->
-    <circle cx="92" cy="120" r="4.5" fill="url(#iconGrad)" filter="url(#softGlow)" />
-  </g>
-
-  <!-- Bottom Subtitle -->
-  <text x="100" y="132" text-anchor="middle" font-family="'Inter', 'Segoe UI', Arial" font-size="3.5" font-weight="bold" letter-spacing="1" fill="#60a5fa" opacity="0.6">SYSTEM KYRON</text>
+  <rect width="100%" height="100%" fill="#030712" rx="32" />
+  <circle cx="100" cy="100" r="70" fill="url(#centerGlow)" />
+  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="none" stroke="url(#hexGrad)" stroke-width="0.8" opacity="0.3" filter="url(#glow)" />
+  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="3" />
+  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
+  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
+  <path d="M 85,100 Q 100,70 120,100 Q 140,130 120,160" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softGlow)" />
+  <circle cx="120" cy="160" r="8" fill="#FFFFFF" filter="url(#softGlow)" />
+  <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
+  <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
+  <circle cx="85" cy="100" r="4.5" fill="#2dd4bf" filter="url(#softGlow)" />
 </svg>
