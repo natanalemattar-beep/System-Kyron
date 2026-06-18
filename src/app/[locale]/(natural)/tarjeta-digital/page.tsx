@@ -48,7 +48,9 @@ export default function TarjetaDigitalPage() {
                 text: `Conecta conmigo en el Ecosistema Kyron`,
                 url: window.location.href,
             })
-            .catch((error) => console.log('Error sharing', error));
+            .catch((error) => {
+              if (process.env.NODE_ENV !== 'production') console.warn('Error sharing', error);
+            });
         } else {
             navigator.clipboard.writeText(window.location.href);
             toast({ title: "Enlace Copiado", description: "La URL de tu tarjeta ha sido copiada." });

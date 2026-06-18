@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
   }
 
   if (validacion.warning) {
-    console.log(`[rif/consulta] RIF warning: ${validacion.warning}`);
+    if (process.env.NODE_ENV !== 'production') console.info('[rif/consulta] RIF warning', { warning: validacion.warning });
   }
 
   const rif = normalizarRIF(rawRif);

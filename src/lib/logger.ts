@@ -47,16 +47,11 @@ function emit(level: LogLevel, message: string, data?: Record<string, unknown>) 
   };
 
   const formatted = formatEntry(entry);
-  switch (level) {
-    case 'error':
-      console.error(formatted);
-      break;
-    case 'warn':
-      console.warn(formatted);
-      break;
-    default:
-      console.log(formatted);
-  }
+  // Route logs through appropriate console method. Use console.info for non-error/info logs
+  // to make server-side logging more consistent and easier to filter in providers.
+  if (level === 'error') console.error(formatted);
+  else if (level === 'warn') console.warn(formatted);
+  else console.info(formatted);
 }
 
 export const logger = {

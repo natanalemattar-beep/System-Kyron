@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Not allowed' }, { status: 403 });
   }
 
-  const results: any = {
+    const results: any = {
     timestamp: new Date().toISOString(),
     env: {
       has_db_url: !!(process.env.DATABASE_URL || process.env.POSTGRES_URL),

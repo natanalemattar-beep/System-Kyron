@@ -119,7 +119,10 @@ export async function POST(req: NextRequest) {
                     }),
                     module: 'auth',
                     purpose: 'alert',
-                }).catch(err => console.error('[login] Failed to send lockout email:', err));
+                }).catch(async (err) => {
+                    const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
+                    logger.error('[login] Failed to send lockout email', { error: String(err) });
+                });
 
                 return NextResponse.json(
                     { error: `Cuenta bloqueada por múltiples intentos fallidos. Intenta de nuevo en ${mins} minuto${mins > 1 ? 's' : ''}.` },
@@ -302,8 +305,9 @@ export async function POST(req: NextRequest) {
             }),
             module: 'auth',
             purpose: 'verification',
-        }).catch(err => {
-            console.error('[login] Error sending verification email:', err);
+        }).catch(async (err) => {
+            const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
+            logger.error('[login] Error sending verification email', { error: String(err) });
             return { success: false, error: String(err) };
         });
 
@@ -312,7 +316,8 @@ export async function POST(req: NextRequest) {
         const isDev = process.env.NODE_ENV === 'development' || !!process.env.NEXT_PUBLIC_DEV_CODE;
 
         if (emailResult && !emailResult.success) {
-            console.error('[login] Verification email failed:', emailResult.error);
+            const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
+            logger.error('[login] Verification email failed', { error: String(emailResult.error) });
 
             if (hasPhone) {
                 return NextResponse.json({
@@ -347,15 +352,12 @@ export async function POST(req: NextRequest) {
             isTrustedDevice,
             ...(isDev ? { devCode: code } : {}),
         });
-    } catch (err: any) {
-        console.error('CRITICAL LOGIN ERROR:', {
-            message: err.message,
-            stack: err.stack,
-            cause: err.cause,
-        });
-        return NextResponse.json({ 
-            error: 'Error interno del servidor',
-            details: process.env.NODE_ENV === 'development' ? err.message : undefined 
-        }, { status: 500 });
-    }
+        } catch (err: any) {
+            const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
+            logger.error('CRITICAL LOGIN ERROR', { message: err?.message, stack: err?.stack });
+            return NextResponse.json({ 
+                error: 'Error interno del servidor',
+                details: process.env.NODE_ENV === 'development' ? err?.message : undefined 
+            }, { status: 500 });
+        }
 }

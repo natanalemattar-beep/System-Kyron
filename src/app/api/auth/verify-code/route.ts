@@ -42,7 +42,10 @@ export async function POST(req: NextRequest) {
 
     const normalizedDestino = destino.includes('@') ? sanitizeEmail(destino) : normalizePhone(destino);
 
-    console.log(`[verify-code] Iniciando validación para: ${normalizedDestino}`);
+    // Avoid leaking data in production logs. Use structured logger where available.
+    if (process.env.NODE_ENV !== 'production') {
+      console.info('[verify-code] starting validation for', { destino: normalizedDestino });
+    }
 
     const verification = await verifyCode(normalizedDestino, codigo, proposito);
 

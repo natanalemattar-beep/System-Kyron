@@ -54,7 +54,12 @@ async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
       replyTo: opts.replyTo,
     });
 
-    console.log(`[email-service] Gmail SMTP sent to ${recipients.join(', ')} (${opts.purpose ?? 'general'})`);
+    // Log sending events; avoid logging recipient list in production.
+    if (process.env.NODE_ENV !== 'production') {
+      console.info('[email-service] Gmail SMTP sent to', { recipients, purpose: opts.purpose ?? 'general' });
+    } else {
+      console.info('[email-service] Gmail SMTP send event (production)');
+    }
     return { success: true, provider: 'gmail' };
   } catch (err) {
     const errorMsg = String(err);

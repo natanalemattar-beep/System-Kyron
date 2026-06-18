@@ -295,7 +295,8 @@ export class AiClient {
               throw new Error(`Tool '${name}' not found in registry.`);
             }
 
-            console.log(`[AI Agent] Calling tool: ${name}`, args);
+            // Avoid verbose console.log in production; use info in dev for debugging.
+            if (process.env.NODE_ENV !== 'production') console.info('[AI Agent] Calling tool', { name, args });
             const result = await implementation.execute(args);
             
             toolCalls.push({ name, args, result });
@@ -331,4 +332,3 @@ export class AiClient {
 }
 
 export const ai = new AiClient();
-

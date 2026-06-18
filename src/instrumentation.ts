@@ -18,9 +18,9 @@ export async function register() {
         });
         const data = await res.json();
         if (data.updated) {
-          console.log(`[bcv-rate] Tasa del día cargada: ${data.tasa?.tasa_usd_ves} Bs/$ (${data.fuente})`);
+          console.info('[bcv-rate] Tasa del día cargada', { tasa: data.tasa?.tasa_usd_ves, fuente: data.fuente });
         } else if (data.tasa) {
-          console.log(`[bcv-rate] Tasa del día ya existe: ${data.tasa.tasa_usd_ves} Bs/$`);
+          console.info('[bcv-rate] Tasa del día ya existe', { tasa: data.tasa.tasa_usd_ves });
         }
       } catch (err) {
         console.warn('[bcv-rate] No se pudo cargar tasa al inicio:', err);
@@ -31,7 +31,7 @@ export async function register() {
         const logs = await runScheduledAutomations();
         const success = logs.filter(l => l.status === 'success').length;
         const failed = logs.filter(l => l.status === 'error').length;
-        console.log(`[automation-engine] Ejecución inicial: ${success} éxito, ${failed} error de ${logs.length} regla(s)`);
+        console.info('[automation-engine] Ejecución inicial', { success, failed, total: logs.length });
       } catch (err) {
         console.warn('[automation-engine] Error en ejecución inicial:', err);
       }
@@ -39,7 +39,7 @@ export async function register() {
       try {
         const { initAutoAsientos } = await import('@/lib/auto-asientos');
         initAutoAsientos();
-        console.log('[auto-asientos] Hooks de contabilidad automática registrados');
+        console.info('[auto-asientos] Hooks de contabilidad automática registrados');
       } catch (err) {
         console.warn('[auto-asientos] Error al inicializar:', err);
       }
@@ -52,7 +52,7 @@ export async function register() {
         const logs = await runScheduledAutomations();
         if (logs.length > 0) {
           const success = logs.filter(l => l.status === 'success').length;
-          console.log(`[automation-engine] Ciclo: ${success}/${logs.length} automatización(es) ejecutada(s)`);
+          console.info('[automation-engine] Ciclo ejecutado', { success, total: logs.length });
         }
       } catch (err) {
         console.warn('[automation-engine] Error en ciclo periódico:', err);
@@ -68,7 +68,7 @@ export async function register() {
         });
         const data = await res.json();
         if (data.updated) {
-          console.log(`[bcv-rate] Actualización periódica: ${data.tasa?.tasa_usd_ves} Bs/$ (${data.fuente})`);
+          console.info('[bcv-rate] Actualización periódica', { tasa: data.tasa?.tasa_usd_ves, fuente: data.fuente });
         }
       } catch {}
     }, 4 * UNA_HORA);

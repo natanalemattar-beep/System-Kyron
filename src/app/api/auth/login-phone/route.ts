@@ -38,7 +38,10 @@ export async function POST(req: NextRequest) {
     const challengeToken = createLoginChallenge(user.email, user.id);
     const maskedPhone = '****' + normalizedPhone.slice(-4);
 
-    console.log(`[login-phone] Código ${code} enviado (simulado) a ${normalizedPhone} vía ${tipo}`);
+    // Only log in non-production to avoid leaking verification codes.
+    if (process.env.NODE_ENV !== 'production') {
+      console.info('[login-phone] dev code sent (simulated)', { code, destino: normalizedPhone, channel: tipo });
+    }
 
     const isDev = process.env.NODE_ENV === 'development' || !!process.env.NEXT_PUBLIC_DEV_CODE;
 

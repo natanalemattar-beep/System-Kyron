@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
       const lastRun = log ? new Date(log.last_run).getTime() : 0;
 
       if (now - lastRun > task.intervalMs) {
-        console.log(`[maintenance] Running task: ${task.name}`);
+        console.info('[maintenance] Running task', { task: task.name });
         
         if (task.name === 'bcv_fetch') {
           // Trigger the internal fetch

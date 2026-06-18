@@ -58,7 +58,9 @@ export async function POST(req: NextRequest) {
       purpose: 'general',
     });
 
-    console.log(`[admin-msg] ${session.user.email} sent message to ${recipient}: ${result.success ? 'OK' : 'FAIL'}`);
+    // Avoid printing user email in logs in production.
+    const safeInfo = { userId: session.user.id, recipient, success: !!result.success };
+    console.info('[admin-msg] send message result', safeInfo);
 
     return NextResponse.json({
       success: result.success,

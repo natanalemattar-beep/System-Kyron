@@ -195,7 +195,7 @@ export async function GET() {
     const result = await fetchBcvRate();
     if (result.rate > 0) {
       cachedRate = { rate: result.rate, date: result.date, fetchedAt: Date.now() };
-      console.log(`[bcv-rate] ${result.rate} Bs/$ via ${result.fuente} (${result.date})`);
+      console.info('[bcv-rate] rate fetched', { rate: result.rate, fuente: result.fuente, date: result.date });
     }
 
     return NextResponse.json({ rate: result.rate, date: result.date, cached: false });

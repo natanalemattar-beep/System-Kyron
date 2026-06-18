@@ -40,7 +40,10 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({ error: 'Tipo de registro inválido' }, { status: 400 });
     } catch (err: any) {
-        console.error('Register error:', err);
+        // Use structured logger and avoid leaking full error objects to console in production.
+        // Keep the original behavior of hiding DB internals from the client.
+        const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
+        logger.error('Register error', { error: String(err) });
         const msg = err?.message || String(err);
         // Hide raw DB errors from clients
         const isSchemaError = msg.includes('column') || msg.includes('relation') || msg.includes('violates');
@@ -159,7 +162,8 @@ async function registerNatural(body: Record<string, unknown>, ip: string = '0.0.
                 );
             }
         } catch (modErr) {
-            console.error('[register] Fallo al insertar módulos para natural:', modErr);
+            const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
+            logger.error('[register] Fallo al insertar módulos para natural', { error: String(modErr) });
         }
     }
 
@@ -170,7 +174,8 @@ async function registerNatural(body: Record<string, unknown>, ip: string = '0.0.
                 [plan, user.id]
             );
         } catch (planErr) {
-            console.error('[register] Fallo al actualizar plan para natural:', planErr);
+            const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
+            logger.error('[register] Fallo al actualizar plan para natural', { error: String(planErr) });
         }
     }
 
@@ -200,7 +205,8 @@ async function registerNatural(body: Record<string, unknown>, ip: string = '0.0.
                 );
             }
         } catch (docErr) {
-            console.error('[register] Fallo al insertar documentos personales:', docErr);
+            const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
+            logger.error('[register] Fallo al insertar documentos personales', { error: String(docErr) });
         }
     }
 
@@ -267,7 +273,7 @@ async function registerJuridico(body: Record<string, unknown>, ip: string = '0.0
         return NextResponse.json({ error: rifValidacion.error || 'RIF inválido' }, { status: 400 });
     }
     if (rifValidacion.warning) {
-        console.log(`[register] RIF warning for ${(rif as string).trim()}: ${rifValidacion.warning}`);
+        if (process.env.NODE_ENV !== 'production') console.info('[register] RIF warning', { rif: (rif as string).trim(), warning: rifValidacion.warning });
     }
 
     if (codigo_ciiu !== undefined && codigo_ciiu !== null && codigo_ciiu !== '') {
@@ -373,7 +379,8 @@ async function registerJuridico(body: Record<string, unknown>, ip: string = '0.0
                 );
             }
         } catch (modErr) {
-            console.error('[register] Fallo al insertar módulos:', modErr);
+            const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
+            logger.error('[register] Fallo al insertar módulos', { error: String(modErr) });
             const retryDelay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
             for (let attempt = 1; attempt <= 3; attempt++) {
                 try {
@@ -385,12 +392,13 @@ async function registerJuridico(body: Record<string, unknown>, ip: string = '0.0
                             [Number(user.id), String(mod.id), mod.label]
                         );
                     }
-                    console.log('[register] Módulos insertados exitosamente en intento', attempt);
+                    console.info('[register] Módulos insertados exitosamente en intento', attempt);
                     break;
                 } catch (retryErr) {
-                    console.error(`[register] Reintento ${attempt} fallido:`, retryErr);
+                    const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
+                    logger.error(`[register] Reintento ${attempt} fallido`, { error: String(retryErr) });
                     if (attempt === 3) {
-                        console.error('[register] Todos los reintentos fallaron. Los módulos no se registraron.');
+                        logger.error('[register] Todos los reintentos fallaron. Los módulos no se registraron.');
                     }
                 }
             }
@@ -446,7 +454,8 @@ async function sendWelcomeEmail(email: string, nombre: string, moduloOrigen: str
             purpose: 'general',
         });
     } catch (err) {
-        console.error('[register] Welcome email failed:', err);
+        const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
+        logger.error('[register] Welcome email failed', { error: String(err) });
     }
 }
 
@@ -465,6 +474,7 @@ async function createWelcomeNotification(userId: number, moduloOrigen: string = 
             ]
         );
     } catch (err) {
-        console.error('[register] Welcome notification failed:', err);
+        const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
+        logger.error('[register] Welcome notification failed', { error: String(err) });
     }
 }

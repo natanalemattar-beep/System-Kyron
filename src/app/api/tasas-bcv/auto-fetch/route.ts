@@ -81,7 +81,7 @@ async function fetchFromBCVDirect(): Promise<BCVRateData | null> {
     }
 
     const today = new Date().toISOString().split('T')[0];
-    console.log(`[bcv-direct] Tasa obtenida directamente del BCV: USD=${usdVal}, EUR=${eurRate}`);
+    console.info('[bcv-direct] tasa obtenida', { usd: usdVal, eur: eurRate });
     return { fecha: today, tasa_usd_ves: usdVal, tasa_eur_ves: eurRate };
   } catch (e) {
     console.error('[bcv-direct] Error scraping BCV:', e);
@@ -186,7 +186,7 @@ export async function GET(req: NextRequest) {
       const existingPriority = SOURCE_PRIORITY[existing.fuente] || 0;
 
       if (existingPriority >= 10) {
-        console.log(`[bcv-rate] Tasa del día ya existe (fuente oficial): ${existing.tasa_usd_ves} Bs/$`);
+        console.info('[bcv-rate] tasa del dia ya existe (fuente oficial)', { tasa: existing.tasa_usd_ves });
         return NextResponse.json({
           updated: false,
           message: 'Tasa del día ya existe (fuente oficial BCV)',
@@ -206,12 +206,12 @@ export async function GET(req: NextRequest) {
              RETURNING id, fecha, tasa_usd_ves::text, tasa_eur_ves::text, fuente`,
             [rateData.tasa_usd_ves, rateData.tasa_eur_ves, source.name, today]
           );
-          console.log(`[bcv-rate] Tasa actualizada de ${existing.fuente} → ${source.name}: ${rateData.tasa_usd_ves} Bs/$`);
+          console.info('[bcv-rate] tasa actualizada', { from: existing.fuente, to: source.name, tasa: rateData.tasa_usd_ves });
           return NextResponse.json({ updated: true, fuente: source.name, tasa, upgraded: true });
         }
       }
 
-      console.log(`[bcv-rate] Tasa del día ya existe: ${existing.tasa_usd_ves} Bs/$`);
+      console.info('[bcv-rate] tasa del dia ya existe', { tasa: existing.tasa_usd_ves });
       return NextResponse.json({
         updated: false,
         message: 'Tasa del día ya existe',
@@ -248,7 +248,7 @@ export async function GET(req: NextRequest) {
       [rateData.fecha, rateData.tasa_usd_ves, rateData.tasa_eur_ves, fuente]
     );
 
-    console.log(`[tasas-bcv] Auto-fetch: ${rateData.tasa_usd_ves} VES/USD from ${fuente}`);
+    console.info('[tasas-bcv] auto-fetch', { tasa: rateData.tasa_usd_ves, fuente });
 
     return NextResponse.json({ updated: true, fuente, tasa });
   } catch (err) {

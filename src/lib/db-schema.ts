@@ -38,7 +38,7 @@ export async function initializeDatabase(): Promise<void> {
     await createFeedbackTables();
     await createNewModulesTables();
     await createCreditoComercioTables();
-    console.log('[db-schema] Base de datos inicializada correctamente — v3.4.0');
+    console.info('[db-schema] Base de datos inicializada correctamente — v3.4.0');
   } catch (err) {
     console.error('[db-schema] Error inicializando base de datos:', err);
     throw err;
