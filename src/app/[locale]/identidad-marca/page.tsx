@@ -66,10 +66,18 @@ export default function IdentidadMarcaPage() {
   const { toast } = useToast();
   const logoRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [selectedMod, setSelectedMod] = useState<{ id: string; name: string; color?: string } | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // Prevent background scroll when modal is open
+  useEffect(() => {
+    if (selectedMod) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = '';
+    return () => { document.body.style.overflow = ''; };
+  }, [selectedMod]);
 
   const handleDownloadImage = async (format: 'png' | 'jpeg') => {
     if (!logoRef.current) return;
@@ -232,10 +240,20 @@ export default function IdentidadMarcaPage() {
   const svgToCanvas = async (modId: string, size: number, moduleName?: string, lema?: string): Promise<HTMLCanvasElement> => {
     const img = new Image();
     img.crossOrigin = "anonymous";
-    img.src = `/images/module-logos/mod-${modId}.svg`;
+    // Try -new.svg first, then fall back to the original SVG file
     await new Promise<void>((resolve, reject) => {
-      img.onload = () => resolve();
-      img.onerror = reject;
+      const sources = [`/images/module-logos/mod-${modId}-new.svg`, `/images/module-logos/mod-${modId}.svg`];
+      let i = 0;
+      const tryLoad = () => {
+        img.src = sources[i];
+        img.onload = () => resolve();
+        img.onerror = () => {
+          i += 1;
+          if (i < sources.length) tryLoad();
+          else reject(new Error('Failed to load module SVG'));
+        };
+      };
+      tryLoad();
     });
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d")!;
@@ -692,15 +710,18 @@ export default function IdentidadMarcaPage() {
                 { id: "controlparental", name: "Control Parental", color: "border-violet-500/30 bg-violet-500/5" },
               ].map(mod => (
                 <div key={mod.id} className={`group relative p-5 rounded-2xl border ${mod.color} bg-card/30 hover:bg-card/60 transition-all`}>
-                  <div className="h-16 w-16 mx-auto mb-3 text-foreground pointer-events-none">
-                    <object data={`/images/module-logos/mod-${mod.id}.svg`} type="image/svg+xml" className="w-full h-full" style={{ colorScheme: "auto" }}>?</object>
-                  </div>
+                  <button onClick={() => setSelectedMod({ id: mod.id, name: mod.name, color: mod.color })} className="h-16 w-16 mx-auto mb-3">
+                    <object data={`/images/module-logos/mod-${mod.id}-new.svg`} type="image/svg+xml" className="w-full h-full pointer-events-none"> 
+                      {/* fallback if -new doesn't exist */}
+                      <img src={`/images/module-logos/mod-${mod.id}.svg`} alt={mod.name} className="w-full h-full" />
+                    </object>
+                  </button>
                   <p className="text-[10px] font-bold text-center text-foreground uppercase tracking-wider mb-2">{mod.name}</p>
                   <div className="flex flex-wrap justify-center gap-1">
                     <button
                       onClick={() => {
                         const link = document.createElement("a");
-                        link.href = `/images/module-logos/mod-${mod.id}.svg`;
+                        link.href = `/images/module-logos/mod-${mod.id}-new.svg`;
                         link.download = `System_Kyron_${mod.name.replace(/[^a-zA-Z0-9]/g, '_')}.svg`;
                         link.click();
                         toast({ title: "DESCARGA EXITOSA", description: `Logo "${mod.name}" descargado en SVG` });
@@ -751,6 +772,43 @@ export default function IdentidadMarcaPage() {
               </div>
             </div>
           </motion.div>
+
+          {/* Fullscreen preview modal — shows a polished hero for the selected module */}
+          {selectedMod && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/70">
+              <div className="relative w-full max-w-4xl h-[80vh] bg-[#060812] rounded-3xl border border-white/5 p-8 overflow-hidden">
+                <button className="absolute top-4 right-4 z-60 text-foreground/70 px-3 py-2 rounded-lg border border-white/5" onClick={() => setSelectedMod(null)}>CERRAR</button>
+                <div className="w-full h-full flex flex-col items-center justify-center gap-8 text-center">
+                  <div className="relative w-96 h-96">
+                    <svg viewBox="0 0 600 600" className="w-full h-full">
+                      <defs>
+                        <radialGradient id="modalRing" cx="50%" cy="48%" r="50%">
+                          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.06" />
+                          <stop offset="60%" stopColor="#ffffff" stopOpacity="0.02" />
+                          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+                        </radialGradient>
+                      </defs>
+                      <rect width="100%" height="100%" rx="160" fill="url(#modalRing)" />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <object data={`/images/module-logos/mod-${selectedMod.id}-new.svg`} type="image/svg+xml" className="w-60 h-60 drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
+                        <img src={`/images/module-logos/mod-${selectedMod.id}.svg`} alt={selectedMod.name} />
+                      </object>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h2 className="text-5xl font-extrabold text-white tracking-tight uppercase">{selectedMod.name}</h2>
+                    <p className="text-sm text-foreground/60 mt-3 max-w-2xl">{MODULE_LEMAS[selectedMod.id] ?? 'El sistema que se adapta a ti'}</p>
+                    <div className="mt-6 flex gap-3 justify-center">
+                      <button onClick={() => handleDownloadModPNG(selectedMod.id, selectedMod.name, 2048, 'hero')} className="px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold">DESCARGAR PNG HD</button>
+                      <button onClick={() => handleDownloadModPDF(selectedMod.id, selectedMod.name, 5)} className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white">DESCARGAR PDF</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </motion.div>
 
         <div className="relative mt-20 mb-10 flex items-center gap-8 text-[10px] font-semibold uppercase tracking-wider text-foreground/10 italic">
