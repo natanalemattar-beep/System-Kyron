@@ -4,22 +4,20 @@ import withPWAInit from '@ducanh2912/next-pwa';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
-const IS_VERCEL = process.env.VERCEL === '1';
-
 const withPWA = withPWAInit({
   dest: 'public',
-  disable: process.env.NODE_ENV === 'development' || IS_VERCEL,
-  register: !IS_VERCEL,
-  cacheOnFrontEndNav: !IS_VERCEL,
-  aggressiveFrontEndNavCaching: !IS_VERCEL,
+  disable: process.env.NODE_ENV === 'development',
+  register: true,
+  cacheOnFrontEndNav: true,
+  aggressiveFrontEndNavCaching: true,
   reloadOnOnline: true,
   skipWaiting: true,
   clientsClaim: true,
-  fallbacks: IS_VERCEL ? undefined : {
+  fallbacks: {
     document: '/~offline',
     image: '/images/offline-placeholder.svg',
   },
-  workboxOptions: IS_VERCEL ? undefined : {
+  workboxOptions: {
     disableDevLogs: true,
     runtimeCaching: [
       {
@@ -56,13 +54,26 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   productionBrowserSourceMaps: false,
   experimental: {
-    webpackBuildWorker: true,
-    staticGenerationRetryCount: 0,
     serverActions: {
       bodySizeLimit: '10mb',
     },
     optimizePackageImports: [
-      'lucide-react', 'date-fns',
+      'lucide-react', 'recharts', 'date-fns',
+      '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-select', '@radix-ui/react-tabs',
+      '@radix-ui/react-tooltip', '@radix-ui/react-popover',
+      '@radix-ui/react-accordion', '@radix-ui/react-avatar',
+      '@radix-ui/react-checkbox', '@radix-ui/react-switch',
+      '@radix-ui/react-alert-dialog', '@radix-ui/react-collapsible',
+      '@radix-ui/react-label', '@radix-ui/react-menubar',
+      '@radix-ui/react-progress', '@radix-ui/react-radio-group',
+      '@radix-ui/react-scroll-area', '@radix-ui/react-separator',
+      '@radix-ui/react-slider', '@radix-ui/react-toast',
+      'zod', 'jose', 'class-variance-authority', 'clsx',
+      'tailwind-merge', 'ethers', 'googleapis', 'react-hook-form',
+      '@hookform/resolvers', 'embla-carousel-react', 'react-day-picker',
+      'react-intersection-observer', 'input-otp',
+      'html2canvas', 'html2pdf.js', 'jspdf',
     ],
   },
   webpack: (config, { isServer, webpack }) => {
