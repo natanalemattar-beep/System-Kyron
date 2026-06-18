@@ -1,15 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#06b6d4" />
-      <stop offset="1" stop-color="#0ea5e9" />
+    <radialGradient id="ring" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.16" />
+      <stop offset="70%" stop-color="#0ea5e9" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#060e16" />
+      <stop offset="100%" stop-color="#04080e" />
     </linearGradient>
   </defs>
-  <rect width="200" height="200" rx="28" fill="url(#g)" />
-  <g transform="translate(42,44)" fill="#fff">
-    <rect x="6" y="46" width="28" height="56" rx="4" />
-    <rect x="44" y="26" width="28" height="76" rx="4" />
-    <rect x="82" y="6" width="28" height="96" rx="4" />
+  <rect width="200" height="200" rx="28" fill="url(#bg)" />
+  <circle cx="100" cy="90" r="82" fill="url(#ring)" />
+  <circle cx="100" cy="90" r="66" fill="#101e2c" />
+  <circle cx="100" cy="90" r="48" fill="#162d42" />
+  <g fill="#ffffff" opacity="0.97">
+    <rect x="40" y="72" width="24" height="44" rx="4" />
+    <rect x="72" y="56" width="24" height="60" rx="4" />
+    <rect x="104" y="40" width="24" height="76" rx="4" />
   </g>
   <title>Telecom Empresas (new)</title>
 </svg>

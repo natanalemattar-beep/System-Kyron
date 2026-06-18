@@ -1,15 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#3b82f6" />
-      <stop offset="1" stop-color="#2563eb" />
+    <radialGradient id="ring" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.16" />
+      <stop offset="70%" stop-color="#3b82f6" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#080e1a" />
+      <stop offset="100%" stop-color="#040810" />
     </linearGradient>
   </defs>
-  <rect width="200" height="200" rx="28" fill="url(#g)" />
-  <g transform="translate(40,44)" fill="#fff">
-    <circle cx="46" cy="60" r="14" />
-    <circle cx="92" cy="60" r="14" />
-    <path d="M28 86c12 8 36 8 48 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" />
+  <rect width="200" height="200" rx="28" fill="url(#bg)" />
+  <circle cx="100" cy="90" r="82" fill="url(#ring)" />
+  <circle cx="100" cy="90" r="66" fill="#111f38" />
+  <circle cx="100" cy="90" r="48" fill="#192d4f" />
+  <g fill="#ffffff" opacity="0.97">
+    <circle cx="82" cy="76" r="12" />
+    <circle cx="118" cy="76" r="12" />
+    <path d="M60 100c12 8 36 8 48 0" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round" />
   </g>
   <title>Socios (new)</title>
 </svg>

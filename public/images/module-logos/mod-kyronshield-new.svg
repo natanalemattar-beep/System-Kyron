@@ -1,14 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#f59e0b" />
-      <stop offset="1" stop-color="#f97316" />
+    <radialGradient id="ring" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#f97316" stop-opacity="0.16" />
+      <stop offset="70%" stop-color="#f97316" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#f97316" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a0c08" />
+      <stop offset="100%" stop-color="#0e0604" />
     </linearGradient>
   </defs>
-  <rect width="200" height="200" rx="28" fill="url(#g)" />
-  <g transform="translate(46,36)" fill="#fff">
-    <path d="M54 18l38 18v30c0 28-38 38-38 38s-38-10-38-38V36z" opacity="0.98" />
-    <path d="M70 64l10 10 20-28" stroke="#06b6d4" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  <rect width="200" height="200" rx="28" fill="url(#bg)" />
+  <circle cx="100" cy="90" r="82" fill="url(#ring)" />
+  <circle cx="100" cy="90" r="66" fill="#301810" />
+  <circle cx="100" cy="90" r="48" fill="#45221a" />
+  <g fill="#ffffff" opacity="0.97">
+    <path d="M70 62l30 16v26c0 24-30 32-30 32s-30-8-30-32V78z" />
+    <path d="M84 96l8 8 16-24" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" />
   </g>
   <title>Kyron Shield (new)</title>
 </svg>
