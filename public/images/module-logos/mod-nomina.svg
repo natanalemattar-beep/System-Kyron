@@ -1,63 +1,60 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="6" result="blur" />
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#34d399" />
-      <stop offset="50%" stop-color="#10b981" />
-      <stop offset="100%" stop-color="#0d9488" />
-    </linearGradient>
-    <linearGradient id="hexFill" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#10b981" stop-opacity="0.1" />
-      <stop offset="100%" stop-color="#0d9488" stop-opacity="0.02" />
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#070f1e" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="diskGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6d28d9" />
+      <stop offset="100%" stop-color="#7c3aed" />
     </linearGradient>
     <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#a7f3d0" />
-      <stop offset="50%" stop-color="#34d399" />
-      <stop offset="100%" stop-color="#0d9488" />
-    </linearGradient>
-    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#10b981" stop-opacity="0.2" />
-      <stop offset="100%" stop-color="#030712" stop-opacity="0" />
-    </radialGradient>
-    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15" />
-      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.01" />
-      <stop offset="40.1%" stop-color="#ffffff" stop-opacity="0" />
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#ddd6fe" />
     </linearGradient>
   </defs>
-  
-  <!-- Background -->
-  <rect width="100%" height="100%" fill="#030712" rx="32" />
-  <circle cx="100" cy="100" r="75" fill="url(#centerGlow)" />
-  
-  <!-- Outer Hexagon Border -->
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="none" stroke="url(#hexGrad)" stroke-width="0.8" opacity="0.3" filter="url(#glow)" />
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="2.5" />
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
-  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.2" />
-  
-  <!-- Icon: Team Profiles (Nómina & RRHH) -->
-  <g transform="translate(10, 10)">
-    <circle cx="75" cy="75" r="12" fill="none" stroke="url(#iconGrad)" stroke-width="4.5" filter="url(#softGlow)" />
-    <path d="M 55,108 C 55,94 65,94 75,94 C 85,94 95,94 95,108" fill="none" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linecap="round" filter="url(#softGlow)" />
-    <circle cx="110" cy="65" r="9" fill="none" stroke="#FFFFFF" stroke-width="3.5" opacity="0.9" filter="url(#softGlow)" />
-    <path d="M 96,90 C 96,80 104,80 110,80 C 116,80 124,80 124,90" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.85" filter="url(#softGlow)" />
-  </g>
-  
-  <!-- Concentric Dot Removed -->
-</svg>
 
+  <!-- Dark Deep Blue Background -->
+  <rect width="100%" height="100%" fill="#070f1e" />
+  <circle cx="100" cy="100" r="90" fill="url(#bgGlow)" />
+
+  <!-- Outer Ring of Glowing Dots -->
+  <circle cx="100" cy="100" r="78" fill="none" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="2, 4.5" opacity="0.4" filter="url(#glow)" />
+  
+  <!-- Outer Solid Ring -->
+  <circle cx="100" cy="100" r="72" fill="none" stroke="#c084fc" stroke-width="0.5" opacity="0.2" />
+
+  <!-- Main Inner Disk -->
+  <circle cx="100" cy="100" r="66" fill="url(#diskGrad)" stroke="#6d28d9" stroke-width="1.5" />
+  
+  <!-- Inner Concentric Dial Ring -->
+  <circle cx="100" cy="100" r="61" fill="none" stroke="#c084fc" stroke-width="0.5" opacity="0.15" />
+
+  <!-- Top Text: Module Name -->
+  <text x="100" y="70" text-anchor="middle" font-family="'Inter', 'Segoe UI', Arial" font-size="5.5" font-weight="900" letter-spacing="1.5" fill="#ddd6fe" opacity="0.85">• — NÓMINA & RRHH — •</text>
+
+  <!-- Central Icon: Team of 3 (Nómina & RRHH) -->
+  <g transform="translate(0, 5)">
+    <!-- Center Person (Large) -->
+    <circle cx="100" cy="91" r="7" fill="url(#iconGrad)" />
+    <path d="M 85,115 C 85,102 115,102 115,115 Z" fill="url(#iconGrad)" />
+    
+    <!-- Left Person (Medium) -->
+    <circle cx="86" cy="95" r="5.5" fill="#ffffff" opacity="0.75" />
+    <path d="M 74,115 C 74,105 94,105 94,115 Z" fill="#ffffff" opacity="0.75" />
+    
+    <!-- Right Person (Medium) -->
+    <circle cx="114" cy="95" r="5.5" fill="#ffffff" opacity="0.75" />
+    <path d="M 106,115 C 106,105 126,105 126,115 Z" fill="#ffffff" opacity="0.75" />
+  </g>
+
+  <!-- Bottom Subtitle -->
+  <text x="100" y="132" text-anchor="middle" font-family="'Inter', 'Segoe UI', Arial" font-size="3.5" font-weight="bold" letter-spacing="1" fill="#c084fc" opacity="0.6">SYSTEM KYRON</text>
+</svg>

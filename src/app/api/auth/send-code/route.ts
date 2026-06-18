@@ -147,10 +147,13 @@ export async function POST(req: NextRequest) {
     // FLUJO TELÉFONO (SMS / WhatsApp)
     try {
       if (tipo === 'sms' || tipo === 'whatsapp') {
-        await storeCode(destino, codigo, proposito, tipo);
-        console.log(`[send-code] Código ${codigo} enviado (simulado) a ${destino} vía ${tipo}`);
-
+        // Ensure a code is generated for phone flows as well.
+        const codigoPhone = generateCode();
+        await storeCode(destino, codigoPhone, proposito, tipo);
         const isDev = process.env.NODE_ENV === 'development' || !!process.env.NEXT_PUBLIC_DEV_CODE;
+
+        // Only log codes in non-production to avoid leaking them in logs.
+        if (isDev) console.info('[send-code] dev code', { code: codigoPhone, destino, channel: tipo });
 
         return NextResponse.json({
           success: true,
@@ -158,7 +161,7 @@ export async function POST(req: NextRequest) {
           channel: tipo,
           destination: maskPhone(destino),
           expiresIn: 600,
-          ...(isDev ? { devCode: codigo } : {}),
+          ...(isDev ? { devCode: codigoPhone } : {}),
         });
       }
     } catch (phoneErr) {

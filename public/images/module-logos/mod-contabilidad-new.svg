@@ -1,15 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#06b6d4" />
-      <stop offset="1" stop-color="#0ea5e9" />
+      <stop offset="0" stop-color="#08202a" />
+      <stop offset="1" stop-color="#071826" />
+    </linearGradient>
+    <radialGradient id="ring" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.18" />
+      <stop offset="70%" stop-color="#0ea5e9" stop-opacity="0.06" />
+      <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b2f3b" />
+      <stop offset="100%" stop-color="#071826" />
     </linearGradient>
   </defs>
-  <rect width="200" height="200" rx="28" fill="url(#g)" />
-  <g transform="translate(40,48)" fill="#ffffff">
-    <rect x="0" y="56" width="22" height="48" rx="4" opacity="0.95" />
-    <rect x="34" y="36" width="22" height="68" rx="4" opacity="0.95" />
-    <rect x="68" y="12" width="22" height="92" rx="4" opacity="0.95" />
+  <!-- background subtle gradient -->
+  <rect width="200" height="200" rx="28" fill="url(#bg)" />
+  <!-- outer decorative ring -->
+  <circle cx="100" cy="90" r="66" fill="url(#ring)" />
+  <circle cx="100" cy="90" r="56" fill="#083b4a" />
+  <!-- inner soft disc -->
+  <circle cx="100" cy="90" r="42" fill="#0a3e52" />
+  <!-- icon (white bars) -->
+  <g transform="translate(40,48)" fill="#ffffff" opacity="0.98">
+    <rect x="0" y="44" width="22" height="40" rx="4" />
+    <rect x="34" y="28" width="22" height="56" rx="4" />
+    <rect x="68" y="8" width="22" height="76" rx="4" />
+    <rect x="-6" y="92" width="120" height="6" rx="3" fill="#ffffff" opacity="0.06" />
   </g>
   <title>Contabilidad (new)</title>
 </svg>

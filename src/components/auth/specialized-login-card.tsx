@@ -457,30 +457,34 @@ export function SpecializedLoginCard({
             </div>
 
             <div className="flex rounded-2xl bg-white/[0.03] border border-white/5 p-1.5 mb-6 lg:mb-10">
-              <button
+              <Button
                 type="button"
+                variant="ghost"
+                size="sm"
                 onClick={() => { setLoginMode('email'); setError(null); }}
                 className={cn(
-                  "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
+                  "flex-1 py-2.5 rounded-lg text-xs font-bold h-auto min-h-0",
                   loginMode === 'email'
-                    ? cn("bg-blue-600 shadow-[0_0_20px_rgba(37,99,235,0.3)] text-white border border-white/10")
-                    : "text-white/30 hover:text-white"
+                    ? "bg-blue-600 shadow-[0_0_20px_rgba(37,99,235,0.3)] text-white border border-white/10 hover:bg-blue-500"
+                    : "text-white/30 hover:text-white hover:bg-transparent"
                 )}
               >
-                <Mail className="h-4 w-4" /> Correo
-              </button>
-              <button
+                <Mail className="h-4 w-4 mr-1.5" /> Correo
+              </Button>
+              <Button
                 type="button"
+                variant="ghost"
+                size="sm"
                 onClick={() => { setLoginMode('phone'); setError(null); }}
                 className={cn(
-                  "flex-1 flex items-center justify-center gap-3 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all",
+                  "flex-1 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-[0.2em] h-auto min-h-0",
                   loginMode === 'phone'
-                    ? "bg-emerald-600 shadow-[0_0_20px_rgba(16,185,129,0.3)] text-white border border-white/10"
-                    : "text-white/30 hover:text-white"
+                    ? "bg-emerald-600 shadow-[0_0_20px_rgba(16,185,129,0.3)] text-white border border-white/10 hover:bg-emerald-500"
+                    : "text-white/30 hover:text-white hover:bg-transparent"
                 )}
               >
-                <Smartphone className="h-4 w-4" /> Teléfono
-              </button>
+                <Smartphone className="h-4 w-4 mr-1.5" /> Teléfono
+              </Button>
             </div>
 
             <AnimatePresence>
@@ -502,7 +506,7 @@ export function SpecializedLoginCard({
                             </div>
                           </div>
                           <Link href="/recuperar-cuenta">
-                            <Button type="button" variant="outline" size="sm" className="w-full h-9 text-[10px] font-black rounded-xl border-amber-500/20 text-amber-500 hover:bg-amber-500/10 uppercase tracking-widest">
+                            <Button type="button" variant="outline" size="sm" className="w-full text-[10px] font-black rounded-xl border-amber-500/20 text-amber-500 hover:bg-amber-500/10 uppercase tracking-widest">
                               <KeyRound className="mr-2 h-3 w-3" /> Recuperar Acceso
                             </Button>
                           </Link>
@@ -517,7 +521,7 @@ export function SpecializedLoginCard({
                             </div>
                           </div>
                           <Link href="/login-personal">
-                            <Button type="button" variant="outline" size="sm" className="w-full h-9 text-[10px] font-black rounded-xl border-blue-500/20 text-blue-400 hover:bg-blue-500/10 uppercase tracking-widest">
+                            <Button type="button" variant="outline" size="sm" className="w-full text-[10px] font-black rounded-xl border-blue-500/20 text-blue-400 hover:bg-blue-500/10 uppercase tracking-widest">
                               <ArrowRight className="mr-2 h-3 w-3" /> Cambiar a Portal Personal
                             </Button>
                           </Link>
@@ -533,7 +537,7 @@ export function SpecializedLoginCard({
                               <p className="text-[12px] text-rose-200 font-medium leading-relaxed">{error}</p>
                             </div>
                             {emailDeliveryFailed && savedCredentials && (
-                              <Button type="button" variant="outline" size="sm" onClick={handleResendEmail} disabled={isLoading} className="self-start h-8 text-[9px] font-black rounded-lg border-rose-500/20 text-rose-400 hover:bg-rose-500/10 uppercase tracking-widest">
+                              <Button type="button" variant="outline" size="sm" onClick={handleResendEmail} disabled={isLoading} className="self-start text-[10px] font-black rounded-xl border-rose-500/20 text-rose-400 hover:bg-rose-500/10 uppercase tracking-widest">
                                 <RotateCcw className="mr-1.5 h-3 w-3" /> {isLoading ? 'Reenviando...' : 'Reenviar código'}
                               </Button>
                             )}
@@ -579,14 +583,16 @@ export function SpecializedLoginCard({
                   </div>
 
                   <div className="space-y-2">
-                    <button
+                    <Button
                       type="button"
+                      variant="ghost"
+                      size="sm"
                       onClick={() => setUseAccessKey(v => !v)}
-                      className={cn("flex items-center gap-2 text-xs font-semibold transition-colors", useAccessKey ? theme.accent : "text-muted-foreground hover:text-foreground")}
+                      className={cn("flex items-center gap-2 text-xs font-semibold h-auto min-h-0 px-0 py-1", useAccessKey ? theme.accent : "text-muted-foreground hover:text-foreground")}
                     >
                       <KeyRound className="h-3.5 w-3.5" />
                       {useAccessKey ? 'Ocultar llave de acceso' : 'Usar llave de acceso'}
-                    </button>
+                    </Button>
                     <AnimatePresence>
                       {useAccessKey && (
                         <motion.div
@@ -630,8 +636,8 @@ export function SpecializedLoginCard({
                     </span>
                   </label>
 
-                  <Button type="submit" className={cn("w-full h-14 lg:h-16 rounded-2xl font-black text-[10px] lg:text-[11px] uppercase tracking-[0.25em] text-white shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98]", theme.btnBg)} disabled={isLoading}>
-                    {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <>Validar Acceso <ArrowRight className="ml-3 h-4 w-4" /></>}
+                  <Button type="submit" size="lg" className={cn("w-full text-[10px] lg:text-[11px] font-black uppercase tracking-[0.25em] text-white shadow-2xl", theme.btnBg)} disabled={isLoading}>
+                    {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <>Validar Acceso <ArrowRight className="ml-2 h-4 w-4" /></>}
                   </Button>
                 </motion.form>
               ) : (
@@ -666,30 +672,34 @@ export function SpecializedLoginCard({
                   <div className="space-y-2">
                     <Label className="text-[13px] font-semibold text-foreground/80">Recibir código por</Label>
                     <div className="grid grid-cols-2 gap-2">
-                      <button
+                      <Button
                         type="button"
+                        variant="outline"
+                        size="sm"
                         onClick={() => setPhoneMethod('sms')}
                         className={cn(
-                          "flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-[12px] font-bold transition-all",
+                          "w-full text-xs font-bold border-2",
                           phoneMethod === 'sms'
-                            ? "border-emerald-500/50 bg-emerald-500/5 text-emerald-500"
+                            ? "border-emerald-500/50 bg-emerald-500/5 text-emerald-500 hover:bg-emerald-500/10 hover:text-emerald-500"
                             : "border-border/30 text-muted-foreground hover:border-border/60 hover:text-foreground"
                         )}
                       >
-                        <MessageSquare className="h-4 w-4" /> SMS
-                      </button>
-                      <button
+                        <MessageSquare className="h-4 w-4 mr-1.5" /> SMS
+                      </Button>
+                      <Button
                         type="button"
+                        variant="outline"
+                        size="sm"
                         onClick={() => setPhoneMethod('whatsapp')}
                         className={cn(
-                          "flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-[12px] font-bold transition-all",
+                          "w-full text-xs font-bold border-2",
                           phoneMethod === 'whatsapp'
-                            ? "border-green-500/50 bg-green-500/5 text-green-500"
+                            ? "border-green-500/50 bg-green-500/5 text-green-500 hover:bg-green-500/10 hover:text-green-500"
                             : "border-border/30 text-muted-foreground hover:border-border/60 hover:text-foreground"
                         )}
                       >
-                        <MessageCircle className="h-4 w-4" /> WhatsApp
-                      </button>
+                        <MessageCircle className="h-4 w-4 mr-1.5" /> WhatsApp
+                      </Button>
                     </div>
                   </div>
 
@@ -705,7 +715,7 @@ export function SpecializedLoginCard({
                     </span>
                   </label>
 
-                  <Button type="submit" className="w-full h-12 rounded-xl font-bold text-[13px] text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500" disabled={isLoading}>
+                  <Button type="submit" className="w-full font-bold text-[13px] text-white shadow-lg bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500" disabled={isLoading}>
                     {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Enviar Código <ArrowRight className="ml-2 h-4 w-4" /></>}
                   </Button>
                 </motion.form>
@@ -713,7 +723,7 @@ export function SpecializedLoginCard({
             </AnimatePresence>
 
             <div className="mt-6 lg:mt-8 pt-4 lg:pt-6 border-t border-border/30 space-y-4">
-              <Button variant="outline" asChild className="w-full h-11 rounded-xl text-[13px] font-semibold border-border/40 hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all">
+              <Button variant="outline" asChild className="w-full text-sm md:text-[13px] font-semibold border-border/40 hover:bg-primary/5 hover:text-primary hover:border-primary/20">
                 <Link href="/register" className="flex items-center gap-2"><UserPlus className="h-4 w-4" /> Crear Cuenta</Link>
               </Button>
               <p className="text-center text-xs text-muted-foreground/60">
@@ -835,18 +845,20 @@ export function SpecializedLoginCard({
                       </p>
                     </div>
                     {hasPhone && (
-                      <button
+                      <Button
                         type="button"
+                        variant="link"
+                        size="sm"
                         onClick={() => {
                           setSingleCode('');
                           setError(null);
                           const methodsEl = document.getElementById('login-method-cards');
                           if (methodsEl) methodsEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         }}
-                        className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-blue-400 transition-colors border-b border-slate-800 hover:border-blue-400/50 pb-0.5"
+                        className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-blue-400 p-0 h-auto min-h-0"
                       >
                         Cambiar
-                      </button>
+                      </Button>
                     )}
                   </div>
 
@@ -939,14 +951,16 @@ export function SpecializedLoginCard({
                       </p>
                     </div>
                   ) : (
-                    <button 
-                      type="button" 
-                      onClick={handleResendCode} 
-                      disabled={isLoading} 
-                      className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-2"
+                    <Button
+                      type="button"
+                      variant="link"
+                      size="sm"
+                      onClick={handleResendCode}
+                      disabled={isLoading}
+                      className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 hover:text-blue-300 flex items-center gap-2 p-0 h-auto min-h-0"
                     >
                       <RefreshCw className="h-3 w-3" /> Reintentar Protocolo
-                    </button>
+                    </Button>
                   )}
                 </div>
 
@@ -959,13 +973,15 @@ export function SpecializedLoginCard({
                         { method: 'sms' as const, icon: Smartphone, label: 'SMS', gradientBg: 'linear-gradient(135deg, #d1fae5, #a7f3d0)', iconColor: 'text-emerald-600', borderActive: 'border-emerald-400', hoverBg: 'hover:border-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/30' },
                         { method: 'whatsapp' as const, icon: MessageCircle, label: 'WhatsApp', gradientBg: 'linear-gradient(135deg, #bbf7d0, #86efac)', iconColor: 'text-green-700', borderActive: 'border-green-500', hoverBg: 'hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-950/30' },
                       ]).map(({ method, icon: MethodIcon, label, gradientBg, iconColor, borderActive, hoverBg }) => (
-                        <button
+                        <Button
                           key={method}
                           type="button"
+                          variant="outline"
+                          size="sm"
                           onClick={() => handleSwitchMethod(method)}
                           disabled={switchingMethod || isLoading || verificationMethod === method}
                           className={cn(
-                            "flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all duration-200",
+                            "flex-col gap-2 p-3 h-auto border-2",
                             verificationMethod === method
                               ? cn(borderActive, "bg-primary/5")
                               : cn("border-border/30", hoverBg),
@@ -976,7 +992,7 @@ export function SpecializedLoginCard({
                             <MethodIcon className={cn("h-4 w-4", iconColor)} />
                           </div>
                           <span className="text-[11px] font-bold text-foreground/70">{label}</span>
-                        </button>
+                        </Button>
                       ))}
                     </div>
                     {switchingMethod && (
@@ -991,7 +1007,7 @@ export function SpecializedLoginCard({
             )}
 
             <div className="space-y-3">
-              <Button variant="outline" onClick={handleBackToLogin} className="w-full h-11 rounded-xl text-[13px] font-semibold border-border/40 hover:bg-muted/50" disabled={isLoading}>
+              <Button variant="outline" onClick={handleBackToLogin} className="w-full text-sm md:text-[13px] font-semibold border-border/40 hover:bg-muted/50" disabled={isLoading}>
                 <ChevronLeft className="mr-2 h-4 w-4" /> Volver a iniciar sesión
               </Button>
             </div>
@@ -1096,7 +1112,7 @@ export function SpecializedLoginCard({
   );
 
   const backButton = (
-    <Button variant="ghost" asChild className="absolute top-6 left-6 md:top-8 md:left-8 h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground z-20">
+    <Button variant="ghost" asChild size="sm" className="absolute top-6 left-6 md:top-8 md:left-8 rounded-xl text-xs text-muted-foreground hover:text-foreground z-20">
       <Link href={footerLinks?.primary.href as any ?? '/login'} className="flex items-center">
         <ChevronLeft className="mr-1.5 h-4 w-4" /> {footerLinks?.primary.text ?? 'Volver'}
       </Link>
@@ -1589,7 +1605,7 @@ export function SpecializedLoginCard({
             />
           ))}
         </div>
-        <Button variant="ghost" asChild className="absolute top-6 left-6 md:top-8 md:left-8 h-9 rounded-xl text-xs text-white/40 hover:text-white/80 z-20">
+        <Button variant="ghost" asChild size="sm" className="absolute top-6 left-6 md:top-8 md:left-8 rounded-xl text-xs text-white/40 hover:text-white/80 z-20">
           <Link href={footerLinks?.primary.href as any ?? '/login'} className="flex items-center">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> {footerLinks?.primary.text ?? 'Volver'}
           </Link>

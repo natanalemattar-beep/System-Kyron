@@ -60,24 +60,24 @@ export function HeroSectionOptimized() {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-8 animate-fade-in-up-delay-2">
-              <Button asChild className="h-16 px-12 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl bg-gradient-to-br from-kyron-cyan to-blue-600 text-primary-foreground hover:from-kyron-cyan/90 hover:to-blue-500 shadow-[0_0_40px_rgba(6,182,212,0.3)] hover:shadow-[0_0_60px_rgba(6,182,212,0.5)] hover:-translate-y-1 transition-all duration-500 group border-none animate-pulse-glow">
-                <Link href="/register" className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center lg:justify-start pt-6 md:pt-8 animate-fade-in-up-delay-2">
+              <Button asChild size="lg" className="px-6 md:px-12 text-[10px] md:text-[11px] font-black uppercase tracking-[0.25em] md:tracking-[0.3em] bg-gradient-to-br from-kyron-cyan to-blue-600 text-primary-foreground hover:from-kyron-cyan/90 hover:to-blue-500 shadow-[0_0_40px_rgba(6,182,212,0.3)] hover:shadow-[0_0_60px_rgba(6,182,212,0.5)] group border-none animate-pulse-glow">
+                <Link href="/register" className="flex items-center gap-3 md:gap-4">
                   {t('cta_main')}
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1.5 transition-transform" />
+                  <ArrowRight className="h-3.5 w-3.5 md:h-4 md:w-4 group-hover:translate-x-1.5 transition-transform" />
                 </Link>
               </Button>
 
-              <Button variant="outline" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl border-border dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] text-muted-foreground/70 hover:bg-black/[0.06] dark:hover:bg-white/[0.08] hover:text-foreground transition-all duration-500 hover:scale-[1.02] hover:border-border">
-                <span className="flex items-center gap-3">
-                  <Play className="h-3.5 w-3.5 fill-current" />
+              <Button variant="outline" size="lg" className="px-5 md:px-8 text-[10px] md:text-[11px] font-black uppercase tracking-[0.25em] md:tracking-[0.3em] border-border dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] text-muted-foreground/70 hover:bg-black/[0.06] dark:hover:bg-white/[0.08] hover:text-foreground">
+                <span className="flex items-center gap-2 md:gap-3">
+                  <Play className="h-3 w-3 md:h-3.5 md:w-3.5 fill-current" />
                   {t('cta_secondary')}
                 </span>
               </Button>
 
-              <Button asChild variant="ghost" className="h-16 px-8 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl border border-kyron-emerald/20 bg-kyron-emerald/5 text-kyron-emerald/80 hover:bg-kyron-emerald/10 hover:text-kyron-emerald hover:border-kyron-emerald/40 transition-all duration-500 hover:scale-[1.02] group">
-                <Link href="/soporte" className="flex items-center gap-3">
-                  <Headphones className="h-4 w-4 group-hover:scale-110 transition-transform" />
+              <Button asChild variant="ghost" size="lg" className="px-5 md:px-8 text-[10px] md:text-[11px] font-black uppercase tracking-[0.25em] md:tracking-[0.3em] border border-kyron-emerald/20 bg-kyron-emerald/5 text-kyron-emerald/80 hover:bg-kyron-emerald/10 hover:text-kyron-emerald hover:border-kyron-emerald/40 group">
+                <Link href="/soporte" className="flex items-center gap-2 md:gap-3">
+                  <Headphones className="h-3.5 w-3.5 md:h-4 md:w-4 group-hover:scale-110 transition-transform" />
                   Atención al Cliente
                 </Link>
               </Button>

@@ -1,67 +1,61 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="6" result="blur" />
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#2dd4bf" />
-      <stop offset="50%" stop-color="#14b8a6" />
-      <stop offset="100%" stop-color="#0891b2" />
-    </linearGradient>
-    <linearGradient id="hexFill" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.1" />
-      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.02" />
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#070f1e" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="diskGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#059669" />
     </linearGradient>
     <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ccfbf1" />
-      <stop offset="50%" stop-color="#2dd4bf" />
-      <stop offset="100%" stop-color="#14b8a6" />
-    </linearGradient>
-    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.2" />
-      <stop offset="100%" stop-color="#030712" stop-opacity="0" />
-    </radialGradient>
-    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15" />
-      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.01" />
-      <stop offset="40.1%" stop-color="#ffffff" stop-opacity="0" />
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#a7f3d0" />
     </linearGradient>
   </defs>
-  
-  <!-- Background -->
-  <rect width="100%" height="100%" fill="#030712" rx="32" />
-  <circle cx="100" cy="100" r="75" fill="url(#centerGlow)" />
-  
-  <!-- Outer Hexagon Border -->
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="none" stroke="url(#hexGrad)" stroke-width="0.8" opacity="0.3" filter="url(#glow)" />
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="2.5" />
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
-  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.2" />
-  
-  <!-- Icon: Enterprise Telecommunications Buildings (Líneas Empresas) -->
-  <g transform="translate(10, 10)">
-    <rect x="65" y="80" width="16" height="45" rx="1.5" fill="none" stroke="url(#iconGrad)" stroke-width="5" stroke-linecap="round" filter="url(#softGlow)" />
-    <rect x="88" y="60" width="18" height="65" rx="1.5" fill="none" stroke="url(#iconGrad)" stroke-width="5" stroke-linecap="round" filter="url(#softGlow)" />
-    <rect x="114" y="85" width="14" height="40" rx="1.5" fill="none" stroke="url(#iconGrad)" stroke-width="5" stroke-linecap="round" filter="url(#softGlow)" />
-    
-    <!-- Core Signal Waves -->
-    <path d="M 91,46 A 8,8 0 0 1 103,46" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.9" />
-    <path d="M 85,38 A 18,18 0 0 1 109,38" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.75" />
-    <path d="M 79,30 A 28,28 0 0 1 115,30" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.55" filter="url(#softGlow)" />
-  </g>
-  
-  <!-- Concentric Dot Removed -->
-</svg>
 
+  <!-- Dark Deep Blue Background -->
+  <rect width="100%" height="100%" fill="#070f1e" />
+  <circle cx="100" cy="100" r="90" fill="url(#bgGlow)" />
+
+  <!-- Outer Ring of Glowing Dots -->
+  <circle cx="100" cy="100" r="78" fill="none" stroke="#34d399" stroke-width="1.5" stroke-dasharray="2, 4.5" opacity="0.4" filter="url(#glow)" />
+  
+  <!-- Outer Solid Ring -->
+  <circle cx="100" cy="100" r="72" fill="none" stroke="#34d399" stroke-width="0.5" opacity="0.2" />
+
+  <!-- Main Inner Disk -->
+  <circle cx="100" cy="100" r="66" fill="url(#diskGrad)" stroke="#064e3b" stroke-width="1.5" />
+  
+  <!-- Inner Concentric Dial Ring -->
+  <circle cx="100" cy="100" r="61" fill="none" stroke="#34d399" stroke-width="0.5" opacity="0.15" />
+
+  <!-- Top Text: Module Name -->
+  <text x="100" y="70" text-anchor="middle" font-family="'Inter', 'Segoe UI', Arial" font-size="5.5" font-weight="900" letter-spacing="1.5" fill="#a7f3d0" opacity="0.85">• — LÍNEAS EMPRESAS — •</text>
+
+  <!-- Central Icon: Corporate Buildings (Líneas Empresas) -->
+  <g transform="translate(0, 5)">
+    <!-- 3 Office Blocks -->
+    <rect x="75" y="90" width="14" height="28" rx="1.5" fill="none" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linejoin="round" />
+    <rect x="91" y="75" width="18" height="43" rx="1.5" fill="url(#iconGrad)" />
+    <rect x="111" y="90" width="14" height="28" rx="1.5" fill="none" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linejoin="round" />
+    
+    <!-- Office windows in center building -->
+    <rect x="96" y="82" width="3" height="4" fill="#064e3b" />
+    <rect x="101" y="82" width="3" height="4" fill="#064e3b" />
+    <rect x="96" y="90" width="3" height="4" fill="#064e3b" />
+    <rect x="101" y="90" width="3" height="4" fill="#064e3b" />
+    <rect x="96" y="98" width="3" height="4" fill="#064e3b" />
+    <rect x="101" y="98" width="3" height="4" fill="#064e3b" />
+  </g>
+
+  <!-- Bottom Subtitle -->
+  <text x="100" y="132" text-anchor="middle" font-family="'Inter', 'Segoe UI', Arial" font-size="3.5" font-weight="bold" letter-spacing="1" fill="#34d399" opacity="0.6">SYSTEM KYRON</text>
+</svg>

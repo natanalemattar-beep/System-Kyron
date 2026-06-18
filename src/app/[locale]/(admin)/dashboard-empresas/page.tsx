@@ -347,11 +347,11 @@ export default function DashboardEmpresaPage() {
                 <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/30 px-2 py-1 backdrop-blur-sm">
                   <CurrencySelector className="border-none bg-transparent h-9 rounded-lg text-xs font-semibold px-3" />
                   <div className="h-5 w-px bg-border" />
-                  <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg" onClick={() => fetchDashboard(true)} disabled={refreshing}>
+                  <Button variant="ghost" size="icon" className="rounded-lg" onClick={() => fetchDashboard(true)} disabled={refreshing}>
                     <RefreshCw className={cn("h-4 w-4", refreshing && "animate-spin")} />
                   </Button>
                 </div>
-                <Button onClick={() => { setClosingData(null); setShowCierre(true); }} variant="outline" size="sm" className="h-9 rounded-lg text-xs font-semibold gap-2">
+                <Button onClick={() => { setClosingData(null); setShowCierre(true); }} variant="outline" size="sm" className="rounded-lg text-xs font-semibold gap-2">
                   <Vault className="h-4 w-4" /> Cierre Fiscal
                 </Button>
                 <AiInspectionDropdown />
@@ -611,7 +611,7 @@ export default function DashboardEmpresaPage() {
               <div className="ds-empty-state">
                 <Coins className="h-10 w-10" />
                 <p className="text-xs text-muted-foreground/60">Sin movimientos registrados</p>
-                <Link href="/contabilidad/conciliacion-bancaria"><Button variant="outline" size="sm" className="mt-4 text-xs rounded-lg h-8">Registrar</Button></Link>
+                <Link href="/contabilidad/conciliacion-bancaria"><Button variant="outline" size="sm" className="mt-4 text-xs rounded-lg">Registrar</Button></Link>
               </div>
             )}
           </div>
@@ -714,7 +714,7 @@ export default function DashboardEmpresaPage() {
               <span className="text-xl font-bold tracking-tight">{loading ? "—" : fmtCur(data?.nominaMensual ?? 0)}</span>
             </div>
             <p className="text-[11px] text-muted-foreground/45">{data?.empleados ?? 0} empleados activos</p>
-            <Link href="/contabilidad/libros/nomina"><Button variant="outline" size="sm" className="mt-3 w-full h-8 text-[11px] font-medium rounded-xl border-border/25">Ver Nómina</Button></Link>
+            <Link href="/contabilidad/libros/nomina"><Button variant="outline" size="sm" className="mt-3 w-full text-[11px] font-medium rounded-xl border-border/25">Ver Nómina</Button></Link>
           </div>
         </div>
       </div>
@@ -960,13 +960,13 @@ export default function DashboardEmpresaPage() {
             </div>
           )}
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowCierre(false)} className="rounded-xl text-xs h-8">Cancelar</Button>
+            <Button variant="outline" size="sm" onClick={() => setShowCierre(false)} className="rounded-xl text-xs">Cancelar</Button>
             {closingData ? (
-              <Button onClick={handleConfirmCierre} disabled={isClosing} className="rounded-xl text-xs h-8 bg-amber-500 text-black hover:bg-amber-400 font-semibold">
+              <Button onClick={handleConfirmCierre} disabled={isClosing} size="sm" className="rounded-xl text-xs bg-amber-500 text-black hover:bg-amber-400 font-semibold">
                 {isClosing ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <CircleCheck className="mr-1.5 h-3.5 w-3.5" />} {isClosing ? "Procesando..." : "Confirmar Cierre"}
               </Button>
             ) : (
-              <Button onClick={handlePreviewCierre} disabled={isClosing} className="rounded-xl text-xs h-8 bg-amber-500 text-black hover:bg-amber-400 font-semibold">
+              <Button onClick={handlePreviewCierre} disabled={isClosing} size="sm" className="rounded-xl text-xs bg-amber-500 text-black hover:bg-amber-400 font-semibold">
                 {isClosing ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Calculator className="mr-1.5 h-3.5 w-3.5" />} {isClosing ? "Calculando..." : "Calcular"}
               </Button>
             )}
@@ -1001,7 +1001,7 @@ export default function DashboardEmpresaPage() {
           </div>
           <DialogFooter className="mt-3">
             <p className="text-[11px] text-muted-foreground/30 mr-auto">{filteredLogs.length} eventos</p>
-            <Button variant="outline" onClick={() => setShowAuditoria(false)} className="rounded-xl text-xs h-8">Cerrar</Button>
+            <Button variant="outline" size="sm" onClick={() => setShowAuditoria(false)} className="rounded-xl text-xs">Cerrar</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

@@ -309,14 +309,14 @@ export default function LoginPersonalPage() {
                   <Label className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] ml-2">Cédula o Correo</Label>
                   <div className="relative flex gap-2">
                     <div className="flex rounded-xl border border-white/5 bg-white/[0.03] overflow-hidden shrink-0">
-                      <button type="button" onClick={() => setDocType('V')}
-                        className={cn("px-5 py-3 text-xs font-black uppercase tracking-widest transition-all",
-                          docType === 'V' ? "bg-blue-600 text-white shadow-lg" : "text-white/30 hover:text-white"
-                        )}>V</button>
-                      <button type="button" onClick={() => setDocType('E')}
-                        className={cn("px-5 py-3 text-xs font-black uppercase tracking-widest transition-all",
-                          docType === 'E' ? "bg-blue-600 text-white shadow-lg" : "text-white/30 hover:text-white"
-                        )}>E</button>
+                      <Button type="button" size="sm" variant={docType === 'V' ? 'default' : 'ghost'} onClick={() => setDocType('V')}
+                        className="rounded-none px-5 text-xs font-black uppercase tracking-widest first:rounded-l-xl">
+                        V
+                      </Button>
+                      <Button type="button" size="sm" variant={docType === 'E' ? 'default' : 'ghost'} onClick={() => setDocType('E')}
+                        className="rounded-none px-5 text-xs font-black uppercase tracking-widest last:rounded-r-xl">
+                        E
+                      </Button>
                     </div>
                     <div className="relative flex-1">
                       <User className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20 group-focus-within:text-cyan-400 transition-colors" />
@@ -364,39 +364,38 @@ export default function LoginPersonalPage() {
                   </span>
                 </label>
 
-                <Button type="submit" className="w-full h-18 rounded-[1.5rem] font-black text-[12px] uppercase tracking-[0.4em] shadow-2xl bg-blue-600 hover:bg-blue-500 text-white transition-all hover:scale-[1.02] active:scale-[0.98] italic group/btn overflow-hidden relative">
+                <Button type="submit" size="lg" className="w-full font-black text-[11px] md:text-xs uppercase tracking-[0.3em] md:tracking-[0.4em] shadow-2xl bg-blue-600 hover:bg-blue-500 text-white italic group/btn overflow-hidden relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
-                  {isLoading ? <Loader2 className="mr-3 h-6 w-6 animate-spin" /> : <span className="flex items-center gap-4">Sincronizar Identidad <ArrowRight className="h-5 w-5" /></span>}
+                  {isLoading ? <Loader2 className="mr-3 h-6 w-6 animate-spin" /> : <span className="flex items-center gap-3 md:gap-4">Sincronizar Identidad <ArrowRight className="h-4 w-4 md:h-5 md:w-5" /></span>}
                 </Button>
               </form>
 
               <div className="mt-10 pt-10 border-t border-white/[0.05] space-y-6">
-                <button
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="lg"
                   onClick={handleBiometric}
                   disabled={isScanning || isLoading}
                   className={cn(
-                    'flex items-center justify-center gap-4 h-14 rounded-xl border transition-all w-full',
-                    isScanning ? 'border-cyan-500/40 bg-cyan-500/5' : 'border-[#1e293b] bg-[#111827] hover:border-[#334155]'
+                    'w-full gap-3 font-bold text-[10px] uppercase tracking-wider border',
+                    isScanning
+                      ? 'border-cyan-500/40 bg-cyan-500/5 text-cyan-400'
+                      : 'border-white/[0.08] bg-white/[0.03] text-zinc-500 hover:bg-white/5 hover:text-white hover:border-white/20'
                   )}
                 >
                   {isScanning ? (
-                    <div className="flex items-center gap-3">
-                      <Scan className="h-5 w-5 text-cyan-400" />
-                      <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider">Analizando...</span>
-                    </div>
+                    <><Scan className="h-5 w-5" /> Analizando...</>
                   ) : (
-                    <>
-                      <Fingerprint className="h-5 w-5 text-zinc-500" />
-                      <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Acceso Biométrico</span>
-                    </>
+                    <><Fingerprint className="h-5 w-5" /> Acceso Biométrico</>
                   )}
-                </button>
+                </Button>
 
-                <div className="flex flex-col sm:flex-row gap-4">
-                    <Button asChild variant="outline" className="flex-1 h-14 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/5 hover:bg-white/5 transition-all italic">
-                        <Link href="/register/natural"><UserPlus className="mr-3 h-4 w-4" /> Nuevo Ciudadano</Link>
+                <div className="flex flex-col sm:flex-row gap-3">
+                    <Button asChild variant="outline" size="lg" className="flex-1 text-[10px] font-black uppercase tracking-widest italic border-white/[0.08] hover:bg-white/5">
+                        <Link href="/register/natural"><UserPlus className="mr-2 h-4 w-4 shrink-0" /> Nuevo Ciudadano</Link>
                     </Button>
-                    <Button asChild variant="ghost" className="flex-1 h-14 rounded-xl text-[10px] font-black uppercase tracking-widest text-white/20 hover:text-white transition-all">
+                    <Button asChild variant="ghost" size="lg" className="flex-1 text-[10px] font-black uppercase tracking-widest text-white/20 hover:text-white">
                         <Link href="/soporte">Reportar Incidencia</Link>
                     </Button>
                 </div>
@@ -448,12 +447,14 @@ export default function LoginPersonalPage() {
               </div>
 
               <div className="space-y-4">
-                <Button variant="outline" onClick={() => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); setDevCode(null); }} className="w-full h-16 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] border-white/5 hover:bg-white/5" disabled={isLoading}>
+                <Button variant="outline" size="lg" onClick={() => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); setDevCode(null); }} className="w-full text-[10px] font-black uppercase tracking-[0.3em] border-white/[0.08] hover:bg-white/5" disabled={isLoading}>
                   Reiniciar Protocolo
                 </Button>
-                <p className="text-center text-[9px] font-bold text-white/20 uppercase tracking-[0.2em]">
+                <p className="text-center text-[10px] md:text-xs font-bold text-white/30">
                   ¿No recibiste el token?{' '}
-                  <button onClick={() => { setStep('credentials'); setError(null); setDevCode(null); }} className="text-cyan-400 hover:underline">Reintentar Sincronización</button>
+                  <Button variant="link" size="sm" onClick={() => { setStep('credentials'); setError(null); setDevCode(null); }} className="text-cyan-400 hover:text-cyan-300 text-[10px] md:text-xs font-black p-0 h-auto min-h-0" disabled={isLoading}>
+                    Reintentar Sincronización
+                  </Button>
                 </p>
               </div>
             </motion.div>

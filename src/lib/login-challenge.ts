@@ -1,11 +1,18 @@
 import crypto from 'crypto';
 
 const CHALLENGE_EXPIRY_MS = 15 * 60 * 1000;
-const resolvedSecret = process.env.JWT_SECRET || process.env.SESSION_SECRET || 'fallback_only_dev_no_prod';
-if (!resolvedSecret || resolvedSecret === 'fallback_only_dev_no_prod') {
-  console.warn('[login-challenge] JWT_SECRET not configured — challenges will be insecure');
+
+// Prefer explicit environment secrets; do not silently fall back in production.
+// In production we throw to avoid accidental insecure defaults. In development
+// we keep a clearly-documented fallback but warn loudly.
+const envSecret = process.env.JWT_SECRET || process.env.SESSION_SECRET;
+if (!envSecret) {
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('[login-challenge] JWT_SECRET or SESSION_SECRET must be configured in production');
+  }
+  console.warn('[login-challenge] JWT_SECRET/SESSION_SECRET not configured — using INSECURE fallback for development only');
 }
-const SECRET: string = resolvedSecret;
+const SECRET: string = envSecret || 'fallback_only_dev_no_prod';
 
 export function createLoginChallenge(email: string, userId: number): string {
   const payload = {

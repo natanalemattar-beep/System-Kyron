@@ -5,6 +5,11 @@ import { initializeDatabase } from '@/lib/db-schema';
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
+  // Only expose debug information in non-production or when explicitly enabled.
+  if (process.env.NODE_ENV === 'production' && !process.env.DEBUG_DB) {
+    return NextResponse.json({ error: 'Not allowed' }, { status: 403 });
+  }
+
   const results: any = {
     timestamp: new Date().toISOString(),
     env: {
@@ -66,8 +71,10 @@ export async function POST(req: NextRequest) {
         true
       ]
     );
-    // Cleanup if it worked magically
-    await query("DELETE FROM users WHERE email = 'debug_test_empresa@kyron.com'");
+    // Cleanup if it worked — keep debug payloads in non-production only.
+    if (process.env.NODE_ENV !== 'production') {
+      await query("DELETE FROM users WHERE email = 'debug_test_empresa@kyron.com'");
+    }
         // Check Plan Mapping
         const { VALID_PLANS_MAP } = await import('@/lib/planes-kyron');
         const results: any[] = [];

@@ -42,6 +42,26 @@ const MODULE_LEMAS: Record<string, string> = {
   controlparental: "Acompañando el crecimiento en el mundo digital",
 };
 
+// Gradient presets used in the full-page preview modal (fallbacks when SVGs
+// don't include the composed background). Colors chosen to match the module
+// palettes used across the UI.
+const MOD_GRADIENTS: Record<string, [string, string]> = {
+  contabilidad: ['#06b6d4', '#0ea5e9'],
+  facturacion: ['#f59e0b', '#f97316'],
+  nomina: ['#10b981', '#059669'],
+  legal: ['#1f2937', '#f59e0b'],
+  marketing: ['#ef4444', '#fb7185'],
+  'telecom-personal': ['#06b6d4', '#0ea5e9'],
+  'telecom-empresas': ['#059669', '#10b981'],
+  it: ['#06b6d4', '#0ea5e9'],
+  socios: ['#b45309', '#d97706'],
+  sostenibilidad: ['#16a34a', '#4ade80'],
+  ia: ['#7c3aed', '#a78bfa'],
+  ciudadano: ['#0ea5e9', '#67e8f9'],
+  kyronshield: ['#f59e0b', '#f97316'],
+  controlparental: ['#7c3aed', '#6d28d9'],
+};
+
 export default function IdentidadMarcaPage() {
   const { toast } = useToast();
   const logoRef = useRef<HTMLDivElement>(null);

@@ -322,14 +322,16 @@ export default function LoginLineaUnifiedPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <button
+                    <Button
                       type="button"
+                      variant="ghost"
+                      size="sm"
                       onClick={() => setUseAccessKey(v => !v)}
-                      className={cn("flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider transition-colors", useAccessKey ? "text-blue-400" : "text-white/30 hover:text-white/50")}
+                      className={cn("flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider h-auto min-h-0 px-0 py-1", useAccessKey ? "text-blue-400" : "text-white/30 hover:text-white/50")}
                     >
                       <KeyRound className="h-3 w-3" />
                       {useAccessKey ? 'Ocultar llave' : 'Usar llave de acceso'}
-                    </button>
+                    </Button>
                     {useAccessKey && (
                       <div className="relative group">
                         <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20 group-focus-within:text-blue-400 transition-colors" />
@@ -443,12 +445,14 @@ export default function LoginLineaUnifiedPage() {
                 )}
 
                 <div className="space-y-3 mt-6">
-                  <Button variant="outline" onClick={() => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); }} className="w-full h-11 rounded-xl text-xs font-bold uppercase tracking-wider bg-transparent border-white/[0.08] text-white/50 hover:bg-white/5 hover:text-white hover:border-white/20 transition-all" disabled={isLoading}>
+                  <Button variant="outline" size="lg" onClick={() => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); }} className="w-full text-xs font-bold uppercase tracking-wider border-white/[0.08] text-white/50 hover:bg-white/5 hover:text-white hover:border-white/20" disabled={isLoading}>
                     <RotateCcw className="mr-2 h-3.5 w-3.5" /> Volver a iniciar sesión
                   </Button>
                   <p className="text-center text-xs text-white/30">
                     ¿No recibiste el código?{' '}
-                    <button onClick={() => { setStep('credentials'); setError(null); }} className="text-blue-400 hover:text-blue-300 font-bold transition-colors" disabled={isLoading}>Solicitar nuevo</button>
+                    <Button variant="link" size="sm" onClick={() => { setStep('credentials'); setError(null); }} className="text-blue-400 hover:text-blue-300 font-bold text-xs p-0 h-auto min-h-0" disabled={isLoading}>
+                      Solicitar nuevo
+                    </Button>
                   </p>
                 </div>
               </>

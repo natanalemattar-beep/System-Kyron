@@ -181,12 +181,12 @@ export function LandingHeader() {
               <LanguageSwitcher variant="default" align="end" />
               <ThemeToggle />
               <div className="w-px h-6 bg-border/50 mx-2" />
-              <Button variant="ghost" asChild className="h-10 px-5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/70 hover:text-foreground border border-transparent hover:border-border/50 hover:shadow-lg hover:shadow-kyron-cyan/5 dark:hover:shadow-kyron-cyan/10 transition-all duration-300">
+              <Button variant="ghost" asChild size="sm" className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/70 hover:text-foreground border border-transparent hover:border-border/50 hover:shadow-lg hover:shadow-kyron-cyan/5 dark:hover:shadow-kyron-cyan/10 transition-all duration-300">
                 <Link href="/login">
                   {t('login')}
                 </Link>
               </Button>
-              <Button asChild className="group relative h-10 px-7 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] bg-foreground hover:bg-foreground/90 text-background dark:bg-white dark:hover:bg-white/90 dark:text-black shadow-lg shadow-foreground/10 hover:shadow-xl hover:shadow-foreground/20 dark:hover:shadow-white/20 transition-all duration-300 active:scale-95 border-none overflow-hidden">
+              <Button asChild size="sm" className="group relative text-[10px] font-black uppercase tracking-[0.2em] bg-foreground hover:bg-foreground/90 text-background dark:bg-white dark:hover:bg-white/90 dark:text-black shadow-lg shadow-foreground/10 hover:shadow-xl hover:shadow-foreground/20 dark:hover:shadow-white/20 transition-all duration-300 active:scale-95 border-none overflow-hidden">
                 <Link href="/register">
                   <span className="absolute inset-0 bg-gradient-to-r from-kyron-cyan/0 via-kyron-cyan/10 to-kyron-cyan/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
                   <span className="relative z-10 flex items-center">
@@ -202,7 +202,7 @@ export function LandingHeader() {
               <ThemeToggle />
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-11 w-11 rounded-xl border border-border/40 dark:border-white/10 text-foreground bg-muted/40 dark:bg-white/[0.04] hover:bg-muted/60 dark:hover:bg-white/[0.08] active:scale-90 transition-all duration-300" aria-label={mobileOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}>
+                  <Button variant="ghost" size="icon" className="h-12 w-12 rounded-xl border border-border/40 dark:border-white/10 text-foreground bg-muted/40 dark:bg-white/[0.04] hover:bg-muted/60 dark:hover:bg-white/[0.08] active:scale-90 transition-all duration-300" aria-label={mobileOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}>
                     {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                   </Button>
                 </SheetTrigger>
@@ -223,7 +223,7 @@ export function LandingHeader() {
                       </span>
                     </div>
                     <SheetClose asChild>
-                      <Button variant="ghost" size="icon" className="ml-auto h-10 w-10 rounded-xl border border-border/40 dark:border-white/10 shrink-0" aria-label="Cerrar menú lateral">
+                      <Button variant="ghost" size="icon" className="ml-auto h-12 w-12 rounded-xl border border-border/40 dark:border-white/10 shrink-0" aria-label="Cerrar menú lateral">
                         <X className="h-4 w-4" />
                       </Button>
                     </SheetClose>

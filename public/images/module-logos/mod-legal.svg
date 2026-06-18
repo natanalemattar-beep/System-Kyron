@@ -1,66 +1,61 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="6" result="blur" />
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#a78bfa" />
-      <stop offset="50%" stop-color="#8b5cf6" />
-      <stop offset="100%" stop-color="#7c3aed" />
-    </linearGradient>
-    <linearGradient id="hexFill" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.1" />
-      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.02" />
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#312e81" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#070f1e" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="diskGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#312e81" />
     </linearGradient>
     <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ddd6fe" />
-      <stop offset="50%" stop-color="#a78bfa" />
-      <stop offset="100%" stop-color="#7c3aed" />
-    </linearGradient>
-    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.2" />
-      <stop offset="100%" stop-color="#030712" stop-opacity="0" />
-    </radialGradient>
-    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15" />
-      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.01" />
-      <stop offset="40.1%" stop-color="#ffffff" stop-opacity="0" />
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f59e0b" />
     </linearGradient>
   </defs>
-  
-  <!-- Background -->
-  <rect width="100%" height="100%" fill="#030712" rx="32" />
-  <circle cx="100" cy="100" r="75" fill="url(#centerGlow)" />
-  
-  <!-- Outer Hexagon Border -->
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="none" stroke="url(#hexGrad)" stroke-width="0.8" opacity="0.3" filter="url(#glow)" />
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#hexFill)" stroke="url(#hexGrad)" stroke-width="2.5" />
-  <polygon points="100,20 169.3,60 169.3,140 100,180 30.7,140 30.7,60" fill="url(#glassGrad)" />
-  <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.2" />
-  
-  <!-- Icon: Scales of Justice (Legal) -->
-  <g transform="translate(10, 10)">
-    <line x1="60" y1="65" x2="120" y2="65" stroke="url(#iconGrad)" stroke-width="5" stroke-linecap="round" filter="url(#softGlow)" />
-    <line x1="90" y1="58" x2="90" y2="125" stroke="url(#iconGrad)" stroke-width="5" stroke-linecap="round" filter="url(#softGlow)" />
-    <line x1="75" y1="125" x2="105" y2="125" stroke="url(#iconGrad)" stroke-width="5" stroke-linecap="round" filter="url(#softGlow)" />
-    
-    <!-- Scale hanging triangles -->
-    <path d="M 60,65 L 50,95 H 70 Z" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round" opacity="0.85" filter="url(#softGlow)" />
-    <path d="M 120,65 L 110,95 H 130 Z" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round" opacity="0.85" filter="url(#softGlow)" />
-  </g>
-  
-  <!-- Concentric Dot Removed -->
-</svg>
 
+  <!-- Dark Deep Blue Background -->
+  <rect width="100%" height="100%" fill="#070f1e" />
+  <circle cx="100" cy="100" r="90" fill="url(#bgGlow)" />
+
+  <!-- Outer Ring of Glowing Dots -->
+  <circle cx="100" cy="100" r="78" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="2, 4.5" opacity="0.4" filter="url(#glow)" />
+  
+  <!-- Outer Solid Ring -->
+  <circle cx="100" cy="100" r="72" fill="none" stroke="#fbbf24" stroke-width="0.5" opacity="0.2" />
+
+  <!-- Main Inner Disk -->
+  <circle cx="100" cy="100" r="66" fill="url(#diskGrad)" stroke="#1e1b4b" stroke-width="1.5" />
+  
+  <!-- Inner Concentric Dial Ring -->
+  <circle cx="100" cy="100" r="61" fill="none" stroke="#fbbf24" stroke-width="0.5" opacity="0.15" />
+
+  <!-- Top Text: Module Name -->
+  <text x="100" y="70" text-anchor="middle" font-family="'Inter', 'Segoe UI', Arial" font-size="5.5" font-weight="900" letter-spacing="1.5" fill="#fde68a" opacity="0.85">• — LEGAL — •</text>
+
+  <!-- Central Icon: Scales of Justice (Legal) -->
+  <g transform="translate(0, 5)">
+    <!-- Central Stem -->
+    <line x1="100" y1="80" x2="100" y2="116" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linecap="round" />
+    <line x1="90" y1="116" x2="110" y2="116" stroke="url(#iconGrad)" stroke-width="4.5" stroke-linecap="round" />
+    
+    <!-- Balance Beam -->
+    <line x1="75" y1="88" x2="125" y2="88" stroke="url(#iconGrad)" stroke-width="4" stroke-linecap="round" />
+    
+    <!-- Left Hanging Plate -->
+    <path d="M 75,88 L 65,108 H 85 Z" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linejoin="round" opacity="0.9" />
+    
+    <!-- Right Hanging Plate -->
+    <path d="M 125,88 L 115,108 H 135 Z" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linejoin="round" opacity="0.9" />
+  </g>
+
+  <!-- Bottom Subtitle -->
+  <text x="100" y="132" text-anchor="middle" font-family="'Inter', 'Segoe UI', Arial" font-size="3.5" font-weight="bold" letter-spacing="1" fill="#fbbf24" opacity="0.6">SYSTEM KYRON</text>
+</svg>
