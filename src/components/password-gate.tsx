@@ -5,34 +5,20 @@ import { Button } from '@/components/ui/button';
 import { Lock, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+const CORRECT_PASSWORD = 'Carlos123';
+
 export function PasswordGate({ children, title }: { children: React.ReactNode; title: string }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError(false);
-    try {
-      const res = await fetch('/api/auth/verify-gate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
-      });
-      const data = await res.json();
-      if (data.valid) {
-        setIsUnlocked(true);
-      } else {
-        setError(true);
-        setTimeout(() => setError(false), 2000);
-      }
-    } catch {
+    if (password === CORRECT_PASSWORD) {
+      setIsUnlocked(true);
+    } else {
       setError(true);
       setTimeout(() => setError(false), 2000);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -69,10 +55,9 @@ export function PasswordGate({ children, title }: { children: React.ReactNode; t
           </div>
           <Button
             type="submit"
-            disabled={loading}
-            className="w-full py-4 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-bold text-lg disabled:opacity-50"
+            className="w-full py-4 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-bold text-lg"
           >
-            {loading ? 'Verificando...' : 'Acceder'}
+            Acceder
           </Button>
           {error && (
             <p className="text-red-500 text-center text-sm">Clave incorrecta. Intenta de nuevo.</p>

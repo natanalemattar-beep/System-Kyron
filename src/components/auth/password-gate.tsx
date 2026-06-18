@@ -7,37 +7,25 @@ import { Input } from '@/components/ui/input';
 
 interface PasswordGateProps {
     children: React.ReactNode;
+    secretKey?: string;
     title?: string;
     description?: string;
 }
 
 export function PasswordGate({ 
-    children,
+    children, 
+    secretKey = "Carlos123",
     title = "Acceso Restringido",
     description = "Este enlace es privado. Ingresa la clave secreta para continuar."
 }: PasswordGateProps) {
     const [pass, setPass] = useState("");
     const [isAuthorized, setIsAuthorized] = useState(false);
-    const [loading, setLoading] = useState(false);
 
-    const checkPass = async () => {
-        setLoading(true);
-        try {
-            const res = await fetch('/api/auth/verify-gate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password: pass }),
-            });
-            const data = await res.json();
-            if (data.valid) {
-                setIsAuthorized(true);
-            } else {
-                alert("Clave incorrecta. Acceso denegado.");
-            }
-        } catch {
-            alert("Error al verificar la clave. Intenta de nuevo.");
-        } finally {
-            setLoading(false);
+    const checkPass = () => {
+        if (pass === secretKey) {
+            setIsAuthorized(true);
+        } else {
+            alert("Clave incorrecta. Acceso denegado.");
         }
     };
 
@@ -74,10 +62,9 @@ export function PasswordGate({
                 </div>
                 <Button 
                     onClick={checkPass} 
-                    disabled={loading}
-                    className="h-14 bg-amber-600 hover:bg-amber-500 text-white font-black uppercase tracking-widest text-[11px] rounded-2xl shadow-lg shadow-amber-900/20 transition-all active:scale-95 disabled:opacity-50"
+                    className="h-14 bg-amber-600 hover:bg-amber-500 text-white font-black uppercase tracking-widest text-[11px] rounded-2xl shadow-lg shadow-amber-900/20 transition-all active:scale-95"
                 >
-                    {loading ? 'Verificando...' : 'Desbloquear Contenido'}
+                    Desbloquear Contenido
                 </Button>
             </div>
 
