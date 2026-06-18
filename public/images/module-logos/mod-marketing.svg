@@ -1,56 +1,8 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="5" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#b91c1c" stop-opacity="0.25" />
-      <stop offset="100%" stop-color="#070f1e" stop-opacity="0" />
-    </radialGradient>
-    <linearGradient id="diskGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#991b1b" />
-      <stop offset="100%" stop-color="#b91c1c" />
-    </linearGradient>
-    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="100%" stop-color="#fca5a5" />
-    </linearGradient>
-  </defs>
-
-  <!-- Dark Deep Blue Background -->
-  <rect width="100%" height="100%" fill="#070f1e" />
-  <circle cx="100" cy="100" r="90" fill="url(#bgGlow)" />
-
-  <!-- Outer Ring of Glowing Dots -->
-  <circle cx="100" cy="100" r="78" fill="none" stroke="#f87171" stroke-width="1.5" stroke-dasharray="2, 4.5" opacity="0.4" filter="url(#glow)" />
-  
-  <!-- Outer Solid Ring -->
-  <circle cx="100" cy="100" r="72" fill="none" stroke="#f87171" stroke-width="0.5" opacity="0.2" />
-
-  <!-- Main Inner Disk -->
-  <circle cx="100" cy="100" r="66" fill="url(#diskGrad)" stroke="#991b1b" stroke-width="1.5" />
-  
-  <!-- Inner Concentric Dial Ring -->
-  <circle cx="100" cy="100" r="61" fill="none" stroke="#f87171" stroke-width="0.5" opacity="0.15" />
-
-  <!-- Top Text: Module Name -->
-  <text x="100" y="70" text-anchor="middle" font-family="'Inter', 'Segoe UI', Arial" font-size="5.5" font-weight="900" letter-spacing="1.5" fill="#fca5a5" opacity="0.85">• — MARKETING — •</text>
-
-  <!-- Central Icon: Megaphone / Horn (Marketing) -->
-  <g transform="translate(0, 5)">
-    <!-- Horn -->
-    <path d="M 75,108 L 85,108 L 105,122 V 78 L 85,92 L 75,92 Z" fill="url(#iconGrad)" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" />
-    <rect x="77" y="108" width="5" height="12" rx="1" fill="#FFFFFF" opacity="0.9" />
-    
-    <!-- Waves -->
-    <path d="M 113,92 A 15,15 0 0 1 113,108" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.9" filter="url(#softGlow)" />
-    <path d="M 121,83 A 28,30 0 0 1 121,117" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.7" filter="url(#softGlow)" />
-  </g>
-
-  <!-- Bottom Subtitle -->
-  <text x="100" y="132" text-anchor="middle" font-family="'Inter', 'Segoe UI', Arial" font-size="3.5" font-weight="bold" letter-spacing="1" fill="#f87171" opacity="0.6">SYSTEM KYRON</text>
+  <path d="M50 90c0-33 27-60 60-60s60 27 60 60-27 60-60 60" stroke="currentColor" stroke-width="7" fill="none" opacity="0.85"/>
+  <path d="M50 90v60c0 11 9 20 20 20h50" stroke="currentColor" stroke-width="7" fill="none" opacity="0.7" stroke-linecap="round"/>
+  <path d="M35 160h130" stroke="currentColor" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.5"/>
+  <path d="M80 170c0-14 18-25 40-25s40 11 40 25" stroke="currentColor" stroke-width="5" fill="none" opacity="0.5" stroke-linecap="round"/>
+  <path d="M110 80l15 15-15 15" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M95 80l-15 15 15 15" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.6"/>
 </svg>
