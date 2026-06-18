@@ -46,5 +46,9 @@ export function getSmtpTransporter(): nodemailer.Transporter {
 }
 
 export async function getGmailSenderAddress(): Promise<string> {
-  return process.env.GMAIL_USER || 'noreplysystemkyron@gmail.com';
+  const user = process.env.GMAIL_USER;
+  if (!user) {
+    throw new Error('GMAIL_USER env var is required to send emails');
+  }
+  return user;
 }

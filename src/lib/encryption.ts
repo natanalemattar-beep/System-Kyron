@@ -14,11 +14,11 @@ function getEncryptionKey(): Buffer {
     if (cachedKey) return cachedKey;
     const secret = process.env.ENCRYPTION_KEY;
     if (!secret) {
-        // Fallback robusto por si en Vercel no está ni ENCRYPTION_KEY ni JWT_SECRET
-        const jwtSecret = process.env.JWT_SECRET;
-        if (!jwtSecret) throw new Error('[encryption] JWT_SECRET is required');
-        console.warn('[encryption] ENCRYPTION_KEY no está definida. Usando fallback de seguridad.');
-        cachedKey = scryptSync(jwtSecret + ':encryption-derived', 'kyron-aes256-derived-salt', KEY_LENGTH);
+        if (process.env.NODE_ENV === 'production') {
+            throw new Error('[encryption] ENCRYPTION_KEY must be configured in production');
+        }
+        console.warn('[encryption] ENCRYPTION_KEY not set — generating ephemeral dev key. Encrypted data will not survive server restart.');
+        cachedKey = scryptSync(crypto.randomBytes(32).toString('hex'), 'kyron-dev-salt', KEY_LENGTH);
         return cachedKey;
     }
     cachedKey = scryptSync(secret, 'kyron-aes256-salt', KEY_LENGTH);
@@ -68,11 +68,7 @@ export function decrypt(ciphertext: string): string {
 
         return decrypted.toString('utf8');
     } catch (err: any) {
-        console.error('CRITICAL LOGIN ERROR:', {
-            message: err.message,
-            stack: err.stack,
-            cause: err.cause
-        });
+        console.error('[encryption] Decryption failed:', err.message);
         return '';
     }
 }

@@ -1,6 +1,6 @@
 import { getTwilioClient } from '@/lib/twilio-client';
 
-const WHATSAPP_FROM = process.env.TWILIO_WHATSAPP_FROM || 'whatsapp:+14155238886';
+const WHATSAPP_FROM = process.env.TWILIO_WHATSAPP_FROM;
 
 function normalizeVenezuelanPhone(phone: string): string {
   let cleaned = phone.replace(/[\s\-\(\)]/g, '');
@@ -16,6 +16,9 @@ export async function sendWhatsAppMessage(
   body: string
 ): Promise<{ success: boolean; sid?: string; error?: string }> {
   try {
+    if (!WHATSAPP_FROM) {
+      return { success: false, error: 'TWILIO_WHATSAPP_FROM env var not configured' };
+    }
     const client = await getTwilioClient();
 
     const normalized = normalizeVenezuelanPhone(to);

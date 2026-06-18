@@ -37,8 +37,11 @@ export function getPool(): Pool {
             console.warn('[db] AVISO: DATABASE_URL no está definida. La base de datos no funcionará.');
         }
 
+        if (!connectionString) {
+            throw new Error('[db] POSTGRES_URL or DATABASE_URL env var is required');
+        }
         globalForDb.pool = new Pool({
-            connectionString: connectionString || 'postgres://localhost:5432/postgres',
+            connectionString,
             // rejectUnauthorized: false permite conexiones SSL auto-firmadas en Supabase/Neon
             // sin necesidad de modificar la URL (que puede tener parámetros propios como ?supa=...)
             ssl: isProduction ? { rejectUnauthorized: false } : false,
