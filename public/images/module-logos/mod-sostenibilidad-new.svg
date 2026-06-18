@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16a34a" />
+      <stop offset="1" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="28" fill="url(#g)" />
+  <g transform="translate(44,44)" fill="#fff">
+    <path d="M32 96c16-34 56-48 80-32-18-2-36 10-44 26-6 12-28 10-36 6z" opacity="0.98" />
+    <path d="M120 60c-14 6-24 18-28 32 10-8 24-10 36-6z" opacity="0.95" />
+  </g>
+  <title>Sostenibilidad (new)</title>
+</svg>
