@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { queryOne } from '@/lib/db';
+import { query, queryOne } from '@/lib/db';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { generateCode, storeCode, normalizePhone } from '@/lib/verification-codes';
 import { createLoginChallenge } from '@/lib/login-challenge';
@@ -17,11 +17,17 @@ export async function POST(req: NextRequest) {
     }
 
     const normalizedPhone = normalizePhone(phone);
-    const user = await queryOne<{ id: number; email: string; nombre: string; telefono: string; telefono_verificado: boolean }>(
+
+    // Fetch all users and decrypt phone for comparison (column may be encrypted)
+    const allUsers = await query<{ id: number; email: string; nombre: string; telefono: string; telefono_verificado: boolean }>(
       `SELECT id, email, nombre, telefono, COALESCE(telefono_verificado, false) as telefono_verificado
-       FROM users WHERE telefono = $1`,
-      [normalizedPhone]
+       FROM users WHERE telefono IS NOT NULL`
     );
+
+    const user = allUsers.find((u) => {
+      const decrypted = decryptIfEncrypted(u.telefono);
+      return decrypted === normalizedPhone;
+    });
 
     if (!user) {
       return NextResponse.json({ error: 'No hay cuenta asociada a este número' }, { status: 404 });

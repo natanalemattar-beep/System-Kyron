@@ -4,7 +4,7 @@ import { query } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
-const ADMIN_SECRET = process.env.ADMIN_PROMOTE_SECRET || 'kyron_admin_promote_2026';
+const ADMIN_SECRET = process.env.ADMIN_PROMOTE_SECRET;
 
 
 export async function POST(req: NextRequest) {

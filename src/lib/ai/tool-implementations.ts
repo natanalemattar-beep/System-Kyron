@@ -1,6 +1,28 @@
 import { query, queryOne } from '@/lib/db';
 import { registerTool } from './tools';
 
+const ALLOWED_TABLES = new Set([
+  'users', 'clientes', 'facturas', 'empleados', 'proveedores',
+  'asientos_contables', 'nominas', 'nomina_items',
+  'notificaciones', 'alert_queue', 'system_health_log',
+  'tasas_cambio', 'transacciones', 'declaraciones',
+  'periodo_fiscal_cierres', 'aportes_parafiscales',
+  'categorias', 'planes', 'subscriptions', 'user_sessions',
+]);
+
+function validateTableNames(sql: string): string | null {
+  const upper = sql.toUpperCase();
+  const tableRefs = upper.match(/(?:FROM|JOIN|INTO|UPDATE|TABLE)\s+([a-z_][a-z0-9_]*)/gi);
+  if (!tableRefs) return null;
+  for (const ref of tableRefs) {
+    const tableName = ref.split(/\s+/)[1]?.toLowerCase();
+    if (tableName && !ALLOWED_TABLES.has(tableName)) {
+      return `Tabla no permitida en consultas SELECT: "${tableName}"`;
+    }
+  }
+  return null;
+}
+
 function n(v: any, fallback = 0): number {
   const p = parseFloat(String(v ?? ''));
   return isNaN(p) ? fallback : p;
@@ -25,21 +47,30 @@ registerTool(
   } as any,
   {
     execute: async ({ sql, limit = 20 }: { sql: string; limit?: number }) => {
-      const trimmed = sql.trim().toLowerCase();
-      if (!trimmed.startsWith('select')) {
+      const trimmed = sql.trim();
+      const lowered = trimmed.toLowerCase();
+      if (!lowered.startsWith('select')) {
         return { error: 'Solo consultas SELECT están permitidas' };
       }
-      if (trimmed.includes('insert') || trimmed.includes('update') || trimmed.includes('delete') || trimmed.includes('drop') || trimmed.includes('alter') || trimmed.includes('truncate')) {
-        return { error: 'Operación no permitida. Solo SELECT.' };
+      const blocked = ['insert', 'update', 'delete', 'drop', 'alter', 'truncate', 'grant', 'revoke', 'create', 'exec', 'execute', 'call', 'pragma', 'attach'];
+      for (const kw of blocked) {
+        if (lowered.includes(kw)) {
+          return { error: `Palabra clave "${kw}" no permitida en consultas.` };
+        }
+      }
+      const tableErr = validateTableNames(trimmed);
+      if (tableErr) {
+        return { error: tableErr };
       }
       try {
         const safeLimit = Math.min(Math.max(1, limit || 20), 100);
-        const limitedSql = trimmed.endsWith(';') ? `${sql} LIMIT ${safeLimit}` : `${sql} LIMIT ${safeLimit}`;
-        const rows = await query(limitedSql);
+        const cleanSql = trimmed.replace(/;\s*$/, '');
+        const limitedSql = `${cleanSql} LIMIT $1`;
+        const rows = await query(limitedSql, [safeLimit]);
         return {
           filas: rows.length,
           datos: rows,
-          sql_ejecutado: limitedSql,
+          sql_ejecutado: limitedSql.replace(/\$1/, String(safeLimit)),
         };
       } catch (e: any) {
         return { error: `Error en consulta: ${e.message}` };

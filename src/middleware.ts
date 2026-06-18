@@ -37,10 +37,13 @@ const COOKIE_NAME = 'sk_session';
 const resolvedSecret = process.env.JWT_SECRET || process.env.SESSION_SECRET;
 
 if (!resolvedSecret) {
-  console.error('[MIDDLEWARE] CRITICAL: JWT_SECRET is not set. All protected routes will fail.');
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('[MIDDLEWARE] CRITICAL: JWT_SECRET env var is required in production');
+  }
+  console.error('[MIDDLEWARE] CRITICAL: JWT_SECRET is not set. All protected routes will fail in production.');
 }
 
-const JWT_SECRET = new TextEncoder().encode(resolvedSecret || 'fallback_only_dev');
+const JWT_SECRET = new TextEncoder().encode(resolvedSecret || '');
 
 // Page segments (after locale prefix) that are publicly accessible
 const PUBLIC_SEGMENTS = new Set([

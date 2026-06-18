@@ -5,7 +5,11 @@ import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 
 export const dynamic = 'force-dynamic';
 
-const MASTER_KEY = 'Carlos0507..';
+const MASTER_KEY = process.env.KYRON_MAIL_KEY;
+
+if (!MASTER_KEY && process.env.NODE_ENV === 'production') {
+  console.error('[kyron-mail] CRITICAL: KYRON_MAIL_KEY env var not set');
+}
 
 const TEMPLATES: Record<string, { subject: string; title: string; footer: string }> = {
   bienvenida: {
