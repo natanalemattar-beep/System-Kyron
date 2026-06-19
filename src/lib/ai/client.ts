@@ -141,7 +141,7 @@ export class AiClient {
     options: AiGenerateOptions = {}
   ): Promise<string> {
     const {
-      model = "gemini-1.5-flash",
+      model = "gemini-2.5-pro",
       temperature = 0.7,
       maxTokens = 8192,
       systemInstruction,
@@ -185,7 +185,7 @@ export class AiClient {
     fallback?: T
   ): Promise<T> {
     const {
-      model = "gemini-1.5-flash",
+      model = "gemini-2.5-pro",
       temperature = 0.3,
       maxTokens = 8192,
       systemInstruction,
@@ -231,7 +231,7 @@ export class AiClient {
     options: AiGenerateOptions = {}
   ): Promise<{ text: string; toolCalls: Array<{ name: string; args: any; result: any }> }> {
     const {
-      model = "gemini-1.5-flash",
+      model = "gemini-2.5-pro",
       temperature = 0.3,
       maxTokens = 8192,
       systemInstruction,
