@@ -439,6 +439,23 @@ export default function RegisterSelectionPage() {
     } | null>(null);
     const [showScanner, setShowScanner] = useState(false);
     const [navigatingModule, setNavigatingModule] = useState<string | null>(null);
+    const [verifVerified, setVerifVerified] = useState(false);
+
+    useEffect(() => {
+        let channel: BroadcastChannel | null = null;
+        try {
+            channel = new BroadcastChannel('kyron-auth');
+            channel.onmessage = (event) => {
+                if (event.data?.type === 'SESSION_READY') {
+                    setVerifVerified(true);
+                    if (step === 'identify' && detected.valid) {
+                        setStep('modules');
+                    }
+                }
+            };
+        } catch {}
+        return () => { try { channel?.close(); } catch {} };
+    }, [step, detected.valid]);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const scannerProvidedRef = useRef<string | null>(null);
