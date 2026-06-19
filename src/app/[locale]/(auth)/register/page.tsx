@@ -464,10 +464,6 @@ export default function RegisterSelectionPage() {
             return;
         }
         const doc = `${prefix}-${docNumber}`;
-        if (scannerProvidedRef.current === doc) {
-            setCedulaSearching(false);
-            return;
-        }
         setCedulaSearching(true);
         const controller = new AbortController();
         const timeout = setTimeout(async () => {
