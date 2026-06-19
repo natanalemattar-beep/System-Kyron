@@ -10,6 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
+import { ModuleLogo } from "@/components/module-logo";
 
 const MIEMBROS_FAMILIA = [
   { id: "F1", nombre: "Carlos (Titular)", numero: "+58 412-1234567", plan: "Global 40GB", datosUsados: 12.5, datosAsignados: 20, rol: "titular", activo: true },
@@ -138,7 +139,7 @@ export default function PlanFamiliarPage() {
         <CardHeader className="px-5 py-4 border-b border-border/50">
              <div className="flex items-center gap-3">
                <div className="h-8 w-8 rounded-lg overflow-hidden">
-                 <img src="/images/module-logos/mod-controlparental-new.svg" alt="Control Parental" className="h-full w-full object-cover" />
+                 <ModuleLogo src="/images/module-logos/mod-controlparental-new.svg" alt="Control Parental" size="sm" />
                </div>
                <div>
                  <CardTitle className="text-sm font-semibold text-foreground">Control Parental</CardTitle>

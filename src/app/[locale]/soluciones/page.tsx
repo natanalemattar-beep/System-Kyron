@@ -14,6 +14,7 @@ import {
   Scale
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ModuleLogo } from '@/components/module-logo';
 
 interface Solution {
   title: string;
@@ -92,7 +93,7 @@ const SolutionsPage: FC = () => {
                          "bg-white/[0.03] border border-white/10 group-hover:scale-110 group-hover:shadow-glow"
                        )}>
                          {solution.logo ? (
-                           <img src={solution.logo} alt={solution.title} className="h-full w-full object-cover rounded-xl" />
+                           <ModuleLogo src={solution.logo} alt={solution.title} size="sm" />
                          ) : (
                            <solution.icon className={cn("h-4 w-4 md:h-5 md:w-5", solution.color)} />
                          )}

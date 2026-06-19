@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { User, Building2, ArrowRight, ChevronLeft, Globe, Signal, Smartphone, Landmark, Gavel, Users, Recycle, Sparkles, Lock, Cpu, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Logo } from '@/components/logo';
+import { ModuleLogo } from '@/components/module-logo';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
@@ -113,7 +114,7 @@ export default function LoginSelectionPage() {
                             <Link href={o.href as any} className="group block" onClick={() => handleNavClick(o.href)}>
                                 <div className="p-6 rounded-2xl bg-card border border-border hover:border-primary/30 hover:bg-card/80 transition-all duration-300 flex items-center gap-6 shadow-lg">
                                      <div className="h-14 w-14 rounded-xl flex items-center justify-center shadow-lg shrink-0 transition-all duration-300 overflow-hidden">
-                                         {navigatingTo === o.href ? <Loader2 className="h-6 w-6 animate-spin text-white" /> : <img src={o.logo} alt={o.key} className="h-full w-full object-cover" />}
+                                         {navigatingTo === o.href ? <Loader2 className="h-6 w-6 animate-spin text-white" /> : <ModuleLogo src={o.logo} alt={o.key} size="md" />}
                                      </div>
                                     <div className="flex-1 min-w-0">
                                         <h3 className="text-lg font-bold text-foreground tracking-tight">{t(`options.${o.key}.label`)}</h3>
@@ -149,7 +150,7 @@ export default function LoginSelectionPage() {
                             <Link href={option.href as any} className="group block" onClick={() => handleNavClick(option.href)}>
                                 <div className="p-4 rounded-xl bg-card border border-border hover:border-accent/30 hover:bg-card/80 transition-all duration-300 flex items-center gap-4 shadow-lg">
                                      <div className="h-10 w-10 rounded-lg flex items-center justify-center shadow-md shrink-0 transition-all duration-300 overflow-hidden">
-                                         {navigatingTo === option.href ? <Loader2 className="h-4 w-4 animate-spin text-white" /> : <img src={option.logo} alt={option.key} className="h-full w-full object-cover" />}
+                                         {navigatingTo === option.href ? <Loader2 className="h-4 w-4 animate-spin text-white" /> : <ModuleLogo src={option.logo} alt={option.key} size="sm" />}
                                      </div>
                                     <div className="flex-1 min-w-0">
                                         <h4 className="text-sm font-bold text-foreground">{t(`options.${option.key}.label`)}</h4>
