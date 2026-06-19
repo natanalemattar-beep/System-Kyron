@@ -139,7 +139,7 @@ export default function PlanFamiliarPage() {
         <CardHeader className="px-5 py-4 border-b border-border/50">
              <div className="flex items-center gap-3">
                <div className="h-8 w-8 rounded-lg overflow-hidden">
-                 <ModuleLogo src="/images/module-logos/mod-controlparental-new.svg" alt="Control Parental" size="sm" />
+                 <ModuleLogo src="/images/module-logos/Parental.jpg" alt="Control Parental" size="sm" />
                </div>
                <div>
                  <CardTitle className="text-sm font-semibold text-foreground">Control Parental</CardTitle>

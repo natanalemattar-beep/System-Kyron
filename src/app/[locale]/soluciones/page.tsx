@@ -41,7 +41,7 @@ const categories = [
     items: [
       { title: 'GESTIÓN CORPORATIVA', subtitle: 'Operaciones Digitales', description: 'Unificación de procesos administrativos en un solo flujo de trabajo inteligente y automatizado.', icon: Briefcase, color: 'text-blue-400', accent: 'from-blue-500/20 to-transparent' },
       { title: 'INTELIGENCIA DE DATOS', subtitle: 'Análisis Predictivo', description: 'Transformamos datos brutos en decisiones estratégicas mediante modelos de IA y Big Data.', icon: BarChart3, color: 'text-violet-400', accent: 'from-violet-500/20 to-transparent' },
-      { title: 'AUTOMATIZACIÓN IA', subtitle: 'Eficiencia Operativa', description: 'Sustitución de tareas repetitivas por flujos lógicos de IA para maximizar la productividad.', logo: '/images/module-logos/mod-ia-new.svg', color: 'text-yellow-400', accent: 'from-yellow-500/20 to-transparent' },
+      { title: 'AUTOMATIZACIÓN IA', subtitle: 'Eficiencia Operativa', description: 'Sustitución de tareas repetitivas por flujos lógicos de IA para maximizar la productividad.', logo: '/images/module-logos/AI y automatizacion.jpg', color: 'text-yellow-400', accent: 'from-yellow-500/20 to-transparent' },
       { title: 'GESTIÓN DOCUMENTAL', subtitle: 'Archivo Digital Inteligente', description: 'Digitalización y organización de documentos con búsqueda semántica y control de versiones.', icon: FileText, color: 'text-emerald-500', accent: 'from-emerald-500/20 to-transparent' },
     ],
   },
@@ -52,8 +52,8 @@ const categories = [
     border: 'border-rose-500/20',
     bg: 'bg-rose-500/5',
     items: [
-      { title: 'SOPORTE JURÍDICO', subtitle: 'Blindaje Normativo', description: 'Asesoría legal especializada en derecho mercantil, laboral y tributario venezolano.', logo: '/images/module-logos/mod-legal-new.svg', color: 'text-emerald-400', accent: 'from-emerald-500/20 to-transparent' },
-      { title: 'KYRON SHIELD', subtitle: 'Protección de Activos', description: 'Capa de seguridad avanzada para la protección de datos críticos y prevención de intrusiones.', logo: '/images/module-logos/mod-kyronshield-new.svg', color: 'text-rose-400', accent: 'from-rose-500/20 to-transparent' },
+      { title: 'SOPORTE JURÍDICO', subtitle: 'Blindaje Normativo', description: 'Asesoría legal especializada en derecho mercantil, laboral y tributario venezolano.', logo: '/images/module-logos/legal.jpg', color: 'text-emerald-400', accent: 'from-emerald-500/20 to-transparent' },
+      { title: 'KYRON SHIELD', subtitle: 'Protección de Activos', description: 'Capa de seguridad avanzada para la protección de datos críticos y prevención de intrusiones.', logo: '/images/module-logos/Kyron Shield.jpg', color: 'text-rose-400', accent: 'from-rose-500/20 to-transparent' },
       { title: 'CONECTIVIDAD GLOBAL', subtitle: 'Interoperabilidad Total', description: 'Sistemas de enlace internacional para empresas con operaciones en múltiples jurisdicciones.', icon: Globe, color: 'text-indigo-400', accent: 'from-indigo-500/20 to-transparent' },
       { title: 'AUDITORÍA Y CUMPLIMIENTO', subtitle: 'Rigor Normativo', description: 'Verificación exhaustiva de procesos para asegurar la conformidad con entes reguladores.', icon: Scale, color: 'text-violet-500', accent: 'from-violet-500/20 to-transparent' },
     ],
