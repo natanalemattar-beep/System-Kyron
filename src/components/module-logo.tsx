@@ -10,22 +10,19 @@ interface ModuleLogoProps {
 
 export function ModuleLogo({ src, alt, className, size = "md" }: ModuleLogoProps) {
   const sizeMap = {
-    sm: { width: 40, height: 40 },
-    md: { width: 56, height: 56 },
-    lg: { width: 128, height: 128 },
+    sm: "h-10 w-10",
+    md: "h-14 w-14",
+    lg: "h-32 w-32",
   };
 
-  const { width, height } = sizeMap[size];
+  const sizeClass = sizeMap[size];
 
   return (
-    <div className={cn("relative overflow-hidden rounded-xl", className)}>
-      <Image
-        src={src}
-        alt={alt || "Module Logo"}
-        width={width}
-        height={height}
-        className="h-full w-full object-cover"
-        priority
+    <div className={cn("relative overflow-hidden rounded-xl flex items-center justify-center", sizeClass, className)}>
+      <img 
+        src={src} 
+        alt={alt || "Module Logo"} 
+        className="h-full w-full object-contain" 
       />
     </div>
   );
