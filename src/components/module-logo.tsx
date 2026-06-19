@@ -22,7 +22,7 @@ export function ModuleLogo({ src, alt, className, size = "md" }: ModuleLogoProps
       <img 
         src={src} 
         alt={alt || "Module Logo"} 
-        className="h-full w-full object-contain" 
+        className="h-full w-full object-cover scale-150" 
       />
     </div>
   );
