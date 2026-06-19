@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     const text = await ai.generateText(
       `Eres Kyron IA. Responde esta consulta de forma precisa y profesional en máximo 2 párrafos: ${query}`,
       {
-        model: "gemini-1.5-flash",
+        model: "gemini-2.5-pro",
         temperature: 0.3,
         systemInstruction: "Responde en español de forma profesional y concisa.",
       }

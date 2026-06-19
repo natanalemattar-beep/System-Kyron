@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     const text = await ai.generateText(
       `Eres Kyron IA, el asistente virtual del ecosistema System Kyron. Responde de forma clara, profesional y amigable. Pregunta del usuario: ${message}`,
       {
-        model: "gemini-1.5-flash",
+        model: "gemini-2.5-pro",
         temperature: 0.7,
         systemInstruction: "Eres Kyron IA, asistente corporativo del ecosistema System Kyron. Responde en español de forma profesional y concisa.",
       }

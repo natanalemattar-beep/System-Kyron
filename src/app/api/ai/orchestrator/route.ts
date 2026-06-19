@@ -35,7 +35,7 @@ Eres un AGENTE de acción, no solo un chatbot de ayuda. Tienes el poder de opera
     const result = await ai.agenticGenerate(mensaje, {
       systemInstruction,
       tools: coreTools,
-      model: "gemini-1.5-flash", // Or "gemini-1.5-pro" for better reasoning
+      model: "gemini-2.5-pro",
     });
 
     return NextResponse.json({

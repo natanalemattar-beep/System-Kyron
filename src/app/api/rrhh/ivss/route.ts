@@ -91,7 +91,7 @@ Instrucciones:
 Mensaje del usuario: ${mensaje}`;
 
       const response = await ai.generateJson<{ respuesta: string; accion: string; datos: any; exito: boolean }>(prompt, {
-        model: "gemini-1.5-flash",
+        model: "gemini-2.5-pro",
         temperature: 0.3,
         maxTokens: 1024,
         systemInstruction: "Eres un asistente de IVSS. Siempre responde en JSON exacto.",
