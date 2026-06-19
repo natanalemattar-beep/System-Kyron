@@ -104,6 +104,10 @@ const sections = [
   {
     title: "25. Contacto",
     body: "Para consultas, reclamaciones, ejercicio de derechos o notificaciones relacionadas con estos Terminos de Servicio: Correo electronico: infosystemkyron@gmail.com — Responsable: EMPRENDIMIENTO CARLOS MATTAR (RIF: J-50832149-9) — Direccion: Av. Playa Grande, Edif. Belo Horizonte, Piso 15, Apt. 155 B, Catia La Mar, Estado La Guaira, Zona Postal 1162, Venezuela. Horario de atencion: Lunes a Viernes, 8:00 AM - 6:00 PM (hora de Venezuela, UTC-4). Asistencia Tecnica 24/7."
+  },
+  {
+    title: "26. Monitoreo de Seguridad y Huella Digital",
+    body: "Como parte de nuestras medidas de seguridad, System Kyron recopila y procesa cierta informacion tecnica durante el inicio de sesion y la navegacion, incluyendo: (a) direccion IP y geolocalizacion aproximada derivada de la misma; (b) huella digital del dispositivo (device fingerprint), que incluye informacion no personal sobre el navegador, sistema operativo, resolucion de pantalla, fuentes instaladas, plugins, zona horaria, idioma y configuracion de hardware; (c) tipo de dispositivo (movil, tableta, escritorio); (d) datos de sesion como fecha, hora, duracion y paginas visitadas. Esta informacion se utiliza exclusivamente para: (1) prevenir accesos no autorizados y fraudes; (2) gestionar la funcionalidad de Dispositivos de Confianza (Trusted Devices); (3) detectar actividades sospechosas y bloquear intentos de suplantacion de identidad; (4) cumplir con normativas de seguridad de la informacion aplicables. Los datos de huella digital se almacenan de forma cifrada, no se comparten con terceros y se conservan unicamente mientras la cuenta del usuario este activa. El usuario acepta este monitoreo como parte inherente del servicio de seguridad de la Plataforma. Si no desea ser sujeto a estas medidas, debera abstenerse de utilizar la Plataforma."
   }
 ];
 

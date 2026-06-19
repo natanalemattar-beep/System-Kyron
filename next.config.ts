@@ -53,6 +53,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   productionBrowserSourceMaps: false,
+  output: 'standalone',
   experimental: {
     serverActions: {
       bodySizeLimit: '10mb',

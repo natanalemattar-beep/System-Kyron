@@ -169,8 +169,16 @@ export function SpecializedLoginCard({
     setError(null);
     setEmailDeliveryFailed(false);
     try {
-      const body: Record<string, any> = { identifier, password, portal: isPersonalPortal ? 'personal' : 'business', deviceFingerprint, trustDevice, redirect: redirectPath };
+      const body: Record<string, any> = { 
+        identifier, 
+        password, 
+        portal: isPersonalPortal ? 'personal' : 'business', 
+        deviceFingerprint: deviceFingerprint || 'unknown_device', 
+        trustDevice: trustDevice, 
+        redirect: redirectPath 
+      };
       if (accessKey && accessKey.trim()) body.accessKey = accessKey.trim();
+
 
       const res = await fetch('/api/auth/login', {
         method: 'POST',
