@@ -112,9 +112,9 @@ export default function LoginSelectionPage() {
                         >
                             <Link href={o.href as any} className="group block" onClick={() => handleNavClick(o.href)}>
                                 <div className="p-6 rounded-2xl bg-card border border-border hover:border-primary/30 hover:bg-card/80 transition-all duration-300 flex items-center gap-6 shadow-lg">
-                                    <div className={cn("h-14 w-14 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-lg text-white shrink-0 transition-all duration-300", o.color)}>
-                                        {navigatingTo === o.href ? <Loader2 className="h-6 w-6 animate-spin" /> : <o.icon className="h-6 w-6" />}
-                                    </div>
+                                     <div className="h-14 w-14 rounded-xl flex items-center justify-center shadow-lg shrink-0 transition-all duration-300 overflow-hidden">
+                                         {navigatingTo === o.href ? <Loader2 className="h-6 w-6 animate-spin text-white" /> : <img src={o.logo} alt={o.key} className="h-full w-full object-cover" />}
+                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <h3 className="text-lg font-bold text-foreground tracking-tight">{t(`options.${o.key}.label`)}</h3>
                                         <p className="text-[11px] text-muted-foreground mt-0.5">{t(`options.${o.key}.description`)}</p>
@@ -148,9 +148,9 @@ export default function LoginSelectionPage() {
                         >
                             <Link href={option.href as any} className="group block" onClick={() => handleNavClick(option.href)}>
                                 <div className="p-4 rounded-xl bg-card border border-border hover:border-accent/30 hover:bg-card/80 transition-all duration-300 flex items-center gap-4 shadow-lg">
-                                    <div className={cn("h-10 w-10 rounded-lg bg-gradient-to-br flex items-center justify-center shadow-md text-white shrink-0 transition-all duration-300", option.color)}>
-                                        {navigatingTo === option.href ? <Loader2 className="h-4 w-4 animate-spin" /> : <option.icon className="h-4 w-4" />}
-                                    </div>
+                                     <div className="h-10 w-10 rounded-lg flex items-center justify-center shadow-md shrink-0 transition-all duration-300 overflow-hidden">
+                                         {navigatingTo === option.href ? <Loader2 className="h-4 w-4 animate-spin text-white" /> : <img src={option.logo} alt={option.key} className="h-full w-full object-cover" />}
+                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <h4 className="text-sm font-bold text-foreground">{t(`options.${option.key}.label`)}</h4>
                                         <p className="text-[10px] text-muted-foreground mt-0.5 truncate">{t(`options.${option.key}.description`)}</p>

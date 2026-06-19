@@ -18,7 +18,8 @@ import { cn } from '@/lib/utils';
 interface Solution {
   title: string;
   subtitle: string;
-  icon: React.ElementType;
+  icon?: React.ElementType;
+  logo?: string;
   color?: string;
 }
 
@@ -39,7 +40,7 @@ const categories = [
     items: [
       { title: 'GESTIÓN EMPRESARIAL', subtitle: 'OPERACIONES DIGITALES', icon: Briefcase, color: 'text-blue-400' },
       { title: 'INTELIGENCIA DE DATOS', subtitle: 'ANÁLISIS PREDICTIVO', icon: BarChart3, color: 'text-violet-400' },
-      { title: 'AUTOMATIZACIÓN', subtitle: 'EFICIENCIA OPERATIVA', icon: Zap, color: 'text-yellow-400' },
+       { title: 'AUTOMATIZACIÓN', subtitle: 'EFICIENCIA OPERATIVA', logo: '/images/module-logos/mod-ia-new.svg', color: 'text-yellow-400' },
       { title: 'DOCUMENTACIÓN', subtitle: 'GESTIÓN DOCUMENTAL', icon: FileText, color: 'text-emerald-500' },
     ],
   },
@@ -47,10 +48,10 @@ const categories = [
     label: 'SEGURIDAD & LEGAL',
     color: 'border-rose-500/20 text-rose-400',
     items: [
-      { title: 'ASESORÍA LEGAL', subtitle: 'BLINDAJE JURÍDICO', icon: ShieldCheck, color: 'text-emerald-400' },
-      { title: 'SEGURIDAD DIGITAL', subtitle: 'PROTECCIÓN DE ACTIVOS', icon: ShieldAlert, color: 'text-rose-400' },
-      { title: 'CONECTIVIDAD GLOBAL', subtitle: 'INTEROPERABILIDAD', icon: Globe, color: 'text-indigo-400' },
-      { title: 'CUMPLIMIENTO', subtitle: 'NORMATIVA Y AUDITORÍA', icon: Scale, color: 'text-violet-500' },
+       { title: 'ASESORÍA LEGAL', subtitle: 'BLINDAJE JURÍDICO', logo: '/images/module-logos/mod-legal-new.svg', color: 'text-emerald-400' },
+       { title: 'SEGURIDAD DIGITAL', subtitle: 'PROTECCIÓN DE ACTIVOS', logo: '/images/module-logos/mod-kyronshield-new.svg', color: 'text-rose-400' },
+       { title: 'CONECTIVIDAD GLOBAL', subtitle: 'INTEROPERABILIDAD', icon: Globe, color: 'text-indigo-400' },
+       { title: 'CUMPLIMIENTO', subtitle: 'NORMATIVA Y AUDITORÍA', icon: Scale, color: 'text-violet-500' },
     ],
   },
 ];
@@ -86,12 +87,16 @@ const SolutionsPage: FC = () => {
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none" />
                     <div className="relative">
-                      <div className={cn(
-                        "h-9 w-9 md:h-10 md:w-10 rounded-xl flex items-center justify-center mb-3 transition-all duration-300",
-                        "bg-white/[0.03] border border-white/10 group-hover:scale-110 group-hover:shadow-glow"
-                      )}>
-                        <solution.icon className={cn("h-4 w-4 md:h-5 md:w-5", solution.color)} />
-                      </div>
+                       <div className={cn(
+                         "h-9 w-9 md:h-10 md:w-10 rounded-xl flex items-center justify-center mb-3 transition-all duration-300",
+                         "bg-white/[0.03] border border-white/10 group-hover:scale-110 group-hover:shadow-glow"
+                       )}>
+                         {solution.logo ? (
+                           <img src={solution.logo} alt={solution.title} className="h-full w-full object-cover rounded-xl" />
+                         ) : (
+                           <solution.icon className={cn("h-4 w-4 md:h-5 md:w-5", solution.color)} />
+                         )}
+                       </div>
                       
                       <div className="space-y-1">
                         <h3 className="text-xs md:text-sm font-black uppercase tracking-tight text-white">

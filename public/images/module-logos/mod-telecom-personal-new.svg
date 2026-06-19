@@ -41,7 +41,4 @@
   <polygon points="100,28 163,64 163,136 100,172 37,136 37,64" fill="none" stroke="url(#hexGrad)" stroke-width="0.5" opacity="0.35" />
   <path d="M 85,100 Q 100,70 120,100 Q 140,130 120,160" fill="none" stroke="url(#iconGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softGlow)" />
   <circle cx="120" cy="160" r="8" fill="#FFFFFF" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
-  <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="4.5" fill="#2dd4bf" filter="url(#softGlow)" />
 </svg>

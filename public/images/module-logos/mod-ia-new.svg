@@ -48,7 +48,4 @@
   <circle cx="155" cy="95" r="9" fill="url(#iconGrad)" filter="url(#softGlow)" />
   <circle cx="135" cy="148" r="7" fill="url(#iconGrad)" filter="url(#softGlow)" />
   <circle cx="148" cy="128" r="5" fill="url(#iconGrad)" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="14" fill="#FFFFFF" opacity="0.12" />
-  <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="4.5" fill="#c084fc" filter="url(#softGlow)" />
 </svg>

@@ -136,10 +136,12 @@ export default function PlanFamiliarPage() {
 
       <Card className="bg-card/60 border border-border/50 rounded-xl overflow-hidden">
         <CardHeader className="px-5 py-4 border-b border-border/50">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-amber-500/10 rounded-lg"><Shield className="h-4 w-4 text-amber-500" /></div>
-            <div>
-              <CardTitle className="text-sm font-semibold text-foreground">Control Parental</CardTitle>
+             <div className="flex items-center gap-3">
+               <div className="h-8 w-8 rounded-lg overflow-hidden">
+                 <img src="/images/module-logos/mod-controlparental-new.svg" alt="Control Parental" className="h-full w-full object-cover" />
+               </div>
+               <div>
+                 <CardTitle className="text-sm font-semibold text-foreground">Control Parental</CardTitle>
               <CardDescription className="text-[10px] text-muted-foreground">Restricciones aplicadas a líneas de menores</CardDescription>
             </div>
           </div>

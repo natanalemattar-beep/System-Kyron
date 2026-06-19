@@ -42,7 +42,4 @@
   <circle cx="80" cy="100" r="15" fill="none" stroke="url(#iconGrad)" stroke-width="12" stroke-linecap="round" filter="url(#softGlow)" />
   <circle cx="120" cy="100" r="15" fill="none" stroke="url(#iconGrad)" stroke-width="12" stroke-linecap="round" filter="url(#softGlow)" />
   <path d="M 80,100 L 120,100" fill="none" stroke="url(#iconGrad)" stroke-width="12" stroke-linecap="round" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="13" fill="#FFFFFF" opacity="0.12" />
-  <circle cx="85" cy="100" r="9" fill="#FFFFFF" filter="url(#softGlow)" />
-  <circle cx="85" cy="100" r="4.5" fill="#34d399" filter="url(#softGlow)" />
 </svg>
