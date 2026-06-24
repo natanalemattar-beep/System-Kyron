@@ -7,14 +7,18 @@ import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail, isStrongPassword, sanitizeString } from '@/lib/input-sanitizer';
 import { validarRIF, validarFormatoCedula } from '@/lib/validacion-venezuela';
 import { encryptIfNotEmpty, generateSearchHash } from '@/lib/encryption';
+import { normalizePhone } from '@/lib/verification-codes';
 
 async function verificarCodigoUsado(destino: string, proposito: string = 'registration'): Promise<boolean> {
     const record = await queryOne<{ id: number }>(
         `SELECT id FROM verification_codes
          WHERE destino = $1 
-           AND usado = true 
            AND proposito = $2
-           AND created_at > NOW() - INTERVAL '60 minutes'
+           AND (
+             (usado = true AND created_at > NOW() - INTERVAL '60 minutes')
+             OR
+             (codigo = 'MAGIC_VERIFIED' AND expires_at > NOW())
+           )
          ORDER BY created_at DESC LIMIT 1`,
         [destino, proposito]
     );
@@ -82,9 +86,11 @@ async function registerNatural(body: Record<string, unknown>, ip: string = '0.0.
     }
 
     const normalizedEmail = sanitizeEmail(email);
+    const normalizedPhone = telefono ? normalizePhone(telefono) : '';
+    const normalizedPhoneAlt = telefono_alt ? normalizePhone(telefono_alt) : '';
 
     const emailVerified = await verificarCodigoUsado(normalizedEmail, 'registration');
-    const phoneVerified = telefono ? await verificarCodigoUsado(telefono, 'registration') : false;
+    const phoneVerified = normalizedPhone ? await verificarCodigoUsado(normalizedPhone, 'registration') : false;
 
 
     if (!emailVerified && !phoneVerified) {
@@ -93,17 +99,27 @@ async function registerNatural(body: Record<string, unknown>, ip: string = '0.0.
         }, { status: 403 });
     }
 
-    if (!telefono && !telefono_alt) {
+    if (!normalizedPhone && !normalizedPhoneAlt) {
         return NextResponse.json({ error: 'Debes proporcionar al menos un número de teléfono' }, { status: 400 });
     }
 
     const password_hash = await bcrypt.hash(password, 12);
     const cedulaHash = generateSearchHash(cedula);
 
+    const existingUser = await queryOne<{ id: number }>(
+        `SELECT id FROM users WHERE email = $1 OR cedula_hash = $2 LIMIT 1`,
+        [normalizedEmail, cedulaHash]
+    );
+    if (existingUser) {
+        return NextResponse.json({
+            error: 'Ya existe una cuenta con este correo o cédula. Inicia sesión o utiliza otro correo.',
+        }, { status: 409 });
+    }
+
     const encCedula = encryptIfNotEmpty(cedula);
-    const encTelefono = encryptIfNotEmpty(telefono);
-    const encTelefonoAlt = encryptIfNotEmpty(telefono_alt);
-    const telefonoHash = generateSearchHash(telefono);
+    const encTelefono = encryptIfNotEmpty(normalizedPhone);
+    const encTelefonoAlt = encryptIfNotEmpty(normalizedPhoneAlt);
+    const telefonoHash = generateSearchHash(normalizedPhone);
 
     const moduloNatural = (Array.isArray(modules) && modules.length > 0)
         ? String((modules[0] as { id: string }).id) : '';
@@ -242,9 +258,11 @@ async function registerJuridico(body: Record<string, unknown>, ip: string = '0.0
     }
 
     const normalizedEmail = sanitizeEmail(email);
+    const normalizedPhoneJuridico = telefono ? normalizePhone(String(telefono)) : '';
+    const normalizedPhoneAltJuridico = telefono_alt ? normalizePhone(String(telefono_alt)) : '';
 
     const emailVerified = await verificarCodigoUsado(normalizedEmail, 'registration');
-    const phoneVerified = telefono ? await verificarCodigoUsado(String(telefono), 'registration') : false;
+    const phoneVerified = normalizedPhoneJuridico ? await verificarCodigoUsado(normalizedPhoneJuridico, 'registration') : false;
 
 
     if (!emailVerified && !phoneVerified) {
@@ -298,11 +316,22 @@ async function registerJuridico(body: Record<string, unknown>, ip: string = '0.0
     const password_hash = await bcrypt.hash(password as string, 12);
     const rifClean = (rif as string).trim();
     const rifHash = generateSearchHash(rifClean);
+
+    const existingJuridico = await queryOne<{ id: number }>(
+        `SELECT id FROM users WHERE email = $1 OR rif_hash = $2 LIMIT 1`,
+        [normalizedEmail, rifHash]
+    );
+    if (existingJuridico) {
+        return NextResponse.json({
+            error: 'Ya existe una cuenta con este correo o RIF. Inicia sesión o utiliza otro correo.',
+        }, { status: 409 });
+    }
+
     const sanitizedRazonSocial = sanitizeString(razonSocial as string, 200);
     const sanitizedCapitalSocial = capital_social ? sanitizeString(String(capital_social), 50) : '';
     const sanitizedCodigoCiiu = codigo_ciiu ? sanitizeString(String(codigo_ciiu), 10) : '';
     const repNombreStr = sanitizeString((repNombre ?? '') as string, 200);
-    const telefonoHash = generateSearchHash(telefono as string);
+    const telefonoHash = generateSearchHash(normalizedPhoneJuridico);
     const repCedulaHash = generateSearchHash(repCedula as string);
     const encRif = encryptIfNotEmpty(rifClean);
 
@@ -342,8 +371,8 @@ async function registerJuridico(body: Record<string, unknown>, ip: string = '0.0
             fecha_constitucion ? sanitizeString(fecha_constitucion as string, 20) : null,
             sanitizeString((registro_mercantil ?? '') as string, 100),
             sanitizedCapitalSocial,
-            encryptIfNotEmpty(sanitizeString((telefono ?? '') as string, 20)),
-            encryptIfNotEmpty(sanitizeString((telefono_alt ?? '') as string, 20)),
+            encryptIfNotEmpty(sanitizeString(normalizedPhoneJuridico, 20)),
+            encryptIfNotEmpty(sanitizeString(normalizedPhoneAltJuridico, 20)),
             sanitizeString((estado_empresa ?? '') as string, 100),
             sanitizeString((municipio_empresa ?? '') as string, 100),
             encryptIfNotEmpty(sanitizeString((resolvedDireccion ?? '') as string, 500)),

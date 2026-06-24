@@ -61,9 +61,9 @@ export async function verifyMagicToken(token: string): Promise<{ valid: boolean;
        AND (
          (usado = false AND expires_at > NOW()) 
          OR 
-         (usado = true AND verified_at > NOW() - INTERVAL '1 minute')
-       )
-       AND proposito = 'magic_link'
+          (usado = true AND verified_at > NOW() - INTERVAL '10 minutes')
+        )
+        AND proposito = 'magic_link'
        ORDER BY created_at DESC LIMIT 1
        FOR UPDATE SKIP LOCKED
      )

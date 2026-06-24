@@ -12,6 +12,9 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
+const SENT_KEY = 'kyron-code-sent';
+const VERIFIED_KEY = 'kyron-code-verified';
+
 type VerificationMethod = 'email' | 'sms';
 
 interface VerificationCodeInputProps {
@@ -46,15 +49,22 @@ export function VerificationCodeInput({
 }: VerificationCodeInputProps) {
   const { toast } = useToast();
   const [method, setMethod] = useState<VerificationMethod>(initialTipo);
-  const [sent, setSent] = useState(false);
+  const [sent, setSent] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    try { return sessionStorage.getItem(`${SENT_KEY}:${destino}`) === 'true'; } catch { return false; }
+  });
   const [code, setCode] = useState('');
-  const [verified, setVerified] = useState(false);
+  const [verified, setVerified] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    try { return sessionStorage.getItem(`${VERIFIED_KEY}:${destino}`) === 'true'; } catch { return false; }
+  });
   const [loading, setLoading] = useState(false);
   const [devCode, setDevCode] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [countdown, setCountdown] = useState(0);
   const verifyingRef = useRef(false);
   const mountedRef = useRef(true);
+  const initialMountRef = useRef(true);
 
   useEffect(() => {
     mountedRef.current = true;
@@ -62,10 +72,17 @@ export function VerificationCodeInput({
   }, []);
 
   useEffect(() => {
-    if (destino && !sent && !verified) {
+    if (destino && !sent && !verified && initialMountRef.current) {
+      initialMountRef.current = false;
       sendCode();
     }
   }, [destino]);
+
+  useEffect(() => {
+    if (verified) {
+      try { sessionStorage.setItem(`${VERIFIED_KEY}:${destino}`, 'true'); } catch {}
+    }
+  }, [verified, destino]);
 
   useEffect(() => {
     if (countdown <= 0) return;
@@ -74,7 +91,7 @@ export function VerificationCodeInput({
   }, [countdown]);
 
   useEffect(() => {
-    if (code.length === 6 && sent && !verified) {
+    if (code.length === 6 && sent && !verified && !verifyingRef.current) {
       verifyCode(code);
     }
   }, [code, sent, verified]);
@@ -92,6 +109,7 @@ export function VerificationCodeInput({
       channel = new BroadcastChannel('kyron-auth');
       channel.onmessage = (event) => {
         if (event.data?.type === 'SESSION_READY') {
+          try { sessionStorage.setItem(`${VERIFIED_KEY}:${destino}`, 'true'); } catch {}
           onVerified();
         }
       };
@@ -100,7 +118,7 @@ export function VerificationCodeInput({
   }, [destino, verified, onVerified]);
 
   const startCountdown = useCallback(() => {
-    setCountdown(60);
+    setCountdown(30);
   }, []);
 
   const sendCode = useCallback(async () => {
@@ -121,6 +139,7 @@ export function VerificationCodeInput({
         return;
       }
       setSent(true);
+      try { sessionStorage.setItem(`${SENT_KEY}:${destino}`, 'true'); } catch {}
       startCountdown();
       const returnedCode = json.devCode || json.kyronCode || null;
       if (returnedCode) {
@@ -161,6 +180,7 @@ export function VerificationCodeInput({
         return;
       }
       setVerified(true);
+      try { sessionStorage.setItem(`${VERIFIED_KEY}:${destino}`, 'true'); } catch {}
       toast({ title: '¡Verificado!', description: 'Tu identidad ha sido confirmada.' });
       onVerified();
     } catch {

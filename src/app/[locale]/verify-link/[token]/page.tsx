@@ -11,6 +11,7 @@ export default function VerifyLinkPage() {
   const [message, setMessage] = useState('Verificando acceso...');
   const [errorDetails, setErrorDetails] = useState<string | null>(null);
   const [userData, setUserData] = useState<any>(null);
+  const [registrationMode, setRegistrationMode] = useState(false);
   const verifiedRef = useRef(false);
   const startedRef = useRef(false);
   const broadcastRef = useRef<BroadcastChannel | null>(null);
@@ -21,9 +22,9 @@ export default function VerifyLinkPage() {
     return () => { try { broadcastRef.current?.close(); } catch {} };
   }, []);
 
-  // Redirigir al dashboard después de verificación exitosa
+  // Redirigir al dashboard después de verificación exitosa (solo login flow)
   useEffect(() => {
-    if (status === 'success' && userData) {
+    if (status === 'success' && userData && !registrationMode) {
       const timer = setTimeout(async () => {
         broadcastRef.current?.postMessage({ type: 'SESSION_READY', user: userData });
         try {
@@ -35,20 +36,19 @@ export default function VerifyLinkPage() {
       }, 1500);
       return () => clearTimeout(timer);
     }
-  }, [status, userData, router]);
+  }, [status, userData, registrationMode, router]);
 
   useEffect(() => {
     if (verifiedRef.current || startedRef.current) return;
     startedRef.current = true;
 
     const verifyToken = async () => {
-      const segments = window.location.pathname.split('/').filter(Boolean);
-      const fromPath = segments[segments.length - 1] || '';
+      const fromPath = window.location.pathname.split('/').filter(Boolean).pop() || '';
       const fromQuery = new URLSearchParams(window.location.search).get('token') || '';
-      const token = fromPath.length >= 10 ? fromPath : fromQuery;
-      if (!token || token.length < 10) {
+      const token = fromPath.length >= 32 ? fromPath : fromQuery;
+      if (!token || token.length < 32) {
         setStatus('error');
-        setMessage('Enlace de acceso inválido.');
+        setMessage('Enlace de acceso inválido o expirado.');
         return;
       }
 
@@ -62,12 +62,18 @@ export default function VerifyLinkPage() {
         const data = await response.json();
 
         if (response.ok && data.success) {
-          setStatus('success');
-          setMessage('Verificación exitosa. Redirigiendo al dashboard...');
-          setUserData(data.user || data);
           verifiedRef.current = true;
-
           broadcastRef.current?.postMessage({ type: 'SESSION_READY', user: data.user || null });
+
+          if (data.registrationMode) {
+            setRegistrationMode(true);
+            setStatus('success');
+            setMessage('Correo verificado correctamente. Vuelve a la página de registro para continuar.');
+          } else {
+            setStatus('success');
+            setMessage('Verificación exitosa. Redirigiendo al dashboard...');
+            setUserData(data.user || data);
+          }
         } else {
           setStatus('error');
           setMessage('No se pudo validar el enlace.');
@@ -130,11 +136,26 @@ export default function VerifyLinkPage() {
           )}
         </p>
 
-        {status === 'success' && (
+        {status === 'success' && !registrationMode && (
           <div className="flex flex-col items-center gap-4">
             <div className="flex items-center gap-2 text-emerald-400/80 text-xs font-medium">
               <ShieldCheck className="h-3.5 w-3.5" />
               Sesión activa en la otra pestaña
+            </div>
+            <Button
+              onClick={() => window.close()}
+              className="h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold uppercase text-[10px] tracking-widest transition-all"
+            >
+              <ExternalLink className="mr-2 h-4 w-4" /> Cerrar esta pestaña
+            </Button>
+          </div>
+        )}
+
+        {status === 'success' && registrationMode && (
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex items-center gap-2 text-emerald-400/80 text-xs font-medium">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              Vuelve a la pestaña anterior para finalizar tu registro
             </div>
             <Button
               onClick={() => window.close()}

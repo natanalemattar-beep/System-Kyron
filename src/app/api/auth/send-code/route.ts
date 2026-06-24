@@ -6,6 +6,7 @@ import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { verifyLoginChallenge } from '@/lib/login-challenge';
 import { generateCode, generateMagicToken, storeMagicToken, storeCode, normalizePhone, maskPhone } from '@/lib/verification-codes';
 import { getBaseUrl } from '@/lib/server-url';
+import { sendSms } from '@/lib/twilio-client';
 
 export const dynamic = 'force-dynamic';
 
@@ -99,8 +100,9 @@ export async function POST(req: NextRequest) {
 
         const token = generateMagicToken();
         const baseUrl = getBaseUrl(req);
+        const locale = req.headers.get('accept-language')?.startsWith('en') ? 'en' : 'es';
         const redirectQuery = redirectPath ? `?redirect=${encodeURIComponent(redirectPath)}` : '';
-        const magicLink = `${baseUrl}/es/verify-link/${token}${redirectQuery}${redirectQuery ? '&' : '?'}token=${token}`;
+        const magicLink = `${baseUrl}/${locale}/verify-link/${token}${redirectQuery}${redirectQuery ? '&' : '?'}token=${token}`;
 
         await storeCode(destino, codigo, proposito, 'email');
         await storeMagicToken(destino, token, userConfig?.user_id);
@@ -147,13 +149,28 @@ export async function POST(req: NextRequest) {
     // FLUJO TELÉFONO (SMS / WhatsApp)
     try {
       if (tipo === 'sms' || tipo === 'whatsapp') {
-        // Ensure a code is generated for phone flows as well.
         const codigoPhone = generateCode();
         await storeCode(destino, codigoPhone, proposito, tipo);
         const isDev = process.env.NODE_ENV === 'development' || !!process.env.NEXT_PUBLIC_DEV_CODE;
 
-        // Only log codes in non-production to avoid leaking them in logs.
         if (isDev) console.info('[send-code] dev code', { code: codigoPhone, destino, channel: tipo });
+
+        const smsBody = `System Kyron\nTu código de verificación es: ${codigoPhone}\nVálido por 10 minutos.`;
+
+        let sendResult: { success: boolean; error?: string };
+        if (tipo === 'sms') {
+          sendResult = await sendSms(destino, smsBody);
+        } else {
+          const { sendWhatsAppMessage } = await import('@/lib/whatsapp-service');
+          sendResult = await sendWhatsAppMessage(destino, smsBody);
+        }
+
+        if (!sendResult.success) {
+          if (!isDev) {
+            throw new Error(sendResult.error || `Error al enviar ${tipo}`);
+          }
+          console.warn(`[send-code] ${tipo} send failed in dev mode, proceeding with dev code only:`, sendResult.error);
+        }
 
         return NextResponse.json({
           success: true,

@@ -1,5 +1,25 @@
 import { useEffect, useRef } from 'react';
 
+function getStorageKey(destino: string): string {
+  return `kyron-poll-verified:${destino}`;
+}
+
+function isPersistedVerified(destino: string): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return sessionStorage.getItem(getStorageKey(destino)) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+function persistVerified(destino: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    sessionStorage.setItem(getStorageKey(destino), 'true');
+  } catch {}
+}
+
 export function useVerificationPoll(
   destino: string,
   isActive: boolean,
@@ -8,15 +28,19 @@ export function useVerificationPoll(
 ) {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const verifiedRef = useRef(false);
+  const onVerifiedRef = useRef(onVerified);
+  onVerifiedRef.current = onVerified;
 
   useEffect(() => {
-    if (!isActive || !destino || verifiedRef.current) {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
+    if (!destino || verifiedRef.current) return;
+
+    if (isPersistedVerified(destino)) {
+      verifiedRef.current = true;
+      onVerifiedRef.current();
       return;
     }
+
+    if (!isActive) return;
 
     const check = async () => {
       try {
@@ -31,13 +55,15 @@ export function useVerificationPoll(
             clearInterval(timerRef.current);
             timerRef.current = null;
           }
-          onVerified();
+          persistVerified(destino);
+          onVerifiedRef.current();
         }
       } catch {
-        // ignore network errors silently
+        // ignore network errors
       }
     };
 
+    check();
     timerRef.current = setInterval(check, intervalMs);
 
     return () => {
@@ -46,11 +72,5 @@ export function useVerificationPoll(
         timerRef.current = null;
       }
     };
-  }, [destino, isActive, onVerified, intervalMs]);
-
-  useEffect(() => {
-    if (!isActive) {
-      verifiedRef.current = false;
-    }
-  }, [isActive]);
+  }, [destino, isActive, intervalMs]);
 }

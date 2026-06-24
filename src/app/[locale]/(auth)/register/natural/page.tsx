@@ -696,27 +696,13 @@ export default function RegisterNaturalPage() {
                         <p className={cn("text-sm font-bold", verifMethod === 'email' ? 'text-primary' : 'text-foreground')}>Por Correo</p>
                         <p className="text-xs text-muted-foreground truncate mt-0.5">{getValues('email')}</p>
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => { setVerifMethod('sms'); setVerifKey(k => k + 1); }}
-                        className={cn(
-                          "p-4 rounded-2xl border-2 transition-all text-left group",
-                          verifMethod === 'sms'
-                            ? 'border-primary bg-primary/5 shadow-md shadow-primary/10'
-                            : 'border-border/50 bg-muted/20 hover:border-primary/30 hover:bg-muted/40'
-                        )}
-                      >
-                        <div className={cn(
-                          "w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-all",
-                          verifMethod === 'sms'
-                            ? 'bg-gradient-to-br from-primary to-blue-500 shadow-md shadow-primary/20'
-                            : 'bg-muted/50'
-                        )}>
-                          <MessageSquare className={cn("h-5 w-5", verifMethod === 'sms' ? 'text-white' : 'text-muted-foreground')} />
+                      <div className="p-4 rounded-2xl border-2 border-dashed border-amber-500/30 bg-amber-500/5 text-left opacity-60 cursor-not-allowed">
+                        <div className="w-10 h-10 rounded-xl bg-muted/30 flex items-center justify-center mb-3">
+                          <Smartphone className="h-5 w-5 text-muted-foreground" />
                         </div>
-                        <p className={cn("text-sm font-bold", verifMethod === 'sms' ? 'text-primary' : 'text-foreground')}>Por SMS</p>
-                        <p className="text-xs text-muted-foreground truncate mt-0.5">{getValues('telefono')}</p>
-                      </button>
+                        <p className="text-sm font-bold text-muted-foreground">Por SMS</p>
+                        <p className="text-[10px] text-amber-500/70 font-semibold mt-1">En mantenimiento</p>
+                      </div>
                     </div>
 
                     <VerificationCodeInput
