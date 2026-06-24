@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -9,17 +9,17 @@ import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { OtpInput } from '@/components/ui/otp-input';
+import { VerificationCodeInput } from '@/components/auth/verification-code-input';
 import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
     Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
-    Building, Check, Gavel, Mail, RefreshCw, Smartphone, Users, Lock,
+    Building, Check, Gavel, Mail, Smartphone, Users, Lock,
     GripVertical, Briefcase, Landmark, Shield, ShieldCheck, Sparkles,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { useVerificationPoll } from '@/hooks/use-verification-poll';
+
 import { useAuth } from '@/lib/auth/context';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
@@ -73,23 +73,16 @@ export default function RegisterJuridicoPage() {
     const { refreshUser } = useAuth();
     const { toast } = useToast();
     const [acceptTerms, setAcceptTerms] = useState(false);
-    const [verifSent, setVerifSent] = useState(false);
-    const [verifCode, setVerifCode] = useState('');
     const [verifVerified, setVerifVerified] = useState(false);
-    const [verifLoading, setVerifLoading] = useState(false);
-    const [verifDestino, setVerifDestino] = useState('');
-    const [countdown, setCountdown] = useState(0);
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
     const { popularPlan, recordSelection } = usePopularPlan('juridico');
 
     const isLegalMode = searchParams.get('mode') === 'legal' || typeof window !== 'undefined' && window.location.pathname.includes('/legal');
 
-    const onMagicLinkVerified = useCallback(() => {
+    const onVerified = useCallback(() => {
         setVerifVerified(true);
         toast({ title: '¡Verificado!', description: 'Identidad confirmada exitosamente.' });
     }, [toast]);
-
-    useVerificationPoll(verifDestino, verifSent && !verifVerified, onMagicLinkVerified);
 
     const { register, handleSubmit, control, watch, setValue, trigger, getValues, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
@@ -103,61 +96,6 @@ export default function RegisterJuridicoPage() {
     });
 
     const watchedPassword = watch('password');
-
-    const startCountdown = () => {
-        setCountdown(60);
-        const timer = setInterval(() => {
-            setCountdown(prev => {
-                if (prev <= 1) { clearInterval(timer); return 0; }
-                return prev - 1;
-            });
-        }, 1000);
-    };
-
-    const sendVerificationCode = async () => {
-        setVerifLoading(true);
-        const destino = getValues('repEmail');
-        setVerifDestino(destino);
-        try {
-            const res = await fetch('/api/auth/send-code', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino, tipo: 'email', proposito: 'registration' }),
-            });
-            if (!res.ok) throw new Error('Error');
-            setVerifSent(true);
-            startCountdown();
-            toast({ title: 'Código enviado', description: `Revisa tu correo ${destino}` });
-        } catch {
-            toast({ title: 'Error', description: 'No se pudo enviar el código.', variant: 'destructive' });
-        } finally {
-            setVerifLoading(false);
-        }
-    };
-
-    const verifyCode = useCallback(async (code: string) => {
-        if (code.length !== 6 || verifVerified) return;
-        setVerifLoading(true);
-        try {
-            const res = await fetch('/api/auth/verify-code', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino: verifDestino, codigo: code, proposito: 'registration' }),
-            });
-            if (!res.ok) throw new Error('Código inválido');
-            setVerifVerified(true);
-            toast({ title: '¡Verificado!' });
-        } catch {
-            toast({ title: 'Código incorrecto', variant: 'destructive' });
-            setVerifCode('');
-        } finally {
-            setVerifLoading(false);
-        }
-    }, [verifDestino, verifVerified, toast]);
-
-    useEffect(() => {
-        if (verifCode.length === 6 && verifSent && !verifVerified) verifyCode(verifCode);
-    }, [verifCode, verifSent, verifVerified, verifyCode]);
 
     const nextStep = async () => {
         if (step === 1) {
@@ -455,32 +393,15 @@ export default function RegisterJuridicoPage() {
                                         <p className="text-sm text-slate-500 font-medium">Enviamos el protocolo de seguridad a <span className="text-orange-600 font-bold">{getValues('repEmail')}</span></p>
                                     </div>
 
-                                    {!verifSent ? (
-                                        <Button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="w-full h-14 rounded-2xl bg-amber-500 hover:bg-amber-600 shadow-lg shadow-amber-500/20 font-bold text-base">
-                                            {verifLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Solicitar Código de Acceso'}
-                                        </Button>
-                                    ) : (
-                                        <div className="space-y-4">
-                                            <p className="text-xs font-semibold text-center text-slate-500 uppercase tracking-widest">Ingresa el código de 6 dígitos</p>
-                                            <OtpInput
-                                              value={verifCode}
-                                              onChange={setVerifCode}
-                                              onComplete={(code) => !verifVerified && verifyCode(code)}
-                                              accentColor="amber"
-                                              disabled={verifLoading || verifVerified}
-                                            />
-                                            <div className="text-center">
-                                                {countdown > 0 ? (
-                                                    <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Reenviar en <span className="text-orange-500">{countdown}s</span></p>
-                                                ) : (
-                                                    <button type="button" onClick={sendVerificationCode} className="text-[11px] font-bold uppercase tracking-widest text-orange-500 hover:underline">Reenviar código</button>
-                                                )}
-                                            </div>
-                                            <Button type="submit" disabled={verifCode.length < 6 || verifLoading} className="w-full h-14 rounded-2xl bg-amber-500 hover:bg-amber-600 shadow-xl shadow-amber-500/20 font-bold text-base">
-                                                {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Finalizar Registro'}
-                                            </Button>
-                                        </div>
-                                    )}
+                                    <VerificationCodeInput
+                                        destino={getValues('repEmail')}
+                                        accentColor="amber"
+                                        onVerified={onVerified}
+                                    />
+
+                                    <Button type="submit" disabled={!verifVerified || isLoading} className="w-full h-14 rounded-2xl bg-amber-500 hover:bg-amber-600 shadow-xl shadow-amber-500/20 font-bold text-base">
+                                        {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Finalizar Registro'}
+                                    </Button>
                                 </div>
                             )}
 

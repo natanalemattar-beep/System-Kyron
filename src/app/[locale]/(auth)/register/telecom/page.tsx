@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -9,16 +9,16 @@ import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { OtpInput } from '@/components/ui/otp-input';
+import { VerificationCodeInput } from '@/components/auth/verification-code-input';
 import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
     Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft, Eye, EyeOff,
-    Signal, Check, Star, Crown, Zap, Mail, RefreshCw, Smartphone, Building, User, Lock,
+    Signal, Check, Star, Crown, Zap, Mail, Smartphone, Building, User, Lock,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { useVerificationPoll } from '@/hooks/use-verification-poll';
+
 import { usePopularPlan } from '@/hooks/use-popular-plan';
 import { useAuth } from '@/lib/auth/context';
 import { PLANES_MI_LINEA } from '@/lib/planes-data';
@@ -76,19 +76,12 @@ export default function RegisterTelecomPage() {
     const { toast } = useToast();
     const { popularPlan, recordSelection } = usePopularPlan('telecom');
     const [acceptTerms, setAcceptTerms] = useState(false);
-    const [verifSent, setVerifSent] = useState(false);
-    const [verifCode, setVerifCode] = useState('');
     const [verifVerified, setVerifVerified] = useState(false);
-    const [verifLoading, setVerifLoading] = useState(false);
-    const [verifDestino, setVerifDestino] = useState('');
-    const [countdown, setCountdown] = useState(0);
 
-    const onMagicLinkVerified = useCallback(() => {
+    const onVerified = useCallback(() => {
         setVerifVerified(true);
         toast({ title: '¡Verificado!', description: 'Identidad confirmada exitosamente.' });
     }, [toast]);
-
-    useVerificationPoll(verifDestino, verifSent && !verifVerified, onMagicLinkVerified);
 
     const { register, handleSubmit, control, watch, setValue, trigger, getValues, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
@@ -101,61 +94,6 @@ export default function RegisterTelecomPage() {
 
     const watchedPassword = watch('password');
     const tipoCliente = watch('tipo_cliente');
-
-    const startCountdown = () => {
-        setCountdown(60);
-        const timer = setInterval(() => {
-            setCountdown(prev => {
-                if (prev <= 1) { clearInterval(timer); return 0; }
-                return prev - 1;
-            });
-        }, 1000);
-    };
-
-    const sendVerificationCode = async () => {
-        setVerifLoading(true);
-        const destino = getValues('email');
-        setVerifDestino(destino);
-        try {
-            const res = await fetch('/api/auth/send-code', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino, tipo: 'email', proposito: 'registration' }),
-            });
-            if (!res.ok) throw new Error('Error al enviar código');
-            setVerifSent(true);
-            startCountdown();
-            toast({ title: 'Código enviado', description: `Revisa tu correo ${destino}` });
-        } catch {
-            toast({ title: 'Error', description: 'No se pudo enviar el código.', variant: 'destructive' });
-        } finally {
-            setVerifLoading(false);
-        }
-    };
-
-    const verifyCode = useCallback(async (code: string) => {
-        if (code.length !== 6 || verifVerified) return;
-        setVerifLoading(true);
-        try {
-            const res = await fetch('/api/auth/verify-code', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino: verifDestino, codigo: code, proposito: 'registration' }),
-            });
-            if (!res.ok) throw new Error('Código inválido');
-            setVerifVerified(true);
-            toast({ title: '¡Verificado!', description: 'Correo electrónico confirmado.' });
-        } catch {
-            toast({ title: 'Código incorrecto', variant: 'destructive' });
-            setVerifCode('');
-        } finally {
-            setVerifLoading(false);
-        }
-    }, [verifDestino, verifVerified, toast]);
-
-    useEffect(() => {
-        if (verifCode.length === 6 && verifSent && !verifVerified) verifyCode(verifCode);
-    }, [verifCode, verifSent, verifVerified, verifyCode]);
 
     const nextStep = async () => {
         if (step === 1) {
@@ -422,32 +360,15 @@ export default function RegisterTelecomPage() {
                                         <p className="text-sm text-slate-500 font-medium">Enviamos un código de seguridad a <span className="text-blue-600 font-bold">{getValues('email')}</span></p>
                                     </div>
 
-                                    {!verifSent ? (
-                                        <Button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="w-full h-14 rounded-2xl bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/20 font-bold text-base">
-                                            {verifLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Enviar Código 5G'}
-                                        </Button>
-                                    ) : (
-                                        <div className="space-y-4">
-                                            <p className="text-xs font-semibold text-center text-slate-500 uppercase tracking-widest">Ingresa el código de 6 dígitos</p>
-                                            <OtpInput
-                                              value={verifCode}
-                                              onChange={setVerifCode}
-                                              onComplete={(code) => !verifVerified && verifyCode(code)}
-                                              accentColor="blue"
-                                              disabled={verifLoading || verifVerified}
-                                            />
-                                            <div className="text-center">
-                                                {countdown > 0 ? (
-                                                    <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Reenviar en <span className="text-blue-500">{countdown}s</span></p>
-                                                ) : (
-                                                    <button type="button" onClick={sendVerificationCode} className="text-[11px] font-bold uppercase tracking-widest text-blue-500 hover:underline">Solicitar nuevo código</button>
-                                                )}
-                                            </div>
-                                            <Button type="submit" disabled={verifCode.length < 6 || verifLoading} className="w-full h-14 rounded-2xl bg-blue-600 hover:bg-blue-700 shadow-xl shadow-blue-500/20 font-bold text-base">
-                                                {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Verificar y Activar'}
-                                            </Button>
-                                        </div>
-                                    )}
+                                    <VerificationCodeInput
+                                        destino={getValues('email')}
+                                        accentColor="blue"
+                                        onVerified={onVerified}
+                                    />
+
+                                    <Button type="submit" disabled={!verifVerified || isLoading} className="w-full h-14 rounded-2xl bg-blue-600 hover:bg-blue-700 shadow-xl shadow-blue-500/20 font-bold text-base">
+                                        {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Verificar y Activar'}
+                                    </Button>
                                 </div>
                             )}
 

@@ -61,10 +61,6 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <html lang={locale} className={`${inter.variable} ${outfit.variable} overflow-x-hidden`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16.png" />

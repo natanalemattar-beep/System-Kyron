@@ -16,9 +16,8 @@ import {
     Mail, Phone, Building2, FileText, KeyRound, X,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { useAuth } from '@/lib/auth/context';
-import { OtpInput } from '@/components/ui/otp-input';
+import { VerificationCodeInput } from '@/components/auth/verification-code-input';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { MODULOS_INDIVIDUALES } from '@/lib/planes-data';
@@ -135,20 +134,13 @@ export default function RegisterContabilidadPage() {
     const { refreshUser } = useAuth();
     const { toast } = useToast();
     const [acceptTerms, setAcceptTerms] = useState(false);
-    const [verifSent, setVerifSent] = useState(false);
-    const [verifCode, setVerifCode] = useState('');
     const [verifVerified, setVerifVerified] = useState(false);
-    const [verifLoading, setVerifLoading] = useState(false);
-    const [verifDestino, setVerifDestino] = useState('');
-    const [countdown, setCountdown] = useState(0);
     const [passwordWatch, setPasswordWatch] = useState('');
 
-    const onMagicLinkVerified = useCallback(() => {
+    const onVerified = useCallback(() => {
         setVerifVerified(true);
         toast({ title: '¡Verificado!', description: 'Identidad confirmada exitosamente.' });
     }, [toast]);
-
-    useVerificationPoll(verifDestino, verifSent && !verifVerified, onMagicLinkVerified);
 
     const { register, handleSubmit, control, setValue, trigger, getValues, watch, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
@@ -193,74 +185,6 @@ export default function RegisterContabilidadPage() {
         });
         return sub.unsubscribe;
     }, [watch]);
-
-    useEffect(() => {
-        const email = searchParams.get('email');
-        const verified = searchParams.get('verified');
-        if (email) {
-            setVerifDestino(email);
-            if (verified === 'true') {
-                setVerifVerified(true);
-                setVerifSent(true);
-                toast({ title: '¡Email verificado!', description: 'Procede con el registro.' });
-            }
-        }
-    }, [searchParams, toast]);
-
-    const startCountdown = useCallback(() => {
-        setCountdown(60);
-        const timer = setInterval(() => {
-            setCountdown(prev => {
-                if (prev <= 1) { clearInterval(timer); return 0; }
-                return prev - 1;
-            });
-        }, 1000);
-    }, []);
-
-    const sendVerificationCode = useCallback(async () => {
-        setVerifLoading(true);
-        const destino = getValues('email');
-        setVerifDestino(destino);
-        try {
-            const res = await fetch('/api/auth/send-code', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino, tipo: 'email', proposito: 'registration' }),
-            });
-            if (!res.ok) throw new Error('Error');
-            setVerifSent(true);
-            startCountdown();
-            toast({ title: 'Código enviado', description: `Revisa tu correo ${destino}` });
-        } catch {
-            toast({ title: 'Error', description: 'No se pudo enviar el código.', variant: 'destructive' });
-        } finally {
-            setVerifLoading(false);
-        }
-    }, [getValues, startCountdown, toast]);
-
-    const verifyCode = useCallback(async (code: string) => {
-        if (code.length !== 6 || verifVerified) return;
-        setVerifLoading(true);
-        try {
-            const res = await fetch('/api/auth/verify-code', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino: verifDestino, codigo: code, proposito: 'registration' }),
-            });
-            if (!res.ok) throw new Error('Código inválido');
-            setVerifVerified(true);
-            toast({ title: '¡Verificado!' });
-        } catch {
-            toast({ title: 'Código incorrecto', variant: 'destructive' });
-            setVerifCode('');
-        } finally {
-            setVerifLoading(false);
-        }
-    }, [verifDestino, verifVerified, toast]);
-
-    useEffect(() => {
-        if (verifCode.length === 6 && verifSent && !verifVerified) verifyCode(verifCode);
-    }, [verifCode, verifSent, verifVerified, verifyCode]);
 
     const nextStep = useCallback(async () => {
         if (step === 1) {
@@ -721,34 +645,16 @@ export default function RegisterContabilidadPage() {
                                         </p>
                                     </div>
 
-                                    {!verifSent ? (
-                                        <Button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="w-full h-14 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-lg shadow-cyan-500/20 font-black text-base transition-all active:scale-[0.98]">
-                                            {verifLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <><Mail className="mr-2 h-5 w-5" />Enviar Código de Verificación</>}
-                                        </Button>
-                                    ) : (
-                                        <div className="space-y-4">
-                                            <p className="text-xs font-semibold text-center text-white/30 uppercase tracking-widest">Ingresa el código de 6 dígitos</p>
-                                            <OtpInput
-                                              value={verifCode}
-                                              onChange={setVerifCode}
-                                              onComplete={(code) => !verifVerified && verifyCode(code)}
-                                              accentColor="cyan"
-                                              disabled={verifLoading || verifVerified}
-                                              className="[&_input]:bg-white/5 [&_input]:border-white/10 [&_input]:text-white"
-                                            />
-                                            <div className="text-center">
-                                                {countdown > 0 ? (
-                                                    <p className="text-[11px] font-bold uppercase tracking-widest text-white/30">Reenviar en <span className="text-cyan-400">{countdown}s</span></p>
-                                                ) : (
-                                                    <button type="button" onClick={sendVerificationCode} className="text-[11px] font-bold uppercase tracking-widest text-cyan-400 hover:text-cyan-300 transition-colors">Reenviar código</button>
-                                                )}
-                                            </div>
-                                            <Button type="submit" disabled={verifCode.length < 6 || verifLoading} className="w-full h-14 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-xl shadow-cyan-500/20 font-black text-base transition-all active:scale-[0.98] disabled:opacity-50">
-                                                {verifLoading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : null}
-                                                Activar Cuenta
-                                            </Button>
-                                        </div>
-                                    )}
+                                    <VerificationCodeInput
+                                        destino={getValues('email')}
+                                        accentColor="cyan"
+                                        onVerified={onVerified}
+                                    />
+
+                                    <Button type="submit" disabled={!verifVerified || isLoading} className="w-full h-14 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-xl shadow-cyan-500/20 font-black text-base transition-all active:scale-[0.98] disabled:opacity-50">
+                                        {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
+                                        Activar Cuenta
+                                    </Button>
 
                                     <div className="flex justify-center pt-4">
                                         <Button type="button" variant="ghost" onClick={() => setStep(2)} className="h-10 text-white/30 hover:text-white transition-colors">

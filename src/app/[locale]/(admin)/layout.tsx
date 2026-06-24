@@ -3,24 +3,21 @@
 import dynamic from "next/dynamic";
 import { AppHeader } from "@/components/app-header";
 import { asesoriaContableNavGroups } from "@/components/app-sidebar-nav-items";
-import { PageTransition } from "@/components/ui/motion";
 import { useAuth } from "@/lib/auth/context";
 import { useSetModuleContext } from "@/lib/module-context";
-import { PreferencesProvider, usePreferences } from "@/lib/preferences-context";
+import { PreferencesProvider } from "@/lib/preferences-context";
 import { CurrencyProvider } from "@/lib/currency-context";
-import { PageTracker } from "@/components/page-tracker";
-import { usePathname } from "@/navigation";
 
-import { ScrollToTop } from "@/components/ui/scroll-to-top";
-import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ModuleGuard } from "@/components/module-guard";
-import { AIChatButton } from "@/components/ui/ai-chat-button";
 
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false, loading: () => null });
+const FinancialToolkit = dynamic(() => import('@/components/financial-toolkit').then(m => ({ default: m.FinancialToolkit })), { ssr: false, loading: () => null });
+const AIChatButton = dynamic(() => import('@/components/ui/ai-chat-button').then(m => ({ default: m.AIChatButton })), { ssr: false, loading: () => null });
+const ScrollToTop = dynamic(() => import('@/components/ui/scroll-to-top').then(m => ({ default: m.ScrollToTop })), { ssr: false, loading: () => null });
+const PageTracker = dynamic(() => import('@/components/page-tracker').then(m => ({ default: m.PageTracker })), { ssr: false, loading: () => null });
 
 function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     const { user } = useAuth();
-    const pathname = usePathname();
     useSetModuleContext("admin");
     const displayName = user?.tipo === 'juridico'
       ? (user?.razon_social || user?.nombre || "Empresa")
@@ -41,9 +38,9 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
           <AppHeader user={userObj} dashboardHref="/dashboard-empresas" navGroups={asesoriaContableNavGroups} />
           
           <main className="w-full p-4 md:p-10 pt-24 md:pt-28 relative z-10">
-              <PageTransition className="max-w-[1400px] mx-auto w-full">
+              <div className="max-w-[1400px] mx-auto w-full animate-in fade-in duration-500">
                 {children}
-              </PageTransition>
+              </div>
           </main>
           
           <footer className="p-8 md:p-12 border-t border-border bg-card/40 text-center backdrop-blur-3xl mt-20 relative z-20">

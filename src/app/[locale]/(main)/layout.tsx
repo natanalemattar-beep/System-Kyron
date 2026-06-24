@@ -3,15 +3,14 @@
 import dynamic from "next/dynamic";
 import { AppHeader } from "@/components/app-header";
 
-import { PageTransition } from "@/components/ui/motion";
-import { PageTracker } from "@/components/page-tracker";
-import { FinancialToolkit } from "@/components/financial-toolkit";
-import { ScrollToTop } from "@/components/ui/scroll-to-top";
-import { AIChatButton } from "@/components/ui/ai-chat-button";
 import { useAuth } from "@/lib/auth/context";
 import { asesoriaContableNavGroups } from "@/components/app-sidebar-nav-items";
 
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false, loading: () => null });
+const FinancialToolkit = dynamic(() => import('@/components/financial-toolkit').then(m => ({ default: m.FinancialToolkit })), { ssr: false, loading: () => null });
+const AIChatButton = dynamic(() => import('@/components/ui/ai-chat-button').then(m => ({ default: m.AIChatButton })), { ssr: false, loading: () => null });
+const ScrollToTop = dynamic(() => import('@/components/ui/scroll-to-top').then(m => ({ default: m.ScrollToTop })), { ssr: false, loading: () => null });
+const PageTracker = dynamic(() => import('@/components/page-tracker').then(m => ({ default: m.PageTracker })), { ssr: false, loading: () => null });
 
 export default function MainLayout({
   children,
@@ -39,9 +38,9 @@ export default function MainLayout({
               <AppHeader user={{...user, color: "bg-primary"}} dashboardHref="/dashboard-empresas" navGroups={asesoriaContableNavGroups} />
               
               <main className="flex-1 w-full pt-20 relative z-10">
-                  <PageTransition>
+                  <div className="animate-in fade-in duration-500">
                     {children}
-                  </PageTransition>
+                  </div>
               </main>
               
               <footer className="p-8 border-t border-border bg-card/80 text-center backdrop-blur-3xl relative z-20">

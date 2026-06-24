@@ -15,14 +15,14 @@ import {
 import {
   User, Loader2, CircleCheck as CircleCheck, ArrowRight, ArrowLeft,
   MapPin, Smartphone, Mail, Calendar as CalendarIcon, Shield, Eye, EyeOff,
-  MessageSquare, RefreshCw, ShieldCheck, ChevronDown, Sparkles, Globe,
+  MessageSquare, ShieldCheck, ChevronDown, Sparkles, Globe,
   Lock, Fingerprint, Upload,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { useVerificationPoll } from '@/hooks/use-verification-poll';
+import { VerificationCodeInput } from '@/components/auth/verification-code-input';
 import { useAuth } from '@/lib/auth/context';
 import { DocumentInput } from '@/components/document-input';
-import { OtpInput } from '@/components/ui/otp-input';
+
 import { DocumentUpload, type UploadedDoc } from '@/components/document-upload';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
@@ -88,24 +88,17 @@ export default function RegisterNaturalPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [uploadedDocs, setUploadedDocs] = useState<Record<string, UploadedDoc | null>>({});
   const [acceptTerms, setAcceptTerms] = useState(false);
-  const [verifMethod, setVerifMethod] = useState<'email' | 'sms'>('email');
-  const [verifSent, setVerifSent] = useState(false);
-  const [verifCode, setVerifCode] = useState('');
   const [verifVerified, setVerifVerified] = useState(false);
-  const [verifLoading, setVerifLoading] = useState(false);
-  const [verifDestino, setVerifDestino] = useState('');
-  const [countdown, setCountdown] = useState(0);
-  const [devCode, setDevCode] = useState<string | null>(null);
+  const [verifMethod, setVerifMethod] = useState<'email' | 'sms'>('email');
+  const [verifKey, setVerifKey] = useState(0);
   const { toast } = useToast();
   const router = useRouter();
   const { refreshUser } = useAuth();
 
-  const onMagicLinkVerified = useCallback(() => {
+  const onVerified = useCallback(() => {
     setVerifVerified(true);
-    toast({ title: '¡Verificado!', description: 'Tu identidad fue confirmada vía enlace de verificación.' });
+    toast({ title: '¡Verificado!', description: 'Tu identidad ha sido confirmada.' });
   }, [toast]);
-
-  useVerificationPoll(verifDestino, verifMethod === 'email' && verifSent && !verifVerified, onMagicLinkVerified);
 
   const prefilledNombre = searchParams.get('nombre') || '';
   const prefilledApellido = searchParams.get('apellido') || '';
@@ -198,16 +191,6 @@ export default function RegisterNaturalPage() {
     return () => { clearTimeout(timeout); controller.abort(); setCedulaSearching(false); };
   }, [cedulaValue, setValue]);
 
-  const startCountdown = () => {
-    setCountdown(60);
-    const timer = setInterval(() => {
-      setCountdown(prev => {
-        if (prev <= 1) { clearInterval(timer); return 0; }
-        return prev - 1;
-      });
-    }, 1000);
-  };
-
   useEffect(() => {
     const subscription = watch((data) => {
       const { password, confirmPassword, ...safeData } = data;
@@ -249,86 +232,11 @@ export default function RegisterNaturalPage() {
 
   const prevStep = () => {
     if (step === 3) {
-      setVerifSent(false);
-      setVerifCode('');
       setVerifVerified(false);
+      setVerifKey(k => k + 1);
     }
     setStep(s => s - 1);
   };
-
-  const sendVerificationCode = async () => {
-    setVerifLoading(true);
-    const email = getValues('email');
-    const telefono = getValues('telefono');
-    const destino = verifMethod === 'email' ? email : telefono;
-    setVerifDestino(destino);
-
-    try {
-      const res = await fetch('/api/auth/send-code', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destino, tipo: verifMethod, proposito: 'registration' }),
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        toast({ title: 'Error al enviar código', description: json.error, variant: 'destructive' });
-        return;
-      }
-      setVerifSent(true);
-      startCountdown();
-      const returnedCode = json.devCode || json.kyronCode || null;
-      setDevCode(returnedCode);
-      if (returnedCode) {
-        setVerifCode(returnedCode);
-      }
-      toast({
-        title: 'Código enviado',
-        description: returnedCode
-          ? 'Código de verificación generado por System Kyron.'
-          : verifMethod === 'email'
-            ? `Revisa tu correo ${email}`
-            : `Mensaje enviado al ${telefono}`,
-      });
-    } catch {
-      toast({ title: 'Error de conexión', description: 'No se pudo enviar el código.', variant: 'destructive' });
-    } finally {
-      setVerifLoading(false);
-    }
-  };
-
-  const verifyingRef = useRef(false);
-  const verifyCode = useCallback(async (code: string) => {
-    if (code.length !== 6 || verifyingRef.current || verifVerified) return;
-    verifyingRef.current = true;
-    setVerifLoading(true);
-    try {
-      const res = await fetch('/api/auth/verify-code', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destino: verifDestino, codigo: code, proposito: 'registration' }),
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        toast({ title: 'Código incorrecto', description: json.error, variant: 'destructive' });
-        setVerifCode('');
-        return;
-      }
-      setVerifVerified(true);
-      toast({ title: '¡Verificado!', description: 'Tu identidad ha sido confirmada.' });
-    } catch {
-      toast({ title: 'Error', description: 'No se pudo verificar el código.', variant: 'destructive' });
-      setVerifCode('');
-    } finally {
-      setVerifLoading(false);
-      verifyingRef.current = false;
-    }
-  }, [verifDestino, verifVerified, toast]);
-
-  useEffect(() => {
-    if (verifCode.length === 6 && verifSent && !verifVerified) {
-      verifyCode(verifCode);
-    }
-  }, [verifCode, verifSent, verifVerified, verifyCode]);
 
   const submittingRef = useRef(false);
   const onSubmit = async (data: FormData) => {
@@ -761,7 +669,7 @@ export default function RegisterNaturalPage() {
                     </p>
                   </div>
                 ) : (
-                  <>
+                  <div className="space-y-4">
                     <p className="text-sm text-muted-foreground">
                       Para proteger tu cuenta, necesitamos verificar tu identidad. Elige cómo recibir tu código de 6 dígitos.
                     </p>
@@ -769,7 +677,7 @@ export default function RegisterNaturalPage() {
                     <div className="grid grid-cols-2 gap-3">
                       <button
                         type="button"
-                        onClick={() => { setVerifMethod('email'); setVerifSent(false); setVerifCode(''); }}
+                        onClick={() => { setVerifMethod('email'); setVerifKey(k => k + 1); }}
                         className={cn(
                           "p-4 rounded-2xl border-2 transition-all text-left group",
                           verifMethod === 'email'
@@ -790,7 +698,7 @@ export default function RegisterNaturalPage() {
                       </button>
                       <button
                         type="button"
-                        onClick={() => { setVerifMethod('sms'); setVerifSent(false); setVerifCode(''); }}
+                        onClick={() => { setVerifMethod('sms'); setVerifKey(k => k + 1); }}
                         className={cn(
                           "p-4 rounded-2xl border-2 transition-all text-left group",
                           verifMethod === 'sms'
@@ -811,66 +719,13 @@ export default function RegisterNaturalPage() {
                       </button>
                     </div>
 
-                    {!verifSent ? (
-                      <Button
-                        type="button"
-                        className="w-full h-12 rounded-2xl bg-gradient-to-r from-violet-500 to-purple-500 hover:opacity-90 text-white font-bold shadow-md shadow-violet-500/20"
-                        onClick={sendVerificationCode}
-                        disabled={verifLoading}
-                      >
-                        {verifLoading ? (
-                          <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Enviando...</>
-                        ) : (
-                          <>{verifMethod === 'email' ? <Mail className="mr-2 h-4 w-4" /> : <MessageSquare className="mr-2 h-4 w-4" />}
-                            Enviar Código de Verificación</>
-                        )}
-                      </Button>
-                    ) : (
-                      <div className="space-y-4">
-                        <div className="p-3.5 bg-primary/5 border border-primary/15 rounded-2xl text-sm text-center">
-                          {devCode ? 'Ingresa el código mostrado abajo' : <>Código enviado a <strong className="text-primary">{verifDestino}</strong></>}
-                        </div>
-                        {devCode && (
-                          <div className="p-4 bg-cyan-500/10 border-2 border-cyan-500/30 rounded-2xl text-center">
-                            <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
-                            <p className="text-3xl font-bold font-mono tracking-wide text-cyan-600">{devCode}</p>
-                          </div>
-                        )}
-                        <div className="space-y-4">
-                          <p className="text-sm font-semibold text-center text-muted-foreground/60">Ingresa el código de 6 dígitos</p>
-                          <OtpInput
-                            value={verifCode}
-                            onChange={setVerifCode}
-                            onComplete={(code) => !verifVerified && verifyCode(code)}
-                            accentColor="violet"
-                            disabled={verifLoading || verifVerified}
-                          />
-                        </div>
-                        {verifLoading && (
-                          <div className="flex items-center justify-center gap-2 py-3 text-sm text-primary font-semibold">
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                            Verificando...
-                          </div>
-                        )}
-                        <div className="text-center">
-                          {countdown > 0 ? (
-                            <p className="text-xs text-muted-foreground">
-                              Puedes solicitar otro código en <strong className="text-foreground">{countdown}s</strong>
-                            </p>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={sendVerificationCode}
-                              disabled={verifLoading}
-                              className="text-xs text-primary font-semibold inline-flex items-center gap-1 hover:opacity-80"
-                            >
-                              <RefreshCw className="h-3 w-3" /> Reenviar código
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                  </>
+                    <VerificationCodeInput
+                      key={verifKey}
+                      destino={verifMethod === 'email' ? getValues('email') : getValues('telefono')}
+                      accentColor="violet"
+                      onVerified={onVerified}
+                    />
+                  </div>
                 )}
               </div>
             )}
