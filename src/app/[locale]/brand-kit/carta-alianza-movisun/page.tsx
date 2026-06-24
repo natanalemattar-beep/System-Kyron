@@ -88,7 +88,7 @@ export default function CartaAlianzaMovisunPage() {
               <div className="border-b border-gray-400 w-64 h-10" />
             </div>
             <p className="text-[13px] font-bold text-gray-800">Carlos Mattar</p>
-            <p className="text-[11px] text-gray-500">Director General — System Kyron</p>
+            <p className="text-[11px] text-gray-500">Director de Comercialización — System Kyron</p>
             <div className="flex items-center justify-center gap-3 mt-1">
               <span className="text-[10px] text-gray-400">RIF J-50832149-9</span>
               <span className="text-[8px] text-gray-300">|</span>

@@ -243,21 +243,29 @@ export default function RequisitosHomologacionConatelPage() {
           </div>
         </Section>
 
-        <div className="mt-auto pt-6">
-          <div className="bg-amber-50 border border-amber-200 rounded-sm px-4 py-3">
-            <div className="flex items-start gap-2">
-              <AlertCircle className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
-              <div>
-                <p className="text-[10px] font-bold text-amber-800 mb-0.5">Nota importante</p>
-                <p className="text-[9.5px] text-amber-700 leading-relaxed">
-                  Los requisitos, plazos y costos aquí indicados son referenciales y pueden variar según el tipo de equipo, el volumen de importación y las disposiciones vigentes de cada organismo. Se recomienda consultar directamente con CONATEL, SENCAMER, SENIAT y SAPI para obtener información actualizada.
-                </p>
-              </div>
+        <div className="bg-amber-50 border border-amber-200 rounded-sm px-4 py-3 mb-6">
+          <div className="flex items-start gap-2">
+            <AlertCircle className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+            <div>
+              <p className="text-[10px] font-bold text-amber-800 mb-0.5">Nota importante</p>
+              <p className="text-[9.5px] text-amber-700 leading-relaxed">
+                Los requisitos, plazos y costos aquí indicados son referenciales y pueden variar según el tipo de equipo, el volumen de importación y las disposiciones vigentes de cada organismo. Se recomienda consultar directamente con CONATEL, SENCAMER, SENIAT y SAPI para obtener información actualizada.
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-4 pt-3 text-center">
+        <div className="mt-auto pt-4 text-center">
+          <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-4" />
+          <div className="my-3 flex justify-center">
+            <div className="border-b border-gray-400 w-56 h-10" />
+          </div>
+          <p className="text-[12px] font-bold text-gray-800">Carlos Mattar</p>
+          <p className="text-[10px] text-gray-500">Director de Comercialización — System Kyron</p>
+          <p className="text-[9px] text-gray-400 mt-0.5">carlosmattar@systemkyron.com</p>
+        </div>
+
+        <div className="pt-3 text-center">
           <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-2" />
           <p className="text-[8px] text-gray-400 uppercase tracking-[0.2em]">System Kyron — Documento Técnico</p>
         </div>
