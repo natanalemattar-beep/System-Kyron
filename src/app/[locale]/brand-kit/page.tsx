@@ -127,6 +127,19 @@ const RESOURCES: Resource[] = [
         image: 'https://images.unsplash.com/photo-1450101215322-bf5cd276cfc9?q=80&w=600&auto=format'
     },
     {
+        id: 'requisitos-homologacion-conatel',
+        title: 'Requisitos Homologación CONATEL',
+        description: 'Guía completa de requisitos para la homologación de equipos de telecomunicaciones ante CONATEL, SENCAMER, SENIAT y SAPI en Venezuela.',
+        icon: FileCheck,
+        href: '/brand-kit/requisitos-homologacion-conatel',
+        color: 'from-teal-500 to-emerald-600',
+        tag: 'HOMOLOGACIÓN',
+        type: 'internal',
+        size: 'normal',
+        gradient: 'from-teal-900/40 via-emerald-900/20 to-transparent',
+        image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format'
+    },
+    {
         id: 'permisos-emprendimiento-carlos-mattar',
         title: 'Alertas de Permisos — Carlos Mattar',
         description: 'Matriz de permisos, licencias y habilitaciones que Emprendimiento Carlos Mattar debe gestionar para importación y distribución de calzado.',
