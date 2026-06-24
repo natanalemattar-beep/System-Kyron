@@ -4,68 +4,79 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, BrainCircuit, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ModuleLogo } from '@/components/module-logo';
 import { cn } from '@/lib/utils';
 import { usePathname } from '@/navigation';
 import { MarkdownRenderer } from './markdown-renderer';
 
-const DASHBOARD_CONTEXTS: Record<string, { name: string; icon: any; systemPrompt: string; color: string }> = {
+const DASHBOARD_CONTEXTS: Record<string, { name: string; icon: any; logo: string; systemPrompt: string; color: string }> = {
   'kyron-chat': {
     name: 'Kyron Core',
     icon: BrainCircuit,
+    logo: '/images/module-logos/Kyron Shield.jpg',
     systemPrompt: 'Eres Kyron Core, la IA del ecosistema System Kyron. Responde SOLO sobre el módulo en el que te encuentras. No menciones otros módulos. Si te preguntan sobre otro módulo, responde: "Esa consulta pertenece a otro módulo. Por favor accede a ese módulo para recibir asistencia especializada."',
     color: 'from-violet-600 to-purple-600',
   },
   'kyron-empresas': {
     name: 'Kyron Empresas',
     icon: BrainCircuit,
+    logo: '/images/module-logos/contabilidad.jpg',
     systemPrompt: 'Eres Kyron Empresas, la IA unificada del ecosistema System Kyron para empresas. Tienes conocimiento EXPERTO en los siguientes módulos empresariales:\n\n1. CONTABILIDAD VEN-NIF Y FISCAL: plan de cuentas, libros contables, estados financieros, partida doble, cierre contable, conciliación bancaria, cuentas por cobrar/pagar. SENIAT: IVA (declaraciones, retenciones, crédito fiscal, débito fiscal), ISLR (declaración definitiva, anticipos, retenciones), IGTF (cálculo, exenciones), facturación fiscal (documentos electrónicos, NFC), retenciones de IVA/ISLR. Tributos municipales. Certificación Gaceta 6952.\n\n2. RRHH Y NÓMINA LOTTT: cálculo de nómina, prestaciones sociales (antigüedad, intereses), utilidades, vacaciones, bono vacacional, horas extras, días feriados. Seguridad Social (IVSS, FAOV, INCES). LOPCYMAT. Contratos laborales. Reclutamiento y selección. Control de asistencia. Viáticos.\n\n3. VENTAS, MARKETING Y CRM: gestión de clientes, leads, oportunidades, pipeline de ventas, embudos de conversión. Campañas de marketing, email marketing, redes sociales, automatización comercial, segmentación. Análisis de rentabilidad, fidelización, KPIs comerciales.\n\nREGLAS:\n- Responde sobre CUALQUIERA de los 3 módulos (Contabilidad, RRHH, Ventas) con total libertad. El usuario puede hacer preguntas de diferentes módulos en la misma conversación.\n- Si preguntan sobre módulos fuera de estos 3 (Legal, IT, Telecom, Sostenibilidad, etc.), responde: "Esa consulta pertenece a otro módulo. Por favor accede al módulo correspondiente para recibir asistencia especializada."\n- Sé conciso, profesional, en español. Usa formato markdown.',
     color: 'from-emerald-600 to-teal-600',
   },
   'dashboard': {
     name: 'Kyron Core Personal',
     icon: BrainCircuit,
+    logo: '/images/module-logos/Personal.jpg',
     systemPrompt: 'Eres Kyron Core Personal, el núcleo inteligente para ciudadanos venezolanos. Respondes sobre: trámites civiles (SAIME, SAREN), documentos personales, salud, gestión personal, finanzas personales, presupuesto, y cualquier consulta sobre los servicios de System Kyron para personas naturales. Usa formato markdown (**negrita**, *cursiva*, listas).',
     color: 'from-sky-600 to-blue-600',
   },
   'legal': {
     name: 'Kyron Jurídico',
     icon: BrainCircuit,
+    logo: '/images/module-logos/legal.jpg',
     systemPrompt: 'Eres Kyron Jurídico, la IA experta SOLO en derecho corporativo venezolano. Conoces ÚNICAMENTE sobre:\n\nSAREN: registro mercantil, actas constitutivas, asambleas, nombramientos.\nSAPI: propiedad intelectual, marcas, patentes.\nCONTRATOS: elaboración y revisión de contratos comerciales, civiles y laborales.\nPODERES: poderes especiales y generales.\nCUMPLIMIENTO: compliance corporativo, actas, documentos legales.\n\nREGLAS:\n- Responde SOLO sobre temas legales. Si preguntan sobre otros módulos, responde: "Esa consulta pertenece a otro módulo. Por favor accede al módulo correspondiente."\n- Sé conciso, profesional, en español. Usa formato markdown.',
     color: 'from-purple-600 to-indigo-600',
   },
   'telecom': {
     name: 'Kyron Core Telecom',
     icon: BrainCircuit,
+    logo: '/images/module-logos/Linea empresa.jpg',
     systemPrompt: 'Eres Kyron Core Telecom, el núcleo inteligente de telecomunicaciones. Respondes sobre: venta de líneas, internet empresarial, eSIM, roaming, portabilidad, MDM corporativo, infraestructura de red, planes, diagnóstico de red, y cualquier consulta técnica de telecomunicaciones. Usa formato markdown (**negrita**, *cursiva*, listas).',
     color: 'from-teal-600 to-cyan-600',
   },
   'sostenibilidad': {
     name: 'Kyron Core ECO',
     icon: BrainCircuit,
+    logo: '/images/module-logos/sostenibilidad.jpg',
     systemPrompt: 'Eres Kyron Core ECO, el núcleo inteligente de sostenibilidad. Respondes sobre: sostenibilidad empresarial, eco-créditos, huella de carbono, impacto ambiental, certificaciones verdes, mercado de eco-créditos, sector energético, y cualquier consulta ambiental. Usa formato markdown (**negrita**, *cursiva*, listas).',
     color: 'from-green-600 to-emerald-600',
   },
   'socios': {
     name: 'Kyron Core Socios',
     icon: BrainCircuit,
+    logo: '/images/module-logos/Socios.jpg',
     systemPrompt: 'Eres Kyron Core Socios, el núcleo inteligente de gestión de socios. Respondes sobre: directorio corporativo, socios comerciales, alianzas, convenios, network empresarial, y cualquier consulta sobre relaciones corporativas. Usa formato markdown (**negrita**, *cursiva*, listas).',
     color: 'from-blue-600 to-indigo-600',
   },
   'informatica': {
     name: 'Kyron Core IT',
     icon: BrainCircuit,
+    logo: '/images/module-logos/IT SEGURIDAD.jpg',
     systemPrompt: 'Eres Kyron Core IT, el núcleo inteligente de informática. Respondes sobre: infraestructura TI, servidores, redes, cloud, helpdesk, licencias de software, ciberseguridad, respaldos, monitoreo, dispositivos, y cualquier consulta técnica de IT. Usa formato markdown (**negrita**, *cursiva*, listas).',
     color: 'from-slate-600 to-zinc-600',
   },
   'soporte': {
     name: 'Kyron Soporte',
     icon: BrainCircuit,
+    logo: '/images/module-logos/Kyron Shield.jpg',
     systemPrompt: 'Eres Kyron Soporte, el asistente de soporte técnico de System Kyron. Respondes sobre: problemas técnicos, errores del sistema, consultas de uso, guías de solución, actualizaciones, mantenimiento y asistencia al usuario. Usa formato markdown (**negrita**, *cursiva*, listas).',
     color: 'from-indigo-600 to-blue-600',
   },
   'system-kyron-soporte': {
     name: 'Kyron Asistente',
     icon: BrainCircuit,
+    logo: '/images/module-logos/Kyron Shield.jpg',
     systemPrompt: 'Eres el asistente de soporte de System Kyron. Respondes sobre todo el contenido de la plataforma:\n\n1. ¿QUÉ ES SYSTEM KYRON?: Plataforma empresarial venezolana que unifica ERP, POS, RRHH, Legal, Telecomunicaciones, Marketing, Sostenibilidad en un sistema cloud inteligente.\n2. PLANES Y PRECIOS: Plan Solo (1 usuario, 4 módulos), Pro (3 usuarios), Comerciante (5 usuarios, POS), Negocio (10 usuarios, POS), Total (20+ usuarios, todo incluido). Precios en USD con conversión BCV. Prueba gratuita disponible.\n3. MÓDULOS: Contabilidad VEN-NIF (IVA, ISLR, IGTF, SENIAT), RRHH y Nómina (LOTTT, prestaciones, IVSS, FAOV), Marketing y Ventas (CRM, email, redes), Legal (SAREN, SAPI, contratos), IT (infraestructura, ciberseguridad), E-commerce (tienda online, pagos), Sostenibilidad (ESG, huella de carbono), Telecomunicaciones (NetUno, eSIM, internet empresarial).\n4. CARACTERÍSTICAS: IA integrada, nube, cifrado AES-256, multimoneda (USD/BS), backup automático, notificaciones en tiempo real, API REST, certificación Gaceta 6952.\n5. PRUEBA GRATUITA: Demo de 7 días sin tarjeta de crédito.\n6. ATENCIÓN AL CLIENTE: Disponible vía WhatsApp, email (systemkyronofficial@gmail.com), Instagram (@systemkyron).\n7. SOSTENIBILIDAD: Cero Papel, huella de carbono, Eco-Créditos, Smart Bins con IA.\n\nREGLAS:\n- Sé conciso, profesional, en español.\n- Usa formato markdown (**negrita**, listas).\n- Si no sabes algo, indícalo y sugiere contacto por email o WhatsApp.',
     color: 'from-violet-600 to-indigo-600',
   },
@@ -187,7 +198,7 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
           </span>
         )}
         <div className="flex h-full w-full items-center justify-center rounded-full bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border border-gray-200 dark:border-white/20 transition-all group-hover:bg-gray-100 dark:group-hover:bg-zinc-950/60 group-hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]">
-          {isOpen ? <X className="h-6 w-6 text-gray-700 dark:text-white" /> : <ContextIcon className="h-6 w-6 text-gray-700 dark:text-white" />}
+          {isOpen ? <X className="h-6 w-6 text-gray-700 dark:text-white" /> : <img src={context.logo} alt={context.name} className="h-6 w-6 object-contain rounded-full" />}
         </div>
       </motion.button>
 
@@ -213,9 +224,7 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
             {/* Header */}
             <div className={cn("relative p-4 bg-gradient-to-r border-b border-gray-200/50 dark:border-white/5 flex items-center justify-between", context.color, "bg-opacity-10")}>
               <div className="flex items-center gap-3">
-                <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center bg-gradient-to-br shadow-lg", context.color)}>
-                  <ContextIcon className="h-5 w-5 text-white" />
-                </div>
+                <ModuleLogo src={context.logo} alt={context.name} size="sm" />
                 <div>
                   <h3 className="text-sm font-bold text-gray-900 dark:text-white">{context.name}</h3>
                   <p className="text-[8px] text-gray-500 dark:text-white/40 font-black uppercase tracking-[0.2em]">Asistente Especializado</p>
@@ -238,9 +247,7 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
                 >
                   <div className={cn("flex w-full", msg.role === 'user' ? "justify-end" : "justify-start")}>
                     {msg.role === 'ai' && (
-                      <div className={cn("h-6 w-6 rounded-lg flex items-center justify-center bg-gradient-to-br mr-2 mt-1 shrink-0", context.color, "shadow-lg")}>
-                        <ContextIcon className="h-3 w-3 text-white" />
-                      </div>
+                      <img src={context.logo} alt={context.name} className="h-6 w-6 rounded-lg object-contain mr-2 mt-1 shrink-0" />
                     )}
                     <div className={cn(
                       "max-w-[88%] p-3.5 rounded-2xl text-[13px] leading-relaxed",
@@ -280,9 +287,7 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
 
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className={cn("h-6 w-6 rounded-lg flex items-center justify-center bg-gradient-to-br mr-2 mt-1 shrink-0", context.color, "shadow-lg")}>
-                    <ContextIcon className="h-3 w-3 text-white" />
-                  </div>
+                  <img src={context.logo} alt={context.name} className="h-6 w-6 rounded-lg object-contain mr-2 mt-1 shrink-0" />
                   <div className="bg-gray-100 dark:bg-white/[0.06] p-3.5 rounded-2xl rounded-tl-sm backdrop-blur-md border border-gray-200 dark:border-white/[0.06] shadow-lg">
                     <div className="flex items-center gap-2">
                       <div className="flex gap-1">
