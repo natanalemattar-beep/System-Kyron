@@ -21,6 +21,7 @@ import {
     ExternalLink,
     BookOpen,
     AlertTriangle,
+    FileCheck,
 } from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
