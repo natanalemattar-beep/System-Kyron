@@ -49,15 +49,9 @@ export function VerificationCodeInput({
 }: VerificationCodeInputProps) {
   const { toast } = useToast();
   const [method, setMethod] = useState<VerificationMethod>(initialTipo);
-  const [sent, setSent] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    try { return sessionStorage.getItem(`${SENT_KEY}:${destino}`) === 'true'; } catch { return false; }
-  });
   const [code, setCode] = useState('');
-  const [verified, setVerified] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    try { return sessionStorage.getItem(`${VERIFIED_KEY}:${destino}`) === 'true'; } catch { return false; }
-  });
+  const [sent, setSent] = useState(false);
+  const [verified, setVerified] = useState(false);
   const [loading, setLoading] = useState(false);
   const [devCode, setDevCode] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
