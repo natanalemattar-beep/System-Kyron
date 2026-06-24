@@ -6,7 +6,6 @@ import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { verifyLoginChallenge } from '@/lib/login-challenge';
 import { generateCode, generateMagicToken, storeMagicToken, storeCode, normalizePhone, maskPhone } from '@/lib/verification-codes';
 import { getBaseUrl } from '@/lib/server-url';
-import { sendSms } from '@/lib/twilio-client';
 
 export const dynamic = 'force-dynamic';
 
@@ -146,46 +145,11 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // FLUJO TELÉFONO (SMS / WhatsApp)
-    try {
-      if (tipo === 'sms' || tipo === 'whatsapp') {
-        const codigoPhone = generateCode();
-        await storeCode(destino, codigoPhone, proposito, tipo);
-        const isDev = process.env.NODE_ENV === 'development' || !!process.env.NEXT_PUBLIC_DEV_CODE;
-
-        if (isDev) console.info('[send-code] dev code', { code: codigoPhone, destino, channel: tipo });
-
-        const smsBody = `System Kyron\nTu código de verificación es: ${codigoPhone}\nVálido por 10 minutos.`;
-
-        let sendResult: { success: boolean; error?: string };
-        if (tipo === 'sms') {
-          sendResult = await sendSms(destino, smsBody);
-        } else {
-          const { sendWhatsAppMessage } = await import('@/lib/whatsapp-service');
-          sendResult = await sendWhatsAppMessage(destino, smsBody);
-        }
-
-        if (!sendResult.success) {
-          if (!isDev) {
-            throw new Error(sendResult.error || `Error al enviar ${tipo}`);
-          }
-          console.warn(`[send-code] ${tipo} send failed in dev mode, proceeding with dev code only:`, sendResult.error);
-        }
-
-        return NextResponse.json({
-          success: true,
-          message: `Código enviado por ${tipo === 'sms' ? 'SMS' : 'WhatsApp'}`,
-          channel: tipo,
-          destination: maskPhone(destino),
-          expiresIn: 600,
-          ...(isDev ? { devCode: codigoPhone } : {}),
-        });
-      }
-    } catch (phoneErr) {
-      console.error(`[send-code] Fallo en flujo ${tipo}:`, phoneErr);
+    // FLUJO TELÉFONO (SMS / WhatsApp) — DESHABILITADO
+    if (tipo === 'sms' || tipo === 'whatsapp') {
       return NextResponse.json(
-        { error: `No se pudo enviar el código por ${tipo === 'sms' ? 'SMS' : 'WhatsApp'}` },
-        { status: 502 }
+        { error: 'La verificación por SMS/WhatsApp está temporalmente deshabilitada. Usa tu correo electrónico.' },
+        { status: 503 }
       );
     }
 

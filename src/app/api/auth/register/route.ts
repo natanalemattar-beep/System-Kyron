@@ -9,6 +9,19 @@ import { validarRIF, validarFormatoCedula } from '@/lib/validacion-venezuela';
 import { encryptIfNotEmpty, generateSearchHash } from '@/lib/encryption';
 import { normalizePhone } from '@/lib/verification-codes';
 
+async function ensureUserColumns(): Promise<void> {
+  try {
+    await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verificado BOOLEAN NOT NULL DEFAULT false`);
+    await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS telefono_verificado BOOLEAN NOT NULL DEFAULT false`);
+    await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS modulo_origen TEXT DEFAULT ''`);
+    await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS plan TEXT`);
+    await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS plan_monto NUMERIC(10,2)`);
+    await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS rep_cedula_hash TEXT`);
+  } catch (e) {
+    console.warn('[register] ensureUserColumns warning:', e);
+  }
+}
+
 async function verificarCodigoUsado(destino: string, proposito: string = 'registration'): Promise<boolean> {
     const record = await queryOne<{ id: number }>(
         `SELECT id FROM verification_codes
@@ -44,18 +57,16 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({ error: 'Tipo de registro inválido' }, { status: 400 });
     } catch (err: any) {
-        // Use structured logger and avoid leaking full error objects to console in production.
-        // Keep the original behavior of hiding DB internals from the client.
         const logger = await import('@/lib/logger').then(m => m.logger).catch(() => console);
         logger.error('Register error', { error: String(err) });
         const msg = err?.message || String(err);
-        // Hide raw DB errors from clients
-        const isSchemaError = msg.includes('column') || msg.includes('relation') || msg.includes('violates');
-        return NextResponse.json({ 
-            error: isSchemaError 
-                ? 'Error interno de base de datos. Contacta soporte.' 
-                : (msg || 'Error al procesar el registro'), 
-        }, { status: 500 });
+        if (msg.includes('column') || msg.includes('relation') || msg.includes('violates')) {
+            console.error('[register] DB Schema Error:', msg);
+            const colMatch = msg.match(/column "([^"]+)"/);
+            const detail = colMatch ? `columna faltante: ${colMatch[1]}. Ejecuta la migración de BD.` : 'Esquema de BD desactualizado.';
+            return NextResponse.json({ error: `Error de base de datos: ${detail}` }, { status: 500 });
+        }
+        return NextResponse.json({ error: msg || 'Error al procesar el registro' }, { status: 500 });
     }
 }
 
@@ -115,6 +126,8 @@ async function registerNatural(body: Record<string, unknown>, ip: string = '0.0.
             error: 'Ya existe una cuenta con este correo o cédula. Inicia sesión o utiliza otro correo.',
         }, { status: 409 });
     }
+
+    await ensureUserColumns();
 
     const encCedula = encryptIfNotEmpty(cedula);
     const encTelefono = encryptIfNotEmpty(normalizedPhone);
@@ -326,6 +339,8 @@ async function registerJuridico(body: Record<string, unknown>, ip: string = '0.0
             error: 'Ya existe una cuenta con este correo o RIF. Inicia sesión o utiliza otro correo.',
         }, { status: 409 });
     }
+
+    await ensureUserColumns();
 
     const sanitizedRazonSocial = sanitizeString(razonSocial as string, 200);
     const sanitizedCapitalSocial = capital_social ? sanitizeString(String(capital_social), 50) : '';
