@@ -39,7 +39,7 @@ const COMBOS = [
     id: 'solo',
     nombre: 'Solo',
     precio: 19.99,
-    modulos: ['contable_esencial', 'fact_basico', 'basico_2gb'],
+    modulos: ['contabilidad', 'ventas', 'telecom'],
     modulosLabels: ['Contable Esencial', 'Facturación Básica', 'Mi Línea 2GB'],
     icon: User,
     color: 'emerald',
@@ -51,7 +51,7 @@ const COMBOS = [
     nombre: 'Profesional',
     precio: 34.99,
     popular: true,
-    modulos: ['contable_profesional', 'fact_comercial', 'legal_profesional', 'conecta_5gb'],
+    modulos: ['contabilidad', 'ventas', 'legal', 'telecom'],
     modulosLabels: ['Contable Pro', 'Facturación Comercial', 'Legal Pro', 'Mi Línea 5GB'],
     icon: Star,
     color: 'violet',
@@ -62,7 +62,7 @@ const COMBOS = [
     id: 'empresarial',
     nombre: 'Empresarial',
     precio: 69.99,
-    modulos: ['contable_avanzado', 'fact_enterprise', 'legal_escritorio', 'socios_profesional', 'plus_10gb'],
+    modulos: ['contabilidad', 'ventas', 'legal', 'socios', 'telecom'],
     modulosLabels: ['Contable Avanzado', 'Facturación Enterprise', 'Escritorio Jurídico', 'Socios Pro', 'Mi Línea 10GB'],
     icon: Building,
     color: 'blue',
@@ -73,7 +73,7 @@ const COMBOS = [
     id: 'kyron_max',
     nombre: 'Kyron MAX',
     precio: 99.99,
-    modulos: ['contable_max', 'fact_max', 'legal_max', 'socios_enterprise', 'infinite'],
+    modulos: ['contabilidad', 'ventas', 'legal', 'socios', 'telecom'],
     modulosLabels: ['Contable MAX', 'Facturación MAX', 'Legal MAX', 'Socios Enterprise', 'Mi Línea Infinite'],
     icon: Zap,
     color: 'amber',
@@ -95,8 +95,8 @@ const schema = z.object({
         .regex(/[0-9]/, 'Un número')
         .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/, 'Un carácter especial'),
     confirmPassword: z.string(),
-    plan: z.string().min(1, 'Seleccione un plan'),
-    planType: z.enum(['individual', 'combo']).default('combo'),
+    plan: z.string(),
+    planType: z.enum(['individual', 'combo']).default('individual'),
 }).refine(d => d.password === d.confirmPassword, {
     message: 'Las contraseñas no coinciden', path: ['confirmPassword'],
 });
@@ -126,7 +126,7 @@ export default function RegisterContabilidadPage() {
     const [step, setStep] = useState(1);
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
     const [selectedCombo, setSelectedCombo] = useState<string | null>(null);
-    const [planType, setPlanType] = useState<'individual' | 'combo'>('combo');
+    const [planType, setPlanType] = useState<'individual' | 'combo'>('individual');
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -147,7 +147,7 @@ export default function RegisterContabilidadPage() {
         mode: 'onBlur',
         defaultValues: {
             plan: searchParams.get('plan') || '',
-            planType: 'combo',
+            planType: 'individual',
             rif: searchParams.get('doc') || '',
             razonSocial: searchParams.get('razon') || '',
             email: searchParams.get('email') || '',
@@ -226,7 +226,7 @@ export default function RegisterContabilidadPage() {
         try {
             const modules = data.planType === 'combo'
                 ? (COMBOS.find(c => c.id === data.plan)?.modulos || [])
-                : [data.plan];
+                : ['contabilidad'];
 
             const res = await fetch('/api/auth/register', {
                 method: 'POST',

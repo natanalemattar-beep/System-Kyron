@@ -9,6 +9,7 @@ export default function LoginVentasPage() {
             portalName="Facturación" 
             portalDescription="Terminal de ventas de alta velocidad con sincronización de inventario."
             redirectPath="/dashboard-empresas"
+            portalModule="ventas"
             icon={ShoppingCart}
             accentColor="emerald-600"
             layoutVariant="centered"

@@ -10,6 +10,7 @@ export default function LoginEscritorioJuridicoPage() {
             portalName="Asesoría Legal" 
             portalDescription="Blindaje jurídico y gestión de instrumentos notariales inmutables."
             redirectPath="/escritorio-juridico"
+            portalModule="legal"
             icon={Gavel}
             accentColor="slate-800"
             layoutVariant="split-right"

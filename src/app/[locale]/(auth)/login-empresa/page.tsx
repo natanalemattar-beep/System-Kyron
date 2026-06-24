@@ -10,6 +10,7 @@ export default function LoginEmpresaPage() {
             portalName="Asesoría Contable" 
             portalDescription="Inteligencia financiera avanzada y auditoría forense para la nueva economía venezolana."
             redirectPath="/dashboard-empresas"
+            portalModule="contabilidad"
             icon={Landmark}
             accentColor="primary"
             layoutVariant="accounting-premium"

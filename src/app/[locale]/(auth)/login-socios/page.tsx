@@ -10,6 +10,7 @@ export default function LoginSociosPage() {
             portalName="Socios" 
             portalDescription="Consola ejecutiva para la supervisión de resultados y rentabilidad del holding."
             redirectPath="/dashboard-socios"
+            portalModule="socios"
             icon={Users}
             accentColor="indigo-950"
             layoutVariant="minimal"

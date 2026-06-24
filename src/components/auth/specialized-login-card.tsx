@@ -17,7 +17,7 @@ import { cn, isNetworkError } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getDeviceFingerprint } from '@/lib/device-fingerprint';
 import { useAuth } from '@/lib/auth/context';
-import { getDashboardPath as getModuleDashboardPath } from '@/lib/module-paths';
+import { getDashboardPath as getModuleDashboardPath, MODULE_PATH_MAP } from '@/lib/module-paths';
 
 type LayoutVariant = 'split-left' | 'split-right' | 'centered' | 'stacked' | 'minimal' | 'dark-immersive' | 'accounting-premium';
 
@@ -33,11 +33,34 @@ const ACCENT_THEMES: Record<string, { gradient: string; accent: string; ring: st
   'amber-700':   { gradient: 'from-amber-700 via-amber-600 to-orange-700',   accent: 'text-amber-400',   ring: 'ring-amber-500/20',   inputRing: 'focus-visible:ring-amber-500/20 focus-visible:border-amber-500/40', codeBorder: 'border-amber-500', btnBg: 'bg-amber-600 hover:bg-amber-500 shadow-[0_0_20px_rgba(180,83,9,0.3)]', glowFrom: 'rgba(245,158,11,0.15)' },
 };
 
+const VERIFICATION_METHOD_OPTIONS = [
+  { method: 'email' as const, icon: Mail, label: 'Correo', bgStyle: { background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)' }, iconColor: 'text-blue-600', borderActive: 'border-blue-400', hoverBg: 'hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/30' },
+  { method: 'sms' as const, icon: Smartphone, label: 'SMS', bgStyle: { background: 'linear-gradient(135deg, #d1fae5, #a7f3d0)' }, iconColor: 'text-emerald-600', borderActive: 'border-emerald-400', hoverBg: 'hover:border-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/30' },
+  { method: 'whatsapp' as const, icon: MessageCircle, label: 'WhatsApp', bgStyle: { background: 'linear-gradient(135deg, #bbf7d0, #86efac)' }, iconColor: 'text-green-700', borderActive: 'border-green-500', hoverBg: 'hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-950/30' },
+] as const;
+
+const ANIMATED_GRID_STYLE = {
+  backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+  backgroundSize: '40px 40px',
+} as const;
+
+const DARK_IMMERSIVE_FORM_STYLE = {
+  '--di-fg': 'rgb(255 255 255)',
+  '--di-fg-80': 'rgb(255 255 255 / 0.7)',
+  '--di-muted': 'rgb(255 255 255 / 0.4)',
+  '--di-muted-60': 'rgb(255 255 255 / 0.25)',
+  '--di-bg-subtle': 'rgb(255 255 255 / 0.05)',
+  '--di-bg-card': 'rgb(255 255 255 / 0.06)',
+  '--di-border': 'rgb(255 255 255 / 0.08)',
+  '--di-border-strong': 'rgb(255 255 255 / 0.1)',
+} as const;
+
 interface SpecializedLoginCardProps {
   portalName: string;
   portalDescription: string;
   redirectPath: string;
   icon: React.ElementType;
+  portalModule?: string;
   accentColor?: string;
   bgPattern?: React.ReactNode;
   features?: string[];
@@ -56,6 +79,7 @@ export function SpecializedLoginCard({
   portalDescription,
   redirectPath,
   icon: Icon,
+  portalModule,
   accentColor = 'primary',
   features = [],
   layoutVariant = 'split-left',
@@ -90,8 +114,24 @@ export function SpecializedLoginCard({
   const { toast } = useToast();
   const { refreshUser } = useAuth();
   const theme = ACCENT_THEMES[accentColor] || ACCENT_THEMES['primary'];
+  const glowBgStyle = useMemo(() => ({ background: theme.glowFrom }), [theme.glowFrom]);
+  const centeredOrbStyles = useMemo(() => [...Array(8)].map((_, i) => ({
+    width: 4 + (i % 4) * 3,
+    height: 4 + (i % 4) * 3,
+    left: `${8 + i * 12}%`,
+    top: `${10 + (i % 5) * 18}%`,
+    background: `radial-gradient(circle, ${theme.glowFrom}, transparent)`,
+  })), [theme.glowFrom]);
+  const darkImmersiveDotStyles = useMemo(() => [...Array(12)].map((_, i) => ({
+    width: 2 + (i % 3),
+    height: 2 + (i % 3),
+    left: `${5 + i * 8}%`,
+    top: `${10 + (i % 6) * 14}%`,
+    background: theme.glowFrom.replace('0.15', '0.6'),
+  })), [theme.glowFrom]);
   const cardRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const cardHoverGlowStyle = useMemo(() => ({ background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${theme.glowFrom}, transparent 40%)` }), [mousePos.x, mousePos.y, theme.glowFrom]);
   const rafRef = useRef<number>();
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -108,9 +148,13 @@ export function SpecializedLoginCard({
   const isTelecomPortal = useMemo(() => portalName.toLowerCase().includes('línea') || portalName.toLowerCase().includes('teléfono') || portalName.toLowerCase().includes('móvil'), [portalName]);
 
   const resolveRedirectPath = useCallback((json?: { user?: { modules?: string[] } }) => {
-    const path = getModuleDashboardPath(json?.user?.modules);
+    const modules = json?.user?.modules;
+    if (portalModule && modules?.includes(portalModule)) {
+      return MODULE_PATH_MAP[portalModule] || redirectPath;
+    }
+    const path = getModuleDashboardPath(modules);
     return path || redirectPath;
-  }, [redirectPath]);
+  }, [redirectPath, portalModule]);
 
   const identifierLabel = isTelecomPortal ? 'Número de Teléfono' : (isPersonalPortal ? 'Número de Cédula / Correo' : 'Correo Electrónico');
   const identifierPlaceholder = isTelecomPortal ? '04XX-XXXXXXX' : (isPersonalPortal ? 'V-12345678 o tu@correo.com' : 'tu@correo.com');
@@ -976,11 +1020,7 @@ export function SpecializedLoginCard({
                   <div id="login-method-cards" className="space-y-2 pt-2 border-t border-border/30">
                     <p className="text-[11px] font-semibold text-muted-foreground text-center uppercase tracking-widest">Cambiar método</p>
                     <div className="grid grid-cols-3 gap-2">
-                      {([
-                        { method: 'email' as const, icon: Mail, label: 'Correo', gradientBg: 'linear-gradient(135deg, #dbeafe, #bfdbfe)', iconColor: 'text-blue-600', borderActive: 'border-blue-400', hoverBg: 'hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/30' },
-                        { method: 'sms' as const, icon: Smartphone, label: 'SMS', gradientBg: 'linear-gradient(135deg, #d1fae5, #a7f3d0)', iconColor: 'text-emerald-600', borderActive: 'border-emerald-400', hoverBg: 'hover:border-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/30' },
-                        { method: 'whatsapp' as const, icon: MessageCircle, label: 'WhatsApp', gradientBg: 'linear-gradient(135deg, #bbf7d0, #86efac)', iconColor: 'text-green-700', borderActive: 'border-green-500', hoverBg: 'hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-950/30' },
-                      ]).map(({ method, icon: MethodIcon, label, gradientBg, iconColor, borderActive, hoverBg }) => (
+                      {VERIFICATION_METHOD_OPTIONS.map(({ method, icon: MethodIcon, label, bgStyle, iconColor, borderActive, hoverBg }) => (
                         <Button
                           key={method}
                           type="button"
@@ -996,7 +1036,7 @@ export function SpecializedLoginCard({
                             (switchingMethod || isLoading) && "opacity-50 cursor-not-allowed"
                           )}
                         >
-                          <div className="p-2 rounded-lg" style={{ background: gradientBg }}>
+                          <div className="p-2 rounded-lg" style={bgStyle}>
                             <MethodIcon className={cn("h-4 w-4", iconColor)} />
                           </div>
                           <span className="text-[11px] font-bold text-foreground/70">{label}</span>
@@ -1133,8 +1173,8 @@ export function SpecializedLoginCard({
       <div className="absolute inset-0 hud-grid opacity-20" />
       
       {/* Dynamic Glows */}
-      <div className="absolute top-0 left-1/4 w-[800px] h-[800px] blur-[150px] opacity-20 rounded-full" style={{ background: theme.glowFrom }} />
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] blur-[150px] opacity-10 rounded-full" style={{ background: theme.glowFrom }} />
+      <div className="absolute top-0 left-1/4 w-[800px] h-[800px] blur-[150px] opacity-20 rounded-full" style={glowBgStyle} />
+      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] blur-[150px] opacity-10 rounded-full" style={glowBgStyle} />
       
       {/* Animated Scanline */}
       <motion.div 
@@ -1173,7 +1213,7 @@ export function SpecializedLoginCard({
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <div className={cn("absolute inset-0 bg-gradient-to-br opacity-[0.06]", theme.gradient)} />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/40" />
-          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full blur-[200px] opacity-40" style={{ background: theme.glowFrom }} />
+          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full blur-[200px] opacity-40" style={glowBgStyle} />
           <div className="absolute bottom-0 left-0 right-0 h-[400px] bg-gradient-to-t from-background to-transparent" />
           <svg className="absolute inset-0 w-full h-full opacity-[0.02]" xmlns="http://www.w3.org/2000/svg">
             <defs><pattern id="centeredHex" width="56" height="100" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
@@ -1181,19 +1221,13 @@ export function SpecializedLoginCard({
             </pattern></defs>
             <rect width="100%" height="100%" fill="url(#centeredHex)"/>
           </svg>
-          {[...Array(8)].map((_, i) => (
+          {centeredOrbStyles.map((style, i) => (
             <motion.div
               key={i}
               className="absolute rounded-full"
               animate={{ opacity: [0.1, 0.35, 0.1], scale: [1, 1.3, 1] }}
               transition={{ duration: 5 + i * 0.8, repeat: Infinity, delay: i * 0.7, ease: "easeInOut" }}
-              style={{
-                width: 4 + (i % 4) * 3,
-                height: 4 + (i % 4) * 3,
-                left: `${8 + i * 12}%`,
-                top: `${10 + (i % 5) * 18}%`,
-                background: `radial-gradient(circle, ${theme.glowFrom}, transparent)`,
-              }}
+              style={style}
             />
           ))}
         </div>
@@ -1256,9 +1290,7 @@ export function SpecializedLoginCard({
           >
             <div
               className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
-              style={{
-                background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${theme.glowFrom}, transparent 40%)`,
-              }}
+              style={cardHoverGlowStyle}
             />
             <div className="relative z-10">
               {formContent}
@@ -1282,10 +1314,7 @@ export function SpecializedLoginCard({
           {/* Animated Grid */}
           <div 
             className="absolute inset-0 opacity-[0.03]" 
-            style={{ 
-              backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
-              backgroundSize: '40px 40px'
-            }} 
+            style={ANIMATED_GRID_STYLE}
           />
           
           {/* Parallax Floating Orbs */}
@@ -1456,9 +1485,7 @@ export function SpecializedLoginCard({
         >
           <div
             className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
-            style={{
-              background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${theme.glowFrom}, transparent 40%)`,
-            }}
+            style={cardHoverGlowStyle}
           />
           <div className={cn('relative z-10 overflow-hidden text-white bg-gradient-to-br p-8 md:p-10', theme.gradient)}>
             <div className="absolute inset-0 overflow-hidden">
@@ -1526,7 +1553,7 @@ export function SpecializedLoginCard({
     return (
       <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background via-background to-muted/20">
-          <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full blur-[180px] opacity-30" style={{ background: theme.glowFrom }} />
+          <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full blur-[180px] opacity-30" style={glowBgStyle} />
         </div>
         {backButton}
         <motion.div
@@ -1567,9 +1594,7 @@ export function SpecializedLoginCard({
           >
             <div
               className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
-              style={{
-                background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${theme.glowFrom}, transparent 40%)`,
-              }}
+              style={cardHoverGlowStyle}
             />
             <div className="relative z-10">
               {formContent}
@@ -1586,8 +1611,8 @@ export function SpecializedLoginCard({
       <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
         <div className="absolute inset-0 -z-10 overflow-hidden bg-background">
           <div className={cn("absolute inset-0 bg-gradient-to-br opacity-[0.15]", theme.gradient)} />
-          <div className="absolute -top-60 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full blur-[250px] opacity-25" style={{ background: theme.glowFrom }} />
-          <div className="absolute bottom-0 right-0 w-[600px] h-[400px] rounded-full blur-[200px] opacity-15" style={{ background: theme.glowFrom }} />
+          <div className="absolute -top-60 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full blur-[250px] opacity-25" style={glowBgStyle} />
+          <div className="absolute bottom-0 right-0 w-[600px] h-[400px] rounded-full blur-[200px] opacity-15" style={glowBgStyle} />
           <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="darkCircuit" width="60" height="60" patternUnits="userSpaceOnUse">
@@ -1597,19 +1622,13 @@ export function SpecializedLoginCard({
             </defs>
             <rect width="100%" height="100%" fill="url(#darkCircuit)"/>
           </svg>
-          {[...Array(12)].map((_, i) => (
+          {darkImmersiveDotStyles.map((style, i) => (
             <motion.div
               key={i}
               className="absolute rounded-full"
               animate={{ opacity: [0.05, 0.2, 0.05], y: [0, -20, 0] }}
               transition={{ duration: 4 + i * 0.6, repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }}
-              style={{
-                width: 2 + (i % 3),
-                height: 2 + (i % 3),
-                left: `${5 + i * 8}%`,
-                top: `${10 + (i % 6) * 14}%`,
-                background: theme.glowFrom.replace('0.15', '0.6'),
-              }}
+              style={style}
             />
           ))}
         </div>
@@ -1676,11 +1695,9 @@ export function SpecializedLoginCard({
           >
             <div
               className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
-              style={{
-                background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${theme.glowFrom}, transparent 40%)`,
-              }}
+              style={cardHoverGlowStyle}
             />
-            <div className="relative z-10 dark-immersive-form" style={{ '--di-fg': 'rgb(255 255 255)', '--di-fg-80': 'rgb(255 255 255 / 0.7)', '--di-muted': 'rgb(255 255 255 / 0.4)', '--di-muted-60': 'rgb(255 255 255 / 0.25)', '--di-bg-subtle': 'rgb(255 255 255 / 0.05)', '--di-bg-card': 'rgb(255 255 255 / 0.06)', '--di-border': 'rgb(255 255 255 / 0.08)', '--di-border-strong': 'rgb(255 255 255 / 0.1)' } as React.CSSProperties}>
+            <div className="relative z-10 dark-immersive-form" style={DARK_IMMERSIVE_FORM_STYLE as React.CSSProperties}>
               {formContent}
             </div>
           </motion.div>

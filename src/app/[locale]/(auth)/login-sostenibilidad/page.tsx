@@ -10,6 +10,7 @@ export default function LoginSostenibilidadPage() {
             portalName="Sostenibilidad" 
             portalDescription="Gestión de activos verdes y mercado de compensación ambiental."
             redirectPath="/sostenibilidad"
+            portalModule="sostenibilidad"
             icon={Recycle}
             accentColor="emerald-800"
             layoutVariant="stacked"

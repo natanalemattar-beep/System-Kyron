@@ -9,6 +9,7 @@ export default function LoginInformaticaPage() {
             portalName="Informática" 
             portalDescription="Centro de control tecnológico: infraestructura, ciberseguridad, soporte y respaldos empresariales."
             redirectPath="/dashboard-it"
+            portalModule="informatica"
             icon={Cpu}
             accentColor="cyan-700"
             layoutVariant="dark-immersive"

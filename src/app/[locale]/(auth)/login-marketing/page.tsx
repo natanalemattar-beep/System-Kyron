@@ -9,6 +9,7 @@ export default function LoginMarketingPage() {
             portalName="Marketing"
             portalDescription="Panel de campañas, analytics y automatización de marketing."
             redirectPath="/dashboard-empresas"
+            portalModule="ventas"
             icon={Megaphone}
             accentColor="blue-900"
             layoutVariant="minimal"
