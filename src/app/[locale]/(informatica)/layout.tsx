@@ -29,12 +29,7 @@ export default function InformaticaLayout({
       <ModuleGuard layoutKey="informatica">
       <div className="flex min-h-screen bg-gradient-to-br from-[hsl(175,16%,93%)] via-background to-[hsl(210,18%,92%)] dark:from-[hsl(175,10%,10%)] dark:via-background dark:to-[hsl(210,12%,8%)] text-foreground relative">
           <PageTracker />
-          <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute inset-0 opacity-[0.02] hud-grid" />
-            <div className="absolute top-[-5%] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-cyan-400/[0.07] rounded-full blur-[250px]" />
-            <div className="absolute bottom-[-10%] right-[-5%] w-[700px] h-[700px] bg-blue-400/[0.05] rounded-full blur-[220px]" />
-            <div className="absolute top-[50%] left-[-10%] w-[500px] h-[500px] bg-teal-300/[0.04] rounded-full blur-[200px]" />
-          </div>
+          <div className="fixed inset-0 pointer-events-none -z-10 bg-gradient-to-br from-cyan-400/[0.02] via-transparent to-teal-400/[0.02]" />
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader 
@@ -47,7 +42,7 @@ export default function InformaticaLayout({
                     {children}
                   </PageTransition>
               </main>
-              <footer className="p-10 border-t border-border bg-card/10 text-center backdrop-blur-3xl">
+              <footer className="p-10 border-t border-border bg-card text-center">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.8em] text-foreground/10 italic">
                   System Kyron • Informática & Tecnología • 2026
                 </p>

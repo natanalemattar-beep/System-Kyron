@@ -83,7 +83,7 @@ export function AppTopNav() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-background/80 backdrop-blur-2xl border-b border-border">
+      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-background/95 border-b border-border">
         <div className="h-full flex items-center justify-between px-4 lg:px-6 max-w-[1800px] mx-auto">
           {/* Left: Logo + Nav */}
           <div className="flex items-center gap-6">
@@ -207,7 +207,7 @@ export function AppTopNav() {
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="fixed top-0 right-0 bottom-0 w-80 bg-card border-l border-border z-50 overflow-y-auto lg:hidden"
             >
               <div className="p-6 border-b border-border flex items-center justify-between">

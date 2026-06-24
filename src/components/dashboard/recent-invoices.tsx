@@ -43,7 +43,7 @@ export function RecentInvoices() {
   }, []);
 
   return (
-    <Card className="bg-card/50 backdrop-blur-sm">
+    <Card className="bg-card/90">
       <CardHeader>
         <CardTitle>Facturas Recientes</CardTitle>
         <CardDescription>

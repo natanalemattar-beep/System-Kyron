@@ -85,7 +85,7 @@ export const ZeroRiskGuarantees = () => {
   const totalCoverage = guarantees.reduce((sum, g) => sum + g.amount, 0);
 
   return (
-    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
+    <div className="bg-card/90 rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h2 className="text-xl font-bold">Garantías y Seguros de Cero Riesgo</h2>

@@ -113,7 +113,7 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
   const context = contextKey 
     ? { key: contextKey, ...DASHBOARD_CONTEXTS[contextKey] ?? DASHBOARD_CONTEXTS['kyron-chat'] } 
     : getDashboardContext(pathname);
-  const ContextIcon = context.icon;
+  
   const suggestions = QUICK_SUGGESTIONS[contextKey || context.key] || [];
 
   useEffect(() => {
@@ -209,7 +209,7 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ type: "spring", damping: 25, stiffness: 350 }}
+             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className={cn(
                "fixed bottom-20 right-6 z-50 w-[380px] max-w-[calc(100vw-48px)] max-h-[calc(100vh-120px)] rounded-3xl overflow-hidden flex flex-col",
               "shadow-[0_0_80px_rgba(0,0,0,0.6)] shadow-black/50",
@@ -241,7 +241,7 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                   transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   key={i}
                   className={cn("flex w-full flex-col", msg.role === 'user' ? "items-end" : "items-start")}
                 >

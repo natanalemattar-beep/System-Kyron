@@ -54,10 +54,15 @@ export async function verifyMagicToken(token: string): Promise<{ valid: boolean;
 
   const record = await queryOne<{ id: number; destino: string; user_id: number | null }>(
     `UPDATE verification_codes
-     SET usado = true
+     SET usado = true, verified_at = COALESCE(verified_at, NOW())
      WHERE id = (
        SELECT id FROM verification_codes
-       WHERE codigo = $1 AND usado = false AND expires_at > NOW()
+       WHERE codigo = $1 
+       AND (
+         (usado = false AND expires_at > NOW()) 
+         OR 
+         (usado = true AND verified_at > NOW() - INTERVAL '1 minute')
+       )
        AND proposito = 'magic_link'
        ORDER BY created_at DESC LIMIT 1
        FOR UPDATE SKIP LOCKED

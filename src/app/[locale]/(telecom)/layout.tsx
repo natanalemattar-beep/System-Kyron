@@ -29,12 +29,7 @@ export default function TelecomLayout({
       <ModuleGuard layoutKey="telecom">
       <div className="flex min-h-screen bg-gradient-to-br from-[hsl(170,15%,93%)] via-background to-[hsl(200,16%,92%)] dark:from-[hsl(170,10%,10%)] dark:via-background dark:to-[hsl(200,10%,8%)] text-foreground relative">
           <PageTracker />
-          <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute inset-0 opacity-[0.02] hud-grid" />
-            <div className="absolute top-[-5%] right-[-10%] w-[800px] h-[800px] bg-amber-400/[0.05] rounded-full blur-[250px]" />
-            <div className="absolute bottom-[10%] left-[-5%] w-[600px] h-[600px] bg-teal-300/[0.04] rounded-full blur-[220px]" />
-            <div className="absolute top-[30%] right-[20%] w-[500px] h-[500px] bg-emerald-300/[0.03] rounded-full blur-[200px]" />
-          </div>
+          <div className="fixed inset-0 pointer-events-none -z-10 bg-gradient-to-br from-amber-400/[0.02] via-transparent to-teal-400/[0.02]" />
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader 
@@ -47,7 +42,7 @@ export default function TelecomLayout({
                     {children}
                   </PageTransition>
               </main>
-              <footer className="p-10 border-t border-border bg-card/10 text-center backdrop-blur-3xl">
+              <footer className="p-10 border-t border-border bg-card text-center">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.8em] text-foreground/10 italic">
                   System Kyron • Telecom Central • 2026
                 </p>

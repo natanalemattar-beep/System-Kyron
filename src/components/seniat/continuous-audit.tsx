@@ -72,7 +72,7 @@ export const ContinuousAudit = () => {
   };
 
   return (
-    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
+    <div className="bg-card/90 rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h2 className="text-xl font-bold">Auditoría Continua 24/7</h2>

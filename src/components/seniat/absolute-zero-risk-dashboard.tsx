@@ -30,19 +30,19 @@ export const AbsoluteZeroRiskDashboard = () => {
 
         {/* Métricas Principales */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-card/50 backdrop-blur-sm rounded-2xl border p-6 text-center shadow-lg">
+           <div className="bg-card/90 rounded-2xl border p-6 text-center shadow-lg">
             <div className="text-3xl font-bold text-green-400">85%</div>
             <div className="text-sm text-muted-foreground font-medium">Protección Activa</div>
           </div>
-          <div className="bg-card/50 backdrop-blur-sm rounded-2xl border p-6 text-center shadow-lg">
+           <div className="bg-card/90 rounded-2xl border p-6 text-center shadow-lg">
             <div className="text-3xl font-bold text-red-400">3</div>
             <div className="text-sm text-muted-foreground font-medium">Amenazas Críticas</div>
           </div>
-          <div className="bg-card/50 backdrop-blur-sm rounded-2xl border p-6 text-center shadow-lg">
+           <div className="bg-card/90 rounded-2xl border p-6 text-center shadow-lg">
             <div className="text-3xl font-bold text-blue-400">24/7</div>
             <div className="text-sm text-muted-foreground font-medium">Monitoreo IA</div>
           </div>
-          <div className="bg-card/50 backdrop-blur-sm rounded-2xl border p-6 text-center shadow-lg">
+           <div className="bg-card/90 rounded-2xl border p-6 text-center shadow-lg">
             <div className="text-3xl font-bold text-purple-400">98%</div>
             <div className="text-sm text-muted-foreground font-medium">Precisión Detección</div>
           </div>

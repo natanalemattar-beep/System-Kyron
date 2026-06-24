@@ -94,7 +94,7 @@ export const ZeroRiskProtection = () => {
   const systemRisk = (1 - controls.reduce((acc, control) => acc * (1 - control.failureProbability / 100), 1)) * 100;
 
   return (
-    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
+    <div className="bg-card/90 rounded-lg border p-6">
        <div className="text-center mb-8">
         <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-green-400 to-green-600 rounded-full mb-4">
           <span className="text-3xl font-bold text-white">0%</span>

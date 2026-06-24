@@ -28,22 +28,17 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[hsl(170,20%,94%)] via-background to-[hsl(210,22%,92%)] dark:from-[hsl(170,10%,10%)] dark:via-background dark:to-[hsl(210,12%,8%)] text-foreground relative">
           <PageTracker userId={user?.id} />
-          <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute inset-0 opacity-[0.03] hud-grid" />
-            <div className="absolute top-0 right-[-10%] w-[900px] h-[900px] bg-emerald-400/[0.06] rounded-full blur-[120px]" />
-            <div className="absolute top-[30%] left-[-5%] w-[700px] h-[700px] bg-cyan-400/[0.05] rounded-full blur-[140px]" />
-            <div className="absolute -bottom-[10%] right-[20%] w-[600px] h-[600px] bg-blue-400/[0.04] rounded-full blur-[100px]" />
-          </div>
+          <div className="fixed inset-0 pointer-events-none -z-10 bg-gradient-to-br from-emerald-400/[0.02] via-transparent to-cyan-400/[0.02]" />
 
           <AppHeader user={userObj} dashboardHref="/dashboard-empresas" navGroups={asesoriaContableNavGroups} />
           
           <main className="w-full p-4 md:p-10 pt-24 md:pt-28 relative z-10">
-              <div className="max-w-[1400px] mx-auto w-full animate-in fade-in duration-500">
+              <div                className="max-w-[1400px] mx-auto w-full animate-in fade-in duration-300">
                 {children}
               </div>
           </main>
           
-          <footer className="p-8 md:p-12 border-t border-border bg-card/40 text-center backdrop-blur-3xl mt-20 relative z-20">
+          <footer className="p-8 md:p-12 border-t border-border bg-card text-center mt-20 relative z-20">
             <p className="text-[10px] font-semibold uppercase tracking-[1.2em] text-foreground/10 italic">
               System Kyron • Portal Empresarial • 2026
             </p>

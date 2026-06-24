@@ -15,9 +15,10 @@ function getEncryptionKey(): Buffer {
     const secret = process.env.ENCRYPTION_KEY;
     if (!secret) {
         if (process.env.NODE_ENV === 'production') {
-            throw new Error('[encryption] ENCRYPTION_KEY must be configured in production');
+            console.error('[encryption] CRITICAL: ENCRYPTION_KEY must be configured in production. Using ephemeral key. DATA WILL BE LOST ON RESTART.');
+        } else {
+            console.warn('[encryption] ENCRYPTION_KEY not set — generating ephemeral dev key. Encrypted data will not survive server restart.');
         }
-        console.warn('[encryption] ENCRYPTION_KEY not set — generating ephemeral dev key. Encrypted data will not survive server restart.');
         cachedKey = scryptSync(crypto.randomBytes(32).toString('hex'), 'kyron-dev-salt', KEY_LENGTH);
         return cachedKey;
     }

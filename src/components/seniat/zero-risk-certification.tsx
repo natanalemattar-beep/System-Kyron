@@ -51,7 +51,7 @@ export const ZeroRiskCertification = () => {
   }, []);
 
   return (
-    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
+    <div className="bg-card/90 rounded-lg border p-6">
       <div className="text-center mb-8">
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full mb-4">
           <span className="text-2xl font-bold text-white">✓</span>

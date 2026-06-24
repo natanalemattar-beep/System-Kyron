@@ -45,12 +45,7 @@ export default function LegalLayout({
       <ModuleGuard layoutKey="legal">
       <div className="flex min-h-screen bg-gradient-to-br from-[hsl(168,18%,93%)] via-background to-[hsl(205,20%,92%)] dark:from-[hsl(168,10%,10%)] dark:via-background dark:to-[hsl(205,12%,8%)] text-foreground relative">
           <PageTracker />
-          <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute inset-0 opacity-[0.02] hud-grid" />
-            <div className="absolute top-[-5%] right-[-5%] w-[800px] h-[800px] bg-teal-400/[0.06] rounded-full blur-[250px]" />
-            <div className="absolute top-[40%] left-[-10%] w-[600px] h-[600px] bg-sky-400/[0.05] rounded-full blur-[220px]" />
-            <div className="absolute bottom-[-5%] right-[30%] w-[500px] h-[500px] bg-emerald-300/[0.04] rounded-full blur-[200px]" />
-          </div>
+          <div className="fixed inset-0 pointer-events-none -z-10 bg-gradient-to-br from-teal-400/[0.02] via-transparent to-sky-400/[0.02]" />
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader 
@@ -63,7 +58,7 @@ export default function LegalLayout({
                     {children}
                   </PageTransition>
               </main>
-              <footer className="p-10 border-t border-border bg-card/10 text-center backdrop-blur-3xl">
+              <footer className="p-10 border-t border-border bg-card text-center">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.8em] text-foreground/10 italic">
                   System Kyron • {footerLabel} • 2026
                 </p>

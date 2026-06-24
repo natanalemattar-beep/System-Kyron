@@ -27,12 +27,7 @@ export default function SociosLayout({
     return (
       <ModuleGuard layoutKey="socios">
       <div className="flex min-h-screen bg-gradient-to-br from-[hsl(172,14%,93%)] via-background to-[hsl(215,18%,92%)] dark:from-[hsl(172,10%,10%)] dark:via-background dark:to-[hsl(215,12%,8%)] text-foreground relative">
-          <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute inset-0 opacity-[0.02] hud-grid" />
-            <div className="absolute top-0 right-[-5%] w-[800px] h-[800px] bg-indigo-400/[0.06] rounded-full blur-[250px]" />
-            <div className="absolute bottom-[-5%] left-[-5%] w-[700px] h-[700px] bg-teal-300/[0.05] rounded-full blur-[220px]" />
-            <div className="absolute top-[40%] left-[30%] w-[500px] h-[500px] bg-emerald-300/[0.04] rounded-full blur-[200px]" />
-          </div>
+          <div className="fixed inset-0 pointer-events-none -z-10 bg-gradient-to-br from-indigo-400/[0.02] via-transparent to-emerald-400/[0.02]" />
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader 
@@ -45,7 +40,7 @@ export default function SociosLayout({
                     {children}
                   </PageTransition>
               </main>
-              <footer className="p-10 border-t border-border bg-card/10 text-center backdrop-blur-3xl">
+              <footer className="p-10 border-t border-border bg-card text-center">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.8em] text-foreground/10 italic">
                   System Kyron • 2026
                 </p>

@@ -193,10 +193,11 @@ async function createCoreAuthTables() {
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_destino ON verification_codes(destino)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_codigo  ON verification_codes(codigo)`);
-  await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_expires ON verification_codes(expires_at)`);
+   await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_expires ON verification_codes(expires_at)`);
+   await query(`ALTER TABLE verification_codes ADD COLUMN IF NOT EXISTS verified_at TIMESTAMPTZ`);
 
-  await query(`
-    CREATE TABLE IF NOT EXISTS saime_registros (
+   await query(`
+     CREATE TABLE IF NOT EXISTS saime_registros (
       id                SERIAL PRIMARY KEY,
       cedula            TEXT NOT NULL UNIQUE,
       primer_nombre     TEXT NOT NULL,
