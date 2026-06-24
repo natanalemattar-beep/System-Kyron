@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useRef, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef, ReactNode } from 'react';
 import { useRouter, usePathname } from '@/navigation';
 import { getDashboardPath } from '@/lib/module-paths';
 
@@ -142,8 +142,10 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
         window.location.href = '/login';
     }, []);
 
+    const value = useMemo(() => ({ user, isLoading, login, logout, refreshUser }), [user, isLoading, login, logout, refreshUser]);
+
     return (
-        <AuthContext.Provider value={{ user, isLoading, login, logout, refreshUser }}>
+        <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
     );

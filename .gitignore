@@ -49,6 +49,9 @@ firestore-debug.log
 # encrypted file storage
 /data/uploads/
 
+# archive
+/_archive
+
 # pwa
 public/sw.js
 public/workbox-*.js

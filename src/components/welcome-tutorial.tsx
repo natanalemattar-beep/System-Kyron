@@ -206,7 +206,14 @@ export function WelcomeTutorial() {
         img.src = steps[idx].screenshot;
       }
     });
-  }, [currentStep, isOpen, imgLoaded]);
+  }, [currentStep, isOpen]);
+
+  const handleClose = useCallback(() => {
+    localStorage.setItem(STORAGE_KEY, 'true');
+    setIsOpen(false);
+    setCurrentStep(0);
+    window.dispatchEvent(new CustomEvent('kyron-tutorial-closed'));
+  }, []);
 
   const handleNext = useCallback(() => {
     if (currentStep < steps.length - 1) {
@@ -215,7 +222,7 @@ export function WelcomeTutorial() {
     } else {
       handleClose();
     }
-  }, [currentStep]);
+  }, [currentStep, handleClose]);
 
   const handleBack = useCallback(() => {
     if (currentStep > 0) {
@@ -223,13 +230,6 @@ export function WelcomeTutorial() {
       setCurrentStep(s => s - 1);
     }
   }, [currentStep]);
-
-  const handleClose = useCallback(() => {
-    localStorage.setItem(STORAGE_KEY, 'true');
-    setIsOpen(false);
-    setCurrentStep(0);
-    window.dispatchEvent(new CustomEvent('kyron-tutorial-closed'));
-  }, []);
 
   const handleStepClick = useCallback((idx: number) => {
     setDirection(idx > currentStep ? 1 : -1);

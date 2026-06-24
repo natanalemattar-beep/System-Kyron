@@ -46,6 +46,8 @@ export function useSessionTimeout(isAuthenticated: boolean) {
   const lastActivityRef = useRef(Date.now());
   const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const expiredRef = useRef(false);
+  const showWarningRef = useRef(showWarning);
+  showWarningRef.current = showWarning;
 
   useEffect(() => {
     setConfig(getStoredTimeoutConfig());
@@ -88,7 +90,7 @@ export function useSessionTimeout(isAuthenticated: boolean) {
 
     const events = ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart', 'click'];
     const handler = () => {
-      if (!showWarning) resetActivity();
+      if (!showWarningRef.current) resetActivity();
     };
     events.forEach(e => window.addEventListener(e, handler, { passive: true }));
 
@@ -96,7 +98,7 @@ export function useSessionTimeout(isAuthenticated: boolean) {
     const warningMs = config.warningBeforeSeconds * 1000;
 
     const checker = setInterval(() => {
-      if (showWarning || expiredRef.current) return;
+      if (showWarningRef.current || expiredRef.current) return;
       const elapsed = Date.now() - lastActivityRef.current;
       const timeUntilTimeout = timeoutMs - elapsed;
 
@@ -113,7 +115,7 @@ export function useSessionTimeout(isAuthenticated: boolean) {
       clearInterval(checker);
       events.forEach(e => window.removeEventListener(e, handler));
     };
-  }, [isAuthenticated, config.mode, config.timeoutMinutes, config.warningBeforeSeconds, showWarning, resetActivity]);
+  }, [isAuthenticated, config.mode, config.timeoutMinutes, config.warningBeforeSeconds, resetActivity]);
 
   useEffect(() => {
     if (!showWarning) {

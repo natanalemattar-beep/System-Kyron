@@ -200,6 +200,15 @@ export default function PermisosEmprendimientoCarlosMattarPage() {
   const pendientes = permisos.filter(p => p.estado === "pendiente").length;
   const criticos = permisos.filter(p => p.estado === "critico").length;
   const noIniciados = permisos.filter(p => p.estado === "no_iniciado").length;
+  const alertasActivas = permisos.filter(p => p.estado !== "completado").sort((a, b) => {
+    const order: Record<string, number> = { critico: 0, pendiente: 1, no_iniciado: 2 };
+    const pa = order[a.estado] ?? 3;
+    const pb = order[b.estado] ?? 3;
+    if (pa !== pb) return pa - pb;
+    const prio: Record<string, number> = { alta: 0, media: 1, baja: 2 };
+    return (prio[a.prioridad] ?? 3) - (prio[b.prioridad] ?? 3);
+  });
+  const totalAlertas = alertasActivas.length;
 
   if (!mounted) return null;
 
@@ -233,9 +242,24 @@ export default function PermisosEmprendimientoCarlosMattarPage() {
           </Link>
         </div>
 
-        <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 backdrop-blur-md mb-6">
-          <ShieldCheck className="h-4 w-4 text-amber-500 dark:text-amber-400" />
-          <span className="text-[11px] font-black text-amber-500 dark:text-amber-400 uppercase tracking-[0.15em]">ALERTA DE PERMISOS</span>
+        <div className={`inline-flex items-center gap-2.5 px-5 py-2 rounded-full border backdrop-blur-md mb-6 ${
+          criticos > 0
+            ? 'bg-red-500/10 border-red-500/20'
+            : totalAlertas > 0
+              ? 'bg-amber-500/10 border-amber-500/20'
+              : 'bg-emerald-500/10 border-emerald-500/20'
+        }`}>
+          {criticos > 0
+            ? <XCircle className="h-4 w-4 text-red-500" />
+            : totalAlertas > 0
+              ? <AlertTriangle className="h-4 w-4 text-amber-500" />
+              : <CheckCircle className="h-4 w-4 text-emerald-500" />
+          }
+          <span className={`text-[11px] font-black uppercase tracking-[0.15em] ${
+            criticos > 0 ? 'text-red-500' : totalAlertas > 0 ? 'text-amber-500' : 'text-emerald-500'
+          }`}>
+            {criticos > 0 ? `ALERTA · ${criticos} CRÍTICAS` : totalAlertas > 0 ? `${totalAlertas} PENDIENTES` : 'TODO COMPLETADO'}
+          </span>
         </div>
 
         <div className="mb-8">
@@ -275,16 +299,44 @@ export default function PermisosEmprendimientoCarlosMattarPage() {
           </div>
         </div>
 
-        {criticos > 0 && (
-          <div className="mb-8 p-5 rounded-2xl border border-red-500/20 bg-red-500/5 flex items-start gap-3">
-            <XCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
-            <div>
-              <p className="text-sm font-bold text-foreground mb-1">Acciones Críticas ({criticos} pendientes)</p>
+        {totalAlertas > 0 && (
+          <div className={`mb-8 p-5 rounded-2xl border flex items-start gap-3 ${
+            criticos > 0
+              ? 'border-red-500/20 bg-red-500/5'
+              : pendientes > 0
+                ? 'border-amber-500/20 bg-amber-500/5'
+                : 'border-slate-500/20 bg-slate-500/5'
+          }`}>
+            {criticos > 0
+              ? <XCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+              : <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+            }
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-foreground mb-1">
+                {criticos > 0
+                  ? `Alertas Activas (${criticos} críticas, ${totalAlertas - criticos} pendientes)`
+                  : `Permisos Pendientes (${totalAlertas} por gestionar)`
+                }
+              </p>
               <ul className="space-y-1 text-[12px] text-muted-foreground">
-                {permisos.filter(p => p.estado === "critico").slice(0, 5).map((p, i) => (
-                  <li key={i}><strong className="text-red-500">•</strong> {p.permiso} — {p.organismo}</li>
+                {alertasActivas.slice(0, 5).map((p, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                      p.estado === 'critico' ? 'bg-red-500' :
+                      p.estado === 'pendiente' ? 'bg-amber-500' : 'bg-slate-400'
+                    }`} />
+                    <span className="truncate">
+                      <strong>{p.permiso}</strong>
+                      <span className="text-muted-foreground/50 mx-1">—</span>
+                      {p.organismo}
+                    </span>
+                  </li>
                 ))}
-                {criticos > 5 && <li className="text-[10px] text-muted-foreground/50">...y {criticos - 5} más</li>}
+                {totalAlertas > 5 && (
+                  <li className="text-[10px] text-muted-foreground/50">
+                    ...y {totalAlertas - 5} más
+                  </li>
+                )}
               </ul>
             </div>
           </div>

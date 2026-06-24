@@ -1,4 +1,5 @@
 export const MODULE_PATH_MAP: Record<string, string> = {
+  personal: '/dashboard',
   contabilidad: '/dashboard-empresas',
   juridico: '/dashboard-empresas',
   legal: '/escritorio-juridico',

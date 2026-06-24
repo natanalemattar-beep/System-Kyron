@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useMemo, memo } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 interface ScrollRevealProps {
@@ -14,7 +14,7 @@ interface ScrollRevealProps {
   blur?: number;
 }
 
-export function ScrollReveal({
+export const ScrollReveal = memo(function ScrollReveal({
   children,
   delay = 0,
   y = 30,
@@ -29,24 +29,25 @@ export function ScrollReveal({
     rootMargin: margin,
   });
 
+  const style = useMemo(
+    () => ({
+      opacity: inView ? 1 : 0,
+      transform: inView ? 'translate(0, 0)' : `translate(${x}px, ${y}px)`,
+      filter: inView ? 'blur(0)' : `blur(${initialBlur}px)`,
+      transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}s,
+                   transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}s,
+                   filter 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+      willChange: inView ? 'auto' : 'transform, opacity',
+    }),
+    [inView, x, y, initialBlur, delay],
+  );
+
   return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translate(0, 0)' : `translate(${x}px, ${y}px)`,
-        filter: inView ? 'blur(0)' : `blur(${initialBlur}px)`,
-        transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}s,
-                     transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}s,
-                     filter 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
-        willChange: inView ? 'auto' : 'transform, opacity',
-      }}
-    >
+    <div ref={ref} className={className} style={style}>
       {children}
     </div>
   );
-}
+});
 
 interface GroupProps {
   children: ReactNode[];
@@ -66,6 +67,7 @@ export function ScrollRevealGroup({
   return (
     <div className={className}>
       {children.map((child, i) => (
+        // TODO: use stable IDs instead of index if the list becomes dynamic
         <ScrollReveal key={i} delay={baseDelay + (i * staggerDelay)} y={y}>
           {child}
         </ScrollReveal>

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { memo } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import {
@@ -38,7 +38,7 @@ function AnimatedProgress({ target = 90 }: { target?: number }) {
   );
 }
 
-export function FeaturesSection() {
+export const FeaturesSection = memo(function FeaturesSection() {
   const t = useTranslations('FeaturesSection');
   const metrics = t.raw('metrics') as { value: number; suffix: string; label: string }[];
   const features = t.raw('features') as { title: string; description: string }[];
@@ -174,4 +174,4 @@ export function FeaturesSection() {
       </div>
     </section>
   );
-}
+});

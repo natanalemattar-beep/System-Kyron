@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from 'react';
 
 interface Preferences {
   reducir_animaciones: boolean;
@@ -76,8 +76,10 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     }).catch(() => {});
   }, []);
 
+  const value = useMemo(() => ({ prefs, updatePref, loading }), [prefs, updatePref, loading]);
+
   return (
-    <PreferencesContext.Provider value={{ prefs, updatePref, loading }}>
+    <PreferencesContext.Provider value={value}>
       {children}
     </PreferencesContext.Provider>
   );

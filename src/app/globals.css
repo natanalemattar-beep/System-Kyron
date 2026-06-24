@@ -80,8 +80,20 @@
   }
 
   html {
-    scroll-behavior: smooth !important;
+    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   * { @apply border-border; }
@@ -171,6 +183,7 @@
 
   .animate-fade-in-scale {
     animation: fadeInScale 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+    will-change: transform, opacity;
   }
 
   @keyframes float {
@@ -530,5 +543,18 @@
   }
   .dark .ds-glass {
     background: linear-gradient(135deg, hsl(var(--card) / 0.4), hsl(var(--background) / 0.1));
+  }
+
+  /* ===== GPU ACCELERATION ===== */
+
+  .gpu-accelerated {
+    will-change: transform;
+  }
+
+  /* ===== LAZY SECTIONS (content-visibility) ===== */
+
+  .lazy-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 5000px;
   }
 }

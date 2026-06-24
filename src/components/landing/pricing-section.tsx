@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { Link } from '@/navigation';
@@ -240,7 +241,7 @@ function ModuleCard({ id, mod, index, t }: { id: string; mod: any; index: number
 // ═══════════════════════════════════════════════════
 // MAIN COMPONENT
 // ═══════════════════════════════════════════════════
-export function PricingSection() {
+export const PricingSection = memo(function PricingSection() {
   const t = useTranslations('PricingSection');
   
   const saasModules = t.raw('saas_modules');
@@ -770,4 +771,4 @@ export function PricingSection() {
       </div>
     </section>
   );
-}
+});

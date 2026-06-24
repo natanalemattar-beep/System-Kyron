@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
 import { HelpCircle, Search, Sparkles, Send, Loader2, Bot, ArrowRight } from 'lucide-react';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, memo } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
@@ -49,14 +49,44 @@ const categoryLabels: Record<string, string> = {
   soporte: 'Soporte',
 };
 
-export function FaqSection() {
+const FaqItem = memo(function FaqItem({ item }: { item: typeof fallbackItems[0] }) {
+  return (
+    <AccordionItem
+      value={item.question}
+      className="glass-card rounded-2xl px-6 overflow-hidden hover:bg-muted/50 dark:hover:bg-white/[0.04] transition-all border-none"
+    >
+      <AccordionTrigger className="hover:no-underline py-6">
+        <div className="flex items-center gap-4 text-left">
+          <div className="h-10 w-10 rounded-xl bg-kyron-cyan/10 border border-kyron-cyan/20 flex items-center justify-center shrink-0">
+            <HelpCircle className="h-5 w-5 text-kyron-cyan" />
+          </div>
+          <div className="flex flex-col gap-1">
+            <span className="text-[10px] font-black uppercase tracking-widest text-kyron-cyan/60">
+              {categoryLabels[item.category] || item.category}
+            </span>
+            <span className="text-foreground font-bold text-lg leading-tight">{item.question}</span>
+          </div>
+        </div>
+      </AccordionTrigger>
+      <AccordionContent className="pb-6 pt-2 text-muted-foreground/70 text-base leading-relaxed">
+        <div className="pl-14">
+          {item.answer}
+          <div className="mt-4 flex items-center gap-2 text-kyron-cyan/40 text-[10px] font-black uppercase tracking-widest">
+            <Sparkles className="h-3 w-3" /> System Kyron Assistant
+          </div>
+        </div>
+      </AccordionContent>
+    </AccordionItem>
+  );
+});
+
+export const FaqSection = memo(function FaqSection() {
   const t = useTranslations('FaqSection');
   const [search, setSearch] = useState('');
   const [aiQuery, setAiQuery] = useState('');
   const [aiReply, setAiReply] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
 
-  const categories = t.raw('categories') as Record<string, string>;
   const i18nItems = t.raw('items') as Array<{ question: string; answer: string; category: string }>;
   const allItems = [...i18nItems, ...fallbackItems].filter(
     (item, index, self) => index === self.findIndex((i) => i.question === item.question)
@@ -123,34 +153,8 @@ export function FaqSection() {
           </div>
 
           <Accordion type="single" collapsible className="space-y-4">
-            {filteredItems.map((item, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="glass-card rounded-2xl px-6 overflow-hidden hover:bg-muted/50 dark:hover:bg-white/[0.04] transition-all border-none"
-              >
-                <AccordionTrigger className="hover:no-underline py-6">
-                  <div className="flex items-center gap-4 text-left">
-                    <div className="h-10 w-10 rounded-xl bg-kyron-cyan/10 border border-kyron-cyan/20 flex items-center justify-center shrink-0">
-                      <HelpCircle className="h-5 w-5 text-kyron-cyan" />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[10px] font-black uppercase tracking-widest text-kyron-cyan/60">
-                        {categoryLabels[item.category] || categories[item.category] || item.category}
-                      </span>
-                      <span className="text-foreground font-bold text-lg leading-tight">{item.question}</span>
-                    </div>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="pb-6 pt-2 text-muted-foreground/70 text-base leading-relaxed">
-                  <div className="pl-14">
-                    {item.answer}
-                    <div className="mt-4 flex items-center gap-2 text-kyron-cyan/40 text-[10px] font-black uppercase tracking-widest">
-                      <Sparkles className="h-3 w-3" /> System Kyron Assistant
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
+            {filteredItems.map((item) => (
+              <FaqItem key={item.question} item={item} />
             ))}
           </Accordion>
 
@@ -213,4 +217,4 @@ export function FaqSection() {
       </div>
     </section>
   );
-}
+});

@@ -129,7 +129,7 @@ export default function PermisologiaPage() {
 
   useEffect(() => {
     setCatalogoLoading(true);
-    fetch('/api/permisologia/catalogo?limit=500').then(r => r.json()).then(data => {
+    fetch('/api/permisologia/catalogo?limit=5000').then(r => r.json()).then(data => {
       setCatalogo(data.items || []);
       setCatalogoTotal(data.total || 0);
     }).catch(() => toast({ title: "ERROR", description: "No se pudo cargar el catálogo de permisos", variant: "destructive" })).finally(() => setCatalogoLoading(false));

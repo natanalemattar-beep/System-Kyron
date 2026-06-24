@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import dynamic from 'next/dynamic';
 import { Sparkles, CircleCheck, Star, Quote } from "lucide-react";
 import { useTranslations } from 'next-intl';
@@ -17,7 +18,7 @@ const testimonials = [
   { text: "La atención al cliente es increíble. Resolvieron nuestra migración en 24 horas.", author: "Carlos M.", role: "Director, TechSolutions", rating: 5 },
 ];
 
-export function CtaSection() {
+export const CtaSection = memo(function CtaSection() {
   const t = useTranslations('CtaSection');
   const checks = [t('check_1'), t('check_2'), t('check_3')];
 
@@ -88,4 +89,4 @@ export function CtaSection() {
       </div>
     </section>
   );
-}
+});

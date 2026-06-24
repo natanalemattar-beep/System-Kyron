@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo, memo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
@@ -165,6 +165,12 @@ const CATEGORY_GRADIENTS: Record<string, string> = {
   'Sostenibilidad': 'from-green-500/[0.04] to-transparent',
 };
 
+const EMPTY_STATE_BG_STYLE = {
+  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+} as const;
+
+const CATEGORY_HEADER_STYLE = { height: '60px' } as const;
+
 const RECENT_KEY = 'kyron-search-recent';
 const MAX_RECENT = 5;
 
@@ -212,7 +218,7 @@ function highlightMatch(text: string, query: string): React.ReactNode {
   );
 }
 
-export function GlobalSearch() {
+export const GlobalSearch = memo(function GlobalSearch() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -442,9 +448,7 @@ export function GlobalSearch() {
                   <div className="absolute top-4 left-1/2 -translate-x-1/2 w-64 h-32 rounded-full bg-gradient-to-b from-primary/[0.06] to-transparent blur-2xl" />
                   <div
                     className="absolute inset-0 opacity-[0.03]"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                    }}
+                    style={EMPTY_STATE_BG_STYLE}
                   />
                 </div>
                 <div className="relative">
@@ -479,7 +483,7 @@ export function GlobalSearch() {
                   const catGradient = CATEGORY_GRADIENTS[category] || 'from-gray-500/[0.02] to-transparent';
                   return (
                     <div key={category} className="relative">
-                      <div className={cn("absolute inset-0 bg-gradient-to-b pointer-events-none", catGradient)} style={{ height: '60px' }} />
+                      <div className={cn("absolute inset-0 bg-gradient-to-b pointer-events-none", catGradient)} style={CATEGORY_HEADER_STYLE} />
                       <p className="relative px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/40">
                         {category}
                         {query.trim() && (
@@ -518,4 +522,4 @@ export function GlobalSearch() {
       </Dialog>
     </>
   );
-}
+});

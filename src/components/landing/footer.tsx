@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { Link } from "@/navigation";
 import { Logo } from "@/components/logo";
 import {
@@ -10,7 +11,7 @@ import {
 
 import { useTranslations } from 'next-intl';
 
-export function Footer() {
+export const Footer = memo(function Footer() {
   const t = useTranslations('Footer');
   const tHero = useTranslations('HeroSection');
   const modules = t.raw('module_list') as string[];
@@ -190,4 +191,4 @@ export function Footer() {
       </div>
     </footer>
   );
-}
+});

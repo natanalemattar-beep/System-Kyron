@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { User, Calculator, Landmark, Users, Megaphone, Gavel, Recycle, Smartphone, Server, ClipboardList, Briefcase, Sparkles, ArrowRight } from 'lucide-react';
 import { Link } from '@/navigation';
 
@@ -31,7 +32,7 @@ const colors: Record<string, { border: string; hoverBorder: string; icon: string
   purple:  { border: "border-purple-500/15",  hoverBorder: "hover:border-purple-500/30",  icon: "text-purple-400 bg-purple-500/10 border-purple-500/20", glow: "shadow-purple-500/5" },
 };
 
-export function ModulesSection() {
+export const ModulesSection = memo(function ModulesSection() {
   return (
     <section className="py-24 md:py-32 relative overflow-hidden bg-transparent mesh-gradient">
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -81,4 +82,4 @@ export function ModulesSection() {
       </div>
     </section>
   );
-}
+});

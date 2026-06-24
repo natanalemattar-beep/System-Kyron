@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/auth/context";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -59,7 +59,7 @@ function getNavGroupItems(group: { items?: NavItem[] }): NavItem[] {
   return Array.isArray(group.items) ? group.items : [];
 }
 
-export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeaderProps) {
+export const AppHeader = memo(function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -503,4 +503,4 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
       </div>
     </header>
   );
-}
+});

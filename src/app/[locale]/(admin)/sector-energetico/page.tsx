@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Flame, TriangleAlert, Zap, Globe, Handshake, Users, HardHat, Scale, Shield,
@@ -171,7 +171,7 @@ function LicenciaCard({ code, desc }: { code: string; desc: string }) {
     );
 }
 
-function ServicioCard({ s }: { s: typeof SERVICIOS_KYRON[0] }) {
+const ServicioCard = memo(function ServicioCard({ s }: { s: typeof SERVICIOS_KYRON[0] }) {
     const [open, setOpen] = useState(false);
     return (
         <Card className={cn("glass-card border rounded-2xl overflow-hidden transition-all", s.bg)}>
@@ -201,7 +201,7 @@ function ServicioCard({ s }: { s: typeof SERVICIOS_KYRON[0] }) {
             </AnimatePresence>
         </Card>
     );
-}
+});
 
 // --------------------------------------------------
 // Page
@@ -372,7 +372,7 @@ export default function SectorEnergeticoPage() {
                             <h2 className="text-xs font-semibold uppercase tracking-wider text-foreground/70">Servicios System Kyron para el Sector</h2>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                            {SERVICIOS_KYRON.map((s, i) => <ServicioCard key={i} s={s} />)}
+                            {SERVICIOS_KYRON.map((s) => <ServicioCard key={s.titulo} s={s} />)}
                         </div>
                     </section>
 

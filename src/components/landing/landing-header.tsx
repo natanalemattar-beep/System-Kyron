@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
@@ -49,7 +49,7 @@ const mobileNav = [
   { label: 'Soporte', href: '/soporte', icon: LifeBuoy },
 ];
 
-export function LandingHeader() {
+export const LandingHeader = memo(function LandingHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [showWhatsNew, setShowWhatsNew] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -379,4 +379,4 @@ export function LandingHeader() {
       </motion.header>
     </>
   );
-}
+});

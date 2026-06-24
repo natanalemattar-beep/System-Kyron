@@ -111,11 +111,7 @@ export default function RegisterSostenibilidadPage() {
                     email: data.email,
                     telefono: data.telefono,
                     password: data.password,
-                    modules: [
-                        { id: 'sostenibilidad', label: 'Sostenibilidad' },
-                        { id: 'eco-creditos', label: 'Eco-Créditos' },
-                        { id: 'ameru-ia', label: 'Ameru IA' }
-                    ],
+                    modules: [{ id: 'sostenibilidad', label: 'Sostenibilidad' }],
                     plan: 'personal',
                 }),
             });
