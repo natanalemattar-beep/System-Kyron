@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
-import crypto from 'crypto';
+import { writeFile, mkdir } from 'node:fs/promises';
+import path from 'node:path';
+import { randomBytes, createHash } from 'node:crypto';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { encryptFile } from '@/lib/file-crypto';
 import { getSession } from '@/lib/auth';
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
 
-    const uniqueId = crypto.randomBytes(8).toString('hex');
+    const uniqueId = randomBytes(8).toString('hex');
     const sanitizedName = file.name
       .replace(/[^a-zA-Z0-9._-]/g, '_')
       .replace(/_{2,}/g, '_');
@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
     const filePath = path.join(uploadDir, fileName);
     await writeFile(filePath, encrypted);
 
-    const hash = crypto.createHash('sha256').update(buffer).digest('hex');
+    const hash = createHash('sha256').update(buffer).digest('hex');
 
     const docRecord = await registerUpload({
       userId: session.user.id,

@@ -1,4 +1,4 @@
-import { createCipheriv, createDecipheriv, randomBytes, scryptSync, createHash } from 'crypto';
+import { createCipheriv, createDecipheriv, randomBytes, scryptSync, createHash } from 'node:crypto';
 
 const ALGORITHM = 'aes-256-gcm';
 const IV_LENGTH = 16;
@@ -19,7 +19,7 @@ function getEncryptionKey(): Buffer {
         } else {
             console.warn('[encryption] ENCRYPTION_KEY not set — generating ephemeral dev key. Encrypted data will not survive server restart.');
         }
-        cachedKey = scryptSync(crypto.randomBytes(32).toString('hex'), 'kyron-dev-salt', KEY_LENGTH);
+         cachedKey = scryptSync(randomBytes(32).toString('hex'), 'kyron-dev-salt', KEY_LENGTH);
         return cachedKey;
     }
     cachedKey = scryptSync(secret, 'kyron-aes256-salt', KEY_LENGTH);

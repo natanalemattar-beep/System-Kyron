@@ -1,4 +1,4 @@
-import crypto from 'crypto';
+import { randomBytes, createHmac, timingSafeEqual } from 'node:crypto';
 
 const CHALLENGE_EXPIRY_MS = 15 * 60 * 1000;
 
@@ -9,17 +9,17 @@ if (!envSecret) {
   }
   console.warn('[login-challenge] JWT_SECRET/SESSION_SECRET not configured — generating ephemeral dev secret');
 }
-const SECRET: string = envSecret || crypto.randomBytes(32).toString('hex');
+const SECRET: string = envSecret || randomBytes(32).toString('hex');
 
 export function createLoginChallenge(email: string, userId: number): string {
   const payload = {
     e: email.toLowerCase(),
     u: userId,
     t: Date.now(),
-    n: crypto.randomBytes(8).toString('hex'),
+     n: randomBytes(8).toString('hex'),
   };
   const data = Buffer.from(JSON.stringify(payload)).toString('base64url');
-  const sig = crypto.createHmac('sha256', SECRET).update(data).digest('base64url');
+   const sig = createHmac('sha256', SECRET).update(data).digest('base64url');
   return `${data}.${sig}`;
 }
 
@@ -28,8 +28,8 @@ export function verifyLoginChallenge(token: string, email: string): { valid: boo
     const [data, sig] = token.split('.');
     if (!data || !sig) return { valid: false };
 
-    const expectedSig = crypto.createHmac('sha256', SECRET).update(data).digest('base64url');
-    if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expectedSig))) {
+     const expectedSig = createHmac('sha256', SECRET).update(data).digest('base64url');
+     if (!timingSafeEqual(Buffer.from(sig), Buffer.from(expectedSig))) {
       return { valid: false };
     }
 
