@@ -17,7 +17,9 @@ import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { getDeviceFingerprint } from '@/lib/device-fingerprint';
-import { getDashboardPath } from '@/lib/module-paths';
+import { getDashboardPath, MODULE_PATH_MAP } from '@/lib/module-paths';
+
+const PORTAL_MODULE = 'personal';
 
 export default function LoginPersonalPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -55,19 +57,23 @@ export default function LoginPersonalPage() {
   const router = useRouter();
   const { toast } = useToast();
 
+  const resolvePath = useCallback((modules?: string[]) => {
+    if (modules?.includes(PORTAL_MODULE)) return MODULE_PATH_MAP[PORTAL_MODULE] || '/dashboard';
+    return getDashboardPath(modules || []) || '/dashboard';
+  }, []);
+
   const handleMagicLinkVerified = useCallback(async () => {
     toast({ title: 'Identidad verificada', description: 'Acceso verificado automáticamente.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
     try {
       const me = await fetch('/api/auth/me');
       if (me.ok) {
         const data = await me.json();
-        const path = data?.user?.modules ? getDashboardPath(data.user.modules) : '/dashboard';
-        router.push(path as any);
+        router.push(resolvePath(data?.user?.modules) as any);
         return;
       }
     } catch {}
     router.push('/dashboard');
-  }, [toast, router]);
+  }, [toast, router, resolvePath]);
 
   useVerificationPoll(
     verificationEmail,
@@ -131,12 +137,11 @@ export default function LoginPersonalPage() {
         setIsLoading(false);
         return;
       }
-      const dashboardPath = getDashboardPath(json.user?.modules ?? []);
       if (json.accessKeyUsed || json.success) {
         const title = json.trustedDevice ? 'Dispositivo confiable' : (json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido');
         const desc = json.trustedDevice ? `Bienvenido, ${json.user?.nombre ?? ''}. Acceso automático desde dispositivo confiable.` : `Bienvenido, ${json.user?.nombre ?? ''}.`;
         toast({ title, description: desc, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-        router.push(dashboardPath as any);
+        router.push(resolvePath(json.user?.modules) as any);
         return;
       }
       if (json.requiresVerification) {
@@ -157,7 +162,7 @@ export default function LoginPersonalPage() {
         return;
       }
       toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-      router.push(dashboardPath as any);
+      router.push(resolvePath(json.user?.modules) as any);
     } catch { setError('Error de conexión.'); setIsLoading(false); }
   };
 
@@ -201,7 +206,7 @@ export default function LoginPersonalPage() {
       const json = await res.json();
       if (!res.ok) { setError(json.error || 'Código incorrecto.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); setTimeout(() => inputRefs.current[0]?.focus(), 100); return; }
       toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
-      router.push(getDashboardPath(json.user?.modules ?? []) as any);
+      router.push(resolvePath(json.user?.modules) as any);
     } catch { setError('Error de conexión.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); }
   };
 
