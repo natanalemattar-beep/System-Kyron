@@ -1,12 +1,13 @@
 import { query } from '@/lib/db';
 
-export type EmailProvider = 'gmail';
+export type EmailProvider = 'gmail' | 'outlook' | 'sendgrid' | 'mailgun' | 'postmark' | 'mailtrap' | 'smtp' | 'none';
 export type EmailPurpose = 'verification' | 'password-reset' | 'alert' | 'general';
 
 export interface EmailOptions {
   to: string | string[];
   subject: string;
   html: string;
+  text?: string;
   from?: string;
   replyTo?: string;
   module?: string;
@@ -32,53 +33,111 @@ async function logEmail(opts: EmailOptions, result: EmailResult) {
   }
 }
 
-async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
+async function sendViaSmtp(opts: EmailOptions): Promise<EmailResult> {
+  const { getSmtpTransporter, getGmailSenderAddress, getSmtpProviderName } = await import('@/lib/gmail-client');
+  const transporter = getSmtpTransporter();
+  const senderEmail = await getGmailSenderAddress();
+  const provider = getSmtpProviderName() as EmailProvider;
+
+  const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
+  const fromAddr = opts.from ?? `System Kyron <${senderEmail}>`;
+
+  await transporter.sendMail({
+    from: fromAddr,
+    to: recipients.join(', '),
+    subject: opts.subject,
+    html: opts.html,
+    text: opts.text,
+    replyTo: opts.replyTo,
+  });
+
+  if (process.env.NODE_ENV !== 'production') {
+    console.info('[email-service] SMTP sent via', { provider, recipients, purpose: opts.purpose ?? 'general' });
+  }
+  return { success: true, provider };
+}
+
+async function sendViaSendGrid(opts: EmailOptions): Promise<EmailResult> {
   try {
-    if (!process.env.GMAIL_APP_PASSWORD) {
-      console.error('[email-service] CRÍTICO: GMAIL_APP_PASSWORD no está definida en las variables de entorno.');
-    }
-
-    const { getSmtpTransporter, getGmailSenderAddress } = await import('@/lib/gmail-client');
-
-    const transporter = getSmtpTransporter();
-    const senderEmail = await getGmailSenderAddress();
+    const apiKey = process.env.SENDGRID_API_KEY;
+    if (!apiKey) return { success: false, provider: 'sendgrid', error: 'SENDGRID_API_KEY not set' };
 
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
-    const fromAddr = opts.from ?? `System Kyron <${senderEmail}>`;
+    const senderEmail = opts.from || process.env.SMTP_FROM || process.env.GMAIL_USER || 'noreply@system-kyron.com';
+    const fromAddr = senderEmail.includes('<') ? senderEmail : `System Kyron <${senderEmail}>`;
+    const match = fromAddr.match(/<([^>]+)>/);
+    const fromEmail = match ? match[1] : fromAddr;
+    const fromName = fromAddr.includes('<') ? fromAddr.split('<')[0].trim() : 'System Kyron';
 
-    await transporter.sendMail({
-      from: fromAddr,
-      to: recipients.join(', '),
-      subject: opts.subject,
-      html: opts.html,
-      replyTo: opts.replyTo,
+    const res = await fetch('https://api.sendgrid.com/v3/mail/send', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        personalizations: [{ to: recipients.map(r => ({ email: r })) }],
+        from: { email: fromEmail, name: fromName },
+        reply_to: opts.replyTo ? { email: opts.replyTo } : undefined,
+        subject: opts.subject,
+        content: [
+          { type: 'text/plain', value: opts.text || ' ' },
+          { type: 'text/html', value: opts.html },
+        ],
+      }),
     });
 
-    // Log sending events; avoid logging recipient list in production.
-    if (process.env.NODE_ENV !== 'production') {
-      console.info('[email-service] Gmail SMTP sent to', { recipients, purpose: opts.purpose ?? 'general' });
-    } else {
-      console.info('[email-service] Gmail SMTP send event (production)');
+    if (!res.ok) {
+      const errBody = await res.text().catch(() => '');
+      return { success: false, provider: 'sendgrid', error: `SendGrid API ${res.status}: ${errBody}` };
     }
-    return { success: true, provider: 'gmail' };
+
+    return { success: true, provider: 'sendgrid' };
   } catch (err) {
-    const errorMsg = String(err);
-    console.error(`[email-service] Gmail SMTP failed:`, errorMsg);
-    return { success: false, provider: 'gmail', error: errorMsg };
+    return { success: false, provider: 'sendgrid', error: String(err) };
   }
 }
 
-export async function sendEmail(opts: EmailOptions): Promise<EmailResult> {
-  const result = await sendViaGmail(opts);
+const PROVIDER_CHAIN: ((opts: EmailOptions) => Promise<EmailResult>)[] = [];
 
-  if (result.success) {
-    logEmail(opts, result).catch(() => {});
-    return result;
+function buildProviderChain() {
+  if (PROVIDER_CHAIN.length > 0) return;
+
+  if (process.env.SENDGRID_API_KEY) {
+    PROVIDER_CHAIN.push(sendViaSendGrid);
   }
 
-  console.warn(`[email-service] Gmail failed (${opts.purpose ?? 'general'}): ${result.error}`);
-  logEmail(opts, result).catch(() => {});
-  return result;
+  PROVIDER_CHAIN.push(sendViaSmtp);
+
+  if (!getHasAnyConfig() && process.env.NODE_ENV !== 'production') {
+    PROVIDER_CHAIN.push(async (opts) => {
+      console.warn('[email-service] DEV MODE — no SMTP configured. Email NOT sent.', {
+        to: opts.to, subject: opts.subject
+      });
+      return { success: true, provider: 'none' };
+    });
+  }
+}
+
+function getHasAnyConfig(): boolean {
+  return !!(process.env.SMTP_HOST || process.env.GMAIL_APP_PASSWORD || process.env.SENDGRID_API_KEY);
+}
+
+export async function sendEmail(opts: EmailOptions): Promise<EmailResult> {
+  buildProviderChain();
+
+  for (const sender of PROVIDER_CHAIN) {
+    const result = await sender(opts);
+    if (result.success) {
+      logEmail(opts, result).catch(() => {});
+      return result;
+    }
+    console.warn(`[email-service] ${result.provider} failed: ${result.error}`);
+  }
+
+  const lastResult = { success: false, provider: 'none' as EmailProvider, error: 'All email providers failed' };
+  logEmail(opts, lastResult).catch(() => {});
+  return lastResult;
 }
 
 function escapeHtml(text: string): string {
@@ -111,25 +170,43 @@ export function buildKyronEmailTemplate(content: {
   const digitBoxes = codeDigits.map((d) =>
     `<td align="center" style="padding:4px;">
       <table cellpadding="0" cellspacing="0" border="0" style="width:54px;height:66px;background:${palette.bg};border:1.5px solid ${palette.accent}22;border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);">
-        <tr><td align="center" style="font-size:30px;font-weight:900;font-family:monospace;color:#f1f5f9;line-height:66px;">${d}</td></tr>
+        <!--[if mso]><tr><td align="center" style="font-size:28px;font-weight:900;font-family:sans-serif;color:#f1f5f9;line-height:66px;">${d}</td></tr><![endif]-->
+        <!--[if !mso]><!--><tr><td align="center" style="font-size:30px;font-weight:900;font-family:monospace;color:#f1f5f9;line-height:66px;">${d}</td></tr><!--<![endif]-->
       </table>
     </td>`
   ).join('');
 
   return `<!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>${escapeHtml(content.title)} — System Kyron</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <style>
+    table { border-collapse: collapse; }
+    td { font-family: 'Segoe UI', Tahoma, sans-serif; }
+  </style>
+  <![endif]-->
 </head>
 <body style="margin:0;padding:0;background-color:#0f172a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
   <span style="display:none;font-size:1px;color:#0f172a;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">${plainTextPreview}...</span>
 
-  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0f172a;padding:32px 16px;">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation" style="background-color:#0f172a;padding:32px 16px;">
     <tr>
       <td align="center">
-        <table width="580" cellpadding="0" cellspacing="0" border="0" style="max-width:580px;width:100%;background:linear-gradient(160deg,#0b1120 0%,#111827 100%);border-radius:32px;box-shadow:0 40px 80px -20px rgba(0,0,0,0.7);">
+        <table width="580" cellpadding="0" cellspacing="0" border="0" role="presentation" style="max-width:580px;width:100%;background:linear-gradient(160deg,#0b1120 0%,#111827 100%);border-radius:32px;box-shadow:0 40px 80px -20px rgba(0,0,0,0.7);">
+          <!--[if mso]>
+          <tr><td><table cellpadding="0" cellspacing="0" border="0" style="width:580px;"><tr><td style="padding:0 32px 32px 32px;background:#111827;">
+          <![endif]-->
 
           <tr>
             <td style="height:4px;background:${palette.gradient};border-radius:32px 32px 0 0;font-size:0;line-height:0;">&zwj;</td>
@@ -137,13 +214,13 @@ export function buildKyronEmailTemplate(content: {
 
           <tr>
             <td style="padding:36px 32px 20px 32px;text-align:center;">
-              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation">
                 <tr>
                   <td align="center" style="padding-bottom:16px;">
-                    <table cellpadding="0" cellspacing="0" border="0">
+                    <table cellpadding="0" cellspacing="0" border="0" role="presentation">
                       <tr>
                         <td style="background:linear-gradient(135deg,${palette.accent}15,${palette.accent}08);border-radius:20px;padding:14px;border:1px solid ${palette.accent}18;box-shadow:0 0 30px ${palette.accent}10;">
-                          <img src="${appUrl}/images/logo-kyron-hq.png" width="52" height="52" alt="SK" style="display:block;" />
+                          <img src="${appUrl}/images/logo-kyron-hq.png" width="52" height="52" alt="SK" style="display:block;border:0;outline:none;" />
                         </td>
                       </tr>
                     </table>
@@ -171,35 +248,55 @@ export function buildKyronEmailTemplate(content: {
               </p>
 
               ${content.magicLink ? `
-              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:32px;">
+              <!-- BOTON MAGIC LINK -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation" style="margin-bottom:20px;">
                 <tr>
                   <td align="center">
-                    <table cellpadding="0" cellspacing="0" border="0">
+                    <!--[if mso]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${content.magicLink}" style="height:52px;v-text-anchor:middle;width:280px;" arcsize="16%" strokecolor="#2563eb" fillcolor="#2563eb">
+                      <w:anchorlock/>
+                      <center style="color:#ffffff;font-family:'Segoe UI',Tahoma,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;">Verificar y Acceder</center>
+                    </v:roundrect>
+                    <![endif]-->
+                    <!--[if !mso]><!-->
+                    <table cellpadding="0" cellspacing="0" border="0" role="presentation">
                       <tr>
                         <td style="background:${palette.gradient};border-radius:16px;box-shadow:0 8px 28px -4px ${palette.accent}40;">
-                          <a href="${content.magicLink?.startsWith('http') ? content.magicLink : '#'}" style="display:inline-block;color:#ffffff;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 40px;border-radius:16px;">Verificar y Acceder</a>
+                          <a href="${content.magicLink?.startsWith('http') ? content.magicLink : '#'}" target="_blank" style="display:inline-block;color:#ffffff;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 40px;border-radius:16px;">Verificar y Acceder</a>
                         </td>
                       </tr>
                     </table>
+                    <!--<![endif]-->
                     <p style="margin:14px 0 0 0;color:#475569;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;">Luego vuelve a tu pestaña anterior</p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- ENLACE PLANO (fallback para clientes que modifican URLs) -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation" style="margin-bottom:28px;">
+                <tr>
+                  <td style="padding:12px 16px;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.06);word-break:break-all;">
+                    <p style="margin:0 0 6px 0;color:#64748b;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">O copia este enlace en tu navegador:</p>
+                    <p style="margin:0;color:#94a3b8;font-size:11px;line-height:1.5;font-family:monospace;">${escapeHtml(content.magicLink)}</p>
                   </td>
                 </tr>
               </table>
               ` : ''}
 
               ${content.code ? `
-              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:0;">
+              <!-- CODIGO DE VERIFICACION -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation" style="margin-bottom:0;">
                 <tr>
                   <td style="background:rgba(0,0,0,0.25);border:1px solid ${palette.accent}08;border-radius:20px;padding:28px 20px;text-align:center;">
                     <span style="display:block;margin:0 0 18px 0;color:#475569;font-size:9px;font-weight:900;letter-spacing:5px;text-transform:uppercase;">Código de Verificación</span>
-                    
-                    <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
+
+                    <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="margin:0 auto;">
                       <tr>
                         ${digitBoxes}
                       </tr>
                     </table>
 
-                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation" style="margin-top:20px;">
                       <tr>
                         <td style="height:1px;background:rgba(255,255,255,0.03);font-size:0;line-height:0;">&zwj;</td>
                       </tr>
@@ -213,7 +310,7 @@ export function buildKyronEmailTemplate(content: {
               </table>
               ` : ''}
 
-              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:28px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation" style="margin-top:28px;">
                 <tr>
                   <td style="padding:16px 20px;background:rgba(251,191,36,0.03);border-radius:14px;border-left:3px solid rgba(251,191,36,0.25);">
                     <p style="margin:0;color:#94a3b8;font-size:11px;line-height:1.6;">
@@ -231,6 +328,10 @@ export function buildKyronEmailTemplate(content: {
               <p style="margin:0;color:#1e293b;font-size:8px;font-weight:600;letter-spacing:1px;">Caracas, Venezuela · Plataforma de Gesti\u00f3n Empresarial</p>
             </td>
           </tr>
+
+          <!--[if mso]>
+          </td></tr></table></td></tr>
+          <![endif]-->
         </table>
       </td>
     </tr>
@@ -238,4 +339,3 @@ export function buildKyronEmailTemplate(content: {
 </body>
 </html>`;
 }
-

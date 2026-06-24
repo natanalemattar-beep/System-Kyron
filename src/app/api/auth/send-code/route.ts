@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
         const token = generateMagicToken();
         const baseUrl = getBaseUrl(req);
         const redirectQuery = redirectPath ? `?redirect=${encodeURIComponent(redirectPath)}` : '';
-        const magicLink = `${baseUrl}/es/verify-link/${token}${redirectQuery}`;
+        const magicLink = `${baseUrl}/es/verify-link/${token}${redirectQuery}${redirectQuery ? '&' : '?'}token=${token}`;
 
         await storeCode(destino, codigo, proposito, 'email');
         await storeMagicToken(destino, token, userConfig?.user_id);

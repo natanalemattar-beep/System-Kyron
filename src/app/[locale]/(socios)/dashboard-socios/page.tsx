@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { useLocale } from "next-intl";
+import { ModuleLogo } from "@/components/module-logo";
 
 type Socio = {
   id: number;
@@ -157,12 +158,15 @@ export default function DashboardSociosPage() {
     <div className="ds-container">
       <header className="ds-header">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-xs font-black uppercase tracking-[0.2em] text-indigo-500 mb-4 font-tech">
-              <Briefcase className="h-3 w-3" /> CENTRO SOCIETARIO
+          <div className="flex items-center gap-4">
+            <ModuleLogo src="/images/module-logos/Socios.jpg" alt="Socios" size="md" />
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-xs font-black uppercase tracking-[0.2em] text-indigo-500 mb-4 font-tech">
+                <Briefcase className="h-3 w-3" /> CENTRO SOCIETARIO
+              </div>
+              <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-none font-impact">Gestión de <span className="text-indigo-500 italic font-tech">Socios</span></h1>
+              <p className="text-muted-foreground text-xs font-bold uppercase tracking-[0.3em] opacity-40 mt-3 font-tech">Estructura Accionaria • Gobernanza Corporativa 2026</p>
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-none font-impact">Gestión de <span className="text-indigo-500 italic font-tech">Socios</span></h1>
-            <p className="text-muted-foreground text-xs font-bold uppercase tracking-[0.3em] opacity-40 mt-3 font-tech">Estructura Accionaria • Gobernanza Corporativa 2026</p>
           </div>
           <Button onClick={() => { setEditId(null); setForm(emptySocio); setShowForm(true); }} size="sm" className="h-11 px-6 rounded-xl text-xs font-black uppercase tracking-[0.15em] bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg font-tech">
             <Plus className="mr-2 h-4 w-4" /> Registrar Socio

@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { ModuleLogo } from "@/components/module-logo";
 
 interface ITDashboardData {
   tickets: { abiertos: number; en_progreso: number; total: number; sla: number };
@@ -128,9 +129,7 @@ export default function DashboardITPage() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-3">
-              <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Cpu className="h-5 w-5 text-primary" />
-              </div>
+              <ModuleLogo src="/images/module-logos/IT SEGURIDAD.jpg" alt="IT" size="md" />
               <div>
                 <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
                   Dashboard <span className="text-primary">IT</span>

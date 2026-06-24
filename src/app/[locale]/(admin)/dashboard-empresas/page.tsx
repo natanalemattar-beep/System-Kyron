@@ -32,6 +32,7 @@ import { CurrencySelector } from "@/components/currency-selector";
 import { moduleTutorials } from "@/lib/module-tutorials";
 import { useAuth } from "@/lib/auth/context";
 import { useLocale, useTranslations } from "next-intl";
+import { ModuleLogo } from "@/components/module-logo";
 import { SeasonalBanner } from "@/components/seasonal-decorations";
 import { useSeasonalTheme } from "@/components/seasonal-theme-provider";
 import { ActivityTimeline } from "@/components/activity-timeline";
@@ -315,9 +316,7 @@ export default function DashboardEmpresaPage() {
           <div className="ds-header border-t-2 border-t-primary/20">
             <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
               <div className="flex items-center gap-4">
-                <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center ring-1 ring-primary/20">
-                  <Building className="h-7 w-7 text-primary" />
-                </div>
+                <ModuleLogo src="/images/module-logos/contabilidad.jpg" alt="Empresas" size="md" />
                 <div>
                   <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
                     <GreetingIcon className="h-6 w-6 text-primary inline-block mr-2 -mt-0.5" />

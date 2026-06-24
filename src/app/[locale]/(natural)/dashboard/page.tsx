@@ -2,13 +2,14 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { ModuleTutorial } from "@/components/module-tutorial";
+import { ModuleLogo } from "@/components/module-logo";
 import { moduleTutorials } from "@/lib/module-tutorials";
 import { Card, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Clock, User, FileText, Stethoscope, Scale, ChevronRight,
   Lock, Bell, CircleCheck as CircleCheck, Fingerprint,
-  Shield, TriangleAlert, ArrowRight, Leaf,
+  TriangleAlert, ArrowRight, Leaf,
   Sun, Moon, Sunrise, Heart, BadgeCheck, Trophy
 } from "lucide-react";
 import { Link } from "@/navigation";
@@ -131,9 +132,7 @@ export default function DashboardPersonalPage() {
         <div className="ds-card w-full">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Shield className="h-7 w-7 text-primary" />
-              </div>
+              <ModuleLogo src="/images/module-logos/Personal.jpg" alt="Personal" size="md" />
               <div>
                 <p className="text-xs font-medium text-muted-foreground">Portal Ciudadano</p>
                 <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mt-0.5">

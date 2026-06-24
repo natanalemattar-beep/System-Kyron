@@ -23,6 +23,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { useLocale } from "next-intl";
+import { ModuleLogo } from "@/components/module-logo";
 
 interface Empleado {
   id: number;
@@ -136,9 +137,7 @@ export default function RecursosHumanosPage() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-3">
-              <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Heart className="h-5 w-5 text-primary" />
-              </div>
+              <ModuleLogo src="/images/module-logos/RRHH.jpg" alt="RRHH" size="md" />
               <div>
                 <h1 className="text-2xl md:text-4xl font-black tracking-tighter font-impact uppercase leading-none">Capital <span className="text-primary">Humano</span></h1>
                 <p className="text-xs text-muted-foreground/40 font-black uppercase tracking-[0.3em] font-tech">Gestión de Personal • LOTTT 2026</p>

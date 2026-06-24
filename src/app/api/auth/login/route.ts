@@ -273,7 +273,7 @@ export async function POST(req: NextRequest) {
 
         const baseUrl = getBaseUrl(req);
         const redirectQuery = redirect ? `?redirect=${encodeURIComponent(redirect)}` : '';
-        const magicLinkUrl = `${baseUrl}/es/verify-link/${magicToken}${redirectQuery}`;
+        const magicLinkUrl = `${baseUrl}/es/verify-link/${magicToken}${redirectQuery}${redirectQuery ? '&' : '?'}token=${magicToken}`;
 
         const maskedEmail = user.email.replace(
             /^(.{2})(.*)(@.*)$/,
@@ -320,18 +320,19 @@ export async function POST(req: NextRequest) {
             logger.error('[login] Verification email failed', { error: String(emailResult.error) });
 
             if (hasPhone) {
-                return NextResponse.json({
-                    requiresVerification: true,
-                    maskedEmail,
-                    nombre: displayName,
-                    hasAccessKey: !!user.access_key_hash,
-                    hasPhone,
-                    maskedPhone,
-                    challengeToken,
-                    isTrustedDevice,
-                    emailFailed: true,
-                    emailFailedMessage: 'No pudimos enviar el código por correo. Usa SMS o WhatsApp.',
-                });
+        return NextResponse.json({
+            requiresVerification: true,
+            email: user.email,
+            maskedEmail,
+            nombre: displayName,
+            hasAccessKey: !!user.access_key_hash,
+            hasPhone,
+            maskedPhone,
+            challengeToken,
+            isTrustedDevice,
+            emailFailed: true,
+            emailFailedMessage: 'No pudimos enviar el código por correo. Usa SMS o WhatsApp.',
+        });
             }
 
             // Si no tiene teléfono alternativo, no hay canal de respaldo
@@ -343,6 +344,7 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({
             requiresVerification: true,
+            email: user.email,
             maskedEmail,
             nombre: displayName,
             hasAccessKey: !!user.access_key_hash,

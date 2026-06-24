@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface ModuleLogoProps {
@@ -22,7 +21,7 @@ export function ModuleLogo({ src, alt, className, size = "md" }: ModuleLogoProps
       <img 
         src={src} 
         alt={alt || "Module Logo"} 
-        className="h-full w-full object-cover scale-150" 
+        className="h-full w-full object-contain" 
       />
     </div>
   );

@@ -13,6 +13,7 @@ import { cn, formatCurrency } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import { ProfileCompletionNotice } from "@/components/dashboard/profile-completion-notice";
+import { ModuleLogo } from "@/components/module-logo";
 
 interface TelecomDashboardData {
   lineas: {
@@ -87,14 +88,17 @@ export default function DashboardEjecutivoPage() {
 
   return (
     <div className="ds-container animate-in fade-in duration-700">
-      <motion.header initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 pb-2">
-        <div>
-          <div className="flex items-center gap-2 mb-1 font-tech">
-            <LayoutDashboard className="h-4 w-4 text-primary" />
-            <span className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground">Flota Empresarial SK-5G</span>
+        <motion.header initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 pb-2">
+        <div className="flex items-center gap-4">
+          <ModuleLogo src="/images/module-logos/Linea empresa.jpg" alt="Telecom" size="md" />
+          <div>
+            <div className="flex items-center gap-2 mb-1 font-tech">
+              <LayoutDashboard className="h-4 w-4 text-primary" />
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground">Flota Empresarial SK-5G</span>
+            </div>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-none font-impact">Dashboard <span className="text-primary italic">Ejecutivo</span></h1>
+            <p className="text-xs font-bold text-muted-foreground mt-2 uppercase tracking-[0.2em] opacity-50 font-tech">Vista consolidada de KPIs de Infraestructura 2026.</p>
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-none font-impact">Dashboard <span className="text-primary italic">Ejecutivo</span></h1>
-          <p className="text-xs font-bold text-muted-foreground mt-2 uppercase tracking-[0.2em] opacity-50 font-tech">Vista consolidada de KPIs de Infraestructura 2026.</p>
         </div>
         <Button variant="outline" size="sm" className="h-9 px-4 rounded-lg text-xs font-semibold">
           <Download className="mr-1.5 h-3.5 w-3.5" /> Exportar Reporte

@@ -1305,6 +1305,7 @@ async function createAnalyticsTables() {
   await safeQuery(`ALTER TABLE verification_codes ADD CONSTRAINT verification_codes_tipo_check CHECK (tipo IN ('email', 'sms', 'whatsapp'))`);
   await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_destino ON verification_codes(destino)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_created_at ON verification_codes(created_at DESC)`);
+  await query(`ALTER TABLE verification_codes ADD COLUMN IF NOT EXISTS user_id INTEGER REFERENCES users(id) ON DELETE SET NULL`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS page_events (

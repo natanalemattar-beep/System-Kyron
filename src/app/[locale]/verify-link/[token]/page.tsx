@@ -12,6 +12,7 @@ export default function VerifyLinkPage() {
   const [errorDetails, setErrorDetails] = useState<string | null>(null);
   const [userData, setUserData] = useState<any>(null);
   const verifiedRef = useRef(false);
+  const startedRef = useRef(false);
   const broadcastRef = useRef<BroadcastChannel | null>(null);
   const router = useRouter();
 
@@ -37,10 +38,14 @@ export default function VerifyLinkPage() {
   }, [status, userData, router]);
 
   useEffect(() => {
-    if (verifiedRef.current) return;
+    if (verifiedRef.current || startedRef.current) return;
+    startedRef.current = true;
 
     const verifyToken = async () => {
-      const token = window.location.pathname.split('/').pop() || '';
+      const segments = window.location.pathname.split('/').filter(Boolean);
+      const fromPath = segments[segments.length - 1] || '';
+      const fromQuery = new URLSearchParams(window.location.search).get('token') || '';
+      const token = fromPath.length >= 10 ? fromPath : fromQuery;
       if (!token || token.length < 10) {
         setStatus('error');
         setMessage('Enlace de acceso inválido.');

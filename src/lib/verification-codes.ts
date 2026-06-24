@@ -40,19 +40,19 @@ export function maskPhone(phone: string): string {
   return `****${clean.slice(-3)}`;
 }
 
-export async function storeMagicToken(email: string, token: string, _userId?: number): Promise<void> {
+export async function storeMagicToken(email: string, token: string, userId?: number): Promise<void> {
   const hashed = hashToken(token);
   await query(
-    `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito)
-     VALUES ($1, 'email', $2, NOW() + INTERVAL '10 minutes', 'magic_link')`,
-    [email.toLowerCase(), hashed]
+    `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito, user_id)
+     VALUES ($1, 'email', $2, NOW() + INTERVAL '10 minutes', 'magic_link', $3)`,
+    [email.toLowerCase(), hashed, userId ?? null]
   );
 }
 
 export async function verifyMagicToken(token: string): Promise<{ valid: boolean; email?: string; userId?: number; error?: string }> {
   const hashed = hashToken(token);
 
-  const record = await queryOne<{ id: number; destino: string }>(
+  const record = await queryOne<{ id: number; destino: string; user_id: number | null }>(
     `UPDATE verification_codes
      SET usado = true
      WHERE id = (
@@ -62,7 +62,7 @@ export async function verifyMagicToken(token: string): Promise<{ valid: boolean;
        ORDER BY created_at DESC LIMIT 1
        FOR UPDATE SKIP LOCKED
      )
-     RETURNING id, destino`,
+     RETURNING id, destino, user_id`,
     [hashed]
   );
 
@@ -70,6 +70,12 @@ export async function verifyMagicToken(token: string): Promise<{ valid: boolean;
     return { valid: false, error: 'Enlace inválido o expirado. Inicia sesión nuevamente.' };
   }
 
+  // If user_id was stored in the record, use it directly
+  if (record.user_id) {
+    return { valid: true, email: record.destino, userId: record.user_id };
+  }
+
+  // Fallback for records without user_id (created before migration)
   const user = await queryOne<{ id: number }>(`SELECT id FROM users WHERE email = $1`, [record.destino]);
   return { valid: true, email: record.destino, userId: user?.id };
 }
