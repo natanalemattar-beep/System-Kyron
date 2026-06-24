@@ -45,6 +45,7 @@ export default function GlobalError({
 
               <div className="grid grid-cols-1 gap-3">
                 <button 
+                  type="button"
                   onClick={() => reset()}
                   className="w-full bg-rose-600 hover:bg-rose-500 text-white font-black uppercase tracking-[0.2em] h-12 rounded-xl shadow-lg shadow-rose-900/20 transition-all active:scale-95 flex items-center justify-center gap-2"
                 >
@@ -53,6 +54,7 @@ export default function GlobalError({
                 </button>
                 <Link href="/" className="w-full">
                   <button 
+                    type="button"
                     className="w-full border border-white/10 text-zinc-400 hover:text-white hover:bg-white/5 font-black uppercase tracking-[0.2em] h-12 rounded-xl transition-all"
                   >
                     Volver al Inicio

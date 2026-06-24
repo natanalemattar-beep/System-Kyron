@@ -101,6 +101,7 @@ export default function Error({
         </div>
         
         <button 
+          type="button"
           onClick={() => setShowFullError(false)}
           className="text-[9px] font-bold text-slate-600 uppercase tracking-widest hover:text-white transition-colors"
         >

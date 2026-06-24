@@ -79,6 +79,7 @@ export function DemoBannerProvider({ children }: { children: ReactNode }) {
               </Link>
 
               <button
+                type="button"
                 onClick={handleDismiss}
                 className="p-1 rounded-full hover:bg-white/5 transition-colors ml-2"
                 aria-label={t('dismiss')}

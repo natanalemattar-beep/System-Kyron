@@ -175,6 +175,7 @@ export function WhatIsNewModal({ forceOpen, onClose }: { forceOpen?: boolean; on
         {/* Header */}
         <div className="p-6 sm:p-8 relative shrink-0">
           <button
+            type="button"
             onClick={handleClose}
             className="absolute top-3 right-3 p-3 rounded-full bg-muted hover:bg-muted/80 text-muted-foreground/40 hover:text-foreground transition-all"
           >
@@ -212,6 +213,7 @@ export function WhatIsNewModal({ forceOpen, onClose }: { forceOpen?: boolean; on
               };
               return (
                 <button
+                  type="button"
                   key={key}
                   onClick={() => setFilter(key)}
                   className={`text-[11px] font-bold px-4 py-2.5 md:px-3 md:py-1.5 rounded-xl border transition-all ${
@@ -302,6 +304,7 @@ export function ChangelogTrigger({ onOpen }: { onOpen: () => void }) {
 
   return (
     <button
+      type="button"
       onClick={onOpen}
       className="relative flex items-center gap-1.5 px-2 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/30 hover:text-kyron-cyan transition-all"
     >

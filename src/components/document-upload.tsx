@@ -177,6 +177,9 @@ export function DocumentUpload({
               <div className="space-y-2">
                 <div
                   onClick={() => !isUploading && inputRefs.current[req.id]?.click()}
+                  onKeyDown={(e) => { if (!isUploading && (e.key === 'Enter' || e.key === ' ')) inputRefs.current[req.id]?.click(); }}
+                  role="button"
+                  tabIndex={0}
                   className={cn(
                     'flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 border-dashed transition-all cursor-pointer',
                     isUploading

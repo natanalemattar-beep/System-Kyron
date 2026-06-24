@@ -221,7 +221,7 @@ export function AIChatButton({ contextKey, className, chatClassName }: { context
                   <p className="text-[8px] text-gray-500 dark:text-white/40 font-black uppercase tracking-[0.2em]">Asistente Especializado</p>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} aria-label="Cerrar chat" className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 dark:text-white/40 hover:text-gray-900 dark:hover:text-white transition-all group">
+              <button type="button" onClick={() => setIsOpen(false)} aria-label="Cerrar chat" className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 dark:text-white/40 hover:text-gray-900 dark:hover:text-white transition-all group">
                 <X className="h-4 w-4 group-hover:scale-110 transition-transform" />
               </button>
             </div>

@@ -104,6 +104,7 @@ export function AppTopNav() {
                 return (
                   <div key={group.title} className="relative">
                     <button
+                      type="button"
                       onClick={() => setOpenGroup(openGroup === group.title ? null : group.title)}
                       className={cn(
                         "flex items-center gap-2 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all",
@@ -180,6 +181,7 @@ export function AppTopNav() {
 
             {/* Mobile menu button */}
             <button
+              type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
               className="lg:hidden p-2 rounded-xl text-muted-foreground/60 hover:text-foreground hover:bg-muted transition-all"
@@ -210,7 +212,7 @@ export function AppTopNav() {
             >
               <div className="p-6 border-b border-border flex items-center justify-between">
                 <span className="text-[10px] font-black tracking-[0.3em] text-muted-foreground/60 uppercase">Navegación</span>
-                <button onClick={() => setMobileOpen(false)} className="p-2 rounded-xl text-muted-foreground/60 hover:text-foreground">
+                <button type="button" onClick={() => setMobileOpen(false)} className="p-2 rounded-xl text-muted-foreground/60 hover:text-foreground">
                   <X className="h-5 w-5" />
                 </button>
               </div>

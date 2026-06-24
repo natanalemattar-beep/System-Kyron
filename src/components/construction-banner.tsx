@@ -33,6 +33,7 @@ export function ConstructionBanner() {
           ⚠️ Página en construcción — Puede tener errores • Pasarela de pago en desarrollo
         </span>
         <button
+          type="button"
           onClick={handleDismiss}
           className="absolute right-4 p-1 hover:bg-amber-600/20 rounded-full transition-colors"
           aria-label="Cerrar banner"

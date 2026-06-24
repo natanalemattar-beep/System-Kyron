@@ -28,7 +28,13 @@ export function FileInputTrigger({
   };
 
   return (
-    <div onClick={handleClick} className="cursor-pointer">
+    <div
+      onClick={handleClick}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleClick(); }}
+      role="button"
+      tabIndex={0}
+      className="cursor-pointer"
+    >
       <input
         type="file"
         ref={fileInputRef}

@@ -55,7 +55,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <button className="relative h-8 w-8 rounded-xl border border-border/40 bg-muted/30" aria-hidden />
+      <button type="button" className="relative h-8 w-8 rounded-xl border border-border/40 bg-muted/30" aria-hidden />
     )
   }
 
@@ -63,6 +63,7 @@ export function ThemeToggle() {
 
   return (
     <button
+      type="button"
       onClick={toggle}
       className={cn(
         "relative h-8 w-8 rounded-xl border overflow-hidden",

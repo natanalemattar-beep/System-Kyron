@@ -334,6 +334,7 @@ export function GlobalSearch() {
     const Icon = item.icon;
     return (
       <button
+        type="button"
         key={`${isRecent ? 'r-' : ''}${item.href}`}
         data-index={idx}
         onClick={() => navigate(item)}
@@ -375,6 +376,7 @@ export function GlobalSearch() {
   return (
     <>
       <button
+        type="button"
         onClick={() => setOpen(true)}
         className="flex items-center gap-2 h-9 px-3 rounded-xl bg-muted/50 border border-border/50 hover:bg-muted/80 transition-all text-muted-foreground text-xs cursor-pointer group"
       >
@@ -410,6 +412,7 @@ export function GlobalSearch() {
             />
             {query.trim() && (
               <button
+                type="button"
                 onClick={() => setQuery('')}
                 className="shrink-0 h-5 w-5 rounded-full bg-muted/60 hover:bg-muted flex items-center justify-center text-muted-foreground/60 hover:text-foreground transition-colors"
               >

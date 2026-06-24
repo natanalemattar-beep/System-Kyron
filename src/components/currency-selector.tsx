@@ -14,6 +14,7 @@ export function CurrencySelector({ className }: { className?: string }) {
         const isActive = currency === code;
         return (
           <button
+            type="button"
             key={code}
             onClick={() => setCurrency(code)}
             className={cn(
@@ -43,6 +44,7 @@ export function CurrencySelectorCompact({ className }: { className?: string }) {
 
   return (
     <button
+      type="button"
       onClick={nextCurrency}
       className={cn(
         "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border/20 bg-card/50 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-muted-foreground hover:text-primary hover:border-primary/20 transition-all duration-300",
